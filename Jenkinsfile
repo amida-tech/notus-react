@@ -19,6 +19,7 @@ spec:
     }
     environment {
         REACT_APP_HEDIS_MEASURE_API_URL='http://localhost:4000/api/v1/'
+        CI=false
     }
 
     stages {
