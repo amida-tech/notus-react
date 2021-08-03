@@ -6,7 +6,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   labels:
-    name: saraswati-cql-execution 
+    name: saraswati-dashboard 
 spec:
   containers:
   - name: node
@@ -23,6 +23,15 @@ spec:
     volumeMounts:
       - name: jenkins-docker-cfg
         mountPath: /kaniko/.docker
+  volumes:
+  - name: jenkins-docker-cfg
+    projected:
+      sources:
+      - secret:
+          name: mh-docker-hub
+          items:
+            - key: config.json
+              path: config.json
 """
         }
     }
