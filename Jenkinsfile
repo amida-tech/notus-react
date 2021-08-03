@@ -14,6 +14,15 @@ spec:
     command:
     - cat
     tty: true
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:debug
+    imagePullPolicy: Always
+    command:
+    - /busybox/cat
+    tty: true
+    volumeMounts:
+      - name: jenkins-docker-cfg
+        mountPath: /kaniko/.docker
 """
         }
     }
@@ -36,6 +45,15 @@ spec:
                 echo 'Building..'
                 container('node') {
                     sh 'yarn build'
+                }
+            }
+        }
+        stage('Build with Kaniko') {
+            steps {
+                container(name: 'kaniko', shell: '/busybox/sh') {
+                    sh '''#!/busybox/sh
+                        /kaniko/executor --context `pwd` --verbosity debug
+                    '''
                 }
             }
         }
