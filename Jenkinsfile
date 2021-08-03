@@ -61,7 +61,7 @@ spec:
             steps {
                 container(name: 'kaniko', shell: '/busybox/sh') {
                     sh '''#!/busybox/sh
-                        /kaniko/executor --context `pwd` --verbosity debug
+                        /kaniko/executor --context `pwd` --verbosity debug --no-push
                     '''
                 }
             }
