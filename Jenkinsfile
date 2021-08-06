@@ -57,12 +57,27 @@ spec:
                 }
             }
         }
-        stage('Build with Kaniko') {
+        stage('Build Production with Kaniko') {
+            when { 
+                expression {env.GIT_BRANCH == 'master'} 
+            }
             steps {
                 container(name: 'kaniko', shell: '/busybox/sh') {
-                    sh '''#!/busybox/sh
-                        /kaniko/executor --context `pwd` --verbosity debug --no-push
-                    '''
+                sh '''#!/busybox/sh
+                    /kaniko/executor --context `pwd` --verbosity debug --destination=amidatech/saraswati-dashboard:latest
+                '''
+                }
+            }
+        }
+        stage('Build Develop with Kaniko') {
+            when { 
+                expression {env.GIT_BRANCH != 'master'} 
+            }
+            steps {
+                container(name: 'kaniko', shell: '/busybox/sh') {
+                sh '''#!/busybox/sh
+                    /kaniko/executor --context `pwd` --verbosity debug --destination=amidatech/saraswati-dashboard:develop
+                '''
                 }
             }
         }
