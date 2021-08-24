@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 
 // components
 import CardBarChart from "../../components/Cards/CardBarChart.js";
+import CardLineChart from "../../components/Cards/CardLineChart.js";
 import Circle from "../../components/Misc/Circle.js";
 import StarRatings from "react-star-ratings";
 
 
-export default function MeasureDashboard({ measures, history }) {
+export default function MeasureDashboard({ measures, history, simhedis, arimapredictions, arimaupperbound, arimalowerbound }) {
   let comp = {displayName: "Composite Score", rating: ""}
   comp = measures && measures.length ? measures[0] : comp;
   const compName = "Composite";
@@ -59,6 +60,15 @@ export default function MeasureDashboard({ measures, history }) {
                 xAxis="Measure"
                 measures={measureNoComp}
                 history={history}
+              />
+              <CardLineChart
+                data_line={simhedis}
+                data_predictions = {arimapredictions}
+                arima_upper_bound = {arimaupperbound}
+                arima_lower_bound = {arimalowerbound}
+                title="HEDIS Scores Over Time"
+                yAxis="HEDIS Score"
+                xAxis="Date"
               />
             </div>
           </div>

@@ -15,3 +15,11 @@ The purpose of this API is to ingest HEDIS data from pyspark, save it, and then 
 
 ## Notus React Documentation
 The library we forked from is called Notus React - the documentation for the Notus React is hosted at Creative Tim's <a href="https://www.creative-tim.com/learning-lab/tailwind/react/overview/notus?ref=nr-readme" target="_blank">website</a>.
+
+
+## Pending Changes [August 23, 2021]
+
+A line graph has been added to reflect the results from the time series prediction models. This still needs work: there is a Min/Max slider at the bottom the graph. The purpose of these sliders is to allow the user to navigate to the desired portions of the plot. The sliders are not working as desired--although the original data is being filtered, the changes are only reflected in the console and not on the actual line graph.
+
+
+

@@ -33,6 +33,24 @@ export default function Admin() {
       });
   }, []);
 
+  const [simhedis, setHedis] = useState();
+  const [arimapredictions, setArimaPredictions] = useState();
+  const [arimalowerbound, setArimaLowerBound]= useState();
+  const [arimaupperbound, setArimaUpperBound]= useState();
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/predictions`)
+      .then((response) => response.json())
+      .then((res) => {
+        const{Data, Auto_ARIMA_Predictions, Auto_ARIMA_lower_bound, Auto_ARIMA_upper_bound} = res[0]
+        var merged = [].concat.apply([], Data);
+      setHedis(Data)
+      setArimaPredictions(Auto_ARIMA_Predictions)
+      setArimaLowerBound(Auto_ARIMA_lower_bound)
+      setArimaUpperBound(Auto_ARIMA_upper_bound)
+      });
+  }, []);
+
   return (
     <>
       {/* <Sidebar /> */}
@@ -60,7 +78,7 @@ export default function Admin() {
           <Route
             path="/"
             render={(props) => (
-              <MeasureDashboard {...props} measures={measures} />
+              <MeasureDashboard {...props} measures={measures} simhedis={simhedis} arimapredictions={arimapredictions} arimaupperbound={arimaupperbound} arimalowerbound ={arimalowerbound} />
             )}
           />
         </Switch>
