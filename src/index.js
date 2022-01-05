@@ -10,6 +10,7 @@ import "assets/styles/tailwind.css";
 import Admin from "layouts/Admin.js";
 import Auth from "layouts/Auth.js";
 import NotFound from "notFound.js";
+import AdminNew from "layouts/Admin-new.js";
 
 // views without layouts
 
@@ -26,6 +27,7 @@ ReactDOM.render(
       {/* add routes without layouts */}
       <Route path="/landing" component={Landing} />
       <Route path="/profile" component={Profile} />
+      <Route path="/adminNew" component={AdminNew} />
       {/* <Route path="/" exact component={Admin} /> */}
       {/* add redirect for first page */}
       {/* <Redirect from="*" to="/measures" /> */}
