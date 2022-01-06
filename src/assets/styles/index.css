@@ -56,3 +56,36 @@
   transform: translate(-50%,-50%);
   position: absolute;
 }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.width-25 {
+  width: 25%;
+}
+
+.inside-padding {
+  padding: .5em;
+}
+
+.border-grey {
+  border: 1px solid grey;
+}
+
+.margin-20 {
+  margin: 20px;
+}
+
+.rounded-xl {
+  border-radius: .75em;
+}
+
+.bg-light-grey {
+  background-color: #F7F8FC;
+}
+
+.bg-dark-grey {
+  background-color: #36373F;
+}

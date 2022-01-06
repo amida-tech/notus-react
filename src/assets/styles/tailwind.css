@@ -3,12 +3,6 @@
 /* Document
    ========================================================================== */
 
-
-.footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
 /**
  * 1. Correct the line height in all browsers.
  * 2. Prevent adjustments of font size after orientation changes in iOS.
@@ -2519,6 +2513,39 @@ video {
   -webkit-transform: translate(-50%,-50%);
           transform: translate(-50%,-50%);
   position: absolute;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.width-25 {
+  width: 25%;
+}
+
+.inside-padding {
+  padding: .5em;
+}
+
+.border-grey {
+  border: 1px solid grey;
+}
+
+.margin-20 {
+  margin: 20px;
+}
+
+.rounded-xl {
+  border-radius: .75em;
+}
+
+.bg-light-grey {
+  background-color: #F7F8FC;
+}
+
+.bg-dark-grey {
+  background-color: #36373F;
 }
 
 @media (min-width: 640px) {

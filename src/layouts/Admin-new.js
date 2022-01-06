@@ -7,7 +7,7 @@ import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 import FooterAdmin from "components/Footers/FooterAdmin.js";
 import Measure from "components/Measures/Measure.js";
-import CardBarChart from "../components/Cards/CardBarChart.js";
+import NewCardBarChart from "../components/Cards/NewCardBarChart.js";
 
 // views
 import MeasureDashboard from "views/admin/MeasureDashboard.js";
@@ -54,18 +54,40 @@ export default function Admin() {
       {/* <Sidebar /> */}
       {/* <div className="relative md:ml-64 bg-gray-200"> */}
       <AdminNavbar />
-      <div className="bg-blue-600 pb-32 pt-12"></div>
-      <CardBarChart
+      <div className="relative flex bg-light-grey">
+        {/* Left Column */}
+        <div className="relative flex flex-col width-25">
+          <div className="inside-padding border-grey margin-20 rounded-xl bg-white">
+            <p>Welcome Susanna</p>
+          </div>
+          <div className="inside-padding border-grey margin-20 rounded-xl bg-white">
+            <h3>Star Rating</h3>
+            <p>&#9733;&#9733;&#9733;&#9734;&#9734;</p>
+          </div>
+          <div className="inside-padding border-grey margin-20 rounded-xl bg-white">
+            <p>Impacts and Trends</p>
+          </div>
+        </div>
+        
+        {/* Right Column */}
+        <div className="relative flex flex-col w-full">
+          <div className="inside-padding border-grey margin-20 rounded-xl bg-white">
+            <NewCardBarChart
                 labels={labels}
                 data={data}
-                title="Measures"
+                title="Today's Trends"
                 yAxis="% Impact on HEDIS Score"
                 xAxis="Measure"
                 measures={measureNoComp} />
-      {/* Header */}
+          </div>
+          <div className="inside-padding border-grey margin-20 rounded-xl bg-white">
+            <p>Reports</p>
+          </div>
+        </div>
+        
+      </div>
       
       <FooterAdmin />
-      {/* </div> */}
     </>
   );
 }
