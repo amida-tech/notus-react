@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
 
 // components
 
 import DashboardNavbar from "../components/Navbars/DashboardNavbar.js";
-import Sidebar from "components/Sidebar/Sidebar.js";
 import FooterAdmin from "components/Footers/FooterAdminNew.js";
-import Measure from "components/Measures/Measure.js";
 import NewCardBarChart from "../components/Cards/NewCardBarChart.js";
 import Welcome from "../components/Cards/CardWelcome.js";
 import Stars from "../components/Cards/CardStars.js";
 import Trends from "../components/Cards/CardTrends.js";
-
-// views
-import MeasureDashboard from "views/admin/MeasureDashboard.js";
-import Dashboard from "views/admin/Dashboard.js";
-import Maps from "views/admin/Maps.js";
-import Settings from "views/admin/Settings.js";
-import Tables from "views/admin/Tables.js";
 
 export default function Admin() {
   const [measures, setMeasures] = useState([]);
