@@ -1303,6 +1303,10 @@ video {
   flex-grow: 1;
 }
 
+.float-right {
+  float: right;
+}
+
 .float-left {
   float: left;
 }
@@ -2524,6 +2528,14 @@ video {
   width: 25%;
 }
 
+.width-50 {
+  width: 50%;
+}
+
+.width-75 {
+  width: 75%;
+}
+
 .inside-padding {
   padding: .5em;
 }
@@ -2544,8 +2556,39 @@ video {
   background-color: #F7F8FC;
 }
 
+.bg-grey {
+  background-color: #E7E7EC;
+}
+
 .bg-dark-grey {
   background-color: #36373F;
+}
+
+.margin-10em {
+  margin: 0 10em;
+}
+
+.min-width-250 {
+  min-width: 250px;
+}
+
+.float-right {
+  float: right;
+}
+
+.welcome-info {
+  padding: 0.8em;
+  margin: 0.5em -0.5em -0.5em -0.5em;
+  border-bottom-right-radius: 0.75em;
+  border-bottom-left-radius: 0.75em;
+}
+
+.bb-grey {
+  border-bottom: 1px solid grey;
+}
+
+.margin-top-2 {
+  margin-top: 2rem;
 }
 
 @media (min-width: 640px) {

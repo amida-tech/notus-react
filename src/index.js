@@ -10,7 +10,8 @@ import "assets/styles/tailwind.css";
 import Admin from "layouts/Admin.js";
 import Auth from "layouts/Auth.js";
 import NotFound from "notFound.js";
-import AdminNew from "layouts/Admin-new.js";
+import Dashboard from "layouts/Dashboard.js";
+import Dashboard2 from "layouts/Dashboard2.js";
 
 // views without layouts
 
@@ -22,12 +23,13 @@ ReactDOM.render(
   <BrowserRouter>
     <Switch>
       {/* add routes with layouts */}
-      <Route exact path="/" component={Admin} />
+      <Route exact path="/" component={Dashboard} />
+      <Route path="/dash2" component={Dashboard2} />
       <Route path="/auth" component={Auth} />
       {/* add routes without layouts */}
       <Route path="/landing" component={Landing} />
       <Route path="/profile" component={Profile} />
-      <Route path="/adminNew" component={AdminNew} />
+      <Route path="/admin" component={Admin} />
       {/* <Route path="/" exact component={Admin} /> */}
       {/* add redirect for first page */}
       {/* <Redirect from="*" to="/measures" /> */}

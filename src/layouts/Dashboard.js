@@ -3,11 +3,14 @@ import { Switch, Route } from "react-router-dom";
 
 // components
 
-import AdminNavbar from "components/Navbars/AdminNavbar.js";
+import DashboardNavbar from "../components/Navbars/DashboardNavbar.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import FooterAdmin from "components/Footers/FooterAdmin.js";
+import FooterAdmin from "components/Footers/FooterAdminNew.js";
 import Measure from "components/Measures/Measure.js";
 import NewCardBarChart from "../components/Cards/NewCardBarChart.js";
+import Welcome from "../components/Cards/CardWelcome.js";
+import Stars from "../components/Cards/CardStars.js";
+import Trends from "../components/Cards/CardTrends.js";
 
 // views
 import MeasureDashboard from "views/admin/MeasureDashboard.js";
@@ -51,26 +54,25 @@ export default function Admin() {
 
   return (
     <>
-      {/* <Sidebar /> */}
-      {/* <div className="relative md:ml-64 bg-gray-200"> */}
-      <AdminNavbar />
+      <DashboardNavbar />
+
+      {/* Body */}
       <div className="relative flex bg-light-grey">
         {/* Left Column */}
-        <div className="relative flex flex-col width-25">
-          <div className="inside-padding border-grey margin-20 rounded-xl bg-white">
-            <p>Welcome Susanna</p>
+        <div className="relative flex flex-col width-25 min-width-250">
+          <div className="inside-padding border-grey margin-20 rounded-xl bg-white text-center">
+            <Welcome/>
+          </div>
+          <div className="inside-padding border-grey margin-20 rounded-xl bg-white text-center">
+            <Stars/>
           </div>
           <div className="inside-padding border-grey margin-20 rounded-xl bg-white">
-            <h3>Star Rating</h3>
-            <p>&#9733;&#9733;&#9733;&#9734;&#9734;</p>
-          </div>
-          <div className="inside-padding border-grey margin-20 rounded-xl bg-white">
-            <p>Impacts and Trends</p>
+            <Trends/>
           </div>
         </div>
         
         {/* Right Column */}
-        <div className="relative flex flex-col w-full">
+        <div className="relative flex flex-col width-75">
           <div className="inside-padding border-grey margin-20 rounded-xl bg-white">
             <NewCardBarChart
                 labels={labels}
