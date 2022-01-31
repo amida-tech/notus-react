@@ -1,15 +1,18 @@
 import React from "react";
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
  // components
 
  export default function CardWelcome() {
    return (
      <>
-       <h2>Welcome Susanna</h2>
-       <div className="my-4 bg-grey welcome-info">
-         <p>Company: Medicare Advantage</p>
-         <p>Network Size: 150,000</p>
-       </div>
+      <Typography variant='subtitle1' align='center'>Welcome Susanna</Typography>
+      <Box sx={{ marginTop: '1rem', marginBottom: '1rem', backgroundColor: '#E7E7EC', padding: '0.8em',
+          margin: '0.5em -0.5em -0.5em -0.5em', borderBottomRightRadius: '0.75em', borderBottomLeftRadius: '0.75em' }}>
+        <Typography variant='body2' align='center'>Company: Medicare Advantage</Typography>
+        <Typography variant='body2' align='center'>Network Size: 150,000</Typography>
+      </Box>
      </>
    );
  } 
