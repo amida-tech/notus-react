@@ -5,6 +5,7 @@ import { theme } from "assets/styles/AppTheme.js";
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 // components
 
@@ -77,7 +78,9 @@ export default function Admin() {
                   </Item>
                 </Grid>
                 <Grid item sm={6} xs={12}>
-                  <Item>Impacts and Trends</Item>
+                  <Item>
+                    <Typography variant='subtitle1' align='center'>Impacts and Trends</Typography>
+                  </Item>
                 </Grid>
                 <Grid item xs={12}>
                   <Item>
