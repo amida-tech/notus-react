@@ -54,14 +54,14 @@ export default function Admin() {
             if (patientField.startsWith('Numerator')) {
               let numCount = 0;
               if (patientField !== 'Numerator') {
-                numCount = patientField.replace('Numerator ', '')
+                numCount = patientField.replace('Numerator ', '') - 1
               }
               numeratorValues[numCount] += patient[patientField]
             }
             else if (patientField.startsWith('Denominator')) {
               let denCount = 0;
               if (patientField !== 'Denominator') {
-                denCount = patientField.replace('Denominator ', '')
+                denCount = patientField.replace('Denominator ', '') - 1
               }
               denominatorValues[denCount] += patient[patientField]
             }
@@ -75,7 +75,7 @@ export default function Admin() {
           const numerator = numeratorValues[i];
           const denominator = denominatorValues[i];
           valueArray.push({
-            name: 'drre ' + i,
+            name: 'drre ' + (i + 1),
             date: dateString,
             value: (numerator/denominator) * 100
           });
