@@ -2,13 +2,13 @@ import React, { useEffect, useState, useRef } from 'react';
 import * as d3 from 'd3';
 import { dataList } from './DemoData';
 
-function D3Chart() {
+function D3Chart({ measures }) {
     //Binder for react to apply changes to the svg
     const D3LineChart = useRef();
 
     useEffect(() => {
         //engage data here
-        const dateDemoData = dataList;
+        const dateDemoData = measures;
 
         //Date Parser
         const parseDate = d3.timeParse('%Y-%m-%d')
