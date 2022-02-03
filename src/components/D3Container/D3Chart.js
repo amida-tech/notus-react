@@ -2,13 +2,33 @@ import React, { useEffect, useState, useRef } from 'react';
 import * as d3 from 'd3';
 import { dataList } from './DemoData';
 
-function D3Chart({ measures }) {
+const axios = require('axios').default;
+
+const instance = axios.create({
+  baseURL: `${process.env.REACT_APP_HEDIS_MEASURE_API_URL}`,
+  timeout: 1000
+});
+
+function D3Chart() {
     //Binder for react to apply changes to the svg
     const D3LineChart = useRef();
 
     useEffect(() => {
+        instance.get('measures/search', {
+            params: {
+                //memberId: '6dccff7c-db25-a27b-d718-7189b766b218',
+                measurementType: 'drre'
+            }
+          })
+          .then(res => {
+            
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+
         //engage data here
-        const dateDemoData = measures;
+        const dateDemoData = dataList;
 
         //Date Parser
         const parseDate = d3.timeParse('%Y-%m-%d')
