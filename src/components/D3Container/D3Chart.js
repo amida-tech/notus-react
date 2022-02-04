@@ -5,28 +5,37 @@ import { dataList } from './DemoData';
 const axios = require('axios').default;
 
 const instance = axios.create({
-  baseURL: `${process.env.REACT_APP_HEDIS_MEASURE_API_URL}`,
-  timeout: 1000
+    baseURL: `${process.env.REACT_APP_HEDIS_MEASURE_API_URL}`,
+    timeout: 10000
 });
 
 function D3Chart() {
     //Binder for react to apply changes to the svg
     const D3LineChart = useRef();
+    const [data, setData] = useState([]);
+    const [memberId, setMemberId] = useState('');
+    const [measurementType, setMeasurementType] = useState('drre');
 
     useEffect(() => {
-        instance.get('measures/search', {
-            params: {
-                //memberId: '6dccff7c-db25-a27b-d718-7189b766b218',
-                measurementType: 'drre'
-            }
-          })
-          .then(res => {
-            
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
+        let searchUrl = 'measures/search';
+        if (memberId && !measurementType) {
+            searchUrl += '?memberId=' + memberId;
+        }
+        else if (!memberId && measurementType) {
+            searchUrl += '?measurementType=' + measurementType;
+        }
+        else if (memberId && measurementType) {
+            searchUrl += '?memberId=' + memberId + '&measurementType=' + measurementType;
+        }
 
+        instance.get(searchUrl)
+        .then(res => {
+            setData(res.data);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+        
         //engage data here
         const dateDemoData = dataList;
 
@@ -143,7 +152,7 @@ function D3Chart() {
                     d3.select(event.currentTarget).attr("opacity", ".33");
                 });
         });
-    });
+    }, [measurementType, memberId]);
 
     return (
         <div id='d3-line-chart'>
