@@ -54,7 +54,7 @@ export default function Admin() {
                 </Grid>
                 <Grid item xs={12}>
                   <Item>
-                    <D3Chart/>
+                    <D3Chart />
                   </Item>
                 </Grid>
                 <Grid item xs={12}>
