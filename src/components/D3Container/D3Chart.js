@@ -4,31 +4,24 @@ import { dataList } from './DemoData';
 
 const axios = require('axios').default;
 
-const instance = axios.create({
-    baseURL: `${process.env.REACT_APP_HEDIS_MEASURE_API_URL}`,
-    timeout: 10000
-});
-
 function D3Chart() {
     //Binder for react to apply changes to the svg
     const D3LineChart = useRef();
     const [data, setData] = useState([]);
     const [memberId, setMemberId] = useState('');
     const [measurementType, setMeasurementType] = useState('drre');
+    
+    const searchUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/search`);
 
     useEffect(() => {
-        let searchUrl = 'measures/search';
-        if (memberId && !measurementType) {
-            searchUrl += '?memberId=' + memberId;
+        if (memberId) {
+            searchUrl.searchParams.append("memberId", memberId);
         }
-        else if (!memberId && measurementType) {
-            searchUrl += '?measurementType=' + measurementType;
-        }
-        else if (memberId && measurementType) {
-            searchUrl += '?memberId=' + memberId + '&measurementType=' + measurementType;
+        if (measurementType) {
+            searchUrl.searchParams.append("measurementType", measurementType);
         }
 
-        instance.get(searchUrl)
+        axios.get(searchUrl.href)
         .then(res => {
             setData(res.data);
         })
