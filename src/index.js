@@ -20,6 +20,7 @@ ReactDOM.render(
       {/* add routes with layouts */}
       <Route exact path="/" component={Admin} />
       <Route path="/auth" component={Auth} />
+      <Route path="/dash" component={Admin} />
       <Route path="*" component={NotFound} />
     </Switch>
   </BrowserRouter>,

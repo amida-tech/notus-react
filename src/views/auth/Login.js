@@ -2,6 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
+  const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code' +
+      '&client_id=971586633613-4oncs913ljt072tleigtvqkj7i8il73p.apps.googleusercontent.com' +
+      '&scope=openid' +
+      '&redirect_uri=http://localhost:3000/dash' +
+      '&state=security_token';
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -29,6 +35,7 @@ export default function Login() {
                   <button
                     className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
+                    onClick={() => window.open(authUrl, '_self')}
                   >
                     <img
                       alt="..."
