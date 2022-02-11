@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export default function Login() {
   const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code' +
       '&client_id=971586633613-4oncs913ljt072tleigtvqkj7i8il73p.apps.googleusercontent.com' +
-      '&scope=openid' +
-      '&redirect_uri=http://localhost:3000/dash' +
+      '&scope=openid email' +
+      '&redirect_uri=http://localhost:3000' +
       '&state=security_token';
 
   return (
