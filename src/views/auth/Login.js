@@ -2,12 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Login() {
-  const authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?response_type=code' +
-      '&client_id=971586633613-4oncs913ljt072tleigtvqkj7i8il73p.apps.googleusercontent.com' +
-      '&scope=openid email' +
-      '&redirect_uri=http://localhost:3000' +
-      '&state=security_token';
-
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -35,7 +29,7 @@ export default function Login() {
                   <button
                     className="bg-white active:bg-gray-100 text-gray-800 font-normal px-4 py-2 rounded outline-none focus:outline-none mr-1 mb-1 uppercase shadow hover:shadow-md inline-flex items-center font-bold text-xs ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => window.open(authUrl, '_self')}
+                    onClick={() => oauthSignIn()}
                   >
                     <img
                       alt="..."
@@ -124,4 +118,38 @@ export default function Login() {
       </div>
     </>
   );
+}
+
+/*
+ * Create form to request access token from Google's OAuth 2.0 server.
+ */
+function oauthSignIn() {
+  // Google's OAuth 2.0 endpoint for requesting an access token
+  var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+
+  // Create <form> element to submit parameters to OAuth 2.0 endpoint.
+  var form = document.createElement('form');
+  form.setAttribute('method', 'GET'); // Send as a GET request.
+  form.setAttribute('action', oauth2Endpoint);
+
+  // Parameters to pass to OAuth 2.0 endpoint.
+  var params = {'client_id': '971586633613-4oncs913ljt072tleigtvqkj7i8il73p.apps.googleusercontent.com',
+                'redirect_uri': 'http://localhost:3000',
+                'response_type': 'token',
+                'scope': 'openid profile email',
+                'include_granted_scopes': 'true',
+                'state': 'pass-through value'};
+
+  // Add form parameters as hidden input values.
+  for (var p in params) {
+    var input = document.createElement('input');
+    input.setAttribute('type', 'hidden');
+    input.setAttribute('name', p);
+    input.setAttribute('value', params[p]);
+    form.appendChild(input);
+  }
+
+  // Add form to page and submit it to open the OAuth 2.0 endpoint.
+  document.body.appendChild(form);
+  form.submit();
 }
