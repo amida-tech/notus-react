@@ -125,7 +125,9 @@ export default function Login() {
  */
 function oauthSignIn() {
   // Google's OAuth 2.0 endpoint for requesting an access token
-  var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
+  var oauth2Endpoint = process.env.REACT_APP_GOOGLE_OAUTH_URL;
+  var clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+  var dashboardUrl = process.env.REACT_APP_DASHBOARD_URL;
 
   // Create <form> element to submit parameters to OAuth 2.0 endpoint.
   var form = document.createElement('form');
@@ -133,12 +135,12 @@ function oauthSignIn() {
   form.setAttribute('action', oauth2Endpoint);
 
   // Parameters to pass to OAuth 2.0 endpoint.
-  var params = {'client_id': '971586633613-4oncs913ljt072tleigtvqkj7i8il73p.apps.googleusercontent.com',
-                'redirect_uri': 'http://localhost:3000',
+  var params = {'client_id': clientId,
+                'redirect_uri': dashboardUrl,
                 'response_type': 'token',
                 'scope': 'openid profile email',
                 'include_granted_scopes': 'true',
-                'state': 'pass-through value'};
+                'state': 'pass-through-value'};
 
   // Add form parameters as hidden input values.
   for (var p in params) {
