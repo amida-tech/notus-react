@@ -54,10 +54,10 @@ const returnValue = (loggedIn) => (
 
 const validateAccessToken = async(accessToken) => {
   try {
-    await axios.get('https://oauth2.googleapis.com/tokeninfo?access_token=' + accessToken);
+    await axios.get(process.env.REACT_APP_TOKENINFO + '?access_token=' + accessToken);
   } catch (error) {
     localStorage.removeItem('token');
-    window.location.replace("http://localhost:3000/auth");
+    window.location.replace(process.env.REACT_APP_DASHBOARD_URL + '/auth');
   }
   return true;
 }
