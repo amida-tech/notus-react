@@ -2,36 +2,12 @@ import * as d3 from 'd3';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { displayDataContext, firstRenderContext } from './D3Container';
 
-const axios = require('axios').default;
-
 function D3Chart() {
     //Binder for react to apply changes to the svg
     const D3LineChart = useRef();
 
     const { displayData, setDisplayData } = useContext(displayDataContext)
     const {firstRender, setFirstRender} = useContext(firstRenderContext);
-    const [data, setData] = useState([]);
-    const [memberId, setMemberId] = useState('');
-    const [measurementType, setMeasurementType] = useState('drre');
-
-    const searchUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/search`);
-    
-
-    useEffect(() => {
-        if (memberId) {
-            searchUrl.searchParams.append("memberId", memberId);
-        }
-        if (measurementType) {
-            searchUrl.searchParams.append("measurementType", measurementType);
-        }
-
-        axios.get(searchUrl.href)
-            .then(res => {
-                setData(res.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
 
         //engage data here
 
@@ -41,12 +17,13 @@ function D3Chart() {
         //Data manipulation
         let workingList = [];
         displayData.forEach((item) => workingList.push(item.measure));
-        const measureList = [...new Set(workingList)];
+        const measureList = Array.from(new Set(workingList));
 
         //Basic Styling consts to be used later
         const margin = { top: 50, right: 30, bottom: 75, left: 30 };
-        const width = parseInt(d3.select('#d3-line-chart').style('width'));
-        const height = 200;
+        const width = (window.innerWidth || document.body.clientWidth) - 100//parseInt(d3.select('#d3-line-chart').style('width'));
+        const height = 500;
+        const tickCount = displayData.length/measureList.length;
 
         //Clear previous SVG
         d3.select(D3LineChart.current).selectAll("*").remove();
@@ -62,14 +39,14 @@ function D3Chart() {
         //Generates labels and context for x axis
         const x = d3.scaleTime()
             //What data we're measuring
-            .domain(d3.extent(displayData, (d) => parseDate(d.date)))
+            .domain(d3.extent(displayData, (d) => parseDate(d.date.split("T")[0])))
             //The 'width' of the data
             .range([0, width + margin.left]);
 
         //X Axis labels and context
         svg.append('g')
             .attr('transform', 'translate(0,' + (height - margin.bottom) + ')')
-            .call(d3.axisBottom(x).tickFormat(d3.timeFormat("%d-%b-%Y")));
+            .call(d3.axisBottom(x).ticks(tickCount).tickFormat(d3.timeFormat("%d-%b-%Y")));
 
         //Generates Label and context for y axis
         const max = d3.max(displayData, (d) => d.value);
@@ -85,7 +62,7 @@ function D3Chart() {
         // gridlines in x axis function
         function make_x_gridlines() {
             return d3.axisBottom(x)
-                .ticks(10)
+                .ticks(tickCount);
         }
 
         // gridlines in y axis function
@@ -129,8 +106,8 @@ function D3Chart() {
         // Generates the actual line
         const line = d3.line()
             .curve(d3.curveCardinal)
-            .x(d => x(parseDate(d.date)))
-            .y(d => y(d.value));
+            .x(d => x(parseDate(d.date.split("T")[0])))
+            .y(d => y(d.value/20));
 
         //Iterates through an array variation.
         if (measureList.length > 0) {
@@ -151,13 +128,12 @@ function D3Chart() {
                     });
             });
         }
-    }, [measurementType, memberId, displayData]);
 
     return (
         <div id='d3-line-chart'>
             <svg ref={D3LineChart}></svg>
         </div>
     )
-};
+}
 
 export default D3Chart;

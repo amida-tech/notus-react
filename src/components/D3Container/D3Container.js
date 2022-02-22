@@ -1,5 +1,5 @@
 import { Divider, Grid, Typography } from '@mui/material';
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { datastoreContext } from '../../layouts/dashboard.js';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
@@ -19,7 +19,11 @@ function D3Container() {
 
     const workingList = [];
     datastore.forEach((item) => workingList.push(item.measure));
-    const measureList = [...new Set(workingList)];
+    const measureList = Array.from(new Set(workingList));
+
+    useEffect(() => {
+        setDisplayData(datastore);
+    }, [datastore]);
 
     const changeFunction = (filter) => {
         const filterArray = [...currentFilters];
