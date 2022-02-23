@@ -33,6 +33,6 @@ const subMeasures = {
   function: '',
 }
 
-const filterDrawerItemArray= [domainsOfCare, starRating, ncqaBonus, measureTypes, subMeasures];
+const filterDrawerItemArray = [domainsOfCare, starRating, ncqaBonus, measureTypes, subMeasures];
 
 export default filterDrawerItemArray;

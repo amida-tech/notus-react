@@ -1,5 +1,7 @@
 import { Divider, Grid, Typography } from '@mui/material';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, {
+  createContext, useContext, useState, useEffect,
+} from 'react';
 import { datastoreContext } from '../../layouts/dashboard';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
@@ -20,7 +22,7 @@ function ChartContainer() {
   const measureList = Array.from(new Set(workingList));
 
   useEffect(() => {
-      setDisplayData(datastore);
+    setDisplayData(datastore);
   }, [datastore]);
 
   const changeFunction = (filter) => {

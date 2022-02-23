@@ -36,11 +36,11 @@ export default function Admin() {
 
   useEffect(() => {
     axios.get(searchUrl.href)
-      .then(res => {
+      .then((res) => {
         setDatastore(res.data);
       })
-      .catch(function (error) {
-          console.log(error);
+      .catch((error) => {
+        console.log(error);
       });
   }, []);
 
