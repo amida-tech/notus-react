@@ -64,9 +64,9 @@ function D3Chart() {
 
     // Generates labels and context for x axis
     const x = d3.scaleTime()
-    // What data we're measuring
+      // What data we're measuring
       .domain(d3.extent(displayData, (d) => parseDate(d.date)))
-    // The 'width' of the data
+      // The 'width' of the data
       .range([0, width + margin.left]);
 
     // X Axis labels and context
@@ -83,6 +83,19 @@ function D3Chart() {
 
     svg.append('g')
       .call(d3.axisLeft(y));
+
+    //Clip path
+    const clip = svg.append("defs").append("svg:clipPath")
+      .attr("id", "clip")
+      .append("svg:rect")
+      .attr("width", width)
+      .attr("height", height)
+      .attr("x", 0)
+      .attr("y", 0);
+
+    const brush = d3.brushX()
+      .extent([[0, 0], [width, height]])
+      .on("end", updateChart)
 
     // Grid
     // gridlines in x axis function
@@ -114,6 +127,48 @@ function D3Chart() {
 
     d3.selectAll('.axis-grid line').style('stroke', 'lightgray')
 
+
+    function updateChart(event, d) {
+
+      // What are the selected boundaries?
+      extent = event.selection
+
+      // If no selection, back to initial coordinate. Otherwise, update X axis domain
+      if (!extent) {
+        if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
+        x.domain([4, 8])
+      } else {
+        x.domain([x.invert(extent[0]), x.invert(extent[1])])
+        line.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
+      }
+
+      // Update axis and line position
+      xAxis.transition().duration(1000).call(d3.axisBottom(x))
+      line
+        .select('.line')
+        .transition()
+        .duration(1000)
+        .attr("d", d3.line()
+          .x(function (d) { return x(d.date) })
+          .y(function (d) { return y(d.value) })
+        )
+    }
+
+    let idleTimeout
+    function idled() { idleTimeout = null; }
+
+    svg.on("dblclick", function () {
+      x.domain(d3.extent(data, function (d) { return d.date; }))
+      xAxis.transition().call(d3.axisBottom(x))
+      line
+        .select('.line')
+        .transition()
+        .attr("d", d3.line()
+          .x(function (d) { return x(d.date) })
+          .y(function (d) { return y(d.value) })
+        )
+    });
+
     // Graph Title. Literally has to be placed on the graph using X and Y values
     // svg.append('text')
     //     //X position
@@ -132,6 +187,11 @@ function D3Chart() {
       .curve(d3.curveCardinal)
       .x((d) => x(parseDate(d.date)))
       .y((d) => y(d.value));
+
+    // line
+    //   .append("g")
+    //   .attr("class", "brush")
+    //   .call(brush);
 
     // Iterates through an array variation.
     if (measureList.length > 0) {

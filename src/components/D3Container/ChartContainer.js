@@ -1,9 +1,10 @@
-import { Divider, Grid, Typography } from '@mui/material';
+import { Divider, Grid, Paper, Typography } from '@mui/material';
 import React, { createContext, useContext, useState } from 'react';
 import { datastoreContext } from '../../layouts/dashboard';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import D3Filter from './D3Filter';
+import D3IndicatorByLineChart from './D3IndicatorByLineChart';
 
 export const currentFilterContext = createContext([])
 export const displayDataContext = createContext([])
@@ -65,7 +66,10 @@ function ChartContainer() {
       <displayDataContext.Provider value={{ displayData, setDisplayData }}>
         <currentFilterContext.Provider value={{ currentFilters, setCurrentFilters }}>
           <firstRenderContext.Provider value={{ firstRender, setFirstRender }}>
-
+            <Paper>
+              <Typography color="black.dark">Hello, yes this is dog.</Typography>
+              <D3IndicatorByLineChart />
+            </Paper>
             <Grid container justifyContent="space-evenly" direction="column">
               <Grid sx={{ mb: '-30px' }} item>
                 <ChartBar />
