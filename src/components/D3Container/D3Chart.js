@@ -4,214 +4,131 @@ import React, {
 } from 'react';
 import { displayDataContext, firstRenderContext } from './ChartContainer';
 
-const axios = require('axios').default;
-
 function D3Chart() {
   // Binder for react to apply changes to the svg
   const D3LineChart = useRef();
 
   const { displayData, setDisplayData } = useContext(displayDataContext)
   const { firstRender, setFirstRender } = useContext(firstRenderContext);
-  const [data, setData] = useState([]);
-  const [memberId, setMemberId] = useState('');
-  const [measurementType, setMeasurementType] = useState('drre');
 
-  const searchUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/search`);
+  // engage data here
 
-  useEffect(() => {
-    if (memberId) {
-      searchUrl.searchParams.append('memberId', memberId);
-    }
-    if (measurementType) {
-      searchUrl.searchParams.append('measurementType', measurementType);
-    }
+  // Date Parser
+  const parseDate = d3.timeParse('%Y-%m-%d')
 
-    axios.get(searchUrl.href)
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  // Data manipulation
+  const workingList = [];
+  displayData.forEach((item) => workingList.push(item.measure));
+  const measureList = Array.from(new Set(workingList));
 
-    // engage data here
+  // Basic Styling consts to be used later
+  const margin = {
+    top: 50, right: 30, bottom: 75, left: 30,
+  };
+  const width = (window.innerWidth || document.body.clientWidth) - 100// parseInt(d3.select('#d3-line-chart').style('width'));
+  const height = 500;
+  const tickCount = displayData.length / measureList.length;
 
-    // Date Parser
-    const parseDate = d3.timeParse('%Y-%m-%d')
+  // Clear previous SVG
+  d3.select(D3LineChart.current).selectAll('*').remove();
 
-    // Data manipulation
-    const workingList = [];
-    displayData.forEach((item) => workingList.push(item.measure));
-    const measureList = [...new Set(workingList)];
+  // SVG constrol and also styling
+  const svg = d3.select(D3LineChart.current)
+    .attr('width', width)
+    .attr('height', height)
+    .style('background-color', 'white')
+    .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
 
-    // Basic Styling consts to be used later
-    const margin = {
-      top: 50, right: 30, bottom: 75, left: 30,
-    };
-    const width = parseInt(d3.select('#d3-line-chart').style('width'));
-    const height = 200;
+  // Generates labels and context for x axis
+  const x = d3.scaleTime()
+    // What data we're measuring
+    .domain(d3.extent(displayData, (d) => parseDate(d.date.split('T')[0])))
+    // The 'width' of the data
+    .range([0, width + margin.left]);
 
-    // Clear previous SVG
-    d3.select(D3LineChart.current).selectAll('*').remove();
+  // X Axis labels and context
+  svg.append('g')
+    .attr('transform', `translate(0,${height - margin.bottom})`)
+    .call(d3.axisBottom(x).ticks(tickCount).tickFormat(d3.timeFormat('%d-%b-%Y')));
 
-    // SVG constrol and also styling
-    const svg = d3.select(D3LineChart.current)
-      .attr('width', width)
-      .attr('height', height)
-      .style('background-color', 'white')
-      .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+  // Generates Label and context for y axis
+  const max = d3.max(displayData, (d) => d.value);
 
-    // Generates labels and context for x axis
-    const x = d3.scaleTime()
-      // What data we're measuring
-      .domain(d3.extent(displayData, (d) => parseDate(d.date)))
-      // The 'width' of the data
-      .range([0, width + margin.left]);
+  const y = d3.scaleLinear()
+    .domain([0, 5])
+    .range([height - margin.bottom, 0]);
 
-    // X Axis labels and context
-    svg.append('g')
-      .attr('transform', `translate(0,${height - margin.bottom})`)
-      .call(d3.axisBottom(x).tickFormat(d3.timeFormat('%d-%b-%Y')));
+  svg.append('g')
+    .call(d3.axisLeft(y));
 
-    // Generates Label and context for y axis
-    const max = d3.max(displayData, (d) => d.value);
+  // Grid
+  // gridlines in x axis function
+  function makeXGridlines() {
+    return d3.axisBottom(x)
+      .ticks(tickCount)
+  }
 
-    const y = d3.scaleLinear()
-      .domain([0, 5])
-      .range([height - margin.bottom, 0]);
+  // gridlines in y axis function
+  function makeYGridlines() {
+    return d3.axisLeft(y)
+      .ticks(10)
+  }
 
-    svg.append('g')
-      .call(d3.axisLeft(y));
+  // add the X gridlines
+  svg.append('g')
+    .attr('class', 'axis-grid')
+    .attr('transform', `translate(0,${height})`)
+    .call(makeXGridlines()
+      .tickSize(-(height))
+      .tickFormat(''))
 
-    //Clip path
-    const clip = svg.append("defs").append("svg:clipPath")
-      .attr("id", "clip")
-      .append("svg:rect")
-      .attr("width", width)
-      .attr("height", height)
-      .attr("x", 0)
-      .attr("y", 0);
+  // add the Y gridlines
+  svg.append('g')
+    .attr('class', 'axis-grid')
+    .call(makeYGridlines()
+      .tickSize(-width)
+      .tickFormat(''))
 
-    const brush = d3.brushX()
-      .extent([[0, 0], [width, height]])
-      .on("end", updateChart)
+  d3.selectAll('.axis-grid line').style('stroke', 'lightgray')
 
-    // Grid
-    // gridlines in x axis function
-    function makeXGridlines() {
-      return d3.axisBottom(x)
-        .ticks(10)
-    }
+  // Graph Title. Literally has to be placed on the graph using X and Y values
+  // svg.append('text')
+  //     //X position
+  //     .attr('x', (width / 2))
+  //     //Y position
+  //     .attr('y', (-30))
+  //     //Styling
+  //     .attr('text-anchor', 'middle')
+  //     .attr('fint-size', '10px')
+  //     .attr('fill', 'black')
+  //     //Text
+  //     .text('demoData Graph (D3)')
 
-    // gridlines in y axis function
-    function makeYGridlines() {
-      return d3.axisLeft(y)
-        .ticks(10)
-    }
+  // Generates the actual line
+  const line = d3.line()
+    .curve(d3.curveCardinal)
+    .x((d) => x(parseDate(d.date.split('T')[0])))
+    .y((d) => y(d.value / 20));
 
-    // add the X gridlines
-    svg.append('g')
-      .attr('class', 'axis-grid')
-      .attr('transform', `translate(0,${height})`)
-      .call(makeXGridlines()
-        .tickSize(-(height))
-        .tickFormat(''))
-
-    // add the Y gridlines
-    svg.append('g')
-      .attr('class', 'axis-grid')
-      .call(makeYGridlines()
-        .tickSize(-width)
-        .tickFormat(''))
-
-    d3.selectAll('.axis-grid line').style('stroke', 'lightgray')
-
-
-    function updateChart(event, d) {
-
-      // What are the selected boundaries?
-      extent = event.selection
-
-      // If no selection, back to initial coordinate. Otherwise, update X axis domain
-      if (!extent) {
-        if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-        x.domain([4, 8])
-      } else {
-        x.domain([x.invert(extent[0]), x.invert(extent[1])])
-        line.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
-      }
-
-      // Update axis and line position
-      xAxis.transition().duration(1000).call(d3.axisBottom(x))
-      line
-        .select('.line')
-        .transition()
-        .duration(1000)
-        .attr("d", d3.line()
-          .x(function (d) { return x(d.date) })
-          .y(function (d) { return y(d.value) })
-        )
-    }
-
-    let idleTimeout
-    function idled() { idleTimeout = null; }
-
-    svg.on("dblclick", function () {
-      x.domain(d3.extent(data, function (d) { return d.date; }))
-      xAxis.transition().call(d3.axisBottom(x))
-      line
-        .select('.line')
-        .transition()
-        .attr("d", d3.line()
-          .x(function (d) { return x(d.date) })
-          .y(function (d) { return y(d.value) })
-        )
+  // Iterates through an array variation.
+  if (measureList.length > 0) {
+    measureList.forEach((measure) => {
+      svg.append('path')
+        .datum(displayData.filter((item) => item.measure === measure))
+        .attr('fill', 'none')
+        .attr('stroke', 'black')
+        .attr('opacity', '.33')
+        .attr('stroke-width', 2)
+        .attr('d', line)
+        .on('mouseover', (event) => {
+          d3.select(event.currentTarget).attr('opacity', '1');
+        })
+        .on('mouseout', (event) => {
+          d3.select(event.currentTarget).attr('opacity', '.33');
+        });
     });
-
-    // Graph Title. Literally has to be placed on the graph using X and Y values
-    // svg.append('text')
-    //     //X position
-    //     .attr('x', (width / 2))
-    //     //Y position
-    //     .attr('y', (-30))
-    //     //Styling
-    //     .attr('text-anchor', 'middle')
-    //     .attr('fint-size', '10px')
-    //     .attr('fill', 'black')
-    //     //Text
-    //     .text('demoData Graph (D3)')
-
-    // Generates the actual line
-    const line = d3.line()
-      .curve(d3.curveCardinal)
-      .x((d) => x(parseDate(d.date)))
-      .y((d) => y(d.value));
-
-    // line
-    //   .append("g")
-    //   .attr("class", "brush")
-    //   .call(brush);
-
-    // Iterates through an array variation.
-    if (measureList.length > 0) {
-      measureList.forEach((measure) => {
-        svg.append('path')
-          .datum(displayData.filter((item) => item.measure === measure))
-          .attr('fill', 'none')
-          .attr('stroke', 'black')
-          .attr('opacity', '.33')
-          .attr('stroke-width', 2)
-          .attr('d', line)
-          .on('mouseover', (event) => {
-            d3.select(event.currentTarget).attr('opacity', '1');
-          })
-          .on('mouseout', (event) => {
-            d3.select(event.currentTarget).attr('opacity', '.33');
-          });
-      });
-    }
-  }, [measurementType, memberId, displayData]);
+  }
 
   return (
     <div id="d3-line-chart">
