@@ -29,7 +29,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const searchUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/search`);
-const devMode = `${process.env.REACT_APP_DEVMODE}`;
+const devMode = `${process.env.REACT_APP_DEV_DATA}`;
 
 export default function Admin() {
   const [datastore, setDatastore] = useState([]);
