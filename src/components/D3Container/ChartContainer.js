@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import { datastoreContext } from '../../layouts/dashboard';
 import ChartBar from './ChartBar';
+import { generateFilterPaneValues, refineDisplayData } from './ChartContainerUtils';
 import D3Chart from './D3Chart';
 import D3Filter from './D3Filter';
 import D3IndicatorByLineChart from './D3IndicatorByLineChart';
@@ -33,7 +34,7 @@ function ChartContainer() {
     if (active !== undefined) {
       const newFilterArray = filterArray.filter((item) => item.value !== filter.value);
       setCurrentFilters(newFilterArray);
-      setDisplayData(refineDisplayData([...datastore], newFilterArray));
+      setDisplayData(refineDisplayData([...datastore], newFilterArray, measureList));
     } else {
       const newFilter = {
         value: filter.value,
@@ -41,30 +42,8 @@ function ChartContainer() {
       }
       filterArray.push(newFilter);
       setCurrentFilters(filterArray);
-      setDisplayData(refineDisplayData([...datastore], filterArray));
+      setDisplayData(refineDisplayData([...datastore], filterArray, measureList));
     }
-  }
-
-  const refineDisplayData = (data, filters) => {
-    const initialData = data;
-    let workingData = [];
-    const filterArray = filters;
-    if (filterArray.length === 0) {
-      workingData = initialData;
-    } else if (filterArray.length === measureList.length) {
-      workingData = [];
-    } else {
-      filterArray.forEach((filterItem) => {
-        // Handles Filtering by measure
-        if (filterItem.type === 'measure') {
-          initialData.forEach((item) => {
-            if (item.measure !== filterItem.value) { workingData.push(item) }
-          });
-        }
-        // TODO: Add logic in here for various filter types
-      })
-    }
-    return workingData;
   }
 
   return (
@@ -124,15 +103,7 @@ function ChartContainer() {
               </Grid>
               {measureList.map((item, index) => {
                 const craftedKey = `chart-container-grid-measure-${index}`;
-                const filter = {
-                  value: item,
-                  type: 'measure',
-                  included: Math.round(Math.random() * 10000),
-                  eligible: Math.round(Math.random() * 10000),
-                  numerator: Math.round(Math.random() * 10000),
-                  denominator: Math.round(Math.random() * 10000),
-                  exclusions: Math.round(Math.random() * 10000),
-                }
+                const filter = generateFilterPaneValues(datastore, item);
                 return (
                   <Grid
                     item
