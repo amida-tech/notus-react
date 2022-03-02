@@ -3,156 +3,147 @@ import { datastoreContext } from 'layouts/dashboard';
 import React, {
     useContext, useEffect, useRef, useState,
 } from 'react';
-import { displayDataContext, firstRenderContext } from './ChartContainer';
+import { byLineMeasureContext, displayDataContext, firstRenderContext } from './ChartContainer';
 
 function D3IndicatorByLineChart() {
 
     const D3IndicatorByLineChart = useRef();
 
-    const {datastore, setDatastore} = useContext(datastoreContext);
+    const { datastore, setDatastore } = useContext(datastoreContext);
     const { displayData, setDisplayData } = useContext(displayDataContext)
     const { firstRender, setFirstRender } = useContext(firstRenderContext);
+    const { byLineMeasure, setByLineMeasure } = useContext(byLineMeasureContext);
     const [data, setData] = useState([]);
     const [memberId, setMemberId] = useState('');
     const [measurementType, setMeasurementType] = useState('drre');
 
-    //I need a new set of line data, based of datastore, do not use displayData. 
-    //Needs similar format to display data, but only for selectable variable
-    //need to refine choices of options for the dataset. Not sure how we want to do that
+    // Binder for react to apply changes to the svg
+    const D3IndictaorLineChart = useRef();
 
-    const searchUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/search`);
+    // engage data here
 
-    useEffect(() => {
+    // Date Parser
+    const parseDate = d3.timeParse('%Y-%m-%d')
 
-        const margin = { top: 10, right: 30, bottom: 30, left: 60 },
-            width = 460 - margin.left - margin.right,
-            height = 400 - margin.top - margin.bottom;
+    // Data manipulation
+    const workingList = [];
+    displayData.forEach((item) => workingList.push(item.measure));
+    const measureList = Array.from(new Set(workingList));
 
-        // append the svg object to the body of the page
-        const svg = d3.select("#my_dataviz")
-            .append("svg")
-            .attr("width", width + margin.left + margin.right)
-            .attr("height", height + margin.top + margin.bottom)
-            .append("g")
-            .attr("transform",
-                `translate(${margin.left}, ${margin.top})`);
+    // Basic Styling consts to be used later
+    const margin = {
+        top: 50, right: 30, bottom: 75, left: 30,
+    };
+    const width = (window.innerWidth || document.body.clientWidth) - 100// parseInt(d3.select('#d3-line-chart').style('width'));
+    const height = 500;
+    const tickCount = displayData.length / measureList.length;
 
-        //Read the data
-        d3.json(displayData,
+    // Clear previous SVG
+    d3.select(D3IndictaorLineChart.current).selectAll('*').remove();
 
-            // When reading the csv, I must format variables:
-            function (d) {
-                return { date: d3.timeParse("%Y-%m-%d")(d.date), value: d.value }
-            }).then(
+    // SVG constrol and also styling
+    const svg = d3.select(D3IndictaorLineChart.current)
+        .attr('width', width)
+        .attr('height', height)
+        .style('background-color', 'white')
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
 
-                // Now I can use this dataset:
-                function (data) {
+    // Generates labels and context for x axis
+    const x = d3.scaleTime()
+        // What data we're measuring
+        .domain(d3.extent(displayData, (d) => parseDate(d.date.split('T')[0])))
+        // The 'width' of the data
+        .range([0, width + margin.left]);
 
-                    // Add X axis --> it is a date format
-                    const x = d3.scaleTime()
-                        .domain(d3.extent(data, function (d) { return d.date; }))
-                        .range([0, width]);
-                    const xAxis = svg.append("g")
-                        .attr("transform", `translate(0, ${height})`)
-                        .call(d3.axisBottom(x));
+    // X Axis labels and context
+    svg.append('g')
+        .attr('transform', `translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(x).ticks(tickCount).tickFormat(d3.timeFormat('%d-%b-%Y')));
 
-                    // Add Y axis
-                    const y = d3.scaleLinear()
-                        .domain([0, d3.max(data, function (d) { return +d.value; })])
-                        .range([height, 0]);
-                    const yAxis = svg.append("g")
-                        .call(d3.axisLeft(y));
+    // Generates Label and context for y axis
+    const max = d3.max(displayData, (d) => d.value);
 
-                    // Add a clipPath: everything out of this area won't be drawn.
-                    const clip = svg.append("defs").append("svg:clipPath")
-                        .attr("id", "clip")
-                        .append("svg:rect")
-                        .attr("width", width)
-                        .attr("height", height)
-                        .attr("x", 0)
-                        .attr("y", 0);
+    const y = d3.scaleLinear()
+        .domain([0, 5])
+        .range([height - margin.bottom, 0]);
 
-                    // Add brushing
-                    const brush = d3.brushX()                   // Add the brush feature using the d3.brush function
-                        .extent([[0, 0], [width, height]])  // initialise the brush area: start at 0,0 and finishes at width,height: it means I select the whole graph area
-                        .on("end", updateChart)               // Each time the brush selection changes, trigger the 'updateChart' function
+    svg.append('g')
+        .call(d3.axisLeft(y));
 
-                    // Create the line variable: where both the line and the brush take place
-                    const line = svg.append('g')
-                        .attr("clip-path", "url(#clip)")
+    // Grid
+    // gridlines in x axis function
+    function makeXGridlines() {
+        return d3.axisBottom(x)
+            .ticks(tickCount)
+    }
 
-                    // Add the line
-                    line.append("path")
-                        .datum(data)
-                        .attr("class", "line")  // I add the class line to be able to modify this line later on.
-                        .attr("fill", "none")
-                        .attr("stroke", "steelblue")
-                        .attr("stroke-width", 1.5)
-                        .attr("d", d3.line()
-                            .x(function (d) { return x(d.date) })
-                            .y(function (d) { return y(d.value) })
-                        )
+    // gridlines in y axis function
+    function makeYGridlines() {
+        return d3.axisLeft(y)
+            .ticks(10)
+    }
 
-                    // Add the brushing
-                    line
-                        .append("g")
-                        .attr("class", "brush")
-                        .call(brush);
+    // add the X gridlines
+    svg.append('g')
+        .attr('class', 'axis-grid')
+        .attr('transform', `translate(0,${height})`)
+        .call(makeXGridlines()
+            .tickSize(-(height))
+            .tickFormat(''))
 
-                    // A function that set idleTimeOut to null
-                    let idleTimeout
-                    function idled() { idleTimeout = null; }
+    // add the Y gridlines
+    svg.append('g')
+        .attr('class', 'axis-grid')
+        .call(makeYGridlines()
+            .tickSize(-width)
+            .tickFormat(''))
 
-                    // A function that update the chart for given boundaries
-                    function updateChart(event, d) {
+    d3.selectAll('.axis-grid line').style('stroke', 'lightgray')
 
-                        // What are the selected boundaries?
-                        const extent = event.selection
+    // Graph Title. Literally has to be placed on the graph using X and Y values
+    // svg.append('text')
+    //     //X position
+    //     .attr('x', (width / 2))
+    //     //Y position
+    //     .attr('y', (-30))
+    //     //Styling
+    //     .attr('text-anchor', 'middle')
+    //     .attr('fint-size', '10px')
+    //     .attr('fill', 'black')
+    //     //Text
+    //     .text('demoData Graph (D3)')
 
-                        // If no selection, back to initial coordinate. Otherwise, update X axis domain
-                        if (!extent) {
-                            if (!idleTimeout) return idleTimeout = setTimeout(idled, 350); // This allows to wait a little bit
-                            x.domain([4, 8])
-                        } else {
-                            x.domain([x.invert(extent[0]), x.invert(extent[1])])
-                            line.select(".brush").call(brush.move, null) // This remove the grey brush area as soon as the selection has been done
-                        }
+    // Generates the actual line
+    const line = d3.line()
+        .curve(d3.curveCardinal)
+        .x((d) => x(parseDate(d.date.split('T')[0])))
+        .y((d) => y(d.value / 20));
 
-                        // Update axis and line position
-                        xAxis.transition().duration(1000).call(d3.axisBottom(x))
-                        line
-                            .select('.line')
-                            .transition()
-                            .duration(1000)
-                            .attr("d", d3.line()
-                                .x(function (d) { return x(d.date) })
-                                .y(function (d) { return y(d.value) })
-                            )
-                    }
-
-                    // If user double click, reinitialize the chart
-                    svg.on("dblclick", function () {
-                        x.domain(d3.extent(data, function (d) { return d.date; }))
-                        xAxis.transition().call(d3.axisBottom(x))
-                        line
-                            .select('.line')
-                            .transition()
-                            .attr("d", d3.line()
-                                .x(function (d) { return x(d.date) })
-                                .y(function (d) { return y(d.value) })
-                            )
-                    });
-
+    // Iterates through an array variation.
+    if (measureList.length > 0) {
+        measureList.forEach((measure) => {
+            svg.append('path')
+                .datum(displayData.filter((item) => item.measure === measure))
+                .attr('fill', 'none')
+                .attr('stroke', 'black')
+                .attr('opacity', '.33')
+                .attr('stroke-width', 2)
+                .attr('d', line)
+                .on('mouseover', (event) => {
+                    d3.select(event.currentTarget).attr('opacity', '1');
                 })
-
-    });
+                .on('mouseout', (event) => {
+                    d3.select(event.currentTarget).attr('opacity', '.33');
+                });
+        });
+    }
 
     return (
         <div id="d3-line-chart">
-            <svg ref={D3IndicatorByLineChart} />
+            <svg ref={D3IndictaorLineChart} />
         </div>
     )
-
 }
 
 export default D3IndicatorByLineChart;

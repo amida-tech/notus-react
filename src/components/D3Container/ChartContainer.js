@@ -50,6 +50,8 @@ function ChartContainer() {
 
   const handleChange = (event) => {
     setByLineMeasure(event.target.value);
+    const filteredDisplayData = datastore.filter((item) => item.measure === event.target.value);
+    setDisplayData(filteredDisplayData);
   };
 
   return (
