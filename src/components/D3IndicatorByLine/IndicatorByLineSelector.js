@@ -6,9 +6,9 @@ import { useContext } from 'react';
 
 function IndicatorByLineSelector() {
 
-    const {datastore, setDatastore} = useContext(datastoreContext);
-    const {byLineMeasure, setByLineMeasure} = useContext(byLineMeasureContext);
-    const { byLinedisplayData, setByLineDisplayData} = useContext(byLineDisplayDataContext);
+    const { datastore, setDatastore } = useContext(datastoreContext);
+    const { byLineMeasure, setByLineMeasure } = useContext(byLineMeasureContext);
+    const { byLinedisplayData, setByLineDisplayData } = useContext(byLineDisplayDataContext);
 
     const measureList = generateMeasureList(datastore);
 
@@ -29,9 +29,9 @@ function IndicatorByLineSelector() {
                 onChange={handleChange}
                 sx={{ color: 'black.light' }}
             >
-                {measureList.map((measure) => {
+                {measureList.map((measure, index) => {
                     return (
-                        <MenuItem sx={{ color: 'black.light' }} value={measure}>{measure.toUpperCase()}</MenuItem>
+                        <MenuItem sx={{ color: 'black.light' }} key={'by-line-menu-item-selector-' + index} value={measure}>{measure.toUpperCase()}</MenuItem>
                     )
                 })}
             </Select>

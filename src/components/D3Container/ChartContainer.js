@@ -34,6 +34,17 @@ function ChartContainer() {
   }, [datastore]);
 
   const handleChange = (event, newValue) => {
+    console.log(newValue)
+    console.log(event.target)
+    switch (newValue) {
+      case 0:
+        setDisplayData(datastore);
+        setByLineDisplayData('')
+        break;
+      case 1:
+        setByLineDisplayData('')
+        break;
+    }
     setTabValue(newValue);
   };
 
@@ -44,7 +55,9 @@ function ChartContainer() {
           <currentFilterContext.Provider value={{ currentFilters, setCurrentFilters }}>
             <firstRenderContext.Provider value={{ firstRender, setFirstRender }}>
               <byLineMeasureContext.Provider value={{ byLineMeasure, setByLineMeasure }}>
-                <Tabs calue={tabValue} onChange={handleChange}>
+                <Tabs value={tabValue}
+                  onChange={handleChange}
+                  indicatorColor={"primary"}>
                   <Tab label="All Measures" />
                   <Tab label="Measure by Line" />
                 </Tabs>
