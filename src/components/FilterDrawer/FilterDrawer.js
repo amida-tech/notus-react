@@ -13,8 +13,6 @@ import filterDrawerItemArray from './FilterDrawerItemData';
 
 function FilterDrawer() {
   const { currentFilters, setCurrentFilters } = useContext(currentFilterContext);
-  const { displayData, setDisplayData } = useContext(displayDataContext)
-  const { firstRender, setFirstRender } = useContext(firstRenderContext);
   const { filterMenuOpen, setFilterMenuOpen } = useContext(filterMenuOpenContext);
   const [percentSliderValue, setPercentSliderValue] = useState([25, 75])
 
@@ -53,28 +51,6 @@ function FilterDrawer() {
 
         <Grid container direction="column">
           <Grid container item direction="column">
-            <Grid item>
-              <Typography color="black.dark" variant="body1">Active Filters:</Typography>
-            </Grid>
-            <Grid container item justifyContent="flex-start" alignItems="center" sx={{ minHeight: '70px' }}>
-              {currentFilters.length === 0
-                ? <Typography color="black.dark" variant="caption">No filters selected</Typography>
-                : currentFilters.map((filter) => (
-                  <Button sx={{ borderRadius: '10px', m: '5px' }} color="blue" variant="contained">
-                    <Grid container direction="column" spacing={0} justifyContent="center" align="center">
-                      <Grid item>
-                        <Typography variant="caption" sx={{ fontSize: '0.5rem' }}>
-                          {filter.type}
-                          :
-                        </Typography>
-                      </Grid>
-                      <Grid item>
-                        <Typography variant="button" sx={{ fontSize: '0.75rem' }}>{filter.value}</Typography>
-                      </Grid>
-                    </Grid>
-                  </Button>
-                ))}
-            </Grid>
             <Grid item sx={{ width: '80%' }}>
               <Divider color="black" sx={{ width: '100%' }} />
             </Grid>

@@ -9,7 +9,6 @@ function D3Chart() {
   const D3LineChart = useRef();
 
   const { displayData, setDisplayData } = useContext(displayDataContext)
-  const { firstRender, setFirstRender } = useContext(firstRenderContext);
 
   // engage data here
 
