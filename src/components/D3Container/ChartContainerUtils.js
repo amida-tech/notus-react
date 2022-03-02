@@ -18,7 +18,7 @@ export const refineDisplayData = (data, filters, measureList) => {
         })
     }
     return workingData;
-}
+};
 
 export function generateFilterPaneValues(datastore, filterItem) {
     const relevantMeasureList = datastore.filter((dataEntry) => filterItem === dataEntry.measure);
@@ -43,4 +43,11 @@ export function generateFilterPaneValues(datastore, filterItem) {
         denominator: denominator,
         exclusions: exclusions,
     }
+    
 };
+
+export function generateMeasureList(datastore){
+    const workingList = [];
+    datastore.forEach((item) => workingList.push(item.measure));
+    return Array.from(new Set(workingList));
+}
