@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import React, {
   useContext, useEffect, useRef, useState,
 } from 'react';
-import { displayDataContext, firstRenderContext } from './ChartContainer';
+import { displayDataContext, firstRenderContext } from '../D3Container/ChartContainer';
 
 function D3Chart() {
   // Binder for react to apply changes to the svg

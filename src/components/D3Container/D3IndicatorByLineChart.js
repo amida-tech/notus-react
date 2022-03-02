@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { datastoreContext } from 'layouts/dashboard';
 import React, {
     useContext, useEffect, useRef, useState,
 } from 'react';
@@ -8,11 +9,16 @@ function D3IndicatorByLineChart() {
 
     const D3IndicatorByLineChart = useRef();
 
+    const {datastore, setDatastore} = useContext(datastoreContext);
     const { displayData, setDisplayData } = useContext(displayDataContext)
     const { firstRender, setFirstRender } = useContext(firstRenderContext);
     const [data, setData] = useState([]);
     const [memberId, setMemberId] = useState('');
     const [measurementType, setMeasurementType] = useState('drre');
+
+    //I need a new set of line data, based of datastore, do not use displayData. 
+    //Needs similar format to display data, but only for selectable variable
+    //need to refine choices of options for the dataset. Not sure how we want to do that
 
     const searchUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/search`);
 
