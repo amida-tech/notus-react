@@ -1,4 +1,4 @@
-import { Grid, Paper, Tab, Tabs } from '@mui/material';
+import { Button, Grid, Paper, Tab, Tabs } from '@mui/material';
 import IndicatorByLineSelector from 'components/D3IndicatorByLine/IndicatorByLineSelector';
 import TabPanel from 'components/TabPanel/TabPanel';
 import React, {
@@ -32,19 +32,23 @@ function ChartContainer() {
   }, [datastore]);
 
   const handleChange = (event, newValue) => {
-    console.log(newValue);
-    console.log(event)
-    setTabValue(newValue);
-    switch (newValue) {
-      case 0:
-        setDisplayData(datastore);
-        setByLineDisplayData('')
-        break;
-      case 1:
-        setByLineDisplayData('')
-        break;
+
+    const newDisplayData = [...datastore];
+
+    if (newValue === 0) {
+      setDatastore(newDisplayData);
+      // setDisplayData(newDisplayData);
+      setByLineDisplayData('')
     }
-    console.log(displayData)
+    else if (newValue === 1) {
+      console.log(1)
+      setByLineDisplayData('')
+    }
+    else {
+      console.log("else")
+      setByLineDisplayData(newDisplayData[0])
+    }
+    setTabValue(newValue);
   };
 
   return (
@@ -52,35 +56,35 @@ function ChartContainer() {
       <byLineDisplayDataContext.Provider value={{ byLineDisplayData, setByLineDisplayData }}>
         <displayDataContext.Provider value={{ displayData, setDisplayData }}>
           <currentFilterContext.Provider value={{ currentFilters, setCurrentFilters }}>
-              <byLineMeasureContext.Provider value={{ byLineMeasure, setByLineMeasure }}>
-                <Tabs value={tabValue}
-                  onChange={handleChange}
-                  indicatorColor={"primary"}>
-                  <Tab label="All Measures" />
-                  <Tab label="Measure by Line" />
-                </Tabs>
-                <TabPanel value={tabValue} index={1}>
-                  <Paper>
-                    <Grid container>
-                      <Grid item sx={{ width: '25%' }}>
-                        <IndicatorByLineSelector />
-                      </Grid>
-                    </Grid>
-                    <D3IndicatorByLineChart />
-                  </Paper>
-                </TabPanel>
-                <TabPanel value={tabValue} index={0}>
-                  <Grid container justifyContent="space-evenly" direction="column">
-                    <Grid sx={{ mb: '-30px' }} item>
-                      <ChartBar />
-                    </Grid>
-                    <Grid item>
-                      <D3Chart />
+            <byLineMeasureContext.Provider value={{ byLineMeasure, setByLineMeasure }}>
+              <Tabs value={tabValue}
+                onChange={(event, index) => handleChange(event, index)}
+                indicatorColor={"primary"}>
+                <Tab label="All Measures" />
+                <Tab label="Measure by Line" />
+              </Tabs>
+              <TabPanel value={tabValue} index={1}>
+                <Paper>
+                  <Grid container>
+                    <Grid item sx={{ width: '25%' }}>
+                      <IndicatorByLineSelector />
                     </Grid>
                   </Grid>
-                  <D3FilterSelection />
-                </TabPanel>
-              </byLineMeasureContext.Provider>
+                  <D3IndicatorByLineChart />
+                </Paper>
+              </TabPanel>
+              <TabPanel value={tabValue} index={0}>
+                <Grid container justifyContent="space-evenly" direction="column">
+                  <Grid sx={{ mb: '-30px' }} item>
+                    <ChartBar />
+                  </Grid>
+                  <Grid item>
+                    <D3Chart />
+                  </Grid>
+                </Grid>
+                <D3FilterSelection />
+              </TabPanel>
+            </byLineMeasureContext.Provider>
           </currentFilterContext.Provider>
         </displayDataContext.Provider>
       </byLineDisplayDataContext.Provider>

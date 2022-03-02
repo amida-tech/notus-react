@@ -1,4 +1,5 @@
-import { Divider, Grid, Typography } from "@mui/material";
+import { Button, Divider, Grid, Typography } from "@mui/material";
+import { display } from "@mui/system";
 import { datastoreContext } from "layouts/dashboard";
 import React, { useContext } from "react";
 import { currentFilterContext, displayDataContext } from "./ChartContainer";
@@ -8,8 +9,8 @@ import D3Filter from "./D3Filter";
 function D3FilterSelection() {
 
     const { datastore, setdataStore } = useContext(datastoreContext);
-    const {currentFilters, setCurrentFilters} = useContext(currentFilterContext);
-    const {displayData, setDisplayData} = useContext(displayDataContext);
+    const { currentFilters, setCurrentFilters } = useContext(currentFilterContext);
+    const { displayData, setDisplayData } = useContext(displayDataContext);
 
     const measureList = generateMeasureList(datastore);
 
