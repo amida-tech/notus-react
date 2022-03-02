@@ -2,9 +2,9 @@ import { Button, Divider, Grid, Typography } from "@mui/material";
 import { display } from "@mui/system";
 import { datastoreContext } from "layouts/dashboard";
 import React, { useContext } from "react";
-import { currentFilterContext, displayDataContext } from "./ChartContainer";
-import { generateFilterPaneValues, generateMeasureList, refineDisplayData } from "./ChartContainerUtils";
-import D3Filter from "./D3Filter";
+import { currentFilterContext, displayDataContext } from "../D3Container/ChartContainer";
+import { generateFilterPaneValues, generateMeasureList, refineDisplayData } from "../D3Container/ChartContainerUtils";
+import D3Filter from "../D3Filter/D3Filter";
 
 function D3FilterSelection() {
 

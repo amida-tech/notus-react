@@ -20,7 +20,7 @@ function IndicatorByLineSelector() {
 
     return (
         <FormControl fullWidth>
-            <InputLabel id="d3-indicator-by-line-selector">Measure By Line</InputLabel>
+            <InputLabel id="d3-indicator-by-line-selector">Select Measure</InputLabel>
             <Select
                 labelId="d3-indicator-by-line-selector-label"
                 id="indicator-by-line-selector"

@@ -77,7 +77,7 @@ function FilterDrawer() {
               </Grid>
             </Grid>
             {filterDrawerItemArray.map((drawerItem) => (
-              <FilterDrawerItem filterItem={drawerItem} />
+              <FilterDrawerItem key={"filter-drawer-item-" + drawerItem.name} filterItem={drawerItem} />
             ))}
           </Grid>
           <Grid sx={{ my: '50px' }} container justifyContent="space-evenly" alignItems="center" direction="row">
