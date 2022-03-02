@@ -1,14 +1,13 @@
-import { Divider, Grid, Typography, Paper, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Grid, Paper, Tab, Tabs } from '@mui/material';
+import IndicatorByLineSelector from 'components/D3IndicatorByLine/IndicatorByLineSelector';
+import TabPanel from 'components/TabPanel/TabPanel';
 import React, {
-  createContext, useContext, useState, useEffect,
+  createContext, useContext, useEffect, useState
 } from 'react';
 import { datastoreContext } from '../../layouts/dashboard';
-import ChartBar from './ChartBar';
-import { generateFilterPaneValues, generateMeasureList, refineDisplayData } from './ChartContainerUtils';
 import D3Chart from '../D3Chart/D3Chart';
-import D3Filter from './D3Filter';
 import D3IndicatorByLineChart from '../D3IndicatorByLine/D3IndicatorByLineChart';
-import IndicatorByLineSelector from 'components/D3IndicatorByLine/IndicatorByLineSelector';
+import ChartBar from './ChartBar';
 import D3FilterSelection from './D3FilterSelection';
 
 export const currentFilterContext = createContext([])
@@ -18,15 +17,13 @@ export const byLineMeasureContext = createContext('')
 export const byLineDisplayDataContext = createContext('');
 
 function ChartContainer() {
-  const { datastore, setDatastore } = useContext(datastoreContext)
+  const { datastore, setDatastore } = useContext(datastoreContext);
   const [displayData, setDisplayData] = useState(datastore);
   const [byLineDisplayData, setByLineDisplayData] = useState('');
   const [currentFilters, setCurrentFilters] = useState([]);
   const [firstRender, setFirstRender] = useState(true);
-  const [byLineMeasure, setByLineMeasure] = useState('')
-
-
-  const measureList = generateMeasureList(datastore);
+  const [byLineMeasure, setByLineMeasure] = useState('');
+  const [tabValue, setTabValue] = useState(0);
 
   useEffect(() => {
     setDisplayData(datastore);
@@ -36,6 +33,10 @@ function ChartContainer() {
     setByLineDisplayData('');
   }, [datastore]);
 
+  const handleChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   return (
     <div>
       <byLineDisplayDataContext.Provider value={{ byLineDisplayData, setByLineDisplayData }}>
@@ -43,23 +44,31 @@ function ChartContainer() {
           <currentFilterContext.Provider value={{ currentFilters, setCurrentFilters }}>
             <firstRenderContext.Provider value={{ firstRender, setFirstRender }}>
               <byLineMeasureContext.Provider value={{ byLineMeasure, setByLineMeasure }}>
-                <Paper>
-                  <Grid container>
-                    <Grid item sx={{ width: '25%' }}>
-                      <IndicatorByLineSelector />
+                <Tabs calue={tabValue} onChange={handleChange}>
+                  <Tab label="All Measures" />
+                  <Tab label="Measure by Line" />
+                </Tabs>
+                <TabPanel value={tabValue} index={1}>
+                  <Paper>
+                    <Grid container>
+                      <Grid item sx={{ width: '25%' }}>
+                        <IndicatorByLineSelector />
+                      </Grid>
+                    </Grid>
+                    <D3IndicatorByLineChart />
+                  </Paper>
+                </TabPanel>
+                <TabPanel value={tabValue} index={0}>
+                  <Grid container justifyContent="space-evenly" direction="column">
+                    <Grid sx={{ mb: '-30px' }} item>
+                      <ChartBar />
+                    </Grid>
+                    <Grid item>
+                      <D3Chart />
                     </Grid>
                   </Grid>
-                  <D3IndicatorByLineChart />
-                </Paper>
-                <Grid container justifyContent="space-evenly" direction="column">
-                  <Grid sx={{ mb: '-30px' }} item>
-                    <ChartBar />
-                  </Grid>
-                  <Grid item>
-                    <D3Chart />
-                  </Grid>
-                </Grid>
-                <D3FilterSelection />
+                  <D3FilterSelection />
+                </TabPanel>
               </byLineMeasureContext.Provider>
             </firstRenderContext.Provider>
           </currentFilterContext.Provider>
