@@ -33,6 +33,7 @@ function D3IndicatorByLineChart() {
         .attr('width', width)
         .attr('height', height)
         .style('background-color', 'white')
+        .style('color', 'black')
         .append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
