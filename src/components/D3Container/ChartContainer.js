@@ -12,7 +12,6 @@ import D3FilterSelection from './D3FilterSelection';
 
 export const currentFilterContext = createContext([])
 export const displayDataContext = createContext([])
-// export const firstRenderContext = createContext(true)
 export const byLineMeasureContext = createContext('')
 export const byLineDisplayDataContext = createContext('');
 
@@ -21,7 +20,6 @@ function ChartContainer() {
   const [displayData, setDisplayData] = useState(datastore);
   const [byLineDisplayData, setByLineDisplayData] = useState('');
   const [currentFilters, setCurrentFilters] = useState([]);
-  // const [firstRender, setFirstRender] = useState(true);
   const [byLineMeasure, setByLineMeasure] = useState('');
   const [tabValue, setTabValue] = useState(0);
 
@@ -34,6 +32,9 @@ function ChartContainer() {
   }, [datastore]);
 
   const handleChange = (event, newValue) => {
+    console.log(newValue);
+    console.log(event)
+    setTabValue(newValue);
     switch (newValue) {
       case 0:
         setDisplayData(datastore);
@@ -43,7 +44,7 @@ function ChartContainer() {
         setByLineDisplayData('')
         break;
     }
-    setTabValue(newValue);
+    console.log(displayData)
   };
 
   return (
@@ -51,7 +52,6 @@ function ChartContainer() {
       <byLineDisplayDataContext.Provider value={{ byLineDisplayData, setByLineDisplayData }}>
         <displayDataContext.Provider value={{ displayData, setDisplayData }}>
           <currentFilterContext.Provider value={{ currentFilters, setCurrentFilters }}>
-            {/* <firstRenderContext.Provider value={{ firstRender, setFirstRender }}> */}
               <byLineMeasureContext.Provider value={{ byLineMeasure, setByLineMeasure }}>
                 <Tabs value={tabValue}
                   onChange={handleChange}
@@ -81,7 +81,6 @@ function ChartContainer() {
                   <D3FilterSelection />
                 </TabPanel>
               </byLineMeasureContext.Provider>
-            {/* </firstRenderContext.Provider> */}
           </currentFilterContext.Provider>
         </displayDataContext.Provider>
       </byLineDisplayDataContext.Provider>
