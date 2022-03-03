@@ -2,12 +2,12 @@ import { ThemeProvider } from '@emotion/react';
 import CloseIcon from '@mui/icons-material/Close';
 import HelpIcon from '@mui/icons-material/Help';
 import {
-  Box, Button, Divider, Drawer, Grid, Slider, Typography,
+  Box, Button, Divider, Drawer, Grid, Slider, Typography
 } from '@mui/material';
 import React, { useContext, useState } from 'react';
 import theme from '../../assets/styles/AppTheme';
 import { filterMenuOpenContext } from '../D3Container/ChartBar';
-import { currentFilterContext, displayDataContext, firstRenderContext } from '../D3Container/ChartContainer';
+import { currentFilterContext } from '../D3Container/ChartContainer';
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemArray from './FilterDrawerItemData';
 
