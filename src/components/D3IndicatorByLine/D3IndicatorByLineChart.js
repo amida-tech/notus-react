@@ -6,8 +6,6 @@ import { byLineDisplayDataContext } from '../D3Container/ChartContainer';
 
 function D3IndicatorByLineChart() {
 
-    const D3IndicatorByLineChart = useRef();
-
     const { byLineDisplayData, setByLinedisplayData } = useContext(byLineDisplayDataContext);
 
     // Binder for react to apply changes to the svg
