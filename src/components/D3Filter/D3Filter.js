@@ -44,7 +44,7 @@ function D3Filter(props) {
         </Grid>
         <Grid key={"filter-selector-box-element-" + filter.value} item xs={1}>
           <FormGroup sx={{ ml: '8px' }}>
-            <Checkbox disableRipple defaultChecked size="medium" color="blue" onChange={() => onChange(filter)} />
+            <Checkbox disableRipple defaultChecked size="medium" color="primary" onChange={() => onChange(filter)} />
           </FormGroup>
         </Grid>
       </Grid>

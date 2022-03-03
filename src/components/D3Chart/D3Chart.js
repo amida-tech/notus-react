@@ -1,8 +1,8 @@
 import * as d3 from 'd3';
 import React, {
-  useContext, useEffect, useRef, useState,
+  useContext, useRef
 } from 'react';
-import { displayDataContext, firstRenderContext } from '../D3Container/ChartContainer';
+import { displayDataContext } from '../D3Container/ChartContainer';
 
 function D3Chart() {
   // Binder for react to apply changes to the svg
@@ -90,19 +90,6 @@ function D3Chart() {
       .tickFormat(''))
 
   d3.selectAll('.axis-grid line').style('stroke', 'lightgray')
-
-  // Graph Title. Literally has to be placed on the graph using X and Y values
-  // svg.append('text')
-  //     //X position
-  //     .attr('x', (width / 2))
-  //     //Y position
-  //     .attr('y', (-30))
-  //     //Styling
-  //     .attr('text-anchor', 'middle')
-  //     .attr('fint-size', '10px')
-  //     .attr('fill', 'black')
-  //     //Text
-  //     .text('demoData Graph (D3)')
 
   // Generates the actual line
   const line = d3.line()

@@ -71,7 +71,7 @@ function FilterDrawer() {
                     onChange={handleSliderChange}
                     valueLabelDisplay="auto"
                     getAriaValueText={sliderValuetext}
-                    sx={{ color: 'blue.dark', width: '80%' }}
+                    sx={{ color: 'primary', width: '80%' }}
                   />
                 </Box>
               </Grid>
@@ -82,10 +82,10 @@ function FilterDrawer() {
           </Grid>
           <Grid sx={{ my: '50px' }} container justifyContent="space-evenly" alignItems="center" direction="row">
             <Grid item>
-              <Button sx={{ borderRadius: '5px' }} onClick={toggleDrawer(false)} color="blue" variant="outlined">Cancel</Button>
+              <Button sx={{ borderRadius: '5px' }} onClick={toggleDrawer(false)} color="primary" variant="outlined">Cancel</Button>
             </Grid>
             <Grid item>
-              <Button sx={{ borderRadius: '5px' }} color="blue" variant="contained">Apply Filters</Button>
+              <Button sx={{ borderRadius: '5px' }} color="primary" variant="contained">Apply Filters</Button>
             </Grid>
           </Grid>
         </Grid>

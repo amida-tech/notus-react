@@ -1,9 +1,8 @@
 import * as d3 from 'd3';
-import { datastoreContext } from 'layouts/dashboard';
 import React, {
-    useContext, useEffect, useRef, useState,
+    useContext, useRef
 } from 'react';
-import { byLineDisplayDataContext, byLineMeasureContext, displayDataContext, firstRenderContext } from '../D3Container/ChartContainer';
+import { byLineDisplayDataContext } from '../D3Container/ChartContainer';
 
 function D3IndicatorByLineChart() {
 
@@ -88,19 +87,6 @@ function D3IndicatorByLineChart() {
             .tickFormat(''))
 
     d3.selectAll('.axis-grid line').style('stroke', 'lightgray')
-
-    // Graph Title. Literally has to be placed on the graph using X and Y values
-    // svg.append('text')
-    //     //X position
-    //     .attr('x', (width / 2))
-    //     //Y position
-    //     .attr('y', (-30))
-    //     //Styling
-    //     .attr('text-anchor', 'middle')
-    //     .attr('fint-size', '10px')
-    //     .attr('fill', 'black')
-    //     //Text
-    //     .text('demoData Graph (D3)')
 
     // Generates the actual line
     const line = d3.line()
