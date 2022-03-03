@@ -8,7 +8,7 @@ function D3Chart() {
   // Binder for react to apply changes to the svg
   const D3LineChart = useRef();
 
-  const { displayData, setDisplayData } = useContext(displayDataContext)
+  const { displayData, setDisplayData } = useContext(displayDataContext) //NOSONAR
 
   // engage data here
 
