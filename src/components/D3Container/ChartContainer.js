@@ -44,7 +44,6 @@ function ChartContainer() {
       setByLineDisplayData('')
     }
     else {
-      console.log("else")
       setByLineDisplayData(newDisplayData[0])
     }
     setTabValue(newValue);

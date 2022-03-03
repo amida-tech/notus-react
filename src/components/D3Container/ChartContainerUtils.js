@@ -14,7 +14,7 @@ export const refineDisplayData = (data, filters, measureList) => {
                     if (item.measure !== filterItem.value) { workingData.push(item) }
                 });
             }
-            // TODO: Add logic in here for various filter types
+            // TODO: Add logic in here for various filter types //NOSONAR
         })
     }
     return workingData;
@@ -44,7 +44,7 @@ export function generateFilterPaneValues(datastore, filterItem) {
         exclusions: exclusions,
     }
     
-};
+}
 
 export function generateMeasureList(datastore){
     const workingList = [];
