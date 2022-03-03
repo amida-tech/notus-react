@@ -1,4 +1,4 @@
-import { Button, Grid, Paper, Tab, Tabs } from '@mui/material';
+import { Grid, Paper, Tab, Tabs } from '@mui/material';
 import IndicatorByLineSelector from 'components/D3IndicatorByLine/IndicatorByLineSelector';
 import TabPanel from 'components/TabPanel/TabPanel';
 import React, {
@@ -6,9 +6,9 @@ import React, {
 } from 'react';
 import { datastoreContext } from '../../layouts/dashboard';
 import D3Chart from '../D3Chart/D3Chart';
+import D3FilterSelection from '../D3FilterSelection/D3FilterSelection';
 import D3IndicatorByLineChart from '../D3IndicatorByLine/D3IndicatorByLineChart';
 import ChartBar from './ChartBar';
-import D3FilterSelection from '../D3FilterSelection/D3FilterSelection';
 
 export const currentFilterContext = createContext([])
 export const displayDataContext = createContext([])
