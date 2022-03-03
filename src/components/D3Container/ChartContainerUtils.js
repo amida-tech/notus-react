@@ -14,7 +14,7 @@ export const refineDisplayData = (data, filters, measureList) => {
                     if (item.measure !== filterItem.value) { workingData.push(item) }
                 });
             }
-            // TODO: Add logic in here for various filter types //NOSONAR
+            //Add logic in here for various filter types 
         })
     }
     return workingData;

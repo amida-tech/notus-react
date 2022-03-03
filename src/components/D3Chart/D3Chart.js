@@ -24,7 +24,7 @@ function D3Chart() {
   const margin = {
     top: 50, right: 30, bottom: 75, left: 30,
   };
-  const width = (window.innerWidth || document.body.clientWidth) - 100// parseInt(d3.select('#d3-line-chart').style('width'));
+  const width = (window.innerWidth || document.body.clientWidth) - 100// parseInt(d3.select('#d3-line-chart').style('width')); //NOSONAR
   const height = 500;
   const tickCount = displayData.length / measureList.length;
 
