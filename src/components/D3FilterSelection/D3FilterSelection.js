@@ -20,7 +20,7 @@ function D3FilterSelection() {
         if (active !== undefined) {
             const newFilterArray = filterArray.filter((item) => item.value !== filter.value);
             setCurrentFilters(newFilterArray);
-            setDisplayData(refineDisplayData([...datastore], newFilterArray, measureList));
+            setDisplayData(refineDisplayData([...datastore[0]], newFilterArray, measureList));
         } else {
             const newFilter = {
                 value: filter.value,
@@ -28,7 +28,7 @@ function D3FilterSelection() {
             }
             filterArray.push(newFilter);
             setCurrentFilters(filterArray);
-            setDisplayData(refineDisplayData([...datastore], filterArray, measureList));
+            setDisplayData(refineDisplayData([...datastore[0]], filterArray, measureList));
         }
     }
 
