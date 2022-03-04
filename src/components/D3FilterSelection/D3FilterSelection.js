@@ -11,7 +11,7 @@ function D3FilterSelection() {
     const { currentFilters, setCurrentFilters } = useContext(currentFilterContext);
     const { displayData, setDisplayData } = useContext(displayDataContext);
 
-    const measureList = generateMeasureList(datastore);
+    const measureList = generateMeasureList(datastore[0]);
 
     const changeFunction = (filter) => {
         const filterArray = [...currentFilters];
@@ -73,7 +73,7 @@ function D3FilterSelection() {
             </Grid>
             {measureList.map((item, index) => {
                 const craftedKey = `chart-container-grid-measure-${index}`;
-                const filter = generateFilterPaneValues(datastore, item);
+                const filter = generateFilterPaneValues(datastore[0], item);
                 return (
                     <Grid
                         item

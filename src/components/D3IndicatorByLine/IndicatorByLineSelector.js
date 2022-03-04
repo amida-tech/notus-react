@@ -10,11 +10,11 @@ function IndicatorByLineSelector() {
     const { byLineMeasure, setByLineMeasure } = useContext(byLineMeasureContext);
     const { byLinedisplayData, setByLineDisplayData } = useContext(byLineDisplayDataContext);
 
-    const measureList = generateMeasureList(datastore);
+    const measureList = generateMeasureList(datastore[0]);
 
     const handleChange = (event) => {
         setByLineMeasure(event.target.value);
-        const filteredDisplayData = datastore.filter((item) => item.measure === event.target.value);
+        const filteredDisplayData = datastore[0].filter((item) => item.measure === event.target.value);
         setByLineDisplayData(filteredDisplayData);
     };
 

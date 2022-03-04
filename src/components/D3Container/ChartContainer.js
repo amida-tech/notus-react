@@ -17,14 +17,18 @@ export const byLineDisplayDataContext = createContext('');
 
 function ChartContainer() {
   const { datastore, setDatastore } = useContext(datastoreContext);
-  const [displayData, setDisplayData] = useState(datastore);
+  const [displayData, setDisplayData] = useState([]);
   const [byLineDisplayData, setByLineDisplayData] = useState('');
   const [currentFilters, setCurrentFilters] = useState([]);
   const [byLineMeasure, setByLineMeasure] = useState('');
   const [tabValue, setTabValue] = useState(0);
 
+  const workingList = [];
+  datastore[0].forEach((item) => workingList.push(item.measure));
+  const measureList = Array.from(new Set(workingList));
+
   useEffect(() => {
-    setDisplayData(datastore);
+    setDisplayData(datastore[0]);
   }, [datastore]);
 
   useEffect(() => {
