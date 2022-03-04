@@ -40,7 +40,6 @@ function ChartContainer() {
       setByLineDisplayData('')
     }
     else if (newValue === 1) {
-      console.log(1)
       setByLineDisplayData('')
     }
     else {
