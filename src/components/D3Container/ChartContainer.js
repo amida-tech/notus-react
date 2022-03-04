@@ -23,10 +23,6 @@ function ChartContainer() {
   const [byLineMeasure, setByLineMeasure] = useState('');
   const [tabValue, setTabValue] = useState(0);
 
-  const workingList = [];
-  datastore[0].forEach((item) => workingList.push(item.measure));
-  const measureList = Array.from(new Set(workingList));
-
   useEffect(() => {
     setDisplayData(datastore[0]);
   }, [datastore]);
