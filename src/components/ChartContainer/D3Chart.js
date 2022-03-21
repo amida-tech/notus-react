@@ -165,16 +165,16 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
             return tooltip.style('visibility', 'hidden');
           });
       });
-      const date = parseDate(displayData[displayData.length - 1].date.split('T')[0]);
-      svg.append('line')
-        .attr('x1', x(date)) // <<== change your code here
-        .attr('y1', 0)
-        .attr('x2', x(date)) // <<== and here
-        .attr('y2', height - margin.bottom)
-        .style('stroke-width', 2)
-        .style('stroke', 'red')
-        .style('fill', 'none');
     }
+    // Create line at end of chart to make it a complete box
+    svg.append('line')
+      .attr('x1', width)
+      .attr('y1', 0)
+      .attr('x2', width)
+      .attr('y2', height - margin.bottom)
+      .style('stroke-width', 1)
+      .style('stroke', '#CFD8DC')
+      .style('fill', 'none');
   });
 
   return (
