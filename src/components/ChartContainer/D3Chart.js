@@ -119,8 +119,6 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
       .attr('class', 'd3-chart__tooltip');
 
     const toolTipGenerator = (event) => {
-      d3.select(event.currentTarget).attr('opacity', '1');
-      JSON.stringify(event);
       const avg30 = margin.left * 0.3;
       const tickWidth = Math.floor(width / tickCount + avg30);
       const index = Math.floor((event.offsetX - margin.left) / tickWidth);
@@ -167,6 +165,15 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
             return tooltip.style('visibility', 'hidden');
           });
       });
+      const date = parseDate(displayData[displayData.length - 1].date.split('T')[0]);
+      svg.append('line')
+        .attr('x1', x(date)) // <<== change your code here
+        .attr('y1', 0)
+        .attr('x2', x(date)) // <<== and here
+        .attr('y2', height - margin.bottom)
+        .style('stroke-width', 2)
+        .style('stroke', 'red')
+        .style('fill', 'none');
     }
   });
 
