@@ -37,7 +37,6 @@ function ChartBar({
   };
 
   const printDays = (position) => {
-    console.log(value)
     if (value && value !== [null, null]) {
       if (value[position] != null) {
         switch (position) {
