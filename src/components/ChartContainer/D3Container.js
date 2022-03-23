@@ -66,10 +66,6 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   }, [setSelectedMeasures, setCurrentFilters, store.currentResults]);
 
   const handleDisplayDataUpdate = (measures, filters, dates) => {
-    console.log(store);
-    console.log(measures);
-    console.log(filters);
-    console.log(dates);
     let newDisplayData = store.results.map((result) => ({ ...result }));
     newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
     if (filters.domainsOfCare.length > 0) {
