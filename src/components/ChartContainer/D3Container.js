@@ -43,6 +43,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const [byLineMeasure, setByLineMeasure] = useState('');
   const [byLineDisplayData, setByLineDisplayData] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
+  const [dateValue, setDateValue] = useState([null, null]);
 
   const workingList = [];
   store.results.forEach((item) => workingList.push(item.measure));
@@ -173,8 +174,8 @@ function D3Container({ dashboardState, dashboardActions, store }) {
             <ChartBar
               filterDrawerOpen={dashboardState.filterDrawerOpen}
               toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
-              datePickerOpen={dashboardState.datePickerOpen}
-              toggleDatePicker={dashboardActions.toggleDatePicker}
+              dateValue={dateValue}
+              changeDateValue={setDateValue}
               filterSum={currentFilters.sum}
             />
           </Grid>

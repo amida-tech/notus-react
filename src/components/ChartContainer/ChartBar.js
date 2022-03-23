@@ -16,12 +16,11 @@ import React, { createContext, useState } from 'react';
 export const filterMenuOpenContext = createContext(false);
 
 function ChartBar({
-  filterDrawerOpen, toggleFilterDrawer, filterSum,
+  filterDrawerOpen, toggleFilterDrawer, filterSum, dateValue, changeDateValue,
 }) {
   const buttonStyling = {};
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const [value, setValue] = useState([null, null]);
   const [open, setOpen] = useState(false);
 
   const handleClick = (event) => {
@@ -37,13 +36,13 @@ function ChartBar({
   };
 
   const printDays = (position) => {
-    if (value && value !== [null, null]) {
-      if (value[position] != null) {
+    if (dateValue && dateValue !== [null, null]) {
+      if (dateValue[position] != null) {
         switch (position) {
           case 0:
-            return moment(value[0]).format('M/DD/YY');
+            return moment(dateValue[0]).format('M/DD/YY');
           case 1:
-            return moment(value[1]).format('M/DD/YY');
+            return moment(dateValue[1]).format('M/DD/YY');
           default:
             return null
         }
@@ -88,9 +87,9 @@ function ChartBar({
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DesktopDateRangePicker
                 startText="Start"
-                value={value}
+                value={dateValue}
                 onChange={(newValue) => {
-                  setValue(newValue);
+                  changeDateValue(newValue);
                 }}
                 renderInput={(startProps, endProps) => (
                   <>
@@ -161,12 +160,18 @@ ChartBar.propTypes = {
   filterDrawerOpen: PropTypes.bool,
   toggleFilterDrawer: PropTypes.func,
   filterSum: PropTypes.number,
+  // Necessary for DateRangePicker to function and pass props
+  // eslint-disable-next-line react/forbid-prop-types
+  dateValue: PropTypes.array,
+  changeDateValue: PropTypes.func,
 };
 
 ChartBar.defaultProps = {
   filterDrawerOpen: false,
   toggleFilterDrawer: undefined,
   filterSum: 0,
+  dateValue: [null, null],
+  changeDateValue: undefined,
 }
 
 export default ChartBar;
