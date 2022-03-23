@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
