@@ -63,6 +63,15 @@ function ChartBar({
     handleDateChange(dates);
   }
 
+  const clearDate = () => {
+    changeDateValue([null, null]);
+    const dates = {
+      startDate: null,
+      endDate: null,
+    }
+    handleDateChange(dates);
+  }
+
   return (
     <Box>
       <Grid container className="chart-bar" direction="row" justifyContent="flex-end" spacing={0.1}>
@@ -112,7 +121,7 @@ function ChartBar({
 
             <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
               <Grid item>
-                <Button variant="contained" color="blue" onClick={() => changeDateValue([null, null])}>
+                <Button variant="contained" color="blue" onClick={clearDate}>
                   Clear Selection
                 </Button>
               </Grid>
