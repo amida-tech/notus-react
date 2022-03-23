@@ -16,7 +16,7 @@ import React, { createContext, useState } from 'react';
 export const filterMenuOpenContext = createContext(false);
 
 function ChartBar({
-  filterDrawerOpen, toggleFilterDrawer, filterSum, dateValue, changeDateValue,
+  filterDrawerOpen, toggleFilterDrawer, filterSum, dateValue, changeDateValue, handleDateChange,
 }) {
   const buttonStyling = {};
 
@@ -54,6 +54,15 @@ function ChartBar({
     }
   }
 
+  const dateSelector = (newValue) => {
+    changeDateValue(newValue);
+    const dates = {
+      startDate: newValue[0],
+      endDate: newValue[1],
+    }
+    handleDateChange(dates);
+  }
+
   return (
     <Box>
       <Grid container className="chart-bar" direction="row" justifyContent="flex-end" spacing={0.1}>
@@ -67,6 +76,7 @@ function ChartBar({
           >
             <Typography variant="caption">
               Timeline:
+              {' '}
               {printDays(0)}
               {' - '}
               {printDays(1)}
@@ -88,9 +98,8 @@ function ChartBar({
               <DesktopDateRangePicker
                 startText="Start"
                 value={dateValue}
-                onChange={(newValue) => {
-                  changeDateValue(newValue);
-                }}
+                onChange={dateSelector}
+                style={{ color: 'black' }}
                 renderInput={(startProps, endProps) => (
                   <>
                     <TextField sx={{ ml: '10px' }} {...startProps} />
@@ -103,7 +112,7 @@ function ChartBar({
 
             <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
               <Grid item>
-                <Button variant="contained" color="blue">
+                <Button variant="contained" color="blue" onClick={() => changeDateValue([null, null])}>
                   Clear Selection
                 </Button>
               </Grid>
@@ -164,6 +173,7 @@ ChartBar.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   dateValue: PropTypes.array,
   changeDateValue: PropTypes.func,
+  handleDateChange: PropTypes.func,
 };
 
 ChartBar.defaultProps = {
@@ -172,6 +182,7 @@ ChartBar.defaultProps = {
   filterSum: 0,
   dateValue: [null, null],
   changeDateValue: undefined,
+  handleDateChange: undefined,
 }
 
 export default ChartBar;

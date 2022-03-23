@@ -4,6 +4,7 @@ import {
 import React, {
   createContext, useState, useEffect,
 } from 'react';
+import moment from 'moment';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import D3IndicatorByLineSelector from './D3IndicatorByLineSelector';
@@ -64,7 +65,11 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     }
   }, [setSelectedMeasures, setCurrentFilters, store.currentResults]);
 
-  const handleDisplayDataUpdate = (measures, filters) => {
+  const handleDisplayDataUpdate = (measures, filters, dates) => {
+    console.log(store);
+    console.log(measures);
+    console.log(filters);
+    console.log(dates);
     let newDisplayData = store.results.map((result) => ({ ...result }));
     newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
     if (filters.domainsOfCare.length > 0) {
@@ -77,6 +82,23 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         (result) => filters.stars.includes(Math.floor( // Floor for the .5 stars.
           store.currentResults.find((current) => current.measure === result.measure).starRating,
         )),
+      )
+    }
+    if (dates.startDate || dates.endDate) {
+      newDisplayData = newDisplayData.filter(
+        (result) => {
+          if (dates.startDate && dates.endDate) {
+            return (moment(result.date).unix() < moment(dates.endDate).unix()
+              && moment(result.date).unix() > moment(dates.startDate).unix())
+          }
+          if (dates.startDate && dates.endDate === null) {
+            return moment(result.date).unix() > moment(dates.startDate).unix()
+          }
+          if (dates.endDate && dates.startDate === null) {
+            return moment(result.date).unix() < moment(dates.endDate).unix()
+          }
+          return false;
+        },
       )
     }
     if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
@@ -130,6 +152,10 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     )[0]);
   };
 
+  const handleDateChange = (dates) => {
+    handleDisplayDataUpdate(selectedMeasures, currentFilters, dates);
+  }
+
   return (
     <div>
       <FilterDrawer
@@ -176,6 +202,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
               toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
               dateValue={dateValue}
               changeDateValue={setDateValue}
+              handleDateChange={handleDateChange}
               filterSum={currentFilters.sum}
             />
           </Grid>
