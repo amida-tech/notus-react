@@ -80,23 +80,6 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         )),
       )
     }
-    if (dates.startDate || dates.endDate) {
-      newDisplayData = newDisplayData.filter(
-        (result) => {
-          if (dates.startDate && dates.endDate) {
-            return (moment(result.date).unix() < moment(dates.endDate).unix()
-              && moment(result.date).unix() > moment(dates.startDate).unix())
-          }
-          if (dates.startDate && dates.endDate === null) {
-            return moment(result.date).unix() > moment(dates.startDate).unix()
-          }
-          if (dates.endDate && dates.startDate === null) {
-            return moment(result.date).unix() < moment(dates.endDate).unix()
-          }
-          return false;
-        },
-      )
-    }
     if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
       newDisplayData = newDisplayData.filter(
         (result) => {
@@ -106,6 +89,25 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           return value >= filters.percentRange[0] && value <= filters.percentRange[1]
         },
       );
+    }
+    if (dates) {
+      if (dates.startDate || dates.endDate) {
+        newDisplayData = newDisplayData.filter(
+          (result) => {
+            if (dates.startDate && dates.endDate) {
+              return (moment(result.date).unix() < moment(dates.endDate).unix()
+                && moment(result.date).unix() > moment(dates.startDate).unix())
+            }
+            if (dates.startDate && dates.endDate === null) {
+              return moment(result.date).unix() > moment(dates.startDate).unix()
+            }
+            if (dates.endDate && dates.startDate === null) {
+              return moment(result.date).unix() < moment(dates.endDate).unix()
+            }
+            return false;
+          },
+        )
+      }
     }
     setDisplayData(newDisplayData);
   }
@@ -129,12 +131,12 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       newSelectedMeasures = selectedMeasures.filter((result) => result !== event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     }
-    handleDisplayDataUpdate(newSelectedMeasures, currentFilters);
+    handleDisplayDataUpdate(newSelectedMeasures, currentFilters, buildDates(dateValue));
   };
 
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
-    handleDisplayDataUpdate(selectedMeasures, filterOptions);
+    handleDisplayDataUpdate(selectedMeasures, filterOptions, buildDates(dateValue));
   }
 
   const handleByLineChange = (event) => {
@@ -147,6 +149,11 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       (item) => item.measure === event.target.value,
     )[0]);
   };
+
+  const buildDates = (dateState) => ({
+    startDate: dateState[0],
+    endDate: dateState[1],
+  })
 
   const handleDateChange = (dates) => {
     handleDisplayDataUpdate(selectedMeasures, currentFilters, dates);
