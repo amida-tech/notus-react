@@ -27,7 +27,6 @@ const Item = styled(Paper)(() => ({
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
-  const [datePickerOpen, toggleDatePicker] = useState(false);
   const [activeMeasure, setActiveMeasure] = useState({});
 
   useEffect(() => {
@@ -40,13 +39,11 @@ export default function Dashboard() {
   // add them through useState above and append them to these.
   const dashboardState = {
     filterDrawerOpen,
-    datePickerOpen,
   };
 
   const dashboardActions = {
     toggleFilterDrawer,
     setActiveMeasure,
-    toggleDatePicker,
   };
 
   return (

@@ -1,22 +1,21 @@
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import AdapterMoment from '@mui/lab/AdapterMoment';
 import SimCardDownloadIcon from '@mui/icons-material/SimCardDownload';
 import TuneIcon from '@mui/icons-material/Tune';
-import PropTypes from 'prop-types';
+import { DesktopDateRangePicker, LocalizationProvider } from '@mui/lab';
+import AdapterMoment from '@mui/lab/AdapterMoment';
 import {
-  Badge, Button, Grid, Menu, MenuItem, Paper, TextField, Typography,
+  Badge, Button, Grid, Menu, TextField, Typography
 } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { createContext, Fragment, useState } from 'react';
-import { DesktopDateRangePicker, LocalizationProvider } from '@mui/lab';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+import React, { createContext, Fragment, useState } from 'react';
 
 export const filterMenuOpenContext = createContext(false);
 
 function ChartBar({
-  filterDrawerOpen, toggleFilterDrawer,
-  datePickerOpen, toggleDatePicker, filterSum,
+  filterDrawerOpen, toggleFilterDrawer, filterSum,
 }) {
   const buttonStyling = {};
 
@@ -55,18 +54,6 @@ function ChartBar({
       return null
     }
   }
-
-  // const onclickDatePicker = (event) => {
-  //   console.log('I work tho');
-  //   console.log(event)
-  //   if (anchorEl === null) {
-  //     setAnchorEl(event.target)
-  //   }
-  //   else {
-  //     setAnchorEl(null)
-  //   }
-  //   toggleDatePicker(!datePickerOpen);
-  // }
 
   return (
     <Box>
@@ -108,14 +95,14 @@ function ChartBar({
                 renderInput={(startProps, endProps) => (
                   <Fragment>
                     <TextField sx={{ ml: '10px' }} {...startProps} />
-                    <Box sx={{ mx: 2, color: 'black' }}> to </Box>
+                      <Box sx={{ mx: 2, color: 'black' }}> to </Box>
                     <TextField sx={{ mr: '10px' }} {...endProps} />
                   </Fragment>
                 )}
               />
             </LocalizationProvider>
 
-            <Grid container justifyContent='center' sx={{ m: '10px', ml: '-10px' }}>
+            <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
               <Grid item>
                 <Button variant="contained" color="blue">
                   Clear Selection
@@ -173,16 +160,12 @@ function ChartBar({
 ChartBar.propTypes = {
   filterDrawerOpen: PropTypes.bool,
   toggleFilterDrawer: PropTypes.func,
-  datePickerOpen: PropTypes.bool,
-  toggleDatePicker: PropTypes.func,
   filterSum: PropTypes.number,
 };
 
 ChartBar.defaultProps = {
   filterDrawerOpen: false,
   toggleFilterDrawer: undefined,
-  datePickerOpen: false,
-  toggleDatePicker: undefined,
   filterSum: 0,
 }
 
