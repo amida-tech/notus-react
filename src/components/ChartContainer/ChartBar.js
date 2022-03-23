@@ -5,12 +5,12 @@ import TuneIcon from '@mui/icons-material/Tune';
 import { DesktopDateRangePicker, LocalizationProvider } from '@mui/lab';
 import AdapterMoment from '@mui/lab/AdapterMoment';
 import {
-  Badge, Button, Grid, Menu, TextField, Typography
+  Badge, Button, Grid, Menu, TextField, Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import React, { createContext, Fragment, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const filterMenuOpenContext = createContext(false);
 
@@ -93,11 +93,11 @@ function ChartBar({
                   setValue(newValue);
                 }}
                 renderInput={(startProps, endProps) => (
-                  <Fragment>
+                  <>
                     <TextField sx={{ ml: '10px' }} {...startProps} />
-                      <Box sx={{ mx: 2, color: 'black' }}> to </Box>
+                    <Box sx={{ mx: 2, color: 'black' }}> to </Box>
                     <TextField sx={{ mr: '10px' }} {...endProps} />
-                  </Fragment>
+                  </>
                 )}
               />
             </LocalizationProvider>
