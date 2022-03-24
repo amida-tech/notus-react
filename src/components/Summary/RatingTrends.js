@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
 import ToolTip from '@mui/material/Tooltip';
-import Rating from '@mui/material/Rating';
 import { Box } from '@mui/system';
 import {
   Button, Grid, Typography,
 } from '@mui/material';
 import TrendDisplay from './TrendDisplay';
+import StarRatingDisplay from './StarRatingDisplay';
 
 const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
@@ -67,13 +67,7 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
               <HelpIcon className="rating-trends__help-icon" fontSize="small" />
             </ToolTip>
           </Grid>
-          <Rating
-            className="rating-trends__star-rating"
-            name="read-only"
-            value={activeMeasure.starRating || 0}
-            precision={0.5}
-            readOnly
-          />
+          <StarRatingDisplay activeMeasure={activeMeasure} />
           <Typography className="rating-trends__star-rating-label">
             {activeMeasure.label && `(${activeMeasure.label})`}
           </Typography>
