@@ -22,7 +22,7 @@ function MeasureResultsRow({ measureResult, handleMeasureChange, measureColor })
             />
           </FormGroup>
         </Grid>
-        <Grid item className="measure-results-row__data-align-small">
+        <Grid item className="measure-results-row__data-align-measure">
           <Typography variant="caption" className="measure-results-row__data">
             {measureResult.label}
           </Typography>

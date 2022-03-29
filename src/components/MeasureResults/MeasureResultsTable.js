@@ -40,7 +40,7 @@ function MeasureResultsTable({ currentResults, handleMeasureChange, colorMapping
             <HelpIcon className="measure-results-table__help-icon" />
           </ToolTip>
         </Grid>
-        <Grid item className="measure-results-table__title-align-small">
+        <Grid item className="measure-results-table__title-align-measure">
           <Typography className="measure-results-table__title">
             Measure
           </Typography>

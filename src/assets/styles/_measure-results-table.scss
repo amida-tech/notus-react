@@ -22,21 +22,27 @@ $block-class: 'measure-results-table';
             display: flex;
             justify-content: center;
             padding: 16px 0 0 16px;
-            flex-basis: 16.66%;
+            flex-basis: 14%;
             min-width: 7%;
             align-items: center;
             margin: auto;
+        }
+
+        & &__title-align-measure {
+            @extend .measure-results-table__title-align;
+            flex-basis: 22%;
+            justify-content: left;
+        }
+
+        & &__title-align-small {
+            @extend .measure-results-table__title-align;
+            flex-basis: 8%
         }
 
         & &__title {
             word-wrap: break-word;
             font-weight: bold;
             color:$blue-grey-darken-1;
-        }
-
-        & &__title-align-small {
-            @extend .measure-results-table__title-align;
-            flex-basis: 8.33%
         }
 
         & &__help-icon {
