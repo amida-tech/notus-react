@@ -2829,7 +2829,7 @@ export const resultList = [
     measure: 'composite',
     date: '2022-02-27T00:00:00.000Z',
     value: 45.863095238095234,
-    starRating: -1,
+    starRating: 2,
     numerator: 78,
     denominator: 177,
     initialPopulation: 183,

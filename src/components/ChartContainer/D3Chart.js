@@ -2,9 +2,12 @@
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
+import { TickChange } from '../Utilites/TickChange';
 import { colorMappingProps } from './D3Props';
 
-function D3Chart({ displayData, colorMapping, measureInfo }) {
+function D3Chart({
+  displayData, colorMapping, measureInfo, graphWidth,
+}) {
   // Binder for react to apply changes to the svg
   const D3LineChart = useRef();
 
@@ -21,11 +24,11 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
     top: 50,
     right: 30,
     bottom: 75,
-    left: 40,
+    left: 45,
   };
   const box = document.querySelector('.MuiGrid-item');
-  const widthBase = (window.innerWidth || document.body.clientWidth);
-  const width = box === null ? (widthBase * 0.8) : box.offsetWidth - 200;
+  const widthBase = (graphWidth || document.body.clientWidth);
+  const width = box === null ? (widthBase * 0.8) : box.offsetWidth - 220;
   const height = 500;
   const tickCount = displayData.length / measureList.length;
 
@@ -45,7 +48,7 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
       .select(D3LineChart.current)
       .attr('class', 'd3-chart__line-chart')
       .append('g')
-      .attr('transform', `translate(${margin.left},${margin.top})`);
+      .attr('transform', `translate(${margin.left + 50},${margin.top})`);
 
     // Generates labels and context for x axis
     const x = d3.scaleTime() // What data we're measuring
@@ -56,8 +59,8 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
     // X Axis labels and context
     svg
       .append('g')
-      .attr('transform', `translate(0,${height - margin.bottom})`)
-      .attr('class', 'd3-chart__dates')
+      .attr('transform', `translate(0,${height - margin.bottom / 1.4})`)
+      .attr('class', 'd3-chart__dates-x')
       .call(
         d3.axisBottom(x).ticks(tickCount).tickFormat(d3.timeFormat('%b %d')),
       );
@@ -70,7 +73,7 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
       .domain([0, 100])
       .range([height - margin.bottom, 0]);
 
-    svg.append('g').attr('class', 'd3-chart__dates').call(d3.axisLeft(y));
+    svg.append('g').attr('class', 'd3-chart__rating-y').call(d3.axisLeft(y));
 
     // Grid
     // gridlines in x axis function
@@ -98,14 +101,26 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
 
     d3.selectAll('.axis-grid line').style('stroke', 'lightgray');
 
-    // svg.append('text')
-    //   .attr('x', width / 2)
-    //   .attr('y', -30)
-    //   .attr('text-anchor', 'middle')
-    //   .attr('fint-size', '10px')
-    //   .attr('fill', 'black')
-    //   .text('demoData Graph (D3)');
+    // X axis label:
 
+    svg.append('text')
+      .attr('x', width / 2)
+      .attr('y', height + 20)
+      .attr('class', 'd3-chart__label')
+      .text('Year to Date');
+    // Y axis label:
+    svg
+      .append('text')
+      .attr('class', 'd3-chart__label')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', -margin.left - 25)
+      .attr('x', -margin.top - 160)
+      .text('Percent');
+
+    // Change Ticks to Percent
+    const ChartType = 'D3Chart';
+
+    TickChange(ChartType)
     // Generates the actual line
     const line = d3
       .line()
@@ -117,17 +132,17 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
       .select('body')
       .append('div')
       .attr('class', 'd3-chart__tooltip');
-
     const toolTipGenerator = (event) => {
       const avg30 = margin.left * 0.3;
       const tickWidth = Math.floor(width / tickCount + avg30);
       const index = Math.floor((event.offsetX - margin.left) / tickWidth);
-      const measureDisplay = measureInfo[
+      const MeasureValue = measureInfo[
         event.srcElement.__data__[index].measure
-      ].displayLabel;
+      ].displayLabel
+      const measureDisplay = MeasureValue === 'Composite' ? `${MeasureValue} Score` : `Measure: ${MeasureValue}`;
       const valueDisplay = `Value: ${
         Math.floor(event.srcElement.__data__[index].value * 100) / 100
-      }`;
+      }%`;
       const dateDisplay = TimeFormatter(event.srcElement.__data__[index].date);
       tooltip.text(`${measureDisplay} \n ${valueDisplay} \n ${dateDisplay}`);
       const { color } = colorMapping.find(
@@ -176,7 +191,6 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
       .style('stroke', '#CFD8DC')
       .style('fill', 'none');
   });
-
   return (
     <div className="d3-chart">
       <svg ref={D3LineChart} />
@@ -195,12 +209,14 @@ D3Chart.propTypes = {
     displayLabel: PropTypes.string,
   }),
   colorMapping: colorMappingProps,
+  graphWidth: PropTypes.number,
 };
 
 D3Chart.defaultProps = {
   displayData: [],
   measureInfo: {},
   colorMapping: [],
+  graphWidth: 0,
 };
 
 export default D3Chart;
