@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import {
-  Divider, Grid, Checkbox, Typography, FormGroup,
+  Divider, Grid, Typography,
 } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -35,19 +35,13 @@ function MeasureResultsTable({ currentResults, handleMeasureChange, colorMapping
     <Grid container className="measure-results-table">
       <Grid container item className="measure-results-table__header-section">
         <Grid item className="measure-results-table__title-align-small">
-          <FormGroup>
-            <Checkbox
-              disableRipple
-              defaultChecked
-              size="medium"
-            />
-          </FormGroup>
+          <Typography className="measure-results-table__measure-title">View</Typography>
           <ToolTip title={viewTip}>
             <HelpIcon className="measure-results-table__help-icon" />
           </ToolTip>
         </Grid>
         <Grid item className="measure-results-table__title-align-small">
-          <Typography className="measure-results-table__title">
+          <Typography className="measure-results-table__measure-title">
             Measure
           </Typography>
           <ToolTip title={measureTip}>

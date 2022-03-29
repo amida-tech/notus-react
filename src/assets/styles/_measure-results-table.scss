@@ -3,8 +3,12 @@
 
 $block-class: 'measure-results-table';
 
+
 @at-root {
     .#{$block-class} {
+        box-shadow: 1px 2px 2px 1px $blue-grey-lighten-2;
+        border-radius: 5px;
+
         & &__header-section {
             justify-content: space-evenly;
             align-items: center;
@@ -21,11 +25,19 @@ $block-class: 'measure-results-table';
             flex-basis: 16.66%;
             min-width: 7%;
             align-items: center;
+            margin: auto;
         }
-
+        & &__measure-title{
+            word-wrap: break-word;
+            font-weight: bold;
+            color:$blue-grey-darken-1;
+            text-align: left;
+        }
         & &__title {
             word-wrap: break-word;
             font-weight: bold;
+            color:$blue-grey-darken-1;
+            // margin:auto;
         }
 
         & &__title-align-small {
@@ -44,14 +56,18 @@ $block-class: 'measure-results-table';
         }
         & &__data-measure-title{
             color:$default-black;
-            font-size:.8rem;
+            font-size:.9rem;
         }
         & &__data{
             color:$default-black;
             font-size:.9rem;
         }
-        & &__divider{
-            color:red;
+        & &__data-measure-title{
+            // color:$default-black;
+            font-size:.9rem;
+        }
+        &__divider{
+            color:green;
         }
     }
 }

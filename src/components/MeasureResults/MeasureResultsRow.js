@@ -8,10 +8,10 @@ import React from 'react';
 function MeasureResultsRow({ measureResult, handleMeasureChange, measureColor }) {
   return (
     <Box>
-      <Divider color="black" />
-      <Grid container justifyContent="space-evenly" direction="row" alignItems="center" spacing={2} sx={{ width: '100%', p: '3px' }}>
+      <Divider color="#78909C" stroke={2} />
+      <Grid container justifyContent="space-evenly" align-items="center" direction="row" spacing={2} sx={{ width: '100%', p: '3px', m: '0px' }}>
         <Grid item xs={1}>
-          <FormGroup sx={{ ml: '8px' }}>
+          <FormGroup sx={{ ml: '0' }}>
             <Checkbox
               style={{ color: measureColor.color }}
               disableRipple
