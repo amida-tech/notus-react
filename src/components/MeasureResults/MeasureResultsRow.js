@@ -7,11 +7,11 @@ import React from 'react';
 
 function MeasureResultsRow({ measureResult, handleMeasureChange, measureColor }) {
   return (
-    <Box>
-      <Divider color="#78909C" stroke={2} />
-      <Grid container justifyContent="space-evenly" align-items="center" direction="row" spacing={2} sx={{ width: '100%', p: '3px', m: '0px' }}>
-        <Grid item xs={1}>
-          <FormGroup sx={{ ml: '0' }}>
+    <Box className="measure-results-row">
+      <Divider className="measure-results-row__divider" stroke={2} />
+      <Grid container className="measure-results-row__row-section">
+        <Grid item className="measure-results-row__data-align-small">
+          <FormGroup className="measure-results-row__form-group">
             <Checkbox
               style={{ color: measureColor.color }}
               disableRipple
@@ -22,33 +22,33 @@ function MeasureResultsRow({ measureResult, handleMeasureChange, measureColor })
             />
           </FormGroup>
         </Grid>
-        <Grid item xs={1}>
-          <Typography variant="caption" className="measure-results-table__data-measure-title">
+        <Grid item className="measure-results-row__data-align-small">
+          <Typography variant="caption" className="measure-results-row__data">
             {measureResult.label}
           </Typography>
         </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption" className="measure-results-table__data">
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
             {measureResult.included}
           </Typography>
         </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption" className="measure-results-table__data">
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
             {measureResult.eligible}
           </Typography>
         </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption" className="measure-results-table__data">
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
             {measureResult.numerator}
           </Typography>
         </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption" className="measure-results-table__data">
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
             {measureResult.denominator}
           </Typography>
         </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption" className="measure-results-table__data">
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
             {measureResult.exclusions}
           </Typography>
         </Grid>

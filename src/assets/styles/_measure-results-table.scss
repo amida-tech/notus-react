@@ -32,7 +32,6 @@ $block-class: 'measure-results-table';
             word-wrap: break-word;
             font-weight: bold;
             color:$blue-grey-darken-1;
-            // margin:auto;
         }
 
         & &__title-align-small {
@@ -42,27 +41,16 @@ $block-class: 'measure-results-table';
 
         & &__help-icon {
             @extend .rating-trends__help-icon;
-            margin-top: 0.13rem;
+            margin-top: -0.05rem;
             font-size: 1.25rem;
         }
 
         & &__row {
             width: 100%;
         }
-        & &__data-measure-title{
-            color:$default-black;
-            font-size:.9rem;
-        }
-        & &__data{
-            color:$default-black;
-            font-size:.9rem;
-        }
-        & &__data-measure-title{
-            // color:$default-black;
-            font-size:.9rem;
-        }
-        &__divider{
-            color:green;
+
+        & &__divider {
+            background-color: $blue-grey-lighten-1;
         }
     }
 }
