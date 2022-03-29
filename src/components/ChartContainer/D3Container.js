@@ -51,6 +51,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const [byLineDisplayData, setByLineDisplayData] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
   const [dateValue, setDateValue] = useState([null, null]);
+  const [graphWidth, setGraphWidth] = useState(window.innerWidth)
 
   const workingList = [];
   store.results.forEach((item) => workingList.push(item.measure));
@@ -62,7 +63,19 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   }));
 
   useEffect(() => {
-    setDisplayData(store.results.map((result) => ({ ...result })));
+    function handleResize() {
+      setGraphWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  })
+
+  useEffect(() => {
+    setDisplayData(store.results.map((result) => ({ ...result })))
   }, [store]);
 
   useEffect(() => {
@@ -201,6 +214,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           </Grid>
           <D3IndicatorByLineChart
             byLineDisplayData={byLineDisplayData}
+            graphWidth={graphWidth}
             colorMapping={colorMap}
             measureInfo={store.info}
           />
@@ -223,6 +237,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
               displayData={displayData}
               colorMapping={colorMap}
               measureInfo={store.info}
+              graphWidth={graphWidth}
             />
           </Grid>
         </Grid>

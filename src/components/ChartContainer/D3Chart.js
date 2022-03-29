@@ -5,7 +5,9 @@ import React, { useEffect, useRef } from 'react';
 import { TickChange } from '../Utilites/TickChange';
 import { colorMappingProps } from './D3Props';
 
-function D3Chart({ displayData, colorMapping, measureInfo }) {
+function D3Chart({
+  displayData, colorMapping, measureInfo, graphWidth,
+}) {
   // Binder for react to apply changes to the svg
   const D3LineChart = useRef();
 
@@ -25,7 +27,7 @@ function D3Chart({ displayData, colorMapping, measureInfo }) {
     left: 45,
   };
   const box = document.querySelector('.MuiGrid-item');
-  const widthBase = (window.innerWidth || document.body.clientWidth);
+  const widthBase = (graphWidth || document.body.clientWidth);
   const width = box === null ? (widthBase * 0.8) : box.offsetWidth - 220;
   const height = 500;
   const tickCount = displayData.length / measureList.length;
@@ -207,12 +209,14 @@ D3Chart.propTypes = {
     displayLabel: PropTypes.string,
   }),
   colorMapping: colorMappingProps,
+  graphWidth: PropTypes.number,
 };
 
 D3Chart.defaultProps = {
   displayData: [],
   measureInfo: {},
   colorMapping: [],
+  graphWidth: 0,
 };
 
 export default D3Chart;

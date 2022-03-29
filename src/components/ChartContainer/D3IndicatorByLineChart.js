@@ -9,6 +9,7 @@ function D3IndicatorByLineChart({
   byLineDisplayData,
   colorMapping,
   measureInfo,
+  graphWidth,
 }) {
   // Binder for react to apply changes to the svg
   const D3IndicatorLineChart = useRef();
@@ -24,8 +25,8 @@ function D3IndicatorByLineChart({
     left: 45,
   };
   const box = document.querySelector('.MuiGrid-item');
-  const widthBase = window.innerWidth || document.body.clientWidth;
-  const width = box === null ? widthBase * 0.8 : box.offsetWidth - 250;
+  const widthBase = (graphWidth || document.body.clientWidth);
+  const width = box === null ? (widthBase * 0.8) : box.offsetWidth - 220;
   const height = 500;
   const tickCount = byLineDisplayData.length;
   function TimeFormatter(dateToFormat) {
@@ -142,8 +143,7 @@ function D3IndicatorByLineChart({
       const measureDisplay = MeasureValue === 'Composite'
         ? `${MeasureValue} Score`
         : `Measure: ${MeasureValue}`;
-      const valueDisplay = `Value: ${
-        Math.floor(event.srcElement.__data__[index].value * 100) / 100
+      const valueDisplay = `Value: ${Math.floor(event.srcElement.__data__[index].value * 100) / 100
       }%`;
       const dateDisplay = TimeFormatter(event.srcElement.__data__[index].date);
       tooltip.text(`${measureDisplay} \n ${valueDisplay} \n ${dateDisplay}`);
@@ -213,10 +213,12 @@ D3IndicatorByLineChart.propTypes = {
     displayLabel: PropTypes.string,
   }),
   colorMapping: colorMappingProps,
+  graphWidth: PropTypes.number,
 };
 
 D3IndicatorByLineChart.defaultProps = {
   byLineDisplayData: [],
+  graphWidth: 0,
   measureInfo: {},
   colorMapping: [],
 };
