@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import HelpIcon from '@mui/icons-material/Help';
-import ToolTip from '@mui/material/Tooltip';
 import { Box } from '@mui/system';
-import {
-  Button, Grid, Typography, Rating,
-} from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import TrendDisplay from './TrendDisplay';
 import Info from './Info';
+import StarRatingDisplay from './StarRatingDisplay';
 
 const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
-const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
 function RatingTrends({ activeMeasure, trends, info }) {
   const mainTrend = { measure: '', percentChange: undefined };

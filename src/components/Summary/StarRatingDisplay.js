@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import Rating from '@mui/material/Rating';
 import HelpIcon from '@mui/icons-material/Help';
 import ToolTip from '@mui/material/Tooltip';
-import {
-  Grid, Typography,
-} from '@mui/material';
+import { Grid, Typography, Rating } from '@mui/material';
 
 function StarRatingDisplay({ activeMeasure }) {
   const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
