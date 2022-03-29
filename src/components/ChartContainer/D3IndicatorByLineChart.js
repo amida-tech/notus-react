@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
-function D3IndicatorByLineChart({ byLineDisplayData }) {
+function D3IndicatorByLineChart({ byLineDisplayData, graphWidth }) {
   // Binder for react to apply changes to the svg
   const D3IndicatorLineChart = useRef();
 
@@ -17,7 +17,7 @@ function D3IndicatorByLineChart({ byLineDisplayData }) {
     left: 30,
   };
   const box = document.querySelector('.MuiGrid-item');
-  const widthBase = (window.innerWidth || document.body.clientWidth);
+  const widthBase = (graphWidth || document.body.clientWidth);
   const width = box === null ? (widthBase * 0.8) : box.offsetWidth - 200;
   const height = 500;
   const tickCount = byLineDisplayData.length;
@@ -126,10 +126,12 @@ D3IndicatorByLineChart.propTypes = {
       date: PropTypes.string,
     }),
   ),
+  graphWidth: PropTypes.number,
 };
 
 D3IndicatorByLineChart.defaultProps = {
   byLineDisplayData: [],
+  graphWidth: 0,
 };
 
 export default D3IndicatorByLineChart;
