@@ -35,13 +35,13 @@ function MeasureResultsTable({ currentResults, handleMeasureChange, colorMapping
     <Grid container className="measure-results-table">
       <Grid container item className="measure-results-table__header-section">
         <Grid item className="measure-results-table__title-align-small">
-          <Typography className="measure-results-table__measure-title">View</Typography>
+          <Typography className="measure-results-table__title">View</Typography>
           <ToolTip title={viewTip}>
             <HelpIcon className="measure-results-table__help-icon" />
           </ToolTip>
         </Grid>
         <Grid item className="measure-results-table__title-align-small">
-          <Typography className="measure-results-table__measure-title">
+          <Typography className="measure-results-table__title">
             Measure
           </Typography>
           <ToolTip title={measureTip}>
