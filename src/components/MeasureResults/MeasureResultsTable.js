@@ -1,5 +1,7 @@
 /* eslint-disable no-undef */
-import { Divider, Grid, Typography } from '@mui/material';
+import {
+  Divider, Grid, Checkbox, Typography, FormGroup,
+} from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
@@ -32,6 +34,18 @@ function MeasureResultsTable({ currentResults, handleMeasureChange, colorMapping
   return (
     <Grid container className="measure-results-table">
       <Grid container item className="measure-results-table__header-section">
+        <Grid item className="measure-results-table__title-align-small">
+          <FormGroup>
+            <Checkbox
+              disableRipple
+              defaultChecked
+              size="medium"
+            />
+          </FormGroup>
+          <ToolTip title={viewTip}>
+            <HelpIcon className="measure-results-table__help-icon" />
+          </ToolTip>
+        </Grid>
         <Grid item className="measure-results-table__title-align-small">
           <Typography className="measure-results-table__title">
             Measure
@@ -80,15 +94,8 @@ function MeasureResultsTable({ currentResults, handleMeasureChange, colorMapping
             <HelpIcon className="measure-results-table__help-icon" />
           </ToolTip>
         </Grid>
-        <Grid item className="measure-results-table__title-align-small">
-          <Typography>
-            View
-          </Typography>
-          <ToolTip title={viewTip}>
-            <HelpIcon className="measure-results-table__help-icon" />
-          </ToolTip>
-        </Grid>
       </Grid>
+
       {currentResults.map((item) => (
         <Grid
           item

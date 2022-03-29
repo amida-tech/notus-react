@@ -25,6 +25,7 @@ $block-class: 'measure-results-table';
 
         & &__title {
             word-wrap: break-word;
+            font-weight: bold;
         }
 
         & &__title-align-small {
@@ -40,6 +41,17 @@ $block-class: 'measure-results-table';
 
         & &__row {
             width: 100%;
+        }
+        & &__data-measure-title{
+            color:$default-black;
+            font-size:.8rem;
+        }
+        & &__data{
+            color:$default-black;
+            font-size:.9rem;
+        }
+        & &__divider{
+            color:red;
         }
     }
 }
