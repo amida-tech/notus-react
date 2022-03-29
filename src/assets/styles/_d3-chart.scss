@@ -1,40 +1,55 @@
 $block-class: 'd3-chart';
 
-$YAXIS_LINE_COLOR: #cfd8dc;
-$AXIS_LABEL_COLOR: #b0bec5;
+@import 'colors';
 
 @at-root {
   .#{$block-class} {
-    width: 80vw;
+    width: 90vw;
 
     &__line-chart {
-      height: 500px;
-      width: 90vw;
+      height: 650px;
+      width: 93vw;
       background-color: #fff;
-      // transform: translate(30px, 50px);
     }
 
-    &__line {
-      color: green;
-    }
     &__x-axis {
       display: none;
     }
-    &__y-axis {
-      color: $YAXIS_LINE_COLOR;
-    }
-    &__dates {
-      color: $AXIS_LABEL_COLOR;
 
+    &__y-axis {
+      color: $y-axis-line-color;
+    }
+
+    &__stroke-stroke-width-opacity {
+      stroke-width: 2;
+      stroke-opacity: 0.5;
+    }
+
+    &__label {
+      fill: $axis-label-color;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-anchor: middle;
+    }
+
+    &__rating-y {
+      color: $axis-label-color;
+      font-size: 1.125rem;
+      font-weight: bold;
+    }
+
+    &__dates-x {
+      color: $axis-label-color;
       font-size: 1rem;
       font-weight: bold;
     }
+
     &__tooltip {
       position: absolute;
       z-index: 10;
       visibility: hidden;
-      background: grey;
-      border: 1px solid black;
+      background: $default-gray;
+      border: 1px solid $default-black;
       color: white;
       padding: 5px 10px;
       font-size: 1rem;
@@ -43,6 +58,7 @@ $AXIS_LABEL_COLOR: #b0bec5;
       visibility: hidden;
       white-space: pre-line;
     }
+
     &__overlay {
       fill: none;
       pointer-events: all;

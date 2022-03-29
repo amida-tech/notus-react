@@ -12,9 +12,13 @@ import D3IndicatorByLineChart from './D3IndicatorByLineChart';
 import TabPanel from '../Common/TabPanel';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import MeasureResultsTable from '../MeasureResults/MeasureResultsTable';
-import { storeProps, dashboardStateProps, dashboardActionsProps } from './D3Props';
+import {
+  storeProps,
+  dashboardStateProps,
+  dashboardActionsProps,
+} from './D3Props';
 
-export const firstRenderContext = createContext(true)
+export const firstRenderContext = createContext(true);
 
 const colorArray = [
   '#003F5C',
@@ -27,7 +31,7 @@ const colorArray = [
   '#FFA600',
   '#9D02D7',
   '#0000FF',
-]
+];
 
 // If nothing set, select all.
 const defaultFilterState = {
@@ -35,10 +39,12 @@ const defaultFilterState = {
   stars: [],
   percentRange: [0, 100],
   sum: 0,
-}
+};
 
 function D3Container({ dashboardState, dashboardActions, store }) {
-  const [displayData, setDisplayData] = useState(store.results.map((result) => ({ ...result })));
+  const [displayData, setDisplayData] = useState(
+    store.results.map((result) => ({ ...result })),
+  );
   const [currentFilters, setCurrentFilters] = useState(defaultFilterState);
   const [tabValue, setTabValue] = useState(0);
   const [byLineMeasure, setByLineMeasure] = useState('');
@@ -53,10 +59,10 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const colorMap = measureList.map((item, index) => ({
     measure: item,
     color: index <= 10 ? colorArray[index] : colorArray[index % 10],
-  }))
+  }));
 
   useEffect(() => {
-    setDisplayData(store.results.map((result) => ({ ...result })))
+    setDisplayData(store.results.map((result) => ({ ...result })));
   }, [store]);
 
   useEffect(() => {
@@ -74,21 +80,24 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       );
     }
     if (filters.stars.length > 0) {
-      newDisplayData = newDisplayData.filter(
-        (result) => filters.stars.includes(Math.floor( // Floor for the .5 stars.
-          store.currentResults.find((current) => current.measure === result.measure).starRating,
-        )),
-      )
+      newDisplayData = newDisplayData.filter((result) => filters.stars.includes(
+        Math.floor(
+          // Floor for the .5 stars.
+          store.currentResults.find(
+            (current) => current.measure === result.measure,
+          ).starRating,
+        ),
+      ));
     }
     if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
-      newDisplayData = newDisplayData.filter(
-        (result) => {
-          const { value } = store.currentResults.find(
-            (current) => current.measure === result.measure,
-          );
-          return value >= filters.percentRange[0] && value <= filters.percentRange[1]
-        },
-      );
+      newDisplayData = newDisplayData.filter((result) => {
+        const { value } = store.currentResults.find(
+          (current) => current.measure === result.measure,
+        );
+        return (
+          value >= filters.percentRange[0] && value <= filters.percentRange[1]
+        );
+      });
     }
     if (dates) {
       if (dates.startDate || dates.endDate) {
@@ -110,7 +119,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       }
     }
     setDisplayData(newDisplayData);
-  }
+  };
 
   const handleTabChange = (event, index) => {
     setTabValue(index);
@@ -120,7 +129,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     );
     setByLineDisplayData(filteredDisplayData);
     dashboardActions.setActiveMeasure(store.currentResults[0]);
-  }
+  };
 
   const handleMeasureChange = (event) => {
     let newSelectedMeasures;
@@ -128,7 +137,9 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       newSelectedMeasures = selectedMeasures.concat(event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     } else {
-      newSelectedMeasures = selectedMeasures.filter((result) => result !== event.target.value);
+      newSelectedMeasures = selectedMeasures.filter(
+        (result) => result !== event.target.value,
+      );
       setSelectedMeasures(newSelectedMeasures);
     }
     handleDisplayDataUpdate(newSelectedMeasures, currentFilters, buildDates(dateValue));
@@ -145,9 +156,11 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       (item) => item.measure === event.target.value,
     );
     setByLineDisplayData(filteredDisplayData);
-    dashboardActions.setActiveMeasure(store.currentResults.filter(
-      (item) => item.measure === event.target.value,
-    )[0]);
+    dashboardActions.setActiveMeasure(
+      store.currentResults.filter(
+        (item) => item.measure === event.target.value,
+      )[0],
+    );
   };
 
   const buildDates = (dateState) => ({
@@ -178,10 +191,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       <TabPanel value={tabValue} index={1}>
         <Paper>
           <Grid container>
-            <Grid
-              item
-              sx={{ width: '25%' }}
-            >
+            <Grid item sx={{ width: '25%' }}>
               <D3IndicatorByLineSelector
                 currentResults={store.currentResults}
                 byLineMeasure={byLineMeasure}
@@ -191,15 +201,14 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           </Grid>
           <D3IndicatorByLineChart
             byLineDisplayData={byLineDisplayData}
+            colorMapping={colorMap}
+            measureInfo={store.info}
           />
         </Paper>
       </TabPanel>
       <TabPanel value={tabValue} index={0}>
         <Grid container justifyContent="space-evenly" direction="column">
-          <Grid
-            item
-            className="d3-container__chart"
-          >
+          <Grid item className="d3-container__chart">
             <ChartBar
               filterDrawerOpen={dashboardState.filterDrawerOpen}
               toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
@@ -224,7 +233,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         />
       </TabPanel>
     </div>
-  )
+  );
 }
 
 D3Container.propTypes = {
@@ -239,6 +248,6 @@ D3Container.defaultProps = {
     filterDrawerOpen: false,
   },
   dashboardActions: {},
-}
+};
 
 export default D3Container;
