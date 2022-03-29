@@ -51,7 +51,12 @@ $block-class: 'rating-trends';
             display: flex;
             justify-content: center;
         }
-
+        &__not-applicable{
+            margin-top: 1rem;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: #263238;
+        }
         & &__h3-header {
             text-align: center;
             font-weight: 600;
@@ -59,7 +64,7 @@ $block-class: 'rating-trends';
             height: 2.875rem;
         }
 
-        &__help-icon {
+        & &__help-icon {
             color: $gray-light;
             margin-left: 0.4rem;
             margin-top: 0.1rem;
