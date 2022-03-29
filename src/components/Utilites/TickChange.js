@@ -1,93 +1,79 @@
 /* eslint-disable no-underscore-dangle */
 const TickChange = (ChartType) => {
-  // X-axis tick lines
-  const ticksFoundOnXAxis = document.querySelectorAll(
-    '.d3-chart__datesX > .tick > line',
-  );
-  // Y-axis tick lines
-  const ratingPercentTickLinesFoundY = document.querySelectorAll(
-    '.d3-chart__ratingY > .tick > line',
-  );
-  // Y-axis text
-  const ratingPercentTextFoundY = document.querySelectorAll(
-    '.d3-chart__ratingY > .tick > text',
-  );
-  // X-axis Y-axis
+  const ticksFoundOnXAxis = document.querySelectorAll('.d3-chart__dates-x > .tick > line');
+  const ratingPercentTickLinesFoundY = document.querySelectorAll('.d3-chart__rating-y > .tick > line');
+  const ratingPercentTextFoundY = document.querySelectorAll('.d3-chart__rating-y > .tick > text');
   const DomainsFound = document.querySelectorAll('.domain');
 
   if (ChartType === 'D3Chart') {
-    // D3 Chart
-    // D3 Chart
-    // D3 Chart
-
     // Removes numbers of Y-axis on 10,30,50,70 and 90.
-    for (let i = 0; i < ratingPercentTextFoundY.length; i += 1) {
-      const ratingPercentTextFoundYInnerHtml = ratingPercentTextFoundY[i].innerHTML;
-      if (ratingPercentTextFoundYInnerHtml % 20 > 0) {
-        ratingPercentTextFoundY[i].style.display = 'none';
-      } else {
-        // Adds a Percent sign to the end of the rest.
-        ratingPercentTextFoundY[i].innerHTML = `${ratingPercentTextFoundYInnerHtml}%`
+    ratingPercentTextFoundY.forEach((ratingPercent) => {
+      const newRatingPercent = ratingPercent;
+      if (newRatingPercent.innerHTML % 20 > 0) {
+        newRatingPercent.style.display = 'none';
+      } else { // Adds a Percent sign to the end of the rest.
+        newRatingPercent.innerHTML = `${newRatingPercent.innerHTML}%`;
       }
-    }
+    })
     // Removes ticks above dates on x-axis.
-    for (let i = 0; i < ticksFoundOnXAxis.length; i += 1) {
-      ticksFoundOnXAxis[i].style.display = 'none';
-    }
+    ticksFoundOnXAxis.forEach((ticksFound) => {
+      const newTicksFound = ticksFound;
+      newTicksFound.style.display = 'none';
+    })
 
     // Removes ticks of y-axis on 10, 30, 50, 70 and 90.
-    for (let i = 0; i < ratingPercentTickLinesFoundY.length; i += 1) {
-      if (ratingPercentTickLinesFoundY[i].__data__ % 20 > 0) {
-        ratingPercentTickLinesFoundY[i].style.display = 'none';
-      }
-    }
+    ratingPercentTickLinesFoundY.forEach((ratingPercent) => {
+      setOddPercentsToDisplayNone(ratingPercent);
+    })
 
     // Removes X-axis line
     DomainsFound[0].style.display = 'none';
   } else {
-    // D3 Chart Indicator By Line Chart
-    // D3 Chart Indicator By Line Chart
-    // D3 Chart Indicator By Line Chart
-
     // X-axis tick lines
     const tickLinesFoundLineChartX = document.querySelectorAll(
-      '.d3-indicator-by-line-chart__datesX > .tick > line',
+      '.d3-indicator-by-line-chart__dates-x > .tick > line',
     );
 
     // Y-axis tick lines
     const ratingPercentTickLinesFoundLineChartY = document.querySelectorAll(
-      '.d3-indicator-by-line-chart__ratingY > .tick > line',
+      '.d3-indicator-by-line-chart__rating-y > .tick > line',
     );
     // Y-axis text
-    const ratingPercentTextFoundLineChatY = document.querySelectorAll(
-      '.d3-indicator-by-line-chart__ratingY > .tick > text',
+    const ratingPercentTextFoundLineChartY = document.querySelectorAll(
+      '.d3-indicator-by-line-chart__rating-y > .tick > text',
     );
     // Remove ticks above dates on x-axis
-    for (let i = 0; i < tickLinesFoundLineChartX.length; i += 1) {
-      tickLinesFoundLineChartX[i].style.display = 'none';
-    }
+    tickLinesFoundLineChartX.forEach((tickLines) => {
+      const newTickLines = tickLines;
+      newTickLines.style.display = 'none';
+    });
 
     // Removes X-axis line
     DomainsFound[0].style.display = 'none';
 
     // Removes ticks of y-axis on 10, 30, 50, 70 and 90.
-    for (let i = 0; i < ratingPercentTickLinesFoundLineChartY.length; i += 1) {
-      if (ratingPercentTickLinesFoundLineChartY[i].__data__ % 20 > 0) {
-        ratingPercentTickLinesFoundLineChartY[i].style.display = 'none';
-      }
-    }
+    ratingPercentTickLinesFoundLineChartY.forEach((ratingPercent) => {
+      setOddPercentsToDisplayNone(ratingPercent);
+    })
 
     // Removes numbers of Y-axis on 10,30,50,70 and 90.
-    for (let i = 0; i < ratingPercentTextFoundLineChatY.length; i += 1) {
-      const ratingPercentTextFoundLineChatYInnerHtml = ratingPercentTextFoundLineChatY[i].innerHTML;
-      if (ratingPercentTextFoundLineChatYInnerHtml % 20 > 0) {
-        ratingPercentTextFoundLineChatY[i].style.display = 'none';
+    ratingPercentTextFoundLineChartY.forEach((ratingPercent) => {
+      const newRatingPercent = ratingPercent;
+      if (newRatingPercent.innerHTML % 20 > 0) {
+        newRatingPercent.style.display = 'none';
       } else {
         // Adds a Percent sign to the end of the rest.
-        ratingPercentTextFoundLineChatY[i].innerHTML = `${ratingPercentTextFoundLineChatYInnerHtml}%`
+        newRatingPercent.innerHTML = `${newRatingPercent.innerHTML}%`
       }
-    }
+    })
   }
 };
+
+function setOddPercentsToDisplayNone(ratingPercent) {
+  const newRatingPercent = ratingPercent;
+  if (newRatingPercent.__data__ % 20 > 0) {
+    newRatingPercent.style.display = 'none';
+  }
+}
 
 module.exports = { TickChange };
