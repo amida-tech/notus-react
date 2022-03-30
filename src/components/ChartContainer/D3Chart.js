@@ -30,7 +30,9 @@ function D3Chart({
   const widthBase = (graphWidth || document.body.clientWidth);
   const width = box === null ? (widthBase * 0.8) : box.offsetWidth - 220;
   const height = 500;
-  const tickCount = displayData.length / measureList.length;
+  const maxTickCount = width / 100;
+  const dataCount = displayData.length / measureList.length
+  const tickCount = dataCount > maxTickCount ? maxTickCount : dataCount;
 
   function TimeFormatter(dateToFormat) {
     const dateSplit = dateToFormat.split('T')[0];
