@@ -26,9 +26,8 @@ function D3Chart({
     bottom: 75,
     left: 45,
   };
-  const box = document.querySelector('.MuiGrid-item');
-  const widthBase = (graphWidth || document.body.clientWidth);
-  const width = box === null ? (widthBase * 0.8) : box.offsetWidth - 220;
+
+  const width = graphWidth - 220;
   const height = 500;
   const maxTickCount = width / 100;
   const dataCount = displayData.length / measureList.length
@@ -61,7 +60,7 @@ function D3Chart({
     // X Axis labels and context
     svg
       .append('g')
-      .attr('transform', `translate(0,${height - margin.bottom / 1.4})`)
+      .attr('transform', `translate(0,${height - (margin.bottom / 1.2)})`)
       .attr('class', 'd3-chart__dates-x')
       .call(
         d3.axisBottom(x).ticks(tickCount).tickFormat(d3.timeFormat('%b %d')),
@@ -107,7 +106,7 @@ function D3Chart({
 
     svg.append('text')
       .attr('x', width / 2)
-      .attr('y', height + 20)
+      .attr('y', height)
       .attr('class', 'd3-chart__label')
       .text('Year to Date');
     // Y axis label:
