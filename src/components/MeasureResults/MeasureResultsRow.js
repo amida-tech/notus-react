@@ -5,17 +5,19 @@ import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function MeasureResultsRow({ measureResult, handleMeasureChange, measureColor }) {
+function MeasureResultsRow({
+  measureResult, handleMeasureChange, selectedMeasure, measureColor,
+}) {
   return (
     <Box className="measure-results-row">
-      <Divider className="measure-results-row__divider" stroke={2} />
+      <Divider className="measure-results-row__divider" />
       <Grid container className="measure-results-row__row-section">
         <Grid item className="measure-results-row__data-align-small">
           <FormGroup className="measure-results-row__form-group">
             <Checkbox
               style={{ color: measureColor.color }}
               disableRipple
-              defaultChecked
+              checked={selectedMeasure}
               size="medium"
               value={measureResult.value}
               onChange={(event) => handleMeasureChange(event)}
@@ -69,6 +71,7 @@ MeasureResultsRow.propTypes = {
     exclusions: PropTypes.number,
   }),
   handleMeasureChange: PropTypes.func,
+  selectedMeasure: PropTypes.bool,
   measureColor: PropTypes.shape({
     color: PropTypes.string,
   }),
@@ -77,6 +80,7 @@ MeasureResultsRow.propTypes = {
 MeasureResultsRow.defaultProps = {
   measureResult: {},
   handleMeasureChange: () => undefined,
+  selectedMeasure: true,
   measureColor: {},
 }
 

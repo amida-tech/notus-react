@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import {
-  Divider, Grid, Typography,
+  Checkbox, Divider, FormGroup, Grid, Typography,
 } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -28,17 +28,23 @@ const eligiblePopulationTip = 'The population of patients who are eligible for t
 const numeratorTip = 'The number of patients who have satisfied the criteria for this measure.';
 const denominatorTip = 'The population of patients who are eligible for this measure. Currently the same as Eligible Population.';
 const availableExclusionsTip = 'The population that can be excluded based on criteria.';
-const viewTip = 'Toggles on and off displaying the measure in the graph above.';
 
-function MeasureResultsTable({ currentResults, handleMeasureChange, colorMapping }) {
+function MeasureResultsTable({
+  currentResults, handleMeasureChange, selectedMeasures, colorMapping,
+}) {
   return (
     <Grid container className="measure-results-table">
       <Grid container item className="measure-results-table__header-section">
         <Grid item className="measure-results-table__title-align-small">
-          <Typography className="measure-results-table__title">View</Typography>
-          <ToolTip title={viewTip}>
-            <HelpIcon className="measure-results-table__help-icon" />
-          </ToolTip>
+          <FormGroup className="measure-results-table__form-group">
+            <Checkbox
+              disableRipple
+              checked={currentResults.length === selectedMeasures.length}
+              size="medium"
+              value="all"
+              onChange={(event) => handleMeasureChange(event)}
+            />
+          </FormGroup>
         </Grid>
         <Grid item className="measure-results-table__title-align-measure">
           <Typography className="measure-results-table__title">
@@ -99,6 +105,7 @@ function MeasureResultsTable({ currentResults, handleMeasureChange, colorMapping
           <MeasureResultsRow
             measureResult={generateMeasureRowValues(item)}
             handleMeasureChange={handleMeasureChange}
+            selectedMeasure={selectedMeasures.includes(item.measure)}
             measureColor={colorMapping.find((mapping) => mapping.measure === item.measure)}
           />
         </Grid>
@@ -115,12 +122,16 @@ MeasureResultsTable.propTypes = {
     }),
   ),
   handleMeasureChange: PropTypes.func,
+  selectedMeasures: PropTypes.arrayOf(
+    PropTypes.string,
+  ),
   colorMapping: colorMappingProps,
 };
 
 MeasureResultsTable.defaultProps = {
   currentResults: [],
   handleMeasureChange: () => undefined,
+  selectedMeasures: [],
   colorMapping: [],
 }
 

@@ -147,7 +147,9 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const handleMeasureChange = (event) => {
     let newSelectedMeasures;
     if (event.target.checked) {
-      newSelectedMeasures = selectedMeasures.concat(event.target.value);
+      newSelectedMeasures = event.target.value === 'all'
+        ? store.currentResults.map((result) => result.measure)
+        : selectedMeasures.concat(event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     } else {
       newSelectedMeasures = selectedMeasures.filter(
@@ -244,6 +246,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         <MeasureResultsTable
           currentResults={store.currentResults}
           handleMeasureChange={handleMeasureChange}
+          selectedMeasures={selectedMeasures}
           colorMapping={colorMap}
         />
       </TabPanel>
