@@ -94,8 +94,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     }
     if (filters.stars.length > 0) {
       newDisplayData = newDisplayData.filter((result) => filters.stars.includes(
-        Math.floor(
-          // Floor for the .5 stars.
+        Math.floor( // Floor for the .5 stars.
           store.currentResults.find(
             (current) => current.measure === result.measure,
           ).starRating,
@@ -152,9 +151,8 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         : selectedMeasures.concat(event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     } else {
-      newSelectedMeasures = selectedMeasures.filter(
-        (result) => result !== event.target.value,
-      );
+      newSelectedMeasures = event.target.value === 'all'
+        ? [] : selectedMeasures.filter((result) => result !== event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     }
     handleDisplayDataUpdate(newSelectedMeasures, currentFilters, buildDates(dateValue));
