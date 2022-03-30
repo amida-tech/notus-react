@@ -5,52 +5,54 @@ import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function MeasureResultsRow({ measureResult, handleMeasureChange, measureColor }) {
+function MeasureResultsRow({
+  measureResult, handleMeasureChange, selectedMeasure, measureColor,
+}) {
   return (
-    <Box>
-      <Divider color="black" />
-      <Grid container justifyContent="space-evenly" direction="row" alignItems="center" spacing={2} sx={{ width: '100%', p: '3px', m: '2px' }}>
-        <Grid item xs={1}>
-          <Typography variant="caption">
-            {measureResult.label}
-          </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption">
-            {measureResult.included}
-          </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption">
-            {measureResult.eligible}
-          </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption">
-            {measureResult.numerator}
-          </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption">
-            {measureResult.denominator}
-          </Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography variant="caption">
-            {measureResult.exclusions}
-          </Typography>
-        </Grid>
-        <Grid item xs={1}>
-          <FormGroup sx={{ ml: '8px' }}>
+    <Box className="measure-results-row">
+      <Divider className="measure-results-row__divider" />
+      <Grid container className="measure-results-row__row-section">
+        <Grid item className="measure-results-row__data-align-small">
+          <FormGroup className="measure-results-row__form-group">
             <Checkbox
               style={{ color: measureColor.color }}
               disableRipple
-              defaultChecked
+              checked={selectedMeasure}
               size="medium"
               value={measureResult.value}
               onChange={(event) => handleMeasureChange(event)}
             />
           </FormGroup>
+        </Grid>
+        <Grid item className="measure-results-row__data-align-measure">
+          <Typography variant="caption" className="measure-results-row__data">
+            {measureResult.label}
+          </Typography>
+        </Grid>
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
+            {measureResult.included}
+          </Typography>
+        </Grid>
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
+            {measureResult.eligible}
+          </Typography>
+        </Grid>
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
+            {measureResult.numerator}
+          </Typography>
+        </Grid>
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
+            {measureResult.denominator}
+          </Typography>
+        </Grid>
+        <Grid item className="measure-results-row__data-align">
+          <Typography variant="caption" className="measure-results-row__data">
+            {measureResult.exclusions}
+          </Typography>
         </Grid>
       </Grid>
     </Box>
@@ -69,6 +71,7 @@ MeasureResultsRow.propTypes = {
     exclusions: PropTypes.number,
   }),
   handleMeasureChange: PropTypes.func,
+  selectedMeasure: PropTypes.bool,
   measureColor: PropTypes.shape({
     color: PropTypes.string,
   }),
@@ -77,6 +80,7 @@ MeasureResultsRow.propTypes = {
 MeasureResultsRow.defaultProps = {
   measureResult: {},
   handleMeasureChange: () => undefined,
+  selectedMeasure: true,
   measureColor: {},
 }
 

@@ -94,8 +94,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     }
     if (filters.stars.length > 0) {
       newDisplayData = newDisplayData.filter((result) => filters.stars.includes(
-        Math.floor(
-          // Floor for the .5 stars.
+        Math.floor( // Floor for the .5 stars.
           store.currentResults.find(
             (current) => current.measure === result.measure,
           ).starRating,
@@ -147,12 +146,13 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const handleMeasureChange = (event) => {
     let newSelectedMeasures;
     if (event.target.checked) {
-      newSelectedMeasures = selectedMeasures.concat(event.target.value);
+      newSelectedMeasures = event.target.value === 'all'
+        ? store.currentResults.map((result) => result.measure)
+        : selectedMeasures.concat(event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     } else {
-      newSelectedMeasures = selectedMeasures.filter(
-        (result) => result !== event.target.value,
-      );
+      newSelectedMeasures = event.target.value === 'all'
+        ? [] : selectedMeasures.filter((result) => result !== event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     }
     handleDisplayDataUpdate(newSelectedMeasures, currentFilters, buildDates(dateValue));
@@ -244,6 +244,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         <MeasureResultsTable
           currentResults={store.currentResults}
           handleMeasureChange={handleMeasureChange}
+          selectedMeasures={selectedMeasures}
           colorMapping={colorMap}
         />
       </TabPanel>
