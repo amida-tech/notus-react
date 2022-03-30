@@ -2940,7 +2940,7 @@ export const trendList = [
 
 export const infoObject = {
   composite: {
-    title: 'Composite',
+    title: 'Composite Score',
     displayLabel: 'Composite',
     hasSubMeasures: false,
   },

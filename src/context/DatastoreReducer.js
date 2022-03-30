@@ -18,7 +18,7 @@ const updateTimestamp = () => {
 
 const createLabel = (measure, info) => {
   if (info[measure]) {
-    return info[measure].displayLabel;
+    return `${info[measure].displayLabel} - ${info[measure].title}`
   }
   if (measure === 'composite') {
     return 'Composite';

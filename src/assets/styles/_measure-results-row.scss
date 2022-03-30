@@ -1,0 +1,49 @@
+@import 'colors';
+
+$block-class: 'measure-results-row';
+
+// Extending from .measure-results-table__header-section won't work because of specificity.
+@at-root {
+    .#{$block-class} {
+        & &__divider {
+            background-color: $blue-grey-lighten-1;
+        }
+
+        & &__row-section { 
+            justify-content: space-evenly;
+            align-items: center;
+            display: flex;
+            width: 100%;
+            padding: 0.2rem;
+            margin: 0.5rem 0;
+        }
+
+        & &__data-align {
+            display: flex;
+            justify-content: center;
+            padding: 16px 0 0 16px;
+            flex-basis: 14%;
+            min-width: 7%;
+            align-items: center;
+            margin: auto;
+        }
+
+        & &__data-align-measure {
+            @extend .measure-results-row__data-align;
+            flex-basis: 22%;
+            justify-content: left;
+            word-wrap: break-word;
+            text-align: left;
+        }
+
+        & &__data-align-small {
+            @extend .measure-results-row__data-align;
+            flex-basis: 8%
+        }
+
+        & &__data {
+            color:$default-black;
+            font-size:.9rem;
+        }
+    }
+}
