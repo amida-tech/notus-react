@@ -90,7 +90,7 @@ const returnValue = (loggedIn, showWelcome, setShowWelcome) => (
           {loggedIn
             ? (
               <DatastoreProvider>
-                <Dashboard />
+                <Dashboard loggedIn={loggedIn} />
               </DatastoreProvider>
             )
             : <Redirect to="/auth" />}

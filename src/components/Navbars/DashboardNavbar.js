@@ -1,6 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const isMvp = process.env.REACT_APP_MVP_SETTING;
+
+const logout = () => {
+  localStorage.removeItem('token')
+}
+
 export default function Navbar() {
   return (
     <>
@@ -24,25 +30,30 @@ export default function Navbar() {
           <div className="mx-4">
             <Link
               className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-              to={{ pathname: '/measures/' }}
+              to={{ pathname: '/' }}
             >
               Dashboard
             </Link>
           </div>
+          {isMvp
+            ? (
+              <div className="mx-4">
+                <Link
+                  className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
+                  to={{ pathname: '/measures/' }}
+                >
+                  Reports
+                </Link>
+              </div>
+            )
+            : null}
           <div className="mx-4">
             <Link
               className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-              to={{ pathname: '/measures/' }}
+              to={{ pathname: '/auth/login' }}
+              onClick={logout}
             >
-              Reports
-            </Link>
-          </div>
-          <div className="mx-4">
-            <Link
-              className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-              to={{ pathname: '/measures/' }}
-            >
-              Account
+              Sign Out
             </Link>
           </div>
         </div>

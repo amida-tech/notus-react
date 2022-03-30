@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import PropTypes from 'prop-types';
 
 // components
 
@@ -23,7 +24,7 @@ const Item = styled(Paper)(() => ({
   borderRadius: theme.shape.borderRadius.xl,
 }));
 
-export default function Dashboard() {
+export default function Dashboard({ loggedIn }) {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [activeMeasure, setActiveMeasure] = useState({});
@@ -48,7 +49,7 @@ export default function Dashboard() {
   return (
     <Box>
       <ThemeProvider theme={theme}>
-        <DashboardNavbar />
+        { loggedIn ? <DashboardNavbar /> : null}
         <Paper className="dashboard__paper">
           <Box sx={{ flexGrow: 2 }}>
             <Grid container spacing={4}>
@@ -77,3 +78,11 @@ export default function Dashboard() {
     </Box>
   );
 }
+
+D3Container.propTypes = {
+  loggedIn: PropTypes.bool,
+};
+
+D3Container.defaultProps = {
+  loggedIn: false,
+};
