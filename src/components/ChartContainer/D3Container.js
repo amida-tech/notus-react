@@ -1,5 +1,5 @@
 import {
-  Grid, Paper, Tab, Tabs,
+  Grid, Tab, Tabs,
 } from '@mui/material';
 import React, {
   createContext, useState, useEffect,
