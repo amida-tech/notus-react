@@ -135,9 +135,14 @@ function D3Chart({
       .append('div')
       .attr('class', 'd3-chart__tooltip');
     const toolTipGenerator = (event) => {
-      const avg30 = margin.left * 0.3;
-      const tickWidth = Math.floor(width / tickCount + avg30);
-      const index = Math.floor((event.offsetX - margin.left) / tickWidth);
+      const tickWidth = (width / (dataCount - 1));
+      let index = Math.floor((event.offsetX - 84) / (tickWidth));
+      if (index < 0) {
+        index = 0;
+      }
+      if (index >= dataCount) {
+        index = dataCount - 1;
+      }
       const MeasureValue = measureInfo[
         event.srcElement.__data__[index].measure
       ].displayLabel
