@@ -58,6 +58,9 @@ const returnStars = (activeMeasure) => {
   if (activeMeasure.starRating > 0) {
     returnBool = true;
   }
+  if (activeMeasure.denominator > 30) {
+    returnBool = true;
+  }
 
   return returnBool;
 }
