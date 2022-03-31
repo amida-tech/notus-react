@@ -10,7 +10,7 @@ metadata:
 spec:
   containers:
   - name: node
-    image: node:13.10.1-alpine3.11
+    image: node:16.14.2-alpine3.15
     command:
     - cat
     tty: true
