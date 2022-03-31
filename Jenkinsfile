@@ -59,7 +59,7 @@ spec:
         }
         stage('Build Production with Kaniko') {
             when { 
-                expression {env.GIT_BRANCH == 'master'} 
+                expression {env.GIT_BRANCH == 'origin/master'} 
             }
             steps {
                 container(name: 'kaniko', shell: '/busybox/sh') {
@@ -71,7 +71,7 @@ spec:
         }
         stage('Build Develop with Kaniko') {
             when { 
-                expression {env.GIT_BRANCH != 'master'} 
+                expression {env.GIT_BRANCH == 'origin/develop'} 
             }
             steps {
                 container(name: 'kaniko', shell: '/busybox/sh') {
