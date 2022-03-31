@@ -36,7 +36,8 @@ export default function Navbar() {
             </Link>
           </div>
           {isMvp
-            ? (
+            ? null
+            : (
               <div className="mx-4">
                 <Link
                   className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
@@ -45,8 +46,7 @@ export default function Navbar() {
                   Reports
                 </Link>
               </div>
-            )
-            : null}
+            )}
           <div className="mx-4">
             <Link
               className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
