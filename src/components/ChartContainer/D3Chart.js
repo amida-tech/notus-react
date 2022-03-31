@@ -26,11 +26,12 @@ function D3Chart({
     bottom: 75,
     left: 45,
   };
-  const box = document.querySelector('.MuiGrid-item');
-  const widthBase = (graphWidth || document.body.clientWidth);
-  const width = box === null ? (widthBase * 0.8) : box.offsetWidth - 220;
+
+  const width = graphWidth - 220;
   const height = 500;
-  const tickCount = displayData.length / measureList.length;
+  const maxTickCount = width / 100;
+  const dataCount = displayData.length / measureList.length
+  const tickCount = dataCount > maxTickCount ? maxTickCount : dataCount;
 
   function TimeFormatter(dateToFormat) {
     const dateSplit = dateToFormat.split('T')[0];
@@ -59,7 +60,7 @@ function D3Chart({
     // X Axis labels and context
     svg
       .append('g')
-      .attr('transform', `translate(0,${height - margin.bottom / 1.4})`)
+      .attr('transform', `translate(0,${height - (margin.bottom / 1.2)})`)
       .attr('class', 'd3-chart__dates-x')
       .call(
         d3.axisBottom(x).ticks(tickCount).tickFormat(d3.timeFormat('%b %d')),
@@ -105,7 +106,7 @@ function D3Chart({
 
     svg.append('text')
       .attr('x', width / 2)
-      .attr('y', height + 20)
+      .attr('y', height)
       .attr('class', 'd3-chart__label')
       .text('Year to Date');
     // Y axis label:
@@ -133,9 +134,9 @@ function D3Chart({
       .append('div')
       .attr('class', 'd3-chart__tooltip');
     const toolTipGenerator = (event) => {
-      const avg30 = margin.left * 0.3;
-      const tickWidth = Math.floor(width / tickCount + avg30);
-      const index = Math.floor((event.offsetX - margin.left) / tickWidth);
+      const tickWidth = (width / (dataCount - 1));
+      const index = Math.floor((event.offsetX - 84) / (tickWidth));
+
       const MeasureValue = measureInfo[
         event.srcElement.__data__[index].measure
       ].displayLabel

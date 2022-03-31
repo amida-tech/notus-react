@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ThemeProvider } from '@emotion/react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -14,14 +13,6 @@ import theme from '../assets/styles/AppTheme';
 import DashboardNavbar from '../components/Navbars/DashboardNavbar';
 import Banner from '../components/Summary/Banner';
 import RatingTrends from '../components/Summary/RatingTrends';
-
-const Item = styled(Paper)(() => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  borderRadius: theme.shape.borderRadius.xl,
-}));
 
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
@@ -61,13 +52,11 @@ export default function Dashboard() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Item>
-                  <D3Container
-                    store={datastore}
-                    dashboardState={dashboardState}
-                    dashboardActions={dashboardActions}
-                  />
-                </Item>
+                <D3Container
+                  store={datastore}
+                  dashboardState={dashboardState}
+                  dashboardActions={dashboardActions}
+                />
               </Grid>
             </Grid>
           </Box>
