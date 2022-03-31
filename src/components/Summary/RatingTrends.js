@@ -12,6 +12,17 @@ import Info from './Info';
 const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
 const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
+function showStars(activeMeasure) {
+  let returnBool = false;
+
+  // Additional stars rules can be added here
+  if (activeMeasure.denominator > 30 && activeMeasure.starRating >= 0) {
+    returnBool = true;
+  }
+
+  return returnBool;
+}
+
 function RatingTrends({ activeMeasure, trends, info }) {
   const mainTrend = { measure: '', percentChange: undefined };
   const biggestGain = { measure: '', percentChange: undefined };
@@ -51,20 +62,6 @@ function RatingTrends({ activeMeasure, trends, info }) {
   });
 }
 
-const returnStars = (activeMeasure) => {
-  let returnBool = false;
-
-  // Additional stars rules can be added here
-  if (activeMeasure.starRating > 0) {
-    returnBool = true;
-  }
-  if (activeMeasure.denominator > 30) {
-    returnBool = true;
-  }
-
-  return returnBool;
-}
-
 const renderUI = (activeMeasure, mainTrend, renderOptions) => (
   <Box className="rating-trends">
     <Box className="rating-trends__main-header-align">
@@ -86,7 +83,7 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
               <HelpIcon className="rating-trends__help-icon" fontSize="small" />
             </ToolTip>
           </Grid>
-          {returnStars ? (
+          {showStars(activeMeasure) ? (
             <Rating
               className="rating-trends__star-rating"
               name="read-only"
