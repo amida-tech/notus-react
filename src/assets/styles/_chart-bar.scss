@@ -9,6 +9,14 @@ $block-class: 'chart-bar';
       justify-content: left;
     }
 
+    &__radio-panel {
+      padding: 0 1rem;
+    }
+
+    &__radio-label {
+      color: $default-black;
+    }
+
     &__badge > span {
       color: #FFFFFF;
       background-color: $default-red;

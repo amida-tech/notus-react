@@ -7,70 +7,78 @@ import DesktopDateRangePicker from '@mui/lab/DesktopDateRangePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterMoment from '@mui/lab/AdapterMoment';
 import {
-  Badge, Button, Grid, Menu, TextField, Typography,
+  Badge, Button, FormControlLabel, Grid, Menu, Radio, RadioGroup, TextField, Typography,
 } from '@mui/material';
 import { Box } from '@mui/system';
-import moment from 'moment';
 import PropTypes from 'prop-types';
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 
-export const filterMenuOpenContext = createContext(false);
+const timelineLabel = (choice) => {
+  switch (choice) {
+    case 'all':
+      return 'All';
+    case 'custom':
+      return 'Custom';
+    case 'ytd':
+      return 'YTD';
+    default:
+      return `${choice} Days`;
+  }
+}
+
+const timelineOptions = [
+  { value: 'all', label: 'All available' },
+  { value: '30', label: 'Last 30 Days' },
+  { value: '60', label: 'Last 60 Days' },
+  { value: 'YTD', label: 'YTD' },
+];
 
 function ChartBar({
-  filterDrawerOpen, toggleFilterDrawer, filterSum, dateValue, changeDateValue, handleDateChange,
+  filterDrawerOpen, toggleFilterDrawer, filterSum, currentTimeline, handleTimelineChange,
 }) {
   const buttonStyling = {};
 
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
+  const [dateAnchorEl, setDateAnchorEl] = useState(null);
+  const [dateOpen, setDateOpen] = useState(false);
 
-  const handleClick = (event) => {
-    setOpen(true);
-    setAnchorEl(event.currentTarget);
+  const handleDateOpen = (event) => {
+    setDateOpen(true);
+    setDateAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setOpen(false);
-    setAnchorEl(null);
+
+  const handleDateClose = () => {
+    setDateOpen(false);
+    setDateAnchorEl(null);
   };
+
+  const handleDateChange = (event) => {
+    handleTimelineChange({
+      choice: event.target.value,
+      range: [null, null],
+    });
+    handleDateClose();
+  }
+
   const onClickFilter = () => {
     toggleFilterDrawer(!filterDrawerOpen);
   };
 
-  const printDays = (position) => {
-    if (dateValue && dateValue !== [null, null]) {
-      if (dateValue[position] != null) {
-        switch (position) {
-          case 0:
-            return moment(dateValue[0]).format('M/DD/YY');
-          case 1:
-            return moment(dateValue[1]).format('M/DD/YY');
-          default:
-            return null
-        }
-      } else {
-        return null;
-      }
-    } else {
-      return null
-    }
-  }
-
+  // TODO: Fix with the custom date picker in the future.
   const dateSelector = (newValue) => {
-    changeDateValue(newValue);
-    const dates = {
-      startDate: newValue[0],
-      endDate: newValue[1],
+    const newDateSetting = {
+      choice: 'custom',
+      range: [newValue[0], newValue[1]],
     }
-    handleDateChange(dates);
+    handleTimelineChange(newDateSetting);
   }
 
+  // TODO: Fix with the custom date picker in the future.
   const clearDate = () => {
-    changeDateValue([null, null]);
-    const dates = {
-      startDate: null,
-      endDate: null,
+    const newDateSetting = {
+      choice: 'custom',
+      range: [null, null],
     }
-    handleDateChange(dates);
+    handleTimelineChange(newDateSetting);
   }
 
   return (
@@ -80,54 +88,69 @@ function ChartBar({
           <Button
             key="d3-YTD"
             color="black"
-            onClick={handleClick}
+            onClick={handleDateOpen}
             variant="text"
             startIcon={<DateRangeIcon />}
           >
             <Typography variant="caption">
-              Timeline:
-              {' '}
-              {printDays(0)}
-              {' - '}
-              {printDays(1)}
+              Timeline:&nbsp;
+              {timelineLabel(currentTimeline.choice)}
             </Typography>
           </Button>
           {// This is where the fun begins
           }
           <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
+            id="date-menu"
+            anchorEl={dateAnchorEl}
+            open={dateOpen}
+            onClose={handleDateClose}
             onClick={null}
             MenuListProps={{
               'aria-labelledby': 'basic-button',
             }}
           >
-            <LocalizationProvider dateAdapter={AdapterMoment}>
-              <DesktopDateRangePicker
-                className="chart-bar__date-range-picker"
-                startText="Start"
-                value={dateValue}
-                onChange={dateSelector}
-                style={{ color: 'black' }}
-                renderInput={(startProps, endProps) => (
-                  <Box className="chart-bar__date-panel">
-                    <TextField className="chart-bar__date-text" {...startProps} />
-                    <Box className="chart-bar__between-text"> to </Box>
-                    <TextField className="chart-bar__date-text" {...endProps} />
-                  </Box>
+            <RadioGroup
+              className="chart-bar__radio-panel"
+              value={currentTimeline.choice}
+            >
+              {timelineOptions.map((option) => (
+                <FormControlLabel
+                  key={`chart-bar-timeline-${option.value}`}
+                  className="chart-bar__radio-label"
+                  value={option.value}
+                  control={<Radio onClick={handleDateChange} />}
+                  label={option.label}
+                />
+              ))}
+              { process.env.REACT_APP_MVP_SETTING === 'false'
+                && (
+                <Box className="chart-bar__date-range">
+                  <LocalizationProvider dateAdapter={AdapterMoment}>
+                    <DesktopDateRangePicker
+                      className="chart-bar__date-range-picker"
+                      startText="Start"
+                      value={currentTimeline.range}
+                      onChange={dateSelector}
+                      style={{ color: 'black' }}
+                      renderInput={(startProps, endProps) => (
+                        <Box className="chart-bar__date-panel">
+                          <TextField className="chart-bar__date-text" {...startProps} />
+                          <Box className="chart-bar__between-text"> to </Box>
+                          <TextField className="chart-bar__date-text" {...endProps} />
+                        </Box>
+                      )}
+                    />
+                  </LocalizationProvider>
+                  <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
+                    <Grid item>
+                      <Button variant="contained" color="blue" onClick={clearDate}>
+                        Clear Selection
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Box>
                 )}
-              />
-            </LocalizationProvider>
-
-            <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
-              <Grid item>
-                <Button variant="contained" color="blue" onClick={clearDate}>
-                  Clear Selection
-                </Button>
-              </Grid>
-            </Grid>
+            </RadioGroup>
           </Menu>
         </Grid>
         <Grid item sx={buttonStyling}>
@@ -182,18 +205,22 @@ ChartBar.propTypes = {
   filterSum: PropTypes.number,
   // Necessary for DateRangePicker to function and pass props
   // eslint-disable-next-line react/forbid-prop-types
-  dateValue: PropTypes.array,
-  changeDateValue: PropTypes.func,
-  handleDateChange: PropTypes.func,
+  currentTimeline: PropTypes.shape({
+    choice: PropTypes.string,
+    range: PropTypes.arrayOf(PropTypes.string),
+  }),
+  handleTimelineChange: PropTypes.func,
 };
 
 ChartBar.defaultProps = {
   filterDrawerOpen: false,
   toggleFilterDrawer: undefined,
   filterSum: 0,
-  dateValue: [null, null],
-  changeDateValue: undefined,
-  handleDateChange: undefined,
+  currentTimeline: {
+    choice: '30',
+    range: [null, null],
+  },
+  handleTimelineChange: undefined,
 }
 
 export default ChartBar;
