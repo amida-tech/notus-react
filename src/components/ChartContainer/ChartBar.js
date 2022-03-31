@@ -74,8 +74,8 @@ function ChartBar({
   }
 
   return (
-    <Box>
-      <Grid container className="chart-bar" direction="row" justifyContent="flex-end" spacing={0.1}>
+    <Box className="chart-bar">
+      <Grid container direction="row" justifyContent="flex-end" spacing={0.1}>
         <Grid item sx={buttonStyling}>
           <Button
             key="d3-YTD"
@@ -106,16 +106,17 @@ function ChartBar({
           >
             <LocalizationProvider dateAdapter={AdapterMoment}>
               <DesktopDateRangePicker
+                className="chart-bar__date-range-picker"
                 startText="Start"
                 value={dateValue}
                 onChange={dateSelector}
                 style={{ color: 'black' }}
                 renderInput={(startProps, endProps) => (
-                  <>
-                    <TextField sx={{ ml: '10px' }} {...startProps} />
-                    <Box sx={{ mx: 2, color: 'black' }}> to </Box>
-                    <TextField sx={{ mr: '10px' }} {...endProps} />
-                  </>
+                  <Box className="chart-bar__date-panel">
+                    <TextField className="chart-bar__date-text" {...startProps} />
+                    <Box className="chart-bar__between-text"> to </Box>
+                    <TextField className="chart-bar__date-text" {...endProps} />
+                  </Box>
                 )}
               />
             </LocalizationProvider>
