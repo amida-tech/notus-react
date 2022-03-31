@@ -12,11 +12,23 @@ import Info from './Info';
 const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
 const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
+function showStars(activeMeasure) {
+  let returnBool = false;
+
+  // Additional stars rules can be added here
+  if (activeMeasure.denominator > 30 && activeMeasure.starRating >= 0) {
+    returnBool = true;
+  }
+
+  return returnBool;
+}
+
 function RatingTrends({ activeMeasure, trends, info }) {
   const mainTrend = { measure: '', percentChange: undefined };
   const biggestGain = { measure: '', percentChange: undefined };
   const biggestLoss = { measure: '', percentChange: undefined };
   let sortedTrends = [];
+
   const measureTrend = trends
     .find((trend) => trend.measure === activeMeasure.measure);
 
@@ -71,13 +83,20 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
               <HelpIcon className="rating-trends__help-icon" fontSize="small" />
             </ToolTip>
           </Grid>
-          <Rating
-            className="rating-trends__star-rating"
-            name="read-only"
-            value={activeMeasure.starRating || 0}
-            precision={0.5}
-            readOnly
-          />
+          {showStars(activeMeasure) ? (
+            <Rating
+              className="rating-trends__star-rating"
+              name="read-only"
+              value={activeMeasure.starRating || 0}
+              precision={0.5}
+              readOnly
+            />
+          )
+            : (
+              <Typography className="rating-trends__not-available">
+                N/A
+              </Typography>
+            )}
           <Typography className="rating-trends__star-rating-label">
             {activeMeasure.label && `(${activeMeasure.label})`}
           </Typography>
@@ -98,13 +117,13 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
       <Box className="rating-trends__button-panel">
         {
           process.env.REACT_APP_MVP_SETTING === 'false'
-        && (
-        <Button
-          className="rating-trends__view-rating-details-button"
-        >
-          View Rating Details
-        </Button>
-        )
+          && (
+            <Button
+              className="rating-trends__view-rating-details-button"
+            >
+              View Rating Details
+            </Button>
+          )
         }
       </Box>
     </Box>
