@@ -17,6 +17,7 @@ function RatingTrends({ activeMeasure, trends, info }) {
   const biggestGain = { measure: '', percentChange: undefined };
   const biggestLoss = { measure: '', percentChange: undefined };
   let sortedTrends = [];
+
   const measureTrend = trends
     .find((trend) => trend.measure === activeMeasure.measure);
 
@@ -50,6 +51,17 @@ function RatingTrends({ activeMeasure, trends, info }) {
   });
 }
 
+const returnStars = (activeMeasure) => {
+  let returnBool = false;
+
+  // Additional stars rules can be added here
+  if (activeMeasure.starRating > 0) {
+    returnBool = true;
+  }
+
+  return returnBool;
+}
+
 const renderUI = (activeMeasure, mainTrend, renderOptions) => (
   <Box className="rating-trends">
     <Box className="rating-trends__main-header-align">
@@ -71,13 +83,20 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
               <HelpIcon className="rating-trends__help-icon" fontSize="small" />
             </ToolTip>
           </Grid>
-          <Rating
-            className="rating-trends__star-rating"
-            name="read-only"
-            value={activeMeasure.starRating || 0}
-            precision={0.5}
-            readOnly
-          />
+          {returnStars ? (
+            <Rating
+              className="rating-trends__star-rating"
+              name="read-only"
+              value={activeMeasure.starRating || 0}
+              precision={0.5}
+              readOnly
+            />
+          )
+            : (
+              <Typography className="rating-trends__not-available">
+                N/A
+              </Typography>
+            )}
           <Typography className="rating-trends__star-rating-label">
             {activeMeasure.label && `(${activeMeasure.label})`}
           </Typography>
@@ -98,13 +117,13 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
       <Box className="rating-trends__button-panel">
         {
           process.env.REACT_APP_MVP_SETTING === 'false'
-        && (
-        <Button
-          className="rating-trends__view-rating-details-button"
-        >
-          View Rating Details
-        </Button>
-        )
+          && (
+            <Button
+              className="rating-trends__view-rating-details-button"
+            >
+              View Rating Details
+            </Button>
+          )
         }
       </Box>
     </Box>
