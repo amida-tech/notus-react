@@ -24,11 +24,12 @@ function D3IndicatorByLineChart({
     bottom: 75,
     left: 45,
   };
-  const box = document.querySelector('.MuiGrid-item');
-  const widthBase = (graphWidth || document.body.clientWidth);
-  const width = box === null ? (widthBase * 0.8) : box.offsetWidth - 220;
+
+  const width = graphWidth - 220;
   const height = 500;
-  const tickCount = byLineDisplayData.length;
+  const maxTickCount = width / 100;
+  const tickCount = byLineDisplayData.length > maxTickCount
+    ? maxTickCount : byLineDisplayData.length;
   function TimeFormatter(dateToFormat) {
     const dateSplit = dateToFormat.split('T')[0];
     const dividedDate = dateSplit.split('-');
@@ -136,9 +137,9 @@ function D3IndicatorByLineChart({
       .attr('class', 'd3-indicator-by-line-chart__tooltip');
 
     const toolTipGenerator = (event) => {
-      const avg30 = margin.left * 0.3;
-      const tickWidth = Math.floor(width / tickCount + avg30);
-      const index = Math.floor((event.offsetX - margin.left) / tickWidth);
+      const tickWidth = (width / (byLineDisplayData.length - 1));
+      const index = Math.floor((event.offsetX - 94) / (tickWidth));
+
       const MeasureValue = measureInfo[event.srcElement.__data__[index].measure].displayLabel;
       const measureDisplay = MeasureValue === 'Composite'
         ? `${MeasureValue} Score`

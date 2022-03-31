@@ -7,7 +7,7 @@ $block-class: 'd3-chart';
     width: 90vw;
 
     &__line-chart {
-      height: 650px;
+      height: 37.5rem;
       width: 93vw;
       background-color: #fff;
     }
@@ -40,7 +40,7 @@ $block-class: 'd3-chart';
 
     &__dates-x {
       color: $axis-label-color;
-      font-size: 1rem;
+      font-size: 0.875rem;
       font-weight: bold;
     }
 
