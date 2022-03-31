@@ -29,6 +29,8 @@ export default function Dashboard({ loggedIn }) {
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [activeMeasure, setActiveMeasure] = useState({});
 
+  console.log(loggedIn)
+
   useEffect(() => {
     if (datastore.currentResults !== undefined) {
       setActiveMeasure(datastore.currentResults.find((result) => result.measure === 'composite'));
