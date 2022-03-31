@@ -1,4 +1,4 @@
-# FROM node:13.10.1-alpine3.11
+# FROM  node:16.14.2-alpine3.15
 
 # WORKDIR /app
 
@@ -10,7 +10,7 @@
 # CMD [ "yarn", "start" ]
 
 # Builder image
-FROM node:13.10.1-alpine3.11 as builder
+FROM node:16.14.2-alpine3.15 as builder
 
 WORKDIR /app
 
@@ -28,7 +28,7 @@ RUN yarn build
 
 
 # Production Installer image
-FROM node:13.10.1-alpine3.11
+FROM node:16.14.2-alpine3.15
 
 WORKDIR /app
 
