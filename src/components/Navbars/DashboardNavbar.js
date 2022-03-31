@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const isMvp = process.env.REACT_APP_MVP_SETTING;
+const isMvp = process.env.REACT_APP_MVP_SETTING === 'true';
 
 const logout = () => {
   localStorage.removeItem('token')

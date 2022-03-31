@@ -79,10 +79,10 @@ export default function Dashboard({ loggedIn }) {
   );
 }
 
-D3Container.propTypes = {
+Dashboard.propTypes = {
   loggedIn: PropTypes.bool,
 };
 
-D3Container.defaultProps = {
+Dashboard.defaultProps = {
   loggedIn: false,
 };
