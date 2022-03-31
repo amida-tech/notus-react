@@ -22,8 +22,7 @@ $block-class: 'footer';
       &__top-border {
         margin-bottom: 1rem;
         --border-opacity: 1;
-        border-color: #e2e8f0;
-        border-color: rgba(226, 232, 240, var(--border-opacity));
+        border-color: $blue-grey-darken-4;
       }
 
       &__flex-box {

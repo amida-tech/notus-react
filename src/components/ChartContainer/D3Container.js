@@ -1,5 +1,5 @@
 import {
-  Grid, Paper, Tab, Tabs,
+  Grid, Tab, Tabs,
 } from '@mui/material';
 import React, {
   createContext, useState, useEffect,
@@ -202,23 +202,21 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         <Tab label="Measure by Line" />
       </Tabs>
       <TabPanel value={tabValue} index={1}>
-        <Paper>
-          <Grid container>
-            <Grid item sx={{ width: '25%' }}>
-              <D3IndicatorByLineSelector
-                currentResults={store.currentResults}
-                byLineMeasure={byLineMeasure}
-                handleByLineChange={handleByLineChange}
-              />
-            </Grid>
+        <Grid container>
+          <Grid item sx={{ width: '25%' }}>
+            <D3IndicatorByLineSelector
+              currentResults={store.currentResults}
+              byLineMeasure={byLineMeasure}
+              handleByLineChange={handleByLineChange}
+            />
           </Grid>
-          <D3IndicatorByLineChart
-            byLineDisplayData={byLineDisplayData}
-            graphWidth={graphWidth}
-            colorMapping={colorMap}
-            measureInfo={store.info}
-          />
-        </Paper>
+        </Grid>
+        <D3IndicatorByLineChart
+          byLineDisplayData={byLineDisplayData}
+          graphWidth={graphWidth}
+          colorMapping={colorMap}
+          measureInfo={store.info}
+        />
       </TabPanel>
       <TabPanel value={tabValue} index={0}>
         <Grid container justifyContent="space-evenly" direction="column">
