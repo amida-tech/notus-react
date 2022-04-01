@@ -97,9 +97,11 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
                 N/A
               </Typography>
             )}
-          <Typography className="rating-trends__star-rating-label">
-            {activeMeasure.label && `(${activeMeasure.label})`}
-          </Typography>
+          <ToolTip title={activeMeasure.title}>
+            <Typography className="rating-trends__star-rating-label">
+              {activeMeasure.shortLabel && `(${activeMeasure.shortLabel})`}
+            </Typography>
+          </ToolTip>
         </Grid>
         <TrendDisplay
           trend={mainTrend}
