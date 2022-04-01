@@ -217,7 +217,7 @@ ChartBar.defaultProps = {
   toggleFilterDrawer: undefined,
   filterSum: 0,
   currentTimeline: {
-    choice: '30',
+    choice: 'all',
     range: [null, null],
   },
   handleTimelineChange: undefined,
