@@ -20,16 +20,17 @@ import {
 export const firstRenderContext = createContext(true);
 
 const colorArray = [
-  '#003F5C',
-  '#2F4B7C',
-  '#665191',
-  '#A05195',
-  '#D45087',
-  '#F95D6A',
-  '#FF7C43',
-  '#FFA600',
-  '#9D02D7',
-  '#0000FF',
+  '#88CCEE',
+  '#CC6677',
+  '#DDCC77',
+  '#117733',
+  '#332288',
+  '#AA4499',
+  '#44AA99',
+  '#999933',
+  '#661100',
+  '#6699CC',
+  '#888888',
 ];
 
 // If nothing set, select all.
@@ -63,7 +64,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
 
   const colorMap = measureList.map((item, index) => ({
     measure: item,
-    color: index <= 10 ? colorArray[index] : colorArray[index % 10],
+    color: index <= 11 ? colorArray[index] : colorArray[index % 11],
   }));
 
   useEffect(() => {
