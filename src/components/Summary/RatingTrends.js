@@ -97,7 +97,7 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
                 N/A
               </Typography>
             )}
-          <ToolTip title={activeMeasure.title}>
+          <ToolTip title={activeMeasure.title} arrow>
             <Typography className="rating-trends__star-rating-label">
               {activeMeasure.shortLabel && `(${activeMeasure.shortLabel})`}
             </Typography>
