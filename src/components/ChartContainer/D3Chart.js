@@ -2,11 +2,12 @@
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
-import { TickChange } from '../Utilites/ChartUtil';
+import { TickChange, TimelineOptions } from '../Utilites/ChartUtil';
 import { colorMappingProps } from './D3Props';
 
 function D3Chart({
-  displayData, colorMapping, measureInfo, graphWidth,
+  displayData, colorMapping, measureInfo, graphWidth, currentTimeline,
+
 }) {
   // Binder for react to apply changes to the svg
   const D3LineChart = useRef();
@@ -102,13 +103,16 @@ function D3Chart({
 
     d3.selectAll('.axis-grid line').style('stroke', 'lightgray');
 
-    // X axis label:
-
-    svg.append('text')
-      .attr('x', width / 2)
-      .attr('y', height)
-      .attr('class', 'd3-chart__label')
-      .text('Year to Date');
+    TimelineOptions.map((timeline) => {
+      if (timeline.value === currentTimeline.choice) {
+        // X axis label:
+        svg.append('text')
+          .attr('x', width / 2)
+          .attr('y', height)
+          .attr('class', 'd3-chart__label')
+          .text(timeline.label)
+      }
+    })
     // Y axis label:
     svg
       .append('text')
@@ -211,6 +215,10 @@ D3Chart.propTypes = {
   }),
   colorMapping: colorMappingProps,
   graphWidth: PropTypes.number,
+  currentTimeline: PropTypes.shape({
+    choice: PropTypes.string,
+    range: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 D3Chart.defaultProps = {
@@ -218,6 +226,11 @@ D3Chart.defaultProps = {
   measureInfo: {},
   colorMapping: [],
   graphWidth: 0,
+  currentTimeline: {
+    choice: 'all',
+    range: [null, null],
+  },
+
 };
 
 export default D3Chart;

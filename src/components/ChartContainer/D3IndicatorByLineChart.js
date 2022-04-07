@@ -2,7 +2,7 @@
 import * as d3 from 'd3';
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { TickChange } from '../Utilites/ChartUtil';
+import { TickChange, TimelineOptions } from '../Utilites/ChartUtil';
 import { colorMappingProps } from './D3Props';
 
 function D3IndicatorByLineChart({
@@ -10,6 +10,7 @@ function D3IndicatorByLineChart({
   colorMapping,
   measureInfo,
   graphWidth,
+  currentTimeline,
 }) {
   // Binder for react to apply changes to the svg
   const D3IndicatorLineChart = useRef();
@@ -113,14 +114,19 @@ function D3IndicatorByLineChart({
       // .curve(d3.curveCardinal)
       .x((d) => x(parseDate(d.date.split('T')[0])))
       .y((d) => y(d.value));
-
     // X axis label:
-    svg
-      .append('text')
-      .attr('x', width / 2)
-      .attr('y', height + 20)
-      .attr('class', 'd3-indicator-by-line-chart__label')
-      .text('Year to Date');
+    TimelineOptions.map((timeline) => {
+      if (timeline.value === currentTimeline.choice) {
+        // X axis label:
+
+        svg
+          .append('text')
+          .attr('x', width / 2)
+          .attr('y', height + 20)
+          .attr('class', 'd3-indicator-by-line-chart__label')
+          .text(timeline.label)
+      }
+    })
 
     // Y axis label:
     svg
@@ -215,6 +221,10 @@ D3IndicatorByLineChart.propTypes = {
   }),
   colorMapping: colorMappingProps,
   graphWidth: PropTypes.number,
+  currentTimeline: PropTypes.shape({
+    choice: PropTypes.string,
+    range: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 D3IndicatorByLineChart.defaultProps = {
@@ -222,6 +232,10 @@ D3IndicatorByLineChart.defaultProps = {
   graphWidth: 0,
   measureInfo: {},
   colorMapping: [],
+  currentTimeline: {
+    choice: 'all',
+    range: [null, null],
+  },
 };
 
 export default D3IndicatorByLineChart;
