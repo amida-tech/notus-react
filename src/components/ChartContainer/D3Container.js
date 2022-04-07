@@ -177,7 +177,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   };
 
   return (
-    <div>
+    <div className="d3-container">
       <FilterDrawer
         filterDrawerOpen={dashboardState.filterDrawerOpen}
         toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
@@ -189,8 +189,8 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         onChange={(event, index) => handleTabChange(event, index)}
         indicatorColor="primary"
       >
-        <Tab label="All Measures" />
-        <Tab label="Measure by Line" />
+        <Tab label="All Measures" className="d3-container__tab-button" />
+        <Tab label="Measure by Line" className="d3-container__tab-button" />
       </Tabs>
       <TabPanel value={tabValue} index={1}>
         <Grid container>

@@ -6,7 +6,7 @@ $block-class: 'measure-results-row';
 @at-root {
     .#{$block-class} {
         & &__divider {
-            background-color: $blue-grey-lighten-1;
+            background-color: $blue-grey-lighten-3;
         }
 
         & &__row-section { 
