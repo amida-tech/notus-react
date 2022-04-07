@@ -2,7 +2,7 @@
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef } from 'react';
-import { TickChange } from '../Utilites/TickChange';
+import { TickChange } from '../Utilites/ChartUtil';
 import { colorMappingProps } from './D3Props';
 
 function D3Chart({

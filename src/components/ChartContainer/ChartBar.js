@@ -12,6 +12,7 @@ import {
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { TimelineOptions } from '../Utilites/ChartUtil';
 
 const timelineLabel = (choice) => {
   switch (choice) {
@@ -25,13 +26,6 @@ const timelineLabel = (choice) => {
       return `${choice} Days`;
   }
 }
-
-const timelineOptions = [
-  { value: 'all', label: 'All available' },
-  { value: '30', label: 'Last 30 Days' },
-  { value: '60', label: 'Last 60 Days' },
-  { value: 'YTD', label: 'YTD' },
-];
 
 function ChartBar({
   filterDrawerOpen, toggleFilterDrawer, filterSum, currentTimeline, handleTimelineChange,
@@ -113,7 +107,7 @@ function ChartBar({
               className="chart-bar__radio-panel"
               value={currentTimeline.choice}
             >
-              {timelineOptions.map((option) => (
+              {TimelineOptions.map((option) => (
                 <FormControlLabel
                   key={`chart-bar-timeline-${option.value}`}
                   className="chart-bar__radio-label"
