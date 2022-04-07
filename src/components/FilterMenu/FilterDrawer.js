@@ -1,7 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import HelpIcon from '@mui/icons-material/Help';
 import CancelIcon from '@mui/icons-material/Cancel'
-import ToolTip from '@mui/material/Tooltip';
 import {
   Box, Button, Drawer, Grid, Slider, Typography,
 } from '@mui/material';
@@ -9,6 +8,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemData from './FilterDrawerItemData';
+import SaraswatiToolTip from '../Common/SaraswatiToolTip';
 
 const sliderTip = 'Selects the range of compliance.';
 
@@ -126,9 +126,9 @@ function FilterDrawer({
               <Typography className="filter-drawer__slider-label" variant="body1">Percent Range:</Typography>
             </Grid>
             <Grid item className="filter-drawer__help-panel">
-              <ToolTip title={sliderTip}>
+              <SaraswatiToolTip title={sliderTip}>
                 <HelpIcon className="filter-drawer__help-icon" />
-              </ToolTip>
+              </SaraswatiToolTip>
             </Grid>
           </Grid>
           <Grid item className="filter-drawer__slider-body">

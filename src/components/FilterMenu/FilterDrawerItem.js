@@ -1,9 +1,10 @@
 import HelpIcon from '@mui/icons-material/Help';
 import {
-  Checkbox, FormControlLabel, FormGroup, Grid, Tooltip, Typography,
+  Checkbox, FormControlLabel, FormGroup, Grid, Typography,
 } from '@mui/material';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import SaraswatiToolTip from '../Common/SaraswatiToolTip';
 
 function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
   const [defaultCheck] = useState(Array.from(currentFilter));
@@ -18,9 +19,9 @@ function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
           </Typography>
         </Grid>
         <Grid item className="filter-drawer-item__row">
-          <Tooltip title={filterItem.tip}>
+          <SaraswatiToolTip title={filterItem.tip}>
             <HelpIcon className="filter-drawer-item__help-icon" />
-          </Tooltip>
+          </SaraswatiToolTip>
         </Grid>
       </Grid>
       <FormGroup className="filter-drawer-item__options">

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
-import ToolTip from '@mui/material/Tooltip';
 import { Box } from '@mui/system';
 import {
   Button, Grid, Typography, Rating,
@@ -80,9 +79,9 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
             <Typography variant="h3" className="rating-trends__h3-header">
               Star Rating
             </Typography>
-            <ToolTip title={starsTip}>
+            <SaraswatiToolTip title={starsTip}>
               <HelpIcon className="rating-trends__help-icon" fontSize="small" />
-            </ToolTip>
+            </SaraswatiToolTip>
           </Grid>
           {showStars(activeMeasure) ? (
             <Rating

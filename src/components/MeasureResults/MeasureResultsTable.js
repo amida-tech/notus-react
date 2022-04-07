@@ -5,9 +5,9 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
-import ToolTip from '@mui/material/Tooltip';
 import { colorMappingProps } from '../ChartContainer/D3Props';
 import MeasureResultsRow from './MeasureResultsRow';
+import SaraswatiToolTip from '../Common/SaraswatiToolTip';
 
 function generateMeasureRowValues(measureResult) {
   return {
@@ -50,49 +50,49 @@ function MeasureResultsTable({
           <Typography className="measure-results-table__title">
             Measure
           </Typography>
-          <ToolTip title={measureTip}>
+          <SaraswatiToolTip title={measureTip}>
             <HelpIcon className="measure-results-table__help-icon" />
-          </ToolTip>
+          </SaraswatiToolTip>
         </Grid>
         <Grid item className="measure-results-table__title-align">
           <Typography className="measure-results-table__title">
             Remaining Inclusions
           </Typography>
-          <ToolTip title={remainingInclusionsTip}>
+          <SaraswatiToolTip title={remainingInclusionsTip}>
             <HelpIcon className="measure-results-table__help-icon" />
-          </ToolTip>
+          </SaraswatiToolTip>
         </Grid>
         <Grid item className="measure-results-table__title-align">
           <Typography className="measure-results-table__title">
             Eligible Population
           </Typography>
-          <ToolTip title={eligiblePopulationTip}>
+          <SaraswatiToolTip title={eligiblePopulationTip}>
             <HelpIcon className="measure-results-table__help-icon" />
-          </ToolTip>
+          </SaraswatiToolTip>
         </Grid>
         <Grid item className="measure-results-table__title-align">
           <Typography className="measure-results-table__title">
             Numerator
           </Typography>
-          <ToolTip title={numeratorTip}>
+          <SaraswatiToolTip title={numeratorTip}>
             <HelpIcon className="measure-results-table__help-icon" />
-          </ToolTip>
+          </SaraswatiToolTip>
         </Grid>
         <Grid item className="measure-results-table__title-align">
           <Typography className="measure-results-table__title">
             Denominator
           </Typography>
-          <ToolTip title={denominatorTip}>
+          <SaraswatiToolTip title={denominatorTip}>
             <HelpIcon className="measure-results-table__help-icon" />
-          </ToolTip>
+          </SaraswatiToolTip>
         </Grid>
         <Grid item className="measure-results-table__title-align">
           <Typography className="measure-results-table__title">
             Available Exclusions
           </Typography>
-          <ToolTip title={availableExclusionsTip}>
+          <SaraswatiToolTip title={availableExclusionsTip}>
             <HelpIcon className="measure-results-table__help-icon" />
-          </ToolTip>
+          </SaraswatiToolTip>
         </Grid>
       </Grid>
 
