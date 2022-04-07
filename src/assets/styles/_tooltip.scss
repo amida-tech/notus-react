@@ -1,0 +1,16 @@
+$block-class: 'tooltip';
+@import 'colors';
+
+@at-root {
+  .MuiTooltip-arrow {
+    color: $blue-grey-darken-4;
+  }
+
+  .MuiTooltip-tooltip {
+    color: $blue-grey-lighten-5;
+    background-color: $blue-grey-darken-4;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+}

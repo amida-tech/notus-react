@@ -6,6 +6,7 @@ import { Box } from '@mui/system';
 import {
   Button, Grid, Typography, Rating,
 } from '@mui/material';
+import SaraswatiToolTip from '../Common/SaraswatiToolTip';
 import TrendDisplay from './TrendDisplay';
 import Info from './Info';
 
@@ -97,11 +98,11 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
                 N/A
               </Typography>
             )}
-          <ToolTip title={activeMeasure.title} arrow>
+          <SaraswatiToolTip title={activeMeasure.title}>
             <Typography className="rating-trends__star-rating-label">
               {activeMeasure.shortLabel && `(${activeMeasure.shortLabel})`}
             </Typography>
-          </ToolTip>
+          </SaraswatiToolTip>
         </Grid>
         <TrendDisplay
           trend={mainTrend}
