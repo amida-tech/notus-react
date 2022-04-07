@@ -103,16 +103,14 @@ function D3Chart({
 
     d3.selectAll('.axis-grid line').style('stroke', 'lightgray');
 
-    TimelineOptions.map((timeline) => {
-      if (timeline.value === currentTimeline.choice) {
+    
         // X axis label:
         svg.append('text')
           .attr('x', width / 2)
           .attr('y', height)
           .attr('class', 'd3-chart__label')
-          .text(timeline.label)
-      }
-    })
+          .text(TimelineOptions.find((option) => option.value === currentTimeline.choice).label)
+    
     // Y axis label:
     svg
       .append('text')

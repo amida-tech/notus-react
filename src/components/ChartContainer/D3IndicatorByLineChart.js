@@ -114,19 +114,15 @@ function D3IndicatorByLineChart({
       // .curve(d3.curveCardinal)
       .x((d) => x(parseDate(d.date.split('T')[0])))
       .y((d) => y(d.value));
-    // X axis label:
-    TimelineOptions.map((timeline) => {
-      if (timeline.value === currentTimeline.choice) {
-        // X axis label:
 
-        svg
-          .append('text')
-          .attr('x', width / 2)
-          .attr('y', height + 20)
-          .attr('class', 'd3-indicator-by-line-chart__label')
-          .text(timeline.label)
-      }
-    })
+    // X axis label:
+
+    svg
+      .append('text')
+      .attr('x', width / 2)
+      .attr('y', height + 20)
+      .attr('class', 'd3-indicator-by-line-chart__label')
+      .text(TimelineOptions.find((option) => option.value === currentTimeline.choice).label)
 
     // Y axis label:
     svg
