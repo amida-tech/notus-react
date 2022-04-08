@@ -57,7 +57,6 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const [selectedMeasures, setSelectedMeasures] = useState([]);
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth)
-
   const workingList = [];
   store.results.forEach((item) => workingList.push(item.measure));
   const measureList = Array.from(new Set(workingList));
@@ -207,6 +206,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           graphWidth={graphWidth}
           colorMapping={colorMap}
           measureInfo={store.info}
+          currentTimeline={currentTimeline}
         />
       </TabPanel>
       <TabPanel value={tabValue} index={0}>
@@ -226,6 +226,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
               colorMapping={colorMap}
               measureInfo={store.info}
               graphWidth={graphWidth}
+              currentTimeline={currentTimeline}
             />
           </Grid>
         </Grid>
