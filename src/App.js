@@ -61,6 +61,8 @@ export default function App() {
           setAuthenticated(loggedIn);
           setLoaded(true);
         })
+    } else {
+      setLoaded(true);
     }
   }, [setShowWelcome, setAuthenticated, setLoaded]);
 
