@@ -1,0 +1,59 @@
+@import 'colors';
+
+$block-class: 'chart-bar';
+
+@at-root {
+  .#{$block-class} {
+    & &__filter-button {
+      width: 7rem;
+      justify-content: left;
+    }
+
+    &__radio-panel {
+      padding: 0 1rem;
+    }
+
+    &__radio-label {
+      color: $default-black;
+    }
+
+    &__badge > span {
+      color: #FFFFFF;
+      background-color: $default-red;
+      transform: scale(1) translate(-50%, 30%);
+      box-shadow: 0 0 0 2px $default-gray;
+    }
+
+    &__date-panel {
+      display: flex;
+      align-items: baseline;
+      padding: 0 0.625rem;
+    }
+
+    &__date-text {
+      .MuiInputBase-input {
+        color: $default-black;
+      }
+    }
+
+    &__between-text {
+      margin: 0 1rem;
+      color: $default-black;
+    }
+
+    &__date-range-picker {
+      .MuiDateRangePickerDay-day {
+        color: $default-black;
+      }
+
+      .MuiTypography-subtitle1 {
+        color: $default-black;
+      }
+
+      .MuiPickersDay-today {
+        color: $blue-main;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,100 @@
+$block-class: 'rating-trends';
+@import 'colors';
+
+@at-root {
+    .#{$block-class} {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        color: #546E7A;
+
+        &__main-header-align {
+            display: flex;
+        }
+
+        & &__h2-header {
+            font-weight: 600;
+            text-align: left;
+            margin: 1rem 0rem 0.5rem 1rem;
+            font-size: 2.25rem;
+        }
+
+        &__display-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__panel-box {
+            display: flex;
+            margin-top: 1.5rem;
+        }
+
+        &__panel {
+            height: 11rem;
+            border: 1px solid $blue-grey-lighten-3;
+            border-radius: .75rem;
+            text-align: center;
+            margin: 1rem;
+            padding: 1rem;
+
+            &--width-25 {
+                width: 25%;
+            }
+    
+            &--width-50 {
+                width: 50%;
+            }
+        }
+
+        &__header-align {
+            display: flex;
+            justify-content: center;
+        }
+
+        & &__h3-header {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.25rem;
+            height: 2.875rem;
+        }
+
+        &__help-icon {
+            color: $gray-light;
+            margin-left: 0.4rem;
+            margin-top: 0.1rem;
+
+            &:hover {
+                color: $blue-light;
+            }
+        }
+        
+        & &__star-rating {
+            margin: 1.5rem 0 0.75rem;
+            font-size: 2.5rem;
+        } // Because there are multiple spans beneath this, be specific.
+
+        & &__not-available {
+            margin-top: 1rem;
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: $blue-grey-darken-4;
+        }
+
+        &__button-panel {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1.25rem;
+            width: 85%;
+        }
+
+        & &__view-rating-details-button {
+            background-color: $blue-light;
+            color: #fff;
+            font-weight: 600;
+            border: 1px solid $default-gray;
+            padding: 1rem;
+            border-radius: 0.25rem;
+        }
+    }
+}
