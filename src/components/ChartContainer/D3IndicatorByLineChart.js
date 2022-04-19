@@ -48,7 +48,7 @@ function D3IndicatorByLineChart({
       .attr('height', height)
       .attr('class', 'd3-indicator-by-line-chart__line-chart')
       .append('g')
-      .attr('transform', `translate(${margin.left + 65},${margin.top})`);
+      .attr('transform', `translate(${margin.left + 50},${margin.top})`);
 
     // Generates labels and context for x axis
     const x = d3
@@ -63,7 +63,7 @@ function D3IndicatorByLineChart({
     // X Axis labels and context
     svg
       .append('g')
-      .attr('transform', `translate(0,${height - margin.bottom / 1.4})`)
+      .attr('transform', `translate(0,${height - margin.bottom / 1.2})`)
       .attr('class', 'd3-indicator-by-line-chart__dates-x')
       .call(
         d3.axisBottom(x).ticks(tickCount).tickFormat(d3.timeFormat('%b %d')),
@@ -120,7 +120,7 @@ function D3IndicatorByLineChart({
     svg
       .append('text')
       .attr('x', width / 2)
-      .attr('y', height + 20)
+      .attr('y', height)
       .attr('class', 'd3-indicator-by-line-chart__label')
       .text(TimelineOptions.find((option) => option.value === currentTimeline.choice).label)
 
@@ -146,8 +146,7 @@ function D3IndicatorByLineChart({
       const measureDisplay = MeasureValue === 'Composite'
         ? `${MeasureValue} Score`
         : `Measure: ${MeasureValue}`;
-      const valueDisplay = `Value: ${Math.floor(event.srcElement.__data__[index].value * 100) / 100
-      }%`;
+      const valueDisplay = `Value: ${Math.floor(event.srcElement.__data__[index].value * 100) / 100}%`;
       const dateDisplay = TimeFormatter(event.srcElement.__data__[index].date);
       tooltip.text(`${measureDisplay} \n ${valueDisplay} \n ${dateDisplay}`);
       const { color } = colorMapping.find(
@@ -162,29 +161,34 @@ function D3IndicatorByLineChart({
     };
 
     // Iterates through an array variation.
-    svg
-      .append('path')
-      .datum(byLineDisplayData)
-      .attr('fill', 'none')
-      .attr('stroke', 'blue')
-      .attr(
-        'stroke',
-        colorMapping.find(
-          (mappingMeasure, i) => mappingMeasure.measure === byLineDisplayData[i].measure,
-        ).color,
-      )
-      .attr('opacity', '.33')
-      .attr('stroke-width', 5)
-      .attr('d', line)
-      .on('mouseover', (event) => {
-        d3.select(event.currentTarget).attr('opacity', '1');
-        toolTipGenerator(event);
-      })
-      .on('mousemove', (event) => toolTipGenerator(event))
-      .on('mouseout', (event) => {
-        d3.select(event.currentTarget).attr('opacity', '.50');
-        return tooltip.style('visibility', 'hidden');
+    if (measureList.length > 0) {
+      measureList.forEach((measure) => {
+        svg
+          .append('path')
+          .datum(byLineDisplayData.filter((item) => item.measure === measure))
+          .attr('fill', 'none')
+          .attr('stroke', 'blue')
+          .attr(
+            'stroke',
+            colorMapping.find(
+              (mappingMeasure) => mappingMeasure.measure === measure,
+            ).color,
+          )
+          .attr('opacity', '.33')
+          .attr('stroke-width', 5)
+          .attr('d', line)
+          .on('mouseover', (event) => {
+            d3.select(event.currentTarget).attr('opacity', '1');
+            toolTipGenerator(event);
+          })
+          .on('mousemove', (event) => toolTipGenerator(event))
+          .on('mouseout', (event) => {
+            d3.select(event.currentTarget).attr('opacity', '.50');
+            return tooltip.style('visibility', 'hidden');
+          });
       });
+    }
+
     // Create line at end of chart to make it a complete box
     svg
       .append('line')
@@ -210,12 +214,16 @@ D3IndicatorByLineChart.propTypes = {
       value: PropTypes.number,
       date: PropTypes.string,
       measure: PropTypes.string,
+      subScores: PropTypes.arrayOf(),
     }),
   ),
   measureInfo: PropTypes.shape({
     displayLabel: PropTypes.string,
   }),
   colorMapping: colorMappingProps,
+  colorArray: PropTypes.arrayOf(
+    PropTypes.string,
+  ),
   graphWidth: PropTypes.number,
   currentTimeline: PropTypes.shape({
     choice: PropTypes.string,
@@ -228,6 +236,7 @@ D3IndicatorByLineChart.defaultProps = {
   graphWidth: 0,
   measureInfo: {},
   colorMapping: [],
+  colorArray: [],
   currentTimeline: {
     choice: 'all',
     range: [null, null],

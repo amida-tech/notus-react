@@ -7,10 +7,10 @@ import React, {
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import D3IndicatorByLineSelector from './D3IndicatorByLineSelector';
-import D3IndicatorByLineChart from './D3IndicatorByLineChart';
 import TabPanel from '../Common/TabPanel';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import MeasureResultsTable from '../MeasureResults/MeasureResultsTable';
+import ColorMapping from '../Utilites/ColorMapping';
 import {
   storeProps,
   dashboardStateProps,
@@ -52,8 +52,11 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   );
   const [currentFilters, setCurrentFilters] = useState(defaultFilterState);
   const [tabValue, setTabValue] = useState(0);
-  const [byLineMeasure, setByLineMeasure] = useState('');
+  const [byLineMeasure, setByLineMeasure] = useState({});
+  const [byLineCurrentResults, setByLineCurrentResults] = useState([])
   const [byLineDisplayData, setByLineDisplayData] = useState([]);
+  const [byLineColorMap, setByLineColorMap] = useState([]);
+  const [byLineSelectedMeasures, setByLineSelectedMeasures] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth)
@@ -129,12 +132,16 @@ function D3Container({ dashboardState, dashboardActions, store }) {
 
   const handleTabChange = (event, index) => {
     setTabValue(index);
-    setByLineMeasure(store.currentResults[0].measure);
+    const defaultByLineMeasure = store.currentResults[0];
+    setByLineMeasure(defaultByLineMeasure);
     const filteredDisplayData = store.results.filter(
       (item) => item.measure === store.currentResults[0].measure,
     );
     setByLineDisplayData(filteredDisplayData);
-    dashboardActions.setActiveMeasure(store.currentResults[0]);
+    setByLineCurrentResults([defaultByLineMeasure]);
+    setByLineSelectedMeasures([defaultByLineMeasure.measure])
+    setByLineColorMap(ColorMapping(colorMap, colorArray, filteredDisplayData));
+    dashboardActions.setActiveMeasure(defaultByLineMeasure);
   };
 
   const handleMeasureChange = (event) => {
@@ -163,16 +170,33 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   }
 
   const handleByLineChange = (event) => {
-    setByLineMeasure(event.target.value);
+    const newByLineMeasure = store.currentResults.find(
+      (item) => item.measure === event.target.value,
+    );
+    setByLineMeasure(newByLineMeasure);
     const filteredDisplayData = store.results.filter(
       (item) => item.measure === event.target.value,
     );
-    setByLineDisplayData(filteredDisplayData);
-    dashboardActions.setActiveMeasure(
-      store.currentResults.filter(
-        (item) => item.measure === event.target.value,
-      )[0],
-    );
+    let newByLineCurrentResults = [];
+    if (newByLineMeasure.subScores && newByLineMeasure.subScores.length > 1) {
+      newByLineCurrentResults = [newByLineMeasure, ...newByLineMeasure.subScores];
+    } else {
+      newByLineCurrentResults = [newByLineMeasure];
+    }
+    setByLineCurrentResults(newByLineCurrentResults);
+    const newByLineDisplayData = [];
+    filteredDisplayData.forEach((byLine) => {
+      newByLineDisplayData.push(byLine);
+      if (filteredDisplayData[0].subScores && filteredDisplayData[0].subScores.length > 1) {
+        byLine.subScores.forEach((subScore) => newByLineDisplayData.push(subScore));
+      }
+    });
+    const byLineMeasureList = [];
+    newByLineCurrentResults.forEach((item) => byLineMeasureList.push(item.measure));
+    setByLineSelectedMeasures(byLineMeasureList);
+    setByLineDisplayData(newByLineDisplayData);
+    setByLineColorMap(ColorMapping(colorMap, colorArray, filteredDisplayData));
+    dashboardActions.setActiveMeasure(newByLineMeasure);
   };
 
   return (
@@ -183,6 +207,15 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
       />
+      <Grid item className="d3-container__chart">
+        <ChartBar
+          filterDrawerOpen={dashboardState.filterDrawerOpen}
+          toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
+          currentTimeline={currentTimeline}
+          handleTimelineChange={handleTimelineChange}
+          filterSum={currentFilters.sum}
+        />
+      </Grid>
       <Tabs
         value={tabValue}
         onChange={(event, index) => handleTabChange(event, index)}
@@ -192,34 +225,33 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         <Tab label="Measure by Line" className="d3-container__tab-button" />
       </Tabs>
       <TabPanel value={tabValue} index={1}>
-        <Grid container>
+        <Grid container justifyContent="space-evenly" direction="column">
           <Grid item sx={{ width: '25%' }}>
             <D3IndicatorByLineSelector
               currentResults={store.currentResults}
-              byLineMeasure={byLineMeasure}
+              byLineMeasure={byLineMeasure.measure}
               handleByLineChange={handleByLineChange}
             />
           </Grid>
+          <Grid item>
+            <D3Chart
+              displayData={byLineDisplayData}
+              graphWidth={graphWidth}
+              colorMapping={byLineColorMap}
+              measureInfo={store.info}
+              currentTimeline={currentTimeline}
+            />
+          </Grid>
         </Grid>
-        <D3IndicatorByLineChart
-          byLineDisplayData={byLineDisplayData}
-          graphWidth={graphWidth}
-          colorMapping={colorMap}
-          measureInfo={store.info}
-          currentTimeline={currentTimeline}
+        <MeasureResultsTable
+          currentResults={byLineCurrentResults}
+          handleMeasureChange={handleMeasureChange}
+          selectedMeasures={byLineSelectedMeasures}
+          colorMapping={byLineColorMap}
         />
       </TabPanel>
       <TabPanel value={tabValue} index={0}>
         <Grid container justifyContent="space-evenly" direction="column">
-          <Grid item className="d3-container__chart">
-            <ChartBar
-              filterDrawerOpen={dashboardState.filterDrawerOpen}
-              toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
-              currentTimeline={currentTimeline}
-              handleTimelineChange={handleTimelineChange}
-              filterSum={currentFilters.sum}
-            />
-          </Grid>
           <Grid item>
             <D3Chart
               displayData={displayData}
