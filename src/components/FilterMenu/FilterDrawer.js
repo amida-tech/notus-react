@@ -181,6 +181,7 @@ FilterDrawer.propTypes = {
     domainsOfCare: PropTypes.arrayOf(PropTypes.string),
     stars: PropTypes.arrayOf(PropTypes.number),
     percentRange: PropTypes.arrayOf(PropTypes.number),
+    sum: PropTypes.number,
   }),
   toggleFilterDrawer: PropTypes.func,
   handleFilterChange: PropTypes.func,
@@ -188,7 +189,12 @@ FilterDrawer.propTypes = {
 
 FilterDrawer.defaultProps = {
   filterDrawerOpen: false,
-  currentFilters: {},
+  currentFilters: {
+    domainsOfCare: [],
+    stars: [],
+    percentRange: [0, 100],
+    sum: 0,
+  },
   toggleFilterDrawer: undefined,
   handleFilterChange: undefined,
 }
