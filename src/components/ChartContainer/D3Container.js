@@ -59,7 +59,8 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const [byLineSelectedMeasures, setByLineSelectedMeasures] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
-  const [graphWidth, setGraphWidth] = useState(window.innerWidth)
+  const [graphWidth, setGraphWidth] = useState(window.innerWidth);
+  const [filterDisabled, setFilterDisabled] = useState(false);
   const workingList = [];
   store.results.forEach((item) => workingList.push(item.measure));
   const measureList = Array.from(new Set(workingList));
@@ -89,7 +90,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     if (store.currentResults !== undefined) {
       setSelectedMeasures(store.currentResults.map((result) => result.measure));
     }
-  }, [setSelectedMeasures, setCurrentFilters, store.currentResults]);
+  }, [setSelectedMeasures, setCurrentFilters, setByLineSelectedMeasures, store.currentResults]);
 
   const handleDisplayDataUpdate = (measures, filters, timeline) => {
     let newDisplayData = store.results.map((result) => ({ ...result }));
@@ -118,29 +119,41 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         );
       });
     }
-    if (timeline.choice !== 'all') {
-      let dayLimit = 0;
-      if (timeline.choice === '30' || timeline.choice === '60') {
-        dayLimit = new Date().getTime() - (parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000);
-      } else if (timeline.choice === 'ytd') {
-        dayLimit = new Date(new Date().getFullYear(), 0, 1).getTime();
-      } // Custom coming later.
-      newDisplayData = newDisplayData.filter((result) => new Date(result.date) > dayLimit);
-    }
+    newDisplayData = filterTimeline(newDisplayData, timeline);
     setDisplayData(newDisplayData);
   };
+
+  const handleByLineDisplayDataUpdate = (activeSubMeasures, currentMeasure, timeline) => {
+    let newByLineDisplayData = [];
+    newByLineDisplayData = expandSubMeasureResults(currentMeasure).filter(
+      (result) => activeSubMeasures.includes(result.measure),
+    );
+
+    newByLineDisplayData = filterTimeline(newByLineDisplayData, timeline);
+    setByLineDisplayData(newByLineDisplayData);
+  }
 
   const handleTabChange = (event, index) => {
     setTabValue(index);
     const defaultByLineMeasure = store.currentResults[0];
-    setByLineMeasure(defaultByLineMeasure);
-    const filteredDisplayData = store.results.filter(
-      (item) => item.measure === store.currentResults[0].measure,
-    );
-    setByLineDisplayData(filteredDisplayData);
-    setByLineCurrentResults([defaultByLineMeasure]);
-    setByLineSelectedMeasures([defaultByLineMeasure.measure])
-    setByLineColorMap(ColorMapping(colorMap, colorArray, filteredDisplayData));
+    if (index === 0) {
+      setFilterDisabled(false);
+    } else if (index === 1) {
+      setByLineMeasure(defaultByLineMeasure);
+      const filteredDisplayData = store.results.filter(
+        (item) => item.measure === store.currentResults[0].measure,
+      );
+      setByLineCurrentResults([defaultByLineMeasure]);
+      setByLineSelectedMeasures([defaultByLineMeasure.measure]);
+      setByLineColorMap(ColorMapping(colorMap, colorArray, filteredDisplayData));
+      handleByLineDisplayDataUpdate(
+        [defaultByLineMeasure.measure],
+        defaultByLineMeasure,
+        currentTimeline,
+      );
+      setFilterDisabled(true);
+    }
+
     dashboardActions.setActiveMeasure(defaultByLineMeasure);
   };
 
@@ -159,6 +172,48 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     handleDisplayDataUpdate(newSelectedMeasures, currentFilters, currentTimeline);
   };
 
+  const handleByLineMeasureChange = (event) => {
+    let newSelectedSubMeasures;
+    if (event.target.checked) {
+      newSelectedSubMeasures = event.target.value === 'all'
+        ? byLineCurrentResults.map((result) => result.measure)
+        : byLineSelectedMeasures.concat(event.target.value);
+      setByLineSelectedMeasures(newSelectedSubMeasures);
+    } else {
+      newSelectedSubMeasures = event.target.value === 'all'
+        ? [] : byLineSelectedMeasures.filter((result) => result !== event.target.value);
+      setByLineSelectedMeasures(newSelectedSubMeasures);
+    }
+    handleByLineDisplayDataUpdate(newSelectedSubMeasures, byLineMeasure, currentTimeline);
+  };
+
+  const expandSubMeasureResults = (selectedMeasure) => {
+    const expandedResults = [];
+    store.results.filter(
+      (result) => result.measure === selectedMeasure.measure,
+    ).forEach((byLine) => {
+      expandedResults.push(byLine);
+      if (selectedMeasure.subScores && selectedMeasure.subScores.length > 1) {
+        byLine.subScores.forEach((subScore) => expandedResults.push(subScore));
+      }
+    });
+
+    return expandedResults;
+  }
+
+  const filterTimeline = (timelineDisplayData, timeline) => {
+    if (timeline.choice !== 'all') {
+      let dayLimit = 0;
+      if (timeline.choice === '30' || timeline.choice === '60') {
+        dayLimit = new Date().getTime() - (parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000);
+      } else if (timeline.choice === 'ytd') {
+        dayLimit = new Date(new Date().getFullYear(), 0, 1).getTime();
+      } // Custom coming later.
+      return timelineDisplayData.filter((result) => new Date(result.date) > dayLimit);
+    }
+    return timelineDisplayData;
+  }
+
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
     handleDisplayDataUpdate(selectedMeasures, filterOptions, currentTimeline);
@@ -166,7 +221,8 @@ function D3Container({ dashboardState, dashboardActions, store }) {
 
   const handleTimelineChange = (timelineUpdate) => {
     setCurrentTimeline(timelineUpdate);
-    handleDisplayDataUpdate(selectedMeasures, currentFilters, timelineUpdate)
+    handleDisplayDataUpdate(selectedMeasures, currentFilters, timelineUpdate);
+    handleByLineDisplayDataUpdate(byLineSelectedMeasures, byLineMeasure, timelineUpdate);
   }
 
   const handleByLineChange = (event) => {
@@ -184,17 +240,11 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       newByLineCurrentResults = [newByLineMeasure];
     }
     setByLineCurrentResults(newByLineCurrentResults);
-    const newByLineDisplayData = [];
-    filteredDisplayData.forEach((byLine) => {
-      newByLineDisplayData.push(byLine);
-      if (filteredDisplayData[0].subScores && filteredDisplayData[0].subScores.length > 1) {
-        byLine.subScores.forEach((subScore) => newByLineDisplayData.push(subScore));
-      }
-    });
+
     const byLineMeasureList = [];
     newByLineCurrentResults.forEach((item) => byLineMeasureList.push(item.measure));
     setByLineSelectedMeasures(byLineMeasureList);
-    setByLineDisplayData(newByLineDisplayData);
+    handleByLineDisplayDataUpdate(byLineMeasureList, newByLineMeasure, currentTimeline);
     setByLineColorMap(ColorMapping(colorMap, colorArray, filteredDisplayData));
     dashboardActions.setActiveMeasure(newByLineMeasure);
   };
@@ -214,6 +264,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           currentTimeline={currentTimeline}
           handleTimelineChange={handleTimelineChange}
           filterSum={currentFilters.sum}
+          filterDisabled={filterDisabled}
         />
       </Grid>
       <Tabs
@@ -245,7 +296,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         </Grid>
         <MeasureResultsTable
           currentResults={byLineCurrentResults}
-          handleMeasureChange={handleMeasureChange}
+          handleMeasureChange={handleByLineMeasureChange}
           selectedMeasures={byLineSelectedMeasures}
           colorMapping={byLineColorMap}
         />
