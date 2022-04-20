@@ -42,8 +42,8 @@ export const DatastoreReducer = (state, action) => {
       });
       Object.keys(workingList).forEach((key) => {
         workingList[key].label = createLabel(workingList[key].measure, info);
-        workingList[key].shortLabel = info[workingList[key].measure].displayLabel;
-        workingList[key].title = info[workingList[key].measure].title;
+        workingList[key].shortLabel = info[workingList[key].measure]?.displayLabel;
+        workingList[key].title = info[workingList[key].measure]?.title;
       });
       const currentResults = Object.values(workingList)
         .sort((a, b) => {

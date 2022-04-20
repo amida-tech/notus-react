@@ -5,8 +5,6 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import PropTypes from 'prop-types';
 
-// components
-
 import { DatastoreContext } from '../context/DatastoreProvider';
 import Footer from '../components/Footers/Footer';
 import D3Container from '../components/ChartContainer';
@@ -15,14 +13,22 @@ import DashboardNavbar from '../components/Navbars/DashboardNavbar';
 import Banner from '../components/Summary/Banner';
 import RatingTrends from '../components/Summary/RatingTrends';
 
+const defaultActiveMeasure = {
+  measure: '',
+  denominator: 0,
+  shortLabel: '',
+  starRating: 0,
+  title: '',
+};
+
 export default function Dashboard({ loggedIn }) {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
-  const [activeMeasure, setActiveMeasure] = useState({});
+  const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
 
   useEffect(() => {
     if (datastore.currentResults !== undefined) {
-      setActiveMeasure(datastore.currentResults.find((result) => result.measure === 'composite'));
+      setActiveMeasure(datastore.currentResults.find((result) => result.measure === 'composite') || defaultActiveMeasure);
     }
   }, [datastore.currentResults]);
 

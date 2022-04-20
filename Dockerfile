@@ -37,7 +37,7 @@ COPY --from=builder /app/ /app/
 RUN yarn install --frozen-lockfile && yarn cache clean
 # Up til this point should get cached and only re-run if dependencies change
 
-USER 50000:50000
+# USER 50000:50000
 
 EXPOSE 3000
 

@@ -87,7 +87,7 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
             <Rating
               className="rating-trends__star-rating"
               name="read-only"
-              value={activeMeasure.starRating || 0}
+              value={activeMeasure.starRating}
               precision={0.5}
               readOnly
             />
@@ -135,8 +135,10 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
 RatingTrends.propTypes = {
   activeMeasure: PropTypes.shape({
     measure: PropTypes.string,
+    denominator: PropTypes.number,
+    shortLabel: PropTypes.string,
     starRating: PropTypes.number,
-    label: PropTypes.string,
+    title: PropTypes.string,
   }),
   trends: PropTypes.arrayOf(
     PropTypes.shape({
@@ -147,8 +149,11 @@ RatingTrends.propTypes = {
 
 RatingTrends.defaultProps = {
   activeMeasure: {
+    measure: '',
+    denominator: 0,
+    shortLabel: '',
     starRating: 0,
-    label: '',
+    title: '',
   },
   trends: [],
 }

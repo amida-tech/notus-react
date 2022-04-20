@@ -20,16 +20,17 @@ import {
 export const firstRenderContext = createContext(true);
 
 const colorArray = [
-  '#003F5C',
-  '#2F4B7C',
-  '#665191',
-  '#A05195',
-  '#D45087',
-  '#F95D6A',
-  '#FF7C43',
-  '#FFA600',
-  '#9D02D7',
-  '#0000FF',
+  '#88CCEE',
+  '#CC6677',
+  '#DDCC77',
+  '#117733',
+  '#332288',
+  '#AA4499',
+  '#44AA99',
+  '#999933',
+  '#661100',
+  '#6699CC',
+  '#888888',
 ];
 
 // If nothing set, select all.
@@ -56,14 +57,13 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const [selectedMeasures, setSelectedMeasures] = useState([]);
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth)
-
   const workingList = [];
   store.results.forEach((item) => workingList.push(item.measure));
   const measureList = Array.from(new Set(workingList));
 
   const colorMap = measureList.map((item, index) => ({
     measure: item,
-    color: index <= 10 ? colorArray[index] : colorArray[index % 10],
+    color: index <= 11 ? colorArray[index] : colorArray[index % 11],
   }));
 
   useEffect(() => {
@@ -176,7 +176,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   };
 
   return (
-    <div>
+    <div className="d3-container">
       <FilterDrawer
         filterDrawerOpen={dashboardState.filterDrawerOpen}
         toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
@@ -188,8 +188,8 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         onChange={(event, index) => handleTabChange(event, index)}
         indicatorColor="primary"
       >
-        <Tab label="All Measures" />
-        <Tab label="Measure by Line" />
+        <Tab label="All Measures" className="d3-container__tab-button" />
+        <Tab label="Measure by Line" className="d3-container__tab-button" />
       </Tabs>
       <TabPanel value={tabValue} index={1}>
         <Grid container>
@@ -206,6 +206,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           graphWidth={graphWidth}
           colorMapping={colorMap}
           measureInfo={store.info}
+          currentTimeline={currentTimeline}
         />
       </TabPanel>
       <TabPanel value={tabValue} index={0}>
@@ -225,6 +226,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
               colorMapping={colorMap}
               measureInfo={store.info}
               graphWidth={graphWidth}
+              currentTimeline={currentTimeline}
             />
           </Grid>
         </Grid>
