@@ -16,6 +16,7 @@ import {
   dashboardStateProps,
   dashboardActionsProps,
 } from './D3Props';
+import { filterByPercentage, filterByStars } from './D3ContainerUtils';
 
 export const firstRenderContext = createContext(true);
 
@@ -97,23 +98,10 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       );
     }
     if (filters.stars.length > 0) {
-      newDisplayData = newDisplayData.filter((result) => filters.stars.includes(
-        Math.floor( // Floor for the .5 stars.
-          store.currentResults.find(
-            (current) => current.measure === result.measure,
-          ).starRating,
-        ),
-      ));
+      newDisplayData = filterByStars(newDisplayData, filters, store);
     }
     if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
-      newDisplayData = newDisplayData.filter((result) => {
-        const { value } = store.currentResults.find(
-          (current) => current.measure === result.measure,
-        );
-        return (
-          value >= filters.percentRange[0] && value <= filters.percentRange[1]
-        );
-      });
+      newDisplayData = filterByPercentage(newDisplayData, filters, store);
     }
     if (timeline.choice !== 'all') {
       let dayLimit = 0;
