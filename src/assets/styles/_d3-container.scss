@@ -5,10 +5,14 @@ $block-class: 'd3-container';
 @at-root {
     .#{$block-class} {
 
-        & &__chart {
+        & &__chart-bar {
             float: right;
-            width: 300px;
-            margin-top: 10px;
+            width: 31.25rem;
+            margin-top: 0.625rem;
+        }
+
+        & &__main-chart {
+            margin-top: 3.5rem;;
         }
     }
 }

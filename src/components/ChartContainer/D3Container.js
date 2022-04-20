@@ -257,7 +257,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
       />
-      <Grid item className="d3-container__chart">
+      <Grid item className="d3-container__chart-bar">
         <ChartBar
           filterDrawerOpen={dashboardState.filterDrawerOpen}
           toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
@@ -303,7 +303,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       </TabPanel>
       <TabPanel value={tabValue} index={0}>
         <Grid container justifyContent="space-evenly" direction="column">
-          <Grid item>
+          <Grid item className="d3-container__main-chart">
             <D3Chart
               displayData={displayData}
               colorMapping={colorMap}
