@@ -77,7 +77,7 @@ describe('FilterDrawer', () => {
   });
 
   test('cancels the filter changes', () => {
-    const { getByText } = render(
+    const { getByText, rerender } = render(
       <FilterDrawer
         filterDrawerOpen
         handleFilterChange={mockHandleFilterChange}
@@ -86,6 +86,8 @@ describe('FilterDrawer', () => {
       />,
     );
     givenPropsTest(getByText);
+    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
+    expect(screen.getByDisplayValue('2').checked).toBe(false);
     fireEvent.click(screen.getByDisplayValue('ECDS'));
     fireEvent.click(screen.getByDisplayValue('2'));
     expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
@@ -94,5 +96,9 @@ describe('FilterDrawer', () => {
     fireEvent.click(getByText('Cancel'));
     expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
     expect(mockHandleFilterChange).not.toHaveBeenCalled();
+
+    rerender(<FilterDrawer filterDrawerOpen />)
+    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
+    expect(screen.getByDisplayValue('2').checked).toBe(false);
   });
 })
