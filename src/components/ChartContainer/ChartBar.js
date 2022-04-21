@@ -28,7 +28,12 @@ const timelineLabel = (choice) => {
 }
 
 function ChartBar({
-  filterDrawerOpen, toggleFilterDrawer, filterSum, currentTimeline, handleTimelineChange,
+  filterDrawerOpen,
+  toggleFilterDrawer,
+  filterSum,
+  currentTimeline,
+  handleTimelineChange,
+  filterDisabled,
 }) {
   const buttonStyling = {};
 
@@ -172,12 +177,13 @@ function ChartBar({
           }
         </Grid>
         <Grid item sx={buttonStyling}>
-          <Badge badgeContent={filterSum} className="chart-bar__badge">
+          <Badge badgeContent={filterSum} className={`chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
             <Button
               className="chart-bar__filter-button"
               color="black"
               variant="text"
               onClick={onClickFilter}
+              disabled={filterDisabled}
               startIcon={(
                 <FilterAltIcon />
               )}
@@ -204,6 +210,7 @@ ChartBar.propTypes = {
     range: PropTypes.arrayOf(PropTypes.string),
   }),
   handleTimelineChange: PropTypes.func,
+  filterDisabled: PropTypes.bool,
 };
 
 ChartBar.defaultProps = {
@@ -215,6 +222,7 @@ ChartBar.defaultProps = {
     range: [null, null],
   },
   handleTimelineChange: undefined,
+  filterDisabled: false,
 }
 
 export default ChartBar;

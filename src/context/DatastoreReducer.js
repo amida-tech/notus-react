@@ -29,6 +29,21 @@ const createLabel = (measure, info) => {
   return measure.toUpperCase();
 }
 
+const createSubMeasureLabel = (subMeasure, info) => {
+  let displayLabel = '';
+  if (subMeasure.length > 3 && subMeasure.charAt(3) === 'e') {
+    displayLabel = `${subMeasure.slice(0, 3).toUpperCase()}-E`;
+  } else {
+    displayLabel = subMeasure.toUpperCase();
+  }
+
+  if (info[subMeasure]) {
+    return `${displayLabel} - ${info[subMeasure].title}`
+  }
+
+  return displayLabel;
+}
+
 export const DatastoreReducer = (state, action) => {
   switch (action.type) {
     case 'SET_RESULTS': {
@@ -44,6 +59,12 @@ export const DatastoreReducer = (state, action) => {
         workingList[key].label = createLabel(workingList[key].measure, info);
         workingList[key].shortLabel = info[workingList[key].measure]?.displayLabel;
         workingList[key].title = info[workingList[key].measure]?.title;
+        if (workingList[key].subScores) {
+          workingList[key].subScores.forEach((subscore) => {
+            const newSubscore = subscore;
+            newSubscore.label = createSubMeasureLabel(newSubscore.measure, info);
+          });
+        }
       });
       const currentResults = Object.values(workingList)
         .sort((a, b) => {
