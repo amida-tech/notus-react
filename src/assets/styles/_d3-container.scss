@@ -12,7 +12,12 @@ $block-class: 'd3-container';
         }
 
         & &__main-chart {
-            margin-top: 3.5rem;;
+            margin-top: 3.5rem;
+        }
+
+        &__chart-holder {
+            justify-content: space-evenly; 
+            direction: column;
         }
     }
 }

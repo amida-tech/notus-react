@@ -90,7 +90,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     if (store.currentResults !== undefined) {
       setSelectedMeasures(store.currentResults.map((result) => result.measure));
     }
-  }, [setSelectedMeasures, setCurrentFilters, setByLineSelectedMeasures, store.currentResults]);
+  }, [setSelectedMeasures, setCurrentFilters, store.currentResults]);
 
   const handleDisplayDataUpdate = (measures, filters, timeline) => {
     let newDisplayData = store.results.map((result) => ({ ...result }));
@@ -276,7 +276,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         <Tab label="Measure by Line" className="d3-container__tab-button" />
       </Tabs>
       <TabPanel value={tabValue} index={1}>
-        <Grid container justifyContent="space-evenly" direction="column">
+        <Grid container className="d3-container__chart-holder">
           <Grid item sx={{ width: '25%' }}>
             <D3IndicatorByLineSelector
               currentResults={store.currentResults}
@@ -302,7 +302,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         />
       </TabPanel>
       <TabPanel value={tabValue} index={0}>
-        <Grid container justifyContent="space-evenly" direction="column">
+        <Grid container className="d3-container__chart-holder">
           <Grid item className="d3-container__main-chart">
             <D3Chart
               displayData={displayData}
