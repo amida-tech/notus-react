@@ -7,10 +7,10 @@ import React, {
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import D3IndicatorByLineSelector from './D3IndicatorByLineSelector';
-import D3IndicatorByLineChart from './D3IndicatorByLineChart';
 import TabPanel from '../Common/TabPanel';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import MeasureResultsTable from '../MeasureResults/MeasureResultsTable';
+import ColorMapping from '../Utilites/ColorMapping';
 import {
   storeProps,
   dashboardStateProps,
@@ -52,11 +52,15 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   );
   const [currentFilters, setCurrentFilters] = useState(defaultFilterState);
   const [tabValue, setTabValue] = useState(0);
-  const [byLineMeasure, setByLineMeasure] = useState('');
+  const [byLineMeasure, setByLineMeasure] = useState({});
+  const [byLineCurrentResults, setByLineCurrentResults] = useState([])
   const [byLineDisplayData, setByLineDisplayData] = useState([]);
+  const [byLineColorMap, setByLineColorMap] = useState([]);
+  const [byLineSelectedMeasures, setByLineSelectedMeasures] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
-  const [graphWidth, setGraphWidth] = useState(window.innerWidth)
+  const [graphWidth, setGraphWidth] = useState(window.innerWidth);
+  const [filterDisabled, setFilterDisabled] = useState(false);
   const workingList = [];
   store.results.forEach((item) => workingList.push(item.measure));
   const measureList = Array.from(new Set(workingList));
@@ -115,26 +119,42 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         );
       });
     }
-    if (timeline.choice !== 'all') {
-      let dayLimit = 0;
-      if (timeline.choice === '30' || timeline.choice === '60') {
-        dayLimit = new Date().getTime() - (parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000);
-      } else if (timeline.choice === 'ytd') {
-        dayLimit = new Date(new Date().getFullYear(), 0, 1).getTime();
-      } // Custom coming later.
-      newDisplayData = newDisplayData.filter((result) => new Date(result.date) > dayLimit);
-    }
+    newDisplayData = filterTimeline(newDisplayData, timeline);
     setDisplayData(newDisplayData);
   };
 
+  const handleByLineDisplayDataUpdate = (activeSubMeasures, currentMeasure, timeline) => {
+    let newByLineDisplayData = [];
+    newByLineDisplayData = expandSubMeasureResults(currentMeasure).filter(
+      (result) => activeSubMeasures.includes(result.measure),
+    );
+
+    newByLineDisplayData = filterTimeline(newByLineDisplayData, timeline);
+    setByLineDisplayData(newByLineDisplayData);
+  }
+
   const handleTabChange = (event, index) => {
     setTabValue(index);
-    setByLineMeasure(store.currentResults[0].measure);
-    const filteredDisplayData = store.results.filter(
-      (item) => item.measure === store.currentResults[0].measure,
-    );
-    setByLineDisplayData(filteredDisplayData);
-    dashboardActions.setActiveMeasure(store.currentResults[0]);
+    const defaultByLineMeasure = store.currentResults[0];
+    if (index === 0) {
+      setFilterDisabled(false);
+    } else if (index === 1) {
+      setByLineMeasure(defaultByLineMeasure);
+      const filteredDisplayData = store.results.filter(
+        (item) => item.measure === store.currentResults[0].measure,
+      );
+      setByLineCurrentResults([defaultByLineMeasure]);
+      setByLineSelectedMeasures([defaultByLineMeasure.measure]);
+      setByLineColorMap(ColorMapping(colorMap, colorArray, filteredDisplayData));
+      handleByLineDisplayDataUpdate(
+        [defaultByLineMeasure.measure],
+        defaultByLineMeasure,
+        currentTimeline,
+      );
+      setFilterDisabled(true);
+    }
+
+    dashboardActions.setActiveMeasure(defaultByLineMeasure);
   };
 
   const handleMeasureChange = (event) => {
@@ -152,6 +172,48 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     handleDisplayDataUpdate(newSelectedMeasures, currentFilters, currentTimeline);
   };
 
+  const handleByLineMeasureChange = (event) => {
+    let newSelectedSubMeasures;
+    if (event.target.checked) {
+      newSelectedSubMeasures = event.target.value === 'all'
+        ? byLineCurrentResults.map((result) => result.measure)
+        : byLineSelectedMeasures.concat(event.target.value);
+      setByLineSelectedMeasures(newSelectedSubMeasures);
+    } else {
+      newSelectedSubMeasures = event.target.value === 'all'
+        ? [] : byLineSelectedMeasures.filter((result) => result !== event.target.value);
+      setByLineSelectedMeasures(newSelectedSubMeasures);
+    }
+    handleByLineDisplayDataUpdate(newSelectedSubMeasures, byLineMeasure, currentTimeline);
+  };
+
+  const expandSubMeasureResults = (selectedMeasure) => {
+    const expandedResults = [];
+    store.results.filter(
+      (result) => result.measure === selectedMeasure.measure,
+    ).forEach((byLine) => {
+      expandedResults.push(byLine);
+      if (selectedMeasure.subScores && selectedMeasure.subScores.length > 1) {
+        byLine.subScores.forEach((subScore) => expandedResults.push(subScore));
+      }
+    });
+
+    return expandedResults;
+  }
+
+  const filterTimeline = (timelineDisplayData, timeline) => {
+    if (timeline.choice !== 'all') {
+      let dayLimit = 0;
+      if (timeline.choice === '30' || timeline.choice === '60') {
+        dayLimit = new Date().getTime() - (parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000);
+      } else if (timeline.choice === 'ytd') {
+        dayLimit = new Date(new Date().getFullYear(), 0, 1).getTime();
+      } // Custom coming later.
+      return timelineDisplayData.filter((result) => new Date(result.date) > dayLimit);
+    }
+    return timelineDisplayData;
+  }
+
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
     handleDisplayDataUpdate(selectedMeasures, filterOptions, currentTimeline);
@@ -159,20 +221,32 @@ function D3Container({ dashboardState, dashboardActions, store }) {
 
   const handleTimelineChange = (timelineUpdate) => {
     setCurrentTimeline(timelineUpdate);
-    handleDisplayDataUpdate(selectedMeasures, currentFilters, timelineUpdate)
+    handleDisplayDataUpdate(selectedMeasures, currentFilters, timelineUpdate);
+    handleByLineDisplayDataUpdate(byLineSelectedMeasures, byLineMeasure, timelineUpdate);
   }
 
   const handleByLineChange = (event) => {
-    setByLineMeasure(event.target.value);
+    const newByLineMeasure = store.currentResults.find(
+      (item) => item.measure === event.target.value,
+    );
+    setByLineMeasure(newByLineMeasure);
     const filteredDisplayData = store.results.filter(
       (item) => item.measure === event.target.value,
     );
-    setByLineDisplayData(filteredDisplayData);
-    dashboardActions.setActiveMeasure(
-      store.currentResults.filter(
-        (item) => item.measure === event.target.value,
-      )[0],
-    );
+    let newByLineCurrentResults = [];
+    if (newByLineMeasure.subScores && newByLineMeasure.subScores.length > 1) {
+      newByLineCurrentResults = [newByLineMeasure, ...newByLineMeasure.subScores];
+    } else {
+      newByLineCurrentResults = [newByLineMeasure];
+    }
+    setByLineCurrentResults(newByLineCurrentResults);
+
+    const byLineMeasureList = [];
+    newByLineCurrentResults.forEach((item) => byLineMeasureList.push(item.measure));
+    setByLineSelectedMeasures(byLineMeasureList);
+    handleByLineDisplayDataUpdate(byLineMeasureList, newByLineMeasure, currentTimeline);
+    setByLineColorMap(ColorMapping(colorMap, colorArray, filteredDisplayData));
+    dashboardActions.setActiveMeasure(newByLineMeasure);
   };
 
   return (
@@ -183,6 +257,16 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
       />
+      <Grid item className="d3-container__chart-bar">
+        <ChartBar
+          filterDrawerOpen={dashboardState.filterDrawerOpen}
+          toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
+          currentTimeline={currentTimeline}
+          handleTimelineChange={handleTimelineChange}
+          filterSum={currentFilters.sum}
+          filterDisabled={filterDisabled}
+        />
+      </Grid>
       <Tabs
         value={tabValue}
         onChange={(event, index) => handleTabChange(event, index)}
@@ -192,35 +276,34 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         <Tab label="Measure by Line" className="d3-container__tab-button" />
       </Tabs>
       <TabPanel value={tabValue} index={1}>
-        <Grid container>
+        <Grid container className="d3-container__chart-holder">
           <Grid item sx={{ width: '25%' }}>
             <D3IndicatorByLineSelector
               currentResults={store.currentResults}
-              byLineMeasure={byLineMeasure}
+              byLineMeasure={byLineMeasure.measure}
               handleByLineChange={handleByLineChange}
             />
           </Grid>
+          <Grid item>
+            <D3Chart
+              displayData={byLineDisplayData}
+              graphWidth={graphWidth}
+              colorMapping={byLineColorMap}
+              measureInfo={store.info}
+              currentTimeline={currentTimeline}
+            />
+          </Grid>
         </Grid>
-        <D3IndicatorByLineChart
-          byLineDisplayData={byLineDisplayData}
-          graphWidth={graphWidth}
-          colorMapping={colorMap}
-          measureInfo={store.info}
-          currentTimeline={currentTimeline}
+        <MeasureResultsTable
+          currentResults={byLineCurrentResults}
+          handleMeasureChange={handleByLineMeasureChange}
+          selectedMeasures={byLineSelectedMeasures}
+          colorMapping={byLineColorMap}
         />
       </TabPanel>
       <TabPanel value={tabValue} index={0}>
-        <Grid container justifyContent="space-evenly" direction="column">
-          <Grid item className="d3-container__chart">
-            <ChartBar
-              filterDrawerOpen={dashboardState.filterDrawerOpen}
-              toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
-              currentTimeline={currentTimeline}
-              handleTimelineChange={handleTimelineChange}
-              filterSum={currentFilters.sum}
-            />
-          </Grid>
-          <Grid item>
+        <Grid container className="d3-container__chart-holder">
+          <Grid item className="d3-container__main-chart">
             <D3Chart
               displayData={displayData}
               colorMapping={colorMap}
