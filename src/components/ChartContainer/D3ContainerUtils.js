@@ -19,3 +19,9 @@ export function filterByPercentage(displayData, filters, store) {
     );
   }));
 }
+
+export function filterByDOC(displayData, filters, store) {
+  return displayData.filter(
+    (result) => filters.domainsOfCare.includes(store.info[result.measure].domainOfCare),
+  );
+}

@@ -16,7 +16,7 @@ import {
   dashboardStateProps,
   dashboardActionsProps,
 } from './D3Props';
-import { filterByPercentage, filterByStars } from './D3ContainerUtils';
+import { filterByDOC, filterByPercentage, filterByStars } from './D3ContainerUtils';
 
 export const firstRenderContext = createContext(true);
 
@@ -93,9 +93,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     let newDisplayData = store.results.map((result) => ({ ...result }));
     newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
     if (filters.domainsOfCare.length > 0) {
-      newDisplayData = newDisplayData.filter(
-        (result) => filters.domainsOfCare.includes(store.info[result.measure].domainOfCare),
-      );
+      newDisplayData = filterByDOC(newDisplayData, filters, store);
     }
     if (filters.stars.length > 0) {
       newDisplayData = filterByStars(newDisplayData, filters, store);
@@ -112,6 +110,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       } // Custom coming later.
       newDisplayData = newDisplayData.filter((result) => new Date(result.date) > dayLimit);
     }
+    console.log(newDisplayData)
     setDisplayData(newDisplayData);
   };
 
