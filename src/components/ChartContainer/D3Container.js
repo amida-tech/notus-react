@@ -110,7 +110,6 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       } // Custom coming later.
       newDisplayData = newDisplayData.filter((result) => new Date(result.date) > dayLimit);
     }
-    console.log(newDisplayData)
     setDisplayData(newDisplayData);
   };
 
