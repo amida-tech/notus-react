@@ -12,8 +12,11 @@
 @use 'measure-results-row';
 @use 'measure-results-table';
 @use 'not-found';
+@use 'report-builder';
+@use 'saved-queries';
 @use 'tab-panel';
 @use 'trend-display';
 @use 'rating-trends';
+@use 'reports-banner';
 
 @use 'colors';

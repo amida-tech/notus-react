@@ -3,19 +3,19 @@ import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 import { DatastoreContext } from '../../context/DatastoreProvider';
 
-function Banner() {
+function ReportsBanner() {
   const { datastore } = useContext(DatastoreContext);
 
   return (
-    <Box className="banner">
-      <Typography variant="h1" className="banner__header">
-        HEDIS Dashboard
+    <Box className="reports-banner">
+      <Typography variant="h1" className="reports-banner__header">
+        HEDIS Reports
       </Typography>
-      <Box className="banner__update-box">
-        <Typography className="banner__update-label">
+      <Box className="reports-banner__update-box">
+        <Typography className="reports-banner__update-label">
           Last Updated:
         </Typography>
-        <Typography className="banner__update-time">
+        <Typography className="reports-banner__update-time">
           {' '}
           {datastore.lastUpdated}
         </Typography>
@@ -24,4 +24,4 @@ function Banner() {
   );
 }
 
-export default Banner;
+export default ReportsBanner;

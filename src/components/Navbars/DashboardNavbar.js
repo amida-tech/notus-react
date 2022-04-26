@@ -41,7 +41,7 @@ export default function Navbar() {
               <div className="mx-4">
                 <Link
                   className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-                  to={{ pathname: '/measures/' }}
+                  to={{ pathname: '/reports' }}
                 >
                   Reports
                 </Link>

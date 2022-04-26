@@ -15,6 +15,7 @@ import Dashboard from './layouts/Dashboard';
 import Auth from './layouts/Auth';
 import NotFound from './notFound';
 import DatastoreProvider from './context/DatastoreProvider';
+import Reports from './layouts/Reports'
 
 const action = (setShowWelcome) => (
   <IconButton
@@ -81,6 +82,11 @@ export default function App() {
       />
       <BrowserRouter>
         <Switch>
+          <DatastoreProvider> 
+            <Route path="/reports">
+              <Reports />
+            </Route>
+          </DatastoreProvider>
           <Route path="/auth">
             <Auth />
           </Route>
