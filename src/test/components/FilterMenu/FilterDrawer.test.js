@@ -23,9 +23,21 @@ const givenPropsTest = async (getByText) => {
   expect(screen.getByDisplayValue('2').checked).toBe(false);
 }
 
+const closeOpenDrawerTest = async (rerender) => {
+  rerender(<FilterDrawer
+    filterDrawerOpen={false}
+  />);
+  const refineByText = screen.queryByText('Refine by');
+  expect(refineByText).toBe(null);
+  rerender(<FilterDrawer
+    filterDrawerOpen
+  />);
+}
+
+// TO DO: Write test for the slider. https://stackoverflow.com/questions/58856094/testing-a-material-ui-slider-with-testing-library-react
 describe('FilterDrawer', () => {
   test('checks that the filter is applied', () => {
-    const { getByText } = render(
+    const { getByText, rerender } = render(
       <FilterDrawer
         filterDrawerOpen
         handleFilterChange={mockHandleFilterChange}
@@ -39,7 +51,6 @@ describe('FilterDrawer', () => {
 
     expect(screen.getByDisplayValue('EOC').checked).toBe(false);
     expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
-
     expect(screen.getByDisplayValue('1').checked).toBe(false);
     expect(screen.getByDisplayValue('2').checked).toBe(true);
     expect(screen.getByDisplayValue('3').checked).toBe(true);
@@ -54,10 +65,23 @@ describe('FilterDrawer', () => {
       sum: 3,
     });
     expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
+
+    rerender(<FilterDrawer
+      filterDrawerOpen={false}
+    />);
+    const refineByText = screen.queryByText('Refine by');
+    expect(refineByText).toBe(null);
+
+    rerender(<FilterDrawer
+      filterDrawerOpen
+    />);
+    expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
+    expect(screen.getByDisplayValue('2').checked).toBe(true);
+    expect(screen.getByDisplayValue('3').checked).toBe(true);
   })
 
   test('resets to the default filter state', () => {
-    const { getByText } = render(
+    const { getByText, rerender } = render(
       <FilterDrawer
         filterDrawerOpen
         handleFilterChange={mockHandleFilterChange}
@@ -65,6 +89,7 @@ describe('FilterDrawer', () => {
         toggleFilterDrawer={mockToggleFilterDrawer}
       />,
     );
+
     givenPropsTest(getByText);
     fireEvent.click(getByText('Reset Filters'));
     expect(mockHandleFilterChange).toHaveBeenCalledWith({
@@ -74,6 +99,12 @@ describe('FilterDrawer', () => {
       sum: 0,
     });
     expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
+
+    closeOpenDrawerTest(rerender);
+    expect(screen.getByDisplayValue('EOC').checked).toBe(false);
+    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
+    expect(screen.getByDisplayValue('1').checked).toBe(false);
+    expect(screen.getByDisplayValue('2').checked).toBe(false);
   });
 
   test('cancels the filter changes', () => {
@@ -85,6 +116,7 @@ describe('FilterDrawer', () => {
         toggleFilterDrawer={mockToggleFilterDrawer}
       />,
     );
+
     givenPropsTest(getByText);
     expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
     expect(screen.getByDisplayValue('2').checked).toBe(false);
@@ -97,7 +129,7 @@ describe('FilterDrawer', () => {
     expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
     expect(mockHandleFilterChange).not.toHaveBeenCalled();
 
-    rerender(<FilterDrawer filterDrawerOpen />)
+    closeOpenDrawerTest(rerender);
     expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
     expect(screen.getByDisplayValue('2').checked).toBe(false);
   });
