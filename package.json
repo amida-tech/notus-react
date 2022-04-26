@@ -4,9 +4,7 @@
   "description": "A HEDIS reporting application utilizing D3 and Material UI.",
   "repository": "https://github.com/amidatech/nsaraswati-dashboard",
   "license": "MIT",
-  "jest":{
-
-  },
+  "jest": {},
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
@@ -23,6 +21,7 @@
     "d3": "^7.3.0",
     "gulp": "4.0.2",
     "gulp-append-prepend": "1.0.8",
+    "js-file-download": "^0.4.12",
     "moment": "^2.29.1",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",

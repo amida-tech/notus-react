@@ -82,7 +82,7 @@ export default function App() {
       />
       <BrowserRouter>
         <Switch>
-          <DatastoreProvider> 
+          <DatastoreProvider>
             <Route path="/reports">
               <Reports />
             </Route>
