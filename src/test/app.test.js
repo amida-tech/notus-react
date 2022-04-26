@@ -1,6 +1,6 @@
 // Basic Math Test
 
 test('Do I work?', () => {
-  // eslint-disable-next-line no-self-compare
-  expect(1 === 1).toBe(true);
+  const two = 1 + 1;
+  expect(two === 2).toBe(true);
 });

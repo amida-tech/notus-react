@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 export function filterByStars(displayData, filters, store) {
   return (displayData.filter((result) => filters.stars.includes(
     Math.floor( // Floor for the .5 stars.
