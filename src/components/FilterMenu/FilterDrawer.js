@@ -68,6 +68,13 @@ function FilterDrawer({
     setPercentSliderValue(newValue);
   };
 
+  const handleCancel = () => {
+    setPercentSliderValue(Array.from(currentFilters.percentRange));
+    setStarChoices(Array.from(currentFilters.stars));
+    setDomainOfCareChoices(Array.from(currentFilters.domainsOfCare));
+    toggleFilterDrawer(false);
+  }
+
   const handleApplyFilter = () => {
     const filterOptions = {
       domainsOfCare: domainOfCareChoices,
@@ -153,7 +160,7 @@ function FilterDrawer({
             <Grid item className="filter-drawer__button-panel">
               <Button
                 className="filter-drawer__cancel-button"
-                onClick={toggleDrawer(false)}
+                onClick={handleCancel}
                 variant="outlined"
               >
                 Cancel
@@ -181,6 +188,7 @@ FilterDrawer.propTypes = {
     domainsOfCare: PropTypes.arrayOf(PropTypes.string),
     stars: PropTypes.arrayOf(PropTypes.number),
     percentRange: PropTypes.arrayOf(PropTypes.number),
+    sum: PropTypes.number,
   }),
   toggleFilterDrawer: PropTypes.func,
   handleFilterChange: PropTypes.func,
@@ -188,7 +196,12 @@ FilterDrawer.propTypes = {
 
 FilterDrawer.defaultProps = {
   filterDrawerOpen: false,
-  currentFilters: {},
+  currentFilters: {
+    domainsOfCare: [],
+    stars: [],
+    percentRange: [0, 100],
+    sum: 0,
+  },
   toggleFilterDrawer: undefined,
   handleFilterChange: undefined,
 }

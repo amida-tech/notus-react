@@ -22,6 +22,11 @@ $block-class: 'chart-bar';
       background-color: $default-red;
       transform: scale(1) translate(-50%, 30%);
       box-shadow: 0 0 0 2px $default-gray;
+      transition: none;
+
+      &--hidden {
+        display: none;
+      }
     }
 
     &__date-panel {
