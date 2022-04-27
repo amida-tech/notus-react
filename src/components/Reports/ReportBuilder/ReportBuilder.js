@@ -44,7 +44,7 @@ function ReportBuilder({ store }) {
           handleByLineChange={handleByLineChange}
         />
       </Grid>
-      <Button onClick={(e) => handleReport(e)}>Go Dammit</Button>
+      <Button onClick={(e) => handleReport(e)}>Get Report</Button>
     </div>
 
   )
