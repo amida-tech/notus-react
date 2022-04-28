@@ -24,6 +24,11 @@ $block-class: 'report-builder';
             margin: 0 1.5rem;
         }
 
+        & &__selector-panel {
+            width: 60%;
+            margin: 2rem auto;
+        }
+
         &__download-link {
             display: flex;
             justify-content: center;

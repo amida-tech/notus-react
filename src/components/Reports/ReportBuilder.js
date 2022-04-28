@@ -22,7 +22,7 @@ function ReportBuilder({ store }) {
     <Box className="report-builder">
       <Typography variant="h2" className="report-builder__h2-header">Build A Report</Typography>
       <Typography className="report-builder__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </Typography>
-      <Grid item sx={{ width: '60%', margin: '2rem auto' }}>
+      <Grid item className="report-builder__selector-panel">
         <MeasureSelector
           currentResults={store.currentResults}
           measure={measure}

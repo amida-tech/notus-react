@@ -7,9 +7,9 @@ import PropTypes from 'prop-types';
 function MeasureSelector({ currentResults, measure, handleMeasureChange }) {
   return (
     <FormControl fullWidth>
-      <InputLabel className="d3-indicator-by-line-selector">Select Measure</InputLabel>
+      <InputLabel className="measure-selector__label">Select Measure</InputLabel>
       <Select
-        className="indicator-by-line-selector__select"
+        className="measure-selector__select"
         value={measure}
         label="Measure By Line"
         onChange={handleMeasureChange}
