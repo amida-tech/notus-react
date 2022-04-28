@@ -1,24 +1,19 @@
 import React, { useContext } from 'react'
-import DashboardNavbar from '../components/Navbars/DashboardNavbar'
-import Footer from '../components/Footers/Footer'
+import { Box, Grid } from '@mui/material';
 import ReportsBanner from '../components/Summary/ReportsBanner'
-import ReportBuilder from '../components/Reports/ReportBuilder/ReportBuilder'
+import ReportBuilder from '../components/Reports/ReportBuilder'
 import SavedQueries from '../components/Reports/SavedQueries'
 import { DatastoreContext } from '../context/DatastoreProvider';
 
-function Reports() {
+export default function Reports() {
   const { datastore } = useContext(DatastoreContext);
   return (
-    <div>
-      <DashboardNavbar />
+    <Box className="reports">
       <ReportsBanner />
-      <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
-        <SavedQueries />
+      <Grid className="reports__display">
+        { process.env.REACT_APP_MVP_SETTING === 'false' && <SavedQueries /> }
         <ReportBuilder store={datastore} />
-      </div>
-      <Footer />
-    </div>
+      </Grid>
+    </Box>
   )
 }
-
-export default Reports

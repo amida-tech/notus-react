@@ -1,0 +1,11 @@
+$block-class: 'reports';
+
+@at-root {
+    .#{$block-class} {
+        & &__display {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+        }
+    }
+}

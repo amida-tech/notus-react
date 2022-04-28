@@ -11,11 +11,8 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 
 import axios from 'axios';
-import Dashboard from './layouts/Dashboard';
 import Auth from './layouts/Auth';
-import NotFound from './notFound';
-import DatastoreProvider from './context/DatastoreProvider';
-import Reports from './layouts/Reports'
+import ProtectedRoutes from './ProtectedRoutes';
 
 const action = (setShowWelcome) => (
   <IconButton
@@ -82,26 +79,14 @@ export default function App() {
       />
       <BrowserRouter>
         <Switch>
-          <DatastoreProvider>
-            <Route path="/reports">
-              <Reports />
-            </Route>
-          </DatastoreProvider>
           <Route path="/auth">
             <Auth />
           </Route>
-          <Route exact path="/">
-            {isLoaded
-              && (authenticated ? (
-                <DatastoreProvider>
-                  <Dashboard loggedIn={authenticated} />
-                </DatastoreProvider>
-              ) : <Redirect to="/auth" />
-              )}
-          </Route>
-          <Route path="*">
-            <NotFound />
-          </Route>
+          {isLoaded
+            && (authenticated ? (
+              <ProtectedRoutes loggedIn={authenticated} />
+            ) : <Redirect to="/auth" />
+            )}
         </Switch>
       </BrowserRouter>
     </>

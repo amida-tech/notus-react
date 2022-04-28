@@ -4,24 +4,24 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 
-function D3IndicatorByLineSelector({ currentResults, byLineMeasure, handleByLineChange }) {
+function MeasureSelector({ currentResults, measure, handleMeasureChange }) {
   return (
     <FormControl fullWidth>
       <InputLabel className="d3-indicator-by-line-selector">Select Measure</InputLabel>
       <Select
         className="indicator-by-line-selector__select"
-        value={byLineMeasure}
+        value={measure}
         label="Measure By Line"
-        onChange={handleByLineChange}
+        onChange={handleMeasureChange}
         sx={{ color: 'black.light' }}
       >
-        {currentResults.map((measure) => (
+        {currentResults.map((result) => (
           <MenuItem
             sx={{ color: 'black.light' }}
-            key={`by-line-menu-item-selector-${measure.measure}`}
-            value={measure.measure}
+            key={`by-line-menu-item-selector-${result.measure}`}
+            value={result.measure}
           >
-            {measure.label}
+            {result.label}
           </MenuItem>
         ))}
       </Select>
@@ -29,20 +29,20 @@ function D3IndicatorByLineSelector({ currentResults, byLineMeasure, handleByLine
   )
 }
 
-D3IndicatorByLineSelector.propTypes = {
+MeasureSelector.propTypes = {
   currentResults: PropTypes.arrayOf(
     PropTypes.shape({
       measure: PropTypes.string,
     }),
   ),
-  byLineMeasure: PropTypes.string,
-  handleByLineChange: PropTypes.func,
+  measure: PropTypes.string,
+  handleMeasureChange: PropTypes.func,
 };
 
-D3IndicatorByLineSelector.defaultProps = {
+MeasureSelector.defaultProps = {
   currentResults: [],
-  byLineMeasure: '',
-  handleByLineChange: () => undefined,
+  measure: '',
+  handleMeasureChange: () => undefined,
 }
 
-export default D3IndicatorByLineSelector;
+export default MeasureSelector;

@@ -6,7 +6,7 @@ import React, {
 } from 'react';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
-import D3IndicatorByLineSelector from './D3IndicatorByLineSelector';
+import MeasureSelector from '../Common/MeasureSelector';
 import TabPanel from '../Common/TabPanel';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import MeasureResultsTable from '../MeasureResults/MeasureResultsTable';
@@ -264,10 +264,10 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       <TabPanel value={tabValue} index={1}>
         <Grid container className="d3-container__chart-holder">
           <Grid item sx={{ width: '25%' }}>
-            <D3IndicatorByLineSelector
+            <MeasureSelector
               currentResults={store.currentResults}
-              byLineMeasure={byLineMeasure.measure}
-              handleByLineChange={handleByLineChange}
+              measure={byLineMeasure.measure}
+              handleMeasureChange={handleByLineChange}
             />
           </Grid>
           <Grid item>
