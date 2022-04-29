@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
-import { DatastoreContext } from '../../context/DatastoreProvider';
+import PropTypes from 'prop-types';
 
-function Banner() {
-  const { datastore } = useContext(DatastoreContext);
+function Banner({ lastUpdated }) {
   return (
     <Box className="banner">
       <Typography variant="h1" className="banner__header">
@@ -16,11 +15,19 @@ function Banner() {
         </Typography>
         <Typography className="banner__update-time">
           {' '}
-          {datastore.lastUpdated}
+          {lastUpdated}
         </Typography>
       </Box>
     </Box>
   );
 }
+
+Banner.propTypes = {
+  lastUpdated: PropTypes.string,
+};
+
+Banner.defaultProps = {
+  lastUpdated: '',
+};
 
 export default Banner;
