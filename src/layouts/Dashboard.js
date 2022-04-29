@@ -51,7 +51,7 @@ export default function Dashboard({ loggedIn }) {
           <Box sx={{ flexGrow: 2 }}>
             <Grid container spacing={4}>
               <Grid item className="dashboard__summary" sm={12}>
-                <Banner />
+                <Banner lastUpdated={datastore.lastupdated} />
                 <RatingTrends
                   activeMeasure={activeMeasure}
                   trends={datastore.trends}
