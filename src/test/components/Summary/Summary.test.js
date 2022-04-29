@@ -41,7 +41,7 @@ describe('TrendDisplay', () => {
     const { container } = render(
       <TrendDisplay trend={trend1} percentWidth={width1} />,
     )
-    expect(screen.queryByText('ABC % Compliance')).not.toBeNull()
+    expect(screen.queryByText('ABC Score % Change')).not.toBeNull()
     expect(screen.queryByText('+50 %')).not.toBeNull()
     expect(container.firstChild.classList.contains('trend-display--width-25')).toBe(true)
   })
@@ -50,7 +50,7 @@ describe('TrendDisplay', () => {
     const { container } = render(
       <TrendDisplay trend={trend2} percentWidth={width2} />,
     )
-    expect(screen.queryByText('EFG % Compliance')).not.toBeNull()
+    expect(screen.queryByText('EFG Score % Change')).not.toBeNull()
     expect(screen.queryByText('-50 %')).not.toBeNull()
     expect(container.firstChild.classList.contains('trend-display--width-50')).toBe(true)
   })

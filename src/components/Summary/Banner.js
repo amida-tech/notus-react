@@ -3,8 +3,7 @@ import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 
-function Banner(props) {
-  const { lastUpdated } = props;
+function Banner({ lastUpdated }) {
   return (
     <Box className="banner">
       <Typography variant="h1" className="banner__header">
