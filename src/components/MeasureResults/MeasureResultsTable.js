@@ -21,7 +21,6 @@ function generateMeasureRowValues(measureResult) {
     exclusions: measureResult.exclusions,
   }
 }
-
 const measureTip = 'The actual measure. At the moment, these are always HEDIS measures.';
 const remainingInclusionsTip = 'The population remaining after exclusions are removed.';
 const eligiblePopulationTip = 'The population of patients who are eligible for this measure.';
@@ -97,6 +96,7 @@ function MeasureResultsTable({
       </Grid>
 
       {currentResults.map((item) => (
+      
         <Grid
           item
           className="measure-results-table__row"
