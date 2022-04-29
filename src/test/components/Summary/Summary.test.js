@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  render,
+  render, screen,
 } from '@testing-library/react';
 import Banner from '../../../components/Summary/Banner'
 
@@ -10,6 +10,7 @@ describe('Banner', () => {
     const { getByText } = render(
       <Banner lastUpdated={date} />,
     );
-    expect(getByText('4-20-2022')).toBe(true);
+    // screen.debug();
+    expect(screen.queryByText(date)).not.toBeNull();
   })
 });
