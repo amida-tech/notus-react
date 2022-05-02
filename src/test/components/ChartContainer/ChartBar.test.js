@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Try } from '@mui/icons-material';
-import ChartBar from '../components/ChartContainer/ChartBar';
+import ChartBar from '../../../components/ChartContainer/ChartBar';
 
 const defaultFilterState = {
   domainsOfCare: [],
@@ -17,9 +16,8 @@ const filterDrawerOpen = false
 const toggleFilterDrawer = undefined
 
 const handleTimelineChange = undefined
-// describe('ChartBar Rendering', () => {
-test('Chart Bar renders to screen', () => {
-
+describe('ChartBar Rendering', () => {
+  it('renders to screen', () => {
     render(<ChartBar
       filterDrawerOpen={filterDrawerOpen}
       toggleFilterDrawer={toggleFilterDrawer}
@@ -27,10 +25,8 @@ test('Chart Bar renders to screen', () => {
       currentTimeline={defaultTimelineState}
       handleTimelineChange={handleTimelineChange}
     />)
-
-})
-test('Chart Bar renders "TimeLine"', async () => {
-
+  })
+  it('renders "TimeLine"', async () => {
     render(<ChartBar
       filterDrawerOpen={filterDrawerOpen}
       toggleFilterDrawer={toggleFilterDrawer}
@@ -41,6 +37,5 @@ test('Chart Bar renders "TimeLine"', async () => {
 
     const linkElement = await screen.queryByText(/Timeline/i)
     expect(linkElement).toBeInTheDocument();
-  
+  })
 })
-// })
