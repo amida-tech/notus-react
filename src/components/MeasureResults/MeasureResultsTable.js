@@ -96,7 +96,6 @@ function MeasureResultsTable({
       </Grid>
 
       {currentResults.map((item) => (
-      
         <Grid
           item
           className="measure-results-table__row"
