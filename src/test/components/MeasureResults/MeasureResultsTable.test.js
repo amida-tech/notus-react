@@ -17,14 +17,14 @@ const selectedMeasures = [
   'imae',
 ];
 
-const handleMeasureChange = (event) => {
-};
+
+const mockHandleMeasureChange = jest.fn(() => false);
 
 describe('MeasureResultsTable', () => {
   it('renders to screen with default conditions', () => {
     render(<MeasureResultsTable
       currentResults={currentResults}
-      handleMeasureChange={handleMeasureChange}
+      handleMeasureChange={mockHandleMeasureChange}
       selectedMeasures={selectedMeasures}
       colorMapping={colorMapping}
     />)
@@ -42,33 +42,32 @@ describe('MeasureResultsTable', () => {
   it('when you click any checkbox but "all," both that checkbox and "all" are unchecked', () => {
     const { container } = render(<MeasureResultsTable
       currentResults={currentResults}
-      handleMeasureChange={handleMeasureChange}
+      handleMeasureChange={mockHandleMeasureChange}
       selectedMeasures={selectedMeasures}
       colorMapping={colorMapping}
-
-      // Steps: 
-      // 2) fireEvent to click on a checkbox.
-      // 3) Mock `handleMeasureChange` and confirm it was clicked.
-      // 4) Rerender MeasureResultsTable.
-      // 5) Then confirm that "all" and the selected checkboxes are both unchecked.
-
     />)
+    // Steps:
+    const targetInputTag = container.getElementsByTagName('input')[0]
+    // console.log(targetInputTag)
+    // screen.debug()
+    // 2) fireEvent to click on a checkbox.
+    // 3) Mock `handleMeasureChange` and confirm it was clicked.
+    // 4) Rerender MeasureResultsTable.
+    // 5) Then confirm that "all" and the selected checkboxes are both unchecked.
   })
 
   it('when you click "all," every checkbox will then be checked', () => {
     const { container } = render(<MeasureResultsTable
       currentResults={currentResults}
-      handleMeasureChange={handleMeasureChange}
+      handleMeasureChange={mockHandleMeasureChange}
       selectedMeasures={selectedMeasures}
       colorMapping={colorMapping}
-
-      // Steps: 
-      // 1) You must change the above props so not all checkboxes will be checked when rendered.
-      // 2) fireEvent to click on "all".
-      // 3) Mock `handleMeasureChange` and confirm it was clicked.
-      // 4) Rerender MeasureResultsTable.
-      // 5) Then confirm that all checkboxes are checked.
-
     />)
+    // Steps:
+    // 1) You must change the above props so not all checkboxes will be checked when rendered.
+    // 2) fireEvent to click on "all".
+    // 3) Mock `handleMeasureChange` and confirm it was clicked.
+    // 4) Rerender MeasureResultsTable.
+    // 5) Then confirm that all checkboxes are checked.
   })
 })
