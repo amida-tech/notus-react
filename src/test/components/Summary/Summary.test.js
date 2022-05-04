@@ -119,5 +119,6 @@ describe('RatingTrends', () => {
     expect(screen.queryByText('Composite Score % Change')).not.toBeNull()
     expect(screen.queryByText('Star Rating')).not.toBeNull()
     expect(screen.queryByText('DRR-E Score % Change')).not.toBeNull()
+    expect(container.firstChild.classList.contains('rating-trends__help-icon')).toBe(true)
   })
 })
