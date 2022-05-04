@@ -1,0 +1,33 @@
+$block-class: 'saved-queries';
+@import 'colors';
+
+@at-root {
+    .#{$block-class} {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0.5rem;
+        margin-left: 2rem;
+        margin-bottom: 0.5rem;
+        color: $blue-grey-darken-1;
+        border: 1px solid $blue-grey-lighten-3;
+        height:50vh;
+        width: 40%;
+
+        & &__h2-header {
+            font-weight: 600;
+            text-align: left;
+            margin: 1rem 1.5rem 0.5rem 1.5rem;
+            font-size: 2.25rem;
+        }
+
+        & &__text{
+            margin: 0 1.5rem;
+        }
+
+        & &__past-search{
+            list-style-type: disc;
+            margin:1rem 1.5rem 0 5rem;
+            line-height: 2rem;
+        }
+    }
+}

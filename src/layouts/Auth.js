@@ -1,12 +1,5 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-
-// components
-
-import Footer from '../components/Footers/Footer';
-
-// views
-
 import Login from '../views/auth/Login';
 import Register from '../views/auth/Register';
 
@@ -28,7 +21,6 @@ export default function Auth() {
           <Route path="/auth/register" component={Register} />
           <Redirect from="/auth" to="/auth/login" />
         </Switch>
-        <Footer absolute />
       </section>
     </main>
   );
