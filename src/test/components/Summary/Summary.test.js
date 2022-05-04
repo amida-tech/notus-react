@@ -2,7 +2,7 @@ import React from 'react';
 import {
   fireEvent, render, screen,
 } from '@testing-library/react';
-import { sortedTrendsCreator, mainTrendCreator } from 'components/Summary/RatingTrendsUtils';
+import { sortedTrendsCreator, mainTrendCreator } from '../../../components/Summary/RatingTrendsUtils';
 import Info from '../../../components/Summary/Info';
 import TrendDisplay from '../../../components/Summary/TrendDisplay';
 import RatingTrends from '../../../components/Summary/RatingTrends';
@@ -119,6 +119,5 @@ describe('RatingTrends', () => {
     expect(screen.queryByText('Composite Score % Change')).not.toBeNull()
     expect(screen.queryByText('Star Rating')).not.toBeNull()
     expect(screen.queryByText('DRR-E Score % Change')).not.toBeNull()
-    expect(container.firstChild.classList.contains('rating-trends__help-icon')).toBe(true)
   })
 })
