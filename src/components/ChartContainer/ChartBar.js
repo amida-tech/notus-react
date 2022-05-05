@@ -96,8 +96,6 @@ function ChartBar({
               {timelineLabel(currentTimeline.choice)}
             </Typography>
           </Button>
-          {// This is where the fun begins
-          }
           <Menu
             id="date-menu"
             anchorEl={dateAnchorEl}
@@ -204,7 +202,6 @@ ChartBar.propTypes = {
   toggleFilterDrawer: PropTypes.func,
   filterSum: PropTypes.number,
   // Necessary for DateRangePicker to function and pass props
-  // eslint-disable-next-line react/forbid-prop-types
   currentTimeline: PropTypes.shape({
     choice: PropTypes.string,
     range: PropTypes.arrayOf(PropTypes.string),

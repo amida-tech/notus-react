@@ -1,15 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { ThemeProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import PropTypes from 'prop-types';
-
 import { DatastoreContext } from '../context/DatastoreProvider';
-import Footer from '../components/Footers/Footer';
 import D3Container from '../components/ChartContainer';
-import theme from '../assets/styles/AppTheme';
-import DashboardNavbar from '../components/Navbars/DashboardNavbar';
 import Banner from '../components/Summary/Banner';
 import RatingTrends from '../components/Summary/RatingTrends';
 
@@ -21,7 +15,7 @@ const defaultActiveMeasure = {
   title: '',
 };
 
-export default function Dashboard({ loggedIn }) {
+export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
@@ -44,40 +38,28 @@ export default function Dashboard({ loggedIn }) {
   };
 
   return (
-    <Box>
-      <ThemeProvider theme={theme}>
-        { loggedIn ? <DashboardNavbar /> : null}
-        <Paper className="dashboard__paper">
-          <Box sx={{ flexGrow: 2 }}>
-            <Grid container spacing={4}>
-              <Grid item className="dashboard__summary" sm={12}>
-                <Banner lastUpdated={datastore.lastupdated} />
-                <RatingTrends
-                  activeMeasure={activeMeasure}
-                  trends={datastore.trends}
-                  info={datastore.info}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <D3Container
-                  store={datastore}
-                  dashboardState={dashboardState}
-                  dashboardActions={dashboardActions}
-                />
-              </Grid>
+    <Box className="dashboard">
+      <Paper className="dashboard__paper">
+        <Box sx={{ flexGrow: 2 }}>
+          <Grid container spacing={4}>
+            <Grid item className="dashboard__summary" sm={12}>
+              <Banner lastUpdated={datastore.lastupdated} />
+              <RatingTrends
+                activeMeasure={activeMeasure}
+                trends={datastore.trends}
+                info={datastore.info}
+              />
             </Grid>
-          </Box>
-        </Paper>
-        <Footer />
-      </ThemeProvider>
+            <Grid item xs={12}>
+              <D3Container
+                store={datastore}
+                dashboardState={dashboardState}
+                dashboardActions={dashboardActions}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+      </Paper>
     </Box>
-  );
+  )
 }
-
-Dashboard.propTypes = {
-  loggedIn: PropTypes.bool,
-};
-
-Dashboard.defaultProps = {
-  loggedIn: false,
-};
