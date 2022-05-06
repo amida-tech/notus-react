@@ -31,7 +31,7 @@ function D3Chart({
   const width = graphWidth - 220;
   const height = 500;
   const maxTickCount = width / 100;
-  const dataCount = displayData.length / measureList.length
+  const dataCount = displayData.length / measureList.length;
   const tickCount = dataCount > maxTickCount ? maxTickCount : dataCount;
 
   function TimeFormatter(dateToFormat) {
@@ -135,8 +135,9 @@ function D3Chart({
       .append('div')
       .attr('class', 'd3-chart__tooltip');
     const toolTipGenerator = (event) => {
+      const normalizeTicks = event.srcElement.__data__.length - dataCount;
       const tickWidth = (width / (dataCount - 1));
-      const index = Math.floor((event.offsetX - 84) / (tickWidth));
+      const index = Math.floor((event.offsetX - 84) / (tickWidth)) + normalizeTicks;
 
       const MeasureValue = measureInfo[
         event.srcElement.__data__[index].measure
