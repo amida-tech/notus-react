@@ -4,11 +4,22 @@ import { Link } from 'react-router-dom';
 const logout = () => {
   localStorage.removeItem('token');
 }
-
 export default function Navbar() {
+  window.onscroll = () => makeNavbarSticky();
+  function makeNavbarSticky() {
+    const navbar = document.getElementsByTagName('nav');
+    const sticky = navbar[0].offsetTop + 100
+    if (window.pageYOffset >= sticky) {
+      navbar[0].classList.add('md:fixed');
+      navbar[0].classList.add('md:top-0');
+    } else {
+      navbar[0].classList.remove('md:fixed');
+    }
+  }
+
   return (
-    <nav className="w-full z-10 bg-dark-grey md:flex-row md:flex-no-wrap md:justify-start flex items-center p-4">
-      <div className="width-75 mx-autp items-center flex justify-between md:flex-no-wrap flex-wrap md:px-10 px-4">
+    <nav className="w-full z-10 bg-dark-grey md:flex-row md:flex-no-wrap md:justify-start flex items-center p-4 ">
+      <div className="width-75 mx-autp items-center flex justify-between md:flex-no-wrap flex-wrap md:px-10 px-4 ">
         <Link
           className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
           to={{
@@ -18,7 +29,7 @@ export default function Navbar() {
           Saraswati
         </Link>
       </div>
-      <div className="mx-autp items-center flex justify-between md:flex-no-wrap flex-wrap md:px-10 px-4">
+      <div className="mx-autp items-center flex justify-between md:flex-no-wrap flex-wrap md:px-10 px-4 ">
         <div className="mx-4">
           <Link
             className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
