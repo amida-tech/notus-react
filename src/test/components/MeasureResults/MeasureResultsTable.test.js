@@ -106,34 +106,29 @@ describe('MeasureResultsTable', () => {
   })
 
   it('James Method', () => {
-    const { container, getByTestId, rerender } = render(<MeasureResultsTable
+    const { container, rerender } = render(<MeasureResultsTable
       currentResults={currentResults}
       handleMeasureChange={mockHandleMeasureChange}
       selectedMeasures={selectedMeasures}
       colorMapping={colorMapping}
     />)
 
-    const targetSVGTagAllSelectedMeasuresChecked = container.querySelectorAll('[data-testid="CheckBoxIcon"]')
-    const targetSVGTagAllSelectedMeasuresUnchecked = container.querySelectorAll('[data-testid="CheckBoxOutlineBlankIcon"]')
+    const imaeCheckbox = container.querySelector('input[value="imae"]');
+    const allCheckbox = container.querySelector('input[value="all"]');
+    expect(imaeCheckbox).toHaveProperty('checked', true);
+    expect(allCheckbox).toHaveProperty('checked', true);
 
-    const checkbox = getByTestId('checkbox_Table').querySelector('input[type="checkbox"]')
-
-    expect(checkbox).toHaveProperty('checked', false)
-
-    fireEvent.click(checkbox)
-    expect(mockHandleMeasureChange).toHaveBeenCalled()
+    fireEvent.click(imaeCheckbox);
+    expect(mockHandleMeasureChange).toHaveBeenCalled(); // Check for the values of what is called.
 
     rerender(<MeasureResultsTable
       currentResults={currentResults}
       handleMeasureChange={mockHandleMeasureChange}
-      selectedMeasures={selectedMeasures}
+      selectedMeasures={selectedMeasures.filter((measure) => measure !== 'imae')}
       colorMapping={colorMapping}
-    />)
+    />);
 
-    expect(checkbox).toHaveProperty('checked', true)
-
-    
-    console.log('targetSVGTagAllSelectedMeasuresChecked', targetSVGTagAllSelectedMeasuresChecked.length)
-    console.log('targetSVGTagAllSelectedMeasuresUnchecked', targetSVGTagAllSelectedMeasuresUnchecked.length)
+    expect(imaeCheckbox).toHaveProperty('checked', false);
+    expect(allCheckbox).toHaveProperty('checked', false);
   })
 })
