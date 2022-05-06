@@ -104,4 +104,35 @@ describe('MeasureResultsTable', () => {
     expect(targetSVGTagTWOSelectedMeasuresChecked.length).toEqual(2)
     expect(targetSVGTagTWOSelectedMeasuresUnchecked.length).toEqual(4)
   })
+
+  it('James Method', () => {
+    const { container, getByTestId, rerender } = render(<MeasureResultsTable
+      currentResults={currentResults}
+      handleMeasureChange={mockHandleMeasureChange}
+      selectedMeasures={selectedMeasures}
+      colorMapping={colorMapping}
+    />)
+
+    const targetSVGTagAllSelectedMeasuresChecked = container.querySelectorAll('[data-testid="CheckBoxIcon"]')
+    const targetSVGTagAllSelectedMeasuresUnchecked = container.querySelectorAll('[data-testid="CheckBoxOutlineBlankIcon"]')
+
+    const checkbox = getByTestId('checkbox_Table').querySelector('input[type="checkbox"]')
+
+    expect(checkbox).toHaveProperty('checked', false)
+
+    fireEvent.click(checkbox)
+    expect(mockHandleMeasureChange).toHaveBeenCalled()
+
+    rerender(<MeasureResultsTable
+      currentResults={currentResults}
+      handleMeasureChange={mockHandleMeasureChange}
+      selectedMeasures={selectedMeasures}
+      colorMapping={colorMapping}
+    />)
+
+    expect(checkbox).toHaveProperty('checked', true)
+
+    console.log('targetSVGTagAllSelectedMeasuresChecked', targetSVGTagAllSelectedMeasuresChecked.length)
+    console.log('targetSVGTagAllSelectedMeasuresUnchecked', targetSVGTagAllSelectedMeasuresUnchecked.length)
+  })
 })

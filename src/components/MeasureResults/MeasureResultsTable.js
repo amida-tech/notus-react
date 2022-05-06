@@ -41,6 +41,7 @@ function MeasureResultsTable({
               checked={currentResults.length === selectedMeasures.length}
               size="medium"
               value="all"
+              data-testid="checkbox_Table"
               onChange={(event) => handleMeasureChange(event)}
             />
           </FormGroup>
