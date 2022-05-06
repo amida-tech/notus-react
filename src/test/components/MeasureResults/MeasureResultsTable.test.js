@@ -56,56 +56,8 @@ describe('MeasureResultsTable', () => {
       expect(targetInputTag[i].checked).toBe(true)
     }
   })
-
+ 
   it('when you click "all," every checkbox will then be checked', () => {
-    const { container, rerender } = render(<MeasureResultsTable
-      currentResults={currentResults}
-      handleMeasureChange={handleByLineMeasureChange}
-      selectedMeasures={selectedMeasures}
-      colorMapping={colorMapping}
-    />)
-    const targetSVGTagAllSelectedMeasuresChecked = container.querySelectorAll('[data-testid="CheckBoxIcon"]')
-    const targetSVGTagAllSelectedMeasuresUnchecked = container.querySelectorAll('[data-testid="CheckBoxOutlineBlankIcon"]')
-    expect(targetSVGTagAllSelectedMeasuresChecked.length).toEqual(6)
-    expect(targetSVGTagAllSelectedMeasuresUnchecked.length).toEqual(0)
-
-    rerender(<MeasureResultsTable
-      currentResults={currentResults}
-      handleMeasureChange={handleByLineMeasureChange}
-      selectedMeasures={[]}
-      colorMapping={colorMapping}
-    />)
-    const targetSVGTagNoSelectedMeasuresChecked = container.querySelectorAll('[data-testid="CheckBoxIcon"]')
-    const targetSVGTagNoSelectedMeasuresUnchecked = container.querySelectorAll('[data-testid="CheckBoxOutlineBlankIcon"]')
-    expect(targetSVGTagNoSelectedMeasuresChecked.length).toEqual(0)
-    expect(targetSVGTagNoSelectedMeasuresUnchecked.length).toEqual(6)
-
-    rerender(<MeasureResultsTable
-      currentResults={currentResults}
-      handleMeasureChange={handleByLineMeasureChange}
-      selectedMeasures={['composite']}
-      colorMapping={colorMapping}
-    />)
-
-    const targetSVGTagONESelectedMeasuresChecked = container.querySelectorAll('[data-testid="CheckBoxIcon"]')
-    const targetSVGTagONESelectedMeasuresUnchecked = container.querySelectorAll('[data-testid="CheckBoxOutlineBlankIcon"]')
-    expect(targetSVGTagONESelectedMeasuresChecked.length).toEqual(1)
-    expect(targetSVGTagONESelectedMeasuresUnchecked.length).toEqual(5)
-
-    rerender(<MeasureResultsTable
-      currentResults={currentResults}
-      handleMeasureChange={handleByLineMeasureChange}
-      selectedMeasures={['composite', 'aab']}
-      colorMapping={colorMapping}
-    />)
-
-    const targetSVGTagTWOSelectedMeasuresChecked = container.querySelectorAll('[data-testid="CheckBoxIcon"]')
-    const targetSVGTagTWOSelectedMeasuresUnchecked = container.querySelectorAll('[data-testid="CheckBoxOutlineBlankIcon"]')
-    expect(targetSVGTagTWOSelectedMeasuresChecked.length).toEqual(2)
-    expect(targetSVGTagTWOSelectedMeasuresUnchecked.length).toEqual(4)
-  })
-
-  it('James Method', () => {
     const { container, rerender } = render(<MeasureResultsTable
       currentResults={currentResults}
       handleMeasureChange={mockHandleMeasureChange}
