@@ -132,6 +132,7 @@ describe('MeasureResultsTable', () => {
 
     expect(checkbox).toHaveProperty('checked', true)
 
+    
     console.log('targetSVGTagAllSelectedMeasuresChecked', targetSVGTagAllSelectedMeasuresChecked.length)
     console.log('targetSVGTagAllSelectedMeasuresUnchecked', targetSVGTagAllSelectedMeasuresUnchecked.length)
   })
