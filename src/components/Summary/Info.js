@@ -42,7 +42,7 @@ Info.propTypes = {
 }
 
 Info.defaultProps = {
-  infoText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+  infoText: '',
 }
 
 export default Info;

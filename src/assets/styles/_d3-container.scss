@@ -4,6 +4,7 @@ $block-class: 'd3-container';
 
 @at-root {
     .#{$block-class} {
+        margin-top: 1rem;
 
         & &__chart-bar {
             float: right;

@@ -6,6 +6,7 @@ import { DatastoreContext } from '../context/DatastoreProvider';
 import D3Container from '../components/ChartContainer';
 import Banner from '../components/Summary/Banner';
 import RatingTrends from '../components/Summary/RatingTrends';
+import SubBanner from '../components/Summary/SubBanner';
 
 const defaultActiveMeasure = {
   measure: '',
@@ -14,6 +15,8 @@ const defaultActiveMeasure = {
   starRating: 0,
   title: '',
 };
+
+const measureScoreInfo = 'Measure Scores presents the breakdown of measure scores and prediction of ratings based on NCQA data.'
 
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
@@ -51,6 +54,7 @@ export default function Dashboard() {
               />
             </Grid>
             <Grid item xs={12}>
+              <SubBanner title="Measure Scores" infoText={measureScoreInfo} />
               <D3Container
                 store={datastore}
                 dashboardState={dashboardState}

@@ -7,7 +7,7 @@ import {
   Button, Grid, Typography, Rating,
 } from '@mui/material';
 import TrendDisplay from './TrendDisplay';
-import Info from './Info';
+import SubBanner from './SubBanner';
 import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils'
 
 const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
@@ -54,12 +54,7 @@ function RatingTrends({ activeMeasure, trends, info }) {
 
 const renderUI = (activeMeasure, mainTrend, renderOptions) => (
   <Box className="rating-trends">
-    <Box className="rating-trends__main-header-align">
-      <Typography variant="h2" className="rating-trends__h2-header">
-        Ratings & Trends
-      </Typography>
-      <Info infoText={ratingTrendsTip} />
-    </Box>
+    <SubBanner title="Ratings & Trends" infoText={ratingTrendsTip} />
     <Box className="rating-trends__display-box">
       <Box className="rating-trends__panel-box">
         <Grid className={`rating-trends__panel 
