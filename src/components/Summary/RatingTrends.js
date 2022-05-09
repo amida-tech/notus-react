@@ -8,6 +8,7 @@ import {
 import SaraswatiToolTip from '../Common/SaraswatiToolTip';
 import TrendDisplay from './TrendDisplay';
 import Info from './Info';
+import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils'
 
 const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
 const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
@@ -24,24 +25,13 @@ function showStars(activeMeasure) {
 }
 
 function RatingTrends({ activeMeasure, trends, info }) {
-  const mainTrend = { measure: '', percentChange: undefined };
   const biggestGain = { measure: '', percentChange: undefined };
   const biggestLoss = { measure: '', percentChange: undefined };
-  let sortedTrends = [];
 
   const measureTrend = trends
     .find((trend) => trend.measure === activeMeasure.measure);
-
-  mainTrend.measure = info[activeMeasure.measure] !== undefined ? info[activeMeasure.measure].displayLabel : '';
-  mainTrend.percentChange = measureTrend === undefined ? undefined : measureTrend.percentChange;
-  if (activeMeasure.measure === 'composite') {
-    sortedTrends = trends
-      .filter((trend) => trend.measure !== 'composite')
-      .sort((a, b) => b.percentChange - a.percentChange);
-  } else if (activeMeasure.measure) {
-    sortedTrends = measureTrend.subScoreTrends
-      .sort((a, b) => b.percentChange - a.percentChange);
-  }
+  const mainTrend = mainTrendCreator(activeMeasure, info, measureTrend);
+  const sortedTrends = sortedTrendsCreator(activeMeasure, trends, measureTrend)
 
   if (sortedTrends.length > 1) {
     let { measure } = sortedTrends[0];

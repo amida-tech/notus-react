@@ -7,7 +7,7 @@ $block-class: 'rating-trends';
         flex-direction: column;
         margin-top: 0.5rem;
         margin-bottom: 0.5rem;
-        color: #546E7A;
+        color: $blue-grey-darken-1;
 
         &__main-header-align {
             display: flex;

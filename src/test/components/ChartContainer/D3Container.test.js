@@ -1,6 +1,6 @@
-const { filterByStars, filterByPercentage, filterByDOC } = require('../../../components/ChartContainer/D3ContainerUtils');
-const { DatastoreReducer } = require('../../../context/DatastoreReducer');
-const { resultList, infoObject } = require('../../data/DemoData');
+import { filterByStars, filterByPercentage, filterByDOC } from '../../../components/ChartContainer/D3ContainerUtils';
+import { DatastoreReducer } from '../../../context/DatastoreReducer';
+import { resultList, infoObject } from '../../data/DemoData';
 
 describe('Tests the logic of the D3Component\'s filters', () => {
   const mockInitState = {
