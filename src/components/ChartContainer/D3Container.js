@@ -259,7 +259,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         indicatorColor="primary"
       >
         <Tab label="All Measures" className="d3-container__tab-button" />
-        <Tab label="Measure by Line" className="d3-container__tab-button" />
+        <Tab label="Individual Measures" className="d3-container__tab-button" />
       </Tabs>
       <TabPanel value={tabValue} index={1}>
         <Grid container className="d3-container__chart-holder">

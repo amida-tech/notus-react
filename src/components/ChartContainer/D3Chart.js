@@ -133,9 +133,7 @@ function D3Chart({
       .text('Percent');
 
     // Change Ticks to Percent
-    const ChartType = 'D3Chart';
-
-    TickChange(ChartType)
+    TickChange();
     // Generates the actual line
     const line = d3
       .line()
@@ -151,6 +149,9 @@ function D3Chart({
       const normalizeTicks = dataCount - event.srcElement.__data__.length;
       const tickWidth = (width / (dataCount - 1));
       const index = Math.floor((event.offsetX - 84) / (tickWidth)) - normalizeTicks;
+      if (event.srcElement.__data__.length <= index) {
+        return '';
+      }
 
       const MeasureValue = measureInfo[
         event.srcElement.__data__[index].measure
