@@ -21,3 +21,4 @@ The purpose of this API is to ingest HEDIS data from pyspark, save it, and then 
 `REACT_APP_TOKENINFO` - URL for Google access token
 `REACT_APP_DEV_DATA` - `true` to use data from local file, `false` to fetch data from mongodb
 `REACT_APP_AUTH` - `true` to force authorization before accessing dashboard, `false` to bypass authorization
+`REACT_APP_LEGACY_RESULTS` - `true` to get results from pre-calculated collection, `false` to calculate results each query

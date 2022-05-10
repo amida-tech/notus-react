@@ -7,7 +7,6 @@ import { colorMappingProps } from './D3Props';
 
 function D3Chart({
   displayData, colorMapping, measureInfo, graphWidth, currentTimeline,
-
 }) {
   // Binder for react to apply changes to the svg
   const D3LineChart = useRef();
@@ -17,8 +16,23 @@ function D3Chart({
 
   // Data manipulation
   const workingList = [];
-  displayData.forEach((item) => workingList.push(item.measure));
+  const dataCounts = {};
+  displayData.forEach((item) => {
+    if (dataCounts[item.measure]) {
+      dataCounts[item.measure] += 1;
+    } else {
+      dataCounts[item.measure] = 1;
+    }
+
+    workingList.push(item.measure)
+  });
   const measureList = Array.from(new Set(workingList));
+  let dataCount = 0;
+  Object.keys(dataCounts).forEach((key) => {
+    if (dataCounts[key] > dataCount) {
+      dataCount = dataCounts[key];
+    }
+  });
 
   // Basic Styling consts to be used later
   const margin = {
@@ -31,7 +45,6 @@ function D3Chart({
   const width = graphWidth - 220;
   const height = 500;
   const maxTickCount = width / 100;
-  const dataCount = displayData.length / measureList.length
   const tickCount = dataCount > maxTickCount ? maxTickCount : dataCount;
 
   function TimeFormatter(dateToFormat) {
@@ -120,9 +133,7 @@ function D3Chart({
       .text('Percent');
 
     // Change Ticks to Percent
-    const ChartType = 'D3Chart';
-
-    TickChange(ChartType)
+    TickChange();
     // Generates the actual line
     const line = d3
       .line()
@@ -135,8 +146,12 @@ function D3Chart({
       .append('div')
       .attr('class', 'd3-chart__tooltip');
     const toolTipGenerator = (event) => {
+      const normalizeTicks = dataCount - event.srcElement.__data__.length;
       const tickWidth = (width / (dataCount - 1));
-      const index = Math.floor((event.offsetX - 84) / (tickWidth));
+      const index = Math.floor((event.offsetX - 84) / (tickWidth)) - normalizeTicks;
+      if (event.srcElement.__data__.length <= index) {
+        return '';
+      }
 
       const MeasureValue = measureInfo[
         event.srcElement.__data__[index].measure
@@ -150,12 +165,13 @@ function D3Chart({
       const { color } = colorMapping.find(
         (mapping) => mapping.measure === event.target.__data__[0].measure,
       );
+      const leftPosition = (event.pageX > width) ? event.pageX - 168 : event.pageX + 10
       return tooltip
         .attr('data-html', 'true')
         .style('background-color', color)
         .style('visibility', 'visible')
         .style('top', `${event.pageY - 10}px`)
-        .style('left', `${event.pageX + 10}px`);
+        .style('left', `${leftPosition}px`);
     };
 
     // Iterates through an array variation.
