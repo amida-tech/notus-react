@@ -10,7 +10,9 @@ import { DatastoreReducer, initialState } from './DatastoreReducer';
 
 const axios = require('axios').default;
 
-const searchUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/searchResults`);
+const searchUrl = process.env.REACT_APP_LEGACY_RESULTS === 'true'
+  ? new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/searchResults`)
+  : new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/dailyMeasureResults`);
 const trendUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/trends`);
 const infoUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/info`);
 const devData = `${process.env.REACT_APP_DEV_DATA}`;

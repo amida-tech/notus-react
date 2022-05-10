@@ -11,7 +11,7 @@ function MeasureSelector({ currentResults, measure, handleMeasureChange }) {
       <Select
         className="measure-selector__select"
         value={measure}
-        label="Measure By Line"
+        label="Select Measure"
         onChange={handleMeasureChange}
         sx={{ color: 'black.light' }}
       >
