@@ -190,7 +190,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const filterTimeline = (timelineDisplayData, timeline) => {
     if (timeline.choice !== 'all') {
       let dayLimit = 0;
-      if (timeline.choice === '30' || timeline.choice === '60') {
+      if (timeline.choice === '30' || timeline.choice === '60' || timeline.choice === '90') {
         dayLimit = new Date().getTime() - (parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000);
       } else if (timeline.choice === 'YTD') {
         dayLimit = new Date(new Date().getFullYear(), 0, 1).getTime();
