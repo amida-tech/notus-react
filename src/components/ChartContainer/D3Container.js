@@ -190,11 +190,11 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const filterTimeline = (timelineDisplayData, timeline) => {
     if (timeline.choice !== 'all') {
       let dayLimit = 0;
-      if (timeline.choice === '30' || timeline.choice === '60') {
-        dayLimit = new Date().getTime() - (parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000);
-      } else if (timeline.choice === 'ytd') {
+      if (timeline.choice === 'YTD') {
         dayLimit = new Date(new Date().getFullYear(), 0, 1).getTime();
-      } // Custom coming later.
+      } else {
+        dayLimit = new Date().getTime() - (parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000);
+      }
       return timelineDisplayData.filter((result) => new Date(result.date) > dayLimit);
     }
     return timelineDisplayData;
