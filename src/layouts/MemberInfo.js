@@ -17,7 +17,6 @@ function MemberInfo({ id }) {
   let measure = '';
 
   useEffect(() => {
-    setMemberInfo({});
     axios.get(`${memberQueryUrl}?memberId=${id}`)
       .then((res) => {
         setMemberInfo(res.data);
