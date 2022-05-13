@@ -1,14 +1,13 @@
+/* eslint-disable no-undef */
 import {
-  Checkbox, Divider, FormGroup, Grid, Typography, Pagination, PaginationItem,
+  Checkbox, Divider, FormGroup, Grid, Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
 import ToolTip from '@mui/material/Tooltip';
-import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import { colorMappingProps } from '../ChartContainer/D3Props';
 import MeasureResultsRow from './MeasureResultsRow';
-import usePagination from '../Utilites/PaginationUtil';
 
 function generateMeasureRowValues(measureResult) {
   return {
@@ -33,17 +32,6 @@ const availableExclusionsTip = 'The population that can be excluded based on cri
 function MeasureResultsTable({
   currentResults, handleMeasureChange, selectedMeasures, colorMapping,
 }) {
-  const [page, setPage] = useState(1);
-  const PER_PAGE = 2;
-
-  const count = Math.ceil(currentResults.length / PER_PAGE);
-  const pageData = usePagination(currentResults, PER_PAGE);
-
-  const handleChange = (e, p) => {
-    setPage(p);
-    pageData.jump(p);
-  };
-
   return (
     <Grid container className="measure-results-table">
       <Grid container item className="measure-results-table__header-section">
@@ -108,7 +96,7 @@ function MeasureResultsTable({
         </Grid>
       </Grid>
 
-      {pageData.currentData().map((item) => (
+      {currentResults.map((item) => (
         <Grid
           item
           className="measure-results-table__row"
@@ -123,24 +111,6 @@ function MeasureResultsTable({
         </Grid>
       ))}
       <Divider className="measure-results-table__divider" />
-      <StyledEngineProvider injectFirst>
-        <Pagination
-          count={count}
-          size="large"
-          page={page}
-          variant="outlined"
-          shape="rounded"
-          onChange={handleChange}
-          classes={{ root: '.MuiPagination-root' }}
-          renderItem={(item) => (
-            <PaginationItem
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...item}
-              classes={{ root: '.MuiPaginationItem-root' }}
-            />
-          )}
-        />
-      </StyledEngineProvider>
     </Grid>
   )
 }
