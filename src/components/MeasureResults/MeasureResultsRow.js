@@ -55,6 +55,7 @@ function MeasureResultsRow({
           </Typography>
         </Grid>
       </Grid>
+      <Divider className="measure-results-row__divider" />
     </Box>
   )
 }

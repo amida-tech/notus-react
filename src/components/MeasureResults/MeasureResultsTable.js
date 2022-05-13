@@ -1,13 +1,14 @@
-/* eslint-disable no-undef */
 import {
-  Checkbox, Divider, FormGroup, Grid, Typography,
+  Checkbox, Divider, FormGroup, Grid, Typography, Pagination, PaginationItem,
 } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
+import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import { colorMappingProps } from '../ChartContainer/D3Props';
 import MeasureResultsRow from './MeasureResultsRow';
 import SaraswatiToolTip from '../Common/SaraswatiToolTip';
+import usePagination from '../Utilites/PaginationUtil';
 
 function generateMeasureRowValues(measureResult) {
   return {
@@ -28,10 +29,21 @@ const eligiblePopulationTip = 'The population of patients who are eligible for t
 const numeratorTip = 'The number of patients who have satisfied the criteria for this measure.';
 const denominatorTip = 'The population of patients who are eligible for this measure. Currently the same as Eligible Population.';
 const availableExclusionsTip = 'The population that can be excluded based on criteria.';
+const PER_PAGE = 2;
 
 function MeasureResultsTable({
   currentResults, handleMeasureChange, selectedMeasures, colorMapping,
 }) {
+  const [page, setPage] = useState(1);
+
+  const count = Math.ceil(currentResults.length / PER_PAGE);
+  const pageData = usePagination(currentResults, PER_PAGE);
+
+  const handleChange = (e, p) => {
+    setPage(p);
+    pageData.jump(p);
+  };
+
   return (
     <Grid container className="measure-results-table">
       <Grid container item className="measure-results-table__header-section">
@@ -94,9 +106,11 @@ function MeasureResultsTable({
             <HelpIcon className="measure-results-table__help-icon" />
           </SaraswatiToolTip>
         </Grid>
-      </Grid>
 
-      {currentResults.map((item) => (
+      </Grid>
+      <Divider className="measure-results-table__divider" />
+      {pageData.currentData().map((item) => (
+
         <Grid
           item
           className="measure-results-table__row"
@@ -108,9 +122,28 @@ function MeasureResultsTable({
             selectedMeasure={selectedMeasures.includes(item.measure)}
             measureColor={colorMapping.find((mapping) => mapping.measure === item.measure)}
           />
+
         </Grid>
+
       ))}
-      <Divider className="measure-results-table__divider" />
+      <StyledEngineProvider injectFirst>
+        <Pagination
+          count={count}
+          size="large"
+          page={page}
+          variant="outlined"
+          shape="rounded"
+          onChange={handleChange}
+          classes={{ root: '.MuiPagination-root' }}
+          renderItem={(item) => (
+            <PaginationItem
+              // eslint-disable-next-line react/jsx-props-no-spreading
+              {...item}
+              classes={{ root: '.MuiPaginationItem-root' }}
+            />
+          )}
+        />
+      </StyledEngineProvider>
     </Grid>
   )
 }
