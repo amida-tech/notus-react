@@ -40,6 +40,7 @@ const TimelineOptions = [
   { value: 'all', label: 'All Available' },
   { value: '30', label: 'Last 30 Days' },
   { value: '60', label: 'Last 60 Days' },
+  { value: '90', label: 'Last 90 Days' },
   { value: 'YTD', label: 'Year to Date' },
 ];
 
