@@ -106,9 +106,11 @@ function MeasureResultsTable({
             <HelpIcon className="measure-results-table__help-icon" />
           </ToolTip>
         </Grid>
-      </Grid>
 
+      </Grid>
+      <Divider className="measure-results-table__divider" />
       {pageData.currentData().map((item) => (
+
         <Grid
           item
           className="measure-results-table__row"
@@ -120,9 +122,10 @@ function MeasureResultsTable({
             selectedMeasure={selectedMeasures.includes(item.measure)}
             measureColor={colorMapping.find((mapping) => mapping.measure === item.measure)}
           />
+
         </Grid>
+
       ))}
-      <Divider className="measure-results-table__divider" />
       <StyledEngineProvider injectFirst>
         <Pagination
           count={count}
