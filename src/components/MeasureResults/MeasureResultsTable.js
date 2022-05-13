@@ -29,12 +29,12 @@ const eligiblePopulationTip = 'The population of patients who are eligible for t
 const numeratorTip = 'The number of patients who have satisfied the criteria for this measure.';
 const denominatorTip = 'The population of patients who are eligible for this measure. Currently the same as Eligible Population.';
 const availableExclusionsTip = 'The population that can be excluded based on criteria.';
+const PER_PAGE = 2;
 
 function MeasureResultsTable({
   currentResults, handleMeasureChange, selectedMeasures, colorMapping,
 }) {
   const [page, setPage] = useState(1);
-  const PER_PAGE = 2;
 
   const count = Math.ceil(currentResults.length / PER_PAGE);
   const pageData = usePagination(currentResults, PER_PAGE);
