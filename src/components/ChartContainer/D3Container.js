@@ -287,7 +287,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           pageSize={MeasureTable.pageSize}
           useCheckBox
           handleMeasureChange={handleByLineMeasureChange}
-          selectedMeasures={byLineSelectedMeasures}
+          selectedRows={byLineSelectedMeasures}
           colorMapping={byLineColorMap}
         />
       </TabPanel>
@@ -309,7 +309,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           pageSize={MeasureTable.pageSize}
           useCheckBox
           handleMeasureChange={handleMeasureChange}
-          selectedMeasures={selectedMeasures}
+          selectedRows={selectedMeasures}
           colorMapping={colorMap}
         />
       </TabPanel>

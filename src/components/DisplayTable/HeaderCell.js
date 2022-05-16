@@ -13,9 +13,7 @@ function HeaderCell({
     <Grid
       item
       className="measure-results-table__title-align"
-      sx={{
-        flexBasis: `${flexBasis}%`,
-      }}
+      sx={{ flexBasis: `${flexBasis}%` }}
     >
       <Typography className="measure-results-table__title">
         {text}

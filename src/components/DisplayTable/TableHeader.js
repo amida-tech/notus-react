@@ -5,7 +5,7 @@ import CheckBoxHeaderCell from './CheckBoxHeaderCell';
 import HeaderCell from './HeaderCell';
 
 function TableHeader({
-  headerInfo, dataCount, useCheckBox, handleCheckBoxEvent, selectedMeasures,
+  headerInfo, dataCount, useCheckBox, handleCheckBoxEvent, selectedRows,
 }) {
   return (
     <Grid container item className="measure-results-table__header-section">
@@ -13,7 +13,7 @@ function TableHeader({
       <CheckBoxHeaderCell
         dataCount={dataCount}
         handleCheckBoxEvent={handleCheckBoxEvent}
-        selectedRows={selectedMeasures}
+        selectedRows={selectedRows}
       />
       )}
       {headerInfo.map((item) => (
@@ -34,7 +34,7 @@ TableHeader.propTypes = {
   dataCount: PropTypes.number,
   useCheckBox: PropTypes.bool,
   handleCheckBoxEvent: PropTypes.func,
-  selectedMeasures: PropTypes.arrayOf(
+  selectedRows: PropTypes.arrayOf(
     PropTypes.string,
   ),
 };
@@ -44,7 +44,7 @@ TableHeader.defaultProps = {
   dataCount: 0,
   useCheckBox: false,
   handleCheckBoxEvent: () => undefined,
-  selectedMeasures: [],
+  selectedRows: [],
 }
 
 export default TableHeader;

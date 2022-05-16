@@ -15,7 +15,7 @@ function DisplayTable({
   pageSize,
   useCheckBox,
   handleMeasureChange,
-  selectedMeasures,
+  selectedRows,
   colorMapping,
 }) {
   const [page, setPage] = useState(1);
@@ -35,7 +35,7 @@ function DisplayTable({
         dataCount={currentResults.length}
         useCheckBox={useCheckBox}
         handleCheckBoxEvent={handleMeasureChange}
-        selectedMeasures={selectedMeasures}
+        selectedRows={selectedRows}
       />
       <Divider className="measure-results-table__divider" />
       {pageData.currentData().map((item) => (
@@ -48,7 +48,7 @@ function DisplayTable({
           <MeasureResultsRow
             measureResult={item}
             handleMeasureChange={handleMeasureChange}
-            selectedMeasure={selectedMeasures.includes(item.value)}
+            selectedMeasure={selectedRows.includes(item.value)}
             measureColor={colorMapping.find((mapping) => mapping.measure === item.value)}
           />
 
@@ -93,7 +93,7 @@ DisplayTable.propTypes = {
   pageSize: PropTypes.number,
   useCheckBox: PropTypes.bool,
   handleMeasureChange: PropTypes.func,
-  selectedMeasures: PropTypes.arrayOf(
+  selectedRows: PropTypes.arrayOf(
     PropTypes.string,
   ),
   colorMapping: colorMappingProps,
@@ -105,7 +105,7 @@ DisplayTable.defaultProps = {
   pageSize: 0,
   useCheckBox: false,
   handleMeasureChange: () => undefined,
-  selectedMeasures: [],
+  selectedRows: [],
   colorMapping: [],
 }
 
