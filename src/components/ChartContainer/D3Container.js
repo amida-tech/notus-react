@@ -301,9 +301,10 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           </Grid>
         </Grid>
         <DisplayTable
-          currentResults={MainMeasureTable.generateMeasureRowValues(store.currentResults)}
+          currentResults={MainMeasureTable.formatData(store.currentResults)}
           headerInfo={MainMeasureTable.headerInfo}
           pageSize={MainMeasureTable.pageSize}
+          useCheckBox={false}
           handleMeasureChange={handleMeasureChange}
           selectedMeasures={selectedMeasures}
           colorMapping={colorMap}

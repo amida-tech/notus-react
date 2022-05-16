@@ -5,7 +5,7 @@ const numeratorTip = 'The number of patients who have satisfied the criteria for
 const denominatorTip = 'The population of patients who are eligible for this measure. Currently the same as Eligible Population.';
 const availableExclusionsTip = 'The population that can be excluded based on criteria.';
 
-const pageSize = 2;
+const pageSize = 5;
 
 const headerInfo = [
   {
@@ -43,7 +43,7 @@ const headerInfo = [
 const formatData = (currentResults) => {
   const formattedData = [];
   currentResults.forEach((measureResult) => {
-    currentResults.push({
+    formattedData.push({
       value: measureResult.measure,
       label: measureResult.label,
       type: 'measure',
@@ -54,13 +54,7 @@ const formatData = (currentResults) => {
       exclusions: measureResult.exclusions,
     });
   });
+  return formattedData;
 };
 
-const generateMeasureRowValues = (currentResults) => ({
-  const formattedData = [];
-  currentResults.forEach((measureResult) => {
-
-  })
-});
-
-module.exports = { headerInfo, pageSize, generateMeasureRowValues };
+module.exports = { headerInfo, pageSize, formatData };

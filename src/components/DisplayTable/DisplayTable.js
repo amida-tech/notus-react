@@ -10,7 +10,13 @@ import usePagination from '../Utilites/PaginationUtil';
 import TableHeader from './TableHeader';
 
 function DisplayTable({
-  currentResults, headerInfo, pageSize, handleMeasureChange, selectedMeasures, colorMapping,
+  currentResults,
+  headerInfo,
+  pageSize,
+  useCheckBox,
+  handleMeasureChange,
+  selectedMeasures,
+  colorMapping,
 }) {
   const [page, setPage] = useState(1);
 
@@ -27,7 +33,7 @@ function DisplayTable({
       <TableHeader
         headerInfo={headerInfo}
         dataCount={currentResults.length}
-        useCheckBox
+        useCheckBox={useCheckBox}
         handleCheckBoxEvent={handleMeasureChange}
         selectedMeasures={selectedMeasures}
       />
@@ -37,13 +43,13 @@ function DisplayTable({
         <Grid
           item
           className="measure-results-table__row"
-          key={`chart-container-grid-measure-${item.measure}`}
+          key={`chart-container-grid-measure-${item.value}`}
         >
           <MeasureResultsRow
-            measureResult={generateMeasureRowValues(item)}
+            measureResult={item}
             handleMeasureChange={handleMeasureChange}
-            selectedMeasure={selectedMeasures.includes(item.measure)}
-            measureColor={colorMapping.find((mapping) => mapping.measure === item.measure)}
+            selectedMeasure={selectedMeasures.includes(item.value)}
+            measureColor={colorMapping.find((mapping) => mapping.measure === item.value)}
           />
 
         </Grid>
@@ -85,6 +91,7 @@ DisplayTable.propTypes = {
     }),
   ),
   pageSize: PropTypes.number,
+  useCheckBox: PropTypes.bool,
   handleMeasureChange: PropTypes.func,
   selectedMeasures: PropTypes.arrayOf(
     PropTypes.string,
@@ -96,6 +103,7 @@ DisplayTable.defaultProps = {
   currentResults: [],
   headerInfo: [],
   pageSize: 0,
+  useCheckBox: false,
   handleMeasureChange: () => undefined,
   selectedMeasures: [],
   colorMapping: [],
