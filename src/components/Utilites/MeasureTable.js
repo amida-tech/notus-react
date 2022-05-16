@@ -40,6 +40,39 @@ const headerInfo = [
   },
 ]
 
+const subHeaderInfo = [
+  {
+    text: 'Sub-Measure',
+    tooltip: measureTip,
+    flexBasis: 22,
+  },
+  {
+    text: 'Remaining Inclusions',
+    tooltip: remainingInclusionsTip,
+    flexBasis: 14,
+  },
+  {
+    text: 'Eligible Population',
+    tooltip: eligiblePopulationTip,
+    flexBasis: 14,
+  },
+  {
+    text: 'Numerator',
+    tooltip: numeratorTip,
+    flexBasis: 14,
+  },
+  {
+    text: 'Denominator',
+    tooltip: denominatorTip,
+    flexBasis: 14,
+  },
+  {
+    text: 'Available Exclusions',
+    tooltip: availableExclusionsTip,
+    flexBasis: 14,
+  },
+]
+
 const formatData = (currentResults) => {
   const formattedData = [];
   currentResults.forEach((measureResult) => {
@@ -57,4 +90,6 @@ const formatData = (currentResults) => {
   return formattedData;
 };
 
-module.exports = { headerInfo, pageSize, formatData };
+module.exports = {
+  headerInfo, subHeaderInfo, pageSize, formatData,
+};

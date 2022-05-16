@@ -11,7 +11,7 @@ import MeasureSelector from '../Common/MeasureSelector';
 import TabPanel from '../Common/TabPanel';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ColorMapping from '../Utilites/ColorMapping';
-import MainMeasureTable from '../Utilites/MainMeasureTable'
+import MeasureTable from '../Utilites/MeasureTable'
 import {
   storeProps,
   dashboardStateProps,
@@ -282,7 +282,10 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           </Grid>
         </Grid>
         <DisplayTable
-          currentResults={byLineCurrentResults}
+          currentResults={MeasureTable.formatData(byLineCurrentResults)}
+          headerInfo={MeasureTable.subHeaderInfo}
+          pageSize={MeasureTable.pageSize}
+          useCheckBox
           handleMeasureChange={handleByLineMeasureChange}
           selectedMeasures={byLineSelectedMeasures}
           colorMapping={byLineColorMap}
@@ -301,10 +304,10 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           </Grid>
         </Grid>
         <DisplayTable
-          currentResults={MainMeasureTable.formatData(store.currentResults)}
-          headerInfo={MainMeasureTable.headerInfo}
-          pageSize={MainMeasureTable.pageSize}
-          useCheckBox={false}
+          currentResults={MeasureTable.formatData(store.currentResults)}
+          headerInfo={MeasureTable.headerInfo}
+          pageSize={MeasureTable.pageSize}
+          useCheckBox
           handleMeasureChange={handleMeasureChange}
           selectedMeasures={selectedMeasures}
           colorMapping={colorMap}
