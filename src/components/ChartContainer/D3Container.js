@@ -4,13 +4,14 @@ import {
 import React, {
   createContext, useState, useEffect,
 } from 'react';
+import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import TabPanel from '../Common/TabPanel';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
-import MeasureResultsTable from '../MeasureResults/MeasureResultsTable';
 import ColorMapping from '../Utilites/ColorMapping';
+import MainMeasureTable from '../Utilites/MainMeasureTable'
 import {
   storeProps,
   dashboardStateProps,
@@ -280,7 +281,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
             />
           </Grid>
         </Grid>
-        <MeasureResultsTable
+        <DisplayTable
           currentResults={byLineCurrentResults}
           handleMeasureChange={handleByLineMeasureChange}
           selectedMeasures={byLineSelectedMeasures}
@@ -299,8 +300,10 @@ function D3Container({ dashboardState, dashboardActions, store }) {
             />
           </Grid>
         </Grid>
-        <MeasureResultsTable
-          currentResults={store.currentResults}
+        <DisplayTable
+          currentResults={MainMeasureTable.generateMeasureRowValues(store.currentResults)}
+          headerInfo={MainMeasureTable.headerInfo}
+          pageSize={MainMeasureTable.pageSize}
           handleMeasureChange={handleMeasureChange}
           selectedMeasures={selectedMeasures}
           colorMapping={colorMap}

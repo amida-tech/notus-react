@@ -165,11 +165,12 @@ function D3Chart({
       const { color } = colorMapping.find(
         (mapping) => mapping.measure === event.target.__data__[0].measure,
       );
-      const leftPosition = (event.pageX > width) ? event.pageX - 168 : event.pageX + 10
+      const leftPosition = (event.pageX > width) ? event.pageX - 176 : event.pageX + 10
       return tooltip
         .attr('data-html', 'true')
         .style('background-color', color)
         .style('visibility', 'visible')
+        .style('width', '168px')
         .style('top', `${event.pageY - 10}px`)
         .style('left', `${leftPosition}px`);
     };
