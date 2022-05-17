@@ -108,7 +108,7 @@ describe('RatingTrends', () => {
   })
 
   test('tests rendering functionality', () => {
-    const { container } = render(
+    render(
       <RatingTrends
         activeMeasure={mockActiveMeasure}
         info={mockDataStore.info}
