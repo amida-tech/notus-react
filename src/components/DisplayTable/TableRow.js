@@ -1,18 +1,16 @@
 import {
-  Divider, Grid, Box,
+  Divider, Grid, Box, Typography,
 } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import CheckBoxCell from './CheckBoxCell';
-import TextCell from './TextCell';
 
 function TableRow({
   rowData, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color,
 }) {
   return (
-    <Box className="measure-results-row">
-      <Divider className="measure-results-row__divider" />
-      <Grid container className="measure-results-row__row-section">
+    <Box className="display-table-row">
+      <Grid container className="display-table-row__row-section">
         {useCheckBox && (
           <CheckBoxCell
             handleCheckBoxEvent={handleCheckBoxEvent}
@@ -22,13 +20,23 @@ function TableRow({
           />
         )}
         {headerInfo.map((fieldInfo) => (
-          <TextCell
-            text={rowData[fieldInfo.key]}
-            flexBasis={fieldInfo.flexBasis}
-          />
+          <Grid
+            item
+            className="display-table-row__data-align"
+            key={`${rowData[fieldInfo.key]}-${fieldInfo.header}`}
+            sx={{
+              flexBasis: `${fieldInfo.flexBasis}%`,
+              justifyContent: fieldInfo.alignContent,
+              textAlign: fieldInfo.alignContent,
+            }}
+          >
+            <Typography variant="caption" className="display-table-row__data">
+              {rowData[fieldInfo.key]}
+            </Typography>
+          </Grid>
         ))}
       </Grid>
-      <Divider className="measure-results-row__divider" />
+      <Divider className="display-table-row__divider" />
     </Box>
   )
 }

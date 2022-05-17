@@ -18,18 +18,21 @@ function DisplayTable({
   selectedRows,
   colorMapping,
 }) {
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const count = Math.ceil(currentResults.length / pageSize);
+  let pageCount = 0;
+  if (pageSize) {
+    pageCount = Math.ceil(currentResults.length / pageSize);
+  }
   const pageData = usePagination(currentResults, pageSize);
 
   const handleChange = (e, p) => {
-    setPage(p);
+    setCurrentPage(p);
     pageData.jump(p);
   };
 
   return (
-    <Grid container className="measure-results-table">
+    <Grid container className="display-table">
       <TableHeader
         headerInfo={headerInfo}
         dataCount={currentResults.length}
@@ -37,11 +40,11 @@ function DisplayTable({
         handleCheckBoxEvent={handleCheckBoxEvent}
         selectedRows={selectedRows}
       />
-      <Divider className="measure-results-table__divider" />
+      <Divider className="display-table__header-divider" />
       {pageData.currentData().map((item) => (
         <Grid
           item
-          className="measure-results-table__row"
+          className="display-table__row"
           key={`chart-container-grid-measure-${item.value}`}
         >
           <TableRow
@@ -56,11 +59,12 @@ function DisplayTable({
         </Grid>
 
       ))}
+      {pageCount > 0 && (
       <StyledEngineProvider injectFirst>
         <Pagination
-          count={count}
+          count={pageCount}
           size="large"
-          page={page}
+          page={currentPage}
           variant="outlined"
           shape="rounded"
           onChange={handleChange}
@@ -74,6 +78,7 @@ function DisplayTable({
           )}
         />
       </StyledEngineProvider>
+      )}
     </Grid>
   )
 }

@@ -163,7 +163,7 @@ function D3Chart({
       const dateDisplay = TimeFormatter(event.srcElement.__data__[index].date);
       tooltip.text(`${measureDisplay} \n ${valueDisplay} \n ${dateDisplay}`);
       const { color } = colorMapping.find(
-        (mapping) => mapping.measure === event.target.__data__[0].measure,
+        (mapping) => mapping.value === event.target.__data__[0].measure,
       );
       const leftPosition = (event.pageX > width) ? event.pageX - 176 : event.pageX + 10
       return tooltip

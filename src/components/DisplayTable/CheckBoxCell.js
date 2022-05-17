@@ -8,8 +8,8 @@ function CheckBoxCell({
   handleCheckBoxEvent, checked, value, color,
 }) {
   return (
-    <Grid item className="measure-results-table__title-align-small">
-      <FormGroup className="measure-results-table__form-group">
+    <Grid item className="display-table__title-align-small">
+      <FormGroup className="display-table__form-group">
         <Checkbox
           style={{ color }}
           disableRipple

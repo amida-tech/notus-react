@@ -21,7 +21,7 @@ const ColorMapping = (colorMapping, colorArray, displayData) => {
   measureList.unshift(baseMeasure);
   byMeasureColorMap.unshift({
     value: baseMeasure,
-    color: colorMapping.find((mapping) => mapping.measure === baseMeasure).color,
+    color: colorMapping.find((mapping) => mapping.value === baseMeasure).color,
   });
 
   return byMeasureColorMap;

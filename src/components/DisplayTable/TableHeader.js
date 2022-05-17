@@ -8,7 +8,7 @@ function TableHeader({
   headerInfo, dataCount, useCheckBox, handleCheckBoxEvent, selectedRows,
 }) {
   return (
-    <Grid container item className="measure-results-table__header-section">
+    <Grid container item className="display-table__header-section">
       {useCheckBox && (
       <CheckBoxCell
         handleCheckBoxEvent={handleCheckBoxEvent}
@@ -17,7 +17,14 @@ function TableHeader({
       />
       )}
       {headerInfo.map((item) => (
-        <HeaderCell text={item.text} tooltip={item.tooltip} flexBasis={item.flexBasis} />
+        <Grid
+          item
+          className="display-table__header-item"
+          key={item.header}
+          sx={{ flexBasis: `${item.flexBasis}%` }}
+        >
+          <HeaderCell text={item.header} tooltip={item.tooltip} flexBasis={item.flexBasis} />
+        </Grid>
       ))}
     </Grid>
   );

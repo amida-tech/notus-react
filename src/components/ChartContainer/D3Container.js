@@ -286,7 +286,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           headerInfo={MeasureTable.subHeaderInfo}
           pageSize={MeasureTable.pageSize}
           useCheckBox
-          handleMeasureChange={handleByLineMeasureChange}
+          handleCheckBoxEvent={handleByLineMeasureChange}
           selectedRows={byLineSelectedMeasures}
           colorMapping={byLineColorMap}
         />
@@ -308,7 +308,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           headerInfo={MeasureTable.headerInfo}
           pageSize={MeasureTable.pageSize}
           useCheckBox
-          handleMeasureChange={handleMeasureChange}
+          handleCheckBoxEvent={handleMeasureChange}
           selectedRows={selectedMeasures}
           colorMapping={colorMap}
         />
