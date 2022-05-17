@@ -5,16 +5,16 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import { colorMappingProps } from '../ChartContainer/D3Props';
-import MeasureResultsRow from '../MeasureResults/MeasureResultsRow';
 import usePagination from '../Utilites/PaginationUtil';
 import TableHeader from './TableHeader';
+import TableRow from './TableRow';
 
 function DisplayTable({
   currentResults,
   headerInfo,
   pageSize,
   useCheckBox,
-  handleMeasureChange,
+  handleCheckBoxEvent,
   selectedRows,
   colorMapping,
 }) {
@@ -34,22 +34,23 @@ function DisplayTable({
         headerInfo={headerInfo}
         dataCount={currentResults.length}
         useCheckBox={useCheckBox}
-        handleCheckBoxEvent={handleMeasureChange}
+        handleCheckBoxEvent={handleCheckBoxEvent}
         selectedRows={selectedRows}
       />
       <Divider className="measure-results-table__divider" />
       {pageData.currentData().map((item) => (
-
         <Grid
           item
           className="measure-results-table__row"
           key={`chart-container-grid-measure-${item.value}`}
         >
-          <MeasureResultsRow
-            measureResult={item}
-            handleMeasureChange={handleMeasureChange}
-            selectedMeasure={selectedRows.includes(item.value)}
-            measureColor={colorMapping.find((mapping) => mapping.measure === item.value)}
+          <TableRow
+            rowData={item}
+            headerInfo={headerInfo}
+            useCheckBox={useCheckBox}
+            handleCheckBoxEvent={handleCheckBoxEvent}
+            rowSelected={selectedRows.includes(item.value)}
+            color={colorMapping.find((mapping) => mapping.value === item.value).color}
           />
 
         </Grid>
@@ -92,7 +93,7 @@ DisplayTable.propTypes = {
   ),
   pageSize: PropTypes.number,
   useCheckBox: PropTypes.bool,
-  handleMeasureChange: PropTypes.func,
+  handleCheckBoxEvent: PropTypes.func,
   selectedRows: PropTypes.arrayOf(
     PropTypes.string,
   ),
@@ -104,7 +105,7 @@ DisplayTable.defaultProps = {
   headerInfo: [],
   pageSize: 0,
   useCheckBox: false,
-  handleMeasureChange: () => undefined,
+  handleCheckBoxEvent: () => undefined,
   selectedRows: [],
   colorMapping: [],
 }

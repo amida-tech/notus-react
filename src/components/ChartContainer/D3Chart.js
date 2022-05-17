@@ -184,7 +184,7 @@ function D3Chart({
           .attr('fill', 'none')
           .attr(
             'stroke',
-            colorMapping.find((mapping) => mapping.measure === measure).color,
+            colorMapping.find((mapping) => mapping.value === measure).color,
           )
           .attr('opacity', '.50')
           .attr('stroke-width', 5)

@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
-import CheckBoxHeaderCell from './CheckBoxHeaderCell';
+import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
 
 function TableHeader({
@@ -10,10 +10,10 @@ function TableHeader({
   return (
     <Grid container item className="measure-results-table__header-section">
       {useCheckBox && (
-      <CheckBoxHeaderCell
-        dataCount={dataCount}
+      <CheckBoxCell
         handleCheckBoxEvent={handleCheckBoxEvent}
-        selectedRows={selectedRows}
+        checked={dataCount === selectedRows.length}
+        value="all"
       />
       )}
       {headerInfo.map((item) => (

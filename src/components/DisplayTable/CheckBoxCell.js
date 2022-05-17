@@ -4,17 +4,18 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function CheckBoxHeaderCell({
-  dataCount, handleCheckBoxEvent, selectedRows,
+function CheckBoxCell({
+  handleCheckBoxEvent, checked, value, color,
 }) {
   return (
     <Grid item className="measure-results-table__title-align-small">
       <FormGroup className="measure-results-table__form-group">
         <Checkbox
+          style={{ color }}
           disableRipple
-          checked={dataCount === selectedRows.length}
+          checked={checked}
           size="medium"
-          value="all"
+          value={value}
           onChange={(event) => handleCheckBoxEvent(event)}
         />
       </FormGroup>
@@ -22,18 +23,18 @@ function CheckBoxHeaderCell({
   )
 }
 
-CheckBoxHeaderCell.propTypes = {
-  dataCount: PropTypes.number,
+CheckBoxCell.propTypes = {
   handleCheckBoxEvent: PropTypes.func,
-  selectedRows: PropTypes.arrayOf(
-    PropTypes.string,
-  ),
+  checked: PropTypes.bool,
+  value: PropTypes.string,
+  color: PropTypes.string,
 };
 
-CheckBoxHeaderCell.defaultProps = {
-  dataCount: 0,
+CheckBoxCell.defaultProps = {
   handleCheckBoxEvent: () => undefined,
-  selectedRows: [],
+  checked: false,
+  value: '',
+  color: '',
 }
 
-export default CheckBoxHeaderCell;
+export default CheckBoxCell;

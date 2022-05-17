@@ -68,7 +68,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const measureList = Array.from(new Set(workingList));
 
   const colorMap = measureList.map((item, index) => ({
-    measure: item,
+    value: item,
     color: index <= 11 ? colorArray[index] : colorArray[index % 11],
   }));
 

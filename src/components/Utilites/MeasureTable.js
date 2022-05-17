@@ -9,31 +9,37 @@ const pageSize = 5;
 
 const headerInfo = [
   {
+    key: 'label',
     text: 'Measure',
     tooltip: measureTip,
     flexBasis: 22,
   },
   {
+    key: 'included',
     text: 'Remaining Inclusions',
     tooltip: remainingInclusionsTip,
     flexBasis: 14,
   },
   {
+    key: 'eligible',
     text: 'Eligible Population',
     tooltip: eligiblePopulationTip,
     flexBasis: 14,
   },
   {
+    key: 'numerator',
     text: 'Numerator',
     tooltip: numeratorTip,
     flexBasis: 14,
   },
   {
+    key: 'denominator',
     text: 'Denominator',
     tooltip: denominatorTip,
     flexBasis: 14,
   },
   {
+    key: 'exclusions',
     text: 'Available Exclusions',
     tooltip: availableExclusionsTip,
     flexBasis: 14,
@@ -42,31 +48,37 @@ const headerInfo = [
 
 const subHeaderInfo = [
   {
+    key: 'label',
     text: 'Sub-Measure',
     tooltip: measureTip,
     flexBasis: 22,
   },
   {
+    key: 'included',
     text: 'Remaining Inclusions',
     tooltip: remainingInclusionsTip,
     flexBasis: 14,
   },
   {
+    key: 'eligible',
     text: 'Eligible Population',
     tooltip: eligiblePopulationTip,
     flexBasis: 14,
   },
   {
+    key: 'numerator',
     text: 'Numerator',
     tooltip: numeratorTip,
     flexBasis: 14,
   },
   {
+    key: 'denominator',
     text: 'Denominator',
     tooltip: denominatorTip,
     flexBasis: 14,
   },
   {
+    key: 'exclusions',
     text: 'Available Exclusions',
     tooltip: availableExclusionsTip,
     flexBasis: 14,
