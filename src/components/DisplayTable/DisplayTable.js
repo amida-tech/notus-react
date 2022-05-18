@@ -26,7 +26,7 @@ function DisplayTable({
   }
   const pageData = usePagination(rowData, pageSize);
 
-  const handleChange = (e, p) => {
+  const handleChange = (_e, p) => {
     setCurrentPage(p);
     pageData.jump(p);
   };
