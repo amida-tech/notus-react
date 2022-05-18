@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import CheckBoxCell from './CheckBoxCell';
 
 function TableRow({
-  rowData, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color,
+  rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color,
 }) {
   return (
     <Box className="display-table-row">
@@ -15,7 +15,7 @@ function TableRow({
           <CheckBoxCell
             handleCheckBoxEvent={handleCheckBoxEvent}
             checked={rowSelected}
-            value={rowData.value}
+            value={rowDataItem.value}
             color={color}
           />
         )}
@@ -23,7 +23,7 @@ function TableRow({
           <Grid
             item
             className="display-table-row__data-align"
-            key={`${rowData[fieldInfo.key]}-${fieldInfo.header}`}
+            key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
             sx={{
               flexBasis: `${fieldInfo.flexBasis}%`,
               justifyContent: fieldInfo.alignContent,
@@ -31,7 +31,7 @@ function TableRow({
             }}
           >
             <Typography variant="caption" className="display-table-row__data">
-              {rowData[fieldInfo.key]}
+              {rowDataItem[fieldInfo.key]}
             </Typography>
           </Grid>
         ))}
@@ -42,7 +42,7 @@ function TableRow({
 }
 
 TableRow.propTypes = {
-  rowData: PropTypes.shape({
+  rowDataItem: PropTypes.shape({
     value: PropTypes.string,
   }),
   headerInfo: PropTypes.arrayOf(
@@ -59,7 +59,7 @@ TableRow.propTypes = {
 };
 
 TableRow.defaultProps = {
-  rowData: {},
+  rowDataItem: {},
   headerInfo: [],
   useCheckBox: false,
   handleCheckBoxEvent: () => undefined,

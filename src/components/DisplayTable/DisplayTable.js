@@ -10,7 +10,7 @@ import TableHeader from './TableHeader';
 import TableRow from './TableRow';
 
 function DisplayTable({
-  currentResults,
+  rowData,
   headerInfo,
   pageSize,
   useCheckBox,
@@ -22,9 +22,9 @@ function DisplayTable({
 
   let pageCount = 0;
   if (pageSize) {
-    pageCount = Math.ceil(currentResults.length / pageSize);
+    pageCount = Math.ceil(rowData.length / pageSize);
   }
-  const pageData = usePagination(currentResults, pageSize);
+  const pageData = usePagination(rowData, pageSize);
 
   const handleChange = (e, p) => {
     setCurrentPage(p);
@@ -35,7 +35,7 @@ function DisplayTable({
     <Grid container className="display-table">
       <TableHeader
         headerInfo={headerInfo}
-        dataCount={currentResults.length}
+        dataCount={rowData.length}
         useCheckBox={useCheckBox}
         handleCheckBoxEvent={handleCheckBoxEvent}
         selectedRows={selectedRows}
@@ -48,7 +48,7 @@ function DisplayTable({
           key={`chart-container-grid-measure-${item.value}`}
         >
           <TableRow
-            rowData={item}
+            rowDataItem={item}
             headerInfo={headerInfo}
             useCheckBox={useCheckBox}
             handleCheckBoxEvent={handleCheckBoxEvent}
@@ -84,7 +84,7 @@ function DisplayTable({
 }
 
 DisplayTable.propTypes = {
-  currentResults: PropTypes.arrayOf(
+  rowData: PropTypes.arrayOf(
     PropTypes.shape({
       measure: PropTypes.string,
     }),
@@ -106,7 +106,7 @@ DisplayTable.propTypes = {
 };
 
 DisplayTable.defaultProps = {
-  currentResults: [],
+  rowData: [],
   headerInfo: [],
   pageSize: 0,
   useCheckBox: false,

@@ -282,7 +282,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           </Grid>
         </Grid>
         <DisplayTable
-          currentResults={MeasureTable.formatData(byLineCurrentResults)}
+          rowData={MeasureTable.formatData(byLineCurrentResults)}
           headerInfo={MeasureTable.subHeaderInfo}
           pageSize={MeasureTable.pageSize}
           useCheckBox
@@ -304,7 +304,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           </Grid>
         </Grid>
         <DisplayTable
-          currentResults={MeasureTable.formatData(store.currentResults)}
+          rowData={MeasureTable.formatData(store.currentResults)}
           headerInfo={MeasureTable.headerInfo}
           pageSize={MeasureTable.pageSize}
           useCheckBox
