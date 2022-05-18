@@ -59,12 +59,30 @@ spec:
         }
         stage('Build Production with Kaniko') {
             when { 
-                expression {env.GIT_BRANCH == 'origin/main'} 
+                anyOf {
+                    expression {env.GIT_BRANCH == 'origin/main'} 
+                    tag "release-*"
+                }
+                
             }
             steps {
                 container(name: 'kaniko', shell: '/busybox/sh') {
                 sh '''#!/busybox/sh
                     /kaniko/executor --context `pwd` --verbosity debug --destination=amidatech/saraswati-dashboard:latest
+                '''
+                }
+            }
+        }
+        stage('Build Tagged Production with Kaniko') { 
+            when {
+                anyOf {
+                    tag "*"
+                }
+            }
+            steps {
+                container(name: 'kaniko', shell: '/busybox/sh') {
+                sh '''#!/busybox/sh
+                    /kaniko/executor --context `pwd` --verbosity debug --destination=amidatech/saraswati-dashboard:$TAG_NAME
                 '''
                 }
             }
@@ -82,4 +100,4 @@ spec:
             }
         }
     }
-}
+} 
