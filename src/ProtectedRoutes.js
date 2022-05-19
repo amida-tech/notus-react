@@ -8,6 +8,7 @@ import theme from './assets/styles/AppTheme';
 import DatastoreProvider from './context/DatastoreProvider';
 import Reports from './layouts/Reports'
 import Dashboard from './layouts/Dashboard';
+import MemberInfo from './layouts/MemberInfo';
 import NotFound from './notFound';
 
 export default function ProtectedRoute({ authenticated }) {
@@ -17,6 +18,7 @@ export default function ProtectedRoute({ authenticated }) {
         <Navbar />
         <Switch>
           <Route path="/reports" component={Reports} />
+          <Route path="/member/:id" render={({ match }) => <MemberInfo id={match.params.id} />} />
           <Route exact path="/" component={Dashboard} loggedIn={authenticated} />
           <Route path="*" component={NotFound} />
         </Switch>
