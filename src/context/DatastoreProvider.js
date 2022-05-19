@@ -7,16 +7,17 @@ import React, {
 import PropTypes from 'prop-types';
 import { resultList, trendList, infoObject } from '../test/data/DemoData';
 import { DatastoreReducer, initialState } from './DatastoreReducer';
+import env from '../env';
 
 const axios = require('axios').default;
 
-const useLegacyResults = process.env.REACT_APP_LEGACY_RESULTS;
+const useLegacyResults = env.REACT_APP_LEGACY_RESULTS;
 const searchUrl = useLegacyResults === 'true'
-  ? new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/searchResults`)
-  : new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/dailyMeasureResults`);
-const trendUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/trends?legacyResults=${useLegacyResults}`);
-const infoUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/info`);
-const devData = `${process.env.REACT_APP_DEV_DATA}`;
+  ? new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/searchResults`)
+  : new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/dailyMeasureResults`);
+const trendUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/trends?legacyResults=${useLegacyResults}`);
+const infoUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/info`);
+const devData = `${env.REACT_APP_DEV_DATA}`;
 
 export const DatastoreContext = createContext(initialState);
 
