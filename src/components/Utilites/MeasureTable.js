@@ -7,6 +7,46 @@ const availableExclusionsTip = 'The population that can be excluded based on cri
 
 const pageSize = 5;
 
+const inclusions = {
+  key: 'included',
+  header: 'Remaining Inclusions',
+  tooltip: remainingInclusionsTip,
+  flexBasis: 14,
+  alignContent: 'center',
+};
+
+const eliigiblePopulation = {
+  key: 'eligible',
+  header: 'Eligible Population',
+  tooltip: eligiblePopulationTip,
+  flexBasis: 14,
+  alignContent: 'center',
+};
+
+const numerator = {
+  key: 'numerator',
+  header: 'Numerator',
+  tooltip: numeratorTip,
+  flexBasis: 14,
+  alignContent: 'center',
+};
+
+const denominator = {
+  key: 'denominator',
+  header: 'Denominator',
+  tooltip: denominatorTip,
+  flexBasis: 14,
+  alignContent: 'center',
+};
+
+const exclusions = {
+  key: 'exclusions',
+  header: 'Available Exclusions',
+  tooltip: availableExclusionsTip,
+  flexBasis: 14,
+  alignContent: 'center',
+};
+
 const headerInfo = [
   {
     key: 'label',
@@ -14,41 +54,11 @@ const headerInfo = [
     tooltip: measureTip,
     flexBasis: 22,
   },
-  {
-    key: 'included',
-    header: 'Remaining Inclusions',
-    tooltip: remainingInclusionsTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
-  {
-    key: 'eligible',
-    header: 'Eligible Population',
-    tooltip: eligiblePopulationTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
-  {
-    key: 'numerator',
-    header: 'Numerator',
-    tooltip: numeratorTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
-  {
-    key: 'denominator',
-    header: 'Denominator',
-    tooltip: denominatorTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
-  {
-    key: 'exclusions',
-    header: 'Available Exclusions',
-    tooltip: availableExclusionsTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
+  inclusions,
+  eliigiblePopulation,
+  numerator,
+  denominator,
+  exclusions,
 ]
 
 const subHeaderInfo = [
@@ -58,41 +68,11 @@ const subHeaderInfo = [
     tooltip: measureTip,
     flexBasis: 22,
   },
-  {
-    key: 'included',
-    header: 'Remaining Inclusions',
-    tooltip: remainingInclusionsTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
-  {
-    key: 'eligible',
-    header: 'Eligible Population',
-    tooltip: eligiblePopulationTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
-  {
-    key: 'numerator',
-    header: 'Numerator',
-    tooltip: numeratorTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
-  {
-    key: 'denominator',
-    header: 'Denominator',
-    tooltip: denominatorTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
-  {
-    key: 'exclusions',
-    header: 'Available Exclusions',
-    tooltip: availableExclusionsTip,
-    flexBasis: 14,
-    alignContent: 'center',
-  },
+  inclusions,
+  eliigiblePopulation,
+  numerator,
+  denominator,
+  exclusions,
 ]
 
 const formatData = (currentResults) => {
