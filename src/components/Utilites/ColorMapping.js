@@ -3,7 +3,7 @@ const ColorMapping = (colorMapping, colorArray, displayData) => {
   // Get base measure and filter out the mapped color
   const baseMeasure = displayData[0].measure;
   const filteredColorArray = colorArray.filter(
-    (color) => color !== colorMapping.find((mapping) => mapping.measure === baseMeasure).color,
+    (color) => color !== colorMapping.find((mapping) => mapping.value === baseMeasure).color,
   );
 
   // Create list of measures from subscores (if needed)
@@ -13,15 +13,15 @@ const ColorMapping = (colorMapping, colorArray, displayData) => {
 
   // Generate colormap for subscores
   const byMeasureColorMap = measureList.map((item, index) => ({
-    measure: item,
+    value: item,
     color: index <= 10 ? filteredColorArray[index] : filteredColorArray[index % 10],
   }));
 
   // Add in base measure and it's originally mapped color
   measureList.unshift(baseMeasure);
   byMeasureColorMap.unshift({
-    measure: baseMeasure,
-    color: colorMapping.find((mapping) => mapping.measure === baseMeasure).color,
+    value: baseMeasure,
+    color: colorMapping.find((mapping) => mapping.value === baseMeasure).color,
   });
 
   return byMeasureColorMap;
