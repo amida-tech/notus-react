@@ -1,6 +1,8 @@
 @use 'banner';
 @use 'chart-bar';
 @use 'dashboard';
+@use 'display-table';
+@use 'display-table-row';
 @use 'd3-chart';
 @use 'd3-container';
 @use 'filter-drawer';
@@ -8,9 +10,12 @@
 @use 'footer';
 @use 'global';
 @use 'info';
+<<<<<<< HEAD
 @use 'measure-results-row';
 @use 'measure-results-table';
 @use 'navbar';
+=======
+>>>>>>> a7eda55bd49b15e0db2f25698348a07af8d4f909
 @use 'not-found';
 @use 'report-builder';
 @use 'saved-queries';

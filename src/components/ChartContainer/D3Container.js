@@ -4,13 +4,14 @@ import {
 import React, {
   createContext, useState, useEffect,
 } from 'react';
+import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import TabPanel from '../Common/TabPanel';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
-import MeasureResultsTable from '../MeasureResults/MeasureResultsTable';
 import ColorMapping from '../Utilites/ColorMapping';
+import MeasureTable from '../Utilites/MeasureTable'
 import {
   storeProps,
   dashboardStateProps,
@@ -67,7 +68,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   const measureList = Array.from(new Set(workingList));
 
   const colorMap = measureList.map((item, index) => ({
-    measure: item,
+    value: item,
     color: index <= 11 ? colorArray[index] : colorArray[index % 11],
   }));
 
@@ -280,10 +281,13 @@ function D3Container({ dashboardState, dashboardActions, store }) {
             />
           </Grid>
         </Grid>
-        <MeasureResultsTable
-          currentResults={byLineCurrentResults}
-          handleMeasureChange={handleByLineMeasureChange}
-          selectedMeasures={byLineSelectedMeasures}
+        <DisplayTable
+          rowData={MeasureTable.formatData(byLineCurrentResults)}
+          headerInfo={MeasureTable.subHeaderInfo}
+          pageSize={MeasureTable.pageSize}
+          useCheckBox
+          handleCheckBoxEvent={handleByLineMeasureChange}
+          selectedRows={byLineSelectedMeasures}
           colorMapping={byLineColorMap}
         />
       </TabPanel>
@@ -299,10 +303,13 @@ function D3Container({ dashboardState, dashboardActions, store }) {
             />
           </Grid>
         </Grid>
-        <MeasureResultsTable
-          currentResults={store.currentResults}
-          handleMeasureChange={handleMeasureChange}
-          selectedMeasures={selectedMeasures}
+        <DisplayTable
+          rowData={MeasureTable.formatData(store.currentResults)}
+          headerInfo={MeasureTable.headerInfo}
+          pageSize={MeasureTable.pageSize}
+          useCheckBox
+          handleCheckBoxEvent={handleMeasureChange}
+          selectedRows={selectedMeasures}
           colorMapping={colorMap}
         />
       </TabPanel>
