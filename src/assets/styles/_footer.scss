@@ -4,7 +4,6 @@ $block-class: 'footer';
 @at-root {
     .#{$block-class} {
       width: 100%;
-      position: fixed;
       bottom: 0px;
       display: block;
       padding-bottom: 1rem;
