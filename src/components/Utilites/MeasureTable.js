@@ -15,7 +15,7 @@ const inclusions = {
   alignContent: 'center',
 };
 
-const eliigiblePopulation = {
+const eligiblePopulation = {
   key: 'eligible',
   header: 'Eligible Population',
   tooltip: eligiblePopulationTip,
@@ -55,7 +55,7 @@ const headerInfo = [
     flexBasis: 22,
   },
   inclusions,
-  eliigiblePopulation,
+  eligiblePopulation,
   numerator,
   denominator,
   exclusions,
@@ -69,7 +69,7 @@ const subHeaderInfo = [
     flexBasis: 22,
   },
   inclusions,
-  eliigiblePopulation,
+  eligiblePopulation,
   numerator,
   denominator,
   exclusions,
