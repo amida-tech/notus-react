@@ -12,12 +12,13 @@ const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 export default function Navbar() {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" style={{ backgroundColor: '#263238' }}>
-        <Toolbar>
-          <div className="width-75 mx-autp items-center flex justify-between md:flex-no-wrap flex-wrap md:px-10 px-4">
+    <Box className="navbar" sx={{ flexGrow: 1 }}>
+      <AppBar className="navbar__container">
+        <Toolbar className="navbar__toolbar">
+          <div className="navbar__link-holder__width-left">
             <Link
-              className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
+              className="navbar__text__nav-measures"
+              // className="lg:inline-block"
               to={{
                 pathname: '/measures/',
               }}
@@ -26,32 +27,26 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="mx-autp items-center flex justify-between md:flex-no-wrap flex-wrap md:px-10 px-4">
-            <div className="mx-4">
-              <Link
-                className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-                to={{ pathname: '/' }}
-              >
-                Dashboard
-              </Link>
-            </div>
-            <div className="mx-4">
-              <Link
-                className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-                to={{ pathname: '/reports/' }}
-              >
-                Reports
-              </Link>
-            </div>
-            <div className="mx-2">
-              <Link
-                className="text-white text-sm uppercase hidden lg:inline-block font-semibold"
-                to={{ pathname: '/auth/login' }}
-                onClick={logout}
-              >
-                Sign Out
-              </Link>
-            </div>
+          <div className="navbar__link-holder__width-right">
+            <Link
+              className="navbar__text"
+              to={{ pathname: '/' }}
+            >
+              Dashboard
+            </Link>
+            <Link
+              className="navbar__text"
+              to={{ pathname: '/reports/' }}
+            >
+              Reports
+            </Link>
+            <Link
+              className="navbar__text__signout"
+              to={{ pathname: '/auth/login' }}
+              onClick={logout}
+            >
+              Sign Out
+            </Link>
           </div>
         </Toolbar>
       </AppBar>

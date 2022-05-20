@@ -1,0 +1,75 @@
+$block-class: 'navbar';
+@import 'colors';
+
+@at-root {
+    .#{$block-class} {
+      width: 100%;
+      color: #FFFFFF;
+
+      &__container {
+        position:fixed;
+      }
+      &__toolbar {
+      background-color: $blue-grey-darken-4;
+      display: flex;
+      }
+      &__text{
+        --text-opacity: 1;
+        color: #FFFFFF;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        &__nav-measures{
+          @extend .navbar__text;
+          padding-left: .7rem;
+          padding-right: 2rem;
+        }
+        &__signout{
+          @extend .navbar__text;
+          padding-right: 2rem;
+        }
+
+      } 
+      &__link-holder{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        &__width-left{
+          width: 75%;
+          @media (min-width: 640px) { 
+            width: 50%;
+          }
+          @media (min-width: 768px) { 
+            width: 50%;
+          }
+          @media (min-width: 1024px) { 
+            width: 60%;
+          }
+          @media (min-width: 1280px) { 
+            width: 75%;
+          }
+        }
+        &__width-right{
+          width: 25%;
+          display: flex;
+          flex-direction: row;
+          justify-content:right;
+          @media (min-width: 640px) { 
+            width: 50%;
+          }
+          @media (min-width: 768px) { 
+            width: 50%;
+          }
+          @media (min-width: 1024px) { 
+            width: 40%;
+          }
+          @media (min-width: 1280px) { 
+            width: 25%;
+          }
+        }
+      }
+    }
+}
