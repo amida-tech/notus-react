@@ -21,12 +21,12 @@ $block-class: 'navbar';
         text-transform: uppercase;
         padding-left: 1rem;
         padding-right: 1rem;
-        &__nav-measures{
+        &-nav-dashboard{
           @extend .navbar__text;
           padding-left: .7rem;
           padding-right: 2rem;
         }
-        &__signout{
+        &-signout{
           @extend .navbar__text;
           padding-right: 2rem;
         }
@@ -37,7 +37,7 @@ $block-class: 'navbar';
         flex-wrap: wrap;
         justify-content: space-between;
 
-        &__width-left{
+        &-left{
           width: 75%;
           @media (min-width: 640px) { 
             width: 50%;
@@ -52,7 +52,7 @@ $block-class: 'navbar';
             width: 75%;
           }
         }
-        &__width-right{
+        &-right{
           width: 25%;
           display: flex;
           flex-direction: row;

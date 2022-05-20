@@ -15,19 +15,18 @@ export default function Navbar() {
     <Box className="navbar" sx={{ flexGrow: 1 }}>
       <AppBar className="navbar__container">
         <Toolbar className="navbar__toolbar">
-          <div className="navbar__link-holder__width-left">
+          <div className="navbar__link-holder-left">
             <Link
-              className="navbar__text__nav-measures"
-              // className="lg:inline-block"
+              className="navbar__text-nav-dashboard"
               to={{
-                pathname: '/measures/',
+                pathname: '/',
               }}
             >
               Saraswati
             </Link>
           </div>
 
-          <div className="navbar__link-holder__width-right">
+          <div className="navbar__link-holder-right">
             <Link
               className="navbar__text"
               to={{ pathname: '/' }}
@@ -41,7 +40,7 @@ export default function Navbar() {
               Reports
             </Link>
             <Link
-              className="navbar__text__signout"
+              className="navbar__text-signout"
               to={{ pathname: '/auth/login' }}
               onClick={logout}
             >
