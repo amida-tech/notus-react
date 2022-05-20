@@ -1,7 +1,7 @@
 @import 'colors';
 @import 'rating-trends';
 
-$block-class: 'measure-results-table';
+$block-class: 'display-table';
 
 
 @at-root {
@@ -18,24 +18,21 @@ $block-class: 'measure-results-table';
             margin: 1rem 0;
         }
 
+        & &__header-item {
+          min-width: 7%;
+      }
+
         & &__title-align {
+            @extend .display-table__header-item;
             display: flex;
             justify-content: center;
             padding: 1rem;
-            flex-basis: 14%;
-            min-width: 7%;
             align-items: center;
             margin: auto;
         }
 
-        & &__title-align-measure {
-            @extend .measure-results-table__title-align;
-            flex-basis: 22%;
-            justify-content: left;
-        }
-
         & &__title-align-small {
-            @extend .measure-results-table__title-align;
+            @extend .display-table__title-align;
             flex-basis: 8%
         }
 
@@ -55,8 +52,10 @@ $block-class: 'measure-results-table';
             width: 100%;
         }
 
-        & &__divider {
-            background-color: $blue-grey-lighten-3;
+        & &__header-divider {
+          width: 100%;
+          background-color: $blue-grey-lighten-3;
+          height: 1px;
         }
     }
 

@@ -22,7 +22,7 @@ export const dashboardActionsProps = PropTypes.shape({
 
 export const colorMappingProps = PropTypes.arrayOf(
   PropTypes.shape({
-    measure: PropTypes.string,
+    value: PropTypes.string,
     color: PropTypes.string,
   }),
 );
