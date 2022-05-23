@@ -26,12 +26,12 @@ The purpose of this API is to ingest HEDIS data from pyspark, save it, and then 
 ## Dynamically Change ENV during runtime
 On Debian-
 `[env variables] npx react-inject-env set`
-On Windows -
-`set [env variable]; set [env variables]; npx react-inject-env set`
+On Windows (CMD) -
+`set [env variable]; set [env variables]&& npx react-inject-env set`
 
 Examples -
 `REACT_APP_MVP_SETTING=true npx react-inject-env set`
-`set REACT_APP_MVP_SETTING=true; npx react-inject-env set`
+`set REACT_APP_MVP_SETTING=true&& npx react-inject-env set`
 
 Static ENV's DO NOT ovveride your commands, but you must inject them into your static build folder with
 
