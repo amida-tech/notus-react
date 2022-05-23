@@ -22,3 +22,19 @@ The purpose of this API is to ingest HEDIS data from pyspark, save it, and then 
 `REACT_APP_DEV_DATA` - `true` to use data from local file, `false` to fetch data from mongodb
 `REACT_APP_AUTH` - `true` to force authorization before accessing dashboard, `false` to bypass authorization
 `REACT_APP_LEGACY_RESULTS` - `true` to get results from pre-calculated collection, `false` to calculate results each query
+
+## Dynamically Change ENV during runtime
+On Debian-
+`[env variables] npx react-inject-env set`
+On Windows -
+`set [env variable]; set [env variables]; npx react-inject-env set`
+
+Examples -
+`REACT_APP_MVP_SETTING=true npx react-inject-env set`
+`set REACT_APP_MVP_SETTING=true; npx react-inject-env set`
+
+Static ENV's DO NOT ovveride your commands, but you must inject them into your static build folder with
+
+`npx react-inject-env  -d [build directory]`
+or usually
+`npx react-inject-env -d ./build`
