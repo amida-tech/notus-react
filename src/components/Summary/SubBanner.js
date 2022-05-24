@@ -10,7 +10,7 @@ function SubBanner({ title, infoText }) {
       <Typography variant="h2" className="sub-banner__header">
         {title}
       </Typography>
-      <Info infoText={infoText} />
+      {infoText && (<Info infoText={infoText} />)}
     </Box>
   );
 }
