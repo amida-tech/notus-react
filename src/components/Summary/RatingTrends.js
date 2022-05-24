@@ -9,6 +9,7 @@ import {
 import TrendDisplay from './TrendDisplay';
 import SubBanner from './SubBanner';
 import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils'
+import env from '../../env'
 
 const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
 const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
@@ -103,7 +104,7 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
       </Box>
       <Box className="rating-trends__button-panel">
         {
-          process.env.REACT_APP_MVP_SETTING === 'false'
+          env.REACT_APP_MVP_SETTING === 'false'
           && (
             <Button
               className="rating-trends__view-rating-details-button"

@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import { storeProps } from '../ChartContainer/D3Props';
 import MeasureSelector from '../Common/MeasureSelector';
+import env from '../../env';
 
 function ReportBuilder({ store }) {
   const [measure, setMeasure] = useState('');
@@ -33,7 +34,7 @@ function ReportBuilder({ store }) {
         && (
         <a
           className="report-builder__download-link"
-          href={`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}measures/exportCsv?measurementType=${measure}`}
+          href={`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/exportCsv?measurementType=${measure}`}
           target="_blank"
           rel="noreferrer"
         >
