@@ -13,6 +13,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import Auth from './layouts/Auth';
 import ProtectedRoutes from './ProtectedRoutes';
+import env from './env';
 
 const action = (setShowWelcome) => (
   <IconButton
@@ -34,7 +35,7 @@ export default function App() {
   const [isLoaded, setLoaded] = useState(false);
 
   useEffect(() => { // Check for .env first.
-    if (`${process.env.REACT_APP_AUTH}` === 'false') {
+    if (`${env.REACT_APP_AUTH}` === 'false') {
       setAuthenticated(true);
       setLoaded(true);
       return;
@@ -95,7 +96,7 @@ export default function App() {
 
 const validateAccessToken = async (accessToken) => {
   try {
-    const res = await axios.get(`${process.env.REACT_APP_TOKENINFO}?access_token=${accessToken}`);
+    const res = await axios.get(`${env.REACT_APP_TOKENINFO}?access_token=${accessToken}`);
     if (res.status === 200) {
       return true;
     }
