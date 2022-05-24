@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import { ReactComponent as GithubSvg } from '../../assets/img/github.svg';
+import env from '../../env';
 
 export default function Login() {
   return (
@@ -124,9 +125,9 @@ export default function Login() {
  */
 function oauthSignIn() {
   // Google's OAuth 2.0 endpoint for requesting an access token
-  const oauth2Endpoint = process.env.REACT_APP_GOOGLE_OAUTH_URL;
-  const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-  const dashboardUrl = process.env.REACT_APP_DASHBOARD_URL;
+  const oauth2Endpoint = env.REACT_APP_GOOGLE_OAUTH_URL;
+  const clientId = env.REACT_APP_GOOGLE_CLIENT_ID;
+  const dashboardUrl = env.REACT_APP_DASHBOARD_URL;
 
   // Create <form> element to submit parameters to OAuth 2.0 endpoint.
   const form = document.createElement('form');

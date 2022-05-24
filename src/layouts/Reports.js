@@ -4,6 +4,7 @@ import ReportsBanner from '../components/Summary/ReportsBanner'
 import ReportBuilder from '../components/Reports/ReportBuilder'
 import SavedQueries from '../components/Reports/SavedQueries'
 import { DatastoreContext } from '../context/DatastoreProvider';
+import env from '../env';
 
 export default function Reports() {
   const { datastore } = useContext(DatastoreContext);
@@ -11,7 +12,7 @@ export default function Reports() {
     <Box className="reports">
       <ReportsBanner />
       <Grid className="reports__display">
-        { process.env.REACT_APP_MVP_SETTING === 'false' && <SavedQueries /> }
+        { env.REACT_APP_MVP_SETTING === 'false' && <SavedQueries /> }
         <ReportBuilder store={datastore} />
       </Grid>
     </Box>

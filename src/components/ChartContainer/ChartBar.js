@@ -13,6 +13,7 @@ import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { TimelineOptions } from '../Utilites/ChartUtil';
+import env from '../../env';
 
 const timelineLabel = (choice) => {
   switch (choice) {
@@ -119,7 +120,7 @@ function ChartBar({
                   label={option.label}
                 />
               ))}
-              { process.env.REACT_APP_MVP_SETTING === 'false'
+              { env.REACT_APP_MVP_SETTING === 'false'
                 && (
                 <Box className="chart-bar__date-range">
                   <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -152,7 +153,7 @@ function ChartBar({
         </Grid>
         <Grid item sx={buttonStyling}>
           {
-            process.env.REACT_APP_MVP_SETTING === 'false'
+            env.REACT_APP_MVP_SETTING === 'false'
             && (
               <Button disabled key="d3-options" color="black" variant="text" startIcon={<TuneIcon />}>
                 <Typography variant="caption">
@@ -164,7 +165,7 @@ function ChartBar({
         </Grid>
         <Grid item sx={buttonStyling}>
           {
-            process.env.REACT_APP_MVP_SETTING === 'false'
+            env.REACT_APP_MVP_SETTING === 'false'
             && (
               <Button disabled key="d3-export" color="black" variant="text" startIcon={<SimCardDownloadIcon />}>
                 <Typography variant="caption">

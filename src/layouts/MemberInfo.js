@@ -6,10 +6,11 @@ import PropTypes from 'prop-types';
 import {
   Typography, Box, List, ListItem,
 } from '@mui/material';
+import env from '../env';
 
 const axios = require('axios').default;
 
-const memberQueryUrl = new URL(`${process.env.REACT_APP_HEDIS_MEASURE_API_URL}members/info/`);
+const memberQueryUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/info/`);
 
 function MemberInfo({ id }) {
   const [memberInfo, setMemberInfo] = useState({});
