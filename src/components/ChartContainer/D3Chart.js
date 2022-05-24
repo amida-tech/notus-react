@@ -163,13 +163,14 @@ function D3Chart({
       const dateDisplay = TimeFormatter(event.srcElement.__data__[index].date);
       tooltip.text(`${measureDisplay} \n ${valueDisplay} \n ${dateDisplay}`);
       const { color } = colorMapping.find(
-        (mapping) => mapping.measure === event.target.__data__[0].measure,
+        (mapping) => mapping.value === event.target.__data__[0].measure,
       );
-      const leftPosition = (event.pageX > width) ? event.pageX - 168 : event.pageX + 10
+      const leftPosition = (event.pageX > width) ? event.pageX - 176 : event.pageX + 10
       return tooltip
         .attr('data-html', 'true')
         .style('background-color', color)
         .style('visibility', 'visible')
+        .style('width', '168px')
         .style('top', `${event.pageY - 10}px`)
         .style('left', `${leftPosition}px`);
     };
@@ -183,7 +184,7 @@ function D3Chart({
           .attr('fill', 'none')
           .attr(
             'stroke',
-            colorMapping.find((mapping) => mapping.measure === measure).color,
+            colorMapping.find((mapping) => mapping.value === measure).color,
           )
           .attr('opacity', '.50')
           .attr('stroke-width', 5)
