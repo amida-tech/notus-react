@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
-import ToolTip from '@mui/material/Tooltip';
+import SaraswatiToolTip from '../Common/SaraswatiToolTip';
 
 function HeaderCell({
   text, tooltip,
@@ -15,9 +15,9 @@ function HeaderCell({
         {text}
       </Typography>
       {tooltip && (
-      <ToolTip title={tooltip}>
+      <SaraswatiToolTip title={tooltip}>
         <HelpIcon className="display-table__help-icon" />
-      </ToolTip>
+      </SaraswatiToolTip>
       )}
     </Box>
   )
