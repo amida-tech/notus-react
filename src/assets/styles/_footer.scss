@@ -4,28 +4,18 @@ $block-class: 'footer';
 @at-root {
     .#{$block-class} {
       width: 100%;
-      bottom: 0px;
-      display: block;
-      padding-bottom: 1rem;
-      background-color: $blue-grey-darken-4;
-      color: #FFFFFF;
-      z-index: 100;
-
-      &__center-box {
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
+      padding-bottom: 1.5rem;
 
       &__top-border {
-        margin-bottom: 1rem;
-        --border-opacity: 1;
-        border-color: $blue-grey-darken-4;
+       border-top: 3px solid $blue-grey-darken-4;
+       width: 95%;
+       margin: 1rem auto 2rem auto;
       }
 
       &__flex-box {
         display: flex;
+        flex-direction: row;
+        justify-content:space-between;
         flex-wrap: wrap;
         align-items: center;
       }
@@ -37,7 +27,7 @@ $block-class: 'footer';
         padding-bottom: 0.25rem;
 
         &__left {
-          color: #FFFFFF;
+          color: $blue-grey-darken-4;;
           text-align: left;
 
           &__link:hover {
@@ -46,23 +36,27 @@ $block-class: 'footer';
         }
 
         &__right {
-          color: #CFD8DC;
-          display: block;
+          color: $blue-grey-darken-4;;
+          text-align: right;
           padding-left: 0.75rem;
           padding-right: 0.75rem;
         }
       }
-
       &__left-side {
         padding-left: 1rem;
         padding-right: 1rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        &__logo {
+          width:13%;
+        }
       }
 
       &__right-side {
-        position: fixed;
         right: 20px;
         padding-left: 1rem;
-        padding-right: 1rem;
+        padding-right: 2rem;
       }
 
       &__right-items {
