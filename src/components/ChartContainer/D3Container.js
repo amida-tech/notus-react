@@ -284,7 +284,6 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         <DisplayTable
           rowData={MeasureTable.formatData(byLineCurrentResults)}
           headerInfo={MeasureTable.subHeaderInfo}
-          pageSize={MeasureTable.pageSize}
           useCheckBox
           handleCheckBoxEvent={handleByLineMeasureChange}
           selectedRows={byLineSelectedMeasures}
@@ -306,7 +305,6 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         <DisplayTable
           rowData={MeasureTable.formatData(store.currentResults)}
           headerInfo={MeasureTable.headerInfo}
-          pageSize={MeasureTable.pageSize}
           useCheckBox
           handleCheckBoxEvent={handleMeasureChange}
           selectedRows={selectedMeasures}

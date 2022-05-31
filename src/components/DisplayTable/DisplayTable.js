@@ -22,10 +22,6 @@ function DisplayTable({
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  let pageCount = 0;
-  if (pageSize) {
-    pageCount = Math.ceil(rowData.length / pageSize);
-  }
   const pageData = usePagination(rowData, pageSize);
 
   const handleChangePage = (_e, p) => {
@@ -86,7 +82,6 @@ function DisplayTable({
           </Grid>
 
         ))}
-      {pageCount > 0 && (
       <StyledEngineProvider injectFirst>
         <TablePagination
           component="div"
@@ -99,7 +94,6 @@ function DisplayTable({
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </StyledEngineProvider>
-      )}
     </Grid>
   )
 }

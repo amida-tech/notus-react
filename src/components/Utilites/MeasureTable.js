@@ -5,8 +5,6 @@ const numeratorTip = 'The number of patients who have satisfied the criteria for
 const denominatorTip = 'The population of patients who are eligible for this measure. Currently the same as Eligible Population.';
 const availableExclusionsTip = 'The population that can be excluded based on criteria.';
 
-const pageSize = 5;
-
 const inclusions = {
   key: 'included',
   header: 'Remaining Inclusions',
@@ -93,5 +91,5 @@ const formatData = (currentResults) => {
 };
 
 module.exports = {
-  headerInfo, subHeaderInfo, pageSize, formatData,
+  headerInfo, subHeaderInfo, formatData,
 };
