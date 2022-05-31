@@ -31,29 +31,6 @@ function DisplayTable({
     setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
   };
-  const rowsPerPageOptions = () => {
-    const MeasureLength = pageData.currentData().length
-    const optionRegular = [1, 2, 3, MeasureLength]
-    const optionXL = [1, 3, 5, 10, 15, 20, 25, MeasureLength]
-    const optionL = [1, 3, 5, 10, 15, 20, MeasureLength]
-    const optionM = [1, 3, 5, 10, 15, MeasureLength]
-    const optionS = [1, 3, 5, 10, MeasureLength]
-    const optionXS = [1, 3, 5, MeasureLength]
-    const optionSimple = [5, 10, 15, 20, MeasureLength]
-
-    if (MeasureLength >= 45) {
-      return optionXL
-    } if (MeasureLength < 44 && MeasureLength > 30) {
-      return optionL
-    } if (MeasureLength < 29 && MeasureLength > 19) {
-      return optionM
-    } if (MeasureLength < 18 && MeasureLength > 12) {
-      return optionS
-    } if (MeasureLength < 11 && MeasureLength > 6) {
-      return optionXS
-    }
-    return optionSimple
-  }
 
   return (
     <Grid container className="display-table">
@@ -86,11 +63,14 @@ function DisplayTable({
       <StyledEngineProvider injectFirst>
         <TablePagination
           component="div"
-          rowsPerPageOptions={rowsPerPageOptions()}
+          rowsPerPageOptions={[5, 10]}
           count={pageData.currentData().length}
           page={page}
           className="display-table__pagination"
           onPageChange={handleChangePage}
+          classes={{
+            input: { backgroundColor: 'red' },
+          }}
           rowsPerPage={rowsPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
