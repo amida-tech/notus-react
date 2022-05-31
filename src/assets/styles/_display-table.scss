@@ -57,6 +57,14 @@ $block-class: 'display-table';
           background-color: $blue-grey-lighten-3;
           height: 1px;
         }
+        &__pagination{
+            display: flex;
+            width: 100%;
+            margin-right: 4.5%;
+            justify-content:right;
+            color:$blue-grey-lighten-1;
+            font-weight:700;
+        }
     }
 
     .MuiPagination-root {
