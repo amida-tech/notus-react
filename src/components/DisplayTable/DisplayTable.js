@@ -39,6 +39,7 @@ function DisplayTable({
     const optionM = [1, 3, 5, 10, 15, MeasureLength]
     const optionS = [1, 3, 5, 10, MeasureLength]
     const optionXS = [1, 3, 5, MeasureLength]
+    const optionSimple = [5, 10, 15, 20, MeasureLength]
 
     if (MeasureLength >= 45) {
       return optionXL
@@ -51,7 +52,7 @@ function DisplayTable({
     } if (MeasureLength < 11 && MeasureLength > 6) {
       return optionXS
     }
-    return optionRegular
+    return optionSimple
   }
 
   return (
