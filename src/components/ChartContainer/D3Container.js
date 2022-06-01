@@ -1,14 +1,12 @@
-import {
-  Grid, Tab, Tabs,
-} from '@mui/material';
 import React, {
   createContext, useState, useEffect,
 } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Grid, Typography } from '@mui/material';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
-import TabPanel from '../Common/TabPanel';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ColorMapping from '../Utilites/ColorMapping';
 import MeasureTable from '../Utilites/MeasureTable'
@@ -49,11 +47,11 @@ const defaultTimelineState = {
 };
 
 function D3Container({ dashboardState, dashboardActions, store }) {
+  const history = useHistory();
   const [displayData, setDisplayData] = useState(
     store.results.map((result) => ({ ...result })),
   );
   const [currentFilters, setCurrentFilters] = useState(defaultFilterState);
-  const [tabValue, setTabValue] = useState(0);
   const [byLineMeasure, setByLineMeasure] = useState({});
   const [byLineCurrentResults, setByLineCurrentResults] = useState([])
   const [byLineDisplayData, setByLineDisplayData] = useState([]);
@@ -213,6 +211,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
   }
 
   const handleByLineChange = (event) => {
+    history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`);
     const newByLineMeasure = store.currentResults.find(
       (item) => item.measure === event.target.value,
     );
@@ -254,65 +253,34 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           filterDisabled={filterDisabled}
         />
       </Grid>
-      <Tabs
-        value={tabValue}
-        onChange={(event, index) => handleTabChange(event, index)}
-        indicatorColor="primary"
-      >
-        <Tab label="All Measures" className="d3-container__tab-button" />
-        <Tab label="Individual Measures" className="d3-container__tab-button" />
-      </Tabs>
-      <TabPanel value={tabValue} index={1}>
-        <Grid container className="d3-container__chart-holder">
-          <Grid item sx={{ width: '25%' }}>
-            <MeasureSelector
-              currentResults={store.currentResults}
-              measure={byLineMeasure.measure}
-              handleMeasureChange={handleByLineChange}
-            />
-          </Grid>
-          <Grid item>
-            <D3Chart
-              displayData={byLineDisplayData}
-              graphWidth={graphWidth}
-              colorMapping={byLineColorMap}
-              measureInfo={store.info}
-              currentTimeline={currentTimeline}
-            />
-          </Grid>
+      <Grid container className="d3-container__chart-holder">
+        <Grid item className="d3-container__main-chart">
+          <D3Chart
+            displayData={displayData}
+            colorMapping={colorMap}
+            measureInfo={store.info}
+            graphWidth={graphWidth}
+            currentTimeline={currentTimeline}
+          />
         </Grid>
-        <DisplayTable
-          rowData={MeasureTable.formatData(byLineCurrentResults)}
-          headerInfo={MeasureTable.subHeaderInfo}
-          pageSize={MeasureTable.pageSize}
-          useCheckBox
-          handleCheckBoxEvent={handleByLineMeasureChange}
-          selectedRows={byLineSelectedMeasures}
-          colorMapping={byLineColorMap}
+      </Grid>
+      <Grid className="d3-container__measure-selector">
+        <Typography className="d3-container__selector-title">Detailed View: </Typography>
+        <MeasureSelector
+          currentResults={store.currentResults}
+          measure={byLineMeasure.measure}
+          handleMeasureChange={handleByLineChange}
         />
-      </TabPanel>
-      <TabPanel value={tabValue} index={0}>
-        <Grid container className="d3-container__chart-holder">
-          <Grid item className="d3-container__main-chart">
-            <D3Chart
-              displayData={displayData}
-              colorMapping={colorMap}
-              measureInfo={store.info}
-              graphWidth={graphWidth}
-              currentTimeline={currentTimeline}
-            />
-          </Grid>
-        </Grid>
-        <DisplayTable
-          rowData={MeasureTable.formatData(store.currentResults)}
-          headerInfo={MeasureTable.headerInfo}
-          pageSize={MeasureTable.pageSize}
-          useCheckBox
-          handleCheckBoxEvent={handleMeasureChange}
-          selectedRows={selectedMeasures}
-          colorMapping={colorMap}
-        />
-      </TabPanel>
+      </Grid>
+      <DisplayTable
+        rowData={MeasureTable.formatData(store.currentResults)}
+        headerInfo={MeasureTable.headerInfo}
+        pageSize={MeasureTable.pageSize}
+        useCheckBox
+        handleCheckBoxEvent={handleMeasureChange}
+        selectedRows={selectedMeasures}
+        colorMapping={colorMap}
+      />
     </div>
   );
 }

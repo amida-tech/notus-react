@@ -1,0 +1,10 @@
+@import 'colors';
+$block-class: 'measure-selector';
+
+@at-root {
+    .#{$block-class} {
+        &__select {
+            min-width: 35rem;
+        }
+    }
+}

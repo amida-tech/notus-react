@@ -13,5 +13,17 @@ $block-class: 'd3-container';
         & &__main-chart {
             margin-top: 3.5rem;
         }
+
+        & &__selector-title {
+            color:$default-black;
+            margin:.85rem 1rem 0 0;
+            font-size: 1.1rem;
+        }
+
+        &__measure-selector {
+            display: flex;
+            flex-direction: row;
+            justify-content: right;
+        }
     }
 }
