@@ -6,22 +6,22 @@ export default function Footer() {
   return (
     <footer className="footer">
       <hr className="footer__top-border" />
-      <Box className="footer__flex-box">
+      <Box className="footer__display">
         <Box className="footer__left-side">
-          <img className="footer__left-side footer__left-side__logo" src={amidaLogo} alt="Amida Logo" />
-          <Box className="footer__text footer__text__left">
+          <img className="footer__logo" src={amidaLogo} alt="Amida Logo" />
+          <Box className="footer__text-left">
             ©
             {' '}
             {new Date().getFullYear()}
             {' '}
             <a
               href="https://www.amida.com"
-              className="footer__text footer__text__left footer__text__left__link"
+              className="footer__text-link"
             >
               AMIDA TECHNOLOGY SOLUTIONS
             </a>
             {' '}
-            - ALL RIGHTS RESERVED
+            — ALL RIGHTS RESERVED
           </Box>
         </Box>
         <Box className="footer__right-side">
@@ -29,7 +29,7 @@ export default function Footer() {
             <li>
               <a
                 href="https://www.amida.com"
-                className="footer__text footer__text__right"
+                className="footer__text-right"
               >
                 Amida
               </a>
@@ -37,7 +37,7 @@ export default function Footer() {
             <li>
               <a
                 href="https://github.com/creativetimofficial/notus-react/blob/master/LICENSE.md?ref=nr-footer-admin"
-                className="footer__text footer__text__right"
+                className="footer__text-right"
               >
                 MIT License
               </a>
