@@ -253,34 +253,34 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           filterDisabled={filterDisabled}
         />
       </Grid>
-      <Grid container className="d3-container__chart-holder">
-        <Grid item className="d3-container__main-chart">
-          <D3Chart
-            displayData={displayData}
-            colorMapping={colorMap}
-            measureInfo={store.info}
-            graphWidth={graphWidth}
-            currentTimeline={currentTimeline}
-          />
-        </Grid>
-      </Grid>
-      <Grid className="d3-container__measure-selector">
-        <Typography className="d3-container__selector-title">Detailed View: </Typography>
-        <MeasureSelector
-          currentResults={store.currentResults}
-          measure={byLineMeasure.measure}
-          handleMeasureChange={handleByLineChange}
+      <Grid className="d3-container__main-chart">
+        <D3Chart
+          displayData={displayData}
+          colorMapping={colorMap}
+          measureInfo={store.info}
+          graphWidth={graphWidth}
+          currentTimeline={currentTimeline}
         />
       </Grid>
-      <DisplayTable
-        rowData={MeasureTable.formatData(store.currentResults)}
-        headerInfo={MeasureTable.headerInfo}
-        pageSize={MeasureTable.pageSize}
-        useCheckBox
-        handleCheckBoxEvent={handleMeasureChange}
-        selectedRows={selectedMeasures}
-        colorMapping={colorMap}
-      />
+      <Grid className="d3-container__bottom-display">
+        <Grid className="d3-container__measure-selector">
+          <Typography className="d3-container__selector-title">Detailed View: </Typography>
+          <MeasureSelector
+            currentResults={store.currentResults}
+            measure={byLineMeasure.measure}
+            handleMeasureChange={handleByLineChange}
+          />
+        </Grid>
+        <DisplayTable
+          rowData={MeasureTable.formatData(store.currentResults)}
+          headerInfo={MeasureTable.headerInfo}
+          pageSize={MeasureTable.pageSize}
+          useCheckBox
+          handleCheckBoxEvent={handleMeasureChange}
+          selectedRows={selectedMeasures}
+          colorMapping={colorMap}
+        />
+      </Grid>
     </div>
   );
 }
