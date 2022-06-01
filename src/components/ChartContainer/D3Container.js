@@ -4,6 +4,7 @@ import {
 import React, {
   createContext, useState, useEffect,
 } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
@@ -271,14 +272,20 @@ function D3Container({ dashboardState, dashboardActions, store }) {
               handleMeasureChange={handleByLineChange}
             />
           </Grid>
-          <Grid item>
-            <D3Chart
-              displayData={byLineDisplayData}
-              graphWidth={graphWidth}
-              colorMapping={byLineColorMap}
-              measureInfo={store.info}
-              currentTimeline={currentTimeline}
-            />
+          <Grid item className="d3-container__chart-container">
+            {dashboardState.isLoading ? (
+              <div item className="d3-container__loading-container">
+                <CircularProgress size="18rem" className="d3-container__loading-spinner" />
+              </div>
+            ) : (
+              <D3Chart
+                displayData={byLineDisplayData}
+                graphWidth={graphWidth}
+                colorMapping={byLineColorMap}
+                measureInfo={store.info}
+                currentTimeline={currentTimeline}
+              />
+            )}
           </Grid>
         </Grid>
         <DisplayTable
@@ -293,14 +300,20 @@ function D3Container({ dashboardState, dashboardActions, store }) {
       </TabPanel>
       <TabPanel value={tabValue} index={0}>
         <Grid container className="d3-container__chart-holder">
-          <Grid item className="d3-container__main-chart">
-            <D3Chart
-              displayData={displayData}
-              colorMapping={colorMap}
-              measureInfo={store.info}
-              graphWidth={graphWidth}
-              currentTimeline={currentTimeline}
-            />
+          <Grid item className="d3-container__chart-container">
+            {dashboardState.isLoading ? (
+              <div item className="d3-container__loading-container">
+                <CircularProgress size="18rem" className="d3-container__loading-spinner" />
+              </div>
+            ) : (
+              <D3Chart
+                displayData={displayData}
+                colorMapping={colorMap}
+                measureInfo={store.info}
+                graphWidth={graphWidth}
+                currentTimeline={currentTimeline}
+              />
+            )}
           </Grid>
         </Grid>
         <DisplayTable

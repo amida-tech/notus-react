@@ -19,17 +19,19 @@ export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     if (datastore.currentResults !== undefined) {
       setActiveMeasure(datastore.currentResults.find((result) => result.measure === 'composite') || defaultActiveMeasure);
+      setIsLoading(datastore.isLoading)
     }
-  }, [datastore.currentResults]);
+  }, [datastore.currentResults, datastore.isLoading]);
 
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
   const dashboardState = {
     filterDrawerOpen,
+    isLoading,
   };
 
   const dashboardActions = {

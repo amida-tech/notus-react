@@ -4,6 +4,7 @@ export const initialState = {
   currentResults: [], // Results for the most recent day for each measure.
   info: {},
   lastUpdated: 'Updating now...',
+  isLoading: true,
 };
 
 const monthOpt = { month: 'short', day: '2-digit' };
@@ -84,6 +85,12 @@ export const DatastoreReducer = (state, action) => {
       return {
         ...state,
         trends: action.payload,
+        lastUpdated: updateTimestamp(),
+      }
+    case 'SET_ISLOADING':
+      return {
+        ...state,
+        isLoading: action.payload,
         lastUpdated: updateTimestamp(),
       }
     default:

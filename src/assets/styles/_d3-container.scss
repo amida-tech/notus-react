@@ -9,9 +9,19 @@ $block-class: 'd3-container';
             float: right;
             margin-top: 0.625rem;
         }
-
-        & &__main-chart {
-            margin-top: 3.5rem;
+        & &__chart-container{
+            width: 100%;
+            height: auto;
+            margin: 3.5rem auto;
+        }
+        & &__loading-container{
+            display: flex;
+            justify-content: center;            
+        }
+        & &__loading-spinner{
+            width: 100%;
+            color: $blue-grey-darken-1;
+            margin: 1rem auto
         }
     }
 }
