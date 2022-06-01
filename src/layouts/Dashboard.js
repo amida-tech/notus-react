@@ -44,7 +44,7 @@ export default function Dashboard() {
 
   return (
     <Box className="dashboard">
-      <Paper className="dashboard__paper">
+      <Paper elevation={0} className="dashboard__paper">
         <Box sx={{ flexGrow: 2 }}>
           <Grid container spacing={4}>
             <Grid item className="dashboard__summary" sm={12}>

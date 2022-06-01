@@ -3,10 +3,8 @@ $block-class: 'dashboard';
 
 @at-root {
     .#{$block-class} {
-
       &__paper {
         padding: 2rem;
-        margin-bottom: 1.25rem;
       }
 
       &__summary {
