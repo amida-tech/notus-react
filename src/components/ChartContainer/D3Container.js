@@ -81,7 +81,7 @@ function D3Container({
     }
   })
 
-  useEffect(() => {
+  useEffect(() => { // Break apart later if we feel we need to separate concerns.
     const baseColorMap = store.currentResults.map((item, index) => ({
       value: item.measure,
       color: index <= 11 ? colorArray[index] : colorArray[index % 11],
@@ -110,7 +110,7 @@ function D3Container({
     if (store.currentResults !== undefined) {
       setSelectedMeasures(store.currentResults.map((result) => result.measure));
     }
-  }, [setSelectedMeasures, store.currentResults]);
+  }, [store.currentResults]);
 
   const handleFilteredDataUpdate = (measures, filters, timeline) => {
     let newDisplayData = isComposite
@@ -190,6 +190,7 @@ function D3Container({
         <Grid className="d3-container__measure-selector">
           <Typography className="d3-container__selector-title">Detailed View: </Typography>
           <MeasureSelector
+            measure={activeMeasure}
             currentResults={store.currentResults}
             handleMeasureChange={handleMeasureChange}
           />

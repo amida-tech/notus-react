@@ -48,7 +48,6 @@ export function expandSubMeasureResults(selectedMeasure, store) {
       byLine.subScores.forEach((subScore) => expandedResults.push(subScore));
     }
   });
-
   return expandedResults;
 }
 
