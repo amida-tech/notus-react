@@ -10,8 +10,6 @@ function D3Chart({
 }) {
   // Binder for react to apply changes to the svg
   const D3LineChart = useRef();
-  console.log('IN D3CHART');
-  console.log(displayData);
 
   // Date Parser
   const parseDate = d3.timeParse('%Y-%m-%d');
@@ -166,7 +164,7 @@ function D3Chart({
       tooltip.text(`${measureDisplay} \n ${valueDisplay} \n ${dateDisplay}`);
       const { color } = colorMapping.find(
         (mapping) => mapping.value === event.target.__data__[0].measure,
-      );
+      ) || '#000';
       const leftPosition = (event.pageX > width) ? event.pageX - 176 : event.pageX + 10
       return tooltip
         .attr('data-html', 'true')
@@ -186,7 +184,7 @@ function D3Chart({
           .attr('fill', 'none')
           .attr(
             'stroke',
-            colorMapping.find((mapping) => mapping.value === measure).color,
+            colorMapping.find((mapping) => mapping.value === measure)?.color || '#000',
           )
           .attr('opacity', '.50')
           .attr('stroke-width', 5)

@@ -58,6 +58,15 @@ function D3Container({
   activeMeasure, dashboardState, dashboardActions, store,
 }) {
   const history = useHistory();
+  const workingList = [];
+  store.results.forEach((item) => workingList.push(item.measure));
+
+  const measureList = Array.from(new Set(workingList));
+  const colorMap = measureList.map((item, index) => ({
+    value: item,
+    color: index <= 11 ? colorArray[index] : colorArray[index % 11],
+  }));
+
   const [displayData, setDisplayData] = useState(
     store.results.map((result) => ({ ...result })),
   );
@@ -72,15 +81,6 @@ function D3Container({
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
 
-  const workingList = [];
-  store.results.forEach((item) => workingList.push(item.measure));
-
-  const measureList = Array.from(new Set(workingList));
-  const colorMap = measureList.map((item, index) => ({
-    value: item,
-    color: index <= 11 ? colorArray[index] : colorArray[index % 11],
-  }));
-
   // Leave alone.
   useEffect(() => {
     function handleResize() {
@@ -94,32 +94,22 @@ function D3Container({
 
   // Leave alone.
   useEffect(() => {
-    console.log(activeMeasure.measure);
     if (activeMeasure.measure === 'composite') {
       setDisplayData(store.results.map((result) => ({ ...result })));
       setFilterDisabled(false);
     } else {
-      const newByLineMeasure = store.results.filter(
-        (item) => item.measure === activeMeasure.measure,
-      );
-      console.log(newByLineMeasure);
-      let newByLineCurrentResults = [];
-      if (newByLineMeasure.subScores && newByLineMeasure.subScores.length > 1) {
-        newByLineCurrentResults = [newByLineMeasure, ...newByLineMeasure.subScores];
-      } else {
-        newByLineCurrentResults = [newByLineMeasure];
-      }
-      console.log(newByLineMeasure);
-      setDisplayData(newByLineCurrentResults);
+      setDisplayData(expandSubMeasureResults(activeMeasure, store));
       setFilterDisabled(true);
     }
+    setCurrentTimeline(defaultTimelineState);
+    setCurrentFilters(defaultFilterState);
   }, [activeMeasure, store]);
 
   useEffect(() => {
     if (store.currentResults !== undefined) {
       setSelectedMeasures(store.currentResults.map((result) => result.measure));
     }
-  }, [setSelectedMeasures, setCurrentFilters, store.currentResults]);
+  }, [setSelectedMeasures, store.currentResults]);
 
   const handleFilteredDataUpdate = (measures, filters, timeline) => {
     let newDisplayData = store.results.map((result) => ({ ...result }));
@@ -244,7 +234,6 @@ function D3Container({
           <Typography className="d3-container__selector-title">Detailed View: </Typography>
           <MeasureSelector
             currentResults={store.currentResults}
-            measure={byLineMeasure.measure}
             handleMeasureChange={handleByLineChange}
           />
         </Grid>
