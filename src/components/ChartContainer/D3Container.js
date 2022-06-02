@@ -3,6 +3,8 @@ import React, {
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Grid, Typography } from '@mui/material';
+import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
@@ -27,6 +29,10 @@ import {
 } from './D3ContainerUtils';
 
 export const firstRenderContext = createContext(true);
+
+function onReturnClick(history) {
+  history.push('/');
+}
 
 const colorArray = [
   '#88CCEE',
@@ -54,6 +60,19 @@ const defaultTimelineState = {
   choice: 'all', // 30, 60, ytd or custom.
   range: [null, null],
 };
+
+function labelGenerator(measure) {
+  if (!measure?.label) {
+    return '';
+  }
+  const { label } = measure;
+  return (
+    <Grid className="d3-container__return-measure-labels">
+      <Typography className="d3-container__return-measure-title">{label.substring(0, label.indexOf(' '))}</Typography>
+      <Typography className="d3-container__return-measure-description">{label.substring(label.indexOf('- ') + 1)}</Typography>
+    </Grid>
+  )
+}
 
 function D3Container({
   activeMeasure, dashboardState, dashboardActions, store,
@@ -86,7 +105,7 @@ function D3Container({
       value: item.measure,
       color: index <= 11 ? colorArray[index] : colorArray[index % 11],
     }));
-    if (activeMeasure.measure === 'composite') {
+    if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
       setComposite(true);
       setDisplayData(store.results.map((result) => ({ ...result })));
       setCurrentResults(store.currentResults);
@@ -167,6 +186,22 @@ function D3Container({
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
       />
+      { isComposite
+        ? <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
+        : (
+          <Grid className="d3-container__return-link-display" onClick={() => onReturnClick(history)}>
+            <Typography className="d3-container__title">
+              <ArrowBackIosIcon className="d3-container__return-icon" />
+              All Measures
+            </Typography>
+            <Grid className="d3-container__return-measure-display">
+              <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
+              {labelGenerator(
+                currentResults.find((result) => result.measure === activeMeasure.measure),
+              )}
+            </Grid>
+          </Grid>
+        ) }
       <Grid item className="d3-container__chart-bar">
         <ChartBar
           filterDrawerOpen={dashboardState.filterDrawerOpen}

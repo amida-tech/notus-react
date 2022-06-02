@@ -20,7 +20,7 @@ export const activeMeasureProps = PropTypes.shape({
 });
 
 export const defaultActiveMeasure = {
-  measure: 'composite',
+  measure: '',
   denominator: 0,
   shortLabel: '',
   starRating: 0,
