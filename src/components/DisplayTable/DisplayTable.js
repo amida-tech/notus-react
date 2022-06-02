@@ -13,6 +13,7 @@ function DisplayTable({
   rowData,
   headerInfo,
   pageSize,
+  isComposite,
   useCheckBox,
   handleCheckBoxChange,
   selectedRows,
@@ -25,6 +26,7 @@ function DisplayTable({
     pageCount = Math.ceil(rowData.length / pageSize);
   }
   const pageData = usePagination(rowData, pageSize);
+  const linkPrefix = isComposite ? '' : 'member/';
 
   const handleChange = (_e, p) => {
     setCurrentPage(p);
@@ -51,13 +53,12 @@ function DisplayTable({
             rowDataItem={item}
             headerInfo={headerInfo}
             useCheckBox={useCheckBox}
+            linkPrefix={linkPrefix}
             handleCheckBoxEvent={handleCheckBoxChange}
             rowSelected={selectedRows.includes(item.value)}
             color={colorMapping.find((mapping) => mapping.value === item.value)?.color || '#000'}
           />
-
         </Grid>
-
       ))}
       {pageCount > 0 && (
       <StyledEngineProvider injectFirst>
@@ -97,6 +98,7 @@ DisplayTable.propTypes = {
     }),
   ),
   pageSize: PropTypes.number,
+  isComposite: PropTypes.bool,
   useCheckBox: PropTypes.bool,
   handleCheckBoxChange: PropTypes.func,
   selectedRows: PropTypes.arrayOf(
@@ -109,6 +111,7 @@ DisplayTable.defaultProps = {
   rowData: [],
   headerInfo: [],
   pageSize: 0,
+  isComposite: false,
   useCheckBox: false,
   handleCheckBoxChange: () => undefined,
   selectedRows: [],

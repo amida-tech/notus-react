@@ -2,16 +2,20 @@ import React, {
   createContext, useState, useEffect,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Grid, Typography } from '@mui/material';
+import {
+  Grid, Typography, ToggleButtonGroup, ToggleButton,
+} from '@mui/material';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import env from '../../env';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ColorMapping from '../Utilites/ColorMapping';
-import MeasureTable from '../Utilites/MeasureTable'
+import MeasureTable from '../Utilites/MeasureTable';
+import PatientTable from '../Utilites/PatientTable';
 import {
   storeProps,
   activeMeasureProps,
@@ -27,6 +31,8 @@ import {
   expandSubMeasureResults,
   getSubMeasureCurrentResults,
 } from './D3ContainerUtils';
+
+const axios = require('axios').default;
 
 export const firstRenderContext = createContext(true);
 
@@ -89,6 +95,8 @@ function D3Container({
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
+  const [patientView, setPatientView] = useState(false);
+  const [patientResults, setPatientResults] = useState([]);
 
   useEffect(() => {
     function handleResize() {
@@ -112,6 +120,7 @@ function D3Container({
       setSelectedMeasures(store.currentResults.map((result) => result.measure));
       setColorMap(baseColorMap);
       setFilterDisabled(false);
+      setPatientResults([]);
     } else {
       setComposite(false);
       const subMeasureCurrentResults = getSubMeasureCurrentResults(activeMeasure, store);
@@ -123,7 +132,18 @@ function D3Container({
     }
     setCurrentTimeline(defaultTimelineState);
     setCurrentFilters(defaultFilterState);
+    setPatientView(false);
   }, [activeMeasure, store]);
+
+  useEffect(() => {
+    if (!isComposite && patientResults.length === 0) {
+      const patientUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${activeMeasure.measure}`);
+      const patientsPromise = axios.get(patientUrl);
+      Promise.all([patientsPromise]).then((values) => {
+        setPatientResults(values[0].data);
+      });
+    }
+  })
 
   useEffect(() => {
     if (store.currentResults !== undefined) {
@@ -222,23 +242,52 @@ function D3Container({
         />
       </Grid>
       <Grid className="d3-container__bottom-display">
-        <Grid className="d3-container__measure-selector">
-          <Typography className="d3-container__selector-title">Detailed View: </Typography>
-          <MeasureSelector
-            measure={activeMeasure.measure}
-            currentResults={store.currentResults}
-            handleMeasureChange={handleMeasureChange}
-          />
-        </Grid>
-        <DisplayTable
-          rowData={MeasureTable.formatData(currentResults)}
-          headerInfo={MeasureTable.headerData(isComposite)}
-          pageSize={MeasureTable.pageSize}
-          useCheckBox
-          handleCheckBoxChange={handleSelectedMeasureChange}
-          selectedRows={selectedMeasures}
-          colorMapping={colorMap}
-        />
+        { isComposite
+          ? (
+            <Grid className="d3-container__measure-selector">
+              <Typography className="d3-container__selector-title">Detailed View: </Typography>
+              <MeasureSelector
+                measure={activeMeasure.measure}
+                currentResults={store.currentResults}
+                handleMeasureChange={handleMeasureChange}
+              />
+            </Grid>
+          )
+          : (
+            <Grid className="d3-container__table-toggle">
+              <ToggleButtonGroup
+                color="primary"
+                value={patientView}
+                exclusive
+                onChange={() => setPatientView(!patientView)}
+              >
+                <ToggleButton value={false}>Overview</ToggleButton>
+                <ToggleButton value>Members</ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+          )}
+        { patientView
+          ? (
+            <DisplayTable
+              rowData={PatientTable.formatData(patientResults)}
+              headerInfo={PatientTable.headerData(activeMeasure.measure)}
+              pageSize={PatientTable.pageSize}
+              isComposite={isComposite}
+              useCheckBox={false}
+            />
+          )
+          : (
+            <DisplayTable
+              rowData={MeasureTable.formatData(currentResults)}
+              headerInfo={MeasureTable.headerData(isComposite)}
+              pageSize={MeasureTable.pageSize}
+              isComposite={isComposite}
+              useCheckBox
+              handleCheckBoxChange={handleSelectedMeasureChange}
+              selectedRows={selectedMeasures}
+              colorMapping={colorMap}
+            />
+          )}
       </Grid>
     </div>
   );
