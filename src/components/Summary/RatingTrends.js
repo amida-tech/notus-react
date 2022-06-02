@@ -32,7 +32,7 @@ function RatingTrends({ activeMeasure, trends, info }) {
   const measureTrend = trends
     .find((trend) => trend.measure === activeMeasure.measure);
   const mainTrend = mainTrendCreator(activeMeasure, info, measureTrend);
-  const sortedTrends = sortedTrendsCreator(activeMeasure, trends, measureTrend)
+  const sortedTrends = sortedTrendsCreator(activeMeasure, trends, measureTrend);
 
   if (sortedTrends.length > 1) {
     let { measure } = sortedTrends[0];

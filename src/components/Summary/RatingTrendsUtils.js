@@ -4,7 +4,7 @@ export function sortedTrendsCreator(activeMeasure, trends, measureTrend) {
     sortedTrends = trends
       .filter((trend) => trend.measure !== 'composite')
       .sort((a, b) => b.percentChange - a.percentChange);
-  } else if (activeMeasure.measure && measureTrend.subScoreTrends) {
+  } else if (activeMeasure.measure && measureTrend?.subScoreTrends) {
     sortedTrends = measureTrend.subScoreTrends
       .sort((a, b) => b.percentChange - a.percentChange);
   }
