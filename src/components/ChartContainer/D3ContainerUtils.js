@@ -51,3 +51,16 @@ export function expandSubMeasureResults(selectedMeasure, store) {
 
   return expandedResults;
 }
+
+export function getSubMeasureCurrentResults(activeMeasure, store) {
+  let subMeasureCurrentResults = [];
+  const subMeasurePrime = store.currentResults.find(
+    (item) => item.measure === activeMeasure.measure,
+  );
+  if (subMeasurePrime.subScores && subMeasurePrime.subScores.length > 1) {
+    subMeasureCurrentResults = [subMeasurePrime, ...subMeasurePrime.subScores];
+  } else {
+    subMeasureCurrentResults = [subMeasurePrime];
+  }
+  return subMeasureCurrentResults;
+}

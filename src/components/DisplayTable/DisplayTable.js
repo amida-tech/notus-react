@@ -53,7 +53,7 @@ function DisplayTable({
             useCheckBox={useCheckBox}
             handleCheckBoxEvent={handleCheckBoxChange}
             rowSelected={selectedRows.includes(item.value)}
-            color={colorMapping.find((mapping) => mapping.value === item.value).color}
+            color={colorMapping.find((mapping) => mapping.value === item.value)?.color || '#000'}
           />
 
         </Grid>
