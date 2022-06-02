@@ -190,7 +190,7 @@ function D3Container({
         <Grid className="d3-container__measure-selector">
           <Typography className="d3-container__selector-title">Detailed View: </Typography>
           <MeasureSelector
-            measure={activeMeasure}
+            measure={activeMeasure.measure}
             currentResults={store.currentResults}
             handleMeasureChange={handleMeasureChange}
           />
