@@ -47,6 +47,13 @@ const exclusions = {
   alignContent: 'center',
 };
 
+const headerData = (isComposite) => {
+  if (isComposite) {
+    return headerInfo;
+  }
+  return subHeaderInfo;
+}
+
 const headerInfo = [
   {
     key: 'label',
@@ -93,5 +100,5 @@ const formatData = (currentResults) => {
 };
 
 module.exports = {
-  headerInfo, subHeaderInfo, pageSize, formatData,
+  headerData, pageSize, formatData,
 };

@@ -32,7 +32,7 @@ function RatingTrends({ activeMeasure, trends, info }) {
   const measureTrend = trends
     .find((trend) => trend.measure === activeMeasure.measure);
   const mainTrend = mainTrendCreator(activeMeasure, info, measureTrend);
-  const sortedTrends = sortedTrendsCreator(activeMeasure, trends, measureTrend)
+  const sortedTrends = sortedTrendsCreator(activeMeasure, trends, measureTrend);
 
   if (sortedTrends.length > 1) {
     let { measure } = sortedTrends[0];
@@ -40,7 +40,7 @@ function RatingTrends({ activeMeasure, trends, info }) {
     biggestGain.percentChange = sortedTrends[0].percentChange;
 
     measure = sortedTrends[sortedTrends.length - 1].measure;
-    biggestLoss.measure = info[measure].displayLabel;
+    biggestLoss.measure = info[measure]?.displayLabel;
     biggestLoss.percentChange = sortedTrends[sortedTrends.length - 1].percentChange;
 
     return renderUI(activeMeasure, mainTrend, {

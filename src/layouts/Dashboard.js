@@ -2,29 +2,27 @@ import React, { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import { useParams } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import D3Container from '../components/ChartContainer';
 import Banner from '../components/Summary/Banner';
 import RatingTrends from '../components/Summary/RatingTrends';
-
-const defaultActiveMeasure = {
-  measure: '',
-  denominator: 0,
-  shortLabel: '',
-  starRating: 0,
-  title: '',
-};
+import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
+  const { measure } = useParams();
 
   useEffect(() => {
     if (datastore.currentResults !== undefined) {
-      setActiveMeasure(datastore.currentResults.find((result) => result.measure === 'composite') || defaultActiveMeasure);
+      const currentMeasure = measure || 'composite';
+      setActiveMeasure(datastore.currentResults.find(
+        (result) => result.measure === currentMeasure,
+      ) || defaultActiveMeasure);
     }
-  }, [datastore.currentResults]);
+  }, [datastore.currentResults, measure]);
 
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
@@ -53,6 +51,7 @@ export default function Dashboard() {
             <Grid item xs={12}>
               <D3Container
                 store={datastore}
+                activeMeasure={activeMeasure}
                 dashboardState={dashboardState}
                 dashboardActions={dashboardActions}
               />
