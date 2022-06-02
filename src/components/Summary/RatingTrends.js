@@ -40,7 +40,7 @@ function RatingTrends({ activeMeasure, trends, info }) {
     biggestGain.percentChange = sortedTrends[0].percentChange;
 
     measure = sortedTrends[sortedTrends.length - 1].measure;
-    biggestLoss.measure = info[measure].displayLabel;
+    biggestLoss.measure = info[measure]?.displayLabel;
     biggestLoss.percentChange = sortedTrends[sortedTrends.length - 1].percentChange;
 
     return renderUI(activeMeasure, mainTrend, {

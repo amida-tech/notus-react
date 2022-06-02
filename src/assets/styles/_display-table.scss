@@ -6,9 +6,6 @@ $block-class: 'display-table';
 
 @at-root {
     .#{$block-class} {
-        box-shadow: 1px 2px 2px 1px $blue-grey-lighten-2;
-        border-radius: 5px;
-
         & &__header-section {
             justify-content: space-evenly;
             align-items: center;
