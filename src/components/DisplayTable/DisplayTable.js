@@ -27,7 +27,7 @@ function DisplayTable({
   }
   const pageData = usePagination(rowData, pageSize);
   const linkPrefix = isComposite ? '' : 'member/';
-
+// console.log("stuff i need",pageData.currentData())
   const handleChange = (_e, p) => {
     setCurrentPage(p);
     pageData.jump(p);
