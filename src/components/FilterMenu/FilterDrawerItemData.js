@@ -45,7 +45,7 @@ const subMeasures = {
 
 const providers = {
   name: 'Healthcare Providers',
-  tip: 'The providers of the healthcare recieved in member data',
+  tip: 'The providers of the services recieved in the context of member data.',
   options: ['Norton Hill Carecenter', 'Doctor Anne Guish', 'Nurse Karen Patches'],
   values: ['Organization?identifier=71533123', 'Practitioner?identifier=1143', 'Practitioner?identifier=1221'],
 }
@@ -56,7 +56,7 @@ const providers = {
 
 const coverage = {
   name: 'Coverage',
-  tip: 'The Coverage Plan type covering the relevant member data',
+  tip: 'The coverage plan types covering the relevant member data.',
   options: ['Managed Care Policy', 'Health Maintenance Organization Policy', 'Preferred Provider Organization Policy'],
   values: ['MCPOL', 'HMO', 'PPO'],
 }
