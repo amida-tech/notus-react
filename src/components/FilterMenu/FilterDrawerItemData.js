@@ -39,6 +39,20 @@ const subMeasures = {
   options: ['Show ONLY scores with sub or child measures'],
 }
 
+const providers = {
+  name: 'Healthcare Providers',
+  tip: 'The providers of the healthcare recieved in member data',
+  options: ['Norton Hill Carecenter', 'Doctor Anne Guish', 'Nurse Karen Patches'],
+  values: ['Organization?identifier=71533123', 'Practitioner?identifier=1143', 'Practitioner?identifier=1221'],
+}
+
+const coverage = {
+  name: 'Coverage',
+  tip: 'The Coverage Plan type covering the relevant member data',
+  options: ['Managed Care Policy', 'Health Maintenance Organization Policy', 'Preferred Provider Organization Policy'],
+  values: ['MCPOL', 'HMO', 'PPO'],
+}
+
 const percentMarks = [
   {
     value: 0,
@@ -86,6 +100,8 @@ const filterDrawerItemData = {
   ncqaBonus,
   measureTypes,
   subMeasures,
+  providers,
+  coverage,
   percentMarks,
   sumCalculator,
 };
