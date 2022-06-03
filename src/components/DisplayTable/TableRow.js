@@ -3,10 +3,11 @@ import {
 } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import CheckBoxCell from './CheckBoxCell';
 
 function TableRow({
-  rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color,
+  rowDataItem, headerInfo, useCheckBox, linkPrefix, handleCheckBoxEvent, rowSelected, color,
 }) {
   return (
     <Box className="display-table-row">
@@ -31,7 +32,15 @@ function TableRow({
             }}
           >
             <Typography variant="caption" className="display-table-row__data">
-              {rowDataItem[fieldInfo.key]}
+              {fieldInfo.link && rowDataItem.value !== 'composite'
+                ? (
+                  <Link
+                    to={{ pathname: `/${linkPrefix}${rowDataItem.value}` }}
+                  >
+                    {rowDataItem[fieldInfo.key]}
+                  </Link>
+                )
+                : rowDataItem[fieldInfo.key]}
             </Typography>
           </Grid>
         ))}
@@ -53,6 +62,7 @@ TableRow.propTypes = {
     }),
   ),
   useCheckBox: PropTypes.bool,
+  linkPrefix: PropTypes.string,
   handleCheckBoxEvent: PropTypes.func,
   rowSelected: PropTypes.bool,
   color: PropTypes.string,
@@ -62,6 +72,7 @@ TableRow.defaultProps = {
   rowDataItem: {},
   headerInfo: [],
   useCheckBox: false,
+  linkPrefix: '',
   handleCheckBoxEvent: () => undefined,
   rowSelected: false,
   color: '',
