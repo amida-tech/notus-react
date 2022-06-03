@@ -14,7 +14,7 @@ function DisplayTable({
   headerInfo,
   pageSize,
   useCheckBox,
-  handleCheckBoxEvent,
+  handleCheckBoxChange,
   selectedRows,
   colorMapping,
 }) {
@@ -37,7 +37,7 @@ function DisplayTable({
         headerInfo={headerInfo}
         dataCount={rowData.length}
         useCheckBox={useCheckBox}
-        handleCheckBoxEvent={handleCheckBoxEvent}
+        handleCheckBoxEvent={handleCheckBoxChange}
         selectedRows={selectedRows}
       />
       <Divider className="display-table__header-divider" />
@@ -51,9 +51,9 @@ function DisplayTable({
             rowDataItem={item}
             headerInfo={headerInfo}
             useCheckBox={useCheckBox}
-            handleCheckBoxEvent={handleCheckBoxEvent}
+            handleCheckBoxEvent={handleCheckBoxChange}
             rowSelected={selectedRows.includes(item.value)}
-            color={colorMapping.find((mapping) => mapping.value === item.value).color}
+            color={colorMapping.find((mapping) => mapping.value === item.value)?.color || '#000'}
           />
 
         </Grid>
@@ -98,7 +98,7 @@ DisplayTable.propTypes = {
   ),
   pageSize: PropTypes.number,
   useCheckBox: PropTypes.bool,
-  handleCheckBoxEvent: PropTypes.func,
+  handleCheckBoxChange: PropTypes.func,
   selectedRows: PropTypes.arrayOf(
     PropTypes.string,
   ),
@@ -110,7 +110,7 @@ DisplayTable.defaultProps = {
   headerInfo: [],
   pageSize: 0,
   useCheckBox: false,
-  handleCheckBoxEvent: () => undefined,
+  handleCheckBoxChange: () => undefined,
   selectedRows: [],
   colorMapping: [],
 }

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 function MeasureSelector({ currentResults, measure, handleMeasureChange }) {
   return (
-    <FormControl fullWidth>
+    <FormControl className="measure-selector">
       <InputLabel className="measure-selector__label">Select Measure</InputLabel>
       <Select
         className="measure-selector__select"
