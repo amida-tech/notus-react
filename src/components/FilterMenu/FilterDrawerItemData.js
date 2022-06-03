@@ -39,12 +39,20 @@ const subMeasures = {
   options: ['Show ONLY scores with sub or child measures'],
 }
 
+// TODO: When adding functionality, change this to an object returned by a function that assembles
+// the options and values arrays from the ingested data from HERA.
+// HERA needs to pass forward the set of providers forward as a unique set.
+
 const providers = {
   name: 'Healthcare Providers',
   tip: 'The providers of the healthcare recieved in member data',
   options: ['Norton Hill Carecenter', 'Doctor Anne Guish', 'Nurse Karen Patches'],
   values: ['Organization?identifier=71533123', 'Practitioner?identifier=1143', 'Practitioner?identifier=1221'],
 }
+
+// TODO: When adding functionality, change this to an object returned by a function that assembles
+// the options and values arrays from the ingested data from HERA.
+// HERA needs to pass forward the set of policies forward as a unique set.
 
 const coverage = {
   name: 'Coverage',
