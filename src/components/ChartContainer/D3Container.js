@@ -270,7 +270,11 @@ function D3Container({
           ? (
             <DisplayTable
               rowData={PatientTable.formatData(patientResults, selectedMeasures, store.info)}
-              headerInfo={PatientTable.headerData(selectedMeasures, activeMeasure.measure)}
+              headerInfo={PatientTable.headerData(
+                selectedMeasures,
+                activeMeasure.measure,
+                store.info,
+              )}
               pageSize={PatientTable.pageSize}
               isComposite={isComposite}
               useCheckBox={false}

@@ -2,26 +2,24 @@ const memberIdTip = 'The patient\'s member ID.';
 const pageSize = 10;
 
 // These will change based on the measurement.
-const headerData = (selectedMeasures, measure) => {
-  console.log('selectedMeasures', selectedMeasures)
-  console.log('measure', measure)
+const headerData = (selectedMeasures, measure, storeInfo) => {
   const headerInfo = [
     {
       key: 'label',
       link: true,
       header: 'MemberID',
       tooltip: memberIdTip,
-      flexBasis: selectedMeasures.length > 4 ? 15 : 22,
+      flexBasis: selectedMeasures.length > 4 ? selectedMeasures.length >= 6 ? 10 : 15 : 22,
     },
   ];
-
-  selectedMeasures.forEach((displayLabel) => {
+  selectedMeasures.forEach((measureName) => {
+    const labelFound = storeInfo[measureName].displayLabel
     headerInfo.push({
-      key: displayLabel,
+      key: measureName,
       link: true,
-      header: displayLabel,
-      tooltip: memberIdTip,
-      flexBasis: selectedMeasures.length > 4 ? 10 : 15,
+      header: labelFound,
+      // tooltip: memberIdTip,
+      flexBasis: selectedMeasures.length > 4 ? selectedMeasures.length >= 6 ? 5 : 10 : 15,
     })
   })
   return headerInfo
@@ -31,11 +29,9 @@ const formatData = (patientResults, selectedMeasures, storeInfo) => {
   const formattedData = [];
   const numeratorValues = []
   const denominatorsValues = []
+
   for (let i = 0; i < patientResults.length; i += 1) {
     const patientDetails = patientResults[i][patientResults[i].memberId]
-
-    console.log('patientDetails', patientDetails)
-    console.log('patientResults', patientResults)
     const detailKeys = Object.keys(patientDetails)
     const denominatorsFound = []
     const numeratorsFound = []
@@ -66,7 +62,6 @@ const formatData = (patientResults, selectedMeasures, storeInfo) => {
       }
       denominatorsValues.push(denominatorsObject)
     })
-    const PaitentInfoCompiler = []
 
     formattedData.push({
       value: patientResults[i].memberId,
@@ -80,20 +75,7 @@ const formatData = (patientResults, selectedMeasures, storeInfo) => {
 
     });
 
-    for (let n = 0; n < numeratorValues.length; n += 1) {
-      PaitentInfoCompiler.push({
-        value: patientResults[i].memberId,
-        label: patientResults[i].memberId,
-        type: 'patient',
-        included: 1,
-        numeratorValues: 1,
-        numerator: 1,
-        denominator: 1,
-        exclusions: 1,
-
-      });
-    }
-    console.log('PaitentInfoCompiler', PaitentInfoCompiler)
+    
   }
 
   return formattedData;
