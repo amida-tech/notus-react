@@ -10,10 +10,11 @@
 @use 'footer';
 @use 'global';
 @use 'info';
+@use 'measure-selector';
 @use 'not-found';
+@use 'navbar';
 @use 'report-builder';
 @use 'saved-queries';
-@use 'tab-panel';
 @use 'trend-display';
 @use 'rating-trends';
 @use 'reports';

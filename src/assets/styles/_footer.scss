@@ -4,29 +4,18 @@ $block-class: 'footer';
 @at-root {
     .#{$block-class} {
       width: 100%;
-      bottom: 0px;
-      display: block;
-      padding-bottom: 1rem;
-      background-color: $blue-grey-darken-4;
-      color: #FFFFFF;
-      z-index: 100;
-
-      &__center-box {
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: 1rem;
-        padding-right: 1rem;
-      }
+      padding-bottom: 1.5rem;
 
       &__top-border {
-        margin-bottom: 1rem;
-        --border-opacity: 1;
-        border-color: $blue-grey-darken-4;
+       border-top: 3px solid $blue-grey-darken-4;
+       width: 95%;
+       margin: 1rem auto 2rem auto;
       }
 
-      &__flex-box {
+      &__display {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content:space-between;
         align-items: center;
       }
 
@@ -35,39 +24,48 @@ $block-class: 'footer';
         font-weight: 600;
         padding-top: 0.25rem;
         padding-bottom: 0.25rem;
+        color: $blue-grey-darken-4;
+      }
 
-        &__left {
-          color: #FFFFFF;
-          text-align: left;
+      &__text-left {
+        @extend .footer__text;
+        text-align: left;
+      }
 
-          &__link:hover {
-            text-decoration: underline;
-          }
-        }
+      
+      &__text-link:hover {
+        text-decoration: underline;
+      }
 
-        &__right {
-          color: #CFD8DC;
-          display: block;
-          padding-left: 0.75rem;
-          padding-right: 0.75rem;
-        }
+      &__text-right {
+        @extend .footer__text;
+        text-align: right;
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+        white-space: nowrap;
       }
 
       &__left-side {
         padding-left: 1rem;
         padding-right: 1rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      &__logo {
+        width: 10%;
+        margin: 0 2rem;
       }
 
       &__right-side {
-        position: fixed;
         right: 20px;
         padding-left: 1rem;
-        padding-right: 1rem;
+        padding-right: 2rem;
       }
 
       &__right-items {
         display: flex;
-        flex-wrap: wrap;
         list-style-type: none;
         justify-content: flex-end;
       }
