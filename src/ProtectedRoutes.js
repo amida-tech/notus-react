@@ -19,6 +19,7 @@ export default function ProtectedRoute({ authenticated }) {
         <Switch>
           <Route path="/reports" component={Reports} />
           <Route path="/member/:id" render={({ match }) => <MemberInfo id={match.params.id} />} />
+          <Route exact path="/:measure" component={Dashboard} loggedIn={authenticated} />
           <Route exact path="/" component={Dashboard} loggedIn={authenticated} />
           <Route path="*" component={NotFound} />
         </Switch>
