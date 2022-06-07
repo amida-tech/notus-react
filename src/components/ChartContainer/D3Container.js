@@ -273,7 +273,6 @@ function D3Container({
               rowData={PatientTable.formatData(patientResults, selectedMeasures, store.info)}
               headerInfo={PatientTable.headerData(
                 selectedMeasures,
-                activeMeasure.measure,
                 store.info,
               )}
               pageSize={PatientTable.pageSize}
