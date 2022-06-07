@@ -57,11 +57,11 @@ const formatData = (patientResults, selectedMeasures, storeInfo) => {
   patientResults.forEach((patientResult) => {
     const patientDetails = patientResult[patientResult.memberId]
     const detailKeys = Object.keys(patientDetails)
-    const denominatorsFound = []
-    const numeratorsFound = []
+    const denominatorsFound = [];
+    const numeratorsFound = [];
     detailKeys.forEach((key) => {
       if (key.includes('Numerator')) {
-        numeratorsFound.push(key)
+        numeratorsFound.push(key);
       } else if (key.includes('Denominator')) {
         denominatorsFound.push(key)
       }
@@ -83,7 +83,7 @@ const formatData = (patientResults, selectedMeasures, storeInfo) => {
         measure: selectedMeasures[useIndex],
         label: storeInfo[selectedMeasures[useIndex]].displayLabel,
         value: numValue === denValue,
-      }
+      };
       patientResultArray.push(resultObject);
     });
 

@@ -6,12 +6,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CheckBoxCell from './CheckBoxCell';
 
-function TableRow({
-  rowDataItem, headerInfo, useCheckBox, linkPrefix, handleCheckBoxEvent, rowSelected, color,
+function MeasureTableRow({
+  rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color,
 }) {
   return (
-    <Box className="display-table-row">
-      <Grid container className="display-table-row__row-section">
+    <Box className="measure-table-row">
+      <Grid container className="measure-table-row__row-section">
         {useCheckBox && (
           <CheckBoxCell
             handleCheckBoxEvent={handleCheckBoxEvent}
@@ -23,7 +23,7 @@ function TableRow({
         {headerInfo.map((fieldInfo) => (
           <Grid
             item
-            className="display-table-row__data-align"
+            className="measure-table-row__data-align"
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
             sx={{
               flexBasis: `${fieldInfo.flexBasis}%`,
@@ -31,11 +31,11 @@ function TableRow({
               textAlign: fieldInfo.alignContent,
             }}
           >
-            <Typography variant="caption" className="display-table-row__data">
+            <Typography variant="caption" className="measure-table-row__data">
               {fieldInfo.link && rowDataItem.value !== 'composite'
                 ? (
                   <Link
-                    to={{ pathname: `/${linkPrefix}${rowDataItem.value}` }}
+                    to={{ pathname: `/${rowDataItem.value}` }}
                   >
                     {rowDataItem[fieldInfo.key]}
                   </Link>
@@ -45,12 +45,12 @@ function TableRow({
           </Grid>
         ))}
       </Grid>
-      <Divider className="display-table-row__divider" />
+      <Divider className="measure-table-row__divider" />
     </Box>
   )
 }
 
-TableRow.propTypes = {
+MeasureTableRow.propTypes = {
   rowDataItem: PropTypes.shape({
     value: PropTypes.string,
   }),
@@ -62,20 +62,18 @@ TableRow.propTypes = {
     }),
   ),
   useCheckBox: PropTypes.bool,
-  linkPrefix: PropTypes.string,
   handleCheckBoxEvent: PropTypes.func,
   rowSelected: PropTypes.bool,
   color: PropTypes.string,
 };
 
-TableRow.defaultProps = {
+MeasureTableRow.defaultProps = {
   rowDataItem: {},
   headerInfo: [],
   useCheckBox: false,
-  linkPrefix: '',
   handleCheckBoxEvent: () => undefined,
   rowSelected: false,
   color: '',
 }
 
-export default TableRow;
+export default MeasureTableRow;

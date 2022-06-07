@@ -269,6 +269,7 @@ function D3Container({
         { patientView
           ? (
             <DisplayTable
+              tableType="patient"
               rowData={PatientTable.formatData(patientResults, selectedMeasures, store.info)}
               headerInfo={PatientTable.headerData(
                 selectedMeasures,
@@ -282,6 +283,7 @@ function D3Container({
           )
           : (
             <DisplayTable
+              tableType="measure"
               rowData={MeasureTable.formatData(currentResults)}
               headerInfo={MeasureTable.headerData(isComposite)}
               pageSize={MeasureTable.pageSize}

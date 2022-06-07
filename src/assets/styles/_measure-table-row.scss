@@ -1,0 +1,38 @@
+@import 'colors';
+
+$block-class: 'measure-table-row';
+
+@at-root {
+    .#{$block-class} {
+        & &__divider {
+            background-color: $blue-grey-lighten-3;
+        }
+
+        & &__row-section {
+            justify-content: space-evenly;
+            align-items: center;
+            display: flex;
+            width: 100%;
+            padding: 0.2rem;
+            margin: 0.5rem 0;
+        }
+
+        & &__data-align {
+            display: flex;
+            padding: 1rem;
+            min-width: 7%;
+            margin: auto;
+            word-wrap: break-word;
+        }
+
+        & &__data-align-small {
+            @extend .measure-table-row__data-align;
+            flex-basis: 8%
+        }
+
+        & &__data {
+            color: $default-black;
+            font-size:.9rem;
+        }
+    }
+}
