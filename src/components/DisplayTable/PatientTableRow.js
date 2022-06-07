@@ -11,7 +11,7 @@ function RowGenerator(link, key, rowDataItem) {
   if (link) {
     return (
       <Link
-        to={{ pathname: `/patient/${rowDataItem.value}` }}
+        to={{ pathname: `/member/${rowDataItem.value}` }}
       >
         {rowDataItem[key]}
       </Link>
