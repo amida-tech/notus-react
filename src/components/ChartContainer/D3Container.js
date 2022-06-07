@@ -269,8 +269,12 @@ function D3Container({
         { patientView
           ? (
             <DisplayTable
-              rowData={PatientTable.formatData(patientResults)}
-              headerInfo={PatientTable.headerData(activeMeasure.measure)}
+              tableType="patient"
+              rowData={PatientTable.formatData(patientResults, selectedMeasures, store.info)}
+              headerInfo={PatientTable.headerData(
+                selectedMeasures,
+                store.info,
+              )}
               pageSize={PatientTable.pageSize}
               isComposite={isComposite}
               useCheckBox={false}
@@ -278,6 +282,7 @@ function D3Container({
           )
           : (
             <DisplayTable
+              tableType="measure"
               rowData={MeasureTable.formatData(currentResults)}
               headerInfo={MeasureTable.headerData(isComposite)}
               pageSize={MeasureTable.pageSize}
