@@ -19,14 +19,14 @@ function RowGenerator(link, key, rowDataItem) {
   }
   if (rowDataItem[key] === 'true') {
     return (
-      <Grid className="patient-table-row__compliance-panel--matched">
+      <Grid className="patient-table-row__compliance-panel patient-table-row__compliance-panel--matched">
         <CheckCircleIcon className="patient-table-row__compliance-icon" />
         Matched
       </Grid>
     )
   }
   return (
-    <Grid className="patient-table-row__compliance-panel--unmatched">
+    <Grid className="patient-table-row__compliance-panel patient-table-row__compliance-panel--unmatched">
       <CancelIcon className="patient-table-row__compliance-icon" />
       Unmatched
     </Grid>

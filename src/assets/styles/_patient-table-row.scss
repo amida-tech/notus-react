@@ -40,19 +40,17 @@ $block-class: 'patient-table-row';
             margin-bottom: .2rem;
         }
 
-        &__compliance-panel {
+        & &__compliance-panel {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         & &__compliance-panel--matched {
-            @extend .patient-table-row__compliance-panel;
             color: $default-mint;
         }
 
         & &__compliance-panel--unmatched {
-            @extend .patient-table-row__compliance-panel;
             color: $default-red;
         }
     }
