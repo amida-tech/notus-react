@@ -1,5 +1,5 @@
 import {
-  Divider, Grid, PaginationItem,
+  Divider, Grid,
 } from '@mui/material';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -35,12 +35,6 @@ function DisplayTable({
     setRowsPerPage(parseInt(e.target.value, 10))
     setPage(0)
   }
-  // const [currentPage, setCurrentPage] = useState(1);
-
-  // let pageCount = 0;
-  // if (pageSize) {
-  //   pageCount = Math.ceil(rowData.length / pageSize);
-  // }
 
   return (
     <Grid container className="display-table">
@@ -90,21 +84,11 @@ function DisplayTable({
           component="div"
           rowsPerPageOptions={[5, 10]}
           count={pageData.currentData().length}
-          size="large"
           page={page}
-          variant="outlined"
-          shape="rounded"
           onPageChange={handlePageChange}
-          // classes={{ root: '.MuiPagination-root' }}
+          className="display-table__pagination"
           rowsPerPage={rowsPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-          renderItem={(item) => (
-            <PaginationItem
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...item}
-              classes={{ root: '.MuiPaginationItem-root' }}
-            />
-          )}
         />
       </StyledEngineProvider>
     </Grid>
