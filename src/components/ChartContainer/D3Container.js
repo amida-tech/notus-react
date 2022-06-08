@@ -8,6 +8,7 @@ import {
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import env from '../../env';
+import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
@@ -97,6 +98,7 @@ function D3Container({
   const [filterDisabled, setFilterDisabled] = useState(true);
   const [patientView, setPatientView] = useState(false);
   const [patientResults, setPatientResults] = useState([]);
+  const [tableFilter, setTableFilter] = useState('');
 
   useEffect(() => {
     function handleResize() {
@@ -121,6 +123,7 @@ function D3Container({
       setColorMap(baseColorMap);
       setFilterDisabled(false);
       setPatientResults([]);
+      setTableFilter('');
     } else {
       setComposite(false);
       const subMeasureCurrentResults = getSubMeasureCurrentResults(activeMeasure, store);
@@ -196,7 +199,11 @@ function D3Container({
 
   const handleMeasureChange = (event) => {
     history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`);
-  };
+  }
+
+  const handleTableFilterChange = (event) => {
+    setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
+  }
 
   return (
     <div className="d3-container">
@@ -268,17 +275,31 @@ function D3Container({
           )}
         { patientView
           ? (
-            <DisplayTable
-              tableType="patient"
-              rowData={PatientTable.formatData(patientResults, selectedMeasures, store.info)}
-              headerInfo={PatientTable.headerData(
-                selectedMeasures,
-                store.info,
-              )}
-              pageSize={PatientTable.pageSize}
-              isComposite={isComposite}
-              useCheckBox={false}
-            />
+            <>
+              <TableFilterPanel
+                measure={activeMeasure.measure}
+                patientResult={patientResults[0]}
+                tableFilter={tableFilter}
+                handleTableFilterChange={handleTableFilterChange}
+              />
+              <DisplayTable
+                tableType="patient"
+                rowData={PatientTable.formatData(
+                  patientResults,
+                  selectedMeasures,
+                  store.info,
+                  tableFilter,
+                )}
+                headerInfo={PatientTable.headerData(
+                  selectedMeasures,
+                  store.info,
+                )}
+                pageSize={PatientTable.pageSize}
+                isComposite={isComposite}
+                useCheckBox={false}
+                handleCheckBoxChange={handleSelectedMeasureChange}
+              />
+            </>
           )
           : (
             <DisplayTable
@@ -288,9 +309,9 @@ function D3Container({
               pageSize={MeasureTable.pageSize}
               isComposite={isComposite}
               useCheckBox
-              handleCheckBoxChange={handleSelectedMeasureChange}
               selectedRows={selectedMeasures}
               colorMapping={colorMap}
+              handleTableFilterChange={handleTableFilterChange}
             />
           )}
       </Grid>
