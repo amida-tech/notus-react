@@ -1,9 +1,10 @@
 import {
-  Divider, Grid, Pagination, PaginationItem,
+  Divider, Grid, PaginationItem,
 } from '@mui/material';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
+import TablePagination from '@mui/material/TablePagination';
 import { colorMappingProps } from '../ChartContainer/D3Props';
 import usePagination from '../Utilites/PaginationUtil';
 import TableHeader from './TableHeader';
@@ -20,17 +21,26 @@ function DisplayTable({
   colorMapping,
   handleCheckBoxChange,
 }) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [page, setPage] = useState(0)
+  const [rowsPerPage, setRowsPerPage] = useState(5)
 
-  let pageCount = 0;
-  if (pageSize) {
-    pageCount = Math.ceil(rowData.length / pageSize);
-  }
   const pageData = usePagination(rowData, pageSize);
-  const handleChange = (_e, p) => {
-    setCurrentPage(p);
+
+  const handlePageChange = (_e, p) => {
+    setPage(p);
     pageData.jump(p);
   };
+
+  const handleChangeRowsPerPage = (e) => {
+    setRowsPerPage(parseInt(e.target.value, 10))
+    setPage(0)
+  }
+  // const [currentPage, setCurrentPage] = useState(1);
+
+  // let pageCount = 0;
+  // if (pageSize) {
+  //   pageCount = Math.ceil(rowData.length / pageSize);
+  // }
 
   return (
     <Grid container className="display-table">
@@ -43,44 +53,51 @@ function DisplayTable({
       />
       <Divider className="display-table__header-divider" />
       {tableType === 'measure'
-        ? pageData.currentData().map((item) => (
-          <Grid
-            item
-            className="display-table__row"
-            key={`chart-container-grid-measure-${item.value}`}
-          >
-            <MeasureTableRow
-              rowDataItem={item}
-              headerInfo={headerInfo}
-              useCheckBox={useCheckBox}
-              handleCheckBoxEvent={handleCheckBoxChange}
-              rowSelected={selectedRows.includes(item.value)}
-              color={colorMapping.find((mapping) => mapping.value === item.value)?.color || '#000'}
-            />
-          </Grid>
-        ))
-        : pageData.currentData().map((item) => (
-          <Grid
-            item
-            className="display-table__row"
-            key={`chart-container-grid-measure-${item.value}`}
-          >
-            <PatientTableRow
-              rowDataItem={item}
-              headerInfo={headerInfo}
-            />
-          </Grid>
-        ))}
-      {pageCount > 0 && (
+        ? pageData.currentData()
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((item) => (
+            <Grid
+              item
+              className="display-table__row"
+              key={`chart-container-grid-measure-${item.value}`}
+            >
+              <MeasureTableRow
+                rowDataItem={item}
+                headerInfo={headerInfo}
+                useCheckBox={useCheckBox}
+                handleCheckBoxEvent={handleCheckBoxChange}
+                rowSelected={selectedRows.includes(item.value)}
+                color={colorMapping.find((mapping) => mapping.value === item.value)?.color || '#000'}
+              />
+            </Grid>
+          ))
+        : pageData.currentData()
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((item) => (
+            <Grid
+              item
+              className="display-table__row"
+              key={`chart-container-grid-measure-${item.value}`}
+            >
+              <PatientTableRow
+                rowDataItem={item}
+                headerInfo={headerInfo}
+              />
+            </Grid>
+          ))}
       <StyledEngineProvider injectFirst>
-        <Pagination
-          count={pageCount}
+        <TablePagination
+          component="div"
+          rowsPerPageOptions={[5, 10]}
+          count={pageData.currentData().length}
           size="large"
-          page={currentPage}
+          page={page}
           variant="outlined"
           shape="rounded"
-          onChange={handleChange}
-          classes={{ root: '.MuiPagination-root' }}
+          onPageChange={handlePageChange}
+          // classes={{ root: '.MuiPagination-root' }}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
           renderItem={(item) => (
             <PaginationItem
               // eslint-disable-next-line react/jsx-props-no-spreading
@@ -90,7 +107,6 @@ function DisplayTable({
           )}
         />
       </StyledEngineProvider>
-      )}
     </Grid>
   )
 }
