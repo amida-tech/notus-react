@@ -2,14 +2,21 @@ import React, {
   createContext, useState, useEffect,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Grid, Typography } from '@mui/material';
+import {
+  Grid, Typography, ToggleButtonGroup, ToggleButton,
+} from '@mui/material';
+import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import env from '../../env';
+import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ColorMapping from '../Utilites/ColorMapping';
-import MeasureTable from '../Utilites/MeasureTable'
+import MeasureTable from '../Utilites/MeasureTable';
+import PatientTable from '../Utilites/PatientTable';
 import {
   storeProps,
   activeMeasureProps,
@@ -26,7 +33,13 @@ import {
   getSubMeasureCurrentResults,
 } from './D3ContainerUtils';
 
+const axios = require('axios').default;
+
 export const firstRenderContext = createContext(true);
+
+function onReturnClick(history) {
+  history.push('/');
+}
 
 const colorArray = [
   '#88CCEE',
@@ -55,6 +68,19 @@ const defaultTimelineState = {
   range: [null, null],
 };
 
+function labelGenerator(measure) {
+  if (!measure?.label) {
+    return '';
+  }
+  const { label } = measure;
+  return (
+    <Grid className="d3-container__return-measure-labels">
+      <Typography className="d3-container__return-measure-title">{label.substring(0, label.indexOf(' '))}</Typography>
+      <Typography className="d3-container__return-measure-description">{label.substring(label.indexOf('- ') + 1)}</Typography>
+    </Grid>
+  )
+}
+
 function D3Container({
   activeMeasure, dashboardState, dashboardActions, store,
 }) {
@@ -70,6 +96,9 @@ function D3Container({
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
+  const [patientView, setPatientView] = useState(false);
+  const [patientResults, setPatientResults] = useState([]);
+  const [tableFilter, setTableFilter] = useState('');
 
   useEffect(() => {
     function handleResize() {
@@ -86,13 +115,15 @@ function D3Container({
       value: item.measure,
       color: index <= 11 ? colorArray[index] : colorArray[index % 11],
     }));
-    if (activeMeasure.measure === 'composite') {
+    if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
       setComposite(true);
       setDisplayData(store.results.map((result) => ({ ...result })));
       setCurrentResults(store.currentResults);
       setSelectedMeasures(store.currentResults.map((result) => result.measure));
       setColorMap(baseColorMap);
       setFilterDisabled(false);
+      setPatientResults([]);
+      setTableFilter('');
     } else {
       setComposite(false);
       const subMeasureCurrentResults = getSubMeasureCurrentResults(activeMeasure, store);
@@ -104,7 +135,18 @@ function D3Container({
     }
     setCurrentTimeline(defaultTimelineState);
     setCurrentFilters(defaultFilterState);
+    setPatientView(false);
   }, [activeMeasure, store]);
+
+  useEffect(() => {
+    if (!isComposite && patientResults.length === 0) {
+      const patientUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${activeMeasure.measure}`);
+      const patientsPromise = axios.get(patientUrl);
+      Promise.all([patientsPromise]).then((values) => {
+        setPatientResults(values[0].data);
+      });
+    }
+  })
 
   useEffect(() => {
     if (store.currentResults !== undefined) {
@@ -157,7 +199,11 @@ function D3Container({
 
   const handleMeasureChange = (event) => {
     history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`);
-  };
+  }
+
+  const handleTableFilterChange = (event) => {
+    setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
+  }
 
   return (
     <div className="d3-container">
@@ -167,6 +213,22 @@ function D3Container({
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
       />
+      { isComposite
+        ? <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
+        : (
+          <Grid className="d3-container__return-link-display" onClick={() => onReturnClick(history)}>
+            <Typography className="d3-container__title">
+              <ArrowBackIosIcon className="d3-container__return-icon" />
+              All Measures
+            </Typography>
+            <Grid className="d3-container__return-measure-display">
+              <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
+              {labelGenerator(
+                currentResults.find((result) => result.measure === activeMeasure.measure),
+              )}
+            </Grid>
+          </Grid>
+        ) }
       <Grid item className="d3-container__chart-bar">
         <ChartBar
           filterDrawerOpen={dashboardState.filterDrawerOpen}
@@ -187,23 +249,71 @@ function D3Container({
         />
       </Grid>
       <Grid className="d3-container__bottom-display">
-        <Grid className="d3-container__measure-selector">
-          <Typography className="d3-container__selector-title">Detailed View: </Typography>
-          <MeasureSelector
-            measure={activeMeasure.measure}
-            currentResults={store.currentResults}
-            handleMeasureChange={handleMeasureChange}
-          />
-        </Grid>
-        <DisplayTable
-          rowData={MeasureTable.formatData(currentResults)}
-          headerInfo={MeasureTable.headerData(isComposite)}
-          pageSize={MeasureTable.pageSize}
-          useCheckBox
-          handleCheckBoxChange={handleSelectedMeasureChange}
-          selectedRows={selectedMeasures}
-          colorMapping={colorMap}
-        />
+        { isComposite
+          ? (
+            <Grid className="d3-container__measure-selector">
+              <Typography className="d3-container__selector-title">Detailed View: </Typography>
+              <MeasureSelector
+                measure={activeMeasure.measure}
+                currentResults={store.currentResults}
+                handleMeasureChange={handleMeasureChange}
+              />
+            </Grid>
+          )
+          : (
+            <Grid className="d3-container__table-toggle">
+              <ToggleButtonGroup
+                color="primary"
+                value={patientView}
+                exclusive
+                onChange={() => setPatientView(!patientView)}
+              >
+                <ToggleButton value={false}>Overview</ToggleButton>
+                <ToggleButton value>Members</ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+          )}
+        { patientView
+          ? (
+            <>
+              <TableFilterPanel
+                measure={activeMeasure.measure}
+                patientResult={patientResults[0]}
+                tableFilter={tableFilter}
+                handleTableFilterChange={handleTableFilterChange}
+              />
+              <DisplayTable
+                tableType="patient"
+                rowData={PatientTable.formatData(
+                  patientResults,
+                  selectedMeasures,
+                  store.info,
+                  tableFilter,
+                )}
+                headerInfo={PatientTable.headerData(
+                  selectedMeasures,
+                  store.info,
+                )}
+                pageSize={PatientTable.pageSize}
+                isComposite={isComposite}
+                useCheckBox={false}
+                handleCheckBoxChange={handleSelectedMeasureChange}
+              />
+            </>
+          )
+          : (
+            <DisplayTable
+              tableType="measure"
+              rowData={MeasureTable.formatData(currentResults)}
+              headerInfo={MeasureTable.headerData(isComposite)}
+              pageSize={MeasureTable.pageSize}
+              isComposite={isComposite}
+              useCheckBox
+              selectedRows={selectedMeasures}
+              colorMapping={colorMap}
+              handleTableFilterChange={handleTableFilterChange}
+            />
+          )}
       </Grid>
     </div>
   );

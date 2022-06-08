@@ -57,6 +57,7 @@ const headerData = (isComposite) => {
 const headerInfo = [
   {
     key: 'label',
+    link: true,
     header: 'Measure',
     tooltip: measureTip,
     flexBasis: 22,

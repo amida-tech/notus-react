@@ -24,10 +24,55 @@ $block-class: 'd3-container';
             margin: 1rem auto
         }
 
-        & &__selector-title {
-            color: $default-black;
-            margin: .85rem 1rem 0 0;
+        & &__return-icon {
+            font-size: 1rem;
+            margin-bottom: .25rem;
+        }
+
+        &__return-link-display {
+            cursor: pointer;
+        }
+
+        & &__return-measure-display {
+            display: flex;
+            flex-direction: row;
+            position: absolute;
+            margin: .75rem 0;
+        }
+
+        & &__cancel-icon {
+            color: $blue-light;
+            font-size: 2rem;
+            margin: .5rem;
+        }
+
+        & &__return-measure-labels {
+            display: flex;
+            flex-direction: column;
+            color: $blue-grey-darken-4;
+            font-size: 1.2rem;
+        }
+
+        & &__return-measure-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        & &__title {
+            color: $blue-grey-darken-2;
             font-size: 1.1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+
+            &--inactive {
+                color: $blue-grey-lighten-1;
+            }
+        }
+
+        & &__selector-title {
+            color: $blue-grey-darken-4;
+            font-size: 1.1rem;
+            margin: .85rem 1rem 0 0;
         }
 
         &__measure-selector {
