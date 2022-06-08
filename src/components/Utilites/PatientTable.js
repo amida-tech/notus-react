@@ -116,7 +116,9 @@ const filterByNonCompliance = (formattedData, selectedMeasures, tableFilter) => 
     return formattedData;
   }
   const filteredData = [];
-  const limit = nonComplianceRange[tableFilter];
+  const limit = nonComplianceRange[tableFilter] < 3
+    ? (check) => check === nonComplianceRange[tableFilter]
+    : (check) => check >= nonComplianceRange[tableFilter];
   formattedData.forEach((score) => {
     let nonComplianceCheck = 0;
     selectedMeasures.forEach((measure) => {
@@ -124,7 +126,7 @@ const filterByNonCompliance = (formattedData, selectedMeasures, tableFilter) => 
         nonComplianceCheck += 1;
       }
     });
-    if (nonComplianceCheck === limit || (limit === 3 && nonComplianceCheck >= limit)) {
+    if (limit(nonComplianceCheck)) {
       filteredData.push(score);
     }
   });
