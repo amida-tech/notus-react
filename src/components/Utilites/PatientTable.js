@@ -106,9 +106,9 @@ const formatData = (patientResults, selectedMeasures, storeInfo, tableFilter) =>
 };
 
 const nonComplianceRange = {
-  one: 1,
-  two: 2,
-  many: 3,
+  one: 2,
+  two: 3,
+  many: 4,
 }
 
 const filterByNonCompliance = (formattedData, selectedMeasures, tableFilter) => {
@@ -116,7 +116,15 @@ const filterByNonCompliance = (formattedData, selectedMeasures, tableFilter) => 
     return formattedData;
   }
   const filteredData = [];
-  const limit = nonComplianceRange[tableFilter] < 3
+  if (selectedMeasures.length === 1) {
+    formattedData.forEach((score) => {
+      if (score[selectedMeasures[0]] === 'false') {
+        filteredData.push(score);
+      }
+    });
+    return filteredData;
+  }
+  const limit = nonComplianceRange[tableFilter] < 4
     ? (check) => check === nonComplianceRange[tableFilter]
     : (check) => check >= nonComplianceRange[tableFilter];
   formattedData.forEach((score) => {

@@ -5,9 +5,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const patientComplianceItems = [
-  { label: '1 Non-Compliant Issue', value: 'one' },
-  { label: '2 Non-Compliant Issues', value: 'two' },
-  { label: 'More than 2 Non-Compliant Issues', value: 'many' },
+  { label: '1 Non-Compliant Submeasure', value: 'one' },
+  { label: '2 Non-Compliant Submeasures', value: 'two' },
+  { label: 'More than 2 Non-Compliant Submeasures', value: 'many' },
 ];
 
 const numeratorValues = ['id', 'Numerator 2', 'Numerator 3'];
