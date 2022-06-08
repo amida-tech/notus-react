@@ -6,7 +6,7 @@ $block-class: 'table-filter-panel';
         & &__button-panel {
             display: flex;
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: space-around;
             margin: 1rem 2rem;
             color:$blue-grey-darken-1;
         }

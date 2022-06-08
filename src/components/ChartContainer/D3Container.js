@@ -284,7 +284,12 @@ function D3Container({
               />
               <DisplayTable
                 tableType="patient"
-                rowData={PatientTable.formatData(patientResults, selectedMeasures, store.info)}
+                rowData={PatientTable.formatData(
+                  patientResults,
+                  selectedMeasures,
+                  store.info,
+                  tableFilter,
+                )}
                 headerInfo={PatientTable.headerData(
                   selectedMeasures,
                   store.info,

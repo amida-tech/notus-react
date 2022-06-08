@@ -51,7 +51,7 @@ const allValuesEqual = (valueArray) => {
   return true;
 }
 
-const formatData = (patientResults, selectedMeasures, storeInfo) => {
+const formatData = (patientResults, selectedMeasures, storeInfo, tableFilter) => {
   const formattedData = [];
 
   patientResults.forEach((patientResult) => {
@@ -102,8 +102,34 @@ const formatData = (patientResults, selectedMeasures, storeInfo) => {
     formattedData.push(formattedResult);
   });
 
-  return formattedData;
+  return filterByNonCompliance(formattedData, selectedMeasures, tableFilter);
 };
+
+const nonComplianceRange = {
+  one: 1,
+  two: 2,
+  many: 3,
+}
+
+const filterByNonCompliance = (formattedData, selectedMeasures, tableFilter) => {
+  if (tableFilter === '') {
+    return formattedData;
+  }
+  const filteredData = [];
+  const limit = nonComplianceRange[tableFilter];
+  formattedData.forEach((score) => {
+    let nonComplianceCheck = 0;
+    selectedMeasures.forEach((measure) => {
+      if (score[measure] === 'false') {
+        nonComplianceCheck += 1;
+      }
+    });
+    if (nonComplianceCheck === limit || (limit === 3 && nonComplianceCheck >= limit)) {
+      filteredData.push(score);
+    }
+  });
+  return filteredData;
+}
 
 module.exports = {
   headerData, pageSize, formatData,
