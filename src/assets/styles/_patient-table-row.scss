@@ -1,0 +1,57 @@
+@import 'colors';
+
+$block-class: 'patient-table-row';
+
+@at-root {
+    .#{$block-class} {
+        & &__divider {
+            background-color: $blue-grey-lighten-3;
+        }
+
+        & &__row-section {
+            justify-content: space-evenly;
+            align-items: center;
+            display: flex;
+            width: 100%;
+            padding: 0.2rem;
+        }
+
+        & &__data-align {
+            display: flex;
+            justify-content: center;
+            padding: 1rem;
+            min-width: 7%;
+            margin: auto;
+            word-wrap: break-word;
+        }
+
+        & &__data-align-small {
+            @extend .patient-table-row__data-align;
+            flex-basis: 8%
+        }
+
+        & &__data {
+            color: $default-black;
+            font-size:.9rem;
+        }
+
+        & &__compliance-icon {
+            font-size: 2rem;
+            margin-bottom: .2rem;
+        }
+
+        & &__compliance-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            &--matched {
+                color: $default-mint;
+            }
+    
+            &--unmatched {
+                color: $default-red;
+            }
+        }
+    }
+}

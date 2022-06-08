@@ -1,25 +1,45 @@
-import {
-  Grid, Tab, Tabs,
-} from '@mui/material';
 import React, {
   createContext, useState, useEffect,
 } from 'react';
+import { useHistory } from 'react-router-dom';
+import {
+  Grid, Typography, ToggleButtonGroup, ToggleButton,
+} from '@mui/material';
+import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import env from '../../env';
+import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
-import TabPanel from '../Common/TabPanel';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ColorMapping from '../Utilites/ColorMapping';
-import MeasureTable from '../Utilites/MeasureTable'
+import MeasureTable from '../Utilites/MeasureTable';
+import PatientTable from '../Utilites/PatientTable';
 import {
   storeProps,
+  activeMeasureProps,
   dashboardStateProps,
   dashboardActionsProps,
+  defaultActiveMeasure,
 } from './D3Props';
-import { filterByDOC, filterByPercentage, filterByStars } from './D3ContainerUtils';
+import {
+  filterByDOC,
+  filterByPercentage,
+  filterByStars,
+  filterByTimeline,
+  expandSubMeasureResults,
+  getSubMeasureCurrentResults,
+} from './D3ContainerUtils';
+
+const axios = require('axios').default;
 
 export const firstRenderContext = createContext(true);
+
+function onReturnClick(history) {
+  history.push('/');
+}
 
 const colorArray = [
   '#88CCEE',
@@ -48,54 +68,96 @@ const defaultTimelineState = {
   range: [null, null],
 };
 
-function D3Container({ dashboardState, dashboardActions, store }) {
+function labelGenerator(measure) {
+  if (!measure?.label) {
+    return '';
+  }
+  const { label } = measure;
+  return (
+    <Grid className="d3-container__return-measure-labels">
+      <Typography className="d3-container__return-measure-title">{label.substring(0, label.indexOf(' '))}</Typography>
+      <Typography className="d3-container__return-measure-description">{label.substring(label.indexOf('- ') + 1)}</Typography>
+    </Grid>
+  )
+}
+
+function D3Container({
+  activeMeasure, dashboardState, dashboardActions, store,
+}) {
+  const history = useHistory();
   const [displayData, setDisplayData] = useState(
     store.results.map((result) => ({ ...result })),
   );
-  const [currentFilters, setCurrentFilters] = useState(defaultFilterState);
-  const [tabValue, setTabValue] = useState(0);
-  const [byLineMeasure, setByLineMeasure] = useState({});
-  const [byLineCurrentResults, setByLineCurrentResults] = useState([])
-  const [byLineDisplayData, setByLineDisplayData] = useState([]);
-  const [byLineColorMap, setByLineColorMap] = useState([]);
-  const [byLineSelectedMeasures, setByLineSelectedMeasures] = useState([]);
+  const [isComposite, setComposite] = useState(true);
+  const [currentResults, setCurrentResults] = useState([]);
+  const [colorMap, setColorMap] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
+  const [currentFilters, setCurrentFilters] = useState(defaultFilterState);
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
-  const [filterDisabled, setFilterDisabled] = useState(false);
-  const workingList = [];
-  store.results.forEach((item) => workingList.push(item.measure));
-  const measureList = Array.from(new Set(workingList));
-
-  const colorMap = measureList.map((item, index) => ({
-    value: item,
-    color: index <= 11 ? colorArray[index] : colorArray[index % 11],
-  }));
+  const [filterDisabled, setFilterDisabled] = useState(true);
+  const [patientView, setPatientView] = useState(false);
+  const [patientResults, setPatientResults] = useState([]);
+  const [tableFilter, setTableFilter] = useState('');
 
   useEffect(() => {
     function handleResize() {
       setGraphWidth(window.innerWidth)
     }
-
     window.addEventListener('resize', handleResize)
-
     return () => {
       window.removeEventListener('resize', handleResize)
     }
   })
 
+  useEffect(() => { // Break apart later if we feel we need to separate concerns.
+    const baseColorMap = store.currentResults.map((item, index) => ({
+      value: item.measure,
+      color: index <= 11 ? colorArray[index] : colorArray[index % 11],
+    }));
+    if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
+      setComposite(true);
+      setDisplayData(store.results.map((result) => ({ ...result })));
+      setCurrentResults(store.currentResults);
+      setSelectedMeasures(store.currentResults.map((result) => result.measure));
+      setColorMap(baseColorMap);
+      setFilterDisabled(false);
+      setPatientResults([]);
+      setTableFilter('');
+    } else {
+      setComposite(false);
+      const subMeasureCurrentResults = getSubMeasureCurrentResults(activeMeasure, store);
+      setDisplayData(expandSubMeasureResults(activeMeasure, store));
+      setCurrentResults(subMeasureCurrentResults);
+      setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
+      setColorMap(ColorMapping(baseColorMap, colorArray, subMeasureCurrentResults));
+      setFilterDisabled(true);
+    }
+    setCurrentTimeline(defaultTimelineState);
+    setCurrentFilters(defaultFilterState);
+    setPatientView(false);
+  }, [activeMeasure, store]);
+
   useEffect(() => {
-    setDisplayData(store.results.map((result) => ({ ...result })))
-  }, [store]);
+    if (!isComposite && patientResults.length === 0) {
+      const patientUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${activeMeasure.measure}`);
+      const patientsPromise = axios.get(patientUrl);
+      Promise.all([patientsPromise]).then((values) => {
+        setPatientResults(values[0].data);
+      });
+    }
+  })
 
   useEffect(() => {
     if (store.currentResults !== undefined) {
       setSelectedMeasures(store.currentResults.map((result) => result.measure));
     }
-  }, [setSelectedMeasures, setCurrentFilters, store.currentResults]);
+  }, [store.currentResults]);
 
-  const handleDisplayDataUpdate = (measures, filters, timeline) => {
-    let newDisplayData = store.results.map((result) => ({ ...result }));
+  const handleFilteredDataUpdate = (measures, filters, timeline) => {
+    let newDisplayData = isComposite
+      ? store.results.map((result) => ({ ...result }))
+      : expandSubMeasureResults(activeMeasure, store);
     newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
     if (filters.domainsOfCare.length > 0) {
       newDisplayData = filterByDOC(newDisplayData, filters, store);
@@ -106,49 +168,15 @@ function D3Container({ dashboardState, dashboardActions, store }) {
     if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
       newDisplayData = filterByPercentage(newDisplayData, filters, store);
     }
-    newDisplayData = filterTimeline(newDisplayData, timeline);
+    newDisplayData = filterByTimeline(newDisplayData, timeline);
     setDisplayData(newDisplayData);
   };
 
-  const handleByLineDisplayDataUpdate = (activeSubMeasures, currentMeasure, timeline) => {
-    let newByLineDisplayData = [];
-    newByLineDisplayData = expandSubMeasureResults(currentMeasure).filter(
-      (result) => activeSubMeasures.includes(result.measure),
-    );
-
-    newByLineDisplayData = filterTimeline(newByLineDisplayData, timeline);
-    setByLineDisplayData(newByLineDisplayData);
-  }
-
-  const handleTabChange = (event, index) => {
-    setTabValue(index);
-    const defaultByLineMeasure = store.currentResults[0];
-    if (index === 0) {
-      setFilterDisabled(false);
-    } else if (index === 1) {
-      setByLineMeasure(defaultByLineMeasure);
-      const filteredDisplayData = store.results.filter(
-        (item) => item.measure === store.currentResults[0].measure,
-      );
-      setByLineCurrentResults([defaultByLineMeasure]);
-      setByLineSelectedMeasures([defaultByLineMeasure.measure]);
-      setByLineColorMap(ColorMapping(colorMap, colorArray, filteredDisplayData));
-      handleByLineDisplayDataUpdate(
-        [defaultByLineMeasure.measure],
-        defaultByLineMeasure,
-        currentTimeline,
-      );
-      setFilterDisabled(true);
-    }
-
-    dashboardActions.setActiveMeasure(defaultByLineMeasure);
-  };
-
-  const handleMeasureChange = (event) => {
+  const handleSelectedMeasureChange = (event) => {
     let newSelectedMeasures;
     if (event.target.checked) {
       newSelectedMeasures = event.target.value === 'all'
-        ? store.currentResults.map((result) => result.measure)
+        ? currentResults.map((result) => result.measure)
         : selectedMeasures.concat(event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     } else {
@@ -156,85 +184,26 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         ? [] : selectedMeasures.filter((result) => result !== event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     }
-    handleDisplayDataUpdate(newSelectedMeasures, currentFilters, currentTimeline);
+    handleFilteredDataUpdate(newSelectedMeasures, currentFilters, currentTimeline);
   };
-
-  const handleByLineMeasureChange = (event) => {
-    let newSelectedSubMeasures;
-    if (event.target.checked) {
-      newSelectedSubMeasures = event.target.value === 'all'
-        ? byLineCurrentResults.map((result) => result.measure)
-        : byLineSelectedMeasures.concat(event.target.value);
-      setByLineSelectedMeasures(newSelectedSubMeasures);
-    } else {
-      newSelectedSubMeasures = event.target.value === 'all'
-        ? [] : byLineSelectedMeasures.filter((result) => result !== event.target.value);
-      setByLineSelectedMeasures(newSelectedSubMeasures);
-    }
-    handleByLineDisplayDataUpdate(newSelectedSubMeasures, byLineMeasure, currentTimeline);
-  };
-
-  const expandSubMeasureResults = (selectedMeasure) => {
-    const expandedResults = [];
-    store.results.filter(
-      (result) => result.measure === selectedMeasure.measure,
-    ).forEach((byLine) => {
-      expandedResults.push(byLine);
-      if (selectedMeasure.subScores && selectedMeasure.subScores.length > 1) {
-        byLine.subScores.forEach((subScore) => expandedResults.push(subScore));
-      }
-    });
-
-    return expandedResults;
-  }
-
-  const filterTimeline = (timelineDisplayData, timeline) => {
-    if (timeline.choice !== 'all') {
-      let dayLimit = 0;
-      if (timeline.choice === 'YTD') {
-        dayLimit = new Date(new Date().getFullYear(), 0, 1).getTime();
-      } else {
-        dayLimit = new Date().getTime() - (parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000);
-      }
-      return timelineDisplayData.filter((result) => new Date(result.date) > dayLimit);
-    }
-    return timelineDisplayData;
-  }
 
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
-    handleDisplayDataUpdate(selectedMeasures, filterOptions, currentTimeline);
+    handleFilteredDataUpdate(selectedMeasures, filterOptions, currentTimeline);
   }
 
   const handleTimelineChange = (timelineUpdate) => {
     setCurrentTimeline(timelineUpdate);
-    handleDisplayDataUpdate(selectedMeasures, currentFilters, timelineUpdate);
-    handleByLineDisplayDataUpdate(byLineSelectedMeasures, byLineMeasure, timelineUpdate);
+    handleFilteredDataUpdate(selectedMeasures, currentFilters, timelineUpdate);
   }
 
-  const handleByLineChange = (event) => {
-    const newByLineMeasure = store.currentResults.find(
-      (item) => item.measure === event.target.value,
-    );
-    setByLineMeasure(newByLineMeasure);
-    const filteredDisplayData = store.results.filter(
-      (item) => item.measure === event.target.value,
-    );
-    let newByLineCurrentResults = [];
-    if (newByLineMeasure.subScores && newByLineMeasure.subScores.length > 1) {
-      newByLineCurrentResults = [newByLineMeasure, ...newByLineMeasure.subScores];
-    } else {
-      newByLineCurrentResults = [newByLineMeasure];
-    }
-    setByLineCurrentResults(newByLineCurrentResults);
+  const handleMeasureChange = (event) => {
+    history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`);
+  }
 
-    const byLineMeasureList = [];
-    newByLineCurrentResults.forEach((item) => byLineMeasureList.push(item.measure));
-    setByLineSelectedMeasures(byLineMeasureList);
-    handleByLineDisplayDataUpdate(byLineMeasureList, newByLineMeasure, currentTimeline);
-    setByLineColorMap(ColorMapping(colorMap, colorArray, filteredDisplayData));
-    dashboardActions.setActiveMeasure(newByLineMeasure);
-  };
+  const handleTableFilterChange = (event) => {
+    setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
+  }
 
   return (
     <div className="d3-container">
@@ -244,6 +213,22 @@ function D3Container({ dashboardState, dashboardActions, store }) {
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
       />
+      { isComposite
+        ? <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
+        : (
+          <Grid className="d3-container__return-link-display" onClick={() => onReturnClick(history)}>
+            <Typography className="d3-container__title">
+              <ArrowBackIosIcon className="d3-container__return-icon" />
+              All Measures
+            </Typography>
+            <Grid className="d3-container__return-measure-display">
+              <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
+              {labelGenerator(
+                currentResults.find((result) => result.measure === activeMeasure.measure),
+              )}
+            </Grid>
+          </Grid>
+        ) }
       <Grid item className="d3-container__chart-bar">
         <ChartBar
           filterDrawerOpen={dashboardState.filterDrawerOpen}
@@ -254,6 +239,7 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           filterDisabled={filterDisabled}
         />
       </Grid>
+<<<<<<< HEAD
       <Tabs
         value={tabValue}
         onChange={(event, index) => handleTabChange(event, index)}
@@ -288,18 +274,83 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           handleCheckBoxEvent={handleByLineMeasureChange}
           selectedRows={byLineSelectedMeasures}
           colorMapping={byLineColorMap}
+=======
+      <Grid className="d3-container__main-chart">
+        <D3Chart
+          displayData={displayData}
+          colorMapping={colorMap}
+          measureInfo={store.info}
+          graphWidth={graphWidth}
+          currentTimeline={currentTimeline}
+>>>>>>> 3e66e5090cae6d04232707678221c7c1ff00c062
         />
-      </TabPanel>
-      <TabPanel value={tabValue} index={0}>
-        <Grid container className="d3-container__chart-holder">
-          <Grid item className="d3-container__main-chart">
-            <D3Chart
-              displayData={displayData}
+      </Grid>
+      <Grid className="d3-container__bottom-display">
+        { isComposite
+          ? (
+            <Grid className="d3-container__measure-selector">
+              <Typography className="d3-container__selector-title">Detailed View: </Typography>
+              <MeasureSelector
+                measure={activeMeasure.measure}
+                currentResults={store.currentResults}
+                handleMeasureChange={handleMeasureChange}
+              />
+            </Grid>
+          )
+          : (
+            <Grid className="d3-container__table-toggle">
+              <ToggleButtonGroup
+                color="primary"
+                value={patientView}
+                exclusive
+                onChange={() => setPatientView(!patientView)}
+              >
+                <ToggleButton value={false}>Overview</ToggleButton>
+                <ToggleButton value>Members</ToggleButton>
+              </ToggleButtonGroup>
+            </Grid>
+          )}
+        { patientView
+          ? (
+            <>
+              <TableFilterPanel
+                measure={activeMeasure.measure}
+                patientResult={patientResults[0]}
+                tableFilter={tableFilter}
+                handleTableFilterChange={handleTableFilterChange}
+              />
+              <DisplayTable
+                tableType="patient"
+                rowData={PatientTable.formatData(
+                  patientResults,
+                  selectedMeasures,
+                  store.info,
+                  tableFilter,
+                )}
+                headerInfo={PatientTable.headerData(
+                  selectedMeasures,
+                  store.info,
+                )}
+                pageSize={PatientTable.pageSize}
+                isComposite={isComposite}
+                useCheckBox={false}
+                handleCheckBoxChange={handleSelectedMeasureChange}
+              />
+            </>
+          )
+          : (
+            <DisplayTable
+              tableType="measure"
+              rowData={MeasureTable.formatData(currentResults)}
+              headerInfo={MeasureTable.headerData(isComposite)}
+              pageSize={MeasureTable.pageSize}
+              isComposite={isComposite}
+              useCheckBox
+              selectedRows={selectedMeasures}
               colorMapping={colorMap}
-              measureInfo={store.info}
-              graphWidth={graphWidth}
-              currentTimeline={currentTimeline}
+              handleTableFilterChange={handleTableFilterChange}
             />
+<<<<<<< HEAD
           </Grid>
         </Grid>
         <DisplayTable
@@ -311,18 +362,24 @@ function D3Container({ dashboardState, dashboardActions, store }) {
           colorMapping={colorMap}
         />
       </TabPanel>
+=======
+          )}
+      </Grid>
+>>>>>>> 3e66e5090cae6d04232707678221c7c1ff00c062
     </div>
   );
 }
 
 D3Container.propTypes = {
   store: storeProps,
+  activeMeasure: activeMeasureProps,
   dashboardState: dashboardStateProps,
   dashboardActions: dashboardActionsProps,
 };
 
 D3Container.defaultProps = {
   store: [],
+  activeMeasure: defaultActiveMeasure,
   dashboardState: {
     filterDrawerOpen: false,
   },

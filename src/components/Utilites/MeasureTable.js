@@ -45,9 +45,17 @@ const exclusions = {
   alignContent: 'center',
 };
 
+const headerData = (isComposite) => {
+  if (isComposite) {
+    return headerInfo;
+  }
+  return subHeaderInfo;
+}
+
 const headerInfo = [
   {
     key: 'label',
+    link: true,
     header: 'Measure',
     tooltip: measureTip,
     flexBasis: 22,
@@ -91,5 +99,9 @@ const formatData = (currentResults) => {
 };
 
 module.exports = {
+<<<<<<< HEAD
   headerInfo, subHeaderInfo, formatData,
+=======
+  headerData, pageSize, formatData,
+>>>>>>> 3e66e5090cae6d04232707678221c7c1ff00c062
 };

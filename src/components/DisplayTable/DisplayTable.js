@@ -8,21 +8,24 @@ import TablePagination from '@mui/material/TablePagination';
 import { colorMappingProps } from '../ChartContainer/D3Props';
 import usePagination from '../Utilites/PaginationUtil';
 import TableHeader from './TableHeader';
-import TableRow from './TableRow';
+import MeasureTableRow from './MeasureTableRow';
+import PatientTableRow from './PatientTableRow';
 
 function DisplayTable({
+  tableType,
   rowData,
   headerInfo,
   pageSize,
   useCheckBox,
-  handleCheckBoxEvent,
   selectedRows,
   colorMapping,
+  handleCheckBoxChange,
 }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const pageData = usePagination(rowData, pageSize);
+<<<<<<< HEAD
 
   const handleChangePage = (_e, p) => {
     setPage(p);
@@ -30,6 +33,11 @@ function DisplayTable({
   const handleChangeRowsPerPage = (e) => {
     setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
+=======
+  const handleChange = (_e, p) => {
+    setCurrentPage(p);
+    pageData.jump(p);
+>>>>>>> 3e66e5090cae6d04232707678221c7c1ff00c062
   };
 
   return (
@@ -38,17 +46,23 @@ function DisplayTable({
         headerInfo={headerInfo}
         dataCount={rowData.length}
         useCheckBox={useCheckBox}
-        handleCheckBoxEvent={handleCheckBoxEvent}
+        handleCheckBoxEvent={handleCheckBoxChange}
         selectedRows={selectedRows}
       />
       <Divider className="display-table__header-divider" />
+<<<<<<< HEAD
       {pageData.currentData().slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
         .map((item) => (
+=======
+      {tableType === 'measure'
+        ? pageData.currentData().map((item) => (
+>>>>>>> 3e66e5090cae6d04232707678221c7c1ff00c062
           <Grid
             item
             className="display-table__row"
             key={`chart-container-grid-measure-${item.value}`}
           >
+<<<<<<< HEAD
             <TableRow
               rowDataItem={item}
               headerInfo={headerInfo}
@@ -60,6 +74,31 @@ function DisplayTable({
           </Grid>
 
         ))}
+=======
+            <MeasureTableRow
+              rowDataItem={item}
+              headerInfo={headerInfo}
+              useCheckBox={useCheckBox}
+              handleCheckBoxEvent={handleCheckBoxChange}
+              rowSelected={selectedRows.includes(item.value)}
+              color={colorMapping.find((mapping) => mapping.value === item.value)?.color || '#000'}
+            />
+          </Grid>
+        ))
+        : pageData.currentData().map((item) => (
+          <Grid
+            item
+            className="display-table__row"
+            key={`chart-container-grid-measure-${item.value}`}
+          >
+            <PatientTableRow
+              rowDataItem={item}
+              headerInfo={headerInfo}
+            />
+          </Grid>
+        ))}
+      {pageCount > 0 && (
+>>>>>>> 3e66e5090cae6d04232707678221c7c1ff00c062
       <StyledEngineProvider injectFirst>
         <TablePagination
           component="div"
@@ -80,6 +119,7 @@ function DisplayTable({
 }
 
 DisplayTable.propTypes = {
+  tableType: PropTypes.oneOf(['measure', 'patient']),
   rowData: PropTypes.arrayOf(
     PropTypes.shape({
       measure: PropTypes.string,
@@ -93,22 +133,25 @@ DisplayTable.propTypes = {
     }),
   ),
   pageSize: PropTypes.number,
+  isComposite: PropTypes.bool,
   useCheckBox: PropTypes.bool,
-  handleCheckBoxEvent: PropTypes.func,
   selectedRows: PropTypes.arrayOf(
     PropTypes.string,
   ),
   colorMapping: colorMappingProps,
+  handleCheckBoxChange: PropTypes.func,
 };
 
 DisplayTable.defaultProps = {
+  tableType: 'measure',
   rowData: [],
   headerInfo: [],
   pageSize: 0,
+  isComposite: false,
   useCheckBox: false,
-  handleCheckBoxEvent: () => undefined,
   selectedRows: [],
   colorMapping: [],
+  handleCheckBoxChange: () => undefined,
 }
 
 export default DisplayTable;

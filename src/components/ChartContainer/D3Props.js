@@ -11,6 +11,22 @@ export const storeProps = PropTypes.shape({
   ),
 });
 
+export const activeMeasureProps = PropTypes.shape({
+  measure: PropTypes.string,
+  denominator: PropTypes.number,
+  shortLabel: PropTypes.string,
+  starRating: PropTypes.number,
+  title: PropTypes.string,
+});
+
+export const defaultActiveMeasure = {
+  measure: '',
+  denominator: 0,
+  shortLabel: '',
+  starRating: 0,
+  title: '',
+};
+
 export const dashboardStateProps = PropTypes.shape({
   filterDrawerOpen: PropTypes.bool,
 });
