@@ -16,9 +16,9 @@ function DisplayTable({
   headerInfo,
   pageSize,
   useCheckBox,
-  handleCheckBoxChange,
   selectedRows,
   colorMapping,
+  handleCheckBoxChange,
 }) {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -112,11 +112,11 @@ DisplayTable.propTypes = {
   pageSize: PropTypes.number,
   isComposite: PropTypes.bool,
   useCheckBox: PropTypes.bool,
-  handleCheckBoxChange: PropTypes.func,
   selectedRows: PropTypes.arrayOf(
     PropTypes.string,
   ),
   colorMapping: colorMappingProps,
+  handleCheckBoxChange: PropTypes.func,
 };
 
 DisplayTable.defaultProps = {
@@ -126,9 +126,9 @@ DisplayTable.defaultProps = {
   pageSize: 0,
   isComposite: false,
   useCheckBox: false,
-  handleCheckBoxChange: () => undefined,
   selectedRows: [],
   colorMapping: [],
+  handleCheckBoxChange: () => undefined,
 }
 
 export default DisplayTable;

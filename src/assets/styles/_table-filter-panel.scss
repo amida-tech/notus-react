@@ -1,0 +1,27 @@
+$block-class: 'table-filter-panel';
+@import 'colors';
+
+@at-root {
+    .#{$block-class} {
+        & &__button-panel {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin: 1rem 2rem;
+            color:$blue-grey-darken-1;
+        }
+
+        & &__label {
+            align-items: center;
+            padding: 0.5625rem;
+            font-weight: bolder;
+            word-wrap: break-word;
+        }
+
+        & &__divider {
+            width: 100%;
+            background-color: $blue-grey-lighten-3;
+            height: 1px;
+        }
+    }
+}
