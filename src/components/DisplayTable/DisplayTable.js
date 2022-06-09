@@ -32,8 +32,8 @@ function DisplayTable({
   };
 
   const handleChangeRowsPerPage = (e) => {
-    setRowsPerPage(parseInt(e.target.value, 10))
     setPage(0)
+    setRowsPerPage(parseInt(e.target.value, 10))
   }
 
   return (
