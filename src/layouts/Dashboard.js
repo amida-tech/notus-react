@@ -22,7 +22,7 @@ export default function Dashboard() {
       setActiveMeasure(datastore.currentResults.find(
         (result) => result.measure === currentMeasure,
       ) || defaultActiveMeasure);
-      setIsLoading(datastore.isLoading)
+      setIsLoading(datastore.isLoading);
     }
   }, [datastore.currentResults, datastore.isLoading, measure]);
 
