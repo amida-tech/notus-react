@@ -305,7 +305,6 @@ function D3Container({
                   store.info,
                 )}
                 pageSize={PatientTable.pageSize}
-                isComposite={isComposite}
                 useCheckBox={false}
                 handleCheckBoxChange={handleSelectedMeasureChange}
               />
@@ -317,7 +316,6 @@ function D3Container({
               rowData={MeasureTable.formatData(currentResults)}
               headerInfo={MeasureTable.headerData(isComposite)}
               pageSize={MeasureTable.pageSize}
-              isComposite={isComposite}
               useCheckBox
               selectedRows={selectedMeasures}
               colorMapping={colorMap}

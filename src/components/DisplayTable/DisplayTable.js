@@ -108,7 +108,6 @@ DisplayTable.propTypes = {
     }),
   ),
   pageSize: PropTypes.number,
-  isComposite: PropTypes.bool,
   useCheckBox: PropTypes.bool,
   selectedRows: PropTypes.arrayOf(
     PropTypes.string,
@@ -122,7 +121,6 @@ DisplayTable.defaultProps = {
   rowData: [],
   headerInfo: [],
   pageSize: 0,
-  isComposite: false,
   useCheckBox: false,
   selectedRows: [],
   colorMapping: [],
