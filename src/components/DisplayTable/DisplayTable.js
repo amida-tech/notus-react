@@ -22,6 +22,7 @@ function DisplayTable({
   handleCheckBoxChange,
 }) {
   const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(pageSize);
 
   const pageData = usePagination(rowData, pageSize);
 
@@ -30,8 +31,9 @@ function DisplayTable({
     pageData.jump(p);
   };
 
-  const handleChangeRowsPerPage = () => {
-    setPage(0);
+  const handleChangeRowsPerPage = (e) => {
+    setRowsPerPage(e.target.value);
+    setPage(0); // I don't think you want this.
   }
 
   return (
@@ -46,7 +48,6 @@ function DisplayTable({
       <Divider className="display-table__header-divider" />
       {tableType === 'measure'
         ? pageData.currentData()
-          .slice(page * pageSize, page * pageSize + pageSize)
           .map((item) => (
             <Grid
               item
@@ -64,7 +65,6 @@ function DisplayTable({
             </Grid>
           ))
         : pageData.currentData()
-          .slice(page * pageSize, page * pageSize + pageSize)
           .map((item) => (
             <Grid
               item
@@ -85,7 +85,7 @@ function DisplayTable({
           page={page}
           onPageChange={handlePageChange}
           className="display-table__pagination"
-          rowsPerPage={pageSize}
+          rowsPerPage={rowsPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </StyledEngineProvider>
