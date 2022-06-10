@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import CircularProgress from '@mui/material/CircularProgress';
 import env from '../../env';
 import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
@@ -229,25 +230,34 @@ function D3Container({
             </Grid>
           </Grid>
         ) }
-      <Grid item className="d3-container__chart-bar">
-        <ChartBar
-          filterDrawerOpen={dashboardState.filterDrawerOpen}
-          toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
-          currentTimeline={currentTimeline}
-          handleTimelineChange={handleTimelineChange}
-          filterSum={currentFilters.sum}
-          filterDisabled={filterDisabled}
-        />
-      </Grid>
-      <Grid className="d3-container__main-chart">
-        <D3Chart
-          displayData={displayData}
-          colorMapping={colorMap}
-          measureInfo={store.info}
-          graphWidth={graphWidth}
-          currentTimeline={currentTimeline}
-        />
-      </Grid>
+      {dashboardState.isLoading ? null : (
+        <Grid item className="d3-container__chart-bar">
+          <ChartBar
+            filterDrawerOpen={dashboardState.filterDrawerOpen}
+            toggleFilterDrawer={dashboardActions.toggleFilterDrawer}
+            currentTimeline={currentTimeline}
+            handleTimelineChange={handleTimelineChange}
+            filterSum={currentFilters.sum}
+            filterDisabled={filterDisabled}
+          />
+        </Grid>
+      )}
+
+      {dashboardState.isLoading ? (
+        <Grid className="d3-container__loading-container">
+          <CircularProgress size={250} thickness={3} className="d3-container__loading-spinner" />
+        </Grid>
+      ) : (
+        <Grid className="d3-container__main-chart">
+          <D3Chart
+            displayData={displayData}
+            colorMapping={colorMap}
+            measureInfo={store.info}
+            graphWidth={graphWidth}
+            currentTimeline={currentTimeline}
+          />
+        </Grid>
+      )}
       <Grid className="d3-container__bottom-display">
         { isComposite
           ? (

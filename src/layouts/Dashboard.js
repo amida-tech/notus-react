@@ -12,6 +12,7 @@ import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
   const { measure } = useParams();
 
@@ -21,13 +22,15 @@ export default function Dashboard() {
       setActiveMeasure(datastore.currentResults.find(
         (result) => result.measure === currentMeasure,
       ) || defaultActiveMeasure);
+      setIsLoading(datastore.isLoading);
     }
-  }, [datastore.currentResults, measure]);
+  }, [datastore.currentResults, datastore.isLoading, measure]);
 
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
   const dashboardState = {
     filterDrawerOpen,
+    isLoading,
   };
 
   const dashboardActions = {

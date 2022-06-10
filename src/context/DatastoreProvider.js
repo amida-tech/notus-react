@@ -27,12 +27,14 @@ export default function DatastoreProvider({ children }) {
   const datastoreActions = useMemo(() => ({
     setResults: (results, info) => dispatch({ type: 'SET_RESULTS', payload: { results, info } }),
     setTrends: (trends) => dispatch({ type: 'SET_TRENDS', payload: trends }),
+    setIsLoading: (isLoading) => dispatch({ type: 'SET_ISLOADING', payload: isLoading }),
   }), [dispatch]);
 
   useEffect(() => {
     if (devData === 'true') {
       datastoreActions.setResults(resultList, infoObject);
       datastoreActions.setTrends(trendList);
+      datastoreActions.setIsLoading(false);
     } else {
       axios.get(trendUrl)
         .then((res) => {
@@ -43,6 +45,7 @@ export default function DatastoreProvider({ children }) {
       const infoPromise = axios.get(infoUrl);
       Promise.all([searchPromise, infoPromise]).then((values) => {
         datastoreActions.setResults(values[0].data, values[1].data);
+        datastoreActions.setIsLoading(false);
       });
     }
   }, [datastoreActions]);
