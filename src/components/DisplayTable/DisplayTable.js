@@ -21,8 +21,7 @@ function DisplayTable({
   colorMapping,
   handleCheckBoxChange,
 }) {
-  const [page, setPage] = useState(0)
-  const [rowsPerPage, setRowsPerPage] = useState(5)
+  const [page, setPage] = useState(0);
 
   const pageData = usePagination(rowData, pageSize);
 
@@ -31,9 +30,8 @@ function DisplayTable({
     pageData.jump(p);
   };
 
-  const handleChangeRowsPerPage = (e) => {
-    setPage(0)
-    setRowsPerPage(parseInt(e.target.value, 10))
+  const handleChangeRowsPerPage = () => {
+    setPage(0);
   }
 
   return (
@@ -48,7 +46,7 @@ function DisplayTable({
       <Divider className="display-table__header-divider" />
       {tableType === 'measure'
         ? pageData.currentData()
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .slice(page * pageSize, page * pageSize + pageSize)
           .map((item) => (
             <Grid
               item
@@ -66,7 +64,7 @@ function DisplayTable({
             </Grid>
           ))
         : pageData.currentData()
-          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .slice(page * pageSize, page * pageSize + pageSize)
           .map((item) => (
             <Grid
               item
@@ -87,7 +85,7 @@ function DisplayTable({
           page={page}
           onPageChange={handlePageChange}
           className="display-table__pagination"
-          rowsPerPage={rowsPerPage}
+          rowsPerPage={pageSize}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </StyledEngineProvider>
