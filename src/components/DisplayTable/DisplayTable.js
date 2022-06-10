@@ -21,19 +21,17 @@ function DisplayTable({
   colorMapping,
   handleCheckBoxChange,
 }) {
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(pageSize);
+  // const [rowsPerPage, setRowsPerPage] = useState(pageSize);
 
   const pageData = usePagination(rowData, pageSize);
 
   const handlePageChange = (_e, p) => {
-    setPage(p);
     pageData.jump(p);
   };
 
   const handleChangeRowsPerPage = (e) => {
-    setRowsPerPage(e.target.value);
-    setPage(0); // I don't think you want this.
+    pageData.setRowCount(e.target.value);
+    // setPage(0); // I don't think you want this.
   }
 
   return (
@@ -81,11 +79,11 @@ function DisplayTable({
         <TablePagination
           component="div"
           rowsPerPageOptions={[5, 10]}
-          count={pageData.currentData().length}
-          page={page}
+          count={rowData.length}
+          page={pageData.currentPage}
           onPageChange={handlePageChange}
           className="display-table__pagination"
-          rowsPerPage={rowsPerPage}
+          rowsPerPage={pageData.rowsPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </StyledEngineProvider>
