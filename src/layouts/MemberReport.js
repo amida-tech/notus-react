@@ -9,7 +9,7 @@ import {
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import Banner from '../components/Common/Banner';
 import Info from '../components/Common/Info';
-import { updateTimestamp, getAge } from '../components/Utilities/GeneralUtil';
+import { updateTimestamp, getDatestamp, getAge } from '../components/Utilities/GeneralUtil';
 import env from '../env';
 
 const generalInfoTip = 'The basic information about this patient, including provider and payor information.';
@@ -65,6 +65,8 @@ function MemberReport({ id }) {
     });
   }
 
+  const coverage = memberInfo.coverage?.find((item) => item.status?.value === 'active');
+
   return (
     <Box className="member-report">
       <Banner headerText="Reporting - Member's Data" lastUpdated={updateTimestamp(new Date(memberInfo.timeStamp))} />
@@ -106,6 +108,21 @@ function MemberReport({ id }) {
               Gender:&nbsp;
             </Typography>
             { memberInfo.gender || 'N/A' }
+          </Box>
+          <Box className="member-report__info-field">
+            <Typography className="member-report__info-label">
+              Coverage Status:&nbsp;
+            </Typography>
+            <Typography className={`member-report__coverage member-report__coverage--${coverage?.status.value || 'inactive'}`}>
+              { coverage?.status.value || 'inactive' }
+            </Typography>
+          </Box>
+          <Box className="member-report__info-field">
+            <Typography className="member-report__info-label">
+              Participation Period:&nbsp;
+            </Typography>
+            { coverage ? `${getDatestamp(new Date(coverage.period.start.value))} - ${
+              getDatestamp(new Date(coverage.period.end.value))}` : 'N/A' }
           </Box>
         </Grid>
       </Box>

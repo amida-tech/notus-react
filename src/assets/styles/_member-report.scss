@@ -31,6 +31,12 @@ $block-class: 'member-report';
             margin: 1rem 0 0 3rem;
         }
 
+        & &__patient-card {
+            border: 1px solid $default-black;
+            max-width: 30%;
+            padding: 1rem;
+        }
+
         & &__info-field {
             display: flex;
             margin-bottom: 0.5rem;
@@ -41,10 +47,17 @@ $block-class: 'member-report';
             margin-top: 0.05rem;
         }
 
-        & &__patient-card {
-            border: 1px solid $default-black;
-            max-width: 35%;
-            padding: 1rem;
+        & &__coverage {
+            text-transform: uppercase;
+            margin-top: 0.05rem;
+            
+            &--active { 
+                color: $default-mint;
+            }
+
+            &--inactive {
+                color: $default-red;
+            }
         }
     }
 }
