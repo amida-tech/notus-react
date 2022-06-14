@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import { colorMappingProps } from '../ChartContainer/D3Props';
-import usePagination from '../Utilites/PaginationUtil';
+import usePagination from '../Utilities/PaginationUtil';
 import TableHeader from './TableHeader';
 import MeasureTableRow from './MeasureTableRow';
 import PatientTableRow from './PatientTableRow';

@@ -15,9 +15,9 @@ import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
-import ColorMapping from '../Utilites/ColorMapping';
-import MeasureTable from '../Utilites/MeasureTable';
-import PatientTable from '../Utilites/PatientTable';
+import ColorMapping from '../Utilities/ColorMapping';
+import MeasureTable from '../Utilities/MeasureTable';
+import PatientTable from '../Utilities/PatientTable';
 import {
   storeProps,
   activeMeasureProps,
