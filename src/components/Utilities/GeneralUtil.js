@@ -16,4 +16,38 @@ const getAge = (date) => {
   return Math.floor(ageInMilliseconds / msInAYear);
 }
 
-module.exports = { updateTimestamp, getDatestamp, getAge };
+const getNumDenValue = (patientValue) => {
+  if (Array.isArray(patientValue)) {
+    return patientValue.length;
+  }
+  return patientValue === true ? 1 : 0;
+}
+
+const getMeasureCompliance = (patientResult) => {
+  const patientDetails = patientResult[patientResult.memberId];
+  const detailKeys = Object.keys(patientDetails);
+  const numeratorsFound = [];
+  const complianceResult = [];
+  detailKeys.forEach((key) => {
+    if (key.includes('Numerator')) {
+      numeratorsFound.push(key);
+    }
+  });
+  numeratorsFound.forEach((numerator, index) => {
+    const numValue = getNumDenValue(patientDetails[numerator]);
+    let denValue = 0;
+    let useIndex = 0;
+    if (numeratorsFound.length === 1) {
+      denValue = getNumDenValue(patientDetails.Denominator);
+    } else {
+      useIndex = index + 1;
+      denValue = getNumDenValue(patientDetails[`Denominator ${useIndex}`]);
+    }
+    complianceResult.push(numValue === denValue);
+  });
+  return complianceResult;
+}
+
+module.exports = {
+  updateTimestamp, getDatestamp, getAge, getMeasureCompliance,
+};

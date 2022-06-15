@@ -1,3 +1,5 @@
+const { getMeasureCompliance } = require('./GeneralUtil');
+
 const memberIdTip = 'The patient\'s member ID.';
 const pageSize = 10;
 
@@ -31,15 +33,8 @@ const headerData = (selectedMeasures, storeInfo) => {
       flexBasis: standardFlexBasis,
     })
   });
-  return headerInfo
+  return headerInfo;
 };
-
-const getValue = (patientValue) => {
-  if (Array.isArray(patientValue)) {
-    return patientValue.length;
-  }
-  return patientValue === true ? 1 : 0;
-}
 
 const allValuesEqual = (valueArray) => {
   const compareValue = valueArray[0].value;
@@ -55,34 +50,25 @@ const formatData = (patientResults, selectedMeasures, storeInfo, tableFilter) =>
   const formattedData = [];
 
   patientResults.forEach((patientResult) => {
-    const patientDetails = patientResult[patientResult.memberId]
-    const detailKeys = Object.keys(patientDetails)
-    const numeratorsFound = [];
-    detailKeys.forEach((key) => {
-      if (key.includes('Numerator')) {
-        numeratorsFound.push(key);
-      }
-    });
-    const patientResultArray = []
-    numeratorsFound.forEach((numerator, index) => {
-      const numValue = getValue(patientDetails[numerator]);
-      let denValue = 0;
-      let resultObject = {};
-      let useIndex = 0;
-      if (numeratorsFound.length === 1) {
-        denValue = getValue(patientDetails.Denominator);
-      } else {
-        useIndex = index + 1;
-        denValue = getValue(patientDetails[`Denominator ${useIndex}`]);
-      }
-      resultObject = {
+    const patientResultArray = [];
+    const complianceResult = getMeasureCompliance(patientResult);
+    if (complianceResult.length === 1) {
+      patientResultArray.push({
         memberID: patientResult.memberId,
-        measure: selectedMeasures[useIndex],
-        label: storeInfo[selectedMeasures[useIndex]].displayLabel,
-        value: numValue === denValue,
-      };
-      patientResultArray.push(resultObject);
-    });
+        measure: selectedMeasures[0],
+        label: storeInfo[selectedMeasures[0]].displayLabel,
+        value: complianceResult[0],
+      });
+    } else {
+      complianceResult.forEach((result, index) => {
+        patientResultArray.push({
+          memberID: patientResult.memberId,
+          measure: selectedMeasures[index + 1],
+          label: storeInfo[selectedMeasures[index + 1]].displayLabel,
+          value: result,
+        });
+      });
+    }
 
     const formattedResult = {
       value: patientResult.memberId,
