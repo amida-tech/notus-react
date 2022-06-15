@@ -89,7 +89,7 @@ function MemberReport({ id }) {
             <Typography className="member-report__info-label">
               MemberID:&nbsp;
             </Typography>
-            { memberInfo.memberId }
+            { id }
           </Box>
           <Box className="member-report__info-field">
             <Typography className="member-report__info-label">
@@ -125,6 +125,55 @@ function MemberReport({ id }) {
               getDatestamp(new Date(coverage.period.end.value))}` : 'N/A' }
           </Box>
         </Grid>
+        {memberInfo.coverage && memberInfo.coverage.map((insurance) => (
+          <Grid key={`insurance-card-${insurance.id.value}`} className="member-report__patient-card">
+            <Box className="member-report__info-field">
+              <Typography className="member-report__info-label">
+                Policy ID:&nbsp;
+              </Typography>
+              { insurance.id.value }
+            </Box>
+            <Box className="member-report__info-field">
+              <Typography className="member-report__info-label">
+                Payor/Provider:&nbsp;
+              </Typography>
+              { insurance.payor[0]?.reference.value || 'N/A' }
+            </Box>
+            <Box className="member-report__info-field">
+              <Typography className="member-report__info-label">
+                Plan:&nbsp;
+              </Typography>
+              N/A
+            </Box>
+            <Box className="member-report__info-field">
+              <Typography className="member-report__info-label">
+                Dependents:&nbsp;
+              </Typography>
+              N/A
+            </Box>
+            <Box className="member-report__info-field">
+              <Typography className="member-report__info-label">
+                Relationship:&nbsp;
+              </Typography>
+              <Typography className="member-report__relationship-label">
+                {insurance.relationship.coding[0]?.code.value}
+              </Typography>
+            </Box>
+            <Box className="member-report__info-field">
+              <Typography className="member-report__info-label">
+                Type:&nbsp;
+              </Typography>
+              {`${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}` || 'N/A' }
+            </Box>
+            <Box className="member-report__info-field">
+              <Typography className="member-report__info-label">
+                Participation Period:&nbsp;
+              </Typography>
+              { insurance.period ? `${getDatestamp(new Date(insurance.period.start.value))} - ${
+                getDatestamp(new Date(insurance.period.end.value))}` : 'N/A' }
+            </Box>
+          </Grid>
+        ))}
       </Box>
       <Box className="member-report__info-panel">
         <Box className="member-report__info-title">

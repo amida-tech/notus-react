@@ -29,12 +29,20 @@ $block-class: 'member-report';
 
         & &__info-display {
             margin: 1rem 0 0 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            // justify-items: left;
         }
 
         & &__patient-card {
             border: 1px solid $default-black;
-            max-width: 30%;
+            max-width: 25%;
+            flex-basis: 25%;
             padding: 1rem;
+            margin: 0 3rem;
+            // margin-right: auto;
+            // margin-left: auto;
         }
 
         & &__info-field {
@@ -44,6 +52,11 @@ $block-class: 'member-report';
 
         & &__info-label {
             font-weight: bolder;
+            margin-top: 0.05rem;
+        }
+
+        & &__relationship-label {
+            text-transform: capitalize;
             margin-top: 0.05rem;
         }
 
