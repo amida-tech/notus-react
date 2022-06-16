@@ -1,0 +1,25 @@
+
+$block-class: 'table-header';
+
+@at-root {
+    .#{$block-class} {
+        justify-content: space-evenly;
+        align-items: center;
+        display: flex;
+        width: 100%;
+        padding: 0.2rem;
+        margin: 1rem 0;
+
+        & &__header-item {
+          min-width: 7%;
+
+          &--standard {
+            flex-basis: 10%;
+          }
+
+          &--extended {
+            flex-basis: 20%;
+          }
+        }
+    }
+}

@@ -306,7 +306,6 @@ function D3Container({
                 )}
                 pageSize={PatientTable.pageSize}
                 useCheckBox={false}
-                handleCheckBoxChange={handleSelectedMeasureChange}
               />
             </>
           )
@@ -320,6 +319,7 @@ function D3Container({
               selectedRows={selectedMeasures}
               colorMapping={colorMap}
               handleTableFilterChange={handleTableFilterChange}
+              handleCheckBoxChange={handleSelectedMeasureChange}
             />
           )}
       </Grid>

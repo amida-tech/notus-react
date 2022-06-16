@@ -10,7 +10,7 @@ $block-class: 'report-table-row';
 
         & &__row-section {
             justify-content: space-evenly;
-            align-items: center;
+            align-items: center; // Change to flex-start to align to top.
             display: flex;
             width: 100%;
             padding: 0.2rem;
@@ -21,8 +21,17 @@ $block-class: 'report-table-row';
             justify-content: center;
             padding: 1rem;
             min-width: 7%;
-            margin: auto;
             word-wrap: break-word;
+            align-content: center;
+            text-align: center;
+
+            &--standard {
+                flex-basis: 10%;
+            }
+
+            &--extended {
+                flex-basis: 20%;
+            }
         }
 
         & &__data {
@@ -35,16 +44,32 @@ $block-class: 'report-table-row';
             margin-bottom: .2rem;
         }
 
-        & &__compliance-panel {
+        & &__icon-cell {
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 3.5rem;
+            max-height: 3.5rem;
 
             &--matched {
                 color: $default-mint;
             }
     
             &--unmatched {
+                color: $default-red;
+            }
+        }
+
+        & &__array-cell {
+            display: flex;
+        }
+
+        & &__condition-icon {
+            &--good {
+                color: $default-mint;
+            }
+    
+            &--bad {
                 color: $default-red;
             }
         }

@@ -55,9 +55,43 @@ const headerData = [
   },
 ]
 
-const formatData = (patientData) => {
+const formatData = (patientData, selectedMeasure, storeInfo) => {
   const complianceResult = getMeasureCompliance(patientData);
-  console.log(complianceResult);
+  const measureData = patientData[patientData.memberId];
+  const measureList = Object.keys(storeInfo).filter((key) => key.includes(selectedMeasure));
+
+  const formattedData = [];
+  formattedData.push({
+    value: measureList[0],
+    measure: storeInfo[measureList[0]].displayLabel,
+    type: 'Measure',
+    status: complianceResult.every((entry) => entry),
+    exclusions: measureData.Exclusions,
+    practitioner: 'N/A',
+    dates: 'N/A',
+    conditions: 'N/A',
+    recommendations: 'N/A',
+  });
+
+  if (complianceResult.length === 1) {
+    return formattedData;
+  }
+
+  complianceResult.forEach((result, index) => {
+    formattedData.push({
+      value: measureList[index + 1],
+      measure: storeInfo[measureList[index + 1]].displayLabel,
+      type: 'Sub-Measure',
+      status: result,
+      exclusions: measureData[`Exclusions ${index + 1}`],
+      practitioner: 'N/A',
+      dates: 'N/A',
+      conditions: 'N/A',
+      recommendations: 'N/A',
+    });
+  });
+
+  return (formattedData);
 };
 
 module.exports = {

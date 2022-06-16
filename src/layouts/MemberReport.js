@@ -1,4 +1,5 @@
 import React, {
+  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -7,9 +8,13 @@ import {
   Box, Button, Grid, Typography,
 } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import CircularProgress from '@mui/material/CircularProgress';
 import Banner from '../components/Common/Banner';
 import Info from '../components/Common/Info';
+import DisplayTable from '../components/DisplayTable/DisplayTable';
 import { updateTimestamp, getDatestamp, getAge } from '../components/Utilities/GeneralUtil';
+import ReportTable from '../components/Utilities/ReportTable';
+import { DatastoreContext } from '../context/DatastoreProvider';
 import env from '../env';
 
 const generalInfoTip = 'The basic information about this patient, including provider and payor information.';
@@ -20,15 +25,22 @@ const axios = require('axios').default;
 const memberQueryUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/info/`);
 
 function MemberReport({ id }) {
+  const { datastore } = useContext(DatastoreContext);
   const [memberInfo, setMemberInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axios.get(`${memberQueryUrl}?memberId=${id}`)
       .then((res) => {
         setMemberInfo(res.data);
-        console.log(res.data);
       });
   }, [id]);
+
+  useEffect(() => {
+    if (Object.keys(datastore.info).length > 0 && memberInfo.measurementType !== undefined) {
+      setIsLoading(datastore.isLoading);
+    }
+  }, [datastore, memberInfo]);
 
   const coverage = memberInfo.coverage?.find((item) => item.status?.value === 'active');
 
@@ -148,7 +160,23 @@ function MemberReport({ id }) {
           <Info infoText={measureAnalysisTip} />
         </Box>
       </Box>
-      Table stuff goes here.
+      {isLoading ? (
+        <Grid className="member-report__loading-container">
+          <CircularProgress size={250} thickness={3} className="member-report__loading-spinner" />
+        </Grid>
+      ) : (
+        <DisplayTable
+          tableType="report"
+          rowData={ReportTable.formatData(
+            memberInfo,
+            memberInfo.measurementType,
+            datastore.info,
+          )}
+          headerInfo={ReportTable.headerData}
+          pageSize={ReportTable.pageSize}
+          useCheckBox={false}
+        />
+      )}
     </Box>
   )
 }

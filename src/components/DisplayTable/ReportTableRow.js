@@ -2,46 +2,72 @@ import {
   Divider, Grid, Box, Typography,
 } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+// import CancelIcon from '@mui/icons-material/Cancel';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function ComplianceRowGenerator(result) {
-  if (result === 'true') {
+function TextRowGenerator(text) {
+  return (
+    <Grid className="report-table-row__text-cell">
+      {text}
+    </Grid>
+  )
+}
+
+function IconRowGenerator(result, extraInfo) {
+  if (result === true) {
     return (
-      <Grid className="report-table-row__compliance-panel report-table-row__compliance-panel--matched">
+      <Grid className="report-table-row__icon-cell report-table-row__icon-cell--matched">
         <CheckBoxIcon className="report-table-row__compliance-icon" />
-        Compliant
+        {extraInfo && 'Compliant'}
       </Grid>
     )
   }
   return (
-    <Grid className="report-table-row__compliance-panel report-table-row__compliance-panel--unmatched">
+    <Grid className="report-table-row__icon-cell report-table-row__icon-cell--unmatched">
       <DisabledByDefaultRoundedIcon className="report-table-row__compliance-icon" />
-      Not Compliant
+      {extraInfo && 'Not Compliant'}
     </Grid>
   )
+}
+
+function ArrayRowGenerator(info, extraInfo) {
+  return (
+    <Grid className="report-table-row__array-cell">
+      {extraInfo && <CheckCircleIcon className="report-table-row__condition-icon report-table-row__condition-icon--good" />}
+      {info}
+    </Grid>
+  )
+}
+
+function rowSelector(rowDataItem, fieldInfo) {
+  if (fieldInfo.rowType === 'text') {
+    return (TextRowGenerator(rowDataItem[fieldInfo.key]));
+  }
+  if (fieldInfo.rowType === 'icon') {
+    return (IconRowGenerator(rowDataItem[fieldInfo.key], fieldInfo.extraInfo));
+  }
+  return (ArrayRowGenerator(rowDataItem[fieldInfo.key], fieldInfo.extraInfo));
 }
 
 function ReportTableRow({
   rowDataItem, headerInfo,
 }) {
+  console.log(rowDataItem);
+  console.log(headerInfo);
   return (
     <Box className="report-table-row">
       <Grid container className="report-table-row__row-section">
         {headerInfo.map((fieldInfo) => (
           <Grid
             item
-            className="report-table-row__data-align"
+            className={`report-table-row__data-align report-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
-            sx={{
-              flexBasis: `${fieldInfo.flexBasis}%`,
-              justifyContent: fieldInfo.alignContent,
-              textAlign: fieldInfo.alignContent,
-            }}
           >
             <Typography variant="caption" className="report-table-row__data">
-              {ComplianceRowGenerator(rowDataItem[fieldInfo.key])}
+              {rowSelector(rowDataItem, fieldInfo)}
             </Typography>
           </Grid>
         ))}
@@ -59,7 +85,7 @@ ReportTableRow.propTypes = {
     PropTypes.shape({
       text: PropTypes.string,
       tooltip: PropTypes.string,
-      flexBasis: PropTypes.number,
+      flexBasis: PropTypes.string,
     }),
   ),
 };
