@@ -5,6 +5,38 @@ $block-class: 'd3-container';
 @at-root {
     .#{$block-class} {
 
+        & &__table-toggle {
+            background-color: $blue-dark;
+        }
+
+        & &__table-selection-buttons {
+            padding-left: 4rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        & &__table-selection-button {
+            color: $blue-grey-lighten-3;
+            font-weight: lighter;
+            border: unset;
+            text-transform: capitalize;
+            font-size: 1.5rem;
+
+            button {
+                padding: 0 2rem;
+            }
+        }
+
+        & &__table-selection-button.Mui-selected {
+            color: $blue-light-2;
+            background-color: $blue-light;
+            height: 2.2rem;
+            padding: 0 2.2rem;
+            place-self: center;
+            border-radius: 0.5rem !important;
+            border: unset;
+        }
+
         & &__chart-bar {
             float: right;
             margin-top: 0.625rem;
