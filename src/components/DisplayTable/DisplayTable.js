@@ -38,6 +38,7 @@ function DisplayTable({
     <Grid container className="display-table">
       {tableType === 'report' ? (
         <TableHeaderNew
+          invertedColor
           headerInfo={headerInfo}
           dataCount={rowData.length}
           useCheckBox={useCheckBox}

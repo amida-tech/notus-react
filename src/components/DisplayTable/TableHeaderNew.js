@@ -6,10 +6,10 @@ import HeaderCell from './HeaderCell';
 
 // TODO: Refactor the PatientTable and MeasureTable to use this in future.
 function TableHeaderNew({
-  headerInfo, dataCount, useCheckBox, handleCheckBoxEvent, selectedRows,
+  invertedColor, headerInfo, dataCount, useCheckBox, handleCheckBoxEvent, selectedRows,
 }) {
   return (
-    <Grid container item className="table-header">
+    <Grid container item className={`table-header ${invertedColor && 'table-header--inverted'}`}>
       {useCheckBox && (
       <CheckBoxCell
         handleCheckBoxEvent={handleCheckBoxEvent}
@@ -31,6 +31,7 @@ function TableHeaderNew({
 }
 
 TableHeaderNew.propTypes = {
+  invertedColor: PropTypes.bool,
   headerInfo: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
@@ -47,6 +48,7 @@ TableHeaderNew.propTypes = {
 };
 
 TableHeaderNew.defaultProps = {
+  invertedColor: false,
   headerInfo: [],
   dataCount: 0,
   useCheckBox: false,

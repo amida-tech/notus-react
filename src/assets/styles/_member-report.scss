@@ -8,7 +8,7 @@ $block-class: 'member-report';
         &__info-panel {
             display: flex;
             justify-content: space-between;
-            margin-top: 2rem;
+            margin: 1.5rem 0;
             max-width: 90%;
         }
 
@@ -73,14 +73,28 @@ $block-class: 'member-report';
             }
         }
 
-        & &__loading-container{
+        & &__loading-container {
             display: flex;
             justify-content: center;            
         }
 
-        & &__loading-spinner{
+        & &__loading-spinner {
             color: $blue-grey-darken-1;
             margin: 5rem auto;
+        }
+
+        & &__accordion-summary {
+            color: $default-black;
+            background-color: $blue-grey-lighten-3;
+        }
+
+        & &__accordion-text {
+            color: $default-black;
+            margin: 1rem;
+        }
+
+        & &__table-display {
+            border: 1px solid $default-black;
         }
     }
 }

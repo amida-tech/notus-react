@@ -5,9 +5,10 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Box, Button, Grid, Typography,
+  Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, Typography,
 } from '@mui/material';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CircularProgress from '@mui/material/CircularProgress';
 import Banner from '../components/Common/Banner';
 import Info from '../components/Common/Info';
@@ -18,7 +19,7 @@ import { DatastoreContext } from '../context/DatastoreProvider';
 import env from '../env';
 
 const generalInfoTip = 'The basic information about this patient, including provider and payor information.';
-const measureAnalysisTip = 'Information about measurement compliance.';
+const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
 
 const axios = require('axios').default;
 
@@ -165,17 +166,31 @@ function MemberReport({ id }) {
           <CircularProgress size={250} thickness={3} className="member-report__loading-spinner" />
         </Grid>
       ) : (
-        <DisplayTable
-          tableType="report"
-          rowData={ReportTable.formatData(
-            memberInfo,
-            memberInfo.measurementType,
-            datastore.info,
-          )}
-          headerInfo={ReportTable.headerData}
-          pageSize={ReportTable.pageSize}
-          useCheckBox={false}
-        />
+        <Accordion>
+          <AccordionSummary className="member-report__accordion-summary" expandIcon={<ExpandMoreIcon />}>
+            <Typography variant="h4">
+              {`${datastore.info[memberInfo.measurementType].displayLabel} - ${datastore.info[memberInfo.measurementType].title}`}
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography className="member-report__accordion-text">
+              Info coming soon.
+            </Typography>
+            <Box className="member-report__table-display">
+              <DisplayTable
+                tableType="report"
+                rowData={ReportTable.formatData(
+                  memberInfo,
+                  memberInfo.measurementType,
+                  datastore.info,
+                )}
+                headerInfo={ReportTable.headerData}
+                pageSize={ReportTable.pageSize}
+                useCheckBox={false}
+              />
+            </Box>
+          </AccordionDetails>
+        </Accordion>
       )}
     </Box>
   )

@@ -1,3 +1,4 @@
+@import 'colors';
 
 $block-class: 'table-header';
 
@@ -9,6 +10,11 @@ $block-class: 'table-header';
         width: 100%;
         padding: 0.2rem;
         margin: 1rem 0;
+
+        &--inverted {
+          background-color: $blue-grey-darken-1;
+          color: $blue-grey-lighten-5;
+        }
 
         & &__header-item {
           min-width: 7%;

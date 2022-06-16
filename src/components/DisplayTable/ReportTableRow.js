@@ -55,8 +55,6 @@ function rowSelector(rowDataItem, fieldInfo) {
 function ReportTableRow({
   rowDataItem, headerInfo,
 }) {
-  console.log(rowDataItem);
-  console.log(headerInfo);
   return (
     <Box className="report-table-row">
       <Grid container className="report-table-row__row-section">
