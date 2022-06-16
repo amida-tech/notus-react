@@ -17,21 +17,24 @@ $block-class: 'd3-container';
 
         & &__table-selection-button {
             color: $blue-grey-lighten-3;
-            font-weight: lighter;
+            max-height: 2.2rem;
+            font-weight: light;
+            padding: 0 2rem;
             border: unset;
             text-transform: capitalize;
             font-size: 1.5rem;
+            margin: 1rem 2.2rem;
+            transition: .2s;
+        }
 
-            button {
-                padding: 0 2rem;
-            }
+        & &__table-selection-button:hover, :focus {
+            border-radius: 0.5rem !important;
         }
 
         & &__table-selection-button.Mui-selected {
             color: $blue-light-2;
             background-color: $blue-light;
             height: 2.2rem;
-            padding: 0 2.2rem;
             place-self: center;
             border-radius: 0.5rem !important;
             border: unset;
