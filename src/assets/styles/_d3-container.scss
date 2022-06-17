@@ -11,8 +11,6 @@ $block-class: 'd3-container';
 
         & &__table-selection-buttons {
             padding-left: 4rem;
-            display: flex;
-            gap: 2rem;
         }
 
         & &__table-selection-button {
@@ -23,7 +21,7 @@ $block-class: 'd3-container';
             border: unset;
             text-transform: capitalize;
             font-size: 1.5rem;
-            margin: 1rem 2.2rem;
+            margin: 1rem 2rem;
             transition: .2s;
         }
 
@@ -34,9 +32,9 @@ $block-class: 'd3-container';
         & &__table-selection-button.Mui-selected {
             color: $blue-light-2;
             background-color: $blue-light;
-            height: 2.2rem;
-            place-self: center;
             border-radius: 0.5rem !important;
+            height: 2rem;
+            place-self: center;
             border: unset;
         }
 

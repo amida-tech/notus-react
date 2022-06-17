@@ -54,6 +54,7 @@ const colorArray = [
   '#661100',
   '#6699CC',
   '#888888',
+
 ];
 
 // If nothing set, select all.
@@ -280,8 +281,12 @@ function D3Container({
                 exclusive
                 onChange={() => setPatientView(!patientView)}
               >
-                <ToggleButton variant="text" disableRipple value={false} className="d3-container__table-selection-button">Overview</ToggleButton>
-                <ToggleButton variant="text" disableRipple value className="d3-container__table-selection-button">Members</ToggleButton>
+                <ToggleButton value={false} className="d3-container__table-selection-button">
+                  Overview
+                </ToggleButton>
+                <ToggleButton value className="d3-container__table-selection-button">
+                  Members
+                </ToggleButton>
               </ToggleButtonGroup>
             </Grid>
           )}
