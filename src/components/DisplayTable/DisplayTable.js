@@ -6,8 +6,8 @@ import PropTypes from 'prop-types';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import { colorMappingProps } from '../ChartContainer/D3Props';
 import usePagination from '../Utilities/PaginationUtil';
-import TableHeader from './TableHeader';
-import TableHeaderNew from './TableHeaderNew';
+import CheckBoxCell from './CheckBoxCell';
+import HeaderCell from './HeaderCell';
 import MeasureTableRow from './MeasureTableRow';
 import PatientTableRow from './PatientTableRow';
 import ReportTableRow from './ReportTableRow';
@@ -37,24 +37,24 @@ function DisplayTable({
 
   return (
     <Grid container className="display-table">
-      {tableType !== 'patient' ? (
-        <TableHeaderNew
-          invertedColor={invertedColor}
-          headerInfo={headerInfo}
-          dataCount={rowData.length}
-          useCheckBox={useCheckBox}
+      <Grid container item className={`display-table__header-section ${invertedColor && 'display-table__header-section--inverted'}`}>
+        {useCheckBox && (
+        <CheckBoxCell
           handleCheckBoxEvent={handleCheckBoxChange}
-          selectedRows={selectedRows}
+          checked={rowData.length === selectedRows.length}
+          value="all"
         />
-      ) : (
-        <TableHeader
-          headerInfo={headerInfo}
-          dataCount={rowData.length}
-          useCheckBox={useCheckBox}
-          handleCheckBoxEvent={handleCheckBoxChange}
-          selectedRows={selectedRows}
-        />
-      )}
+        )}
+        {headerInfo.map((item) => (
+          <Grid
+            item
+            className={`display-table__header-item display-table__header-item--${item.flexBasis}`}
+            key={item.header}
+          >
+            <HeaderCell text={item.header} tooltip={item.tooltip} />
+          </Grid>
+        ))}
+      </Grid>
       <Divider className="display-table__header-divider" />
       {tableType === 'measure' && pageData.currentData().map((item) => (
         <Grid
