@@ -8,6 +8,8 @@ import {
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
+import StyledEngineProvider from '@mui/material/StyledEngineProvider';
+import TablePagination from '@mui/material/TablePagination';
 import env from '../../env';
 import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
@@ -33,6 +35,7 @@ import {
   expandSubMeasureResults,
   getSubMeasureCurrentResults,
 } from './D3ContainerUtils';
+import usePagination from '../Utilites/PaginationUtil';
 
 const axios = require('axios').default;
 
@@ -205,7 +208,22 @@ function D3Container({
   const handleTableFilterChange = (event) => {
     setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
   }
-
+  const handlePageChange = (_e, p) => {
+    pageData.jump(p);
+  };
+  const handleChangeRowsPerPage = (e) => {
+    pageData.setRowCount(e.target.value);
+  }
+  const pageData = usePagination(patientView
+    ? PatientTable.formatData(
+      patientResults,
+      selectedMeasures,
+      store.info,
+      tableFilter,
+    )
+    : MeasureTable.formatData(currentResults), patientView
+    ? PatientTable.pageSize
+    : MeasureTable.pageSize);
   return (
     <div className="d3-container">
       <FilterDrawer
@@ -304,9 +322,9 @@ function D3Container({
                   selectedMeasures,
                   store.info,
                 )}
-                pageSize={PatientTable.pageSize}
                 useCheckBox={false}
                 handleCheckBoxChange={handleSelectedMeasureChange}
+                pageData={pageData}
               />
             </>
           )
@@ -315,14 +333,35 @@ function D3Container({
               tableType="measure"
               rowData={MeasureTable.formatData(currentResults)}
               headerInfo={MeasureTable.headerData(isComposite)}
-              pageSize={MeasureTable.pageSize}
               useCheckBox
               selectedRows={selectedMeasures}
               colorMapping={colorMap}
               handleTableFilterChange={handleTableFilterChange}
+              pageData={pageData}
             />
           )}
       </Grid>
+      <StyledEngineProvider injectFirst>
+        <TablePagination
+          component="div"
+          rowsPerPageOptions={[5, 10]}
+          count={
+            patientView
+              ? PatientTable.formatData(
+                patientResults,
+                selectedMeasures,
+                store.info,
+                tableFilter,
+              ).length
+              : MeasureTable.formatData(currentResults).length
+}
+          page={pageData.currentPage}
+          onPageChange={handlePageChange}
+          className="display-table__pagination"
+          rowsPerPage={pageData.rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </StyledEngineProvider>
     </div>
   );
 }

@@ -1,12 +1,9 @@
 import {
   Divider, Grid,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import StyledEngineProvider from '@mui/material/StyledEngineProvider';
-import TablePagination from '@mui/material/TablePagination';
 import { colorMappingProps } from '../ChartContainer/D3Props';
-import usePagination from '../Utilites/PaginationUtil';
 import TableHeader from './TableHeader';
 import MeasureTableRow from './MeasureTableRow';
 import PatientTableRow from './PatientTableRow';
@@ -15,25 +12,12 @@ function DisplayTable({
   tableType,
   rowData,
   headerInfo,
-  pageSize,
   useCheckBox,
   selectedRows,
   colorMapping,
   handleCheckBoxChange,
+  pageData,
 }) {
-  // const [rowsPerPage, setRowsPerPage] = useState(pageSize);
-
-  const pageData = usePagination(rowData, pageSize);
-
-  const handlePageChange = (_e, p) => {
-    pageData.jump(p);
-  };
-
-  const handleChangeRowsPerPage = (e) => {
-    pageData.setRowCount(e.target.value);
-    // setPage(0); // I don't think you want this.
-  }
-
   return (
     <Grid container className="display-table">
       <TableHeader
@@ -75,18 +59,6 @@ function DisplayTable({
               />
             </Grid>
           ))}
-      <StyledEngineProvider injectFirst>
-        <TablePagination
-          component="div"
-          rowsPerPageOptions={[5, 10]}
-          count={rowData.length}
-          page={pageData.currentPage}
-          onPageChange={handlePageChange}
-          className="display-table__pagination"
-          rowsPerPage={pageData.rowsPerPage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </StyledEngineProvider>
     </Grid>
   )
 }
@@ -105,7 +77,15 @@ DisplayTable.propTypes = {
       flexBasis: PropTypes.number,
     }),
   ),
-  pageSize: PropTypes.number,
+  pageData: PropTypes.arrayOf(
+    PropTypes.shape({
+      currentPage: PropTypes.number,
+      maxPage: PropTypes.number,
+      rowsPerPage: PropTypes.number,
+      currentData: PropTypes.func,
+    }),
+  ),
+
   useCheckBox: PropTypes.bool,
   selectedRows: PropTypes.arrayOf(
     PropTypes.string,
@@ -118,10 +98,10 @@ DisplayTable.defaultProps = {
   tableType: 'measure',
   rowData: [],
   headerInfo: [],
-  pageSize: 0,
   useCheckBox: false,
   selectedRows: [],
   colorMapping: [],
+  pageData: [],
   handleCheckBoxChange: () => undefined,
 }
 

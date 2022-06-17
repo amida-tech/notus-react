@@ -54,21 +54,28 @@ $block-class: 'display-table';
           background-color: $blue-grey-lighten-3;
           height: 1px;
         }
-
-        & &__pagination{
-            display: flex;
-            width: 100%;
-            margin-right: 4.5%;
-            justify-content: flex-end;
-            color: $blue-grey-lighten-1;
-            font-weight: 700;
-        }
     }
-
-    .MuiPagination-root {
-        margin: 1rem auto;
+    
+    .MuiTablePagination-menuItem {
+        font-weight: 800;
+        font-size: .9rem;
     }
-
+    .MuiTablePagination-selectLabel{
+        font-weight: 800;
+        font-size: .9rem;
+    }
+    .MuiTablePagination-select{
+        font-weight: 800;
+        font-size: .9rem;
+    }
+    .MuiTablePagination-displayedRows{
+        font-weight: 800;
+        font-size: .9rem;
+    }
+    .MuiTablePagination-toolbar {
+        color: $blue-grey-lighten-1;
+        font-weight: 700;
+    }
     .MuiPaginationItem-root {
         color: $blue-grey-darken-1;
         border-radius: 0.5rem;
