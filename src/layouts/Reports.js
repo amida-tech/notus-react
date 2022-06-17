@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import { Box, Grid } from '@mui/material';
-import Banner from '../components/Common/Banner'
-import ReportBuilder from '../components/Reports/ReportBuilder'
-import SavedQueries from '../components/Reports/SavedQueries'
+import Banner from '../components/Common/Banner';
+import ReportBuilder from '../components/Reports/ReportBuilder';
+import SavedQueries from '../components/Reports/SavedQueries';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import env from '../env';
 

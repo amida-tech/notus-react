@@ -134,7 +134,7 @@ function MemberReport({ id }) {
                 Relationship:&nbsp;
               </Typography>
               <Typography className="member-report__relationship-label">
-                {insurance.relationship.coding[0]?.code.value}
+                {insurance.relationship?.coding[0]?.code.value}
               </Typography>
             </Box>
             <Box className="member-report__info-field">
