@@ -2,6 +2,8 @@ $block-class: 'reports';
 
 @at-root {
     .#{$block-class} {
+        padding: 2rem;
+
         & &__display {
             display: flex;
             flex-direction: row;

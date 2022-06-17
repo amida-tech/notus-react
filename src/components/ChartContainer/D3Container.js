@@ -17,9 +17,9 @@ import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
-import ColorMapping from '../Utilites/ColorMapping';
-import MeasureTable from '../Utilites/MeasureTable';
-import PatientTable from '../Utilites/PatientTable';
+import ColorMapping from '../Utilities/ColorMapping';
+import MeasureTable from '../Utilities/MeasureTable';
+import PatientTable from '../Utilities/PatientTable';
 import {
   storeProps,
   activeMeasureProps,
@@ -35,7 +35,7 @@ import {
   expandSubMeasureResults,
   getSubMeasureCurrentResults,
 } from './D3ContainerUtils';
-import usePagination from '../Utilites/PaginationUtil';
+import usePagination from '../Utilities/PaginationUtil';
 
 const axios = require('axios').default;
 
@@ -208,12 +208,15 @@ function D3Container({
   const handleTableFilterChange = (event) => {
     setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
   }
+
   const handlePageChange = (_e, p) => {
     pageData.jump(p);
-  };
+  }
+
   const handleChangeRowsPerPage = (e) => {
     pageData.setRowCount(e.target.value);
   }
+
   const pageData = usePagination(patientView
     ? PatientTable.formatData(
       patientResults,
@@ -224,6 +227,7 @@ function D3Container({
     : MeasureTable.formatData(currentResults), patientView
     ? PatientTable.pageSize
     : MeasureTable.pageSize);
+
   return (
     <div className="d3-container">
       <FilterDrawer
@@ -323,7 +327,6 @@ function D3Container({
                   store.info,
                 )}
                 useCheckBox={false}
-                handleCheckBoxChange={handleSelectedMeasureChange}
                 pageData={pageData}
               />
             </>
@@ -337,6 +340,7 @@ function D3Container({
               selectedRows={selectedMeasures}
               colorMapping={colorMap}
               handleTableFilterChange={handleTableFilterChange}
+              handleCheckBoxChange={handleSelectedMeasureChange}
               pageData={pageData}
             />
           )}
@@ -354,7 +358,7 @@ function D3Container({
                 tableFilter,
               ).length
               : MeasureTable.formatData(currentResults).length
-}
+          }
           page={pageData.currentPage}
           onPageChange={handlePageChange}
           className="display-table__pagination"

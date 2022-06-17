@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
 
-function TableHeader({
-  headerInfo, dataCount, useCheckBox, handleCheckBoxEvent, selectedRows,
+// TODO: Refactor the PatientTable and MeasureTable to use this in future.
+function TableHeaderNew({
+  invertedColor, headerInfo, dataCount, useCheckBox, handleCheckBoxEvent, selectedRows,
 }) {
   return (
-    <Grid container item className="display-table__header-section">
+    <Grid container item className={`table-header ${invertedColor && 'table-header--inverted'}`}>
       {useCheckBox && (
       <CheckBoxCell
         handleCheckBoxEvent={handleCheckBoxEvent}
@@ -19,9 +20,8 @@ function TableHeader({
       {headerInfo.map((item) => (
         <Grid
           item
-          className="display-table__header-item"
+          className={`table-header__header-item table-header__header-item--${item.flexBasis}`}
           key={item.header}
-          sx={{ flexBasis: `${item.flexBasis}%` }}
         >
           <HeaderCell text={item.header} tooltip={item.tooltip} />
         </Grid>
@@ -30,12 +30,13 @@ function TableHeader({
   );
 }
 
-TableHeader.propTypes = {
+TableHeaderNew.propTypes = {
+  invertedColor: PropTypes.bool,
   headerInfo: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
       tooltip: PropTypes.string,
-      flexBasis: PropTypes.number,
+      flexBasis: PropTypes.string,
     }),
   ),
   dataCount: PropTypes.number,
@@ -46,7 +47,8 @@ TableHeader.propTypes = {
   ),
 };
 
-TableHeader.defaultProps = {
+TableHeaderNew.defaultProps = {
+  invertedColor: false,
   headerInfo: [],
   dataCount: 0,
   useCheckBox: false,
@@ -54,4 +56,4 @@ TableHeader.defaultProps = {
   selectedRows: [],
 }
 
-export default TableHeader;
+export default TableHeaderNew;

@@ -3,10 +3,10 @@ import {
   fireEvent, render, screen,
 } from '@testing-library/react';
 import { sortedTrendsCreator, mainTrendCreator } from '../../../components/Summary/RatingTrendsUtils';
-import Info from '../../../components/Summary/Info';
+import Info from '../../../components/Common/Info';
 import TrendDisplay from '../../../components/Summary/TrendDisplay';
 import RatingTrends from '../../../components/Summary/RatingTrends';
-import Banner from '../../../components/Summary/Banner'
+import Banner from '../../../components/Common/Banner'
 import { DatastoreReducer } from '../../../context/DatastoreReducer';
 import { resultList, infoObject, trendList } from '../../data/DemoData';
 

@@ -1,0 +1,100 @@
+$block-class: 'member-report';
+@import 'colors';
+
+@at-root {
+    .#{$block-class} {
+        padding: 2rem;
+
+        &__info-panel {
+            display: flex;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+            max-width: 90%;
+        }
+
+        &__info-title {
+            display: flex;
+        }
+
+        & &__h2-header {
+            font-weight: 600;
+            text-align: left;
+            margin: 1rem 0rem 0.5rem 2rem;
+            font-size: 2.25rem;
+        }
+
+        & &__download-icon {
+            margin-top: .4rem;
+        }
+
+        & &__info-display {
+            margin: 1rem 0 0 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            // justify-items: left;
+        }
+
+        & &__patient-card {
+            border: 1px solid $default-black;
+            max-width: 27%;
+            flex-basis: 27%;
+            padding: 1rem;
+            margin: 0 2.5rem;
+            // margin-right: auto;
+            // margin-left: auto;
+        }
+
+        & &__info-field {
+            display: flex;
+            margin-bottom: 0.5rem;
+        }
+
+        & &__info-label {
+            font-weight: bolder;
+            margin-top: 0.05rem;
+        }
+
+        & &__relationship-label {
+            text-transform: capitalize;
+            margin-top: 0.05rem;
+        }
+
+        & &__coverage {
+            text-transform: uppercase;
+            margin-top: 0.05rem;
+            
+            &--active { 
+                color: $default-mint;
+            }
+
+            &--inactive {
+                color: $default-red;
+            }
+        }
+
+        & &__loading-container {
+            display: flex;
+            justify-content: center;            
+        }
+
+        & &__loading-spinner {
+            color: $blue-grey-darken-1;
+            margin: 5rem auto;
+        }
+
+        & &__accordion-summary {
+            color: $default-black;
+            background-color: $blue-grey-lighten-3;
+        }
+
+        & &__accordion-text {
+            color: $default-black;
+            margin: 1rem;
+        }
+
+        & &__table-display {
+            border: 1px solid $default-black;
+        }
+    }
+}

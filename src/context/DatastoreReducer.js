@@ -1,3 +1,5 @@
+import { updateTimestamp } from '../components/Utilities/GeneralUtil';
+
 export const initialState = {
   results: [], // All results for the last several days, per measure.
   trends: [],
@@ -6,16 +8,6 @@ export const initialState = {
   lastUpdated: 'Updating now...',
   isLoading: true,
 };
-
-const monthOpt = { month: 'short', day: '2-digit' };
-const yearOpt = { year: 'numeric' };
-const timeOpt = { hour: '2-digit', minute: '2-digit' };
-const timeStamper = (givenDate, options) => givenDate.toLocaleString('default', options);
-
-const updateTimestamp = () => {
-  const now = new Date();
-  return `${timeStamper(now, monthOpt)} ${timeStamper(now, yearOpt)}, ${timeStamper(now, timeOpt)}`;
-}
 
 const createLabel = (measure, info) => {
   if (info[measure]) {
@@ -78,20 +70,20 @@ export const DatastoreReducer = (state, action) => {
         results,
         currentResults,
         info,
-        lastUpdated: updateTimestamp(),
+        lastUpdated: updateTimestamp(new Date()),
       }
     }
     case 'SET_TRENDS':
       return {
         ...state,
         trends: action.payload,
-        lastUpdated: updateTimestamp(),
+        lastUpdated: updateTimestamp(new Date()),
       }
     case 'SET_ISLOADING':
       return {
         ...state,
         isLoading: action.payload,
-        lastUpdated: updateTimestamp(),
+        lastUpdated: updateTimestamp(new Date()),
       }
     default:
       return state;

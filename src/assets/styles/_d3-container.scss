@@ -14,10 +14,12 @@ $block-class: 'd3-container';
             height: auto;
             margin: 3.5rem auto;
         }
+
         & &__loading-container{
             display: flex;
             justify-content: center;            
         }
+
         & &__loading-spinner{
             color: $blue-grey-darken-1;
             margin: 5rem auto;
