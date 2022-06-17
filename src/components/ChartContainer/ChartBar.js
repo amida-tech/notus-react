@@ -12,7 +12,7 @@ import {
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import { TimelineOptions } from '../Utilites/ChartUtil';
+import { TimelineOptions } from '../Utilities/ChartUtil';
 import env from '../../env';
 
 const timelineLabel = (choice) => {

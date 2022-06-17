@@ -7,7 +7,7 @@ import {
   Button, Grid, Typography, Rating,
 } from '@mui/material';
 import TrendDisplay from './TrendDisplay';
-import Info from './Info';
+import Info from '../Common/Info';
 import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils'
 import env from '../../env'
 

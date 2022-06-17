@@ -11,15 +11,18 @@
 @use 'info';
 @use 'measure-selector';
 @use 'measure-table-row';
+@use 'member-report';
 @use 'not-found';
 @use 'navbar';
 @use 'report-builder';
 @use 'saved-queries';
 @use 'table-filter-panel';
+@use 'table-header';
 @use 'trend-display';
 @use 'patient-table-row';
 @use 'rating-trends';
 @use 'reports';
 @use 'reports-banner';
+@use 'report-table-row';
 
 @use 'colors';

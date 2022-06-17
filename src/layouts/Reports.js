@@ -1,8 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext } from 'react';
 import { Box, Grid } from '@mui/material';
-import ReportsBanner from '../components/Summary/ReportsBanner'
-import ReportBuilder from '../components/Reports/ReportBuilder'
-import SavedQueries from '../components/Reports/SavedQueries'
+import Banner from '../components/Common/Banner';
+import ReportBuilder from '../components/Reports/ReportBuilder';
+import SavedQueries from '../components/Reports/SavedQueries';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import env from '../env';
 
@@ -10,7 +10,7 @@ export default function Reports() {
   const { datastore } = useContext(DatastoreContext);
   return (
     <Box className="reports">
-      <ReportsBanner />
+      <Banner headerText="HEDIS Reports" />
       <Grid className="reports__display">
         { env.REACT_APP_MVP_SETTING === 'false' && <SavedQueries /> }
         <ReportBuilder store={datastore} />

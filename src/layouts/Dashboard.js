@@ -5,7 +5,7 @@ import Paper from '@mui/material/Paper';
 import { useParams } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import D3Container from '../components/ChartContainer';
-import Banner from '../components/Summary/Banner';
+import Banner from '../components/Common/Banner';
 import RatingTrends from '../components/Summary/RatingTrends';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 
@@ -44,7 +44,7 @@ export default function Dashboard() {
         <Box sx={{ flexGrow: 2 }}>
           <Grid container spacing={4}>
             <Grid item className="dashboard__summary" sm={12}>
-              <Banner lastUpdated={datastore.lastUpdated} />
+              <Banner headerText="HEDIS Dashboard" lastUpdated={datastore.lastUpdated} />
               <RatingTrends
                 activeMeasure={activeMeasure}
                 trends={datastore.trends}
