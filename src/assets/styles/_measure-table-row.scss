@@ -26,6 +26,8 @@ $block-class: 'measure-table-row';
 
             &--medium {
                 flex-basis: 10%;
+                justify-content: center;
+                text-align: center;
             }
 
             &--larger {
