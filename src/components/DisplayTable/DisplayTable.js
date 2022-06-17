@@ -13,6 +13,7 @@ import PatientTableRow from './PatientTableRow';
 import ReportTableRow from './ReportTableRow';
 
 function DisplayTable({
+  invertedColor,
   tableType,
   rowData,
   headerInfo,
@@ -36,9 +37,9 @@ function DisplayTable({
 
   return (
     <Grid container className="display-table">
-      {tableType === 'report' ? (
+      {tableType !== 'patient' ? (
         <TableHeaderNew
-          invertedColor
+          invertedColor={invertedColor}
           headerInfo={headerInfo}
           dataCount={rowData.length}
           useCheckBox={useCheckBox}
@@ -120,6 +121,7 @@ function DisplayTable({
 }
 
 DisplayTable.propTypes = {
+  invertedColor: PropTypes.bool,
   tableType: PropTypes.oneOf(['measure', 'patient', 'report']),
   rowData: PropTypes.arrayOf(
     PropTypes.shape({
@@ -145,6 +147,7 @@ DisplayTable.propTypes = {
 };
 
 DisplayTable.defaultProps = {
+  invertedColor: false,
   tableType: 'measure',
   rowData: [],
   headerInfo: [],

@@ -11,7 +11,7 @@ const inclusions = {
   key: 'included',
   header: 'Remaining Inclusions',
   tooltip: remainingInclusionsTip,
-  flexBasis: 14,
+  flexBasis: 'medium',
   alignContent: 'center',
 };
 
@@ -19,7 +19,7 @@ const eligiblePopulation = {
   key: 'eligible',
   header: 'Eligible Population',
   tooltip: eligiblePopulationTip,
-  flexBasis: 14,
+  flexBasis: 'medium',
   alignContent: 'center',
 };
 
@@ -27,7 +27,7 @@ const numerator = {
   key: 'numerator',
   header: 'Numerator',
   tooltip: numeratorTip,
-  flexBasis: 14,
+  flexBasis: 'medium',
   alignContent: 'center',
 };
 
@@ -35,7 +35,7 @@ const denominator = {
   key: 'denominator',
   header: 'Denominator',
   tooltip: denominatorTip,
-  flexBasis: 14,
+  flexBasis: 'medium',
   alignContent: 'center',
 };
 
@@ -43,7 +43,7 @@ const exclusions = {
   key: 'exclusions',
   header: 'Available Exclusions',
   tooltip: availableExclusionsTip,
-  flexBasis: 14,
+  flexBasis: 'medium',
   alignContent: 'center',
 };
 
@@ -60,7 +60,7 @@ const headerInfo = [
     link: true,
     header: 'Measure',
     tooltip: measureTip,
-    flexBasis: 22,
+    flexBasis: 'larger',
   },
   inclusions,
   eligiblePopulation,
@@ -74,7 +74,7 @@ const subHeaderInfo = [
     key: 'label',
     header: 'Sub-Measure',
     tooltip: measureTip,
-    flexBasis: 22,
+    flexBasis: 'larger',
   },
   inclusions,
   eligiblePopulation,

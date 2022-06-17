@@ -32,7 +32,8 @@ $block-class: 'display-table';
 
         & &__title-align-small {
             @extend .display-table__title-align;
-            flex-basis: 8%
+            flex-basis: 8%;
+            margin: 0;
         }
 
         & &__title {

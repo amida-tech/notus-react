@@ -23,11 +23,14 @@ $block-class: 'measure-table-row';
             min-width: 7%;
             margin: auto;
             word-wrap: break-word;
-        }
 
-        & &__data-align-small {
-            @extend .measure-table-row__data-align;
-            flex-basis: 8%
+            &--medium {
+                flex-basis: 10%;
+            }
+
+            &--larger {
+                flex-basis: 22%;
+            }
         }
 
         & &__data {

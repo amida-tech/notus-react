@@ -19,12 +19,20 @@ $block-class: 'table-header';
         & &__header-item {
           min-width: 7%;
 
-          &--standard {
+          &--small {
             flex-basis: 10%;
           }
 
-          &--extended {
+          &--medium {
+            flex-basis: 10%;
+          }
+
+          &--large {
             flex-basis: 20%;
+          }
+
+          &--larger {
+            flex-basis: 22%;
           }
         }
     }
