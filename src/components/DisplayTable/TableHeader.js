@@ -20,7 +20,7 @@ function TableHeader({
         <Grid
           item
           className="display-table__header-item"
-          key={item.header}
+          key={item.key}
           sx={{ flexBasis: `${item.flexBasis}%` }}
         >
           <HeaderCell text={item.header} tooltip={item.tooltip} />

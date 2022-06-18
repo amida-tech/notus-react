@@ -4,7 +4,9 @@ import React, {
 
 import { useHistory } from 'react-router-dom';
 
-import { Grid, Typography, Box, Tab } from '@mui/material';
+import {
+  Grid, Typography, Box, Tab,
+} from '@mui/material';
 
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -211,10 +213,10 @@ function D3Container({
     setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
   }
 
-    //THIS UPDATES OUR TAB VIEW
+  // THIS UPDATES OUR TAB VIEW
   const [tabValue, setTabValue] = React.useState('overview');
 
-  //SETTER FOR TAB VIEW
+  // SETTER FOR TAB VIEW
   const handleChange = (e, newValue) => {
     setTabValue(newValue);
   };
@@ -273,23 +275,25 @@ function D3Container({
       )}
 
       <Grid className="d3-container__bottom-display">
-        
+
         {/* EXPERIMENTAL */}
-        <Box sx={{ width: '100%', typography: 'body1' }}>
+        <Box className="d3-container__overview-member-chart">
           <TabContext value={tabValue}>
 
             {/* Selection Tabs */}
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={handleChange} aria-label="overview and members tabs">
-                <Tab label="Overview" value="overview" />
-                <Tab label="Members" value="members" />
+            <Box className="d3-container__table-tab-bar" >
+              <TabList TabIndicatorProps={{ style: {backgroundColor: "transparent"}}} sx={{marginLeft: "8rem"}} onChange={handleChange} aria-label="overview and members tabs" >
+                <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+                <Tab className="d3-container__table-selection-button" label="Members" value="members" />
               </TabList>
             </Box>
 
             <TabPanel value="overview">
               {/* Overview Content */}
               <Grid className="d3-container__measure-selector">
-                <Typography className="d3-container__selector-title">Detailed View: </Typography>
+                {/* MEMBER SEARCH BAR AND ICON GOES HERE */}
+
+                <Typography className="d3-container__selector-title">Detailed View:</Typography>
                 <MeasureSelector
                   measure={activeMeasure.measure}
                   currentResults={store.currentResults}

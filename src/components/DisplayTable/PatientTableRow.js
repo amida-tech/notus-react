@@ -43,7 +43,7 @@ function PatientTableRow({
           <Grid
             item
             className="patient-table-row__data-align"
-            key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
+            key={fieldInfo.key}
             sx={{
               flexBasis: `${fieldInfo.flexBasis}%`,
               justifyContent: fieldInfo.alignContent,
