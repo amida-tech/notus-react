@@ -1,13 +1,18 @@
 import React, {
   createContext, useState, useEffect,
 } from 'react';
+
 import { useHistory } from 'react-router-dom';
-import {
-  Grid, Typography, ToggleButtonGroup, ToggleButton,
-} from '@mui/material';
+
+import { Grid, Typography, Box, Tab } from '@mui/material';
+
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
+
+// EXPERIMENTAL IMPORTS
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+
 import env from '../../env';
 import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
@@ -15,6 +20,7 @@ import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
+
 import ColorMapping from '../Utilities/ColorMapping';
 import MeasureTable from '../Utilities/MeasureTable';
 import PatientTable from '../Utilities/PatientTable';
@@ -98,7 +104,6 @@ function D3Container({
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
-  const [patientView, setPatientView] = useState(false);
   const [patientResults, setPatientResults] = useState([]);
   const [tableFilter, setTableFilter] = useState('');
 
@@ -137,7 +142,6 @@ function D3Container({
     }
     setCurrentTimeline(defaultTimelineState);
     setCurrentFilters(defaultFilterState);
-    setPatientView(false);
   }, [activeMeasure, store]);
 
   useEffect(() => {
@@ -207,6 +211,14 @@ function D3Container({
     setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
   }
 
+    //THIS UPDATES OUR TAB VIEW
+  const [tabValue, setTabValue] = React.useState('overview');
+
+  //SETTER FOR TAB VIEW
+  const handleChange = (e, newValue) => {
+    setTabValue(newValue);
+  };
+
   return (
     <div className="d3-container">
       <FilterDrawer
@@ -259,76 +271,74 @@ function D3Container({
           />
         </Grid>
       )}
+
       <Grid className="d3-container__bottom-display">
-        { isComposite
-          ? (
-            <Grid className="d3-container__measure-selector">
-              <Typography className="d3-container__selector-title">Detailed View: </Typography>
-              <MeasureSelector
-                measure={activeMeasure.measure}
-                currentResults={store.currentResults}
-                handleMeasureChange={handleMeasureChange}
-              />
-            </Grid>
-          )
-          : (
-            <Grid className="d3-container__table-toggle">
-              <ToggleButtonGroup
-                color="primary"
-                variant="text"
-                className="d3-container__table-selection-buttons"
-                value={patientView}
-                exclusive
-                onChange={() => setPatientView(!patientView)}
-              >
-                <ToggleButton value={false} className="d3-container__table-selection-button">
-                  Overview
-                </ToggleButton>
-                <ToggleButton value className="d3-container__table-selection-button">
-                  Members
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </Grid>
-          )}
-        { patientView
-          ? (
-            <>
-              <TableFilterPanel
-                measure={activeMeasure.measure}
-                patientResult={patientResults[0]}
-                tableFilter={tableFilter}
-                handleTableFilterChange={handleTableFilterChange}
-              />
+        
+        {/* EXPERIMENTAL */}
+        <Box sx={{ width: '100%', typography: 'body1' }}>
+          <TabContext value={tabValue}>
+
+            {/* Selection Tabs */}
+            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+              <TabList onChange={handleChange} aria-label="overview and members tabs">
+                <Tab label="Overview" value="overview" />
+                <Tab label="Members" value="members" />
+              </TabList>
+            </Box>
+
+            <TabPanel value="overview">
+              {/* Overview Content */}
+              <Grid className="d3-container__measure-selector">
+                <Typography className="d3-container__selector-title">Detailed View: </Typography>
+                <MeasureSelector
+                  measure={activeMeasure.measure}
+                  currentResults={store.currentResults}
+                  handleMeasureChange={handleMeasureChange}
+                />
+              </Grid>
               <DisplayTable
-                tableType="patient"
-                rowData={PatientTable.formatData(
-                  patientResults,
-                  selectedMeasures,
-                  store.info,
-                  tableFilter,
-                )}
-                headerInfo={PatientTable.headerData(
-                  selectedMeasures,
-                  store.info,
-                )}
-                pageSize={PatientTable.pageSize}
-                useCheckBox={false}
+                tableType="measure"
+                rowData={MeasureTable.formatData(currentResults)}
+                headerInfo={MeasureTable.headerData(isComposite)}
+                pageSize={MeasureTable.pageSize}
+                useCheckBox
+                selectedRows={selectedMeasures}
+                colorMapping={colorMap}
+                handleTableFilterChange={handleTableFilterChange}
+                handleCheckBoxChange={handleSelectedMeasureChange}
               />
-            </>
-          )
-          : (
-            <DisplayTable
-              tableType="measure"
-              rowData={MeasureTable.formatData(currentResults)}
-              headerInfo={MeasureTable.headerData(isComposite)}
-              pageSize={MeasureTable.pageSize}
-              useCheckBox
-              selectedRows={selectedMeasures}
-              colorMapping={colorMap}
-              handleTableFilterChange={handleTableFilterChange}
-              handleCheckBoxChange={handleSelectedMeasureChange}
-            />
-          )}
+            </TabPanel>
+
+            <TabPanel value="members">
+              {/* Members Content */}
+              <>
+                <TableFilterPanel
+                  measure={activeMeasure.measure}
+                  patientResult={patientResults[0]}
+                  tableFilter={tableFilter}
+                  handleTableFilterChange={handleTableFilterChange}
+                />
+                <DisplayTable
+                  tableType="patient"
+                  rowData={PatientTable.formatData(
+                    patientResults,
+                    selectedMeasures,
+                    store.info,
+                    tableFilter,
+                  )}
+                  headerInfo={PatientTable.headerData(
+                    selectedMeasures,
+                    store.info,
+                  )}
+                  pageSize={PatientTable.pageSize}
+                  useCheckBox={false}
+                />
+              </>
+            </TabPanel>
+
+          </TabContext>
+        </Box>
+
       </Grid>
     </div>
   );

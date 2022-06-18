@@ -158,11 +158,13 @@ function FilterDrawer({
           />
           <FilterDrawerItem
             filterItem={filterDrawerItemData.providers}
+            // eslint-disable-next-line
             filterAction={() => console.log('providers clicked, yo')}
             currentFilter={starChoices}
           />
           <FilterDrawerItem
             filterItem={filterDrawerItemData.coverage}
+            // eslint-disable-next-line
             filterAction={() => console.log('coverage clicked, yo')}
             currentFilter={starChoices}
           />
