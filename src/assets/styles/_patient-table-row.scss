@@ -23,6 +23,22 @@ $block-class: 'patient-table-row';
             min-width: 7%;
             margin: auto;
             word-wrap: break-word;
+
+            &--smaller {
+                flex-basis: 5%;
+            }
+
+            &--small {
+                flex-basis: 10%;
+            }
+
+            &--standard {
+                flex-basis: 14%;
+            }
+
+            &--larger {
+                flex-basis: 22%;
+            }
         }
 
         & &__data-align-small {

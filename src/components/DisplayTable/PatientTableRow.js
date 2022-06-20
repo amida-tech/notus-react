@@ -42,13 +42,8 @@ function PatientTableRow({
         {headerInfo.map((fieldInfo) => (
           <Grid
             item
-            className="patient-table-row__data-align"
+            className={`patient-table-row__data-align patient-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
-            sx={{
-              flexBasis: `${fieldInfo.flexBasis}%`,
-              justifyContent: fieldInfo.alignContent,
-              textAlign: fieldInfo.alignContent,
-            }}
           >
             <Typography variant="caption" className="patient-table-row__data">
               {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem)}
@@ -69,7 +64,7 @@ PatientTableRow.propTypes = {
     PropTypes.shape({
       text: PropTypes.string,
       tooltip: PropTypes.string,
-      flexBasis: PropTypes.number,
+      flexBasis: PropTypes.string,
     }),
   ),
 };

@@ -25,12 +25,20 @@ $block-class: 'display-table';
         & &__header-item {
             min-width: 7%;
 
+            &--smaller {
+                flex-basis: 5%;
+            }
+
             &--small {
                 flex-basis: 10%;
             }
 
-            &--medium {
+            &--standard {
                 flex-basis: 14%;
+            }
+
+            &--medium {
+                flex-basis: 15%;
             }
 
             &--large {

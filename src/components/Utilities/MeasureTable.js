@@ -11,7 +11,7 @@ const inclusions = {
   key: 'included',
   header: 'Remaining Inclusions',
   tooltip: remainingInclusionsTip,
-  flexBasis: 'medium',
+  flexBasis: 'standard',
   alignContent: 'center',
 };
 
@@ -19,7 +19,7 @@ const eligiblePopulation = {
   key: 'eligible',
   header: 'Eligible Population',
   tooltip: eligiblePopulationTip,
-  flexBasis: 'medium',
+  flexBasis: 'standard',
   alignContent: 'center',
 };
 
@@ -27,7 +27,7 @@ const numerator = {
   key: 'numerator',
   header: 'Numerator',
   tooltip: numeratorTip,
-  flexBasis: 'medium',
+  flexBasis: 'standard',
   alignContent: 'center',
 };
 
@@ -35,7 +35,7 @@ const denominator = {
   key: 'denominator',
   header: 'Denominator',
   tooltip: denominatorTip,
-  flexBasis: 'medium',
+  flexBasis: 'standard',
   alignContent: 'center',
 };
 
@@ -43,7 +43,7 @@ const exclusions = {
   key: 'exclusions',
   header: 'Available Exclusions',
   tooltip: availableExclusionsTip,
-  flexBasis: 'medium',
+  flexBasis: 'standard',
   alignContent: 'center',
 };
 
