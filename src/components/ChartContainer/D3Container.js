@@ -40,10 +40,6 @@ const axios = require('axios').default;
 
 export const firstRenderContext = createContext(true);
 
-function onReturnClick(history) {
-  history.push('/');
-}
-
 const colorArray = [
   '#88CCEE',
   '#CC6677',
@@ -120,6 +116,9 @@ function D3Container({
       value: item.measure,
       color: index <= 11 ? colorArray[index] : colorArray[index % 11],
     }));
+    setPatientView(false);
+    setCurrentTimeline(defaultTimelineState);
+    setCurrentFilters(defaultFilterState);
     if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
       setComposite(true);
       setDisplayData(store.results.map((result) => ({ ...result })));
@@ -140,9 +139,6 @@ function D3Container({
       setFilterDisabled(true);
       setHeaderInfo(MeasureTable.headerData(false));
     }
-    setCurrentTimeline(defaultTimelineState);
-    setCurrentFilters(defaultFilterState);
-    setPatientView(false);
   }, [activeMeasure, isComposite, store]);
 
   useEffect(() => {
@@ -182,10 +178,7 @@ function D3Container({
   // Maud, I know you're working to add tabs, so naming this accordingly.
   const handleTabChange = (view) => { // Change from boolean to tab index or enum.
     if (view) {
-      setHeaderInfo(PatientTable.headerData(
-        selectedMeasures,
-        store.info,
-      ));
+      setHeaderInfo(PatientTable.headerData(selectedMeasures, store.info));
     } else {
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
@@ -236,7 +229,14 @@ function D3Container({
       { isComposite
         ? <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
         : (
-          <Grid className="d3-container__return-link-display" onClick={() => onReturnClick(history)}>
+          <Grid
+            className="d3-container__return-link-display"
+            onClick={() => {
+              setComposite(true);
+              setPatientView(false);
+              history.push('/');
+            }}
+          >
             <Typography className="d3-container__title">
               <ArrowBackIosIcon className="d3-container__return-icon" />
               All Measures
@@ -324,7 +324,7 @@ function D3Container({
               >
                 {PatientTable.formatData(
                   patientResults,
-                  selectedMeasures,
+                  activeMeasure.measure,
                   store.info,
                   tableFilter,
                 ).map((item) => (
