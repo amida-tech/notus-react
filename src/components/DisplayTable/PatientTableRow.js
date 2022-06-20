@@ -38,7 +38,7 @@ function PatientTableRow({
 }) {
   return (
     <Box className="patient-table-row">
-      <Grid container className="patient-table-row__row-section">
+      <Grid container className={`patient-table-row__row-section ${headerInfo.length > 10 && 'patient-table-row__row-section--wide'} `}>
         {headerInfo.map((fieldInfo) => (
           <Grid
             item

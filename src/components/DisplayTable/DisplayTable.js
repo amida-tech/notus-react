@@ -37,7 +37,7 @@ function DisplayTable({
 
   return (
     <Grid container className="display-table">
-      <Grid container item className={`display-table__header-section ${invertedColor && 'display-table__header-section--inverted'}`}>
+      <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
         {useCheckBox && (
         <CheckBoxCell
           handleCheckBoxEvent={handleCheckBoxChange}

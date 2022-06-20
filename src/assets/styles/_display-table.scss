@@ -7,6 +7,7 @@ $block-class: 'display-table';
 @at-root {
     .#{$block-class} {
         color: $blue-grey-darken-1;
+        overflow-x: auto;
 
         & &__header-section {
             justify-content: space-evenly;
@@ -15,15 +16,20 @@ $block-class: 'display-table';
             width: 100%;
             padding: 0.2rem;
             margin: 1rem 0;
-        }
+            flex-wrap: nowrap;
 
-        &--inverted {
-            background-color: $blue-grey-darken-1;
-            color: $blue-grey-lighten-5;
+            &--inverted {
+                background-color: $blue-grey-darken-1;
+                color: $blue-grey-lighten-5;
+            }
+    
+            &--wide {
+                justify-content: flex-start;
+            }
         }
 
         & &__header-item {
-            min-width: 7%;
+            min-width: 10%;
 
             &--smaller {
                 flex-basis: 5%;
@@ -63,6 +69,7 @@ $block-class: 'display-table';
             @extend .display-table__title-align;
             flex-basis: 8%;
             margin: 0;
+            max-width: 8%;
         }
 
         & &__title {
