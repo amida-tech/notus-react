@@ -8,13 +8,9 @@ import { colorMappingProps } from '../ChartContainer/D3Props';
 import usePagination from '../Utilities/PaginationUtil';
 import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
-import MeasureTableRow from './MeasureTableRow';
-import PatientTableRow from './PatientTableRow';
-import ReportTableRow from './ReportTableRow';
 
 function DisplayTable({
   invertedColor,
-  tableType,
   rowData,
   headerInfo,
   pageSize,
@@ -22,6 +18,7 @@ function DisplayTable({
   selectedRows,
   colorMapping,
   handleCheckBoxChange,
+  children,
 }) {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -29,7 +26,7 @@ function DisplayTable({
   if (pageSize) {
     pageCount = Math.ceil(rowData.length / pageSize);
   }
-  const pageData = usePagination(rowData, pageSize);
+  const pageData = usePagination(children, pageSize);
   const handleChange = (_e, p) => {
     setCurrentPage(p);
     pageData.jump(p);
@@ -56,7 +53,7 @@ function DisplayTable({
         ))}
       </Grid>
       <Divider className="display-table__header-divider" />
-      {tableType === 'measure' && pageData.currentData().map((item) => (
+      {/* {tableType === 'measure' && pageData.currentData().map((item) => (
         <Grid
           item
           className="display-table__row"
@@ -83,17 +80,14 @@ function DisplayTable({
             headerInfo={headerInfo}
           />
         </Grid>
-      ))}
-      { tableType === 'report' && pageData.currentData().map((item) => (
+      ))} */}
+      { pageData.currentData().map((child) => (
         <Grid
           item
           className="display-table__row"
-          key={`chart-container-grid-measure-${item.value}`}
+          key={`display-table-grid-item-${child.value}`}
         >
-          <ReportTableRow
-            rowDataItem={item}
-            headerInfo={headerInfo}
-          />
+          {child}
         </Grid>
       ))}
       {pageCount > 0 && (
@@ -121,8 +115,8 @@ function DisplayTable({
 }
 
 DisplayTable.propTypes = {
+  children: PropTypes.arrayOf(PropTypes.node),
   invertedColor: PropTypes.bool,
-  tableType: PropTypes.oneOf(['measure', 'patient', 'report']),
   rowData: PropTypes.arrayOf(
     PropTypes.shape({
       measure: PropTypes.string,
@@ -147,8 +141,8 @@ DisplayTable.propTypes = {
 };
 
 DisplayTable.defaultProps = {
+  children: [],
   invertedColor: false,
-  tableType: 'measure',
   rowData: [],
   headerInfo: [],
   pageSize: 0,
