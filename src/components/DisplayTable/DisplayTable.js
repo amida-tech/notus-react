@@ -4,19 +4,16 @@ import {
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
-import { colorMappingProps } from '../ChartContainer/D3Props';
 import usePagination from '../Utilities/PaginationUtil';
 import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
 
 function DisplayTable({
   invertedColor,
-  rowData,
   headerInfo,
   pageSize,
   useCheckBox,
   selectedRows,
-  colorMapping,
   handleCheckBoxChange,
   children,
 }) {
@@ -24,7 +21,7 @@ function DisplayTable({
 
   let pageCount = 0;
   if (pageSize) {
-    pageCount = Math.ceil(rowData.length / pageSize);
+    pageCount = Math.ceil(children.length / pageSize);
   }
   const pageData = usePagination(children, pageSize);
   const handleChange = (_e, p) => {
@@ -38,7 +35,7 @@ function DisplayTable({
         {useCheckBox && (
         <CheckBoxCell
           handleCheckBoxEvent={handleCheckBoxChange}
-          checked={rowData.length === selectedRows.length}
+          checked={children.length === selectedRows.length}
           value="all"
         />
         )}
@@ -53,39 +50,11 @@ function DisplayTable({
         ))}
       </Grid>
       <Divider className="display-table__header-divider" />
-      {/* {tableType === 'measure' && pageData.currentData().map((item) => (
-        <Grid
-          item
-          className="display-table__row"
-          key={`chart-container-grid-measure-${item.value}`}
-        >
-          <MeasureTableRow
-            rowDataItem={item}
-            headerInfo={headerInfo}
-            useCheckBox={useCheckBox}
-            handleCheckBoxEvent={handleCheckBoxChange}
-            rowSelected={selectedRows.includes(item.value)}
-            color={colorMapping.find((mapping) => mapping.value === item.value)?.color || '#000'}
-          />
-        </Grid>
-      ))}
-      { tableType === 'patient' && pageData.currentData().map((item) => (
-        <Grid
-          item
-          className="display-table__row"
-          key={`chart-container-grid-measure-${item.value}`}
-        >
-          <PatientTableRow
-            rowDataItem={item}
-            headerInfo={headerInfo}
-          />
-        </Grid>
-      ))} */}
       { pageData.currentData().map((child) => (
         <Grid
           item
           className="display-table__row"
-          key={`display-table-grid-item-${child.value}`}
+          key={`display-table-grid-for-${child.key}`}
         >
           {child}
         </Grid>
@@ -117,11 +86,6 @@ function DisplayTable({
 DisplayTable.propTypes = {
   children: PropTypes.arrayOf(PropTypes.node),
   invertedColor: PropTypes.bool,
-  rowData: PropTypes.arrayOf(
-    PropTypes.shape({
-      measure: PropTypes.string,
-    }),
-  ),
   headerInfo: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
@@ -136,19 +100,16 @@ DisplayTable.propTypes = {
   selectedRows: PropTypes.arrayOf(
     PropTypes.string,
   ),
-  colorMapping: colorMappingProps,
   handleCheckBoxChange: PropTypes.func,
 };
 
 DisplayTable.defaultProps = {
   children: [],
   invertedColor: false,
-  rowData: [],
   headerInfo: [],
   pageSize: 0,
   useCheckBox: false,
   selectedRows: [],
-  colorMapping: [],
   handleCheckBoxChange: () => undefined,
 }
 

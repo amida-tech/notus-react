@@ -48,10 +48,12 @@ const allValuesEqual = (valueArray) => {
 
 const formatData = (patientResults, selectedMeasures, storeInfo, tableFilter) => {
   const formattedData = [];
+  console.log(selectedMeasures);
 
   patientResults.forEach((patientResult) => {
     const patientResultArray = [];
     const complianceResult = getMeasureCompliance(patientResult);
+    console.log(complianceResult);
     if (complianceResult.length === 1) {
       patientResultArray.push({
         memberID: patientResult.memberId,
@@ -61,6 +63,7 @@ const formatData = (patientResults, selectedMeasures, storeInfo, tableFilter) =>
       });
     } else {
       complianceResult.forEach((result, index) => {
+        console.log(storeInfo[selectedMeasures[index + 1]]);
         patientResultArray.push({
           memberID: patientResult.memberId,
           measure: selectedMeasures[index + 1],

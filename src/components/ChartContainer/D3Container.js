@@ -18,6 +18,8 @@ import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ColorMapping from '../Utilities/ColorMapping';
 import MeasureTable from '../Utilities/MeasureTable';
 import PatientTable from '../Utilities/PatientTable';
+import MeasureTableRow from '../DisplayTable/MeasureTableRow';
+import PatientTableRow from '../DisplayTable/PatientTableRow';
 import {
   storeProps,
   activeMeasureProps,
@@ -98,9 +100,10 @@ function D3Container({
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
-  const [patientView, setPatientView] = useState(false);
+  const [isPatientView, setPatientView] = useState(false);
   const [patientResults, setPatientResults] = useState([]);
   const [tableFilter, setTableFilter] = useState('');
+  const [headerInfo, setHeaderInfo] = useState([]);
 
   useEffect(() => {
     function handleResize() {
@@ -126,6 +129,7 @@ function D3Container({
       setFilterDisabled(false);
       setPatientResults([]);
       setTableFilter('');
+      setHeaderInfo(MeasureTable.headerData(true));
     } else {
       setComposite(false);
       const subMeasureCurrentResults = getSubMeasureCurrentResults(activeMeasure, store);
@@ -134,11 +138,12 @@ function D3Container({
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
       setColorMap(ColorMapping(baseColorMap, colorArray, subMeasureCurrentResults));
       setFilterDisabled(true);
+      setHeaderInfo(MeasureTable.headerData(false));
     }
     setCurrentTimeline(defaultTimelineState);
     setCurrentFilters(defaultFilterState);
     setPatientView(false);
-  }, [activeMeasure, store]);
+  }, [activeMeasure, isComposite, store]);
 
   useEffect(() => {
     if (!isComposite && patientResults.length === 0) {
@@ -173,6 +178,19 @@ function D3Container({
     newDisplayData = filterByTimeline(newDisplayData, timeline);
     setDisplayData(newDisplayData);
   };
+
+  // Maud, I know you're working to add tabs, so naming this accordingly.
+  const handleTabChange = (view) => { // Change from boolean to tab index or enum.
+    if (view) {
+      setHeaderInfo(PatientTable.headerData(
+        selectedMeasures,
+        store.info,
+      ));
+    } else {
+      setHeaderInfo(MeasureTable.headerData(isComposite));
+    }
+    setPatientView(view);
+  }
 
   const handleSelectedMeasureChange = (event) => {
     let newSelectedMeasures;
@@ -277,9 +295,9 @@ function D3Container({
                 color="primary"
                 variant="text"
                 className="d3-container__table-selection-buttons"
-                value={patientView}
+                value={isPatientView}
                 exclusive
-                onChange={() => setPatientView(!patientView)}
+                onChange={() => handleTabChange(!isPatientView)}
               >
                 <ToggleButton value={false} className="d3-container__table-selection-button">
                   Overview
@@ -290,7 +308,7 @@ function D3Container({
               </ToggleButtonGroup>
             </Grid>
           )}
-        { patientView
+        { isPatientView
           ? (
             <>
               <TableFilterPanel
@@ -300,34 +318,47 @@ function D3Container({
                 handleTableFilterChange={handleTableFilterChange}
               />
               <DisplayTable
-                tableType="patient"
-                rowData={PatientTable.formatData(
+                headerInfo={headerInfo}
+                pageSize={PatientTable.pageSize}
+                useCheckBox={false}
+              >
+                {PatientTable.formatData(
                   patientResults,
                   selectedMeasures,
                   store.info,
                   tableFilter,
-                )}
-                headerInfo={PatientTable.headerData(
-                  selectedMeasures,
-                  store.info,
-                )}
-                pageSize={PatientTable.pageSize}
-                useCheckBox={false}
-              />
+                ).map((item) => (
+                  <PatientTableRow
+                    key={`patient-table-row-${item.value}`}
+                    rowDataItem={item}
+                    headerInfo={headerInfo}
+                  />
+                ))}
+              </DisplayTable>
             </>
           )
           : (
             <DisplayTable
-              tableType="measure"
-              rowData={MeasureTable.formatData(currentResults)}
-              headerInfo={MeasureTable.headerData(isComposite)}
+              headerInfo={headerInfo}
               pageSize={MeasureTable.pageSize}
               useCheckBox
               selectedRows={selectedMeasures}
               colorMapping={colorMap}
               handleTableFilterChange={handleTableFilterChange}
               handleCheckBoxChange={handleSelectedMeasureChange}
-            />
+            >
+              {MeasureTable.formatData(currentResults).map((item) => (
+                <MeasureTableRow
+                  key={`measure-table-row-${item.value}`}
+                  rowDataItem={item}
+                  headerInfo={headerInfo}
+                  useCheckBox
+                  handleCheckBoxEvent={handleSelectedMeasureChange}
+                  rowSelected={selectedMeasures.includes(item.value)}
+                  color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
+                />
+              ))}
+            </DisplayTable>
           )}
       </Grid>
     </div>

@@ -190,13 +190,13 @@ function MemberReport({ id }) {
                 pageSize={ReportTable.pageSize}
                 useCheckBox={false}
               >
-                {rowData.map((item) => 
+                {rowData.map((item) => (
                   <ReportTableRow
                     key={`report-table-row-${item.value}`}
                     rowDataItem={item}
                     headerInfo={ReportTable.headerData}
                   />
-                )}
+                ))}
               </DisplayTable>
             </Box>
           </AccordionDetails>
