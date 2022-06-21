@@ -12,7 +12,6 @@ import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultR
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
 
-// EXPERIMENTAL IMPORTS
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
 import env from '../../env';
@@ -213,11 +212,9 @@ function D3Container({
     setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
   }
 
-  // THIS UPDATES OUR TAB VIEW
   const [tabValue, setTabValue] = React.useState('overview');
 
-  // SETTER FOR TAB VIEW
-  const handleChange = (e, newValue) => {
+  const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
   };
 
@@ -276,20 +273,17 @@ function D3Container({
 
       <Grid className="d3-container__bottom-display">
 
-        {/* EXPERIMENTAL */}
         <Box className="d3-container__overview-member-chart">
           <TabContext value={tabValue}>
 
-            {/* Selection Tabs */}
             <Box className="d3-container__table-tab-bar">
-              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem' }} onChange={handleChange} aria-label="overview and members tabs">
+              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem' }} onChange={handleTabChange} aria-label="overview and members tabs">
                 <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
                 <Tab className="d3-container__table-selection-button" label="Members" value="members" />
               </TabList>
             </Box>
 
             <TabPanel value="overview">
-              {/* Overview Content */}
               <Grid className="d3-container__measure-selector">
 
                 <Typography className="d3-container__selector-title">Detailed View:</Typography>
@@ -313,7 +307,6 @@ function D3Container({
             </TabPanel>
 
             <TabPanel value="members">
-              {/* Members Content */}
               <>
                 <TableFilterPanel
                   measure={activeMeasure.measure}
