@@ -281,8 +281,8 @@ function D3Container({
           <TabContext value={tabValue}>
 
             {/* Selection Tabs */}
-            <Box className="d3-container__table-tab-bar" >
-              <TabList TabIndicatorProps={{ style: {backgroundColor: "transparent"}}} sx={{marginLeft: "8rem"}} onChange={handleChange} aria-label="overview and members tabs" >
+            <Box className="d3-container__table-tab-bar">
+              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem' }} onChange={handleChange} aria-label="overview and members tabs">
                 <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
                 <Tab className="d3-container__table-selection-button" label="Members" value="members" />
               </TabList>
@@ -291,7 +291,6 @@ function D3Container({
             <TabPanel value="overview">
               {/* Overview Content */}
               <Grid className="d3-container__measure-selector">
-                {/* MEMBER SEARCH BAR AND ICON GOES HERE */}
 
                 <Typography className="d3-container__selector-title">Detailed View:</Typography>
                 <MeasureSelector
