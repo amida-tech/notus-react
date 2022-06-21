@@ -4,13 +4,16 @@ $block-class: 'd3-container';
 
 @at-root {
     .#{$block-class} {
-
-        & &__table-toggle {
-            background-color: $blue-dark;
+        
+        & &__overview-member-chart {
+            margin: 0 -1rem;
+            border: $blue-dark solid 1px;
+            border-radius: 2px 2px 0px 0px;
         }
 
-        & &__table-selection-buttons {
-            padding-left: 4rem;
+        & &__table-tab-bar {
+            background-color: $blue-dark;
+            outline: $blue-dark solid 1px;
         }
 
         & &__table-selection-button {
@@ -21,21 +24,19 @@ $block-class: 'd3-container';
             border: unset;
             text-transform: capitalize;
             font-size: 1.5rem;
-            margin: 1rem 2rem;
-            transition: .2s;
+            margin: 1rem .5rem;
         }
 
         & &__table-selection-button:hover, :focus {
-            border-radius: 0.5rem !important;
+            border-radius: 0.5rem;
         }
 
         & &__table-selection-button.Mui-selected {
             color: $blue-light-2;
             background-color: $blue-light;
-            border-radius: 0.5rem !important;
+            border-radius: 0.5rem;
             height: 2rem;
             place-self: center;
-            border: unset;
         }
 
         & &__chart-bar {
@@ -117,7 +118,9 @@ $block-class: 'd3-container';
         }
 
         &__bottom-display {
-            border: 1px solid $default-black;
+            border-radius: 3px;
+            border: $blue-light;
+            padding: 0 1rem;
         }
     }
 }

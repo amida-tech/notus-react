@@ -1,13 +1,19 @@
 import React, {
   createContext, useState, useEffect,
 } from 'react';
+
 import { useHistory } from 'react-router-dom';
+
 import {
-  Grid, Typography, ToggleButtonGroup, ToggleButton,
+  Grid, Typography, Box, Tab,
 } from '@mui/material';
+
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
+
+import { TabContext, TabList, TabPanel } from '@mui/lab';
+
 import env from '../../env';
 import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
@@ -15,6 +21,7 @@ import ChartBar from './ChartBar';
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
+
 import ColorMapping from '../Utilities/ColorMapping';
 import MeasureTable from '../Utilities/MeasureTable';
 import PatientTable from '../Utilities/PatientTable';
@@ -52,7 +59,6 @@ const colorArray = [
   '#661100',
   '#6699CC',
   '#888888',
-
 ];
 
 // If nothing set, select all.
@@ -96,7 +102,6 @@ function D3Container({
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
-  const [isPatientView, setPatientView] = useState(false);
   const [patientResults, setPatientResults] = useState([]);
   const [tableFilter, setTableFilter] = useState('');
   const [headerInfo, setHeaderInfo] = useState([]);
@@ -116,7 +121,6 @@ function D3Container({
       value: item.measure,
       color: index <= 11 ? colorArray[index] : colorArray[index % 11],
     }));
-    setPatientView(false);
     setCurrentTimeline(defaultTimelineState);
     setCurrentFilters(defaultFilterState);
     if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
@@ -175,16 +179,6 @@ function D3Container({
     setDisplayData(newDisplayData);
   };
 
-  // Maud, I know you're working to add tabs, so naming this accordingly.
-  const handleTabChange = (view) => { // Change from boolean to tab index or enum.
-    if (view) {
-      setHeaderInfo(PatientTable.headerData(selectedMeasures, store.info));
-    } else {
-      setHeaderInfo(MeasureTable.headerData(isComposite));
-    }
-    setPatientView(view);
-  }
-
   const handleSelectedMeasureChange = (event) => {
     let newSelectedMeasures;
     if (event.target.checked) {
@@ -218,6 +212,17 @@ function D3Container({
     setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
   }
 
+  const [tabValue, setTabValue] = React.useState('overview');
+
+  const handleTabChange = (_e, newValue) => {
+    setTabValue(newValue);
+    if (newValue === 'members') {
+      setHeaderInfo(PatientTable.headerData(selectedMeasures, store.info));
+    } else {
+      setHeaderInfo(MeasureTable.headerData(isComposite));
+    }
+  };
+
   return (
     <div className="d3-container">
       <FilterDrawer
@@ -233,7 +238,7 @@ function D3Container({
             className="d3-container__return-link-display"
             onClick={() => {
               setComposite(true);
-              setPatientView(false);
+              setTabValue('overview');
               history.push('/');
             }}
           >
@@ -277,40 +282,48 @@ function D3Container({
           />
         </Grid>
       )}
+
       <Grid className="d3-container__bottom-display">
-        { isComposite
-          ? (
-            <Grid className="d3-container__measure-selector">
-              <Typography className="d3-container__selector-title">Detailed View: </Typography>
-              <MeasureSelector
-                measure={activeMeasure.measure}
-                currentResults={store.currentResults}
-                handleMeasureChange={handleMeasureChange}
-              />
-            </Grid>
-          )
-          : (
-            <Grid className="d3-container__table-toggle">
-              <ToggleButtonGroup
-                color="primary"
-                variant="text"
-                className="d3-container__table-selection-buttons"
-                value={isPatientView}
-                exclusive
-                onChange={() => handleTabChange(!isPatientView)}
+        <Box className="d3-container__overview-member-chart">
+          <TabContext value={tabValue}>
+            <Box className="d3-container__table-tab-bar">
+              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem' }} onChange={handleTabChange} aria-label="overview and members tabs">
+                <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+                {!isComposite && <Tab className="d3-container__table-selection-button" label="Members" value="members" />}
+              </TabList>
+            </Box>
+
+            <TabPanel value="overview">
+              <Grid className="d3-container__measure-selector">
+                <Typography className="d3-container__selector-title">Detailed View:</Typography>
+                <MeasureSelector
+                  measure={activeMeasure.measure}
+                  currentResults={store.currentResults}
+                  handleMeasureChange={handleMeasureChange}
+                />
+              </Grid>
+              <DisplayTable
+                headerInfo={headerInfo}
+                pageSize={MeasureTable.pageSize}
+                useCheckBox
+                selectedRows={selectedMeasures}
+                handleCheckBoxChange={handleSelectedMeasureChange}
               >
-                <ToggleButton value={false} className="d3-container__table-selection-button">
-                  Overview
-                </ToggleButton>
-                <ToggleButton value className="d3-container__table-selection-button">
-                  Members
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </Grid>
-          )}
-        { isPatientView
-          ? (
-            <>
+                {MeasureTable.formatData(currentResults).map((item) => (
+                  <MeasureTableRow
+                    key={`measure-table-row-${item.value}`}
+                    rowDataItem={item}
+                    headerInfo={headerInfo}
+                    useCheckBox
+                    handleCheckBoxEvent={handleSelectedMeasureChange}
+                    rowSelected={selectedMeasures.includes(item.value)}
+                    color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
+                  />
+                ))}
+              </DisplayTable>
+            </TabPanel>
+
+            <TabPanel value="members">
               <TableFilterPanel
                 measure={activeMeasure.measure}
                 patientResult={patientResults[0]}
@@ -335,29 +348,11 @@ function D3Container({
                   />
                 ))}
               </DisplayTable>
-            </>
-          )
-          : (
-            <DisplayTable
-              headerInfo={headerInfo}
-              pageSize={MeasureTable.pageSize}
-              useCheckBox
-              selectedRows={selectedMeasures}
-              handleCheckBoxChange={handleSelectedMeasureChange}
-            >
-              {MeasureTable.formatData(currentResults).map((item) => (
-                <MeasureTableRow
-                  key={`measure-table-row-${item.value}`}
-                  rowDataItem={item}
-                  headerInfo={headerInfo}
-                  useCheckBox
-                  handleCheckBoxEvent={handleSelectedMeasureChange}
-                  rowSelected={selectedMeasures.includes(item.value)}
-                  color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
-                />
-              ))}
-            </DisplayTable>
-          )}
+            </TabPanel>
+
+          </TabContext>
+        </Box>
+
       </Grid>
     </div>
   );
