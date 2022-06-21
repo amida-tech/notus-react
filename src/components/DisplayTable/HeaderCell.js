@@ -12,8 +12,8 @@ function HeaderCell({
   return (
     <Box className="display-table__title-align">
       <Typography className="display-table__title">
-          {text}
-        </Typography>
+        {text}
+      </Typography>
       {tooltip && (
       <ToolTip title={tooltip}>
         <HelpIcon className="display-table__help-icon" />
