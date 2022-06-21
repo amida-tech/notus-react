@@ -23,13 +23,8 @@ function MeasureTableRow({
         {headerInfo.map((fieldInfo) => (
           <Grid
             item
-            className="measure-table-row__data-align"
+            className={`measure-table-row__data-align measure-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
-            sx={{
-              flexBasis: `${fieldInfo.flexBasis}%`,
-              justifyContent: fieldInfo.alignContent,
-              textAlign: fieldInfo.alignContent,
-            }}
           >
             <Typography variant="caption" className="measure-table-row__data">
               {fieldInfo.link && rowDataItem.value !== 'composite'
@@ -58,7 +53,7 @@ MeasureTableRow.propTypes = {
     PropTypes.shape({
       text: PropTypes.string,
       tooltip: PropTypes.string,
-      flexBasis: PropTypes.number,
+      flexBasis: PropTypes.string,
     }),
   ),
   useCheckBox: PropTypes.bool,

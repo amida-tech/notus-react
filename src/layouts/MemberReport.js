@@ -15,6 +15,7 @@ import Info from '../components/Common/Info';
 import DisplayTable from '../components/DisplayTable/DisplayTable';
 import { updateTimestamp, getDatestamp, getAge } from '../components/Utilities/GeneralUtil';
 import ReportTable from '../components/Utilities/ReportTable';
+import ReportTableRow from '../components/DisplayTable/ReportTableRow';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import env from '../env';
 
@@ -29,6 +30,7 @@ function MemberReport({ id }) {
   const { datastore } = useContext(DatastoreContext);
   const [memberInfo, setMemberInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
     axios.get(`${memberQueryUrl}?memberId=${id}`)
@@ -40,6 +42,11 @@ function MemberReport({ id }) {
   useEffect(() => {
     if (Object.keys(datastore.info).length > 0 && memberInfo.measurementType !== undefined) {
       setIsLoading(datastore.isLoading);
+      setRowData(ReportTable.formatData(
+        memberInfo,
+        memberInfo.measurementType,
+        datastore.info,
+      ));
     }
   }, [datastore, memberInfo]);
 
@@ -178,16 +185,20 @@ function MemberReport({ id }) {
             </Typography>
             <Box className="member-report__table-display">
               <DisplayTable
-                tableType="report"
-                rowData={ReportTable.formatData(
-                  memberInfo,
-                  memberInfo.measurementType,
-                  datastore.info,
-                )}
+                rowData={rowData}
                 headerInfo={ReportTable.headerData}
                 pageSize={ReportTable.pageSize}
                 useCheckBox={false}
-              />
+                invertedColor
+              >
+                {rowData.map((item) => (
+                  <ReportTableRow
+                    key={`report-table-row-${item.value}`}
+                    rowDataItem={item}
+                    headerInfo={ReportTable.headerData}
+                  />
+                ))}
+              </DisplayTable>
             </Box>
           </AccordionDetails>
         </Accordion>

@@ -6,51 +6,51 @@ const headerData = [
   {
     key: 'measure',
     header: 'Measure',
-    flexBasis: 'standard',
+    flexBasis: 'small',
     rowType: 'text',
   },
   {
     key: 'type',
     header: 'Type',
-    flexBasis: 'standard',
+    flexBasis: 'small',
     rowType: 'text',
   },
   {
     key: 'status',
     header: 'Status',
-    flexBasis: 'standard',
+    flexBasis: 'small',
     rowType: 'icon',
     extraInfo: true, // Has compliance subtitle.
   },
   {
     key: 'exclusions',
     header: 'Exclusions',
-    flexBasis: 'standard',
+    flexBasis: 'small',
     rowType: 'icon',
   },
   {
     key: 'practitioner',
     header: 'Practitioner',
-    flexBasis: 'standard',
+    flexBasis: 'small',
     rowType: 'array',
   },
   {
     key: 'dates',
     header: 'Dates',
-    flexBasis: 'standard',
+    flexBasis: 'small',
     rowType: 'array',
   },
   {
     key: 'conditions',
     header: 'Conditions',
-    flexBasis: 'extended',
+    flexBasis: 'large',
     rowType: 'array',
     extraInfo: true, // Has icons.
   },
   {
     key: 'recommendations',
     header: 'Recommendations',
-    flexBasis: 'extended',
+    flexBasis: 'large',
     rowType: 'text',
   },
 ]

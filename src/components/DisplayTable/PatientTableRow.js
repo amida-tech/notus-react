@@ -38,17 +38,12 @@ function PatientTableRow({
 }) {
   return (
     <Box className="patient-table-row">
-      <Grid container className="patient-table-row__row-section">
+      <Grid container className={`patient-table-row__row-section ${headerInfo.length > 10 && 'patient-table-row__row-section--wide'} `}>
         {headerInfo.map((fieldInfo) => (
           <Grid
             item
-            className="patient-table-row__data-align"
-            key={fieldInfo.key}
-            sx={{
-              flexBasis: `${fieldInfo.flexBasis}%`,
-              justifyContent: fieldInfo.alignContent,
-              textAlign: fieldInfo.alignContent,
-            }}
+            className={`patient-table-row__data-align patient-table-row__data-align--${fieldInfo.flexBasis}`}
+            key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
             <Typography variant="caption" className="patient-table-row__data">
               {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem)}
@@ -69,7 +64,7 @@ PatientTableRow.propTypes = {
     PropTypes.shape({
       text: PropTypes.string,
       tooltip: PropTypes.string,
-      flexBasis: PropTypes.number,
+      flexBasis: PropTypes.string,
     }),
   ),
 };

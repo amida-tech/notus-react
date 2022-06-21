@@ -4,6 +4,7 @@ $block-class: 'patient-table-row';
 
 @at-root {
     .#{$block-class} {
+
         & &__divider {
             background-color: $blue-grey-lighten-3;
         }
@@ -14,15 +15,41 @@ $block-class: 'patient-table-row';
             display: flex;
             width: 100%;
             padding: 0.2rem;
+            flex-wrap: nowrap;
+            // border-bottom: 1px solid $blue-grey-lighten-3;
+
+            &--wide {
+                justify-content: flex-start;
+            }
         }
 
         & &__data-align {
             display: flex;
             justify-content: center;
             padding: 1rem;
-            min-width: 7%;
+            min-width: 10%;
             margin: auto;
             word-wrap: break-word;
+
+            &--smaller {
+                flex-basis: 5%;
+            }
+
+            &--small {
+                flex-basis: 10%;
+            }
+
+            &--standard {
+                flex-basis: 14%;
+            }
+
+            &--medium {
+                flex-basis: 15%;
+            }
+
+            &--larger {
+                flex-basis: 22%;
+            }
         }
 
         & &__data-align-small {
