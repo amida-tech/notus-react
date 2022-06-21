@@ -343,8 +343,6 @@ function D3Container({
               pageSize={MeasureTable.pageSize}
               useCheckBox
               selectedRows={selectedMeasures}
-              colorMapping={colorMap}
-              handleTableFilterChange={handleTableFilterChange}
               handleCheckBoxChange={handleSelectedMeasureChange}
             >
               {MeasureTable.formatData(currentResults).map((item) => (

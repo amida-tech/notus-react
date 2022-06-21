@@ -189,6 +189,7 @@ function MemberReport({ id }) {
                 headerInfo={ReportTable.headerData}
                 pageSize={ReportTable.pageSize}
                 useCheckBox={false}
+                invertedColor
               >
                 {rowData.map((item) => (
                   <ReportTableRow
