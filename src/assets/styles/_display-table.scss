@@ -7,6 +7,7 @@ $block-class: 'display-table';
 @at-root {
     .#{$block-class} {
         color: $blue-grey-darken-1;
+        width: auto;
         overflow-x: auto;
 
         & &__header-section {
@@ -87,6 +88,10 @@ $block-class: 'display-table';
             width: 100%;
         }
 
+        & &__row:nth-of-type(2n) {
+            background-color: $blue-grey-lighten-5;
+        }
+
         & &__header-divider {
           width: 100%;
           background-color: $blue-grey-lighten-3;
@@ -95,6 +100,7 @@ $block-class: 'display-table';
 
         & &__pagination {
             color: $default-black;
+            margin-left: auto;
         }
     }
 

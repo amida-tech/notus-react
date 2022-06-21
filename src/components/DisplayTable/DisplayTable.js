@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import TablePagination from '@mui/material/TablePagination';
-import usePagination from '../Utilities/PaginationUtil';
 import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
 
@@ -67,11 +66,11 @@ function DisplayTable({
           {child}
         </Grid>
       ))}
-      {pageCount > 0 && (
+      {pageCount > 1 && (
       <StyledEngineProvider injectFirst>
         <TablePagination
           component="div"
-          rowsPerPageOptions={[5, 10]}
+          rowsPerPageOptions={[5, 10, pageSize]}
           count={children.length}
           page={currentPage}
           onPageChange={handleChangePage}
