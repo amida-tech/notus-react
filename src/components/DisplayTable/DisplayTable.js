@@ -24,7 +24,7 @@ function DisplayTable({
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(pageSize);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (_event, newPage) => {
     setCurrentPage(newPage);
   };
 
