@@ -25,11 +25,11 @@ $block-class: 'report-table-row';
             align-content: center;
             text-align: center;
 
-            &--standard {
+            &--small {
                 flex-basis: 10%;
             }
 
-            &--extended {
+            &--large {
                 flex-basis: 20%;
             }
         }
