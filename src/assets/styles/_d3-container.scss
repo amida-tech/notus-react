@@ -4,7 +4,6 @@ $block-class: 'd3-container';
 
 @at-root {
     .#{$block-class} {
-        
         & &__overview-member-chart {
             margin: 0 -1rem;
             border: $blue-dark solid 1px;
