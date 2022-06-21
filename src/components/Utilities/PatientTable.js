@@ -60,7 +60,7 @@ const formatData = (patientResults, activeMeasure, storeInfo, tableFilter) => {
         patientResultArray.push({
           memberID: patientResult.memberId,
           measure: subMeasures[index + 1],
-          label: storeInfo[subMeasures[index + 1]].displayLabel,
+          label: storeInfo[subMeasures[index + 1]]?.displayLabel,
           value: result,
         });
       });
