@@ -1,5 +1,5 @@
 import {
-  Divider, Grid, Box, Typography,
+  Grid, Box, Typography,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -51,7 +51,7 @@ function PatientTableRow({
           </Grid>
         ))}
       </Grid>
-      <Divider className="patient-table-row__divider" />
+
     </Box>
   )
 }

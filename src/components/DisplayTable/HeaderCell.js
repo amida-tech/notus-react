@@ -3,7 +3,6 @@ import {
 } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
-import HelpIcon from '@mui/icons-material/Help';
 import ToolTip from '@mui/material/Tooltip';
 
 function HeaderCell({
@@ -11,12 +10,11 @@ function HeaderCell({
 }) {
   return (
     <Box className="display-table__title-align">
-      <Typography className="display-table__title">
-        {text}
-      </Typography>
       {tooltip && (
       <ToolTip title={tooltip}>
-        <HelpIcon className="display-table__help-icon" />
+        <Typography className="display-table__title">
+          {text}
+        </Typography>
       </ToolTip>
       )}
     </Box>
