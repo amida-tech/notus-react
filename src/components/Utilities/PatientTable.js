@@ -5,10 +5,6 @@ const pageSize = 10;
 
 // These will change based on the measurement.
 const headerData = (selectedMeasures, storeInfo) => {
-  let headerFlexBasis = 'larger'; // medium was 15 here, replacing with 14 to gauge results.
-  if (selectedMeasures.length > 4) {
-    headerFlexBasis = selectedMeasures.length >= 6 ? 'small' : 'medium';
-  }
   let standardFlexBasis = 'medium';
   if (selectedMeasures.length > 4) {
     standardFlexBasis = selectedMeasures.length >= 6 ? 'smaller' : 'small';
@@ -20,7 +16,7 @@ const headerData = (selectedMeasures, storeInfo) => {
       link: true,
       header: 'MemberID',
       tooltip: memberIdTip,
-      flexBasis: headerFlexBasis,
+      flexBasis: 'larger',
     },
   ];
   selectedMeasures.forEach((measureName) => {
