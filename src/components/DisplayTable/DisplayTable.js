@@ -1,9 +1,10 @@
 import {
-  Divider, Grid, Pagination, PaginationItem,
+  Divider, Grid,
 } from '@mui/material';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
+import TablePagination from '@mui/material/TablePagination';
 import usePagination from '../Utilities/PaginationUtil';
 import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
@@ -17,16 +18,20 @@ function DisplayTable({
   handleCheckBoxChange,
   children,
 }) {
-  const [currentPage, setCurrentPage] = useState(1);
-
   let pageCount = 0;
   if (pageSize) {
     pageCount = Math.ceil(children.length / pageSize);
   }
-  const pageData = usePagination(children, pageSize);
-  const handleChange = (_e, p) => {
-    setCurrentPage(p);
-    pageData.jump(p);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(pageSize);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setCurrentPage(0);
   };
 
   return (
@@ -50,7 +55,10 @@ function DisplayTable({
         ))}
       </Grid>
       <Divider className="display-table__header-divider" />
-      { pageData.currentData().map((child) => (
+      { children.slice(
+        currentPage * rowsPerPage,
+        currentPage * rowsPerPage + rowsPerPage,
+      ).map((child) => (
         <Grid
           item
           className="display-table__row"
@@ -61,21 +69,15 @@ function DisplayTable({
       ))}
       {pageCount > 0 && (
       <StyledEngineProvider injectFirst>
-        <Pagination
-          count={pageCount}
-          size="large"
+        <TablePagination
+          component="div"
+          rowsPerPageOptions={[5, 10]}
+          count={children.length}
           page={currentPage}
-          variant="outlined"
-          shape="rounded"
-          onChange={handleChange}
-          classes={{ root: '.MuiPagination-root' }}
-          renderItem={(item) => (
-            <PaginationItem
-              // eslint-disable-next-line react/jsx-props-no-spreading
-              {...item}
-              classes={{ root: '.MuiPaginationItem-root' }}
-            />
-          )}
+          onPageChange={handleChangePage}
+          className="display-table__pagination"
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </StyledEngineProvider>
       )}
