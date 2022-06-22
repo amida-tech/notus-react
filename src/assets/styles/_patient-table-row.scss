@@ -5,9 +5,6 @@ $block-class: 'patient-table-row';
 @at-root {
     .#{$block-class} {
         background-color: inherit;
-        & &__divider {
-            background-color: $blue-grey-lighten-3;
-        }
 
         & &__row-section {
             align-items: center;
