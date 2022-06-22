@@ -1,6 +1,6 @@
 const { getMeasureCompliance } = require('./GeneralUtil');
 
-const memberIdTip = 'The patient\'s member ID.';
+const memberIdTip = 'The member\'s member ID.';
 const pageSize = 10;
 
 // These will change based on the measurement.
@@ -42,23 +42,23 @@ const allValuesEqual = (valueArray) => {
   return true;
 }
 
-const formatData = (patientResults, activeMeasure, storeInfo, tableFilter) => {
+const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   const formattedData = [];
   const subMeasures = Object.keys(storeInfo).filter((item) => item.includes(activeMeasure));
-  patientResults.forEach((patientResult) => {
-    const patientResultArray = [];
-    const complianceResult = getMeasureCompliance(patientResult);
+  memberResults.forEach((memberResult) => {
+    const memberResultArray = [];
+    const complianceResult = getMeasureCompliance(memberResult);
     if (complianceResult.length === 1) {
-      patientResultArray.push({
-        memberID: patientResult.memberId,
+      memberResultArray.push({
+        memberID: memberResult.memberId,
         measure: subMeasures[0],
         label: storeInfo[subMeasures[0]].displayLabel,
         value: complianceResult[0],
       });
     } else {
       complianceResult.forEach((result, index) => {
-        patientResultArray.push({
-          memberID: patientResult.memberId,
+        memberResultArray.push({
+          memberID: memberResult.memberId,
           measure: subMeasures[index + 1],
           label: storeInfo[subMeasures[index + 1]]?.displayLabel,
           value: result,
@@ -67,17 +67,17 @@ const formatData = (patientResults, activeMeasure, storeInfo, tableFilter) => {
     }
 
     const formattedResult = {
-      value: patientResult.memberId,
-      label: patientResult.memberId,
-      type: 'patient',
+      value: memberResult.memberId,
+      label: memberResult.memberId,
+      type: 'member',
     }
 
-    if (patientResultArray.length === 1) {
-      formattedResult[subMeasures[0]] = patientResultArray[0].value.toString()
+    if (memberResultArray.length === 1) {
+      formattedResult[subMeasures[0]] = memberResultArray[0].value.toString()
     } else {
-      formattedResult[subMeasures[0]] = allValuesEqual(patientResultArray).toString();
+      formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
       for (let k = 1; k < subMeasures.length; k += 1) {
-        formattedResult[subMeasures[k]] = patientResultArray[k - 1].value.toString();
+        formattedResult[subMeasures[k]] = memberResultArray[k - 1].value.toString();
       }
     }
 

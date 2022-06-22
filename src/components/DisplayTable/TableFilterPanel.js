@@ -4,7 +4,7 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const patientComplianceItems = [
+const memberComplianceItems = [
   { label: '1 Non-Compliant Submeasure', value: 'one' },
   { label: '2 Non-Compliant Submeasures', value: 'two' },
   { label: 'More than 2 Non-Compliant Submeasures', value: 'many' },
@@ -13,17 +13,17 @@ const patientComplianceItems = [
 const numeratorValues = ['id', 'Numerator 2', 'Numerator 3'];
 
 function TableFilterPanel({
-  measure, patientResult, tableFilter, handleTableFilterChange,
+  measure, memberResult, tableFilter, handleTableFilterChange,
 }) {
-  const numeratorCheck = patientResult[
-    Object.keys(patientResult).find((key) => key.startsWith(measure))];
+  const numeratorCheck = memberResult[
+    Object.keys(memberResult).find((key) => key.startsWith(measure))];
   return (
     <Box className="table-filter-panel">
       <FormGroup className="table-filter-panel__button-panel">
         <Typography className="table-filter-panel__label">
           Member Compliance:
         </Typography>
-        {patientComplianceItems.map((item, index) => (
+        {memberComplianceItems.map((item, index) => (
           <FormControlLabel
             key={`table-filter-panel-${item.value}`}
             componentsProps={{ typography: { className: 'table-filter-panel__filter-item' } }}
@@ -47,14 +47,14 @@ function TableFilterPanel({
 
 TableFilterPanel.propTypes = {
   measure: PropTypes.string,
-  patientResult: PropTypes.shape({}),
+  memberResult: PropTypes.shape({}),
   tableFilter: PropTypes.string,
   handleTableFilterChange: PropTypes.func,
 };
 
 TableFilterPanel.defaultProps = {
   measure: '',
-  patientResult: {},
+  memberResult: {},
   tableFilter: '',
   handleTableFilterChange: () => undefined,
 }

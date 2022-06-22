@@ -24,9 +24,9 @@ import FilterDrawer from '../FilterMenu/FilterDrawer';
 
 import ColorMapping from '../Utilities/ColorMapping';
 import MeasureTable from '../Utilities/MeasureTable';
-import PatientTable from '../Utilities/PatientTable';
+import MemberTable from '../Utilities/MemberTable';
 import MeasureTableRow from '../DisplayTable/MeasureTableRow';
-import PatientTableRow from '../DisplayTable/PatientTableRow';
+import MemberTableRow from '../DisplayTable/MemberTableRow';
 import {
   storeProps,
   activeMeasureProps,
@@ -102,7 +102,7 @@ function D3Container({
   const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
-  const [patientResults, setPatientResults] = useState([]);
+  const [memberResults, setMemberResults] = useState([]);
   const [tableFilter, setTableFilter] = useState('');
   const [headerInfo, setHeaderInfo] = useState([]);
 
@@ -130,7 +130,7 @@ function D3Container({
       setSelectedMeasures(store.currentResults.map((result) => result.measure));
       setColorMap(baseColorMap);
       setFilterDisabled(false);
-      setPatientResults([]);
+      setMemberResults([]);
       setTableFilter('');
       setHeaderInfo(MeasureTable.headerData(true));
     } else {
@@ -146,11 +146,11 @@ function D3Container({
   }, [activeMeasure, isComposite, store]);
 
   useEffect(() => {
-    if (!isComposite && patientResults.length === 0) {
-      const patientUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${activeMeasure.measure}`);
-      const patientsPromise = axios.get(patientUrl);
-      Promise.all([patientsPromise]).then((values) => {
-        setPatientResults(values[0].data);
+    if (!isComposite && memberResults.length === 0) {
+      const memberUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${activeMeasure.measure}`);
+      const membersPromise = axios.get(memberUrl);
+      Promise.all([membersPromise]).then((values) => {
+        setMemberResults(values[0].data);
       });
     }
   })
@@ -217,7 +217,7 @@ function D3Container({
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
     if (newValue === 'members') {
-      setHeaderInfo(PatientTable.headerData(selectedMeasures, store.info));
+      setHeaderInfo(MemberTable.headerData(selectedMeasures, store.info));
     } else {
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
@@ -326,23 +326,23 @@ function D3Container({
             <TabPanel value="members">
               <TableFilterPanel
                 measure={activeMeasure.measure}
-                patientResult={patientResults[0]}
+                memberResult={memberResults[0]}
                 tableFilter={tableFilter}
                 handleTableFilterChange={handleTableFilterChange}
               />
               <DisplayTable
                 headerInfo={headerInfo}
-                pageSize={PatientTable.pageSize}
+                pageSize={MemberTable.pageSize}
                 useCheckBox={false}
               >
-                {PatientTable.formatData(
-                  patientResults,
+                {MemberTable.formatData(
+                  memberResults,
                   activeMeasure.measure,
                   store.info,
                   tableFilter,
                 ).map((item) => (
-                  <PatientTableRow
-                    key={`patient-table-row-${item.value}`}
+                  <MemberTableRow
+                    key={`member-table-row-${item.value}`}
                     rowDataItem={item}
                     headerInfo={headerInfo}
                   />
