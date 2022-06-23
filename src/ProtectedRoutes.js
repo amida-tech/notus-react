@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import PropTypes from 'prop-types';
+import ScrollToTop from './components/Utilities/ScrollToTop'
 import Navbar from './components/Common/Navbar'
 import Footer from './components/Common/Footer';
 import theme from './assets/styles/AppTheme';
@@ -16,6 +17,7 @@ export default function ProtectedRoute({ authenticated }) {
     <DatastoreProvider>
       <ThemeProvider theme={theme}>
         <Navbar />
+        <ScrollToTop />
         <Switch>
           <Route path="/reports" component={Reports} />
           <Route path="/member/:id" render={({ match }) => <MemberReport id={match.params.id} />} />

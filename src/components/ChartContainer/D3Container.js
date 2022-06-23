@@ -25,6 +25,7 @@ import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ColorMapping from '../Utilities/ColorMapping';
 import MeasureTable from '../Utilities/MeasureTable';
 import PatientTable from '../Utilities/PatientTable';
+
 import MeasureTableRow from '../DisplayTable/MeasureTableRow';
 import PatientTableRow from '../DisplayTable/PatientTableRow';
 import {
