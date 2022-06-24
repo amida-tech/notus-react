@@ -287,7 +287,7 @@ function D3Container({
         <Box className="d3-container__overview-member-chart">
           <TabContext value={tabValue}>
             <Box className="d3-container__table-tab-bar">
-              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem' }} onChange={handleTabChange} aria-label="overview and members tabs">
+              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
                 <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
                 {!isComposite && <Tab className="d3-container__table-selection-button" label="Members" value="members" />}
               </TabList>
