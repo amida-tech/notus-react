@@ -55,9 +55,9 @@ const headerData = [
   },
 ]
 
-const formatData = (patientData, selectedMeasure, storeInfo) => {
-  const complianceResult = getMeasureCompliance(patientData);
-  const measureData = patientData[patientData.memberId];
+const formatData = (memberData, selectedMeasure, storeInfo) => {
+  const complianceResult = getMeasureCompliance(memberData);
+  const measureData = memberData[memberData.memberId];
   const measureList = Object.keys(storeInfo).filter((key) => key.includes(selectedMeasure));
 
   const formattedData = [];
