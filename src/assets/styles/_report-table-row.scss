@@ -4,9 +4,6 @@ $block-class: 'report-table-row';
 
 @at-root {
     .#{$block-class} {
-        & &__divider {
-            background-color: $blue-grey-lighten-3;
-        }
 
         & &__row-section {
             justify-content: space-evenly;
