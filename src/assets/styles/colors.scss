@@ -4,15 +4,16 @@ $default-green: #2E7D32;
 $default-black: #263238;
 $default-mint: #3EB489;
 
+// this can be integrated into the main palette
 $gray-main: #616161;
 $gray-light: #CFDFDC;
 $gray-dark: #666666;
 
-$blue-main: #4269f5;
-$blue-light: #1976D2;
-$blue-light-2: #DFF4FC;
-$blue-denim: #0a65bf;
-$blue-dark: #162f8a;
+$blue-light: #1976D2; // good background/main color for components
+$blue-light-2: #DFF4FC; // good background/secondary color with blue-light under it
+$blue-light-2-transparent: #dff4fc40; //niche hover case color
+$blue-today: #4269f5; // used only for 'today' on MUI chart currently, not our true main
+$blue-dark: #162f8a; //outline for blue-light components
 
 $y-axis-line-color: #cfd8dc;
 $axis-label-color: #b0bec5;
