@@ -19,7 +19,7 @@ import ReportTableRow from '../components/DisplayTable/ReportTableRow';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import env from '../env';
 
-const generalInfoTip = 'The basic information about this patient, including provider and payor information.';
+const generalInfoTip = 'The basic information about this member, including provider and payor information.';
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
 
 const axios = require('axios').default;
@@ -69,7 +69,7 @@ function MemberReport({ id }) {
         </Button>
       </Box>
       <Box className="member-report__info-display">
-        <Grid className="member-report__patient-card">
+        <Grid className="member-report__member-card">
           <Box className="member-report__info-field">
             <Typography className="member-report__info-label">
               MemberID:&nbsp;
@@ -111,7 +111,7 @@ function MemberReport({ id }) {
           </Box>
         </Grid>
         {memberInfo.coverage && memberInfo.coverage.map((insurance) => (
-          <Grid key={`insurance-card-${insurance.id.value}`} className="member-report__patient-card">
+          <Grid key={`insurance-card-${insurance.id.value}`} className="member-report__member-card">
             <Box className="member-report__info-field">
               <Typography className="member-report__info-label">
                 Policy ID:&nbsp;

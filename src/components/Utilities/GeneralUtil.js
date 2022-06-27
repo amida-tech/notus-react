@@ -16,16 +16,16 @@ const getAge = (date) => {
   return Math.floor(ageInMilliseconds / msInAYear);
 }
 
-const getNumDenValue = (patientValue) => {
-  if (Array.isArray(patientValue)) {
-    return patientValue.length;
+const getNumDenValue = (memberValue) => {
+  if (Array.isArray(memberValue)) {
+    return memberValue.length;
   }
-  return patientValue === true ? 1 : 0;
+  return memberValue === true ? 1 : 0;
 }
 
-const getMeasureCompliance = (patientResult) => {
-  const patientDetails = patientResult[patientResult.memberId];
-  const detailKeys = Object.keys(patientDetails);
+const getMeasureCompliance = (memberResult) => {
+  const memberDetails = memberResult[memberResult.memberId];
+  const detailKeys = Object.keys(memberDetails);
   const numeratorsFound = [];
   const complianceResult = [];
   detailKeys.forEach((key) => {
@@ -34,14 +34,14 @@ const getMeasureCompliance = (patientResult) => {
     }
   });
   numeratorsFound.forEach((numerator, index) => {
-    const numValue = getNumDenValue(patientDetails[numerator]);
+    const numValue = getNumDenValue(memberDetails[numerator]);
     let denValue = 0;
     let useIndex = 0;
     if (numeratorsFound.length === 1) {
-      denValue = getNumDenValue(patientDetails.Denominator);
+      denValue = getNumDenValue(memberDetails.Denominator);
     } else {
       useIndex = index + 1;
-      denValue = getNumDenValue(patientDetails[`Denominator ${useIndex}`]);
+      denValue = getNumDenValue(memberDetails[`Denominator ${useIndex}`]);
     }
     complianceResult.push(numValue === denValue);
   });
