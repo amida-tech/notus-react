@@ -1,8 +1,8 @@
 const measureTip = 'The actual measure. At the moment, these are always HEDIS measures.';
 const remainingInclusionsTip = 'The population remaining after exclusions are removed.';
-const eligiblePopulationTip = 'The population of patients who are eligible for this measure.';
-const numeratorTip = 'The number of patients who have satisfied the criteria for this measure.';
-const denominatorTip = 'The population of patients who are eligible for this measure. Currently the same as Eligible Population.';
+const eligiblePopulationTip = 'The population of members who are eligible for this measure.';
+const numeratorTip = 'The number of members who have satisfied the criteria for this measure.';
+const denominatorTip = 'The population of members who are eligible for this measure. Currently the same as Eligible Population.';
 const availableExclusionsTip = 'The population that can be excluded based on criteria.';
 
 const pageSize = 5;

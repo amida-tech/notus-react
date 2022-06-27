@@ -1,6 +1,6 @@
 @import 'colors';
 
-$block-class: 'patient-table-row';
+$block-class: 'member-table-row';
 
 @at-root {
     .#{$block-class} {
@@ -53,7 +53,7 @@ $block-class: 'patient-table-row';
         }
 
         & &__data-align-small {
-            @extend .patient-table-row__data-align;
+            @extend .member-table-row__data-align;
             flex-basis: 8%
         }
 
