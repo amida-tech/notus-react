@@ -103,7 +103,7 @@ function D3Container({
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
   const [memberResults, setMemberResults] = useState([]);
-  const [tableFilter, setTableFilter] = useState('');
+  const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([]);
 
   useEffect(() => {
@@ -131,7 +131,7 @@ function D3Container({
       setColorMap(baseColorMap);
       setFilterDisabled(false);
       setMemberResults([]);
-      setTableFilter('');
+      setTableFilter([]);
       setHeaderInfo(MeasureTable.headerData(true));
     } else {
       setComposite(false);
@@ -209,7 +209,25 @@ function D3Container({
   }
 
   const handleTableFilterChange = (event) => {
-    setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
+    console.log('tableFilter to be updated:', tableFilter, typeof tableFilter)
+    console.log('filter in question:', event.target.value)
+
+    //this checks if the parameter is already part of the filter, if it is, it is removed
+    if (tableFilter.includes(event.target.value)) {
+      console.log('filter found!')
+      const tableFilterIndex = tableFilter.indexOf(event.target.value)
+      console.log('our filter index:', tableFilterIndex)
+      const newFiltering = tableFilter.filter((_, i) => i !== tableFilterIndex);
+
+      console.log('Our new data array:', newFiltering)
+
+      setTableFilter(newFiltering)
+    } else {
+      console.log('filter not found!')
+      const newFiltering = new Array(...tableFilter, event.target.value)
+
+      setTableFilter(newFiltering);
+    }
   }
 
   const [tabValue, setTabValue] = React.useState('overview');
@@ -311,7 +329,7 @@ function D3Container({
               >
                 {MeasureTable.formatData(currentResults).map((item) => (
                   <MeasureTableRow
-                    key={`measure-table-row-${item.value}`}
+                    key={item.label}
                     rowDataItem={item}
                     headerInfo={headerInfo}
                     useCheckBox

@@ -23,22 +23,24 @@ function TableFilterPanel({
         <Typography className="table-filter-panel__label">
           Member Compliance:
         </Typography>
-        {memberComplianceItems.map((item, index) => (
-          <FormControlLabel
-            key={`table-filter-panel-${item.value}`}
-            componentsProps={{ typography: { className: 'table-filter-panel__filter-item' } }}
-            disabled={numeratorCheck?.[numeratorValues[index]] === undefined}
-            control={(
-              <Checkbox
-                checked={tableFilter === item.value}
-                value={item.value}
-                className="table-filter-panel__filter-checkbox"
-                onChange={(e) => handleTableFilterChange(e)}
-              />
-                )}
-            label={item.label}
-          />
-        ))}
+        {memberComplianceItems.map((item, index) => {
+          return (
+            <FormControlLabel
+              key={`table-filter-panel-${item.value}`}
+              componentsProps={{ typography: { className: 'table-filter-panel__filter-item' } }}
+              disabled={numeratorCheck?.[numeratorValues[index]] === undefined}
+              control={(
+                <Checkbox
+                  checked={tableFilter.includes(item.value)}
+                  value={item.value}
+                  className="table-filter-panel__filter-checkbox"
+                  onChange={(e) => handleTableFilterChange(e)}
+                />
+                  )}
+              label={item.label}
+            />
+          )
+        })}
       </FormGroup>
       <Divider className="table-filter-panel__divider" />
     </Box>
@@ -48,14 +50,14 @@ function TableFilterPanel({
 TableFilterPanel.propTypes = {
   measure: PropTypes.string,
   memberResult: PropTypes.shape({}),
-  tableFilter: PropTypes.string,
+  // tableFilter: PropTypes.array,
   handleTableFilterChange: PropTypes.func,
 };
 
 TableFilterPanel.defaultProps = {
   measure: '',
   memberResult: {},
-  tableFilter: '',
+  // tableFilter: [],
   handleTableFilterChange: () => undefined,
 }
 

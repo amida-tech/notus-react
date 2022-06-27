@@ -94,10 +94,20 @@ const nonComplianceRange = {
 }
 
 const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
-  if (tableFilter === '') {
+
+  // this returns unfiltered data
+  if (tableFilter.length === 0) {
     return formattedData;
   }
+
   const filteredData = [];
+
+  console.log('tableFilter paramaters before we filter the data:', tableFilter)
+  console.log('Formatted data to filter:', formattedData)
+  console.log('Submeasures:', subMeasures)
+
+  // this checks that if there is only one submeasure, it goes through each submeasure parameter and adds up the score
+  // I think this is only for the composite data set or like, AAB?
   if (subMeasures.length === 1) {
     formattedData.forEach((score) => {
       if (score[subMeasures[0]] === 'false') {
@@ -106,7 +116,10 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
     });
     return filteredData;
   }
-  const limit = nonComplianceRange[tableFilter] < 4
+
+  // this handles multiple submeasures, it goes through each submeasure paramete and adds up the score
+  // ultimately we want to return filteredData, an array where we push scores
+  const limit = nonComplianceRange[tableFilter[0]] < 4
     ? (check) => check === nonComplianceRange[tableFilter]
     : (check) => check >= nonComplianceRange[tableFilter];
   formattedData.forEach((score) => {
