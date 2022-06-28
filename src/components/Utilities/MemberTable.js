@@ -1,3 +1,4 @@
+const { resultList } = require('test/data/DemoData');
 const { getMeasureCompliance } = require('./GeneralUtil');
 
 const memberIdTip = 'The member\'s member ID.';
@@ -101,35 +102,43 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
   }
   const filteredData = [];
 
-  console.log('tableFilter paramaters before we filter the data:', tableFilter)
-  console.log('Formatted data to filter:', formattedData)
-  console.log('Submeasures:', subMeasures)
+  // this returns 1 exclusions
+  if (tableFilter.includes('one')) {
+    formattedData.forEach((measure) => {
+      const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
 
-  // this checks that if there is only one submeasure, it goes through each submeasure parameter and adds up the score
-  // I think this is only for the composite data set or like, AAB? it seems to work fine
-  if (subMeasures.length === 1) {
-    formattedData.forEach((score) => {
-      if (score[subMeasures[0]] === 'false') {
-        filteredData.push(score);
+      if (resultList.length === 1) {
+        filteredData.push(measure)
       }
-    });
+    })
+
     return filteredData;
   }
 
-  // filtering for ONLY TWO non compliance
-  if (tableFilter.includes("two")) {
-
-    // this is what I start with
-    console.log(formattedData)
-
+  // this returns 2 exclusions
+  if (tableFilter.includes('two')) {
+    console.log('has two!')
     formattedData.forEach((measure) => {
-      console.log('our measure:', measure)
-      // I feel like I want to reduce here
+      const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
+
+      if (resultList.length === 2) {
+        filteredData.push(measure)
+      }
     })
 
-    // this is what should be filtered now
-    console.log(filteredData)
-    return filteredData
+    return filteredData;
+  }
+
+  if (tableFilter.includes('many')) {
+    formattedData.forEach((measure) => {
+      const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
+
+      if (resultList.length > 2) {
+        filteredData.push(measure)
+      }
+    })
+
+    return filteredData;
   }
 }
 
