@@ -96,6 +96,13 @@ const nonComplianceRange = {
 
 const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
 
+  // const ns = structuredClone(formattedData)
+  // console.log('PRE-GAME>>>>>>>>>',
+  //             'formatted data:', formattedData,
+  //             'cloned data:', ns,
+  //             'filter array:', tableFilter
+  // )
+
   // this returns unfiltered data
   if (tableFilter.length === 0) {
     return formattedData;
@@ -105,9 +112,10 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
   // this returns data with only one filter applied
   if (tableFilter.length === 1) {
     const filterVal = tableFilter[0]
+    const ns = structuredClone(formattedData)
 
     if (Object.keys(nonComplianceRange).includes(filterVal)) {
-      formattedData.forEach((measure) => {
+      ns.forEach((measure) => {
         const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
 
         if (resultList.length === nonComplianceRange[filterVal] && nonComplianceRange[filterVal] <= 2) {
@@ -118,13 +126,49 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
         }
       })
 
+      // console.log('SINGLE FILTER POST GAME>>>>>>>>>',
+      //         'formatted data:', formattedData,
+      //         'cloned data:', ns,
+      //         'filter array:', tableFilter,
+      //         'filtered data:', filteredData
+      // )
+
       return filteredData;
     }
   }
 
+  // AISE TEST RESULTS
+  // ALL 242
+  // TWO 60
+  // MULTI 73
+  // TWO MULTI EXPECTED 133
+  // SUCCESS!!
+
+  // this returns data with multiple filters selected
+  // AISE makes for the best to test this
   if (tableFilter.length > 1) {
-    console.log('there are many filters!', filteredData)
-    return filteredData
+    const ns = structuredClone(formattedData)
+
+    console.log('our table filters:', tableFilter)
+
+    tableFilter.forEach((filterVal) => {
+      console.log('filter to be worked:', filterVal)
+
+      ns.forEach((measure) => {
+        console.log('measure to be worked:', measure)
+        const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
+
+        if (resultList.length === nonComplianceRange[filterVal] && nonComplianceRange[filterVal] <= 2) {
+          filteredData.push(measure)
+        }
+        if (resultList.length >= nonComplianceRange[filterVal] && nonComplianceRange[filterVal] > 2) {
+          filteredData.push(measure)
+        }
+      })
+
+      console.log('our filtered data to deliver:', filteredData)
+      return filteredData
+    })
   }
 }
 

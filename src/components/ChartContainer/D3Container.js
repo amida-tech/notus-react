@@ -180,6 +180,7 @@ function D3Container({
   };
 
   const handleSelectedMeasureChange = (event) => {
+    setTableFilter([])
     let newSelectedMeasures;
     if (event.target.checked) {
       newSelectedMeasures = event.target.value === 'all'
@@ -205,6 +206,7 @@ function D3Container({
   }
 
   const handleMeasureChange = (event) => {
+    setTableFilter([]);
     history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`);
   }
 
@@ -257,6 +259,7 @@ function D3Container({
             onClick={() => {
               setComposite(true);
               setTabValue('overview');
+              setTableFilter([]);
               history.push('/');
             }}
           >
