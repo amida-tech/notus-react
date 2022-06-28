@@ -99,7 +99,6 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
   if (tableFilter.length === 0) {
     return formattedData;
   }
-
   const filteredData = [];
 
   console.log('tableFilter paramaters before we filter the data:', tableFilter)
@@ -107,7 +106,7 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
   console.log('Submeasures:', subMeasures)
 
   // this checks that if there is only one submeasure, it goes through each submeasure parameter and adds up the score
-  // I think this is only for the composite data set or like, AAB?
+  // I think this is only for the composite data set or like, AAB? it seems to work fine
   if (subMeasures.length === 1) {
     formattedData.forEach((score) => {
       if (score[subMeasures[0]] === 'false') {
@@ -117,23 +116,21 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
     return filteredData;
   }
 
-  // this handles multiple submeasures, it goes through each submeasure paramete and adds up the score
-  // ultimately we want to return filteredData, an array where we push scores
-  const limit = nonComplianceRange[tableFilter[0]] < 4
-    ? (check) => check === nonComplianceRange[tableFilter]
-    : (check) => check >= nonComplianceRange[tableFilter];
-  formattedData.forEach((score) => {
-    let nonComplianceCheck = 0;
-    subMeasures.forEach((measure) => {
-      if (score[measure] === 'false') {
-        nonComplianceCheck += 1;
-      }
-    });
-    if (limit(nonComplianceCheck)) {
-      filteredData.push(score);
-    }
-  });
-  return filteredData;
+  // filtering for ONLY TWO non compliance
+  if (tableFilter.includes("two")) {
+
+    // this is what I start with
+    console.log(formattedData)
+
+    formattedData.forEach((measure) => {
+      console.log('our measure:', measure)
+      // I feel like I want to reduce here
+    })
+
+    // this is what should be filtered now
+    console.log(filteredData)
+    return filteredData
+  }
 }
 
 module.exports = {

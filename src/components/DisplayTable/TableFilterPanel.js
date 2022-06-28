@@ -24,11 +24,13 @@ function TableFilterPanel({
           Member Compliance:
         </Typography>
         {memberComplianceItems.map((item, index) => {
+          // console.log("our numerator:", numeratorValues[index])
+          // console.log("our numerator check:", numeratorCheck)
           return (
             <FormControlLabel
               key={`table-filter-panel-${item.value}`}
               componentsProps={{ typography: { className: 'table-filter-panel__filter-item' } }}
-              disabled={numeratorCheck?.[numeratorValues[index]] === undefined}
+              // disabled={numeratorCheck?.[numeratorValues[index]] === undefined}
               control={(
                 <Checkbox
                   checked={tableFilter.includes(item.value)}
