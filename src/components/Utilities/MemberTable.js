@@ -89,9 +89,9 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
 };
 
 const nonComplianceRange = {
-  one: 2,
-  two: 3,
-  many: 4,
+  one: 1,
+  two: 2,
+  many: 3,
 }
 
 const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
@@ -102,43 +102,29 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
   }
   const filteredData = [];
 
-  // this returns 1 exclusions
-  if (tableFilter.includes('one')) {
-    formattedData.forEach((measure) => {
-      const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
+  // this returns data with only one filter applied
+  if (tableFilter.length === 1) {
+    const filterVal = tableFilter[0]
 
-      if (resultList.length === 1) {
-        filteredData.push(measure)
-      }
-    })
+    if (Object.keys(nonComplianceRange).includes(filterVal)) {
+      formattedData.forEach((measure) => {
+        const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
 
-    return filteredData;
+        if (resultList.length === nonComplianceRange[filterVal] && nonComplianceRange[filterVal] <= 2) {
+          filteredData.push(measure)
+        }
+        if (resultList.length >= nonComplianceRange[filterVal] && nonComplianceRange[filterVal] > 2) {
+          filteredData.push(measure)
+        }
+      })
+
+      return filteredData;
+    }
   }
 
-  // this returns 2 exclusions
-  if (tableFilter.includes('two')) {
-    console.log('has two!')
-    formattedData.forEach((measure) => {
-      const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
-
-      if (resultList.length === 2) {
-        filteredData.push(measure)
-      }
-    })
-
-    return filteredData;
-  }
-
-  if (tableFilter.includes('many')) {
-    formattedData.forEach((measure) => {
-      const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
-
-      if (resultList.length > 2) {
-        filteredData.push(measure)
-      }
-    })
-
-    return filteredData;
+  if (tableFilter.length > 1) {
+    console.log('there are many filters!', filteredData)
+    return filteredData
   }
 }
 
