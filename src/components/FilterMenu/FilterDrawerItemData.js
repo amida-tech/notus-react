@@ -29,7 +29,7 @@ const ncqaBonus = {
 const measureTypes = {
   name: 'Measure Types',
   tip: 'Coming soon.',
-  options: ['Process', 'Outcome', 'Patient Experience (CPA,CPC)'],
+  options: ['Process', 'Outcome', 'Member Experience (CPA,CPC)'],
   values: ['process', 'outcome', 'experience'],
 }
 

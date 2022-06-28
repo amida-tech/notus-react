@@ -1,5 +1,5 @@
 import {
-  Divider, Grid,
+  Grid,
 } from '@mui/material';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
@@ -34,38 +34,41 @@ function DisplayTable({
   };
 
   return (
-    <Grid container className="display-table">
-      <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
-        {useCheckBox && (
-        <CheckBoxCell
-          handleCheckBoxEvent={handleCheckBoxChange}
-          checked={children.length === selectedRows.length}
-          value="all"
-        />
-        )}
-        {headerInfo.map((item) => (
+    <>
+      <Grid container className="display-table">
+        <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
+          {useCheckBox && (
+          <CheckBoxCell
+            handleCheckBoxEvent={handleCheckBoxChange}
+            checked={children.length === selectedRows.length}
+            value="all"
+          />
+          )}
+          {headerInfo.map((item) => (
+            <Grid
+              item
+              className={`display-table__header-item display-table__header-item--${item.flexBasis}`}
+              key={item.header}
+            >
+              <HeaderCell text={item.header} tooltip={item.tooltip} />
+            </Grid>
+
+          ))}
+        </Grid>
+        { children.slice(
+          currentPage * rowsPerPage,
+          currentPage * rowsPerPage + rowsPerPage,
+        ).map((child) => (
           <Grid
             item
-            className={`display-table__header-item display-table__header-item--${item.flexBasis}`}
-            key={item.header}
+            className="display-table__row"
+            key={`display-table-grid-for-${child.key}`}
           >
-            <HeaderCell text={item.header} tooltip={item.tooltip} />
+            {child}
           </Grid>
         ))}
       </Grid>
-      <Divider className="display-table__header-divider" />
-      { children.slice(
-        currentPage * rowsPerPage,
-        currentPage * rowsPerPage + rowsPerPage,
-      ).map((child) => (
-        <Grid
-          item
-          className="display-table__row"
-          key={`display-table-grid-for-${child.key}`}
-        >
-          {child}
-        </Grid>
-      ))}
+
       {pageCount > 1 && (
       <StyledEngineProvider injectFirst>
         <TablePagination
@@ -80,7 +83,7 @@ function DisplayTable({
         />
       </StyledEngineProvider>
       )}
-    </Grid>
+    </>
   )
 }
 

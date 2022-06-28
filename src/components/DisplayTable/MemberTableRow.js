@@ -1,5 +1,5 @@
 import {
-  Divider, Grid, Box, Typography,
+  Grid, Box, Typography,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -19,44 +19,43 @@ function RowGenerator(link, key, rowDataItem) {
   }
   if (rowDataItem[key] === 'true') {
     return (
-      <Grid className="patient-table-row__compliance-panel patient-table-row__compliance-panel--matched">
-        <CheckCircleIcon className="patient-table-row__compliance-icon" />
+      <Grid className="member-table-row__compliance-panel member-table-row__compliance-panel--matched">
+        <CheckCircleIcon className="member-table-row__compliance-icon" />
         Matched
       </Grid>
     )
   }
   return (
-    <Grid className="patient-table-row__compliance-panel patient-table-row__compliance-panel--unmatched">
-      <CancelIcon className="patient-table-row__compliance-icon" />
+    <Grid className="member-table-row__compliance-panel member-table-row__compliance-panel--unmatched">
+      <CancelIcon className="member-table-row__compliance-icon" />
       Unmatched
     </Grid>
   )
 }
 
-function PatientTableRow({
+function MemberTableRow({
   rowDataItem, headerInfo,
 }) {
   return (
-    <Box className="patient-table-row">
-      <Grid container className={`patient-table-row__row-section ${headerInfo.length > 10 && 'patient-table-row__row-section--wide'} `}>
+    <Box className="member-table-row">
+      <Grid container className={`member-table-row__row-section ${headerInfo.length > 10 && 'member-table-row__row-section--wide'} `}>
         {headerInfo.map((fieldInfo) => (
           <Grid
             item
-            className={`patient-table-row__data-align patient-table-row__data-align--${fieldInfo.flexBasis}`}
+            className={`member-table-row__data-align member-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
-            <Typography variant="caption" className="patient-table-row__data">
+            <Typography variant="caption" className="member-table-row__data">
               {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem)}
             </Typography>
           </Grid>
         ))}
       </Grid>
-      <Divider className="patient-table-row__divider" />
     </Box>
   )
 }
 
-PatientTableRow.propTypes = {
+MemberTableRow.propTypes = {
   rowDataItem: PropTypes.shape({
     value: PropTypes.string,
   }),
@@ -69,9 +68,9 @@ PatientTableRow.propTypes = {
   ),
 };
 
-PatientTableRow.defaultProps = {
+MemberTableRow.defaultProps = {
   rowDataItem: {},
   headerInfo: [],
 }
 
-export default PatientTableRow;
+export default MemberTableRow;

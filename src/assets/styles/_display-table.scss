@@ -11,7 +11,6 @@ $block-class: 'display-table';
         overflow-x: auto;
 
         & &__header-section {
-            justify-content: space-evenly;
             align-items: center;
             display: flex;
             width: 100%;
@@ -30,6 +29,7 @@ $block-class: 'display-table';
 
         & &__header-item {
             min-width: 10%;
+            height: 100%;
 
             &--smaller {
                 flex-basis: 5%;
@@ -60,9 +60,10 @@ $block-class: 'display-table';
             @extend .display-table__header-item;
             display: flex;
             justify-content: center;
-            padding: 1rem;
+            padding: 1rem 1.5rem;
             align-items: center;
             margin: auto;
+            text-align: center;
         }
 
         & &__title-align-small {
@@ -92,7 +93,6 @@ $block-class: 'display-table';
         }
 
         & &__header-divider {
-          width: 100%;
           background-color: $blue-grey-lighten-3;
           height: 1px;
         }
@@ -130,7 +130,7 @@ $block-class: 'display-table';
 
     .MuiPaginationItem-root {
         color: $blue-grey-darken-1;
-        border-radius: 0.5rem;
+        border-radius: 3px;
         border: .1rem solid $blue-grey-lighten-3;
     }
 

@@ -1,5 +1,5 @@
 import {
-  Divider, Grid, Box, Typography,
+  Grid, Box, Typography,
 } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -40,7 +40,6 @@ function MeasureTableRow({
           </Grid>
         ))}
       </Grid>
-      <Divider className="measure-table-row__divider" />
     </Box>
   )
 }

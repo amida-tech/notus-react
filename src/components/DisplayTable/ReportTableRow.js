@@ -1,5 +1,5 @@
 import {
-  Divider, Grid, Box, Typography,
+  Grid, Box, Typography,
 } from '@mui/material';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -70,7 +70,6 @@ function ReportTableRow({
           </Grid>
         ))}
       </Grid>
-      <Divider className="report-table-row__divider" />
     </Box>
   )
 }
