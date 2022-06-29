@@ -52,14 +52,14 @@ function TableFilterPanel({
 TableFilterPanel.propTypes = {
   measure: PropTypes.string,
   memberResult: PropTypes.shape({}),
-  // tableFilter: PropTypes.array,
+  tableFilter: PropTypes.array,
   handleTableFilterChange: PropTypes.func,
 };
 
 TableFilterPanel.defaultProps = {
   measure: '',
   memberResult: {},
-  // tableFilter: [],
+  tableFilter: [],
   handleTableFilterChange: () => undefined,
 }
 
