@@ -72,12 +72,17 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
       type: 'member',
     }
 
-    if (memberResultArray.length === 1) {
-      formattedResult[subMeasures[0]] = memberResultArray[0].value.toString()
-    } else {
-      formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
-      for (let k = 1; k < subMeasures.length; k += 1) {
-        formattedResult[subMeasures[k]] = memberResultArray[k - 1].value.toString();
+    if (formattedData.length === 0) {
+      if (memberResultArray.length === 1) {
+        formattedResult[subMeasures[0]] = memberResultArray[0].value.toString()
+      } else {
+        formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
+        console.log('formatted result:', formattedResult)
+        console.log('formatted data before the push:', formattedData)
+        console.log('member result array:', memberResultArray)
+        for (let k = 1; k < subMeasures.length; k += 1) {
+          formattedResult[subMeasures[k]] = memberResultArray[k - 1].value.toString();
+        }
       }
     }
 
@@ -93,7 +98,7 @@ const nomCompRange = {
   many: 3,
 }
 
-const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
+const filterByNonCompliance = (formattedData, _subMeasures, tableFilter) => {
   if (tableFilter.length === 0) {
     return formattedData;
   }
