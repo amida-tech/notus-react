@@ -323,7 +323,7 @@ function D3Container({
               >
                 {MeasureTable.formatData(currentResults).map((item) => (
                   <MeasureTableRow
-                    key={item.label}
+                    key={`measure-table-row-${item.value}`}
                     rowDataItem={item}
                     headerInfo={headerInfo}
                     useCheckBox
