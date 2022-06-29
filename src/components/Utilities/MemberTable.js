@@ -77,7 +77,6 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
     } else {
       formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
       for (let k = 1; k < subMeasures.length; k += 1) {
-        //console.log('the shit that breaks:', formattedResult[subMeasures[k]])
         formattedResult[subMeasures[k]] = memberResultArray[k - 1].value.toString();
       }
     }

@@ -18,7 +18,6 @@ function TableFilterPanel({
   const numeratorCheck = memberResult[
     Object.keys(memberResult).find((key) => key.startsWith(measure))
   ];
-  console.log(headerInfo)
 
   return (
     <Box className="table-filter-panel">
@@ -27,8 +26,8 @@ function TableFilterPanel({
           Member Compliance:
         </Typography>
         {memberComplianceItems.map((item, index) => {
-          const disableVal = headerInfo.length === 2 ?
-            typeof numeratorCheck?.[numeratorValues[index]] !== 'string'
+          const disableVal = headerInfo.length === 2
+            ? typeof numeratorCheck?.[numeratorValues[index]] !== 'string'
             : numeratorCheck?.[numeratorValues[index]] !== true
           return (
             <FormControlLabel
@@ -46,8 +45,7 @@ function TableFilterPanel({
               label={item.label}
             />
           )
-        }
-          )}
+        })}
       </FormGroup>
       <Divider className="table-filter-panel__divider" />
     </Box>
@@ -58,6 +56,7 @@ TableFilterPanel.propTypes = {
   measure: PropTypes.string,
   memberResult: PropTypes.shape({}),
   tableFilter: PropTypes.arrayOf(PropTypes.string),
+  headerInfo: PropTypes.arrayOf(PropTypes.string),
   handleTableFilterChange: PropTypes.func,
 };
 
@@ -65,6 +64,7 @@ TableFilterPanel.defaultProps = {
   measure: '',
   memberResult: {},
   tableFilter: [],
+  headerInfo: [],
   handleTableFilterChange: () => undefined,
 }
 
