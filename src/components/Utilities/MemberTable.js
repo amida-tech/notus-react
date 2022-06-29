@@ -44,6 +44,7 @@ const allValuesEqual = (valueArray) => {
 
 const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   const formattedData = [];
+
   const subMeasures = Object.keys(storeInfo).filter((item) => item.includes(activeMeasure));
   memberResults.forEach((memberResult) => {
     const memberResultArray = [];
@@ -72,20 +73,16 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
       type: 'member',
     }
 
-    if (formattedData.length === 0) {
-      if (memberResultArray.length === 1) {
-        formattedResult[subMeasures[0]] = memberResultArray[0].value.toString()
-      } else {
-        formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
-        console.log('formatted result:', formattedResult)
-        console.log('formatted data before the push:', formattedData)
-        console.log('member result array:', memberResultArray)
-        for (let k = 1; k < subMeasures.length; k += 1) {
-          formattedResult[subMeasures[k]] = memberResultArray[k - 1].value.toString();
-        }
+    if (memberResultArray.length === 1) {
+      formattedResult[subMeasures[0]] = memberResultArray[0].value.toString()
+    } else {
+      formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
+      for (let k = 1; k < subMeasures.length; k += 1) {
+        formattedResult[subMeasures[k]] = memberResultArray[k - 1].value.toString();
       }
     }
 
+    //console.log('formatted result:', formattedResult)
     formattedData.push(formattedResult);
   });
 
@@ -104,37 +101,37 @@ const filterByNonCompliance = (formattedData, _subMeasures, tableFilter) => {
   }
   const filteredData = [];
 
+  const counting = (data, filterVal) => {
+    data.forEach((measure) => {
+      const resultList = Object.values(measure).filter((submeasure) => submeasure === 'false')
+      if (resultList.length === nomCompRange[filterVal] && nomCompRange[filterVal] <= 2) {
+        filteredData.push(measure)
+      }
+      if (resultList.length >= nomCompRange[filterVal] && nomCompRange[filterVal] > 2) {
+        filteredData.push(measure)
+      }
+    })
+  }
+
   if (tableFilter.length === 1) {
     const filterVal = tableFilter[0]
     const ns = structuredClone(formattedData)
     if (Object.keys(nomCompRange).includes(filterVal)) {
-      ns.forEach((measure) => {
-        const resultList = Object.values(measure).filter((submeasure) => submeasure === 'false')
-        if (resultList.length === nomCompRange[filterVal] && nomCompRange[filterVal] <= 2) {
-          filteredData.push(measure)
-        }
-        if (resultList.length >= nomCompRange[filterVal] && nomCompRange[filterVal] > 2) {
-          filteredData.push(measure)
-        }
-      })
-      return filteredData;
+      counting(ns, filterVal)
     }
   }
 
   if (tableFilter.length > 1) {
     const ns = structuredClone(formattedData)
     tableFilter.forEach((filterVal) => {
-      ns.forEach((measure) => {
-        const resultList = Object.values(measure).filter((submeasure) => submeasure === 'false')
-        if (resultList.length === nomCompRange[filterVal] && nomCompRange[filterVal] <= 2) {
-          filteredData.push(measure)
-        }
-        if (resultList.length >= nomCompRange[filterVal] && nomCompRange[filterVal] > 2) {
-          filteredData.push(measure)
-        }
-      })
+      counting(ns, filterVal)
     })
   }
+  
+  if (filteredData.length === 0) {
+    filteredData.push("No entries found!")
+  }
+
   return filteredData
 }
 

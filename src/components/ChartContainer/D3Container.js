@@ -194,6 +194,7 @@ function D3Container({
       setSelectedMeasures(newSelectedMeasures);
     }
     handleFilteredDataUpdate(newSelectedMeasures, currentFilters, currentTimeline);
+    history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`)
   };
 
   const handleFilterChange = (filterOptions) => {
@@ -204,12 +205,6 @@ function D3Container({
   const handleTimelineChange = (timelineUpdate) => {
     setCurrentTimeline(timelineUpdate);
     handleFilteredDataUpdate(selectedMeasures, currentFilters, timelineUpdate);
-  }
-
-  const handleMeasureChange = (event) => {
-    setTableFilter([]);
-    setMemberResults([]);
-    history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`);
   }
 
   const handleTableFilterChange = (event) => {
@@ -313,7 +308,7 @@ function D3Container({
                 <MeasureSelector
                   measure={activeMeasure.measure}
                   currentResults={store.currentResults}
-                  handleMeasureChange={handleMeasureChange}
+                  handleMeasureChange={handleSelectedMeasureChange}
                 />
               </Grid>
               <DisplayTable
@@ -323,17 +318,19 @@ function D3Container({
                 selectedRows={selectedMeasures}
                 handleCheckBoxChange={handleSelectedMeasureChange}
               >
-                {MeasureTable.formatData(currentResults).map((item) => (
-                  <MeasureTableRow
-                    key={`measure-table-row-${item.value}`}
-                    rowDataItem={item}
-                    headerInfo={headerInfo}
-                    useCheckBox
-                    handleCheckBoxEvent={handleSelectedMeasureChange}
-                    rowSelected={selectedMeasures.includes(item.value)}
-                    color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
-                  />
-                ))}
+                {MeasureTable.formatData(currentResults).map((item) => {
+                  return (
+                    <MeasureTableRow
+                      key={`measure-table-row-${item.value}`}
+                      rowDataItem={item}
+                      headerInfo={headerInfo}
+                      useCheckBox
+                      handleCheckBoxEvent={handleSelectedMeasureChange}
+                      rowSelected={selectedMeasures.includes(item.value)}
+                      color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
+                    />
+                  )
+                })}
               </DisplayTable>
             </TabPanel>
 
@@ -343,6 +340,12 @@ function D3Container({
                 memberResult={memberResults[0]}
                 tableFilter={tableFilter}
                 headerInfo={headerInfo}
+                memberData={MemberTable.formatData(
+                  memberResults,
+                  activeMeasure.measure,
+                  store.info,
+                  tableFilter,
+                )}
                 handleTableFilterChange={handleTableFilterChange}
               />
               <DisplayTable
@@ -355,13 +358,17 @@ function D3Container({
                   activeMeasure.measure,
                   store.info,
                   tableFilter,
-                ).map((item) => (
-                  <MemberTableRow
+                ).map((item) => {
+                  console.log(item)
+                  return typeof item === 'string' ?
+                    <div style={{padding: '20px 80px'}}>{item}</div>
+                  : 
+                    <MemberTableRow
                     key={`member-table-row-${item.value}`}
                     rowDataItem={item}
                     headerInfo={headerInfo}
                   />
-                ))}
+                })}
               </DisplayTable>
             </TabPanel>
 
