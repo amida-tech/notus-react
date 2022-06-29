@@ -10,23 +10,22 @@ const memberComplianceItems = [
   { label: 'More than 2 Non-Compliant Submeasures', value: 'many' },
 ];
 
-const numeratorValues = ['id', 'Numerator 2', 'Numerator 3'];
+//const numeratorValues = ['id', 'Numerator 2', 'Numerator 3'];
 
 function TableFilterPanel({
   measure, memberResult, tableFilter, handleTableFilterChange,
 }) {
-  const numeratorCheck = memberResult[
-    Object.keys(memberResult).find((key) => key.startsWith(measure))];
+  // const numeratorCheck = memberResult[
+  // Object.keys(memberResult).find((key) => key.startsWith(measure))];
+
   return (
     <Box className="table-filter-panel">
       <FormGroup className="table-filter-panel__button-panel">
         <Typography className="table-filter-panel__label">
           Member Compliance:
         </Typography>
-        {memberComplianceItems.map((item, index) => {
-          // console.log("our numerator:", numeratorValues[index])
-          // console.log("our numerator check:", numeratorCheck)
-          return (
+        {memberComplianceItems.map((item) =>
+          (
             <FormControlLabel
               key={`table-filter-panel-${item.value}`}
               componentsProps={{ typography: { className: 'table-filter-panel__filter-item' } }}
@@ -41,8 +40,7 @@ function TableFilterPanel({
                   )}
               label={item.label}
             />
-          )
-        })}
+          ))}
       </FormGroup>
       <Divider className="table-filter-panel__divider" />
     </Box>
@@ -52,7 +50,7 @@ function TableFilterPanel({
 TableFilterPanel.propTypes = {
   measure: PropTypes.string,
   memberResult: PropTypes.shape({}),
-  tableFilter: PropTypes.array,
+  tableFilter: PropTypes.arrayOf(PropTypes.string),
   handleTableFilterChange: PropTypes.func,
 };
 

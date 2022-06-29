@@ -211,22 +211,13 @@ function D3Container({
   }
 
   const handleTableFilterChange = (event) => {
-    // console.log('tableFilter to be updated:', tableFilter, typeof tableFilter)
-    // console.log('filter in question:', event.target.value)
-
-    //this checks if the parameter is already part of the filter, if it is, it is removed
     if (tableFilter.includes(event.target.value)) {
-      //console.log('filter found!')
       const tableFilterIndex = tableFilter.indexOf(event.target.value)
-      //console.log('our filter index:', tableFilterIndex)
       const newFiltering = tableFilter.filter((_, i) => i !== tableFilterIndex);
-
-      //console.log('Our new data array:', newFiltering)
 
       setTableFilter(newFiltering)
     } else {
-      //console.log('filter not found!')
-      const newFiltering = new Array(...tableFilter, event.target.value)
+      const newFiltering = [...tableFilter, event.target.value]
 
       setTableFilter(newFiltering);
     }

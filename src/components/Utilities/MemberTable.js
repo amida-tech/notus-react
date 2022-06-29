@@ -1,4 +1,3 @@
-const { resultList } = require('test/data/DemoData');
 const { getMeasureCompliance } = require('./GeneralUtil');
 
 const memberIdTip = 'The member\'s member ID.';
@@ -88,14 +87,13 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   return filterByNonCompliance(formattedData, subMeasures, tableFilter);
 };
 
-const nonComplianceRange = {
+const nomCompRange = {
   one: 1,
   two: 2,
   many: 3,
 }
 
 const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
-
   if (tableFilter.length === 0) {
     return formattedData;
   }
@@ -104,13 +102,13 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
   if (tableFilter.length === 1) {
     const filterVal = tableFilter[0]
     const ns = structuredClone(formattedData)
-    if (Object.keys(nonComplianceRange).includes(filterVal)) {
+    if (Object.keys(nomCompRange).includes(filterVal)) {
       ns.forEach((measure) => {
-        const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
-        if (resultList.length === nonComplianceRange[filterVal] && nonComplianceRange[filterVal] <= 2) {
+        const resultList = Object.values(measure).filter((submeasure) => submeasure === 'false')
+        if (resultList.length === nomCompRange[filterVal] && nomCompRange[filterVal] <= 2) {
           filteredData.push(measure)
         }
-        if (resultList.length >= nonComplianceRange[filterVal] && nonComplianceRange[filterVal] > 2) {
+        if (resultList.length >= nomCompRange[filterVal] && nomCompRange[filterVal] > 2) {
           filteredData.push(measure)
         }
       })
@@ -122,17 +120,17 @@ const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
     const ns = structuredClone(formattedData)
     tableFilter.forEach((filterVal) => {
       ns.forEach((measure) => {
-        const resultList = Object.values(measure).filter(submeasure => submeasure === 'false')
-        if (resultList.length === nonComplianceRange[filterVal] && nonComplianceRange[filterVal] <= 2) {
+        const resultList = Object.values(measure).filter((submeasure) => submeasure === 'false')
+        if (resultList.length === nomCompRange[filterVal] && nomCompRange[filterVal] <= 2) {
           filteredData.push(measure)
         }
-        if (resultList.length >= nonComplianceRange[filterVal] && nonComplianceRange[filterVal] > 2) {
+        if (resultList.length >= nomCompRange[filterVal] && nomCompRange[filterVal] > 2) {
           filteredData.push(measure)
         }
       })
     })
-      return filteredData
   }
+  return filteredData
 }
 
 module.exports = {
