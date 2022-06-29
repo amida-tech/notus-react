@@ -181,6 +181,7 @@ function D3Container({
 
   const handleSelectedMeasureChange = (event) => {
     setTableFilter([])
+    setMemberResults([]);
     let newSelectedMeasures;
     if (event.target.checked) {
       newSelectedMeasures = event.target.value === 'all'
@@ -207,6 +208,7 @@ function D3Container({
 
   const handleMeasureChange = (event) => {
     setTableFilter([]);
+    setMemberResults([]);
     history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`);
   }
 
@@ -340,6 +342,7 @@ function D3Container({
                 measure={activeMeasure.measure}
                 memberResult={memberResults[0]}
                 tableFilter={tableFilter}
+                headerInfo={headerInfo}
                 handleTableFilterChange={handleTableFilterChange}
               />
               <DisplayTable

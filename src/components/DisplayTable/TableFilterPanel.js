@@ -10,13 +10,15 @@ const memberComplianceItems = [
   { label: 'More than 2 Non-Compliant Submeasures', value: 'many' },
 ];
 
-//const numeratorValues = ['id', 'Numerator 2', 'Numerator 3'];
+const numeratorValues = ['id', 'Numerator 2', 'Numerator 3'];
 
 function TableFilterPanel({
-  measure, memberResult, tableFilter, handleTableFilterChange,
+  measure, memberResult, tableFilter, headerInfo, handleTableFilterChange,
 }) {
-  // const numeratorCheck = memberResult[
-  // Object.keys(memberResult).find((key) => key.startsWith(measure))];
+  const numeratorCheck = memberResult[
+    Object.keys(memberResult).find((key) => key.startsWith(measure))
+  ];
+  console.log(headerInfo)
 
   return (
     <Box className="table-filter-panel">
@@ -24,12 +26,15 @@ function TableFilterPanel({
         <Typography className="table-filter-panel__label">
           Member Compliance:
         </Typography>
-        {memberComplianceItems.map((item) =>
-          (
+        {memberComplianceItems.map((item, index) => {
+          const disableVal = headerInfo.length === 2 ?
+            typeof numeratorCheck?.[numeratorValues[index]] !== 'string'
+            : numeratorCheck?.[numeratorValues[index]] !== true
+          return (
             <FormControlLabel
               key={`table-filter-panel-${item.value}`}
               componentsProps={{ typography: { className: 'table-filter-panel__filter-item' } }}
-              // disabled={numeratorCheck?.[numeratorValues[index]] === undefined}
+              disabled={disableVal}
               control={(
                 <Checkbox
                   checked={tableFilter.includes(item.value)}
@@ -40,7 +45,9 @@ function TableFilterPanel({
                   )}
               label={item.label}
             />
-          ))}
+          )
+        }
+          )}
       </FormGroup>
       <Divider className="table-filter-panel__divider" />
     </Box>
