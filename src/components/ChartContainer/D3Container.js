@@ -5,13 +5,12 @@ import React, {
 import { useHistory } from 'react-router-dom';
 
 import {
-  Grid, Typography, Box, Tab, IconButton,
+  Grid, Typography, Box, Tab, Button
 } from '@mui/material';
 
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
-import RefreshIcon from '@mui/icons-material/Refresh';
 
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
@@ -146,7 +145,7 @@ function D3Container({
       setFilterDisabled(true);
       setHeaderInfo(MeasureTable.headerData(false));
     }
-  }, [setRotation, history, activeMeasure, isComposite, store]);
+  }, [setTableFilter, history, activeMeasure, isComposite, store]);
 
   useEffect(() => {
     if (!isComposite && memberResults.length === 0) {
@@ -342,51 +341,39 @@ function D3Container({
                 tableFilter={tableFilter}
                 handleTableFilterChange={handleTableFilterChange}
               />
-              <DisplayTable
-                headerInfo={headerInfo}
-                pageSize={MemberTable.pageSize}
-                useCheckBox={false}
-              >
-                {MemberTable.formatData(
-                  memberResults,
-                  activeMeasure.measure,
-                  store.info,
-                  tableFilter,
-                ).map((item) => (typeof item === 'string'
-                  ? (
-                    <Box key={item} className="d3-container__no-entries">
-                      <Typography className="d3-container__no-entries-text" sx={{ fontWeight: 600 }}>
-                        {item}
-                      </Typography>
-                      <IconButton
-                        onClick={() => {
-                          setRotation(1)
-                        }}
-                        size="large"
-                        className="d3-container__no-entries-button"
-                        aria-label="refresh"
-                        color="primary"
-                      >
-                        <RefreshIcon
-                          className="d3-container__refresher"
-                          value="refresh"
-                          onAnimationEnd={() => {
-                            setRotation(0)
+                <DisplayTable
+                  headerInfo={headerInfo}
+                  pageSize={MemberTable.pageSize}
+                  useCheckBox={false}
+                >
+                  {MemberTable.formatData(
+                    memberResults,
+                    activeMeasure.measure,
+                    store.info,
+                    tableFilter,
+                  ).map((item) => (typeof item === 'string'
+                    ? <Box key={item} className="d3-container__no-entries">
+                        <Button
+                          variant="outlined"
+                          color="red"
+                          sx={{ fontWeight: 600 }}
+                          className={'d3-container__no-entries-button'}
+                          aria-label="clear"
+                          onClick={() => {
                             setTableFilter([])
                           }}
-                          rotation={rotation}
-                        />
-                      </IconButton>
-                    </Box>
-                  )
-                  : (
-                    <MemberTableRow
-                      key={`member-table-row-${item.value}`}
-                      rowDataItem={item}
-                      headerInfo={headerInfo}
-                    />
-                  )))}
-              </DisplayTable>
+                        >
+                          {item}
+                        </Button>
+                      </Box>
+                    : (
+                      <MemberTableRow
+                        key={`member-table-row-${item.value}`}
+                        rowDataItem={item}
+                        headerInfo={headerInfo}
+                      />
+                    )))}
+                </DisplayTable>
             </TabPanel>
 
           </TabContext>
