@@ -128,10 +128,9 @@ const filterByNonCompliance = (formattedData, tableFilter) => {
   }
 
   if (filteredData.length === 0) {
-    filteredData.push('No entries found')
+    filteredData.push('No entries found. Refresh?')
   }
 
-  console.log(filteredData)
   return filteredData
 }
 

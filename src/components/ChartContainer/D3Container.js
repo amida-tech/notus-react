@@ -5,7 +5,7 @@ import React, {
 import { useHistory } from 'react-router-dom';
 
 import {
-  Grid, Typography, Box, Tab, IconButton
+  Grid, Typography, Box, Tab, IconButton,
 } from '@mui/material';
 
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
@@ -211,12 +211,8 @@ function D3Container({
   }
 
   const handleTableFilterChange = (event) => {
-    console.log('value coming in:', event.target.value)
-    console.log('current table filter:', tableFilter)
     if (event.target.value === undefined) {
-      console.log('refresh!')
       setTableFilter([])
-      console.log('our new table filter:', tableFilter)
     } else if (tableFilter.includes(event.target.value)) {
       const tableFilterIndex = tableFilter.indexOf(event.target.value)
       const newFiltering = tableFilter.filter((_, i) => i !== tableFilterIndex);
@@ -357,20 +353,26 @@ function D3Container({
                     store.info,
                     tableFilter,
                   ).map((item) => (typeof item === 'string'
-                    ? <Box className="d3-container__no-entries">
-                        <Typography className="d3-container__no-entries-text" sx={{fontWeight: 600}}>{item}</Typography>
+                    ? <Box key={item} className="d3-container__no-entries">
+                        <Typography className="d3-container__no-entries-text" sx={{fontWeight: 600}}>
+                          {item}
+                        </Typography>
                         <IconButton
-                          size="large" className="d3-container__no-entries-button"
-                          aria-label="refresh" color="primary"
+                          size="large"
+                          className="d3-container__no-entries-button"
+                          aria-label="refresh"
+                          color="primary"
                         >
                           <RefreshIcon
                             className="d3-container__refresher"
                             value="refresh"
-                            onClick={(e) => {
+                            onClick={() => {
                               setRotation(1)
+                            }}
+                            onAnimationEnd={() => {
+                              setRotation(0)
                               setTableFilter([])
                             }}
-                            onAnimationEnd={() => setRotation(0)}
                             rotation={rotation}
                           />
                         </IconButton>

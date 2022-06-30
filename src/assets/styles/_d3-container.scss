@@ -150,7 +150,7 @@ $block-class: 'd3-container';
         }
 
         &__refresher[rotation='1'] {
-            animation: rotation 500ms ease-out;
+            animation: rotation 400ms;
           }
           
           @keyframes rotation {
