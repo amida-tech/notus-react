@@ -56,7 +56,7 @@ const theme = createTheme({
       main: '#C62828',
       light: '#CD4343',
       dark: '#AD2323',
-    }
+    },
   },
   typography: {
     color: '#808080',

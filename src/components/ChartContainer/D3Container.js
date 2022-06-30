@@ -5,7 +5,7 @@ import React, {
 import { useHistory } from 'react-router-dom';
 
 import {
-  Grid, Typography, Box, Tab, Button
+  Grid, Typography, Box, Tab, Button,
 } from '@mui/material';
 
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
@@ -105,8 +105,6 @@ function D3Container({
   const [memberResults, setMemberResults] = useState([]);
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
-
-  const [rotation, setRotation] = React.useState(0)
 
   useEffect(() => {
     function handleResize() {
@@ -341,39 +339,41 @@ function D3Container({
                 tableFilter={tableFilter}
                 handleTableFilterChange={handleTableFilterChange}
               />
-                <DisplayTable
-                  headerInfo={headerInfo}
-                  pageSize={MemberTable.pageSize}
-                  useCheckBox={false}
-                >
-                  {MemberTable.formatData(
-                    memberResults,
-                    activeMeasure.measure,
-                    store.info,
-                    tableFilter,
-                  ).map((item) => (typeof item === 'string'
-                    ? <Box key={item} className="d3-container__no-entries">
-                        <Button
-                          variant="outlined"
-                          color="red"
-                          sx={{ fontWeight: 600 }}
-                          className={'d3-container__no-entries-button'}
-                          aria-label="clear"
-                          onClick={() => {
-                            setTableFilter([])
-                          }}
-                        >
-                          {item}
-                        </Button>
-                      </Box>
-                    : (
-                      <MemberTableRow
-                        key={`member-table-row-${item.value}`}
-                        rowDataItem={item}
-                        headerInfo={headerInfo}
-                      />
-                    )))}
-                </DisplayTable>
+              <DisplayTable
+                headerInfo={headerInfo}
+                pageSize={MemberTable.pageSize}
+                useCheckBox={false}
+              >
+                {MemberTable.formatData(
+                  memberResults,
+                  activeMeasure.measure,
+                  store.info,
+                  tableFilter,
+                ).map((item) => (typeof item === 'string'
+                  ? (
+                    <Box key={item} className="d3-container__no-entries">
+                      <Button
+                        variant="outlined"
+                        color="red"
+                        sx={{ fontWeight: 600 }}
+                        className="d3-container__no-entries-button"
+                        aria-label="clear"
+                        onClick={() => {
+                          setTableFilter([])
+                        }}
+                      >
+                        {item}
+                      </Button>
+                    </Box>
+                  )
+                  : (
+                    <MemberTableRow
+                      key={`member-table-row-${item.value}`}
+                      rowDataItem={item}
+                      headerInfo={headerInfo}
+                    />
+                  )))}
+              </DisplayTable>
             </TabPanel>
 
           </TabContext>
