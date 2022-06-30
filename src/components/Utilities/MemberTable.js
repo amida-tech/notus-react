@@ -131,6 +131,7 @@ const filterByNonCompliance = (formattedData, tableFilter) => {
     filteredData.push('No entries found')
   }
 
+  console.log(filteredData)
   return filteredData
 }
 

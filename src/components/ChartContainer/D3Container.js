@@ -146,7 +146,7 @@ function D3Container({
       setFilterDisabled(true);
       setHeaderInfo(MeasureTable.headerData(false));
     }
-  }, [history, activeMeasure, isComposite, store]);
+  }, [setRotation, history, activeMeasure, isComposite, store]);
 
   useEffect(() => {
     if (!isComposite && memberResults.length === 0) {
@@ -211,7 +211,13 @@ function D3Container({
   }
 
   const handleTableFilterChange = (event) => {
-    if (tableFilter.includes(event.target.value)) {
+    console.log('value coming in:', event.target.value)
+    console.log('current table filter:', tableFilter)
+    if (event.target.value === undefined) {
+      console.log('refresh!')
+      setTableFilter([])
+      console.log('our new table filter:', tableFilter)
+    } else if (tableFilter.includes(event.target.value)) {
       const tableFilterIndex = tableFilter.indexOf(event.target.value)
       const newFiltering = tableFilter.filter((_, i) => i !== tableFilterIndex);
 
@@ -353,10 +359,17 @@ function D3Container({
                   ).map((item) => (typeof item === 'string'
                     ? <Box className="d3-container__no-entries">
                         <Typography className="d3-container__no-entries-text" sx={{fontWeight: 600}}>{item}</Typography>
-                        <IconButton size="large" className="d3-container__no-entries-button" aria-label="refresh" color="primary">
+                        <IconButton
+                          size="large" className="d3-container__no-entries-button"
+                          aria-label="refresh" color="primary"
+                        >
                           <RefreshIcon
                             className="d3-container__refresher"
-                            onClick={() => setRotation(1)}
+                            value="refresh"
+                            onClick={(e) => {
+                              setRotation(1)
+                              setTableFilter([])
+                            }}
                             onAnimationEnd={() => setRotation(0)}
                             rotation={rotation}
                           />
