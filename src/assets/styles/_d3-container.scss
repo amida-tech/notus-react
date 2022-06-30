@@ -132,12 +132,11 @@ $block-class: 'd3-container';
         }
 
         &__no-entries-text {
-            color: $blue-light;
+            color: $default-red;
         }
 
         &__no-entries-button {
             color: $blue-grey-darken-2 !important;
-            padding-bottom: 0 !important;
         }
 
         &__no-entries-button:hover, :focus, &__no-entries-button.MuiSelected {
@@ -159,7 +158,7 @@ $block-class: 'd3-container';
             }
             to {
                 transform: rotate(359deg);
-                color: $blue-light-2;
+                color: $blue-light;
             }
           }
 
