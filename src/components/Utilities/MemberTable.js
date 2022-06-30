@@ -82,11 +82,10 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
       }
     }
 
-    //console.log('formatted result:', formattedResult)
     formattedData.push(formattedResult);
   });
 
-  return filterByNonCompliance(formattedData, subMeasures, tableFilter);
+  return filterByNonCompliance(formattedData, tableFilter);
 };
 
 const nomCompRange = {
@@ -95,7 +94,7 @@ const nomCompRange = {
   many: 3,
 }
 
-const filterByNonCompliance = (formattedData, _subMeasures, tableFilter) => {
+const filterByNonCompliance = (formattedData, tableFilter) => {
   if (tableFilter.length === 0) {
     return formattedData;
   }
@@ -127,9 +126,9 @@ const filterByNonCompliance = (formattedData, _subMeasures, tableFilter) => {
       counting(ns, filterVal)
     })
   }
-  
+
   if (filteredData.length === 0) {
-    filteredData.push("No entries found!")
+    filteredData.push('No entries found!')
   }
 
   return filteredData

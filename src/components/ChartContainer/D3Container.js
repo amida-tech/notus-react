@@ -11,6 +11,7 @@ import {
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
@@ -318,34 +319,23 @@ function D3Container({
                 selectedRows={selectedMeasures}
                 handleCheckBoxChange={handleSelectedMeasureChange}
               >
-                {MeasureTable.formatData(currentResults).map((item) => {
-                  return (
-                    <MeasureTableRow
-                      key={`measure-table-row-${item.value}`}
-                      rowDataItem={item}
-                      headerInfo={headerInfo}
-                      useCheckBox
-                      handleCheckBoxEvent={handleSelectedMeasureChange}
-                      rowSelected={selectedMeasures.includes(item.value)}
-                      color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
-                    />
-                  )
-                })}
+                {MeasureTable.formatData(currentResults).map((item) => (
+                  <MeasureTableRow
+                    key={`measure-table-row-${item.value}`}
+                    rowDataItem={item}
+                    headerInfo={headerInfo}
+                    useCheckBox
+                    handleCheckBoxEvent={handleSelectedMeasureChange}
+                    rowSelected={selectedMeasures.includes(item.value)}
+                    color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
+                  />
+                ))}
               </DisplayTable>
             </TabPanel>
 
             <TabPanel value="members">
               <TableFilterPanel
-                measure={activeMeasure.measure}
-                memberResult={memberResults[0]}
                 tableFilter={tableFilter}
-                headerInfo={headerInfo}
-                memberData={MemberTable.formatData(
-                  memberResults,
-                  activeMeasure.measure,
-                  store.info,
-                  tableFilter,
-                )}
                 handleTableFilterChange={handleTableFilterChange}
               />
               <DisplayTable
@@ -359,15 +349,15 @@ function D3Container({
                   store.info,
                   tableFilter,
                 ).map((item) => {
-                  console.log(item)
-                  return typeof item === 'string' ?
-                    <div style={{padding: '20px 80px'}}>{item}</div>
-                  : 
-                    <MemberTableRow
-                    key={`member-table-row-${item.value}`}
-                    rowDataItem={item}
-                    headerInfo={headerInfo}
-                  />
+                    return typeof item === 'string'
+                    ? <Typography className="d3-container__no-entries">{item}</Typography>
+                    : (
+                      <MemberTableRow
+                        key={`member-table-row-${item.value}`}
+                        rowDataItem={item}
+                        headerInfo={headerInfo}
+                      />
+                    )
                 })}
               </DisplayTable>
             </TabPanel>

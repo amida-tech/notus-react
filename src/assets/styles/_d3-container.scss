@@ -124,6 +124,13 @@ $block-class: 'd3-container';
             justify-content: right;
         }
 
+        &__no-entries {
+            padding: 1.5rem .5rem;
+            text-align: center;
+            color: $blue-light;
+            font-weight: 600;
+        }
+
         &__bottom-display {
             border-radius: 3px;
             border: $blue-light;
