@@ -13,14 +13,13 @@ const memberComplianceItems = [
 function TableFilterPanel({
   tableFilter, handleTableFilterChange,
 }) {
-
   return (
     <Box className="table-filter-panel">
       <FormGroup className="table-filter-panel__button-panel">
         <Typography className="table-filter-panel__label">
           Member Compliance:
         </Typography>
-        {memberComplianceItems.map((item, i) => (
+        {memberComplianceItems.map((item) => (
           <FormControlLabel
             key={`table-filter-panel-${item.value}`}
             componentsProps={{ typography: { className: 'table-filter-panel__filter-item' } }}
@@ -42,14 +41,12 @@ function TableFilterPanel({
 }
 
 TableFilterPanel.propTypes = {
-  measure: PropTypes.string,
   memberResult: PropTypes.shape({}),
   tableFilter: PropTypes.arrayOf(PropTypes.string),
   handleTableFilterChange: PropTypes.func,
 };
 
 TableFilterPanel.defaultProps = {
-  measure: '',
   memberResult: {},
   tableFilter: [],
   handleTableFilterChange: () => undefined,

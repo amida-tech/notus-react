@@ -144,7 +144,7 @@ function D3Container({
       setFilterDisabled(true);
       setHeaderInfo(MeasureTable.headerData(false));
     }
-  }, [activeMeasure, isComposite, store]);
+  }, [history, activeMeasure, isComposite, store]);
 
   useEffect(() => {
     if (!isComposite && memberResults.length === 0) {
@@ -348,17 +348,15 @@ function D3Container({
                   activeMeasure.measure,
                   store.info,
                   tableFilter,
-                ).map((item) => {
-                    return typeof item === 'string'
-                    ? <Typography className="d3-container__no-entries">{item}</Typography>
-                    : (
-                      <MemberTableRow
-                        key={`member-table-row-${item.value}`}
-                        rowDataItem={item}
-                        headerInfo={headerInfo}
-                      />
-                    )
-                })}
+                ).map((item) => (typeof item === 'string'
+                  ? <Typography className="d3-container__no-entries">{item}</Typography>
+                  : (
+                    <MemberTableRow
+                      key={`member-table-row-${item.value}`}
+                      rowDataItem={item}
+                      headerInfo={headerInfo}
+                    />
+                  )))}
               </DisplayTable>
             </TabPanel>
 
