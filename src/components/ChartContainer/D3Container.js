@@ -342,49 +342,51 @@ function D3Container({
                 tableFilter={tableFilter}
                 handleTableFilterChange={handleTableFilterChange}
               />
-                <DisplayTable
-                  headerInfo={headerInfo}
-                  pageSize={MemberTable.pageSize}
-                  useCheckBox={false}
-                >
-                  {MemberTable.formatData(
-                    memberResults,
-                    activeMeasure.measure,
-                    store.info,
-                    tableFilter,
-                  ).map((item) => (typeof item === 'string'
-                    ? <Box key={item} className="d3-container__no-entries">
-                        <Typography className="d3-container__no-entries-text" sx={{fontWeight: 600}}>
-                          {item}
-                        </Typography>
-                        <IconButton
-                          size="large"
-                          className="d3-container__no-entries-button"
-                          aria-label="refresh"
-                          color="primary"
-                        >
-                          <RefreshIcon
-                            className="d3-container__refresher"
-                            value="refresh"
-                            onClick={() => {
-                              setRotation(1)
-                            }}
-                            onAnimationEnd={() => {
-                              setRotation(0)
-                              setTableFilter([])
-                            }}
-                            rotation={rotation}
-                          />
-                        </IconButton>
-                      </Box>
-                    : (
-                      <MemberTableRow
-                        key={`member-table-row-${item.value}`}
-                        rowDataItem={item}
-                        headerInfo={headerInfo}
-                      />
-                    )))}
-                </DisplayTable>
+              <DisplayTable
+                headerInfo={headerInfo}
+                pageSize={MemberTable.pageSize}
+                useCheckBox={false}
+              >
+                {MemberTable.formatData(
+                  memberResults,
+                  activeMeasure.measure,
+                  store.info,
+                  tableFilter,
+                ).map((item) => (typeof item === 'string'
+                  ? (
+                    <Box key={item} className="d3-container__no-entries">
+                      <Typography className="d3-container__no-entries-text" sx={{ fontWeight: 600 }}>
+                        {item}
+                      </Typography>
+                      <IconButton
+                        onClick={() => {
+                          setRotation(1)
+                        }}
+                        size="large"
+                        className="d3-container__no-entries-button"
+                        aria-label="refresh"
+                        color="primary"
+                      >
+                        <RefreshIcon
+                          className="d3-container__refresher"
+                          value="refresh"
+                          onAnimationEnd={() => {
+                            setRotation(0)
+                            setTableFilter([])
+                          }}
+                          rotation={rotation}
+                        />
+                      </IconButton>
+                    </Box>
+                  )
+                  : (
+                    <MemberTableRow
+                      key={`member-table-row-${item.value}`}
+                      rowDataItem={item}
+                      headerInfo={headerInfo}
+                    />
+                  )))}
+              </DisplayTable>
             </TabPanel>
 
           </TabContext>
