@@ -32,6 +32,7 @@ $block-class: 'd3-container';
         }
 
         & &__table-selection-button:hover, :focus {
+            color: $blue-light-2;
             border-radius: 0.5rem;
             background-color: $blue-light-2-transparent;
             transition: 200ms;
@@ -126,10 +127,41 @@ $block-class: 'd3-container';
 
         &__no-entries {
             padding: 1.5rem .5rem;
+            font-size: 1.5rem;
             text-align: center;
-            color: $blue-light;
-            font-weight: 600;
         }
+
+        &__no-entries-text {
+            color: $blue-light;
+        }
+
+        &__no-entries-button {
+            color: $blue-grey-darken-2 !important;
+            padding-bottom: 0 !important;
+        }
+
+        &__no-entries-button:hover, :focus, &__no-entries-button.MuiSelected {
+            outline: unset;
+            color: $blue-grey-darken-2 ;
+        }
+
+        &__refresher {
+            font-size: 2.2rem !important;
+        }
+
+        &__refresher[rotation='1'] {
+            animation: rotation 500ms ease-out;
+          }
+          
+          @keyframes rotation {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(359deg);
+                color: $blue-light-2;
+            }
+          }
 
         &__bottom-display {
             border-radius: 3px;
