@@ -66,6 +66,15 @@ $block-class: 'display-table';
             text-align: center;
         }
 
+        & &__title-align--left {
+            @extend .display-table__header-item;
+            display: flex;
+            padding: 1rem;
+            align-items: center;
+            margin: auto;
+            text-align: left;
+        }
+
         & &__title-align-small {
             @extend .display-table__title-align;
             flex-basis: 8%;

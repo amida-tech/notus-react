@@ -1,4 +1,4 @@
-const measureTip = 'The actual measure. At the moment, these are always HEDIS measures.';
+const measureTip = 'The actual measure. At the moment, these are always HEDIS measures. ( Hover over measures to view description )';
 const remainingInclusionsTip = 'The population remaining after exclusions are removed.';
 const eligiblePopulationTip = 'The population of members who are eligible for this measure.';
 const numeratorTip = 'The number of members who have satisfied the criteria for this measure.';

@@ -41,8 +41,10 @@ export default function DatastoreProvider({ children }) {
           datastoreActions.setTrends(res.data);
         });
 
-      const searchPromise = axios.get(searchUrl);
-      const infoPromise = axios.get(infoUrl);
+      const searchPromise = axios.get(searchUrl)
+
+      const infoPromise = axios.get(infoUrl)
+
       Promise.all([searchPromise, infoPromise]).then((values) => {
         datastoreActions.setResults(values[0].data, values[1].data);
         datastoreActions.setIsLoading(false);

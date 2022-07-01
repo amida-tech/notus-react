@@ -34,5 +34,17 @@ $block-class: 'measure-table-row';
             color: $default-black;
             font-size:.9rem;
         }
+       
+
+
+        &__tooltips {
+            background-color: red;
+        }
+
+        & &__submeasure{
+            background-color: none;
+
+        }
+        
     }
 }
