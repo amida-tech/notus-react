@@ -181,7 +181,6 @@ function D3Container({
 
   const handleSelectedMeasureChange = (event) => {
     setTableFilter([])
-    setMemberResults([]);
     let newSelectedMeasures;
     if (event.target.checked) {
       newSelectedMeasures = event.target.value === 'all'
