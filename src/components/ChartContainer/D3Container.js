@@ -5,7 +5,7 @@ import React, {
 import { useHistory } from 'react-router-dom';
 
 import {
-  Grid, Typography, Box, Tab,
+  Grid, Typography, Box, Tab, Button,
 } from '@mui/material';
 
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
@@ -103,8 +103,8 @@ function D3Container({
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
   const [memberResults, setMemberResults] = useState([]);
-  const [tableFilter, setTableFilter] = useState('');
-  const [headerInfo, setHeaderInfo] = useState([]);
+  const [tableFilter, setTableFilter] = useState([]);
+  const [headerInfo, setHeaderInfo] = useState([])
 
   useEffect(() => {
     function handleResize() {
@@ -131,7 +131,7 @@ function D3Container({
       setColorMap(baseColorMap);
       setFilterDisabled(false);
       setMemberResults([]);
-      setTableFilter('');
+      setTableFilter([]);
       setHeaderInfo(MeasureTable.headerData(true));
     } else {
       setComposite(false);
@@ -143,7 +143,7 @@ function D3Container({
       setFilterDisabled(true);
       setHeaderInfo(MeasureTable.headerData(false));
     }
-  }, [activeMeasure, isComposite, store]);
+  }, [setTableFilter, history, activeMeasure, isComposite, store]);
 
   useEffect(() => {
     if (!isComposite && memberResults.length === 0) {
@@ -180,6 +180,7 @@ function D3Container({
   };
 
   const handleSelectedMeasureChange = (event) => {
+    setTableFilter([])
     let newSelectedMeasures;
     if (event.target.checked) {
       newSelectedMeasures = event.target.value === 'all'
@@ -192,6 +193,7 @@ function D3Container({
       setSelectedMeasures(newSelectedMeasures);
     }
     handleFilteredDataUpdate(newSelectedMeasures, currentFilters, currentTimeline);
+    history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`)
   };
 
   const handleFilterChange = (filterOptions) => {
@@ -204,12 +206,19 @@ function D3Container({
     handleFilteredDataUpdate(selectedMeasures, currentFilters, timelineUpdate);
   }
 
-  const handleMeasureChange = (event) => {
-    history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`);
-  }
-
   const handleTableFilterChange = (event) => {
-    setTableFilter(event.target.value === tableFilter ? '' : event.target.value);
+    if (event.target.value === undefined) {
+      setTableFilter([])
+    } else if (tableFilter.includes(event.target.value)) {
+      const tableFilterIndex = tableFilter.indexOf(event.target.value)
+      const newFiltering = tableFilter.filter((_, i) => i !== tableFilterIndex);
+
+      setTableFilter(newFiltering)
+    } else {
+      const newFiltering = [...tableFilter, event.target.value]
+
+      setTableFilter(newFiltering);
+    }
   }
 
   const [tabValue, setTabValue] = React.useState('overview');
@@ -239,6 +248,7 @@ function D3Container({
             onClick={() => {
               setComposite(true);
               setTabValue('overview');
+              setTableFilter([]);
               history.push('/');
             }}
           >
@@ -299,7 +309,7 @@ function D3Container({
                 <MeasureSelector
                   measure={activeMeasure.measure}
                   currentResults={store.currentResults}
-                  handleMeasureChange={handleMeasureChange}
+                  handleMeasureChange={handleSelectedMeasureChange}
                 />
               </Grid>
               <DisplayTable
@@ -325,8 +335,6 @@ function D3Container({
 
             <TabPanel value="members">
               <TableFilterPanel
-                measure={activeMeasure.measure}
-                memberResult={memberResults[0]}
                 tableFilter={tableFilter}
                 handleTableFilterChange={handleTableFilterChange}
               />
@@ -340,13 +348,30 @@ function D3Container({
                   activeMeasure.measure,
                   store.info,
                   tableFilter,
-                ).map((item) => (
-                  <MemberTableRow
-                    key={`member-table-row-${item.value}`}
-                    rowDataItem={item}
-                    headerInfo={headerInfo}
-                  />
-                ))}
+                ).map((item) => (typeof item === 'string'
+                  ? (
+                    <Box key={item} className="d3-container__no-entries">
+                      <Button
+                        variant="outlined"
+                        color="red"
+                        sx={{ fontWeight: 600 }}
+                        className="d3-container__no-entries-button"
+                        aria-label="clear"
+                        onClick={() => {
+                          setTableFilter([])
+                        }}
+                      >
+                        {item}
+                      </Button>
+                    </Box>
+                  )
+                  : (
+                    <MemberTableRow
+                      key={`member-table-row-${item.value}`}
+                      rowDataItem={item}
+                      headerInfo={headerInfo}
+                    />
+                  )))}
               </DisplayTable>
             </TabPanel>
 

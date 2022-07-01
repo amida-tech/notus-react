@@ -44,6 +44,7 @@ const allValuesEqual = (valueArray) => {
 
 const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   const formattedData = [];
+
   const subMeasures = Object.keys(storeInfo).filter((item) => item.includes(activeMeasure));
   memberResults.forEach((memberResult) => {
     const memberResultArray = [];
@@ -84,43 +85,53 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
     formattedData.push(formattedResult);
   });
 
-  return filterByNonCompliance(formattedData, subMeasures, tableFilter);
+  return filterByNonCompliance(formattedData, tableFilter);
 };
 
-const nonComplianceRange = {
-  one: 2,
-  two: 3,
-  many: 4,
+const nomCompRange = {
+  one: 1,
+  two: 2,
+  many: 3,
 }
 
-const filterByNonCompliance = (formattedData, subMeasures, tableFilter) => {
-  if (tableFilter === '') {
+const filterByNonCompliance = (formattedData, tableFilter) => {
+  if (tableFilter.length === 0) {
     return formattedData;
   }
   const filteredData = [];
-  if (subMeasures.length === 1) {
-    formattedData.forEach((score) => {
-      if (score[subMeasures[0]] === 'false') {
-        filteredData.push(score);
+
+  const counting = (data, filterVal) => {
+    data.forEach((measure) => {
+      const resultList = Object.values(measure).filter((submeasure) => submeasure === 'false')
+      if (resultList.length === nomCompRange[filterVal] && nomCompRange[filterVal] <= 2) {
+        filteredData.push(measure)
       }
-    });
-    return filteredData;
+      if (resultList.length >= nomCompRange[filterVal] && nomCompRange[filterVal] > 2) {
+        filteredData.push(measure)
+      }
+    })
   }
-  const limit = nonComplianceRange[tableFilter] < 4
-    ? (check) => check === nonComplianceRange[tableFilter]
-    : (check) => check >= nonComplianceRange[tableFilter];
-  formattedData.forEach((score) => {
-    let nonComplianceCheck = 0;
-    subMeasures.forEach((measure) => {
-      if (score[measure] === 'false') {
-        nonComplianceCheck += 1;
-      }
-    });
-    if (limit(nonComplianceCheck)) {
-      filteredData.push(score);
+
+  if (tableFilter.length === 1) {
+    const filterVal = tableFilter[0]
+    const ns = structuredClone(formattedData)
+    if (Object.keys(nomCompRange).includes(filterVal)) {
+      counting(ns, filterVal)
     }
-  });
-  return filteredData;
+  }
+
+  if (tableFilter.length > 1) {
+    const ns = structuredClone(formattedData)
+    tableFilter.forEach((filterVal) => {
+      counting(ns, filterVal)
+    })
+  }
+
+  if (filteredData.length === 0) {
+    filteredData.push('Reset table')
+  }
+
+  return filteredData
 }
 
 module.exports = {

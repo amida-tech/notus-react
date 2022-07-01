@@ -10,32 +10,27 @@ const memberComplianceItems = [
   { label: 'More than 2 Non-Compliant Submeasures', value: 'many' },
 ];
 
-const numeratorValues = ['id', 'Numerator 2', 'Numerator 3'];
-
 function TableFilterPanel({
-  measure, memberResult, tableFilter, handleTableFilterChange,
+  tableFilter, handleTableFilterChange,
 }) {
-  const numeratorCheck = memberResult[
-    Object.keys(memberResult).find((key) => key.startsWith(measure))];
   return (
     <Box className="table-filter-panel">
       <FormGroup className="table-filter-panel__button-panel">
         <Typography className="table-filter-panel__label">
           Member Compliance:
         </Typography>
-        {memberComplianceItems.map((item, index) => (
+        {memberComplianceItems.map((item) => (
           <FormControlLabel
             key={`table-filter-panel-${item.value}`}
             componentsProps={{ typography: { className: 'table-filter-panel__filter-item' } }}
-            disabled={numeratorCheck?.[numeratorValues[index]] === undefined}
             control={(
               <Checkbox
-                checked={tableFilter === item.value}
+                checked={tableFilter.includes(item.value)}
                 value={item.value}
                 className="table-filter-panel__filter-checkbox"
                 onChange={(e) => handleTableFilterChange(e)}
               />
-                )}
+                  )}
             label={item.label}
           />
         ))}
@@ -46,16 +41,14 @@ function TableFilterPanel({
 }
 
 TableFilterPanel.propTypes = {
-  measure: PropTypes.string,
   memberResult: PropTypes.shape({}),
-  tableFilter: PropTypes.string,
+  tableFilter: PropTypes.arrayOf(PropTypes.string),
   handleTableFilterChange: PropTypes.func,
 };
 
 TableFilterPanel.defaultProps = {
-  measure: '',
   memberResult: {},
-  tableFilter: '',
+  tableFilter: [],
   handleTableFilterChange: () => undefined,
 }
 

@@ -31,7 +31,9 @@ $block-class: 'd3-container';
             margin: 1rem .5rem;
         }
 
-        & &__table-selection-button:hover, :focus {
+        & &__table-selection-button:hover,
+        & &__table-selection-button:focus {
+            color: $blue-light-2;
             border-radius: 0.5rem;
             background-color: $blue-light-2-transparent;
             transition: 200ms;
@@ -122,6 +124,16 @@ $block-class: 'd3-container';
             display: flex;
             flex-direction: row;
             justify-content: right;
+        }
+
+        &__no-entries {
+            padding: 1.5rem .5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        &__no-entries-button:focus {
+            outline: 5px auto $default-red !important;
         }
 
         &__bottom-display {
