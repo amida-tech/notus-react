@@ -142,7 +142,7 @@ function D3Container({
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
       setColorMap(ColorMapping(baseColorMap, colorArray, subMeasureCurrentResults));
-      setFilterDisabled(false);
+      setFilterDisabled(true);
       setMemberResults([]);
       setTableFilter([]);
       setRowEntries([])

@@ -41,34 +41,31 @@ function MeasureTableRow({
             color={color}
           />
         )}
-        {headerInfo.map((fieldInfo) => (
-          <Grid
-            item
-            className={`measure-table-row__data-align measure-table-row__data-align--${fieldInfo.flexBasis}`}
-            key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
-          >
-            <Typography
-              variant="caption"
-              className="measure-table-row__data"
+        {headerInfo.map((fieldInfo) => {
+          return (
+            <Grid
+              item
+              className={`measure-table-row__data-align measure-table-row__data-align--${fieldInfo.flexBasis}`}
+              key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
             >
-
-              {fieldInfo.link && rowDataItem.value !== 'composite'
-                ? (
-                  <Tooltip
-                    title={measureInfo[rowDataItem.value].description}
-                    arrow
-                  >
-                    <Link
-                      to={{ pathname: `/${rowDataItem.value}` }}
-                    >
-                      {rowDataItem[fieldInfo.key]}
-                    </Link>
-                  </Tooltip>
-                )
-                : subMeasureCheck(fieldInfo, rowDataItem)}
-            </Typography>
-          </Grid>
-        ))}
+              <Typography
+                variant="caption"
+                className="measure-table-row__data"
+              >
+  
+                {fieldInfo.link && rowDataItem.value !== 'composite'
+                  ? (
+                    <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
+                      <Link to={{ pathname: `/${rowDataItem.value}` }}>
+                        {rowDataItem[fieldInfo.key]}
+                      </Link>
+                    </Tooltip>
+                  )
+                  : subMeasureCheck(fieldInfo, rowDataItem)}
+              </Typography>
+            </Grid>
+          )
+        })}
       </Grid>
     </Box>
   )
