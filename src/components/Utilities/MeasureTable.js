@@ -1,5 +1,5 @@
-const measureTip = 'The actual measure. At the moment, these are always HEDIS measures. ( Hover over measures and table headers to view description)';
-const subMeasureTip = 'Hover over sub-measures to view description, for more information click sub-measure to receive further information from NCQA.';
+const measureTip = 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)';
+const subMeasureTip = 'Hover over sub-measures to view description, for more information click sub-measure to go to NCQA to receive further information.';
 const remainingInclusionsTip = 'The population remaining after exclusions are removed.';
 const eligiblePopulationTip = 'The population of members who are eligible for this measure.';
 const numeratorTip = 'The number of members who have satisfied the criteria for this measure.';
