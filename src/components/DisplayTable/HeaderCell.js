@@ -8,7 +8,6 @@ import HelpIcon from '@mui/icons-material/Help';
 
 function HeaderCell({
   text, tooltip,
-
 }) {
   const checkText = text === 'Measure' || text === 'Sub-Measure'
 
@@ -41,7 +40,7 @@ function HeaderCell({
   }
   return (
     <Box className={checkText ? 'display-table__title-align--left' : 'display-table__title-align'}>
-      {headerGenerator(tooltip, text)}
+      {headerGenerator()}
     </Box>
   )
 }
