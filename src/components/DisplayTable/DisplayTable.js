@@ -17,6 +17,7 @@ function DisplayTable({
   handleCheckBoxChange,
   children,
 }) {
+
   let pageCount = 0;
   if (pageSize) {
     pageCount = Math.ceil(children.length / pageSize);
@@ -54,7 +55,7 @@ function DisplayTable({
             </Grid>
           ))}
         </Grid>
-        { children.slice(
+        { children.length > 1 ? children.slice(
           currentPage * rowsPerPage,
           currentPage * rowsPerPage + rowsPerPage,
         ).map((child) => (
@@ -65,7 +66,14 @@ function DisplayTable({
           >
             {child}
           </Grid>
-        ))}
+        )) :
+        <Grid
+          item
+          className="display-table__row"
+          key={`display-table-grid-for-${children.className}`}
+        >
+          {children}
+        </Grid>}
       </Grid>
 
       {pageCount > 1 && (

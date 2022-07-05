@@ -142,7 +142,10 @@ function D3Container({
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
       setColorMap(ColorMapping(baseColorMap, colorArray, subMeasureCurrentResults));
-      setFilterDisabled(true);
+      setFilterDisabled(false);
+      setMemberResults([]);
+      setTableFilter([]);
+      setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(false));
     }
   }, [setTableFilter, history, activeMeasure, isComposite, store]);
@@ -361,30 +364,29 @@ function D3Container({
                 pageSize={MemberTable.pageSize}
                 useCheckBox={false}
               >
-                {rowEntries.map((item) => (typeof item === 'string'
-                  ? (
-                    <Box key={item} className="d3-container__no-entries">
-                      <Button
-                        variant="outlined"
-                        color="red"
-                        sx={{ fontWeight: 600 }}
-                        className="d3-container__no-entries-button"
-                        aria-label="clear"
-                        onClick={() => {
-                          setTableFilter([])
-                        }}
-                      >
-                        {item}
-                      </Button>
-                    </Box>
-                  )
-                  : (
+                {rowEntries.length === 0 ?
+                  (<Box className="d3-container__no-entries">
+                  <Button
+                    variant="outlined"
+                    color="red"
+                    sx={{ fontWeight: 600 }}
+                    className="d3-container__no-entries-button"
+                    aria-label="clear"
+                    onClick={() => {
+                      setTableFilter([])
+                    }}
+                  >
+                    Reset Table
+                  </Button>
+                </Box>) :
+                  (rowEntries.map((item) => (
                     <MemberTableRow
                       key={`member-table-row-${item.value}`}
                       rowDataItem={item}
                       headerInfo={headerInfo}
                     />
-                  )))}
+                  )))
+                }
               </DisplayTable>
             </TabPanel>
 
