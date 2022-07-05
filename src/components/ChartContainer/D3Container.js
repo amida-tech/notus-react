@@ -105,6 +105,7 @@ function D3Container({
   const [memberResults, setMemberResults] = useState([]);
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
+  const [rowEntries, setRowEntries] = useState({})
 
   useEffect(() => {
     function handleResize() {
@@ -340,6 +341,9 @@ function D3Container({
                 tableFilter={tableFilter}
                 handleTableFilterChange={handleTableFilterChange}
               />
+              <Box className="d3-container__entries-display">
+                Results: <Typography display="inline" sx={{fontWeight: 800}}>1145</Typography> Entries Found
+              </Box>
               <DisplayTable
                 headerInfo={headerInfo}
                 pageSize={MemberTable.pageSize}
