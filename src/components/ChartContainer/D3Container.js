@@ -328,6 +328,8 @@ function D3Container({
                     handleCheckBoxEvent={handleSelectedMeasureChange}
                     rowSelected={selectedMeasures.includes(item.value)}
                     color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
+                    measureInfo={store.info}
+
                   />
                 ))}
               </DisplayTable>

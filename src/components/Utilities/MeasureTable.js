@@ -1,11 +1,12 @@
-const measureTip = 'The actual measure. At the moment, these are always HEDIS measures.';
+const measureTip = 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)';
+const subMeasureTip = 'Hover over sub-measures to view description, for more information click sub-measure to go to NCQA to receive further information.';
 const remainingInclusionsTip = 'The population remaining after exclusions are removed.';
 const eligiblePopulationTip = 'The population of members who are eligible for this measure.';
 const numeratorTip = 'The number of members who have satisfied the criteria for this measure.';
 const denominatorTip = 'The population of members who are eligible for this measure. Currently the same as Eligible Population.';
 const availableExclusionsTip = 'The population that can be excluded based on criteria.';
 
-const pageSize = 5;
+const pageSize = 10;
 
 const inclusions = {
   key: 'included',
@@ -73,7 +74,7 @@ const subHeaderInfo = [
   {
     key: 'label',
     header: 'Sub-Measure',
-    tooltip: measureTip,
+    tooltip: subMeasureTip,
     flexBasis: 'large',
   },
   inclusions,
