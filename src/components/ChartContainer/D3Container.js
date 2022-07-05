@@ -105,7 +105,7 @@ function D3Container({
   const [memberResults, setMemberResults] = useState([]);
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
-  const [rowEntries, setRowEntries] = useState({})
+  const [rowEntries, setRowEntries] = useState([])
 
   useEffect(() => {
     function handleResize() {
@@ -133,6 +133,7 @@ function D3Container({
       setFilterDisabled(false);
       setMemberResults([]);
       setTableFilter([]);
+      setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(true));
     } else {
       setComposite(false);
@@ -179,6 +180,15 @@ function D3Container({
     newDisplayData = filterByTimeline(newDisplayData, timeline);
     setDisplayData(newDisplayData);
   };
+
+  useEffect(() => {
+    setRowEntries(MemberTable.formatData(
+      memberResults,
+      activeMeasure.measure,
+      store.info,
+      tableFilter,
+    ))
+  }, [tableFilter, memberResults])
 
   const handleSelectedMeasureChange = (event) => {
     setTableFilter([])
@@ -342,19 +352,16 @@ function D3Container({
                 handleTableFilterChange={handleTableFilterChange}
               />
               <Box className="d3-container__entries-display">
-                Results: <Typography display="inline" sx={{fontWeight: 800}}>1145</Typography> Entries Found
+                Results:&nbsp;
+                <Typography display="inline" sx={{fontWeight: 800}}>{rowEntries.length}</Typography>
+                &nbsp;Entries Found
               </Box>
               <DisplayTable
                 headerInfo={headerInfo}
                 pageSize={MemberTable.pageSize}
                 useCheckBox={false}
               >
-                {MemberTable.formatData(
-                  memberResults,
-                  activeMeasure.measure,
-                  store.info,
-                  tableFilter,
-                ).map((item) => (typeof item === 'string'
+                {rowEntries.map((item) => (typeof item === 'string'
                   ? (
                     <Box key={item} className="d3-container__no-entries">
                       <Button
