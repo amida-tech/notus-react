@@ -52,7 +52,6 @@ function DisplayTable({
             >
               <HeaderCell text={item.header} tooltip={item.tooltip} />
             </Grid>
-
           ))}
         </Grid>
         { children.slice(
