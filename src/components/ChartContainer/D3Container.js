@@ -191,7 +191,7 @@ function D3Container({
       store.info,
       tableFilter,
     ))
-  }, [tableFilter, memberResults])
+  }, [tableFilter, memberResults, activeMeasure.measure, store.info])
 
   const handleSelectedMeasureChange = (event) => {
     setTableFilter([])
@@ -356,7 +356,7 @@ function D3Container({
               />
               <Box className="d3-container__entries-display">
                 Results:&nbsp;
-                <Typography display="inline" sx={{fontWeight: 800}}>{rowEntries.length}</Typography>
+                <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
                 &nbsp;Entries Found
               </Box>
               <DisplayTable
@@ -364,29 +364,30 @@ function D3Container({
                 pageSize={MemberTable.pageSize}
                 useCheckBox={false}
               >
-                {rowEntries.length === 0 ?
-                  (<Box className="d3-container__no-entries">
-                  <Button
-                    variant="outlined"
-                    color="red"
-                    sx={{ fontWeight: 600 }}
-                    className="d3-container__no-entries-button"
-                    aria-label="clear"
-                    onClick={() => {
-                      setTableFilter([])
-                    }}
-                  >
-                    Reset Table
-                  </Button>
-                </Box>) :
-                  (rowEntries.map((item) => (
+                {rowEntries.length === 0
+                  ? (
+                    <Box className="d3-container__no-entries">
+                      <Button
+                        variant="outlined"
+                        color="red"
+                        sx={{ fontWeight: 600 }}
+                        className="d3-container__no-entries-button"
+                        aria-label="clear"
+                        onClick={() => {
+                          setTableFilter([])
+                        }}
+                      >
+                        Reset Table
+                      </Button>
+                    </Box>
+                  )
+                  : (rowEntries.map((item) => (
                     <MemberTableRow
                       key={`member-table-row-${item.value}`}
                       rowDataItem={item}
                       headerInfo={headerInfo}
                     />
-                  )))
-                }
+                  )))}
               </DisplayTable>
             </TabPanel>
 
