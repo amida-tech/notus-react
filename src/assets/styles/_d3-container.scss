@@ -18,6 +18,7 @@ $block-class: 'd3-container';
             height: 4rem;
             background-color: $blue-light;
             outline: $blue-dark solid 1px;
+            border-radius: 3px;
         }
 
         & &__table-selection-button {

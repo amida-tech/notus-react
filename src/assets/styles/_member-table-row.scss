@@ -50,6 +50,11 @@ $block-class: 'member-table-row';
             }
         }
 
+        & &__data-align:first-of-type {
+            min-width: 15%;
+            margin-left: .5rem;
+        }
+
         & &__data-align-small {
             @extend .member-table-row__data-align;
             flex-basis: 8%
@@ -57,7 +62,7 @@ $block-class: 'member-table-row';
 
         & &__data {
             color: $default-black;
-            font-size:.9rem;
+            font-size: .9rem;
         }
 
         & &__compliance-icon {
