@@ -8,7 +8,6 @@ The purpose of this API is to ingest HEDIS data from pyspark, save it, and then 
     - Simply run `yarn run install:clean`
   - If not 
     - Run in terminal `yarn`
-    - Run in terminal `yarn run build:tailwind` (each time you add a new class, a class that does not exist in `src/assets/styles/tailwind.css`, you will need to run this command)
     - Run in terminal `yarn start`
 3. Navigate to https://localhost:3000.
 
