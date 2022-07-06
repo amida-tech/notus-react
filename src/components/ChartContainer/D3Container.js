@@ -105,6 +105,7 @@ function D3Container({
   const [memberResults, setMemberResults] = useState([]);
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
+  const [rowEntries, setRowEntries] = useState([])
 
   useEffect(() => {
     function handleResize() {
@@ -132,6 +133,7 @@ function D3Container({
       setFilterDisabled(false);
       setMemberResults([]);
       setTableFilter([]);
+      setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(true));
     } else {
       setComposite(false);
@@ -141,6 +143,9 @@ function D3Container({
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
       setColorMap(ColorMapping(baseColorMap, colorArray, subMeasureCurrentResults));
       setFilterDisabled(true);
+      setMemberResults([]);
+      setTableFilter([]);
+      setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(false));
     }
   }, [setTableFilter, history, activeMeasure, isComposite, store]);
@@ -178,6 +183,15 @@ function D3Container({
     newDisplayData = filterByTimeline(newDisplayData, timeline);
     setDisplayData(newDisplayData);
   };
+
+  useEffect(() => {
+    setRowEntries(MemberTable.formatData(
+      memberResults,
+      activeMeasure.measure,
+      store.info,
+      tableFilter,
+    ))
+  }, [tableFilter, memberResults, activeMeasure.measure, store.info])
 
   const handleSelectedMeasureChange = (event) => {
     setTableFilter([])
@@ -340,19 +354,19 @@ function D3Container({
                 tableFilter={tableFilter}
                 handleTableFilterChange={handleTableFilterChange}
               />
+              <Box className="d3-container__entries-display">
+                Results:&nbsp;
+                <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
+                &nbsp;Entries Found
+              </Box>
               <DisplayTable
                 headerInfo={headerInfo}
                 pageSize={MemberTable.pageSize}
                 useCheckBox={false}
               >
-                {MemberTable.formatData(
-                  memberResults,
-                  activeMeasure.measure,
-                  store.info,
-                  tableFilter,
-                ).map((item) => (typeof item === 'string'
+                {rowEntries.length === 0
                   ? (
-                    <Box key={item} className="d3-container__no-entries">
+                    <Box className="d3-container__no-entries">
                       <Button
                         variant="outlined"
                         color="red"
@@ -363,11 +377,11 @@ function D3Container({
                           setTableFilter([])
                         }}
                       >
-                        {item}
+                        Reset Table
                       </Button>
                     </Box>
                   )
-                  : (
+                  : (rowEntries.map((item) => (
                     <MemberTableRow
                       key={`member-table-row-${item.value}`}
                       rowDataItem={item}

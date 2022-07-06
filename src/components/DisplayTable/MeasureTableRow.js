@@ -54,13 +54,8 @@ function MeasureTableRow({
 
               {fieldInfo.link && rowDataItem.value !== 'composite'
                 ? (
-                  <Tooltip
-                    title={measureInfo[rowDataItem.value].description}
-                    arrow
-                  >
-                    <Link
-                      to={{ pathname: `/${rowDataItem.value}` }}
-                    >
+                  <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
+                    <Link to={{ pathname: `/${rowDataItem.value}` }}>
                       {rowDataItem[fieldInfo.key]}
                     </Link>
                   </Tooltip>

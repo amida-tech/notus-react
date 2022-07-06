@@ -127,10 +127,6 @@ const filterByNonCompliance = (formattedData, tableFilter) => {
     })
   }
 
-  if (filteredData.length === 0) {
-    filteredData.push('Reset table')
-  }
-
   return filteredData
 }
 
