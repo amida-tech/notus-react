@@ -355,7 +355,7 @@ function D3Container({
                     <Box key={item} className="d3-container__no-entries">
                       <Button
                         variant="contained"
-                        color="red"
+                        color="primary"
                         sx={{ fontWeight: 600 }}
                         className="d3-container__no-entries-button"
                         aria-label="clear"

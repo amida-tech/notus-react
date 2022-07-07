@@ -9,14 +9,17 @@ $block-class: 'display-table';
         color: $blue-grey-darken-1;
         width: auto;
         overflow-x: auto;
+        padding: 0.5rem 0;
 
         & &__header-section {
             align-items: center;
             display: flex;
             width: 100%;
-            padding: 0.2rem;
+            height: 4rem;
             flex-wrap: nowrap;
             margin-left: 0.5rem;
+            align-self: center;
+            text-align: -webkit-center;
 
             &--inverted {
                 background-color: $blue-grey-darken-1;
@@ -29,8 +32,11 @@ $block-class: 'display-table';
         }
 
         & &__header-item {
-            min-width: 10%;
-            height: 100%;
+            min-width: 10.06%;
+            min-width: calc(10% + 0.8px); //don't @ me
+            display: flex;
+            height: inherit;
+            justify-content: center;
 
             &--smaller {
                 flex-basis: 5%;
@@ -50,6 +56,7 @@ $block-class: 'display-table';
 
             &--large {
                 flex-basis: 20%;
+                justify-content: left;
             }
 
             &--larger {
@@ -61,39 +68,38 @@ $block-class: 'display-table';
         & &__title-align {
             @extend .display-table__header-item;
             min-width: 10%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            padding: 0.2rem 0.5rem;
-            min-width: 10%;
-            word-wrap: break-word;
-            background-co
+            height: inherit;
+            width: 100%;
         }
 
         & &__title-align--left {
             @extend .display-table__header-item;
-            display: flex;
             padding: 1rem;
             align-items: center;
-            margin: auto;
-            text-align: left;
+            height: inherit;
         }
 
         & &__title-align-small {
             @extend .display-table__title-align;
             flex-basis: 8%;
-            margin: 0;
-            max-width: 8%;
+            align-items: center;
+            height: inherit;
+            display: flex;
+            justify-content: center;
         }
 
         & &__title {
+            word-wrap: break-word;
             font-weight: bold;
-            max-width: -webkit-fill-available;
+            height: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: inherit;
         }
 
         & &__help-icon {
             @extend .rating-trends__help-icon;
-            margin-top: -0.05rem;
             font-size: 1.25rem;
         }
 
