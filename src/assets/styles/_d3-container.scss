@@ -2,27 +2,28 @@
 
 $block-class: 'd3-container';
 
+// TODO DESTROY THIS
+* {
+    outline: solid red 1px;
+}
+
 @at-root {
     .#{$block-class} {
         & &__overview-member-chart {
             margin: 0 -1rem;
-            border: $blue-dark solid 1px;
+            border: $outline-blue solid 1px;
             border-radius: 3px;
         }
 
-        // MUI TABS
-        // height: 4rem;
-        // align-items: center;
-
         & &__table-tab-bar {
             height: 4rem;
-            background-color: $blue-light;
-            outline: $blue-dark solid 1px;
+            background-color: $primary-blue;
+            outline: $outline-blue solid 1px;
             border-radius: 3px;
         }
 
         & &__table-selection-button {
-            color: $blue-light-2;
+            color: $secondary-blue;
             max-height: 2.2rem;
             font-weight: light;
             padding: 0 2rem;
@@ -34,20 +35,21 @@ $block-class: 'd3-container';
 
         & &__table-selection-button:hover,
         & &__table-selection-button:focus {
-            color: $blue-light-2;
+            color: $secondary-blue;
             border-radius: 0.5rem;
-            background-color: $blue-light-2-transparent;
+            background-color: $secondary-blue-transparent;
             transition: 200ms;
         }
 
         & &__table-selection-button.Mui-selected {
-            color: $blue-light;
-            background-color: $blue-light-2;
+            color: $primary-blue;
+            background-color: $secondary-blue;
             border-radius: 0.5rem;
             height: 1.5rem;
             place-self: center;
         }
 
+        // TO DO: make chart-bar and return-icon, etc. adhere to box model theory
         & &__chart-bar {
             float: right;
             margin-top: 0.625rem;
@@ -70,7 +72,7 @@ $block-class: 'd3-container';
 
         & &__return-icon {
             font-size: 1rem;
-            margin-bottom: .25rem;
+            padding-top: 0.2rem;
         }
 
         &__return-link-display {
@@ -86,7 +88,7 @@ $block-class: 'd3-container';
         }
 
         & &__cancel-icon {
-            color: $blue-light;
+            color: $primary-blue;
             font-size: 2rem;
             margin: .5rem;
         }
@@ -139,7 +141,7 @@ $block-class: 'd3-container';
 
         &__bottom-display {
             border-radius: 3px;
-            border: $blue-light;
+            border: $primary-blue;
             padding: 0 1rem;
         }
     }

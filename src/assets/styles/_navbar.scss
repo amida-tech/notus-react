@@ -4,7 +4,7 @@ $block-class: 'navbar';
 @at-root {
     .#{$block-class} {
       width: 100%;
-      color: #FFFFFF;
+      color: $default-white;
       
 
       &__container {
@@ -17,7 +17,7 @@ $block-class: 'navbar';
       }
       &__text{
         --text-opacity: 1;
-        color: #FFFFFF;
+        color: $default-white;
         font-size: 0.875rem;
         font-weight: 600;
         text-transform: uppercase;

@@ -36,7 +36,7 @@ $block-class: 'member-report';
         }
 
         & &__member-card {
-            border: 1px solid $default-black;
+            border: 1px solid $blue-grey-darken-4;
             max-width: 27%;
             flex-basis: 27%;
             padding: 1rem;
@@ -65,7 +65,7 @@ $block-class: 'member-report';
             margin-top: 0.05rem;
             
             &--active { 
-                color: $default-mint;
+                color: $green-text;
             }
 
             &--inactive {
@@ -84,17 +84,17 @@ $block-class: 'member-report';
         }
 
         & &__accordion-summary {
-            color: $default-black;
+            color: $blue-grey-darken-4;
             background-color: $blue-grey-lighten-3;
         }
 
         & &__accordion-text {
-            color: $default-black;
+            color: $blue-grey-darken-4;
             margin: 1rem;
         }
 
         & &__table-display {
-            border: 1px solid $default-black;
+            border: 1px solid $blue-grey-darken-4;
         }
     }
 }

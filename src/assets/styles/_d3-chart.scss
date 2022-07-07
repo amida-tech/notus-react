@@ -9,7 +9,7 @@ $block-class: 'd3-chart';
     &__line-chart {
       height: 37.5rem;
       width: 95vw;
-      background-color: #fff;
+      background-color: $default-white;
     }
 
     &__x-axis {
@@ -17,7 +17,7 @@ $block-class: 'd3-chart';
     }
 
     &__y-axis {
-      color: $y-axis-line-color;
+      color: $blue-grey-lighten-4;
     }
 
     &__stroke-stroke-width-opacity {
@@ -26,20 +26,20 @@ $block-class: 'd3-chart';
     }
 
     &__label {
-      fill: $axis-label-color;
+      fill: $blue-grey-lighten-3;
       font-size: 1.3rem;
       font-weight: bold;
       text-anchor: middle;
     }
 
     &__rating-y {
-      color: $axis-label-color;
+      color: $blue-grey-lighten-3;
       font-size: 1.125rem;
       font-weight: bold;
     }
 
     &__dates-x {
-      color: $axis-label-color;
+      color: $blue-grey-lighten-3;
       font-size: 0.875rem;
       font-weight: bold;
     }
@@ -48,9 +48,9 @@ $block-class: 'd3-chart';
       position: absolute;
       z-index: 10;
       visibility: hidden;
-      background: $default-gray;
-      border: 1px solid $default-black;
-      color: white;
+      background: $blue-grey-lighten-2;
+      border: 1px solid $blue-grey-darken-4;
+      color: $default-white;
       padding: 5px 10px;
       font-size: 1rem;
       font-weight: bold;

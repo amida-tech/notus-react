@@ -61,7 +61,7 @@ $block-class: 'member-table-row';
         }
 
         & &__data {
-            color: $default-black;
+            color: $blue-grey-darken-4;
             font-size: .9rem;
         }
 
@@ -76,7 +76,7 @@ $block-class: 'member-table-row';
             align-items: center;
 
             &--matched {
-                color: $default-mint;
+                color: $green-icon;
             }
     
             &--unmatched {

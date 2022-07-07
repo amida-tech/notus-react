@@ -60,12 +60,12 @@ $block-class: 'rating-trends';
         }
 
         &__help-icon {
-            color: $gray-light;
+            color: $blue-grey-lighten-4;
             margin-left: 0.4rem;
             margin-top: 0.1rem;
 
             &:hover {
-                color: $blue-light;
+                color: $primary-blue;
             }
         }
         
@@ -89,10 +89,10 @@ $block-class: 'rating-trends';
         }
 
         & &__view-rating-details-button {
-            background-color: $blue-light;
-            color: #fff;
+            background-color: $primary-blue;
+            color: $default-white;
             font-weight: 600;
-            border: 1px solid $default-gray;
+            border: 1px solid $blue-grey-lighten-2;
             padding: 1rem;
             border-radius: 3px;
         }

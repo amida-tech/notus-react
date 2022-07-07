@@ -31,14 +31,14 @@ $block-class: 'measure-table-row';
         }
 
         & &__data {
-            color: $default-black;
-            font-size:.9rem;
+            color: $blue-grey-darken-4;
+            font-size: .9rem;
         }
        
 
 
         &__tooltips {
-            background-color: red;
+            background-color: $default-red;
         }
 
         & &__submeasure{

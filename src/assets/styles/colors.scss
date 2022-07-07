@@ -1,22 +1,15 @@
-$default-gray: #808080;
-$default-red: #C62828; //used in Xs, negative change, no entries found
-$default-green: #2E7D32;
-$default-black: #263238;
-$default-mint: #3EB489;
 
-// this can be integrated into the main palette
-$gray-main: #616161;
-$gray-light: #CFDFDC;
-$gray-dark: #666666;
+$default-white: #FFF; //adhere to this for white, no hardcoding
 
-$blue-light: #1976D2; // good background/main color for components
-$blue-light-2: #DFF4FC; // good background/secondary color with blue-light under it
-$blue-light-2-transparent: #dff4fc40; //niche hover case color
-$blue-today: #4269f5; // used only for 'today' on MUI chart currently, not our true main
-$blue-dark: #162f8a; //outline for blue-light components
+$default-red: #C62828; //used in Xs, negative change, no entries found, no matched compliance
 
-$y-axis-line-color: #cfd8dc;
-$axis-label-color: #b0bec5;
+$green-text: #2E7D32;
+$green-icon: #3EB489;
+
+$primary-blue: #1976D2;
+$secondary-blue: #DFF4FC;
+$outline-blue: #162f8a;
+$secondary-blue-transparent: #dff4fc40;
 
 // Blue-grey theme pallete
 $blue-grey: #607D8B;

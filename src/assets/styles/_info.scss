@@ -18,13 +18,13 @@ $block-class: 'info';
       }
 
       &__info-icon {
-        color: $blue-light;
+        color: $primary-blue;
         font-size: 1.25rem;
         z-index: 1;
       }
 
       &__info-box {
-        background-color: $blue-light-2;
+        background-color: $secondary-blue;
         display: flex;
         border-radius: 3px;
         padding: .9rem;

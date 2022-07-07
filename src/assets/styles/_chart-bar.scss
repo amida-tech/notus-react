@@ -14,14 +14,14 @@ $block-class: 'chart-bar';
     }
 
     &__radio-label {
-      color: $default-black;
+      color: $blue-grey-darken-4;
     }
 
     &__badge > span {
-      color: #FFFFFF;
+      color: $default-white;
       background-color: $default-red;
       transform: scale(1) translate(-50%, 30%);
-      box-shadow: 0 0 0 2px $default-gray;
+      box-shadow: 0 0 0 2px $blue-grey-lighten-2;
       transition: none;
 
       &--hidden {
@@ -37,26 +37,26 @@ $block-class: 'chart-bar';
 
     &__date-text {
       .MuiInputBase-input {
-        color: $default-black;
+        color: $blue-grey-darken-4;
       }
     }
 
     &__between-text {
       margin: 0 1rem;
-      color: $default-black;
+      color: $blue-grey-darken-4;
     }
 
     &__date-range-picker {
       .MuiDateRangePickerDay-day {
-        color: $default-black;
+        color: $blue-grey-darken-4;
       }
 
       .MuiTypography-subtitle1 {
-        color: $default-black;
+        color: $blue-grey-darken-4;
       }
 
       .MuiPickersDay-today {
-        color: $blue-today;
+        color: $primary-blue;
       }
     }
   }

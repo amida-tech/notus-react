@@ -32,7 +32,7 @@ $block-class: 'report-table-row';
         }
 
         & &__data {
-            color: $default-black;
+            color: $blue-grey-darken-4;
             font-size:.9rem;
         }
 
@@ -49,7 +49,7 @@ $block-class: 'report-table-row';
             max-height: 3.5rem;
 
             &--matched {
-                color: $default-mint;
+                color: $green-icon;
             }
     
             &--unmatched {
@@ -63,7 +63,7 @@ $block-class: 'report-table-row';
 
         & &__condition-icon {
             &--good {
-                color: $default-mint;
+                color: $green-text;
             }
     
             &--bad {

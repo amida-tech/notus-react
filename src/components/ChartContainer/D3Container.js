@@ -47,7 +47,7 @@ const axios = require('axios').default;
 
 export const firstRenderContext = createContext(true);
 
-const colorArray = [
+const chartColorArray = [
   '#88CCEE',
   '#CC6677',
   '#DDCC77',
@@ -119,7 +119,7 @@ function D3Container({
   useEffect(() => { // Break apart later if we feel we need to separate concerns.
     const baseColorMap = store.currentResults.map((item, index) => ({
       value: item.measure,
-      color: index <= 11 ? colorArray[index] : colorArray[index % 11],
+      color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
     }));
     setCurrentTimeline(defaultTimelineState);
     setCurrentFilters(defaultFilterState);
@@ -139,7 +139,7 @@ function D3Container({
       setDisplayData(expandSubMeasureResults(activeMeasure, store));
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
-      setColorMap(ColorMapping(baseColorMap, colorArray, subMeasureCurrentResults));
+      setColorMap(ColorMapping(baseColorMap, chartColorArray, subMeasureCurrentResults));
       setFilterDisabled(true);
       setHeaderInfo(MeasureTable.headerData(false));
     }
@@ -354,7 +354,7 @@ function D3Container({
                   ? (
                     <Box key={item} className="d3-container__no-entries">
                       <Button
-                        variant="outlined"
+                        variant="contained"
                         color="red"
                         sx={{ fontWeight: 600 }}
                         className="d3-container__no-entries-button"
