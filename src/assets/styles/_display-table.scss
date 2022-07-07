@@ -32,7 +32,6 @@ $block-class: 'display-table';
         }
 
         & &__header-item {
-            min-width: 10.06%;
             min-width: calc(10% + 0.8px); //don't @ me
             display: flex;
             height: inherit;
@@ -82,6 +81,7 @@ $block-class: 'display-table';
         & &__title-align-small {
             @extend .display-table__title-align;
             flex-basis: 8%;
+            max-width: 8%;
             align-items: center;
             height: inherit;
             display: flex;
