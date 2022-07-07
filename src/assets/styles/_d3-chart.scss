@@ -4,11 +4,11 @@ $block-class: 'd3-chart';
 
 @at-root {
   .#{$block-class} {
-    width: 90vw;
+    width: inherit;
 
     &__line-chart {
       height: 37.5rem;
-      width: 95vw;
+      width: -webkit-fill-available;
       background-color: $default-white;
     }
 

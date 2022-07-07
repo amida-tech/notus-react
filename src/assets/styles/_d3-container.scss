@@ -15,6 +15,10 @@ $block-class: 'd3-container';
             border-radius: 3px;
         }
 
+        main-chart {
+            width: 100;
+        }
+
         & &__table-tab-bar {
             height: 4rem;
             background-color: $primary-blue;
