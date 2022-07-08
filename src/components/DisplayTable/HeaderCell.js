@@ -11,12 +11,30 @@ function HeaderCell({
 }) {
   const checkText = text === 'Measure' || text === 'Sub-Measure'
 
+  const overviewExceptions = ['Measures', 'Sub-Measures']
+  const memberExceptions = ['MemberID']
+
+  function subTheMeasure(text) {
+    return text.split('').includes(':') ? text.split(':')[1] : text
+  }
+
   function headerGenerator() {
+    if (memberExceptions.includes(text)) {
+      return (
+        <>
+          <ToolTip title={tooltip} arrow>
+            <Typography className="display-table__title" sx={{justifyContent: 'left!important'}}>
+              {subTheMeasure(text)}
+            </Typography>
+          </ToolTip>
+        </>
+      )
+    }
     if (checkText && tooltip) {
       return (
         <>
           <Typography className="display-table__title">
-            {text}
+            {subTheMeasure(text)}
           </Typography>
           <ToolTip title={tooltip} arrow>
             <HelpIcon className="display-table__help-icon" />
@@ -27,14 +45,14 @@ function HeaderCell({
       return (
         <ToolTip title={tooltip} arrow>
           <Typography className="display-table__title">
-            {text}
+            {subTheMeasure(text)}
           </Typography>
         </ToolTip>
       )
     }
     return (
       <Typography className="display-table__title">
-        {text}
+        {subTheMeasure(text)}
       </Typography>
     )
   }
