@@ -4,7 +4,18 @@ $block-class: 'footer';
 @at-root {
     .#{$block-class} {
       width: 100%;
-      padding-bottom: 1.5rem;
+      padding: 2rem;
+
+      a {
+        text-decoration: none;
+        color: $blue-grey-darken-1;
+        transition: 200ms;
+      }
+      
+      a:hover {
+        text-decoration: underline;
+        color: $blue-grey-darken-3;
+      }
 
       &__top-border {
        border-top: 3px solid $blue-grey-darken-4;

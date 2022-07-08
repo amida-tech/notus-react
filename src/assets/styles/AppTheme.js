@@ -6,56 +6,37 @@ const theme = createTheme({
     primary: {
       main: '#1976D2',
       light: '#DFF4FC',
-      dark: '#5263eb',
+      dark: '#162F8A',
+    },
+    secondary: {
+      main: '#DFF4FC',
+      light: '##E7F6FD',
+      dark: '#1976D2',
     },
     background: {
       main: '#F7F8FC',
-      secondary: '#828282',
+      secondary: '#1976D2',
     },
     success: {
-      main: '#94c93d',
-      light: '#a2cf6e',
-      dark: '#618833',
+      main: '#2E7D32',
+      light: '#47BB4D',
+      dark: '#235F26',
     },
     text: {
-      primary: '#eeeeee',
-      secondary: '#000000',
+      primary: '#263238',
+      secondary: '#546E7A',
+      disabled: '#90A4AE',
     },
     warning: {
       fontSize: '14pt',
-      main: '#3dc1c9',
-      light: '#63cdd3',
-      dark: '#2a878c',
+      main: '#FFCA28;',
+      light: '#FFD75E',
+      dark: '#DEA600',
     },
-    white: {
-      main: '#ffffff',
-      light: '#ffffff',
-      dark: '#ffffff',
-    },
-    black: {
-      main: '#808080',
-      light: '#808080',
-      dark: '#808080',
-    },
-    gray: {
-      main: '#616161',
-      light: '#666666',
-      dark: '#9c9c9c',
-    },
-    lightGray: {
-      main: '#a3a3a3',
-      light: '#878787',
-      dark: '#bfbfbf',
-    },
-    blue: {
-      main: '#4269f5',
-      light: '#162f8a',
-      dark: '#5e7ae0',
-    },
-    red: {
+    error: {
       main: '#C62828',
-      light: '#CD4343',
-      dark: '#AD2323',
+      light: '#DD5757',
+      dark: '#951F1F',
     },
   },
   typography: {
@@ -63,15 +44,14 @@ const theme = createTheme({
   },
   shape: {
     borderRadius: {
-      xl: '.75em',
+      xl: '3px',
     },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          borderRadius: '5px',
-          // color: '#808080',
+          borderRadius: '3px',
         },
       },
     },

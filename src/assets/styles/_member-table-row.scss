@@ -50,14 +50,19 @@ $block-class: 'member-table-row';
             }
         }
 
+        & &__data-align:first-of-type {
+            min-width: 15%;
+            margin-left: .5rem;
+        }
+
         & &__data-align-small {
             @extend .member-table-row__data-align;
             flex-basis: 8%
         }
 
         & &__data {
-            color: $default-black;
-            font-size:.9rem;
+            color: $blue-grey-darken-4;
+            font-size: .9rem;
         }
 
         & &__compliance-icon {
@@ -71,7 +76,7 @@ $block-class: 'member-table-row';
             align-items: center;
 
             &--matched {
-                color: $default-mint;
+                color: $green-icon;
             }
     
             &--unmatched {

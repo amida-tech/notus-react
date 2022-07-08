@@ -1,8 +1,8 @@
-const ColorMapping = (colorMapping, colorArray, displayData) => {
+const ColorMapping = (colorMapping, chartColorArray, displayData) => {
   const measureList = [];
   // Get base measure and filter out the mapped color
   const baseMeasure = displayData[0].measure;
-  const filteredColorArray = colorArray.filter(
+  const filteredColorArray = chartColorArray.filter(
     (color) => color !== colorMapping.find((mapping) => mapping.value === baseMeasure).color,
   );
 

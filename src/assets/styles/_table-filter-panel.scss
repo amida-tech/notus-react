@@ -3,19 +3,30 @@ $block-class: 'table-filter-panel';
 
 @at-root {
     .#{$block-class} {
-        & &__button-panel {
+        display: grid;
+        grid-template-columns: 4fr 10fr 1fr;
+
+        & &__member-search { // TODO //placeholder styles
+            color: $blue-grey-darken-4;
             display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            margin: 1rem 2rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        & &__button-panel {
+            width: 100%;
+            display: flex;
+            flex-flow: row;
+            gap: 1rem;
+            padding: 1rem 0 0.5rem 0;
             color:$blue-grey-darken-1;
         }
 
         & &__label {
-            align-items: center;
-            padding: 0.5625rem;
+            align-self: center;
             font-weight: bolder;
             word-wrap: break-word;
+            width: 7rem;
         }
 
         & &__divider {

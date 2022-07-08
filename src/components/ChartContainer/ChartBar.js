@@ -87,7 +87,7 @@ function ChartBar({
         <Grid item sx={buttonStyling}>
           <Button
             key="d3-YTD"
-            color="black"
+            color="primary"
             onClick={handleDateOpen}
             variant="text"
             startIcon={<DateRangeIcon />}
@@ -141,7 +141,7 @@ function ChartBar({
                   </LocalizationProvider>
                   <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
                     <Grid item>
-                      <Button variant="contained" color="blue" onClick={clearDate}>
+                      <Button variant="contained" color="primary" onClick={clearDate}>
                         Clear Selection
                       </Button>
                     </Grid>
@@ -155,7 +155,7 @@ function ChartBar({
           {
             env.REACT_APP_MVP_SETTING === 'false'
             && (
-              <Button disabled key="d3-options" color="black" variant="text" startIcon={<TuneIcon />}>
+              <Button disabled key="d3-options" color="secondary" variant="text" startIcon={<TuneIcon />}>
                 <Typography variant="caption">
                   Options
                 </Typography>
@@ -167,7 +167,7 @@ function ChartBar({
           {
             env.REACT_APP_MVP_SETTING === 'false'
             && (
-              <Button disabled key="d3-export" color="black" variant="text" startIcon={<SimCardDownloadIcon />}>
+              <Button disabled key="d3-export" color="secondary" variant="text" startIcon={<SimCardDownloadIcon />}>
                 <Typography variant="caption">
                   Export
                 </Typography>
@@ -179,7 +179,7 @@ function ChartBar({
           <Badge badgeContent={filterSum} className={`chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
             <Button
               className="chart-bar__filter-button"
-              color="black"
+              color="primary"
               variant="text"
               onClick={onClickFilter}
               disabled={filterDisabled}
