@@ -27,7 +27,7 @@ const theme = createTheme({
       secondary: '#546E7A',
       disabled: '#90A4AE',
     },
-    warning: { //not set currently
+    warning: {
       fontSize: '14pt',
       main: '#3dc1c9',
       light: '#63cdd3',
