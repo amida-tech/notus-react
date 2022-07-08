@@ -29,9 +29,9 @@ const theme = createTheme({
     },
     warning: {
       fontSize: '14pt',
-      main: '#3dc1c9',
-      light: '#63cdd3',
-      dark: '#2a878c',
+      main: '#FFCA28;',
+      light: '#FFD75E',
+      dark: '#DEA600',
     },
     error: {
       main: '#C62828',
