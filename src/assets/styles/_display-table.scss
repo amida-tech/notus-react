@@ -7,19 +7,18 @@ $block-class: 'display-table';
 @at-root {
     .#{$block-class} {
         color: $blue-grey-darken-1;
-        width: auto;
-        overflow-x: auto;
         padding: 0.5rem 0;
 
         & &__header-section {
+            display: grid;
             align-items: center;
-            display: flex;
-            width: 100%;
+            width: 120rem;
             height: 4rem;
             flex-wrap: nowrap;
             margin-left: 0.5rem;
             align-self: center;
             text-align: -webkit-center;
+            grid-template-columns: 11.5rem repeat(15, 1fr);
 
             &--inverted {
                 background-color: $blue-grey-darken-1;
@@ -115,6 +114,14 @@ $block-class: 'display-table';
           background-color: $blue-grey-lighten-3;
           height: 1px;
         }
+
+        & &__data-display {
+            width: 120rem;
+        }
+
+        // & &__data-display::-webkit-scrollbar {
+        //     display: none;
+        // }
 
         & &__pagination {
             color: $blue-grey-darken-4;

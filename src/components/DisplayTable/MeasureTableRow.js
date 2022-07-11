@@ -20,7 +20,7 @@ function MeasureTableRow({
           <a
             target="_blank"
             href="https://www.ncqa.org/hedis/measures/"
-            onClick={() => alert('You are now leaving Saraswati and entering a site hosted by a different Federal agency or company. If you are not automatically forwarded please proceed to https://www.ncqa.org/hedis/measures/')}
+            // TODO onClick={() => alert('You are now leaving Saraswati and entering a site hosted by a different Federal agency or company. If you are not automatically forwarded please proceed to https://www.ncqa.org/hedis/measures/')}
             rel="noreferrer"
           >
             {rowData[field.key]}

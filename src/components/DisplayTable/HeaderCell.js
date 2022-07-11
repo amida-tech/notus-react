@@ -11,7 +11,7 @@ function HeaderCell({
 }) {
   const checkText = text === 'Measure' || text === 'Sub-Measure'
 
-  const overviewExceptions = ['Measures', 'Sub-Measures']
+  //  const overviewExceptions = ['Measures', 'Sub-Measures']
   const memberExceptions = ['MemberID']
 
   function subTheMeasure(text) {
@@ -21,13 +21,11 @@ function HeaderCell({
   function headerGenerator() {
     if (memberExceptions.includes(text)) {
       return (
-        <>
-          <ToolTip title={tooltip} arrow>
-            <Typography className="display-table__title" sx={{justifyContent: 'left!important'}}>
-              {subTheMeasure(text)}
-            </Typography>
-          </ToolTip>
-        </>
+        <ToolTip title={tooltip} arrow>
+          <Typography className="display-table__title" sx={{ justifyContent: 'left!important' }}>
+            {subTheMeasure(text)}
+          </Typography>
+        </ToolTip>
       )
     }
     if (checkText && tooltip) {

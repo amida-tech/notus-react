@@ -8,10 +8,12 @@ $block-class: 'member-table-row';
 
         & &__row-section {
             align-items: center;
-            display: flex;
+            display: grid;
             width: 100%;
             flex-wrap: nowrap;
             background-color: inherit;
+            grid-template-columns: 12rem repeat(15, 1fr);
+            min-width: 120.5rem;
 
             &--wide {
                 justify-content: flex-start;
@@ -30,7 +32,7 @@ $block-class: 'member-table-row';
             align-items: center;
 
             &--smaller {
-                flex-basis: 5%;
+                flex-basis: 8%;
             }
 
             &--small {
@@ -51,8 +53,7 @@ $block-class: 'member-table-row';
         }
 
         & &__data-align:first-of-type {
-            min-width: 15%;
-            margin-left: .5rem;
+            margin-left: 0.5rem;
         }
 
         & &__data-align-small {
