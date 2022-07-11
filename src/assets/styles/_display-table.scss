@@ -28,12 +28,6 @@ $block-class: 'display-table';
     
             &--wide {
                 justify-content: flex-start;
-                // we cannot have a sticky bar on measures like CIS-e
-                // as long as overflow-x is on the the level it is
-                // this will take some moderate z-index/positioning magic
-                // position: sticky;
-                // position: -webkit-sticky;
-                // top: 4rem;
             }
         }
 

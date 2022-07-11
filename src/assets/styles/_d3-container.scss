@@ -6,8 +6,6 @@ $block-class: 'd3-container';
     .#{$block-class} {
         & &__overview-member-chart {
             margin: 0 -1rem;
-            border: $outline-blue solid 1px;
-            border-radius: 3px;
         }
 
         main-chart {
@@ -145,6 +143,7 @@ $block-class: 'd3-container';
             border-radius: 3px;
             border: $primary-blue;
             padding: 0 1rem;
+            border: $outline-blue solid 1px;
         }
     }
 }

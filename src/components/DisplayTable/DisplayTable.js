@@ -1,10 +1,11 @@
 import {
   Grid,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import TablePagination from '@mui/material/TablePagination';
+import { Box } from '@mui/material';
 import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
 
@@ -33,10 +34,22 @@ function DisplayTable({
     setCurrentPage(0);
   };
 
+  const hScroll = useRef(null)
+  const vScroll = useRef(null)
+
+  useEffect(() => {
+    console.log('our nodes:', hScroll, vScroll) //laughs in chaos
+    // $('.pane-hScroll').scroll(function() {
+    //   $('.pane-vScroll').width($('.pane-hScroll').width() + $('.pane-hScroll').scrollLeft());
+    // });
+  }, [])
+
+
   return (
     <>
-      <Grid container className="display-table">
-        <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
+      <Grid container className="display-table" ref={hScroll}>
+          <Box sx={{width: '100%', paddingRight: "1rem", overflowX: "hidden"}} ref={vScroll}>
+          <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
           {useCheckBox && (
           <CheckBoxCell
             handleCheckBoxEvent={handleCheckBoxChange}
@@ -54,6 +67,7 @@ function DisplayTable({
             </Grid>
           ))}
         </Grid>
+        
         { children.length > 1 ? children.slice(
           currentPage * rowsPerPage,
           currentPage * rowsPerPage + rowsPerPage,
@@ -75,6 +89,7 @@ function DisplayTable({
               {children}
             </Grid>
           )}
+          </Box>
       </Grid>
 
       {pageCount > 1 && (
