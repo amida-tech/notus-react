@@ -7,10 +7,10 @@ import ToolTip from '@mui/material/Tooltip';
 import HelpIcon from '@mui/icons-material/Help';
 
 function HeaderCell({
-  text, tooltip, ciseCheck
+  text, tooltip, ciseCheck,
 }) {
   const checkText = text === 'Measure' || text === 'Sub-Measure'
-  const checkCise = ciseCheck === 'CIS-E' ? 'cise' : 'display'
+  const checkCise = ciseCheck ? 'cise' : 'display'
 
   //  const overviewExceptions = ['Measures', 'Sub-Measures']
   const memberExceptions = ['MemberID']
@@ -65,6 +65,7 @@ function HeaderCell({
 HeaderCell.propTypes = {
   text: PropTypes.string,
   tooltip: PropTypes.string,
+  ciseCheck: PropTypes.bool,
 };
 
 HeaderCell.defaultProps = {

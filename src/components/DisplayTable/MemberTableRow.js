@@ -36,8 +36,7 @@ function RowGenerator(link, key, rowDataItem, ciseCheck) {
 function MemberTableRow({
   rowDataItem, headerInfo,
 }) {
-
-  const [ciseCheck, setCiseCheck] = useState(headerInfo[1].header === 'CIS-E' ? 'cise' : 'member' );
+  const ciseCheck = headerInfo[1].header === 'CIS-E' ? 'cise' : 'member'
 
   return (
     <Box className={`${ciseCheck}-table-row`}>

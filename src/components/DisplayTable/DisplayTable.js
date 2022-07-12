@@ -19,13 +19,6 @@ function DisplayTable({
   children,
 }) {
 
-  const memberCheck = children[0]?.props.headerInfo[0]?.header === "MemberID" ? 'row' : 'column'
-  console.log('member check:', memberCheck)
-
-  let pageCount = 0;
-  if (pageSize) {
-    pageCount = Math.ceil(children.length / pageSize);
-  }
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(pageSize);
 
@@ -33,7 +26,28 @@ function DisplayTable({
   const hScroll = useRef(null)
   const vScroll = useRef(null)
 
-  const ciseCheck = children[0]?.props.headerInfo[1].header
+  const overviewCheck = children[0]?.props?.headerInfo[0].header === 'Sub-Measure' || children[0]?.props?.headerInfo[0].header === 'Measure' ? true : false
+  const ciseOverviewCheck = children[0]?.props?.rowDataItem.value === 'cise' ? true : false
+  const ciseTableCheck = children[0]?.props.headerInfo[1].header === 'CIS-E' ? true : false
+
+  const [tableNonsense, setTableNonsense] = useState('')
+
+  console.log('overview?', overviewCheck, 'cise overview?', ciseOverviewCheck, 'cise table?', ciseTableCheck)
+
+  // nonCISE overview we want column
+  // CISE overview we want row
+  // nonCISE table we want row
+  // CISE table no override
+
+  // if (children[0]?.props?.rowDataItem.value === 'cise') {
+  //   console.log('cise overview')
+  //   setoverviewCheck('row')
+  // } 
+
+  let pageCount = 0;
+  if (pageSize) {
+    pageCount = Math.ceil(children.length / pageSize);
+  }
 
   const handleChangePage = (_event, newPage) => {
     setCurrentPage(newPage);
@@ -44,117 +58,116 @@ function DisplayTable({
     setCurrentPage(0);
   };
 
-  const handleScroll = (_e) => {
+  const handleScroll = () => {
     scrollPosition.current = vScroll.current.scrollLeft
   }
 
   return (
     <>
-      {ciseCheck === 'CIS-E' ?
-        (
+      {ciseTableCheck
+        ? (
           <Grid container className="cise-table" ref={hScroll}>
             <Box
               onScroll={() => handleScroll()}
               sx={{ overflow: 'auto', width: '100%' }}
             >
-            <Grid container item className={`cise-table__header-section ${headerInfo.length > 10 && 'cise-table__header-section--wide'} ${invertedColor && 'cise-table__header-section--inverted'}`}>
-              {useCheckBox && (
+              <Grid container item className={`cise-table__header-section ${headerInfo.length > 10 && 'cise-table__header-section--wide'} ${invertedColor && 'cise-table__header-section--inverted'}`}>
+                {useCheckBox && (
                 <CheckBoxCell
                   handleCheckBoxEvent={handleCheckBoxChange}
                   checked={children.length === selectedRows.length}
                   value="all"
                 />
+                )}
+                {headerInfo.map((item) => (
+                  <Grid
+                    item
+                    className={`cise-table__header-item cise-table__header-item--${item.flexBasis}`}
+                    key={item.header}
+                  >
+                    <HeaderCell text={item.header} tooltip={item.tooltip} ciseCheck={ciseTableCheck} />
+                  </Grid>
+                ))}
+              </Grid>
+
+              <Box
+                sx={{
+                  overflowX: 'hidden',
+                  overflowY: 'auto',
+                  height: '32rem',
+                  width: '120rem',
+                }}
+                ref={vScroll}
+                className="cise-table__data-display"
+              >
+                { children.length > 1 ? children.slice(
+                  currentPage * rowsPerPage,
+                  currentPage * rowsPerPage + rowsPerPage,
+                ).map((child) => (
+                  <Grid
+                    item
+                    className="cise-table__row"
+                    key={`cise-table-grid-for-${child.key}`}
+                  >
+                    {child}
+                  </Grid>
+                ))
+                  : (
+                    <Grid
+                      item
+                      className="cise-table__row"
+                      key={`cise-table-grid-for-${children.className}`}
+                    >
+                      {children}
+                    </Grid>
+                  )}
+              </Box>
+            </Box>
+          </Grid>
+        )
+        : (
+          <Grid container className="display-table" sx={{ flexDirection: overviewCheck }}>
+            <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
+              {useCheckBox && (
+              <CheckBoxCell
+                handleCheckBoxEvent={handleCheckBoxChange}
+                checked={children.length === selectedRows.length}
+                value="all"
+              />
               )}
               {headerInfo.map((item) => (
                 <Grid
                   item
-                  className={`cise-table__header-item cise-table__header-item--${item.flexBasis}`}
+                  className={`display-table__header-item display-table__header-item--${item.flexBasis}`}
                   key={item.header}
                 >
-                  <HeaderCell text={item.header} tooltip={item.tooltip} ciseCheck={ciseCheck} />
+                  <HeaderCell text={item.header} tooltip={item.tooltip} />
                 </Grid>
               ))}
             </Grid>
-
-            <Box
-              sx={{
-                  overflowX: 'hidden',
-                  overflowY: 'auto',
-                  height: '32rem',
-                  width: '120rem'
-                }}
-              ref={vScroll}
-              className="cise-table__data-display"
-            >
-              { children.length > 1 ? children.slice(
-                currentPage * rowsPerPage,
-                currentPage * rowsPerPage + rowsPerPage,
-              ).map((child) => (
+            { children.length > 1 ? children.slice(
+              currentPage * rowsPerPage,
+              currentPage * rowsPerPage + rowsPerPage,
+            ).map((child) => (
+              <Grid
+                item
+                className="display-table__row"
+                key={`display-table-grid-for-${child.key}`}
+              >
+                {child}
+              </Grid>
+            ))
+              : (
                 <Grid
                   item
-                  className="cise-table__row"
-                  key={`cise-table-grid-for-${child.key}`}
+                  className="display-table__row"
+                  key={`display-table-grid-for-${children.className}`}
                 >
-                  {child}
+                  {children}
                 </Grid>
-              ))
-                : (
-                  <Grid
-                    item
-                    className="cise-table__row"
-                    key={`cise-table-grid-for-${children.className}`}
-                  >
-                    {children}
-                  </Grid>
-                )}
-              </Box>
-            </Box>
+              )}
           </Grid>
-        ) :
-        (
-          <Grid container className="display-table" sx={{ flexDirection: memberCheck }}>
-        <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
-          {useCheckBox && (
-          <CheckBoxCell
-            handleCheckBoxEvent={handleCheckBoxChange}
-            checked={children.length === selectedRows.length}
-            value="all"
-          />
-          )}
-          {headerInfo.map((item) => (
-            <Grid
-              item
-              className={`display-table__header-item display-table__header-item--${item.flexBasis}`}
-              key={item.header}
-            >
-              <HeaderCell text={item.header} tooltip={item.tooltip} />
-            </Grid>
-          ))}
-        </Grid>
-        { children.length > 1 ? children.slice(
-          currentPage * rowsPerPage,
-          currentPage * rowsPerPage + rowsPerPage,
-        ).map((child) => (
-          <Grid
-            item
-            className="display-table__row"
-            key={`display-table-grid-for-${child.key}`}
-          >
-            {child}
-          </Grid>
-        ))
-          : (
-            <Grid
-              item
-              className="display-table__row"
-              key={`display-table-grid-for-${children.className}`}
-            >
-              {children}
-            </Grid>
-          )}
-      </Grid>
-        )
-      }
+        )}
 
       {pageCount > 1 && (
       <StyledEngineProvider injectFirst>
