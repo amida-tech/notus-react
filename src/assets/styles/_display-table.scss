@@ -11,12 +11,10 @@ $block-class: 'display-table';
 
         & &__header-section {
             display: grid;
-            align-items: center;
-            width: 120rem;
+            width: 140rem;
             height: 4rem;
             flex-wrap: nowrap;
             margin-left: 0.5rem;
-            align-self: center;
             text-align: -webkit-center;
             grid-template-columns: 11.5rem repeat(15, 1fr);
 
@@ -116,7 +114,7 @@ $block-class: 'display-table';
         }
 
         & &__data-display {
-            width: 120rem;
+            width: 140rem;
         }
 
         // & &__data-display::-webkit-scrollbar {

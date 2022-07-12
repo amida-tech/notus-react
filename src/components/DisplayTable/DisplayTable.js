@@ -33,11 +33,6 @@ function DisplayTable({
 
   const ciseCheck = children[0]?.props.headerInfo[1].header
 
-  useEffect(() => {
-    ciseCheck === 'CIS-E' ?
-    tableWidth.current = hScroll.current.offsetWidth : null
-  }, [scrollPosition.current])
-
   const handleChangePage = (_event, newPage) => {
     setCurrentPage(newPage);
   };
@@ -49,7 +44,6 @@ function DisplayTable({
 
   const handleScroll = (_e) => {
     scrollPosition.current = vScroll.current.scrollLeft
-    console.log('new scroll position:', scrollPosition.current)
   }
 
   if (ciseCheck === 'CIS-E') {

@@ -7,13 +7,11 @@ $block-class: 'member-table-row';
         background-color: inherit;
 
         & &__row-section {
-            align-items: center;
             display: grid;
-            width: 100%;
+            width: calc(100% + 1.45rem);
             flex-wrap: nowrap;
             background-color: inherit;
             grid-template-columns: 12rem repeat(15, 1fr);
-            min-width: 120.5rem;
 
             &--wide {
                 justify-content: flex-start;
