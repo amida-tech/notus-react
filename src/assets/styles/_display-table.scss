@@ -7,17 +7,22 @@ $block-class: 'display-table';
 @at-root {
     .#{$block-class} {
         color: $blue-grey-darken-1;
-        width: auto;
         overflow-x: auto;
-        padding: 0.5rem 0;
+        padding: 0 0 0.5rem 0;
+        height: 40rem;
+        margin: 1rem 0;
 
         & &__header-section {
-            align-items: center;
+            position: sticky;
+            position: -webkit-sticky;
+            top: 0;
             display: flex;
-            width: 100%;
+            background-color: white;
+            z-index: 5;
+            margin: 0;
             height: 4rem;
+            align-items: center;
             flex-wrap: nowrap;
-            margin-left: 0.5rem;
             align-self: center;
             text-align: -webkit-center;
 

@@ -19,6 +19,9 @@ function DisplayTable({
   children,
 }) {
 
+  const memberCheck = children[0]?.props.headerInfo[0]?.header === "MemberID" ? 'row' : 'column'
+  console.log('member check:', memberCheck)
+
   let pageCount = 0;
   if (pageSize) {
     pageCount = Math.ceil(children.length / pageSize);
@@ -29,7 +32,6 @@ function DisplayTable({
   const scrollPosition = useRef(0)
   const hScroll = useRef(null)
   const vScroll = useRef(null)
-  const tableWidth = useRef('0')
 
   const ciseCheck = children[0]?.props.headerInfo[1].header
 
@@ -110,7 +112,7 @@ function DisplayTable({
           </Grid>
         ) :
         (
-          <Grid container className="display-table">
+          <Grid container className="display-table" sx={{ flexDirection: memberCheck }}>
         <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
           {useCheckBox && (
           <CheckBoxCell

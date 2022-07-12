@@ -1,7 +1,7 @@
 import {
   Box, Typography,
 } from '@mui/material';
-import { React, useState } from 'react';
+import { React } from 'react';
 import PropTypes from 'prop-types';
 import ToolTip from '@mui/material/Tooltip';
 import HelpIcon from '@mui/icons-material/Help';
