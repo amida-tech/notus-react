@@ -3,11 +3,11 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import React from 'react';
+import { React, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function RowGenerator(link, key, rowDataItem) {
+function RowGenerator(link, key, rowDataItem, ciseCheck) {
   if (link) {
     return (
       <Link
@@ -19,15 +19,15 @@ function RowGenerator(link, key, rowDataItem) {
   }
   if (rowDataItem[key] === 'true') {
     return (
-      <Grid className="member-table-row__compliance-panel member-table-row__compliance-panel--matched">
-        <CheckCircleIcon className="member-table-row__compliance-icon" />
+      <Grid className={`${ciseCheck}-table-row__compliance-panel ${ciseCheck}-table-row__compliance-panel--matched`}>
+        <CheckCircleIcon className={`${ciseCheck}-table-row__compliance-icon`} />
         Matched
       </Grid>
     )
   }
   return (
-    <Grid className="member-table-row__compliance-panel member-table-row__compliance-panel--unmatched">
-      <CancelIcon className="member-table-row__compliance-icon" />
+    <Grid className={`${ciseCheck}-table-row__compliance-panel ${ciseCheck}-table-row__compliance-panel--unmatched`}>
+      <CancelIcon className={`${ciseCheck}-table-row__compliance-icon`} />
       Unmatched
     </Grid>
   )
@@ -36,17 +36,20 @@ function RowGenerator(link, key, rowDataItem) {
 function MemberTableRow({
   rowDataItem, headerInfo,
 }) {
+
+  const [ciseCheck, setCiseCheck] = useState(headerInfo[1].header === 'CIS-E' ? 'cise' : 'member' );
+
   return (
-    <Box className="member-table-row">
-      <Grid container className={`member-table-row__row-section ${headerInfo.length > 10 && 'member-table-row__row-section--wide'} `}>
+    <Box className={`${ciseCheck}-table-row`}>
+      <Grid container className={`${ciseCheck}-table-row__row-section ${headerInfo.length > 10 && `${ciseCheck}-table-row__row-section--wide`} `}>
         {headerInfo.map((fieldInfo) => (
           <Grid
             item
-            className={`member-table-row__data-align member-table-row__data-align--${fieldInfo.flexBasis}`}
+            className={`${ciseCheck}-table-row__data-align ${ciseCheck}-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
-            <Typography variant="caption" className="member-table-row__data">
-              {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem)}
+            <Typography variant="caption" className={`${ciseCheck}-table-row__data`}>
+              {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem, ciseCheck)}
             </Typography>
           </Grid>
         ))}

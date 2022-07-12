@@ -2,7 +2,7 @@ import {
   Grid,
   Box,
 } from '@mui/material';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import TablePagination from '@mui/material/TablePagination';
@@ -46,20 +46,16 @@ function DisplayTable({
     scrollPosition.current = vScroll.current.scrollLeft
   }
 
-  if (ciseCheck === 'CIS-E') {
-    console.log('confrimed')
-  }
-
   return (
     <>
-      {ciseCheck === 'CIS-E' ? 
+      {ciseCheck === 'CIS-E' ?
         (
-          <Grid container className="display-table" ref={hScroll}>
+          <Grid container className="cise-table" ref={hScroll}>
             <Box
               onScroll={() => handleScroll()}
               sx={{ overflow: 'auto', width: '100%' }}
             >
-            <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
+            <Grid container item className={`cise-table__header-section ${headerInfo.length > 10 && 'cise-table__header-section--wide'} ${invertedColor && 'cise-table__header-section--inverted'}`}>
               {useCheckBox && (
                 <CheckBoxCell
                   handleCheckBoxEvent={handleCheckBoxChange}
@@ -70,10 +66,10 @@ function DisplayTable({
               {headerInfo.map((item) => (
                 <Grid
                   item
-                  className={`display-table__header-item display-table__header-item--${item.flexBasis}`}
+                  className={`cise-table__header-item cise-table__header-item--${item.flexBasis}`}
                   key={item.header}
                 >
-                  <HeaderCell text={item.header} tooltip={item.tooltip} />
+                  <HeaderCell text={item.header} tooltip={item.tooltip} ciseCheck={ciseCheck} />
                 </Grid>
               ))}
             </Grid>
@@ -86,7 +82,7 @@ function DisplayTable({
                   width: '120rem'
                 }}
               ref={vScroll}
-              className="display-table__data-display"
+              className="cise-table__data-display"
             >
               { children.length > 1 ? children.slice(
                 currentPage * rowsPerPage,
@@ -94,8 +90,8 @@ function DisplayTable({
               ).map((child) => (
                 <Grid
                   item
-                  className="display-table__row"
-                  key={`display-table-grid-for-${child.key}`}
+                  className="cise-table__row"
+                  key={`cise-table-grid-for-${child.key}`}
                 >
                   {child}
                 </Grid>
@@ -103,8 +99,8 @@ function DisplayTable({
                 : (
                   <Grid
                     item
-                    className="display-table__row"
-                    key={`display-table-grid-for-${children.className}`}
+                    className="cise-table__row"
+                    key={`cise-table-grid-for-${children.className}`}
                   >
                     {children}
                   </Grid>

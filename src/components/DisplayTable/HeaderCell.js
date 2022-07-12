@@ -1,15 +1,16 @@
 import {
   Box, Typography,
 } from '@mui/material';
-import React from 'react';
+import { React, useState } from 'react';
 import PropTypes from 'prop-types';
 import ToolTip from '@mui/material/Tooltip';
 import HelpIcon from '@mui/icons-material/Help';
 
 function HeaderCell({
-  text, tooltip,
+  text, tooltip, ciseCheck
 }) {
   const checkText = text === 'Measure' || text === 'Sub-Measure'
+  const checkCise = ciseCheck === 'CIS-E' ? 'cise' : 'display'
 
   //  const overviewExceptions = ['Measures', 'Sub-Measures']
   const memberExceptions = ['MemberID']
@@ -22,7 +23,7 @@ function HeaderCell({
     if (memberExceptions.includes(text)) {
       return (
         <ToolTip title={tooltip} arrow>
-          <Typography className="display-table__title" sx={{ justifyContent: 'left!important' }}>
+          <Typography className={`${checkCise}-table__title`} sx={{ justifyContent: 'left!important' }}>
             {subTheMeasure(text)}
           </Typography>
         </ToolTip>
@@ -31,31 +32,31 @@ function HeaderCell({
     if (checkText && tooltip) {
       return (
         <>
-          <Typography className="display-table__title">
+          <Typography className={`${checkCise}-table__title`}>
             {subTheMeasure(text)}
           </Typography>
           <ToolTip title={tooltip} arrow>
-            <HelpIcon className="display-table__help-icon" />
+            <HelpIcon className={`${checkCise}-table__help-icon`} />
           </ToolTip>
         </>
       )
     } if (tooltip) {
       return (
         <ToolTip title={tooltip} arrow>
-          <Typography className="display-table__title">
+          <Typography className={`${checkCise}-table__title`}>
             {subTheMeasure(text)}
           </Typography>
         </ToolTip>
       )
     }
     return (
-      <Typography className="display-table__title">
+      <Typography className={`${checkCise}-table__title`}>
         {subTheMeasure(text)}
       </Typography>
     )
   }
   return (
-    <Box className={checkText ? 'display-table__title-align--left' : 'display-table__title-align'}>
+    <Box className={checkText ? `${checkCise}-table__title-align--left` : `${checkCise}-table__title-align`}>
       {headerGenerator()}
     </Box>
   )

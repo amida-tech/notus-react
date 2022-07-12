@@ -1,17 +1,17 @@
 @import 'colors';
 
-$block-class: 'member-table-row';
+$block-class: 'cise-table-row';
 
 @at-root {
     .#{$block-class} {
         background-color: inherit;
 
         & &__row-section {
-            align-items: center;
-            display: flex;
-            width: 100%;
+            display: grid;
+            width: calc(100% + 1.45rem);
             flex-wrap: nowrap;
             background-color: inherit;
+            grid-template-columns: 12rem repeat(15, 1fr);
 
             &--wide {
                 justify-content: flex-start;
@@ -30,7 +30,7 @@ $block-class: 'member-table-row';
             align-items: center;
 
             &--smaller {
-                flex-basis: 5%;
+                flex-basis: 8%;
             }
 
             &--small {
@@ -51,12 +51,11 @@ $block-class: 'member-table-row';
         }
 
         & &__data-align:first-of-type {
-            min-width: 15%;
-            margin-left: .5rem;
+            margin-left: 0.5rem;
         }
 
         & &__data-align-small {
-            @extend .member-table-row__data-align;
+            @extend .cise-table-row__data-align;
             flex-basis: 8%
         }
 
