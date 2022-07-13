@@ -30,13 +30,7 @@ function DisplayTable({
   const ciseOverviewCheck = children[0]?.props?.rowDataItem.value === 'cise'
   const ciseTableCheck = children[0]?.props.headerInfo[1].header === 'CIS-E'
   const tableCheck = children[0]?.props.headerInfo[0].header === 'MemberID'
-
   let nonCiseOverviewCheck = 'column'
-
-  // nonCISE overview we want column
-  // CISE overview we want row
-  // nonCISE table we want row
-  // CISE table doesn't matter, this is super overwritten to do what it has to
 
   if (ciseOverviewCheck || (tableCheck && !ciseTableCheck)) {
     nonCiseOverviewCheck = 'row'

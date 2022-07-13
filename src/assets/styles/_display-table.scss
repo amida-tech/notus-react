@@ -17,7 +17,7 @@ $block-class: 'display-table';
             position: -webkit-sticky;
             top: 0;
             display: flex;
-            background-color: white;
+            background-color: $white;
             z-index: 5;
             margin: 0;
             height: 4rem;
