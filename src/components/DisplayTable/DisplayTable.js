@@ -24,7 +24,7 @@ function DisplayTable({
   const scrollPosition = useRef(0)
   const hScroll = useRef(null)
   const vScroll = useRef(null)
-  
+
   const ciseOverviewCheck = children[0]?.props?.rowDataItem.value === 'cise'
   const ciseTableCheck = children[0]?.props.headerInfo[1].header === 'CIS-E'
   const tableCheck = children[0]?.props.headerInfo[0].header === 'MemberID'
