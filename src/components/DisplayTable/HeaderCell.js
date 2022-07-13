@@ -14,8 +14,8 @@ function HeaderCell({
 
   const memberExceptions = ['MemberID']
 
-  function subTheMeasure(text) {
-    return text.split('').includes(':') ? text.split(':')[1] : text
+  function subTheMeasure(measureText) {
+    return measureText.split('').includes(':') ? measureText.split(':')[1] : measureText
   }
 
   function headerGenerator() {
