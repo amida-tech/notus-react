@@ -30,19 +30,11 @@ function DisplayTable({
   const ciseOverviewCheck = children[0]?.props?.rowDataItem.value === 'cise' ? true : false
   const ciseTableCheck = children[0]?.props.headerInfo[1].header === 'CIS-E' ? true : false
 
-  const [tableNonsense, setTableNonsense] = useState('')
+  let nonCiseOverviewCheck = 'row'
 
-  console.log('overview?', overviewCheck, 'cise overview?', ciseOverviewCheck, 'cise table?', ciseTableCheck)
-
-  // nonCISE overview we want column
-  // CISE overview we want row
-  // nonCISE table we want row
-  // CISE table no override
-
-  // if (children[0]?.props?.rowDataItem.value === 'cise') {
-  //   console.log('cise overview')
-  //   setoverviewCheck('row')
-  // } 
+  if ( overviewCheck && !ciseOverviewCheck ) {
+    nonCiseOverviewCheck = 'column'
+  }
 
   let pageCount = 0;
   if (pageSize) {
@@ -126,7 +118,7 @@ function DisplayTable({
           </Grid>
         )
         : (
-          <Grid container className="display-table" sx={{ flexDirection: overviewCheck }}>
+          <Grid container className="display-table" sx={{ flexDirection: nonCiseOverviewCheck }}>
             <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
               {useCheckBox && (
               <CheckBoxCell
