@@ -12,10 +12,9 @@ function HeaderCell({
   const checkText = text === 'Measure' || text === 'Sub-Measure'
   const checkCise = ciseCheck ? 'cise' : 'display'
 
-  //  const overviewExceptions = ['Measures', 'Sub-Measures']
   const memberExceptions = ['MemberID']
 
-  function subTheMeasure() {
+  function subTheMeasure(text) {
     return text.split('').includes(':') ? text.split(':')[1] : text
   }
 
