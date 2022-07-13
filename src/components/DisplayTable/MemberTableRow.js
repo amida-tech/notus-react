@@ -3,7 +3,7 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { React, useState } from 'react';
+import { React } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -63,6 +63,7 @@ MemberTableRow.propTypes = {
   }),
   headerInfo: PropTypes.arrayOf(
     PropTypes.shape({
+      header: PropTypes.string,
       text: PropTypes.string,
       tooltip: PropTypes.string,
       flexBasis: PropTypes.string,

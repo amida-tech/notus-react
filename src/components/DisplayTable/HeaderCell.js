@@ -15,7 +15,7 @@ function HeaderCell({
   //  const overviewExceptions = ['Measures', 'Sub-Measures']
   const memberExceptions = ['MemberID']
 
-  function subTheMeasure(text) {
+  function subTheMeasure() {
     return text.split('').includes(':') ? text.split(':')[1] : text
   }
 
@@ -71,6 +71,7 @@ HeaderCell.propTypes = {
 HeaderCell.defaultProps = {
   text: '',
   tooltip: '',
+  ciseCheck: false,
 }
 
 export default HeaderCell;

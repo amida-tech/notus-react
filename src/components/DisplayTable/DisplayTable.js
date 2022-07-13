@@ -18,7 +18,6 @@ function DisplayTable({
   handleCheckBoxChange,
   children,
 }) {
-
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(pageSize);
 
@@ -26,14 +25,21 @@ function DisplayTable({
   const hScroll = useRef(null)
   const vScroll = useRef(null)
 
-  const overviewCheck = children[0]?.props?.headerInfo[0].header === 'Sub-Measure' || children[0]?.props?.headerInfo[0].header === 'Measure' ? true : false
-  const ciseOverviewCheck = children[0]?.props?.rowDataItem.value === 'cise' ? true : false
-  const ciseTableCheck = children[0]?.props.headerInfo[1].header === 'CIS-E' ? true : false
+  // const overviewCheck = !!(children[0]?.props?.headerInfo[0].header === 'Sub-Measure' ||
+  // children[0]?.props?.headerInfo[0].header === 'Measure')
+  const ciseOverviewCheck = children[0]?.props?.rowDataItem.value === 'cise'
+  const ciseTableCheck = children[0]?.props.headerInfo[1].header === 'CIS-E'
+  const tableCheck = children[0]?.props.headerInfo[0].header === 'MemberID'
 
-  let nonCiseOverviewCheck = 'row'
+  let nonCiseOverviewCheck = 'column'
 
-  if ( overviewCheck && !ciseOverviewCheck ) {
-    nonCiseOverviewCheck = 'column'
+  // nonCISE overview we want column
+  // CISE overview we want row
+  // nonCISE table we want row
+  // CISE table doesn't matter, this is super overwritten to do what it has to
+
+  if (ciseOverviewCheck || (tableCheck && !ciseTableCheck)) {
+    nonCiseOverviewCheck = 'row'
   }
 
   let pageCount = 0;
@@ -77,7 +83,11 @@ function DisplayTable({
                     className={`cise-table__header-item cise-table__header-item--${item.flexBasis}`}
                     key={item.header}
                   >
-                    <HeaderCell text={item.header} tooltip={item.tooltip} ciseCheck={ciseTableCheck} />
+                    <HeaderCell
+                      text={item.header}
+                      tooltip={item.tooltip}
+                      ciseCheck={ciseTableCheck}
+                    />
                   </Grid>
                 ))}
               </Grid>
