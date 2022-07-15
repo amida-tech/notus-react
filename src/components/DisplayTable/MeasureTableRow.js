@@ -18,12 +18,10 @@ function MeasureTableRow({
 }) {
   const [openAlert, setOpenAlert] = useState(false);
   const compositeCheck = headerInfo[0].header === 'Measure'
-  const nonCompositeCheck = headerInfo[0].header === 'Sub-Measure'
 
   const handleAlert = () => (openAlert ? setOpenAlert(false) : setOpenAlert(true))
 
   if (compositeCheck) {
-    // COMPOSITE RENDER
     return (
       <Box className="measure-table-row">
         <Grid container className="measure-table-row__row-section">
@@ -35,6 +33,7 @@ function MeasureTableRow({
               color={color}
             />
           )}
+
           {headerInfo.map((fieldInfo) => (
             <Grid
               item
@@ -42,64 +41,23 @@ function MeasureTableRow({
               key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
             >
               <Typography variant="caption" className="measure-table-row__data">
-                {/* START OF SUBTHEMEASURE */}
-
-                { nonCompositeCheck
+                {fieldInfo.header === 'Measure'
                   ? (
-                    <>
-                      <Tooltip
-                        title="Click for more information from NCQA"
-                        arrow
-                      >
-                        <Typography onClick={() => handleAlert()}>
-                          {rowDataItem[fieldInfo.key]}
-                        </Typography>
-                      </Tooltip>
-
-                      <Dialog
-                        open={openAlert}
-                        onClose={handleAlert}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                      >
-
-                        <DialogTitle id="alert-dialog-title">
-                          Leaving Saraswati
-                        </DialogTitle>
-
-                        <DialogContent>
-                          <DialogContentText id="alert-dialog-description">
-                            <Typography>
-                              You are now leaving Saraswati and entering a site hosted by
-                              a different Federal agency or company.
-                              If you are not automatically forwarded, please proceed to:
-                              <Link to="https://www.ncqa.org/hedis/measures/">
-                                https://www.ncqa.org/hedis/measures/
-                              </Link>
-                            </Typography>
-
-                          </DialogContentText>
-                        </DialogContent>
-
-                        <DialogActions>
-                          <Button onClick={handleAlert}>Go Back</Button>
-                          <Button onClick={handleAlert}>
-                            <Link
-                              target="_blank"
-                              to="https://www.ncqa.org/hedis/measures/"
-                              rel="noreferrer"
-                            >
-                              Continue
-                            </Link>
-                          </Button>
-
-                        </DialogActions>
-                      </Dialog>
-                    </>
+                    <Grid
+                      item
+                      className={`measure-table-row__data-align measure-table-row__data-align--${fieldInfo.flexBasis}`}
+                      key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
+                    >
+                      <Typography variant="caption" className="measure-table-row__data">
+                        <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
+                          <Link to={{ pathname: `/${rowDataItem.value}` }}>
+                            {rowDataItem[fieldInfo.key]}
+                          </Link>
+                        </Tooltip>
+                      </Typography>
+                    </Grid>
                   )
                   : rowDataItem[fieldInfo.key]}
-
-                {/* END OF SUBTHEMEASURE */}
               </Typography>
             </Grid>
           ))}
@@ -107,7 +65,8 @@ function MeasureTableRow({
       </Box>
     )
   }
-  // NON-COMPOSITE RENDER
+
+  // NON-COMPOSITE ROW DATA
   return (
     <Box className="measure-table-row">
       <Grid container className="measure-table-row__row-section">
@@ -125,13 +84,58 @@ function MeasureTableRow({
             className={`measure-table-row__data-align measure-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
-            <Typography variant="caption" className="measure-table-row__data">
-              <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
-                <Link to={{ pathname: `/${rowDataItem.value}` }}>
-                  {rowDataItem[fieldInfo.key]}
-                </Link>
-              </Tooltip>
-            </Typography>
+            { fieldInfo.header === 'Sub-Measure'
+              ? (
+                <>
+                  <Tooltip
+                    title="Click for more information from NCQA"
+                    arrow
+                  >
+                    <Typography variant="caption" className="measure-table-row__data" onClick={() => handleAlert()}>
+                      {rowDataItem[fieldInfo.key]}
+                    </Typography>
+                  </Tooltip>
+                  <Dialog
+                    open={openAlert}
+                    onClose={handleAlert}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                    sx={{ padding: '1rem' }}
+                  >
+
+                    <DialogTitle id="alert-dialog-title">
+                      Leaving Saraswati
+                    </DialogTitle>
+
+                    <DialogContent>
+                      <DialogContentText sx={{ lineHeight: '2rem' }} id="alert-dialog-description">
+                        You are now leaving Saraswati and entering a site hosted by
+                        a different Federal agency or company.
+                        If you are not automatically forwarded, please proceed to:&nbsp;
+                        <Link to="https://www.ncqa.org/hedis/measures/">
+                          https://www.ncqa.org/hedis/measures/
+                        </Link>
+
+                      </DialogContentText>
+                    </DialogContent>
+
+                    <DialogActions>
+                      <Button onClick={handleAlert}>Go Back</Button>
+                      <Button onClick={handleAlert}>
+                        <Link
+                          target="_blank"
+                          to="https://www.ncqa.org/hedis/measures/"
+                          rel="noreferrer"
+                        >
+                          Continue
+                        </Link>
+                      </Button>
+
+                    </DialogActions>
+                  </Dialog>
+                </>
+              )
+              : rowDataItem[fieldInfo.key]}
           </Grid>
         ))}
       </Grid>
