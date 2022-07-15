@@ -10,7 +10,6 @@ import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
 
 function DisplayTable({
-  invertedColor,
   headerInfo,
   pageSize,
   useCheckBox,
@@ -53,80 +52,19 @@ function DisplayTable({
     scrollPosition.current = vScroll.current.scrollLeft
   }
 
-  return (
-    <>
-      {ciseTableCheck
-        ? (
-          <Grid container className="cise-table" ref={hScroll}>
-            <Box
-              onScroll={() => handleScroll()}
-              sx={{ overflow: 'auto', width: '100%' }}
+  if (ciseTableCheck) {
+    return (
+      <>
+        <Grid container className="cise-table" ref={hScroll}>
+          <Box
+            onScroll={() => handleScroll()}
+            sx={{ overflow: 'auto', width: '100%' }}
+          >
+            <Grid
+              container
+              item
+              className="cise-table__header-section"
             >
-              <Grid
-                container
-                item
-                className="cise-table__header-section"
-              >
-                {useCheckBox && (
-                <CheckBoxCell
-                  handleCheckBoxEvent={handleCheckBoxChange}
-                  checked={children.length === selectedRows.length}
-                  value="all"
-                />
-                )}
-                {headerInfo.map((item) => (
-                  <Grid
-                    item
-                    className={`cise-table__header-item cise-table__header-item--${item.flexBasis}`}
-                    key={item.header}
-                  >
-                    <HeaderCell
-                      text={item.header}
-                      tooltip={item.tooltip}
-                      ciseCheck={ciseTableCheck}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
-
-              <Box
-                sx={{
-                  overflowX: 'hidden',
-                  overflowY: 'auto',
-                  height: '32rem',
-                  width: '120rem',
-                }}
-                ref={vScroll}
-                className="cise-table__data-display"
-              >
-                { children.length > 1 ? children.slice(
-                  currentPage * rowsPerPage,
-                  currentPage * rowsPerPage + rowsPerPage,
-                ).map((child) => (
-                  <Grid
-                    item
-                    className="cise-table__row"
-                    key={`cise-table-grid-for-${child.key}`}
-                  >
-                    {child}
-                  </Grid>
-                ))
-                  : (
-                    <Grid
-                      item
-                      className="cise-table__row"
-                      key={`cise-table-grid-for-${children.className}`}
-                    >
-                      {children}
-                    </Grid>
-                  )}
-              </Box>
-            </Box>
-          </Grid>
-        )
-        : (
-          <Grid container className="display-table" sx={{ flexDirection: nonCiseOverviewCheck }}>
-            <Grid container item className="display-table__header-section">
               {useCheckBox && (
               <CheckBoxCell
                 handleCheckBoxEvent={handleCheckBoxChange}
@@ -137,50 +75,125 @@ function DisplayTable({
               {headerInfo.map((item) => (
                 <Grid
                   item
-                  className={`display-table__header-item display-table__header-item--${item.flexBasis}`}
+                  className={`cise-table__header-item cise-table__header-item--${item.flexBasis}`}
                   key={item.header}
                 >
-                  <HeaderCell text={item.header} tooltip={item.tooltip} />
+                  <HeaderCell
+                    text={item.header}
+                    tooltip={item.tooltip}
+                    ciseCheck={ciseTableCheck}
+                  />
                 </Grid>
               ))}
             </Grid>
-            { children.length > 1 ? children.slice(
-              currentPage * rowsPerPage,
-              currentPage * rowsPerPage + rowsPerPage,
-            ).map((child) => (
-              <Grid
-                item
-                className="display-table__row"
-                key={`display-table-grid-for-${child.key}`}
-              >
-                {child}
-              </Grid>
-            ))
-              : (
+
+            <Box
+              sx={{
+                overflowX: 'hidden',
+                overflowY: 'auto',
+                height: '32rem',
+                width: '120rem',
+              }}
+              ref={vScroll}
+              className="cise-table__data-display"
+            >
+              { children.length > 1 ? children.slice(
+                currentPage * rowsPerPage,
+                currentPage * rowsPerPage + rowsPerPage,
+              ).map((child) => (
                 <Grid
                   item
-                  className="display-table__row"
-                  key={`display-table-grid-for-${children.className}`}
+                  className="cise-table__row"
+                  key={`cise-table-grid-for-${child.key}`}
                 >
-                  {children}
+                  {child}
                 </Grid>
-              )}
-          </Grid>
+              ))
+                : (
+                  <Grid
+                    item
+                    className="cise-table__row"
+                    key={`cise-table-grid-for-${children.className}`}
+                  >
+                    {children}
+                  </Grid>
+                )}
+            </Box>
+          </Box>
+        </Grid>
+        {pageCount > 1 && (
+        <StyledEngineProvider injectFirst>
+          <TablePagination
+            component="div"
+            rowsPerPageOptions={[5, 10, 15]}
+            count={children.length}
+            page={currentPage}
+            onPageChange={handleChangePage}
+            className="display-table__pagination"
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </StyledEngineProvider>
         )}
-
+      </>
+    )
+  }
+  return (
+    <>
+      <Grid container className="display-table" sx={{ flexDirection: nonCiseOverviewCheck }}>
+        <Grid container item className="display-table__header-section">
+          {useCheckBox && (
+            <CheckBoxCell
+              handleCheckBoxEvent={handleCheckBoxChange}
+              checked={children.length === selectedRows.length}
+              value="all"
+            />
+          )}
+          {headerInfo.map((item) => (
+            <Grid
+              item
+              className={`display-table__header-item display-table__header-item--${item.flexBasis}`}
+              key={item.header}
+            >
+              <HeaderCell text={item.header} tooltip={item.tooltip} />
+            </Grid>
+          ))}
+        </Grid>
+        { children.length > 1 ? children.slice(
+          currentPage * rowsPerPage,
+          currentPage * rowsPerPage + rowsPerPage,
+        ).map((child) => (
+          <Grid
+            item
+            className="display-table__row"
+            key={`display-table-grid-for-${child.key}`}
+          >
+            {child}
+          </Grid>
+        ))
+          : (
+            <Grid
+              item
+              className="display-table__row"
+              key={`display-table-grid-for-${children.className}`}
+            >
+              {children}
+            </Grid>
+          )}
+      </Grid>
       {pageCount > 1 && (
-      <StyledEngineProvider injectFirst>
-        <TablePagination
-          component="div"
-          rowsPerPageOptions={[5, 10, 15]}
-          count={children.length}
-          page={currentPage}
-          onPageChange={handleChangePage}
-          className="display-table__pagination"
-          rowsPerPage={rowsPerPage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </StyledEngineProvider>
+        <StyledEngineProvider injectFirst>
+          <TablePagination
+            component="div"
+            rowsPerPageOptions={[5, 10, 15]}
+            count={children.length}
+            page={currentPage}
+            onPageChange={handleChangePage}
+            className="display-table__pagination"
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </StyledEngineProvider>
       )}
     </>
   )
@@ -188,7 +201,6 @@ function DisplayTable({
 
 DisplayTable.propTypes = {
   children: PropTypes.node,
-  invertedColor: PropTypes.bool,
   headerInfo: PropTypes.arrayOf(
     PropTypes.shape({
       text: PropTypes.string,
@@ -208,7 +220,6 @@ DisplayTable.propTypes = {
 
 DisplayTable.defaultProps = {
   children: [],
-  invertedColor: false,
   headerInfo: [],
   pageSize: 0,
   useCheckBox: false,
