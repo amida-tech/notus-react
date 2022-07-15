@@ -126,7 +126,7 @@ function DisplayTable({
         )
         : (
           <Grid container className="display-table" sx={{ flexDirection: nonCiseOverviewCheck }}>
-            <Grid container item className={`display-table__header-section ${headerInfo.length > 10 && 'display-table__header-section--wide'} ${invertedColor && 'display-table__header-section--inverted'}`}>
+            <Grid container item className="display-table__header-section">
               {useCheckBox && (
               <CheckBoxCell
                 handleCheckBoxEvent={handleCheckBoxChange}
