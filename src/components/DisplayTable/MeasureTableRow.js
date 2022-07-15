@@ -124,8 +124,8 @@ function MeasureTableRow({
                       <Button onClick={handleAlert}>
                         <Link
                           target="_blank"
-                          to="https://www.ncqa.org/hedis/measures/"
-                          rel="noreferrer"
+                          to={{ pathname: "https://www.ncqa.org/hedis/measures/"}}
+                          rel="noopener noreferrer"
                         >
                           Continue
                         </Link>
