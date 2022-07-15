@@ -1,5 +1,4 @@
 import { Box } from '@mui/system';
-import React from 'react';
 import amidaLogo from '../../assets/img/amida_logo.png'
 
 export default function Footer() {

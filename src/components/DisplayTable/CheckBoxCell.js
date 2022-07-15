@@ -1,7 +1,6 @@
 import {
   Checkbox, FormGroup, Grid,
 } from '@mui/material';
-import React from 'react';
 import PropTypes from 'prop-types';
 
 function CheckBoxCell({
