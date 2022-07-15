@@ -1,8 +1,7 @@
-import React from 'react';
+import { useState } from 'react';
 import {
   Grid, Box, Typography,
 } from '@mui/material';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
@@ -18,12 +17,10 @@ function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
   const [openAlert, setOpenAlert] = useState(false);
-  const compositeCheck = headerInfo[0].header === 'Measure' ? true : false
-  const nonCompositeCheck = headerInfo[0].header === 'Sub-Measure' ? true : false
+  const compositeCheck = headerInfo[0].header === 'Measure'
+  const nonCompositeCheck = headerInfo[0].header === 'Sub-Measure'
 
-  const handleAlert = () => {
-    openAlert ? setOpenAlert(false) : setOpenAlert(true)
-  };
+  const handleAlert = () => (openAlert ? setOpenAlert(false) : setOpenAlert(true))
 
   if (compositeCheck) {
     // COMPOSITE RENDER
@@ -45,73 +42,74 @@ function MeasureTableRow({
               key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
             >
               <Typography variant="caption" className="measure-table-row__data">
-                  {/* START OF SUBTHEMEASURE */}
-  
-                  { nonCompositeCheck ?
-                      <>
-                        <Tooltip
-                          title="Click for more information from NCQA"
-                          arrow
-                        >
-                          <Typography onClick={() => handleAlert()}>
-                            {rowDataItem[fieldInfo.key]}
-                          </Typography>
-                        </Tooltip>
+                {/* START OF SUBTHEMEASURE */}
 
-                        <Dialog
-                          open={openAlert}
-                          onClose={handleAlert}
-                          aria-labelledby="alert-dialog-title"
-                          aria-describedby="alert-dialog-description"
-                        >
+                { nonCompositeCheck
+                  ? (
+                    <>
+                      <Tooltip
+                        title="Click for more information from NCQA"
+                        arrow
+                      >
+                        <Typography onClick={() => handleAlert()}>
+                          {rowDataItem[fieldInfo.key]}
+                        </Typography>
+                      </Tooltip>
 
-                          <DialogTitle id="alert-dialog-title">
-                            Leaving Saraswati
-                          </DialogTitle>
+                      <Dialog
+                        open={openAlert}
+                        onClose={handleAlert}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                      >
 
-                          <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                              <Typography>
-                                You are now leaving Saraswati and entering a site hosted by a different Federal agency or company.
-                                If you are not automatically forwarded, please proceed to:
-                                <Link to="https://www.ncqa.org/hedis/measures/">
-                                  https://www.ncqa.org/hedis/measures/
-                                </Link>
-                              </Typography>
+                        <DialogTitle id="alert-dialog-title">
+                          Leaving Saraswati
+                        </DialogTitle>
 
-                            </DialogContentText>
-                          </DialogContent>
-
-                          <DialogActions>
-                            <Button onClick={handleAlert}>Go Back</Button>
-                            <Button onClick={handleAlert}>
-                              <Link
-                                target="_blank"
-                                to="https://www.ncqa.org/hedis/measures/"
-                                rel="noreferrer"
-                              >
-                                Continue
+                        <DialogContent>
+                          <DialogContentText id="alert-dialog-description">
+                            <Typography>
+                              You are now leaving Saraswati and entering a site hosted by
+                              a different Federal agency or company.
+                              If you are not automatically forwarded, please proceed to:
+                              <Link to="https://www.ncqa.org/hedis/measures/">
+                                https://www.ncqa.org/hedis/measures/
                               </Link>
-                            </Button>
+                            </Typography>
 
-                          </DialogActions>
-                        </Dialog>
-                      </>
-                  :
-                    rowDataItem[fieldInfo.key]
-                  }
-                  
-                  {/* END OF SUBTHEMEASURE */}
-              </Typography> 
+                          </DialogContentText>
+                        </DialogContent>
+
+                        <DialogActions>
+                          <Button onClick={handleAlert}>Go Back</Button>
+                          <Button onClick={handleAlert}>
+                            <Link
+                              target="_blank"
+                              to="https://www.ncqa.org/hedis/measures/"
+                              rel="noreferrer"
+                            >
+                              Continue
+                            </Link>
+                          </Button>
+
+                        </DialogActions>
+                      </Dialog>
+                    </>
+                  )
+                  : rowDataItem[fieldInfo.key]}
+
+                {/* END OF SUBTHEMEASURE */}
+              </Typography>
             </Grid>
           ))}
         </Grid>
       </Box>
     )
-  } else {
-    // NON-COMPOSITE RENDER
-    return (
-      <Box className="measure-table-row">
+  }
+  // NON-COMPOSITE RENDER
+  return (
+    <Box className="measure-table-row">
       <Grid container className="measure-table-row__row-section">
         {useCheckBox && (
           <CheckBoxCell
@@ -128,18 +126,17 @@ function MeasureTableRow({
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
             <Typography variant="caption" className="measure-table-row__data">
-                  <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
-                    <Link to={{ pathname: `/${rowDataItem.value}` }}>
-                      {rowDataItem[fieldInfo.key]}
-                    </Link>
-                  </Tooltip>
+              <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
+                <Link to={{ pathname: `/${rowDataItem.value}` }}>
+                  {rowDataItem[fieldInfo.key]}
+                </Link>
+              </Tooltip>
             </Typography>
           </Grid>
         ))}
       </Grid>
     </Box>
-    )
-  }
+  )
 }
 
 MeasureTableRow.propTypes = {
@@ -148,6 +145,7 @@ MeasureTableRow.propTypes = {
   }),
   headerInfo: PropTypes.arrayOf(
     PropTypes.shape({
+      header: PropTypes.string,
       text: PropTypes.string,
       tooltip: PropTypes.string,
       flexBasis: PropTypes.string,
