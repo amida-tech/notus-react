@@ -65,7 +65,7 @@ function DisplayTable({
               <Grid
                 container
                 item
-                className='cise-table__header-section'
+                className="cise-table__header-section"
               >
                 {useCheckBox && (
                 <CheckBoxCell
