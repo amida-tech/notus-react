@@ -40,7 +40,7 @@ function MemberTableRow({
 
   return (
     <Box className={`${ciseCheck}-table-row`}>
-      <Grid container className={`${ciseCheck}-table-row__row-section ${headerInfo.length > 10 && `${ciseCheck}-table-row__row-section--wide`} `}>
+      <Grid container className={`${ciseCheck}-table-row__row-section ${ciseCheck}-table-row__row-section--wide`}>
         {headerInfo.map((fieldInfo) => (
           <Grid
             item

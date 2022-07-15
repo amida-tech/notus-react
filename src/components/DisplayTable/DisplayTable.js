@@ -19,7 +19,7 @@ function DisplayTable({
   children,
 }) {
   const [currentPage, setCurrentPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(pageSize);
+  const [rowsPerPage, setRowsPerPage] = useState(pageSize);
 
   const scrollPosition = useRef(0)
   const hScroll = useRef(null)
@@ -28,9 +28,10 @@ function DisplayTable({
   const ciseOverviewCheck = children[0]?.props?.rowDataItem.value === 'cise'
   const ciseTableCheck = children[0]?.props.headerInfo[1].header === 'CIS-E'
   const tableCheck = children[0]?.props.headerInfo[0].header === 'MemberID'
+  const overviewCheck = children[0]?.props.headerInfo[0].header === 'Measure'
   let nonCiseOverviewCheck = 'column'
 
-  if (ciseOverviewCheck || (tableCheck && !ciseTableCheck)) {
+  if (ciseOverviewCheck || (tableCheck && !ciseTableCheck) || overviewCheck) {
     nonCiseOverviewCheck = 'row'
   }
 
@@ -61,7 +62,11 @@ function DisplayTable({
               onScroll={() => handleScroll()}
               sx={{ overflow: 'auto', width: '100%' }}
             >
-              <Grid container item className={`cise-table__header-section ${headerInfo.length > 10 && 'cise-table__header-section--wide'} ${invertedColor && 'cise-table__header-section--inverted'}`}>
+              <Grid
+                container
+                item
+                className='cise-table__header-section'
+              >
                 {useCheckBox && (
                 <CheckBoxCell
                   handleCheckBoxEvent={handleCheckBoxChange}
