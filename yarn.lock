@@ -1724,10 +1724,10 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@popperjs/core@2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.5.1.tgz#32b99c0a2b6120d200556fa2d5cd9211ca711881"
-  integrity sha512-VVOiO4HSzITdcRxUNopcDmI6kE3gNRGq+1Kna1djqx7uCWhaRWpkSl7QxK/i1X3+S5F3dlEQ50qhmBB/JNWubQ==
+"@popperjs/core@2.11.5":
+  version "2.11.5"
+  resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.5.tgz#db5a11bf66bdab39569719555b0f76e138d7bd64"
+  integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
 
 "@popperjs/core@^2.11.2":
   version "2.11.2"
