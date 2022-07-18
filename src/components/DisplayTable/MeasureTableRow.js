@@ -14,14 +14,10 @@ function MeasureTableRow({
   const compositeCheck = headerInfo[0].header === 'Measure'
 
   const alertTitle = 'Leaving Saraswati'
-  const alertContent = 'You are now leaving Saraswati and entering a site hosted by\
-                        a different Federal agency or company. If you are not\
-                        automatically forwarded, please proceed to:\
-                        https://www.ncqa.org/hedis/measures/'
   const alertPath = {
     target: '_blank',
     rel: 'noopener noreferrer',
-    pathto: 'https://www.ncqa.org/hedis/measures/'
+    pathto: 'https://www.ncqa.org/hedis/measures/',
   }
 
   const [openAlert, setOpenAlert] = useState(false);
@@ -105,9 +101,13 @@ function MeasureTableRow({
                     openAlert={openAlert}
                     setOpenAlert={setOpenAlert}
                     title={alertTitle}
-                    content={alertContent}
                     options={alertPath}
-                  />
+                  >
+                    You are now leaving Saraswati and entering a site hosted by
+                    a different Federal agency or company. If you are not
+                    automatically forwarded, please proceed to:
+                    https://www.ncqa.org/hedis/measures/
+                  </Alert>
 
                 </>
               )

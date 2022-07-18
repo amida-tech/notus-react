@@ -1,20 +1,16 @@
 import { Link } from 'react-router-dom';
 
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@mui/material';
 
-export default function Alert(children) {
-
-  const [content,
+export default function Alert({
   openAlert,
   setOpenAlert,
+  title,
   options,
-  title] = [children.content,
-  children.openAlert,
-  children.setOpenAlert,
-  children.options,
-  children.title]
+  children
+}) {
 
   const handleAlert = () => {
     openAlert ? setOpenAlert(false) : setOpenAlert(true)
@@ -30,13 +26,13 @@ export default function Alert(children) {
       <DialogTitle id="alert-dialog-title">
         {title}
       </DialogTitle>
-  
+
       <DialogContent>
         <DialogContentText sx={{ lineHeight: '2rem' }} id="alert-dialog-description">
-          {content}
+          {children}
         </DialogContentText>
       </DialogContent>
-  
+
       <DialogActions>
         <Button onClick={() => handleAlert()}>Go Back</Button>
         <Button onClick={() => handleAlert()}>
