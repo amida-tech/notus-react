@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import {
   Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
@@ -9,11 +10,10 @@ export default function Alert({
   setOpenAlert,
   title,
   options,
-  children
+  children,
 }) {
-
-  const handleAlert = () => {
-    openAlert ? setOpenAlert(false) : setOpenAlert(true)
+  function handleAlert() {
+    return openAlert ? setOpenAlert(false) : setOpenAlert(true)
   }
 
   return (
@@ -47,4 +47,24 @@ export default function Alert({
       </DialogActions>
     </Dialog>
   )
+}
+
+Alert.propTypes = {
+  openAlert: PropTypes.bool,
+  setOpenAlert: PropTypes.func,
+  title: PropTypes.string,
+  options: PropTypes.shape({
+    target: PropTypes.string,
+    rel: PropTypes.string,
+    pathto: PropTypes.string,
+  }),
+  children: PropTypes.string,
+};
+
+Alert.defaultProps = {
+  openAlert: false,
+  setOpenAlert: () => undefined,
+  title: '',
+  options: {},
+  children: '',
 }
