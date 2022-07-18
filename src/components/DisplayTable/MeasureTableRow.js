@@ -1,25 +1,30 @@
-import { useState } from 'react';
+import { useState } from 'react'
 import {
   Grid, Box, Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import CheckBoxCell from './CheckBoxCell';
+import Alert from '../Utilities/Alert'
 
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
-  const [openAlert, setOpenAlert] = useState(false);
   const compositeCheck = headerInfo[0].header === 'Measure'
 
-  const handleAlert = () => (openAlert ? setOpenAlert(false) : setOpenAlert(true))
+  const alertTitle = 'Leaving Saraswati'
+  const alertContent = 'You are now leaving Saraswati and entering a site hosted by\
+                        a different Federal agency or company. If you are not\
+                        automatically forwarded, please proceed to:\
+                        https://www.ncqa.org/hedis/measures/'
+  const alertPath = {
+    target: '_blank',
+    rel: 'noopener noreferrer',
+    pathto: 'https://www.ncqa.org/hedis/measures/'
+  }
+
+  const [openAlert, setOpenAlert] = useState(false);
 
   if (compositeCheck) {
     return (
@@ -91,48 +96,19 @@ function MeasureTableRow({
                     title="Click for more information from NCQA"
                     arrow
                   >
-                    <Typography variant="caption" className="measure-table-row__data" onClick={() => handleAlert()}>
+                    <Typography variant="caption" className="measure-table-row__data" onClick={() => setOpenAlert(true)}>
                       {rowDataItem[fieldInfo.key]}
                     </Typography>
                   </Tooltip>
-                  <Dialog
-                    open={openAlert}
-                    onClose={handleAlert}
-                    aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description"
-                    sx={{ padding: '1rem' }}
-                  >
 
-                    <DialogTitle id="alert-dialog-title">
-                      Leaving Saraswati
-                    </DialogTitle>
+                  <Alert
+                    openAlert={openAlert}
+                    setOpenAlert={setOpenAlert}
+                    title={alertTitle}
+                    content={alertContent}
+                    options={alertPath}
+                  />
 
-                    <DialogContent>
-                      <DialogContentText sx={{ lineHeight: '2rem' }} id="alert-dialog-description">
-                        You are now leaving Saraswati and entering a site hosted by
-                        a different Federal agency or company.
-                        If you are not automatically forwarded, please proceed to:&nbsp;
-                        <Link to="https://www.ncqa.org/hedis/measures/">
-                          https://www.ncqa.org/hedis/measures/
-                        </Link>
-
-                      </DialogContentText>
-                    </DialogContent>
-
-                    <DialogActions>
-                      <Button onClick={handleAlert}>Go Back</Button>
-                      <Button onClick={handleAlert}>
-                        <Link
-                          target="_blank"
-                          to={{ pathname: "https://www.ncqa.org/hedis/measures/"}}
-                          rel="noopener noreferrer"
-                        >
-                          Continue
-                        </Link>
-                      </Button>
-
-                    </DialogActions>
-                  </Dialog>
                 </>
               )
               : rowDataItem[fieldInfo.key]}
