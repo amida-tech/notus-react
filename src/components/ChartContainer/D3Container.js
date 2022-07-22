@@ -106,6 +106,7 @@ function D3Container({
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
+  const [tabValue, setTabValue] = React.useState('overview');
 
   useEffect(() => {
     function handleResize() {
@@ -193,6 +194,27 @@ function D3Container({
     ))
   }, [tableFilter, memberResults, activeMeasure.measure, store.info])
 
+  useEffect(() => {
+    const path = window.location.pathname
+    if (path.includes('members')) {
+      const pathMeasure = path.replace('/', '').replace('/members', '');
+      const subMeasures = Object.keys(store.info).filter((item) => item.includes(pathMeasure));
+      setHeaderInfo(MemberTable.headerData(subMeasures, store.info));
+      setRowEntries(MemberTable.formatData(
+        memberResults,
+        pathMeasure,
+        store.info,
+        tableFilter,
+      ))
+      setComposite(false)
+      setTabValue('members')
+    } else if (path === '/') {
+      setTabValue('overview')
+    } else {
+      setTabValue('overview')
+    }
+  }, [activeMeasure.measure, memberResults, selectedMeasures, store.info, tabValue, tableFilter])
+
   const handleSelectedMeasureChange = (event) => {
     setTableFilter([])
     let newSelectedMeasures;
@@ -235,17 +257,22 @@ function D3Container({
     }
   }
 
-  const [tabValue, setTabValue] = React.useState('overview');
-
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
     if (newValue === 'members') {
+      history.push(`/${activeMeasure.measure}/members`)
       setHeaderInfo(MemberTable.headerData(selectedMeasures, store.info));
+      setRowEntries(MemberTable.formatData(
+        memberResults,
+        activeMeasure.measure,
+        store.info,
+        tableFilter,
+      ))
     } else {
+      history.push(`/${activeMeasure.measure}`)
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
-
   return (
     <div className="d3-container">
       <FilterDrawer
@@ -270,15 +297,17 @@ function D3Container({
               <ArrowBackIosIcon className="d3-container__return-icon" />
               All Measures
             </Typography>
+            {!dashboardState.isLoading && (
             <Grid className="d3-container__return-measure-display">
               <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
               {labelGenerator(
                 currentResults.find((result) => result.measure === activeMeasure.measure),
               )}
             </Grid>
+            )}
           </Grid>
         ) }
-      {dashboardState.isLoading ? null : (
+      {!dashboardState.isLoading && (
         <Grid item className="d3-container__chart-bar">
           <ChartBar
             filterDrawerOpen={dashboardState.filterDrawerOpen}
@@ -311,10 +340,18 @@ function D3Container({
         <Box className="d3-container__overview-member-chart">
           <TabContext value={tabValue}>
             <Box className="d3-container__table-tab-bar">
-              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
-                {!isComposite && <Tab className="d3-container__table-selection-button" label="Members" value="members" />}
-              </TabList>
+
+              {isComposite ? (
+                <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
+                  <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+                </TabList>
+              ) : (
+                <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
+                  <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+                  <Tab className="d3-container__table-selection-button" label="Members" value="members" />
+                </TabList>
+              )}
+
             </Box>
 
             <TabPanel value="overview">

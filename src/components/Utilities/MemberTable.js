@@ -46,6 +46,7 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   const formattedData = [];
 
   const subMeasures = Object.keys(storeInfo).filter((item) => item.includes(activeMeasure));
+
   memberResults.forEach((memberResult) => {
     const memberResultArray = [];
     const complianceResult = getMeasureCompliance(memberResult);
