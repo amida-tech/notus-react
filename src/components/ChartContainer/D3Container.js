@@ -195,7 +195,6 @@ function D3Container({
   }, [tableFilter, memberResults, activeMeasure.measure, store.info])
   useEffect(() => {
     const path = window.location.pathname
-
     if (path.includes('members')) {
       const pathMeasure = path.replace('/', '').replace('/members', '');
       const subMeasures = Object.keys(store.info).filter((item) => item.includes(pathMeasure));
@@ -208,6 +207,8 @@ function D3Container({
       ))
       setComposite(false)
       setTabValue('members')
+    } else if (path === '/') {
+      setTabValue('overview')
     } else {
       setTabValue('overview')
     }
@@ -295,7 +296,7 @@ function D3Container({
               All Measures
             </Typography>
             <Grid className="d3-container__return-measure-display">
-            <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
+              <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
               {labelGenerator(
                 currentResults.find((result) => result.measure === activeMeasure.measure),
               )}
@@ -335,10 +336,18 @@ function D3Container({
         <Box className="d3-container__overview-member-chart">
           <TabContext value={tabValue}>
             <Box className="d3-container__table-tab-bar">
-              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
-                <Tab className="d3-container__table-selection-button" label="Members" value="members" />
-              </TabList>
+
+              {isComposite ? (
+                <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
+                  <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+                </TabList>
+              ) : (
+                <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
+                  <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+                  <Tab className="d3-container__table-selection-button" label="Members" value="members" />
+                </TabList>
+              )}
+
             </Box>
 
             <TabPanel value="overview">
