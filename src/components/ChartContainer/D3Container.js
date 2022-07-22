@@ -297,15 +297,17 @@ function D3Container({
               <ArrowBackIosIcon className="d3-container__return-icon" />
               All Measures
             </Typography>
+            {!dashboardState.isLoading && (
             <Grid className="d3-container__return-measure-display">
               <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
               {labelGenerator(
                 currentResults.find((result) => result.measure === activeMeasure.measure),
               )}
             </Grid>
+            )}
           </Grid>
         ) }
-      {dashboardState.isLoading ? null : (
+      {!dashboardState.isLoading && (
         <Grid item className="d3-container__chart-bar">
           <ChartBar
             filterDrawerOpen={dashboardState.filterDrawerOpen}
