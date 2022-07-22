@@ -5,7 +5,7 @@ import ToolTip from '@mui/material/Tooltip';
 import {
   Box, Button, Drawer, Grid, Slider, Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemData from './FilterDrawerItemData';
