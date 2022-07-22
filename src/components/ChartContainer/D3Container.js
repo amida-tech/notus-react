@@ -193,6 +193,7 @@ function D3Container({
       tableFilter,
     ))
   }, [tableFilter, memberResults, activeMeasure.measure, store.info])
+
   useEffect(() => {
     const path = window.location.pathname
     if (path.includes('members')) {
@@ -213,6 +214,7 @@ function D3Container({
       setTabValue('overview')
     }
   }, [activeMeasure.measure, memberResults, selectedMeasures, store.info, tabValue, tableFilter])
+
   const handleSelectedMeasureChange = (event) => {
     setTableFilter([])
     let newSelectedMeasures;
