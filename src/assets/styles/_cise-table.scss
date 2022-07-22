@@ -117,9 +117,9 @@ $block-class: 'cise-table';
             width: 140rem;
         }
 
-        // & &__data-display::-webkit-scrollbar {
-        //     display: none;
-        // }
+        & &__data-display::-webkit-scrollbar {
+            display: none;
+        }
 
         & &__pagination {
             color: $blue-grey-darken-4;
