@@ -35,7 +35,7 @@ export default function Alert({
 
       <DialogActions>
         <Button onClick={() => handleAlert()}>Go Back</Button>
-        <Button onClick={() => handleAlert()}>
+        <Button variant="contained" onClick={() => handleAlert()}>
           <Link
             target={options.target}
             rel={options.rel}
