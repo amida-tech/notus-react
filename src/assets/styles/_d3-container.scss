@@ -68,6 +68,10 @@ $block-class: 'd3-container';
             &--measure-selector {
                 @extend .d3-container__measure-selector;
             }
+            &--chart-header {
+                width: 45%;
+                height: 65px;
+            } 
                         
         }
         & &__loading-skeleton{
@@ -81,7 +85,11 @@ $block-class: 'd3-container';
             &--measure-selector {
                 width: 45%;
                 height: 65px;
-            }  
+            }
+            &--chart-header {
+                width: 45%;
+                height: 65px;
+            } 
         }
 
         & &__return-icon {

@@ -283,8 +283,8 @@ function D3Container({
         handleFilterChange={handleFilterChange}
       />
       {dashboardState.isLoading ? (
-        <Grid className="d3-container__loading-container--measure-selector">
-          <Skeleton variant="rectangular" className="d3-container__loading-skeleton--measure-selector" />
+        <Grid className="d3-container__loading-container--chart-header">
+          <Skeleton variant="text" className="d3-container__loading-skeleton--chart-header" />
         </Grid>
       ) : (
         <ChartHeader

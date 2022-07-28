@@ -16,8 +16,12 @@ function ChartHeader({
   currentResults,
   activeMeasure,
 }) {
-  const text = <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
-  const textWithLinks = (
+  const allMeasureText = (
+    <Grid className="d3-container__return-link-display">
+      <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
+    </Grid>
+  )
+  const allMeasureTextWithLinks = (
     <Grid
       className="d3-container__return-link-display"
       onClick={() => {
@@ -42,9 +46,9 @@ function ChartHeader({
     </Grid>
   )
   if (isComposite) {
-    return text
+    return allMeasureText
   }
-  return textWithLinks
+  return allMeasureTextWithLinks
 }
 
 ChartHeader.propTypes = {
