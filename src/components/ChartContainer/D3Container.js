@@ -8,8 +8,6 @@ import {
   Grid, Typography, Box, Tab, Button,
 } from '@mui/material';
 
-import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
 
 import { TabContext, TabList, TabPanel } from '@mui/lab';
@@ -18,6 +16,7 @@ import env from '../../env';
 import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
+import ChartHeader from './ChartHeader'
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
@@ -273,6 +272,7 @@ function D3Container({
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
+
   return (
     <div className="d3-container">
       <FilterDrawer
@@ -281,32 +281,17 @@ function D3Container({
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
       />
-      { isComposite
-        ? <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
-        : (
-          <Grid
-            className="d3-container__return-link-display"
-            onClick={() => {
-              setComposite(true);
-              setTabValue('overview');
-              setTableFilter([]);
-              history.push('/');
-            }}
-          >
-            <Typography className="d3-container__title">
-              <ArrowBackIosIcon className="d3-container__return-icon" />
-              All Measures
-            </Typography>
-            {!dashboardState.isLoading && (
-            <Grid className="d3-container__return-measure-display">
-              <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
-              {labelGenerator(
-                currentResults.find((result) => result.measure === activeMeasure.measure),
-              )}
-            </Grid>
-            )}
-          </Grid>
-        ) }
+      <ChartHeader
+        isComposite={isComposite}
+        setComposite={setComposite}
+        setTabValue={setTabValue}
+        setTableFilter={setTableFilter}
+        history={history}
+        isLoading={dashboardState.isLoading}
+        labelGenerator={labelGenerator}
+        currentResults={currentResults}
+        activeMeasure={activeMeasure}
+      />
       {!dashboardState.isLoading && (
         <Grid item className="d3-container__chart-bar">
           <ChartBar
