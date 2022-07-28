@@ -17,7 +17,7 @@ function ChartHeader({
   activeMeasure,
 }) {
   const allMeasureText = (
-    <Grid className="d3-container__return-link-display">
+    <Grid className="d3-container__return-title-display">
       <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
     </Grid>
   )

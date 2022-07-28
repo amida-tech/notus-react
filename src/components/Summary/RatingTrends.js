@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
 import ToolTip from '@mui/material/Tooltip';
+import Skeleton from '@mui/material/Skeleton';
 import { Box } from '@mui/system';
 import {
   Button, Grid, Typography, Rating,
@@ -24,7 +25,9 @@ function showStars(activeMeasure) {
   return returnBool;
 }
 
-function RatingTrends({ activeMeasure, trends, info }) {
+function RatingTrends({
+  activeMeasure, trends, info, isLoading,
+}) {
   const biggestGain = { measure: '', percentChange: undefined };
   const biggestLoss = { measure: '', percentChange: undefined };
 
@@ -44,68 +47,82 @@ function RatingTrends({ activeMeasure, trends, info }) {
 
     return renderUI(activeMeasure, mainTrend, {
       displayAll: true, biggestGain, biggestLoss,
-    });
+    }, isLoading);
   }
 
   return renderUI(activeMeasure, mainTrend, {
     displayAll: false, biggestGain, biggestLoss,
-  });
+  }, isLoading);
 }
 
-const renderUI = (activeMeasure, mainTrend, renderOptions) => (
+const renderUI = (activeMeasure, mainTrend, renderOptions, isLoading) => (
   <Box className="rating-trends">
-    <Box className="rating-trends__main-header-align">
-      <Typography variant="h2" className="rating-trends__h2-header">
-        Ratings & Trends
-      </Typography>
-      <Info infoText={ratingTrendsTip} />
-    </Box>
+    {isLoading ? (
+      <Grid className="rating-trends__loading-container--rating-trends">
+        <Skeleton variant="text" className="rating-trends__loading-skeleton--rating-trends" />
+      </Grid>
+    )
+      : (
+        <Box className="rating-trends__main-header-align">
+          <Typography variant="h2" className="rating-trends__h2-header">
+            Ratings & Trends
+          </Typography>
+          <Info infoText={ratingTrendsTip} />
+        </Box>
+      )}
     <Box className="rating-trends__display-box">
-      <Box className="rating-trends__panel-box">
-        <Grid className={`rating-trends__panel 
+      { isLoading ? (
+        <Grid className="rating-trends__loading-container--options">
+          <Skeleton variant="rectangular" className="rating-trends__loading-skeleton--options" />
+          <Skeleton variant="rectangular" className="rating-trends__loading-skeleton--options" />
+        </Grid>
+      ) : (
+        <Box className="rating-trends__panel-box">
+          <Grid className={`rating-trends__panel 
           rating-trends__panel${renderOptions.displayAll ? '--width-25' : '--width-50'}`}
-        >
-          <Grid className="rating-trends__header-align">
-            <Typography variant="h3" className="rating-trends__h3-header">
-              Star Rating
-            </Typography>
-            <ToolTip title={starsTip}>
-              <HelpIcon className="rating-trends__help-icon" fontSize="small" />
+          >
+            <Grid className="rating-trends__header-align">
+              <Typography variant="h3" className="rating-trends__h3-header">
+                Star Rating
+              </Typography>
+              <ToolTip title={starsTip}>
+                <HelpIcon className="rating-trends__help-icon" fontSize="small" />
+              </ToolTip>
+            </Grid>
+            {showStars(activeMeasure) ? (
+              <Rating
+                className="rating-trends__star-rating"
+                name="read-only"
+                value={activeMeasure.starRating}
+                precision={0.5}
+                readOnly
+              />
+            )
+              : (
+                <Typography className="rating-trends__not-available">
+                  N/A
+                </Typography>
+              )}
+            <ToolTip title={activeMeasure.title} arrow>
+              <Typography className="rating-trends__star-rating-label">
+                {activeMeasure.shortLabel && `(${activeMeasure.shortLabel})`}
+              </Typography>
             </ToolTip>
           </Grid>
-          {showStars(activeMeasure) ? (
-            <Rating
-              className="rating-trends__star-rating"
-              name="read-only"
-              value={activeMeasure.starRating}
-              precision={0.5}
-              readOnly
-            />
-          )
-            : (
-              <Typography className="rating-trends__not-available">
-                N/A
-              </Typography>
-            )}
-          <ToolTip title={activeMeasure.title} arrow>
-            <Typography className="rating-trends__star-rating-label">
-              {activeMeasure.shortLabel && `(${activeMeasure.shortLabel})`}
-            </Typography>
-          </ToolTip>
-        </Grid>
-        <TrendDisplay
-          trend={mainTrend}
-          percentWidth={renderOptions.displayAll ? 25 : 50}
-        />
-        <TrendDisplay
-          trend={renderOptions.biggestGain}
-          percentWidth={renderOptions.displayAll ? 25 : 0}
-        />
-        <TrendDisplay
-          trend={renderOptions.biggestLoss}
-          percentWidth={renderOptions.displayAll ? 25 : 0}
-        />
-      </Box>
+          <TrendDisplay
+            trend={mainTrend}
+            percentWidth={renderOptions.displayAll ? 25 : 50}
+          />
+          <TrendDisplay
+            trend={renderOptions.biggestGain}
+            percentWidth={renderOptions.displayAll ? 25 : 0}
+          />
+          <TrendDisplay
+            trend={renderOptions.biggestLoss}
+            percentWidth={renderOptions.displayAll ? 25 : 0}
+          />
+        </Box>
+      )}
       <Box className="rating-trends__button-panel">
         {
           env.REACT_APP_MVP_SETTING === 'false'
@@ -135,6 +152,7 @@ RatingTrends.propTypes = {
       measure: PropTypes.string,
     }),
   ),
+  isLoading: PropTypes.bool,
 }
 
 RatingTrends.defaultProps = {
@@ -146,6 +164,7 @@ RatingTrends.defaultProps = {
     title: '',
   },
   trends: [],
+  isLoading: true,
 }
 
 export default RatingTrends;

@@ -16,9 +16,9 @@ $block-class: 'd3-container';
 
         & &__table-tab-bar {
             height: 4rem;
-            background-color: $primary-blue;
             outline: $outline-blue solid 1px;
             border-radius: 3px;
+            background-color: $primary-blue;
         }
 
         & &__table-selection-button {
@@ -60,6 +60,7 @@ $block-class: 'd3-container';
         }
 
         & &__loading-container{
+
             &--d3-chart {
                 display: flex;
                 justify-content: center;
@@ -69,10 +70,8 @@ $block-class: 'd3-container';
                 @extend .d3-container__measure-selector;
             }
             &--chart-header {
-                width: 45%;
-                height: 65px;
-            } 
-                        
+                width: 100%;
+            }          
         }
         & &__loading-skeleton{
             background-color: $blue-grey-lighten-3;
@@ -87,8 +86,8 @@ $block-class: 'd3-container';
                 height: 65px;
             }
             &--chart-header {
-                width: 45%;
-                height: 65px;
+                width: 25%;
+                height: 75px;
             } 
         }
 
@@ -96,7 +95,9 @@ $block-class: 'd3-container';
             font-size: 1rem;
             padding-top: 0.2rem;
         }
-
+        & &__return-title-display {
+            width: 100%;
+        }
         &__return-link-display {
             cursor: pointer;
             width: fit-content;
