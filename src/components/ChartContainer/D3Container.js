@@ -11,6 +11,7 @@ import {
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CircularProgress from '@mui/material/CircularProgress';
+import Skeleton from '@mui/material/Skeleton';
 
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
@@ -281,32 +282,37 @@ function D3Container({
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
       />
-      { isComposite
-        ? <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
-        : (
-          <Grid
-            className="d3-container__return-link-display"
-            onClick={() => {
-              setComposite(true);
-              setTabValue('overview');
-              setTableFilter([]);
-              history.push('/');
-            }}
-          >
-            <Typography className="d3-container__title">
-              <ArrowBackIosIcon className="d3-container__return-icon" />
-              All Measures
-            </Typography>
-            {!dashboardState.isLoading && (
-            <Grid className="d3-container__return-measure-display">
-              <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
-              {labelGenerator(
-                currentResults.find((result) => result.measure === activeMeasure.measure),
+      {dashboardState.isLoading ? (
+        <Grid className="d3-container__loading-container--measure-selector">
+          <Skeleton variant="rectangular" className="d3-container__loading-skeleton--measure-selector" />
+        </Grid>
+      ) : (
+        isComposite
+          ? <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
+          : (
+            <Grid
+              className="d3-container__return-link-display"
+              onClick={() => {
+                setComposite(true);
+                setTabValue('overview');
+                setTableFilter([]);
+                history.push('/');
+              }}
+            >
+              <Typography className="d3-container__title">
+                <ArrowBackIosIcon className="d3-container__return-icon" />
+                All Measures
+              </Typography>
+              {!dashboardState.isLoading && (
+              <Grid className="d3-container__return-measure-display">
+                <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
+                {labelGenerator(
+                  currentResults.find((result) => result.measure === activeMeasure.measure),
+                )}
+              </Grid>
               )}
             </Grid>
-            )}
-          </Grid>
-        ) }
+          ))}
       {!dashboardState.isLoading && (
         <Grid item className="d3-container__chart-bar">
           <ChartBar
@@ -321,8 +327,8 @@ function D3Container({
       )}
 
       {dashboardState.isLoading ? (
-        <Grid className="d3-container__loading-container">
-          <CircularProgress size={250} thickness={3} className="d3-container__loading-spinner" />
+        <Grid className="d3-container__loading-container--d3-chart">
+          <Skeleton variant="rectangular" className="d3-container__loading-skeleton--d3-chart" />
         </Grid>
       ) : (
         <Grid className="d3-container__main-chart">
@@ -351,18 +357,26 @@ function D3Container({
                   <Tab className="d3-container__table-selection-button" label="Members" value="members" />
                 </TabList>
               )}
-
             </Box>
 
             <TabPanel value="overview">
-              <Grid className="d3-container__measure-selector">
-                <Typography className="d3-container__selector-title">Detailed View:</Typography>
-                <MeasureSelector
-                  measure={activeMeasure.measure}
-                  currentResults={store.currentResults}
-                  handleMeasureChange={handleSelectedMeasureChange}
-                />
-              </Grid>
+
+              {dashboardState.isLoading ? (
+                <Grid className="d3-container__loading-container--measure-selector">
+                  <Skeleton variant="rectangular" className="d3-container__loading-skeleton--measure-selector" />
+                </Grid>
+              ) : (
+                <Grid className="d3-container__measure-selector">
+                  <Typography className="d3-container__selector-title">Detailed View:</Typography>
+                  <MeasureSelector
+                    measure={activeMeasure.measure}
+                    currentResults={store.currentResults}
+                    handleMeasureChange={handleSelectedMeasureChange}
+                    isLoading={dashboardState.isLoading}
+                  />
+                </Grid>
+              )}
+
               <DisplayTable
                 headerInfo={headerInfo}
                 pageSize={MeasureTable.pageSize}
@@ -429,7 +443,6 @@ function D3Container({
 
           </TabContext>
         </Box>
-
       </Grid>
     </div>
   );
