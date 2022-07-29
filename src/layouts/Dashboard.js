@@ -49,6 +49,7 @@ export default function Dashboard() {
                 activeMeasure={activeMeasure}
                 trends={datastore.trends}
                 info={datastore.info}
+                isLoading={isLoading}
               />
             </Grid>
             <Grid item xs={12}>

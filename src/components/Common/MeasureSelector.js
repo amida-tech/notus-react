@@ -3,7 +3,9 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 
-function MeasureSelector({ currentResults, measure, handleMeasureChange }) {
+function MeasureSelector({
+  currentResults, measure, handleMeasureChange,
+}) {
   return (
     <FormControl className="measure-selector">
       <InputLabel className="measure-selector__label">Select Measure</InputLabel>
