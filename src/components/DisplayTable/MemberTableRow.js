@@ -3,7 +3,6 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { React } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 

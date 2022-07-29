@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import { ReactComponent as GithubSvg } from '../../assets/img/github.svg';
