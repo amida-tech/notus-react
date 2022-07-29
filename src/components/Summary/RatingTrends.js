@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
 import ToolTip from '@mui/material/Tooltip';

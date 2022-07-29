@@ -2,7 +2,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import {
   Checkbox, FormControlLabel, FormGroup, Grid, Tooltip, Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {

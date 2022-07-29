@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { TimelineOptions } from '../Utilities/ChartUtil';
 import env from '../../env';
 

@@ -1,4 +1,4 @@
-import React, {
+import {
   useContext,
   useEffect,
   useState,
@@ -24,7 +24,7 @@ const measureAnalysisTip = 'Information about measurement compliance, from dates
 
 const axios = require('axios').default;
 
-const memberQueryUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/info/`);
+const memberInfoQueryUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/info/`);
 
 function MemberReport({ id }) {
   const { datastore } = useContext(DatastoreContext);
@@ -33,7 +33,7 @@ function MemberReport({ id }) {
   const [rowData, setRowData] = useState([]);
 
   useEffect(() => {
-    axios.get(`${memberQueryUrl}?memberId=${id}`)
+    axios.get(`${memberInfoQueryUrl}?memberId=${id}`)
       .then((res) => {
         setMemberInfo(res.data);
       });
@@ -50,6 +50,8 @@ function MemberReport({ id }) {
     }
   }, [datastore, memberInfo]);
 
+  const exportUrl = `${env.REACT_APP_HEDIS_MEASURE_API_URL}exports/member/?memberId=${memberInfo.memberId}`
+
   const coverage = memberInfo.coverage?.find((item) => item.status?.value === 'active');
 
   return (
@@ -62,11 +64,13 @@ function MemberReport({ id }) {
           </Typography>
           <Info infoText={generalInfoTip} />
         </Box>
-        <Button disabled className="member-report__download-icon" startIcon={<FileDownloadIcon />}>
-          <Typography variant="caption">
-            Export
-          </Typography>
-        </Button>
+        <a href={exportUrl} target="_blank" rel="noreferrer">
+          <Button className="member-report__download-icon" startIcon={<FileDownloadIcon />}>
+            <Typography variant="caption">
+              Export
+            </Typography>
+          </Button>
+        </a>
       </Box>
       <Box className="member-report__info-display">
         <Grid className="member-report__member-card">
