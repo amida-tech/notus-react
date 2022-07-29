@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Box, Grid } from '@mui/material';
 import Banner from '../components/Common/Banner';
 import ReportBuilder from '../components/Reports/ReportBuilder';

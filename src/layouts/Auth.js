@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from '../views/auth/Login';
 import Register from '../views/auth/Register';

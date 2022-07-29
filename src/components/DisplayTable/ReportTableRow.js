@@ -5,7 +5,6 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import CancelIcon from '@mui/icons-material/Cancel';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
-import React from 'react';
 import PropTypes from 'prop-types';
 
 function TextRowGenerator(text) {

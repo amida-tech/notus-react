@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@emotion/react';
 import PropTypes from 'prop-types';
@@ -21,6 +20,7 @@ export default function ProtectedRoute({ authenticated }) {
         <Switch>
           <Route path="/reports" component={Reports} />
           <Route path="/member/:id" render={({ match }) => <MemberReport id={match.params.id} />} />
+          <Route exact path="/:measure/members" component={Dashboard} loggedIn={authenticated} />
           <Route exact path="/:measure" component={Dashboard} loggedIn={authenticated} />
           <Route exact path="/" component={Dashboard} loggedIn={authenticated} />
           <Route path="*" component={NotFound} />

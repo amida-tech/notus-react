@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import InfoIcon from '@mui/icons-material/Info';
 import {
@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 
 function Info({ infoText }) {
-  const [displayInfo, setDisplayInfo] = React.useState(false);
+  const [displayInfo, setDisplayInfo] = useState(false);
 
   return (
     <Box className="info">
