@@ -23,7 +23,13 @@ function ReportBuilder({ store }) {
     <Box className="report-builder">
       <Typography variant="h2" className="report-builder__h2-header">Build A Report</Typography>
       <Typography className="report-builder__text">
-        Generate a comprehensive report of specific HEDIS measure data. Start by selecting the measure, then click on <strong>Get Report</strong> to receive a data sheet export.
+        Generate a comprehensive report of specific HEDIS measure data.
+        {' '}
+        Start by selecting the measure, then click on
+        {' '}
+        <strong>Get Report</strong>
+        {' '}
+        to receive a data sheet export.
       </Typography>
       <Grid item className="report-builder__selector-panel">
         <MeasureSelector
