@@ -54,6 +54,8 @@ function MemberReport({ id }) {
 
   const coverage = memberInfo.coverage?.find((item) => item.status?.value === 'active');
 
+  console.log(memberInfo)
+
   return (
     <Box className="member-report">
       <Banner headerText="Reporting - Member's Data" lastUpdated={updateTimestamp(new Date(memberInfo.timeStamp))} />
