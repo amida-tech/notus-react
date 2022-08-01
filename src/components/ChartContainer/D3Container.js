@@ -8,9 +8,7 @@ import {
   Grid, Typography, Box, Tab, Button,
 } from '@mui/material';
 
-import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import CircularProgress from '@mui/material/CircularProgress';
+import Skeleton from '@mui/material/Skeleton';
 
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
@@ -18,6 +16,7 @@ import env from '../../env';
 import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
+import ChartHeader from './ChartHeader'
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
@@ -273,6 +272,7 @@ function D3Container({
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
+
   return (
     <div className="d3-container">
       <FilterDrawer
@@ -281,32 +281,23 @@ function D3Container({
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
       />
-      { isComposite
-        ? <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
-        : (
-          <Grid
-            className="d3-container__return-link-display"
-            onClick={() => {
-              setComposite(true);
-              setTabValue('overview');
-              setTableFilter([]);
-              history.push('/');
-            }}
-          >
-            <Typography className="d3-container__title">
-              <ArrowBackIosIcon className="d3-container__return-icon" />
-              All Measures
-            </Typography>
-            {!dashboardState.isLoading && (
-            <Grid className="d3-container__return-measure-display">
-              <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
-              {labelGenerator(
-                currentResults.find((result) => result.measure === activeMeasure.measure),
-              )}
-            </Grid>
-            )}
-          </Grid>
-        ) }
+      {dashboardState.isLoading ? (
+        <Grid className="d3-container__loading-container--chart-header">
+          <Skeleton variant="text" className="d3-container__loading-skeleton--chart-header" />
+        </Grid>
+      ) : (
+        <ChartHeader
+          isComposite={isComposite}
+          setComposite={setComposite}
+          setTabValue={setTabValue}
+          setTableFilter={setTableFilter}
+          history={history}
+          isLoading={dashboardState.isLoading}
+          labelGenerator={labelGenerator}
+          currentResults={currentResults}
+          activeMeasure={activeMeasure}
+        />
+      )}
       {!dashboardState.isLoading && (
         <Grid item className="d3-container__chart-bar">
           <ChartBar
@@ -321,8 +312,8 @@ function D3Container({
       )}
 
       {dashboardState.isLoading ? (
-        <Grid className="d3-container__loading-container">
-          <CircularProgress size={250} thickness={3} className="d3-container__loading-spinner" />
+        <Grid className="d3-container__loading-container--d3-chart">
+          <Skeleton variant="rectangular" className="d3-container__loading-skeleton--d3-chart" />
         </Grid>
       ) : (
         <Grid className="d3-container__main-chart">
@@ -336,101 +327,105 @@ function D3Container({
         </Grid>
       )}
 
-      <Grid className="d3-container__bottom-display">
-        <Box className="d3-container__overview-member-chart">
-          <TabContext value={tabValue}>
-            <Box className="d3-container__table-tab-bar">
-
-              {isComposite ? (
-                <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                  <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
-                </TabList>
-              ) : (
-                <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                  <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
-                  <Tab className="d3-container__table-selection-button" label="Members" value="members" />
-                </TabList>
-              )}
-
-            </Box>
-
-            <TabPanel value="overview">
-              <Grid className="d3-container__measure-selector">
-                <Typography className="d3-container__selector-title">Detailed View:</Typography>
-                <MeasureSelector
-                  measure={activeMeasure.measure}
-                  currentResults={store.currentResults}
-                  handleMeasureChange={handleSelectedMeasureChange}
-                />
-              </Grid>
-              <DisplayTable
-                headerInfo={headerInfo}
-                pageSize={MeasureTable.pageSize}
-                useCheckBox
-                selectedRows={selectedMeasures}
-                handleCheckBoxChange={handleSelectedMeasureChange}
-              >
-                {MeasureTable.formatData(currentResults).map((item) => (
-                  <MeasureTableRow
-                    key={`measure-table-row-${item.value}`}
-                    rowDataItem={item}
-                    headerInfo={headerInfo}
-                    useCheckBox
-                    handleCheckBoxEvent={handleSelectedMeasureChange}
-                    rowSelected={selectedMeasures.includes(item.value)}
-                    color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
-                    measureInfo={store.info}
-                  />
-                ))}
-              </DisplayTable>
-            </TabPanel>
-
-            <TabPanel value="members">
-              <TableFilterPanel
-                tableFilter={tableFilter}
-                handleTableFilterChange={handleTableFilterChange}
-              />
-              <Box className="d3-container__entries-display">
-                Results:&nbsp;
-                <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
-                &nbsp;Entries Found
+      {dashboardState.isLoading ? (
+        <Grid className="d3-container__loading-container--d3-chart">
+          <Skeleton variant="rectangular" className="d3-container__loading-skeleton--d3-chart" />
+        </Grid>
+      ) : (
+        <Grid className="d3-container__bottom-display">
+          <Box className="d3-container__overview-member-chart">
+            <TabContext value={tabValue}>
+              <Box className="d3-container__table-tab-bar">
+                {isComposite ? (
+                  <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
+                    <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+                  </TabList>
+                ) : (
+                  <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
+                    <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+                    <Tab className="d3-container__table-selection-button" label="Members" value="members" />
+                  </TabList>
+                )}
               </Box>
-              <DisplayTable
-                headerInfo={headerInfo}
-                pageSize={MemberTable.pageSize}
-                useCheckBox={false}
-              >
-                {rowEntries.length === 0
-                  ? (
-                    <Box className="d3-container__no-entries">
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        sx={{ fontWeight: 600 }}
-                        className="d3-container__no-entries-button"
-                        aria-label="clear"
-                        onClick={() => {
-                          setTableFilter([])
-                        }}
-                      >
-                        Reset Table
-                      </Button>
-                    </Box>
-                  )
-                  : (rowEntries.map((item) => (
-                    <MemberTableRow
-                      key={`member-table-row-${item.value}`}
+
+              <TabPanel value="overview">
+                <Grid className="d3-container__measure-selector">
+                  <Typography className="d3-container__selector-title">Detailed View:</Typography>
+                  <MeasureSelector
+                    measure={activeMeasure.measure}
+                    currentResults={store.currentResults}
+                    handleMeasureChange={handleSelectedMeasureChange}
+                    isLoading={dashboardState.isLoading}
+                  />
+                </Grid>
+                <DisplayTable
+                  headerInfo={headerInfo}
+                  pageSize={MeasureTable.pageSize}
+                  useCheckBox
+                  selectedRows={selectedMeasures}
+                  handleCheckBoxChange={handleSelectedMeasureChange}
+                >
+                  {MeasureTable.formatData(currentResults).map((item) => (
+                    <MeasureTableRow
+                      key={`measure-table-row-${item.value}`}
                       rowDataItem={item}
                       headerInfo={headerInfo}
+                      useCheckBox
+                      handleCheckBoxEvent={handleSelectedMeasureChange}
+                      rowSelected={selectedMeasures.includes(item.value)}
+                      color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
+                      measureInfo={store.info}
                     />
-                  )))}
-              </DisplayTable>
-            </TabPanel>
+                  ))}
+                </DisplayTable>
+              </TabPanel>
 
-          </TabContext>
-        </Box>
+              <TabPanel value="members">
+                <TableFilterPanel
+                  tableFilter={tableFilter}
+                  handleTableFilterChange={handleTableFilterChange}
+                />
+                <Box className="d3-container__entries-display">
+                  Results:&nbsp;
+                  <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
+                &nbsp;Entries Found
+                </Box>
+                <DisplayTable
+                  headerInfo={headerInfo}
+                  pageSize={MemberTable.pageSize}
+                  useCheckBox={false}
+                >
+                  {rowEntries.length === 0
+                    ? (
+                      <Box className="d3-container__no-entries">
+                        <Button
+                          variant="contained"
+                          color="primary"
+                          sx={{ fontWeight: 600 }}
+                          className="d3-container__no-entries-button"
+                          aria-label="clear"
+                          onClick={() => {
+                            setTableFilter([])
+                          }}
+                        >
+                          Reset Table
+                        </Button>
+                      </Box>
+                    )
+                    : (rowEntries.map((item) => (
+                      <MemberTableRow
+                        key={`member-table-row-${item.value}`}
+                        rowDataItem={item}
+                        headerInfo={headerInfo}
+                      />
+                    )))}
+                </DisplayTable>
+              </TabPanel>
 
-      </Grid>
+            </TabContext>
+          </Box>
+        </Grid>
+      )}
     </div>
   );
 }

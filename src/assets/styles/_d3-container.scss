@@ -16,9 +16,9 @@ $block-class: 'd3-container';
 
         & &__table-tab-bar {
             height: 4rem;
-            background-color: $primary-blue;
             outline: $outline-blue solid 1px;
             border-radius: 3px;
+            background-color: $primary-blue;
         }
 
         & &__table-selection-button {
@@ -60,20 +60,44 @@ $block-class: 'd3-container';
         }
 
         & &__loading-container{
-            display: flex;
-            justify-content: center;            
-        }
 
-        & &__loading-spinner{
-            color: $blue-grey-darken-1;
-            margin: 5rem auto;
+            &--d3-chart {
+                display: flex;
+                justify-content: center;
+            }
+
+            &--measure-selector {
+                @extend .d3-container__measure-selector;
+            }
+            &--chart-header {
+                width: 100%;
+            }          
+        }
+        & &__loading-skeleton{
+            background-color: $blue-grey-lighten-3;
+
+            &--d3-chart {
+                margin: 3rem auto;
+                width: 95%;
+                height: 500px;
+            }
+            &--measure-selector {
+                width: 45%;
+                height: 65px;
+            }
+            &--chart-header {
+                width: 25%;
+                height: 75px;
+            } 
         }
 
         & &__return-icon {
             font-size: 1rem;
             padding-top: 0.2rem;
         }
-
+        & &__return-title-display {
+            width: 100%;
+        }
         &__return-link-display {
             cursor: pointer;
             width: fit-content;
