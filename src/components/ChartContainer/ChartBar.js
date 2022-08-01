@@ -151,30 +151,7 @@ function ChartBar({
             </RadioGroup>
           </Menu>
         </Grid>
-        <Grid item sx={buttonStyling}>
-          {
-            env.REACT_APP_MVP_SETTING === 'false'
-            && (
-              <Button disabled key="d3-options" color="secondary" variant="text" startIcon={<TuneIcon />}>
-                <Typography variant="caption">
-                  Options
-                </Typography>
-              </Button>
-            )
-          }
-        </Grid>
-        <Grid item sx={buttonStyling}>
-          {
-            env.REACT_APP_MVP_SETTING === 'false'
-            && (
-              <Button disabled key="d3-export" color="secondary" variant="text" startIcon={<SimCardDownloadIcon />}>
-                <Typography variant="caption">
-                  Export
-                </Typography>
-              </Button>
-            )
-          }
-        </Grid>
+
         <Grid item sx={buttonStyling}>
           <Badge badgeContent={filterSum} className={`chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
             <Button
