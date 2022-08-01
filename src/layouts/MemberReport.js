@@ -11,7 +11,9 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CircularProgress from '@mui/material/CircularProgress';
 import Banner from '../components/Common/Banner';
+
 import Info from '../components/Common/Info';
+
 import DisplayTable from '../components/DisplayTable/DisplayTable';
 import { updateTimestamp, getDatestamp, getAge } from '../components/Utilities/GeneralUtil';
 import ReportTable from '../components/Utilities/ReportTable';
@@ -31,6 +33,7 @@ function MemberReport({ id }) {
   const [memberInfo, setMemberInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [rowData, setRowData] = useState([]);
+  const [description, setDescription] = useState("")
 
   useEffect(() => {
     axios.get(`${memberInfoQueryUrl}?memberId=${id}`)
@@ -41,20 +44,20 @@ function MemberReport({ id }) {
 
   useEffect(() => {
     if (Object.keys(datastore.info).length > 0 && memberInfo.measurementType !== undefined) {
+      console.log(datastore.info)
       setIsLoading(datastore.isLoading);
       setRowData(ReportTable.formatData(
         memberInfo,
         memberInfo.measurementType,
         datastore.info,
       ));
+      setDescription(datastore?.info[memberInfo.measurementType].description || "Measure description not currently available.")
     }
   }, [datastore, memberInfo]);
 
   const exportUrl = `${env.REACT_APP_HEDIS_MEASURE_API_URL}exports/member/?memberId=${memberInfo.memberId}`
 
   const coverage = memberInfo.coverage?.find((item) => item.status?.value === 'active');
-
-  console.log(memberInfo)
 
   return (
     <Box className="member-report">
@@ -186,9 +189,9 @@ function MemberReport({ id }) {
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography className="member-report__accordion-text">
-              Info coming soon.
-            </Typography>
+            <Box className="member-report__accordion-text">
+              {description}
+            </Box>
             <Box className="member-report__table-display">
               <DisplayTable
                 rowData={rowData}
