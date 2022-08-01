@@ -33,7 +33,7 @@ function MemberReport({ id }) {
   const [memberInfo, setMemberInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [rowData, setRowData] = useState([]);
-  const [description, setDescription] = useState("")
+  const [description, setDescription] = useState('')
 
   useEffect(() => {
     axios.get(`${memberInfoQueryUrl}?memberId=${id}`)
@@ -44,14 +44,13 @@ function MemberReport({ id }) {
 
   useEffect(() => {
     if (Object.keys(datastore.info).length > 0 && memberInfo.measurementType !== undefined) {
-      console.log(datastore.info)
       setIsLoading(datastore.isLoading);
       setRowData(ReportTable.formatData(
         memberInfo,
         memberInfo.measurementType,
         datastore.info,
       ));
-      setDescription(datastore?.info[memberInfo.measurementType].description || "Measure description not currently available.")
+      setDescription(datastore?.info[memberInfo.measurementType].description || 'Measure description not currently available.')
     }
   }, [datastore, memberInfo]);
 
