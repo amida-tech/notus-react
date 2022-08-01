@@ -4,12 +4,11 @@ import ToolTip from '@mui/material/Tooltip';
 import Skeleton from '@mui/material/Skeleton';
 import { Box } from '@mui/system';
 import {
-  Button, Grid, Typography, Rating,
+  Grid, Typography, Rating,
 } from '@mui/material';
 import TrendDisplay from './TrendDisplay';
 import Info from '../Common/Info';
 import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils'
-import env from '../../env'
 
 const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
 const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
