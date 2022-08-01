@@ -158,12 +158,12 @@ function FilterDrawer({
           />
           <FilterDrawerItem
             filterItem={filterDrawerItemData.providers}
-            filterAction={() => console.log('providers clicked, yo')}
+            filterAction={() => null}
             currentFilter={starChoices}
           />
           <FilterDrawerItem
             filterItem={filterDrawerItemData.coverage}
-            filterAction={() => console.log('coverage clicked, yo')}
+            filterAction={() => null}
             currentFilter={starChoices}
           />
           <Grid container className="filter-drawer__button-control-section">

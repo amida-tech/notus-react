@@ -21,7 +21,7 @@ $block-class: 'chart-bar';
       color: $default-white;
       background-color: $default-red;
       transform: scale(1) translate(-50%, 30%);
-      box-shadow: 0 0 0 2px $blue-grey-lighten-2;
+      box-shadow: 0 0 0 2px $default-red-darken;
       transition: none;
 
       &--hidden {
