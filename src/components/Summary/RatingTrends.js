@@ -3,7 +3,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import ToolTip from '@mui/material/Tooltip';
 import { Box } from '@mui/system';
 import {
-  Button, Grid, Typography, Rating,
+  Grid, Typography, Rating,
 } from '@mui/material';
 import TrendDisplay from './TrendDisplay';
 import Info from '../Common/Info';
@@ -105,18 +105,6 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
           trend={renderOptions.biggestLoss}
           percentWidth={renderOptions.displayAll ? 25 : 0}
         />
-      </Box>
-      <Box className="rating-trends__button-panel">
-        {
-          env.REACT_APP_MVP_SETTING === 'false'
-          && (
-            <Button
-              className="rating-trends__view-rating-details-button"
-            >
-              View Rating Details
-            </Button>
-          )
-        }
       </Box>
     </Box>
   </Box>

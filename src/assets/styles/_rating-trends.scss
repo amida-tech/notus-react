@@ -80,21 +80,5 @@ $block-class: 'rating-trends';
             font-weight: 500;
             color: $blue-grey-darken-4;
         }
-
-        &__button-panel {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 1.25rem;
-            width: 85%;
-        }
-
-        & &__view-rating-details-button {
-            background-color: $primary-blue;
-            color: $default-white;
-            font-weight: 600;
-            border: 1px solid $blue-grey-lighten-2;
-            padding: 1rem;
-            border-radius: 3px;
-        }
     }
 }
