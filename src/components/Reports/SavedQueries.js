@@ -12,7 +12,7 @@ export default function SavedQueries() {
     <Box className="saved-queries">
       <Typography variant="h2" className="saved-queries__h2-header">Saved Queries</Typography>
       <Typography className="saved-queries__text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.
       </Typography>
       <ul className="saved-queries__past-search">
         {Queries.map((query) => (
