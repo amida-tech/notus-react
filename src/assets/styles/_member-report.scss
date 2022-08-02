@@ -48,6 +48,7 @@ $block-class: 'member-report';
         & &__info-field {
             display: flex;
             margin-bottom: 0.5rem;
+            align-items: center;
         }
 
         & &__info-label {
