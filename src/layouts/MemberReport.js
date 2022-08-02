@@ -64,7 +64,7 @@ function MemberReport({ id }) {
           </Typography>
           <Info infoText={generalInfoTip} />
         </Box>
-        <a href={exportUrl} target="_blank" rel="noreferrer">
+        <a href={exportUrl} target="_parent" rel="noreferrer">
           <Button className="member-report__download-icon" startIcon={<FileDownloadIcon />}>
             <Typography variant="caption">
               Export
