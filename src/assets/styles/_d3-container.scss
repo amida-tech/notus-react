@@ -6,8 +6,6 @@ $block-class: 'd3-container';
     .#{$block-class} {
         & &__overview-member-chart {
             margin: 0 -1rem;
-            border: $outline-blue solid 1px;
-            border-radius: 3px;
         }
 
         main-chart {
@@ -48,7 +46,6 @@ $block-class: 'd3-container';
             place-self: center;
         }
 
-        // TO DO: make chart-bar and return-icon, etc. adhere to box model theory
         & &__chart-bar {
             float: right;
             margin-top: 0.625rem;
@@ -167,8 +164,8 @@ $block-class: 'd3-container';
 
         &__bottom-display {
             border-radius: 3px;
-            border: $primary-blue;
             padding: 0 1rem;
+            border: $outline-blue solid 1px;
         }
     }
 }
