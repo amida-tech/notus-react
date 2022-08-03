@@ -13,6 +13,11 @@ const theme = createTheme({
       light: '##E7F6FD',
       dark: '#1976D2',
     },
+    tertiary: {
+      main: '#78909C',
+      light: '#B0BEC5',
+      dark: '#455A64',
+    },
     background: {
       main: '#F7F8FC',
       secondary: '#1976D2',

@@ -46,7 +46,7 @@ $block-class: 'd3-chart';
 
     &__tooltip {
       position: absolute;
-      z-index: 10;
+      z-index: 2;
       visibility: hidden;
       background: $blue-grey-lighten-2;
       border: 1px solid $blue-grey-darken-4;
