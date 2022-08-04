@@ -1,76 +1,111 @@
+import {
+  Container,
+  Paper,
+  Button,
+  Link,
+  Typography,
+  Grid,
+  TextField,
+} from '@mui/material'
+import ButtonUnstyled from '@mui/base/ButtonUnstyled'
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import { ReactComponent as GithubSvg } from '../../assets/img/github.svg';
 import env from '../../env';
-import image from '../../assets/img/loginbg.jpg'
-
-import { Paper,
-        Link,
-        Typography,
-        Grid,
-        Button,
-        TextField} from '@mui/material'
 
 export default function Login() {
   return (
-    <Paper backgroundimage={image}>
-      <Typography variant="h4">
-        Saraswati
+    <Container maxWidth={false} className="login">
+      <Typography
+        variant="h4"
+      >
+        SARASWATI
       </Typography>
 
-      <Paper> {/* Sign in surface, rounded edges, glossy */}
+      <Paper className="login__header-section">
 
-          <Grid container>
-            <Grid item>
-            <Typography variant="h4">
-              Welcome to Saraswati
+        <Grid container spacing={2}>
+          <Grid item xs={6} md={8}>
+            <Typography variant="h5">
+              Welcome to SARASWATI
             </Typography>
-            <Typography variant="h1">
+            <Typography variant="h2">
               Sign in
             </Typography>
-            </Grid>
-
-            <Grid item>
-              <Typography variant="body1">
-                No Account?
-              </Typography>
-              <Link href="#">
-                Sign Up
-              </Link>
-            </Grid>
           </Grid>
-
-          <Button>
-            LOGO | Sign in with Google
-          </Button>
-
-          <Grid container>
-            <Grid item>
-              <Typography variant="h5">
-                Enter your username or email address
-              </Typography>
-              <TextField>
-                ICON | Username or email address
-              </TextField>
-            </Grid>
-            <Grid item>
-            <Typography variant="h5">
-                Enter your password
-              </Typography>
-              <TextField>
-                ICON | Password
-              </TextField>
-              <Link href="#">
-                Forgot password
-              </Link>
-            </Grid>
+          <Grid
+            item
+            xs={6}
+            md={4}
+            sx={{
+              textAlignLast: 'right',
+            }}
+          >
+            <Typography variant="body1" color="tertiary">
+              No Account?
+            </Typography>
+            <Link color="primary" underline="none" href="#">
+              Sign Up
+            </Link>
           </Grid>
+        </Grid>
 
-          <Button>
-            Login
-          </Button>
+        <Grid container spacing={2} sx={{ my: '.5rem' }}>
+          {/* <Grid item>
+            <Button
+              variant="contained"
+              color="tertiary"
+              startIcon={<GithubSvg/>}
+              >
+              Github
+            </Button>
+          </Grid> */}
+
+          <Grid item>
+            <Button
+              variant="contained"
+              color="google"
+              startIcon={<GoogleSvg />}
+              onClick={() => oauthSignIn()}
+            >
+              Sign in with Google
+            </Button>
+          </Grid>
+        </Grid>
+
+        <Grid container spacing={4} direction="column" sx={{ my: '.5rem' }}>
+          <Grid item>
+            <Typography variant="h6" sx={{ my: '.5rem' }}>
+              Enter your username or email address
+            </Typography>
+            <TextField
+              fullWidth
+              color="#FFFFFF80"
+            >
+              ICON | Username or email address
+            </TextField>
+          </Grid>
+          <Grid item>
+            <Typography variant="h6">
+              Enter your password
+            </Typography>
+            <TextField
+              fullWidth
+              color="#FFFFFF80"
+            >
+              ICON | Password
+            </TextField>
+          </Grid>
+          <Link href="#">
+            Forgot password
+          </Link>
+        </Grid>
+
+        <Button variant="contained" color="tertiary">
+          Login
+        </Button>
 
       </Paper>
-    </Paper>
+    </Container>
   );
 }
 
