@@ -1,22 +1,23 @@
 import {
   Container,
   Paper,
+  Box,
   Button,
   Link,
   Typography,
   Grid,
   TextField,
 } from '@mui/material'
-import ButtonUnstyled from '@mui/base/ButtonUnstyled'
+// import ButtonUnstyled from '@mui/base/ButtonUnstyled'
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
-import { ReactComponent as GithubSvg } from '../../assets/img/github.svg';
+// import { ReactComponent as GithubSvg } from '../../assets/img/github.svg';
 import env from '../../env';
 
 export default function Login() {
   return (
     <Container maxWidth={false} className="login">
       <Typography
-        variant="h4"
+        variant="h5"
       >
         SARASWATI
       </Typography>
@@ -24,23 +25,24 @@ export default function Login() {
       <Paper className="login__header-section">
 
         <Grid container spacing={2}>
-          <Grid item xs={6} md={8}>
+          <Grid item xs={6} md={9}>
             <Typography variant="h5">
-              Welcome to SARASWATI
+              Welcome to
+              <span style={{ color: '#546E7A', fontWeight: '700' }}> SARASWATI</span>
             </Typography>
-            <Typography variant="h2">
+
+            <Typography variant="h2" sx={{ fontWeight: '500' }}>
               Sign in
             </Typography>
           </Grid>
           <Grid
             item
             xs={6}
-            md={4}
+            md={3}
             sx={{
-              textAlignLast: 'right',
             }}
           >
-            <Typography variant="body1" color="tertiary">
+            <Typography variant="body1" color="bluegray.L3">
               No Account?
             </Typography>
             <Link color="primary" underline="none" href="#">
@@ -50,59 +52,76 @@ export default function Login() {
         </Grid>
 
         <Grid container spacing={2} sx={{ my: '.5rem' }}>
-          {/* <Grid item>
-            <Button
-              variant="contained"
-              color="tertiary"
-              startIcon={<GithubSvg/>}
-              >
-              Github
-            </Button>
-          </Grid> */}
-
           <Grid item>
             <Button
               variant="contained"
               color="google"
               startIcon={<GoogleSvg />}
               onClick={() => oauthSignIn()}
+              sx={{
+                boxShadow: 'unset',
+              }}
             >
               Sign in with Google
             </Button>
           </Grid>
         </Grid>
 
-        <Grid container spacing={4} direction="column" sx={{ my: '.5rem' }}>
+        <Grid container spacing={2} direction="column" sx={{ my: '.5rem' }}>
           <Grid item>
             <Typography variant="h6" sx={{ my: '.5rem' }}>
               Enter your username or email address
             </Typography>
             <TextField
-              fullWidth
-              color="#FFFFFF80"
-            >
-              ICON | Username or email address
-            </TextField>
+              variant="outlined"
+              fullWidth={true}
+              required={true}
+              margin="dense"
+              placeholder='ICON | Username or email address'
+            />
           </Grid>
           <Grid item>
             <Typography variant="h6">
               Enter your password
             </Typography>
             <TextField
-              fullWidth
-              color="#FFFFFF80"
-            >
-              ICON | Password
-            </TextField>
+              variant="outlined"
+              fullWidth={true}
+              required={true}
+              margin="dense"
+              placeholder='ICON | Password'
+            />
           </Grid>
-          <Link href="#">
+          <Link
+            color="primary"
+            underline="none"
+            href="#"
+            sx={{
+              m: '1rem 0 2rem 0',
+              alignSelf: 'end'
+            }}
+          >
             Forgot password
           </Link>
         </Grid>
 
-        <Button variant="contained" color="tertiary">
-          Login
-        </Button>
+        <Box
+          sx={{
+            width: '100%',
+            textAlign: 'end'
+          }}
+        >
+          <Button
+            variant="contained"
+            color="tertiary"
+            sx={{
+              width: '12rem',
+              height: '7ch'
+            }}
+          >
+            Login
+          </Button>
+        </Box>
 
       </Paper>
     </Container>
