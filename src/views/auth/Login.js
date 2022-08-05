@@ -12,7 +12,6 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import LockIcon from '@mui/icons-material/Lock';
 // import ButtonUnstyled from '@mui/base/ButtonUnstyled'
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
-// import { ReactComponent as GithubSvg } from '../../assets/img/github.svg';
 import env from '../../env';
 
 export default function Login() {
@@ -65,11 +64,18 @@ export default function Login() {
           <Grid item>
             <Button
               variant="contained"
-              color="google"
+              color="primary"
               startIcon={<GoogleSvg />}
               onClick={() => oauthSignIn()}
               sx={{
                 boxShadow: 'unset',
+                backgroundColor: '#E9F1FF',
+                color: '#498AF5',
+
+                '&:hover': {
+                  backgroundColor: '#bbcbe2',
+                  boxShadow: 'unset'
+                }
               }}
             >
               Sign in with Google
@@ -145,10 +151,18 @@ export default function Login() {
         >
           <Button
             variant="contained"
-            color="tertiary"
+            color="primary"
             sx={{
               width: '12rem',
               height: '7ch',
+              boxShadow: 'unset',
+              backgroundColor: 'gray',
+              color: 'black',
+
+              '&:hover': {
+                backgroundColor: 'darkgray',
+                boxShadow: 'unset'
+              }
             }}
           >
             Login

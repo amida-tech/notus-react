@@ -20,10 +20,6 @@ const theme = createTheme({
       dark: '#455A64',
       contrastText: '#FFFFFF',
     },
-    google: {
-      main: '#E9F1FF',
-      contrastText: '#498AF5',
-    },
     background: {
       main: '#F7F8FC',
       secondary: '#1976D2',
