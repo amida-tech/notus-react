@@ -50,7 +50,12 @@ export default function Login() {
             <Typography variant="body1" color="bluegray.L1">
               No Account?
             </Typography>
-            <Link color="primary" underline="none" sx={{ fontWeight: 500 }} href="#">
+            <Link
+              color="primary"
+              underline="none"
+              sx={{ fontWeight: 500 }}
+              href="/auth/register"
+            >
               Sign Up
             </Link>
           </Grid>
@@ -82,11 +87,17 @@ export default function Login() {
               fullWidth={true}
               required={true}
               label="Username/Email"
+              id="LoginEmailInput"
+              type="email"
               margin="dense"
               InputProps={{
                 startAdornment: <PersonRoundedIcon fontSize="small" sx={{ mr: '.5rem' }} />,
               }}
-              startDecorator={<PersonRoundedIcon fontSize="small" />}
+              sx={{
+                '& .MuiInputBase-root': {
+                  backgroundColor: '#e8f1fe',
+                }
+              }}
               placeholder='Username or email address'
             />
           </Grid>
@@ -100,9 +111,15 @@ export default function Login() {
               required={true}
               label="Password"
               type="password"
+              id="LoginPasswordInput"
               margin="dense"
+              sx={{
+                '& .MuiInputBase-root': {
+                  backgroundColor: '#e8f1fe',
+                }
+              }}
               InputProps={{
-                startAdornment: <LockIcon fontSize="small" sx={{ mr: '.5rem' }} />,
+                startAdornment: <LockIcon fontSize="small" sx={{ mr: '.5rem', }} />,
               }}
               placeholder='Password'
             />
@@ -110,7 +127,7 @@ export default function Login() {
           <Link
             color="primary"
             underline="none"
-            href="#"
+            href="#pablo"
             sx={{
               m: '1rem 0 2rem 0',
               alignSelf: 'end'
