@@ -60,7 +60,7 @@ const theme = createTheme({
       D2: '#455A64',
       D3: '#37474F',
       D4: '#263238',
-    }
+    },
   },
   typography: {
     color: '#808080',
@@ -77,8 +77,8 @@ const theme = createTheme({
 
   },
   shape: {
-    borderRadius: '9px',
-  }
+    borderRadius: '3px',
+  },
 });
 
 export default theme;

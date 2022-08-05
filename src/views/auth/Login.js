@@ -17,11 +17,11 @@ import env from '../../env';
 
 export default function Login() {
   return (
-    <Container maxWidth={false} sx={{ padding: '1rem'}} className="login">
+    <Container maxWidth={false} sx={{ padding: '1rem' }} className="login">
       <Typography
         variant="h5"
         sx={{
-          fontWeight: 700
+          fontWeight: 700,
         }}
       >
         SARASWATI
@@ -36,7 +36,7 @@ export default function Login() {
               <span style={{ color: '#546E7A', fontWeight: 700 }}> SARASWATI</span>
             </Typography>
 
-            <Typography variant="h3" sx={{ fontWeight: 500, mb: '1rem'  }}>
+            <Typography variant="h3" sx={{ fontWeight: 500, mb: '1rem' }}>
               Sign in
             </Typography>
           </Grid>
@@ -84,8 +84,8 @@ export default function Login() {
             </Typography>
             <TextField
               variant="outlined"
-              fullWidth={true}
-              required={true}
+              fullWidth
+              required
               label="Username/Email"
               id="LoginEmailInput"
               type="email"
@@ -96,9 +96,9 @@ export default function Login() {
               sx={{
                 '& .MuiInputBase-root': {
                   backgroundColor: '#e8f1fe',
-                }
+                },
               }}
-              placeholder='Username or email address'
+              placeholder="Username or email address"
             />
           </Grid>
           <Grid item>
@@ -107,8 +107,8 @@ export default function Login() {
             </Typography>
             <TextField
               variant="outlined"
-              fullWidth={true}
-              required={true}
+              fullWidth
+              required
               label="Password"
               type="password"
               id="LoginPasswordInput"
@@ -116,12 +116,12 @@ export default function Login() {
               sx={{
                 '& .MuiInputBase-root': {
                   backgroundColor: '#e8f1fe',
-                }
+                },
               }}
               InputProps={{
-                startAdornment: <LockIcon fontSize="small" sx={{ mr: '.5rem', }} />,
+                startAdornment: <LockIcon fontSize="small" sx={{ mr: '.5rem' }} />,
               }}
-              placeholder='Password'
+              placeholder="Password"
             />
           </Grid>
           <Link
@@ -130,7 +130,7 @@ export default function Login() {
             href="#pablo"
             sx={{
               m: '1rem 0 2rem 0',
-              alignSelf: 'end'
+              alignSelf: 'end',
             }}
           >
             Forgot password
@@ -140,7 +140,7 @@ export default function Login() {
         <Box
           sx={{
             width: '100%',
-            textAlign: 'end'
+            textAlign: 'end',
           }}
         >
           <Button
@@ -148,7 +148,7 @@ export default function Login() {
             color="tertiary"
             sx={{
               width: '12rem',
-              height: '7ch'
+              height: '7ch',
             }}
           >
             Login
