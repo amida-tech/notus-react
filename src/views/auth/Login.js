@@ -8,6 +8,8 @@ import {
   Grid,
   TextField,
 } from '@mui/material'
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import LockIcon from '@mui/icons-material/Lock';
 // import ButtonUnstyled from '@mui/base/ButtonUnstyled'
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 // import { ReactComponent as GithubSvg } from '../../assets/img/github.svg';
@@ -15,9 +17,12 @@ import env from '../../env';
 
 export default function Login() {
   return (
-    <Container maxWidth={false} className="login">
+    <Container maxWidth={false} sx={{ padding: '1rem'}} className="login">
       <Typography
         variant="h5"
+        sx={{
+          fontWeight: 700
+        }}
       >
         SARASWATI
       </Typography>
@@ -28,10 +33,10 @@ export default function Login() {
           <Grid item xs={6} md={9}>
             <Typography variant="h5">
               Welcome to
-              <span style={{ color: '#546E7A', fontWeight: '700' }}> SARASWATI</span>
+              <span style={{ color: '#546E7A', fontWeight: 700 }}> SARASWATI</span>
             </Typography>
 
-            <Typography variant="h2" sx={{ fontWeight: '500' }}>
+            <Typography variant="h3" sx={{ fontWeight: 500, mb: '1rem'  }}>
               Sign in
             </Typography>
           </Grid>
@@ -42,10 +47,10 @@ export default function Login() {
             sx={{
             }}
           >
-            <Typography variant="body1" color="bluegray.L3">
+            <Typography variant="body1" color="bluegray.L1">
               No Account?
             </Typography>
-            <Link color="primary" underline="none" href="#">
+            <Link color="primary" underline="none" sx={{ fontWeight: 500 }} href="#">
               Sign Up
             </Link>
           </Grid>
@@ -76,8 +81,13 @@ export default function Login() {
               variant="outlined"
               fullWidth={true}
               required={true}
+              label="Username/Email"
               margin="dense"
-              placeholder='ICON | Username or email address'
+              InputProps={{
+                startAdornment: <PersonRoundedIcon fontSize="small" sx={{ mr: '.5rem' }} />,
+              }}
+              startDecorator={<PersonRoundedIcon fontSize="small" />}
+              placeholder='Username or email address'
             />
           </Grid>
           <Grid item>
@@ -88,8 +98,13 @@ export default function Login() {
               variant="outlined"
               fullWidth={true}
               required={true}
+              label="Password"
+              type="password"
               margin="dense"
-              placeholder='ICON | Password'
+              InputProps={{
+                startAdornment: <LockIcon fontSize="small" sx={{ mr: '.5rem' }} />,
+              }}
+              placeholder='Password'
             />
           </Grid>
           <Link
