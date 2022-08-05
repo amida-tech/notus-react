@@ -166,24 +166,6 @@ function D3Container({
     }
   }, [store.currentResults]);
 
-  const handleFilteredDataUpdate = (measures, filters, timeline) => {
-    let newDisplayData = isComposite
-      ? store.results.map((result) => ({ ...result }))
-      : expandSubMeasureResults(activeMeasure, store);
-    newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
-    if (filters.domainsOfCare.length > 0) {
-      newDisplayData = filterByDOC(newDisplayData, filters, store);
-    }
-    if (filters.stars.length > 0) {
-      newDisplayData = filterByStars(newDisplayData, filters, store);
-    }
-    if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
-      newDisplayData = filterByPercentage(newDisplayData, filters, store);
-    }
-    newDisplayData = filterByTimeline(newDisplayData, timeline);
-    setDisplayData(newDisplayData);
-  };
-
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
       memberResults,
@@ -213,6 +195,24 @@ function D3Container({
       setTabValue('overview')
     }
   }, [activeMeasure.measure, memberResults, selectedMeasures, store.info, tabValue, tableFilter])
+
+  const handleFilteredDataUpdate = (measures, filters, timeline) => {
+    let newDisplayData = isComposite
+      ? store.results.map((result) => ({ ...result }))
+      : expandSubMeasureResults(activeMeasure, store);
+    newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
+    if (filters.domainsOfCare.length > 0) {
+      newDisplayData = filterByDOC(newDisplayData, filters, store);
+    }
+    if (filters.stars.length > 0) {
+      newDisplayData = filterByStars(newDisplayData, filters, store);
+    }
+    if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
+      newDisplayData = filterByPercentage(newDisplayData, filters, store);
+    }
+    newDisplayData = filterByTimeline(newDisplayData, timeline);
+    setDisplayData(newDisplayData);
+  };
 
   const handleSelectedMeasureChange = (event) => {
     setTableFilter([])

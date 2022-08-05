@@ -65,6 +65,7 @@ export const DatastoreReducer = (state, action) => {
           if (b.measure === 'composite') return 1;
           return a.measure > b.measure ? 1 : -1;
         });
+
       return {
         ...state,
         results,
