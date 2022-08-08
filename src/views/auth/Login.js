@@ -158,7 +158,6 @@ export default function Login() {
               boxShadow: 'unset',
               backgroundColor: 'gray',
               color: 'black',
-
               '&:hover': {
                 backgroundColor: 'darkgray',
                 boxShadow: 'unset'
