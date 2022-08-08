@@ -6,7 +6,6 @@ import { useParams } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import D3Container from '../components/ChartContainer';
 import Banner from '../components/Common/Banner';
-import RatingTrends from '../components/Summary/RatingTrends';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 
 export default function Dashboard() {
@@ -45,12 +44,6 @@ export default function Dashboard() {
           <Grid container spacing={4}>
             <Grid item className="dashboard__summary" sm={12}>
               <Banner headerText="HEDIS Dashboard" lastUpdated={datastore.lastUpdated} />
-              <RatingTrends
-                activeMeasure={activeMeasure}
-                trends={datastore.trends}
-                info={datastore.info}
-                isLoading={isLoading}
-              />
             </Grid>
             <Grid item xs={12}>
               <D3Container
