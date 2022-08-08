@@ -1,6 +1,7 @@
 import {
   fireEvent, render, screen,
 } from '@testing-library/react';
+import { toEditorSettings } from 'typescript';
 import Login from '../../../views/auth/Login'
 
 describe('Login', () => {
@@ -66,27 +67,59 @@ describe('Inputs render as expected', () => {
   });
   test('"Username/Email" input renders to page with correct text', () => {
     render(<Login />)
-    // // inputs
+    // inputs
     const inputsOnPage = document.getElementsByTagName('input')
+
     const usernameEmailLabel = inputsOnPage[0]
     expect(usernameEmailLabel.placeholder).toBe('Username or email address')
   });
   test('"Password" input renders to page with correct text', () => {
     render(<Login />)
-    // // inputs
+    // inputs
     const inputsOnPage = document.getElementsByTagName('input')
     const passwordLabel = inputsOnPage[1]
 
-    expect(passwordLabel.innerHTML.includes('Password')).toBe(true)
+    expect(passwordLabel.placeholder).toBe('Password')
   });
 });
-// // inputs
-// const inputsOnPage = document.getElementsByTagName('input')
-// expect(inputsOnPage.length).toBe(2)
 
-// // buttons
-// const buttonsOnPage = document.getElementsByTagName('button')
-// expect(buttonsOnPage.length).toBe(2)
+describe('Button renders as expected', () => {
+  test('Number of buttons on DOM is two', () => {
+    render(<Login />)
+    const buttonsOnPage = document.getElementsByTagName('button')
+    expect(buttonsOnPage.length).toBe(2)
+  })
+
+  test('Google button renders with correct text', () => {
+    render(<Login />)
+    // buttons
+    // const googleButton = screen.getByText('Sign in with Google')
+    const googleButton = screen.getByRole('button', { name: 'google.svg Sign in with Google' });
+    expect(googleButton.textContent.includes('Sign in with Google')).toBe(true)
+  })
+
+  test('Login button renders with correct text', () => {
+    render(<Login />)
+    const loginButton = screen.getByRole('button', { name: 'Login' });
+    expect(loginButton.textContent.includes('Login')).toBe(true)
+  })
+})
+
+describe('Sign up link renders and navigates as expected', () => {
+  test("Sign up link navigates to '/auth/register'", () => {
+    render(<Login />)
+    const registerLink = screen.getByRole('link', { name: 'Sign Up' });
+    expect(registerLink.hasAttribute('href', '/auth/register')).toBe(true)
+  })
+})
+
+describe('Google OAuth logging in works', () => {
+  test("Google logging in works", () => {
+    render(<Login />)
+    const googleLogin = screen.getByRole('button', { name: 'google.svg Sign in with Google' })
+    console.log(googleLogin)
+  })
+})
 
 // // expect(signUpLink.href).to.equal('/auth/register')
 // // console.log(signUpLink.length)
