@@ -332,15 +332,14 @@ function D3Container({
         <Grid className="d3-container__loading-container--d3-chart">
           <Skeleton variant="rectangular" className="d3-container__loading-skeleton--d3-chart" />
         </Grid>
-        ) : (
+      ) : (
         <RatingTrends
           activeMeasure={activeMeasure}
           trends={store.trends}
           info={store.info}
           isLoading={dashboardState.isLoading}
         />
-        )
-      }
+      )}
 
       {dashboardState.isLoading ? (
         <Grid className="d3-container__loading-container--d3-chart">
