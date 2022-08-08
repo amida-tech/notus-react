@@ -73,8 +73,8 @@ export default function Login() {
 
                 '&:hover': {
                   backgroundColor: '#bbcbe2',
-                  boxShadow: 'unset'
-                }
+                  boxShadow: 'unset',
+                },
               }}
             >
               Sign in with Google
@@ -159,8 +159,8 @@ export default function Login() {
               color: 'black',
               '&:hover': {
                 backgroundColor: 'darkgray',
-                boxShadow: 'unset'
-              }
+                boxShadow: 'unset',
+              },
             }}
           >
             Login

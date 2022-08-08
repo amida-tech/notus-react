@@ -2,8 +2,6 @@ import {
   fireEvent, render, screen,
 } from '@testing-library/react';
 import Login from '../../../views/auth/Login'
-import env from '../../../env'
-import axios from 'axios';
 
 describe('Login', () => {
   it('Renders on Load', () => {
@@ -124,12 +122,8 @@ describe('Google OAuth logging in', async () => {
     const googleLogin = screen.getByRole('button', { name: 'google.svg Sign in with Google' })
     expect(fireEvent.click(googleLogin)).toBe(true)
   })
-  it('Oauth has a valid token', async () => {
-    // I cannot figure out how to do this, cool
-  })
 })
-
-
+``
 // // expect(signUpLink.href).to.equal('/auth/register')
 // // console.log(signUpLink.length)
 // screen.debug()
