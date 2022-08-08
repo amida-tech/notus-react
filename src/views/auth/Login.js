@@ -65,7 +65,7 @@ export default function Login() {
           <Grid item>
             <Button
               variant="contained"
-              color="google"
+              // color="google"
               startIcon={<GoogleSvg />}
               onClick={() => oauthSignIn()}
               sx={{
@@ -145,7 +145,7 @@ export default function Login() {
         >
           <Button
             variant="contained"
-            color="tertiary"
+            // color="tertiary"
             sx={{
               width: '12rem',
               height: '7ch',
