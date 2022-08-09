@@ -101,9 +101,9 @@ describe('Sign up link renders and navigates as expected', () => {
   })
 })
 
-describe('Google OAuth logging in', async () => {
+describe('Google OAuth logging in', () => {
   it('Button is clickable', () => {
-    window.HTMLFormElement.prototype.submit = () => {}
+    window.HTMLFormElement.prototype.submit = (undefined) => {undefined}
     render(<Login />)
     const googleLogin = screen.getByRole('button', { name: 'google.svg Sign in with Google' })
     expect(fireEvent.click(googleLogin)).toBe(true)
