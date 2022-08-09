@@ -107,7 +107,7 @@ describe('RatingTrends', () => {
       .length === 4).toBe(true);
   })
 
-  test('tests rendering functionality', () => {
+  test('tests rendering functionality if not loading', () => {
     render(
       <RatingTrends
         activeMeasure={mockActiveMeasure}
