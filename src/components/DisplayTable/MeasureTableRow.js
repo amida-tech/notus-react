@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import CheckBoxCell from './CheckBoxCell';
 import Alert from '../Utilities/Alert'
+import { measureLinks } from '../Utilities/MeasureTable'
 
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
@@ -14,10 +15,13 @@ function MeasureTableRow({
   const compositeCheck = headerInfo[0].header === 'Measure'
 
   const alertTitle = 'Leaving Saraswati'
-  const alertPath = {
-    target: '_blank',
-    rel: 'noopener noreferrer',
-    pathto: 'https://www.ncqa.org/hedis/measures/',
+  const alertPath = (info) => {
+    const foundLinkInfo = measureLinks.filter((measureLink) => info.includes(measureLink.measure))
+    return {
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      pathto: foundLinkInfo[0].link,
+    }
   }
 
   const [openAlert, setOpenAlert] = useState(false);
@@ -92,7 +96,11 @@ function MeasureTableRow({
                     title="Click for more information from NCQA"
                     arrow
                   >
-                    <Typography variant="caption" className="measure-table-row__data" onClick={() => setOpenAlert(true)}>
+                    <Typography
+                      variant="caption"
+                      className="measure-table-row__data"
+                      onClick={() => setOpenAlert(true)}
+                    >
                       {rowDataItem[fieldInfo.key]}
                     </Typography>
                   </Tooltip>
@@ -101,12 +109,13 @@ function MeasureTableRow({
                     openAlert={openAlert}
                     setOpenAlert={setOpenAlert}
                     title={alertTitle}
-                    options={alertPath}
+                    options={alertPath(rowDataItem.value)}
                   >
                     You are now leaving Saraswati and entering a site hosted by
                     a different Federal agency or company. If you are not
                     automatically forwarded, please proceed to:
-                    https://www.ncqa.org/hedis/measures/
+                    {/* {' '}
+                    {alertPath(rowDataItem.value).pathto} */}
                   </Alert>
 
                 </>
