@@ -31,11 +31,7 @@ export default function Alert({
         <DialogContentText sx={{ lineHeight: '2rem', marginBottom: '1rem' }} id="alert-dialog-description">
           {children}
         </DialogContentText>
-        <Typography
-          className="measure-table-row__alert-link"
-        >
-          {options.pathto}
-        </Typography>
+        
       </DialogContent>
 
       <DialogActions>
