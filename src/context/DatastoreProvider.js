@@ -46,6 +46,7 @@ export default function DatastoreProvider({ children }) {
       const infoPromise = axios.get(infoUrl)
 
       Promise.all([searchPromise, infoPromise]).then((values) => {
+        console.log(values[1].data)
         datastoreActions.setResults(values[0].data, values[1].data);
         datastoreActions.setIsLoading(false);
       });

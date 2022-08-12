@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography,
 } from '@mui/material';
 
 export default function Alert({
@@ -28,9 +28,14 @@ export default function Alert({
       </DialogTitle>
 
       <DialogContent>
-        <DialogContentText sx={{ lineHeight: '2rem' }} id="alert-dialog-description">
+        <DialogContentText sx={{ lineHeight: '2rem', marginBottom: '1rem' }} id="alert-dialog-description">
           {children}
         </DialogContentText>
+        <Typography
+          className="measure-table-row__alert-link"
+        >
+          {options.pathto}
+        </Typography>
       </DialogContent>
 
       <DialogActions>
