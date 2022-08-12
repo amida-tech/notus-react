@@ -3,6 +3,7 @@ import {
 } from '@testing-library/react';
 import { sortedTrendsCreator, mainTrendCreator } from '../../../components/Summary/RatingTrendsUtils';
 import Info from '../../../components/Common/Info';
+
 import TrendDisplay from '../../../components/Summary/TrendDisplay';
 import RatingTrends from '../../../components/Summary/RatingTrends';
 import Banner from '../../../components/Common/Banner'
@@ -106,14 +107,16 @@ describe('RatingTrends', () => {
       .length === 4).toBe(true);
   })
 
-  test('tests rendering functionality', () => {
+  test('tests rendering functionality if not loading', () => {
     render(
       <RatingTrends
         activeMeasure={mockActiveMeasure}
         info={mockDataStore.info}
         trends={mockTrends}
+        isLoading={false}
       />,
     )
+
     expect(screen.queryByText('Ratings & Trends')).not.toBeNull()
     expect(screen.queryByText('Composite Score % Change')).not.toBeNull()
     expect(screen.queryByText('Star Rating')).not.toBeNull()
