@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import CheckBoxCell from './CheckBoxCell';
 import Alert from '../Utilities/Alert'
-import { measureLinks } from '../Utilities/MeasureTable'
 
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
@@ -16,16 +15,20 @@ function MeasureTableRow({
 
   const alertTitle = 'Leaving Saraswati'
   const alertPath = (info) => {
-    const foundLinkInfo = measureLinks.filter((measureLink) => info.includes(measureLink.measure))
+    if (measureInfo[info].link) {
+      return {
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        pathto: measureInfo[info].link,
+      }
+    }
     return {
       target: '_blank',
       rel: 'noopener noreferrer',
-      pathto: foundLinkInfo[0].link,
+      pathto: null,
     }
   }
-
   const [openAlert, setOpenAlert] = useState(false);
-
   if (compositeCheck) {
     return (
       <Box className="measure-table-row">
@@ -114,8 +117,8 @@ function MeasureTableRow({
                     You are now leaving Saraswati and entering a site hosted by
                     a different Federal agency or company. If you are not
                     automatically forwarded, please proceed to:
-                    {/* {' '}
-                    {alertPath(rowDataItem.value).pathto} */}
+                    {' '}
+                    {alertPath(rowDataItem.value).pathto}
                   </Alert>
 
                 </>
