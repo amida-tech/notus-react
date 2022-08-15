@@ -11,7 +11,6 @@ export async function memberInfoFetch(url, id) {
     return error
   }
 }
-
 // App.js
 export async function validateAccessToken(accessToken) {
   try {
@@ -24,5 +23,4 @@ export async function validateAccessToken(accessToken) {
   }
   return false;
 }
-
 // D3Container.js
