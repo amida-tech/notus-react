@@ -5,10 +5,10 @@ import env from '../../env'
 export default async function memberInfoFetch(url, id) {
   // write a check here for undefined id for testing purposes or for invalid id?
   try {
-    const result = await axios.get(`${url}?memberId=${id}`).then(res => res.data)
+    const result = await axios.get(`${url}?memberId=${id}`).then((res) => res.data)
     return result
   } catch (error) {
-    console.error(error)
+    return error
   }
 }
 
