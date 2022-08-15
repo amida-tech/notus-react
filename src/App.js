@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-import validateAccessToken from './components/Common/Controller'
+import { validateAccessToken } from './components/Common/Controller'
 import Auth from './layouts/Auth';
 import ProtectedRoutes from './ProtectedRoutes';
 import env from './env';
@@ -93,5 +93,3 @@ export default function App() {
     </>
   )
 }
-
-

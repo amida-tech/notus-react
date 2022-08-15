@@ -12,6 +12,7 @@ export async function memberInfoFetch(url, id) {
   }
 }
 
+// App.js
 export async function validateAccessToken(accessToken) {
   try {
     const res = await axios.get(`${env.REACT_APP_TOKENINFO}?access_token=${accessToken}`);
@@ -25,10 +26,3 @@ export async function validateAccessToken(accessToken) {
 }
 
 // D3Container.js
-
-// App.js
-
-// DatastoreProvider.js
-// OK
-
-export default function controller() {}

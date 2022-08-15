@@ -20,7 +20,8 @@ import ReportTable from '../components/Utilities/ReportTable';
 import ReportTableRow from '../components/DisplayTable/ReportTableRow';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import env from '../env';
-import memberInfoFetch from '../components/Common/Controller'
+
+import { memberInfoFetch } from '../components/Common/Controller'
 
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
