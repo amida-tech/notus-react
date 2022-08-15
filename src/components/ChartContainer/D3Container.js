@@ -12,7 +12,6 @@ import Skeleton from '@mui/material/Skeleton';
 
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 
-import env from '../../env';
 import TableFilterPanel from '../DisplayTable/TableFilterPanel';
 import DisplayTable from '../DisplayTable/DisplayTable';
 import ChartBar from './ChartBar';
@@ -41,8 +40,7 @@ import {
   expandSubMeasureResults,
   getSubMeasureCurrentResults,
 } from './D3ContainerUtils';
-
-const axios = require('axios').default;
+import { measureDataFetch } from '../Common/Controller'
 
 export const firstRenderContext = createContext(true);
 
@@ -151,12 +149,12 @@ function D3Container({
   }, [setTableFilter, history, activeMeasure, isComposite, store]);
 
   useEffect(() => {
+    async function fetchData() {
+      const records = await measureDataFetch(activeMeasure.measure)
+      setMemberResults(records)
+    }
     if (!isComposite && memberResults.length === 0) {
-      const memberUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${activeMeasure.measure}`);
-      const membersPromise = axios.get(memberUrl);
-      Promise.all([membersPromise]).then((values) => {
-        setMemberResults(values[0].data);
-      });
+      fetchData()
     }
   })
 
