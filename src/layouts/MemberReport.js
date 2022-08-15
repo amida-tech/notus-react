@@ -20,11 +20,10 @@ import ReportTable from '../components/Utilities/ReportTable';
 import ReportTableRow from '../components/DisplayTable/ReportTableRow';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import env from '../env';
+import memberInfoFetch from '../components/Common/Controller'
 
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
-
-const axios = require('axios').default;
 
 const memberInfoQueryUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/info/`);
 
@@ -36,11 +35,12 @@ function MemberReport({ id }) {
   const [description, setDescription] = useState('')
 
   useEffect(() => {
-    axios.get(`${memberInfoQueryUrl}?memberId=${id}`)
-      .then((res) => {
-        setMemberInfo(res.data);
-      });
-  }, [id]);
+    async function fetchData() {
+      const result = await memberInfoFetch(memberInfoQueryUrl, id)
+      setMemberInfo(result)
+    }
+    fetchData()
+  }, [id, memberInfo]);
 
   useEffect(() => {
     if (Object.keys(datastore.info).length > 0 && memberInfo.measurementType !== undefined) {
