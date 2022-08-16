@@ -1,9 +1,13 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import PropTypes from 'prop-types';
 import {
-  useContext, useEffect,
+  useContext,
+  useEffect,
   useState
 } from 'react';
+import {
+  Box, Skeleton
+} from '@mui/material';
 import { memberInfoFetch } from '../components/Common/Controller';
 import ReportTable from '../components/Utilities/ReportTable';
 import { DatastoreContext } from '../context/DatastoreProvider';
@@ -26,13 +30,13 @@ function MemberReportContainer({ id }) {
     console.log('>>>>>member info:', memberInfo)
     if (Object.keys(datastore.info).length > 0 && memberInfo) {
       console.log('the data store has info!')
-      setIsLoading(datastore.isLoading);
       setRowData(ReportTable.formatData(
         memberInfo,
         memberInfo.measurementType,
         datastore.info,
       ));
       setDescription(datastore?.info[memberInfo.measurementType].description || 'Measure description not currently available.')
+      setIsLoading(datastore.isLoading);
     } else {
       console.log('data store had no info :(')
     }
@@ -64,9 +68,17 @@ function MemberReportContainer({ id }) {
         sx={{ background: 'white' }}
       />
     :
-    <CircularProgress size={250} thickness={3} />
+    <Skeleton variant="rectangular" height='calc(100vh - 12rem - 14px)' animation="wave"/>
+    // MUI anticipates loading skeletons alongside components,
+    // so this seems to be the MUI-inelegant loading solution
   )
 }
+
+//     background: white;
+//     height: calc(100vh - 12rem - 14px);
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
 
 MemberReportContainer.propTypes = {
   id: PropTypes.string,
