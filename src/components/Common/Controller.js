@@ -6,7 +6,6 @@ export async function memberInfoFetch(url, id) {
   // write a check here for undefined id for testing purposes or for invalid id?
   try {
     const memberInfo = await axios.get(`${url}?memberId=${id}`).then((res) => res.data)
-    console.log(memberInfo)
     return memberInfo
   } catch (error) {
     return error

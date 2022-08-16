@@ -1,66 +1,24 @@
-import {
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import PropTypes from 'prop-types';
-import {
-  Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, Typography,
-} from '@mui/material';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import CircularProgress from '@mui/material/CircularProgress';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import {
+  Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, Typography
+} from '@mui/material';
+import PropTypes from 'prop-types';
 import Banner from '../components/Common/Banner';
-
 import Info from '../components/Common/Info';
-
 import DisplayTable from '../components/DisplayTable/DisplayTable';
-import { updateTimestamp, getDatestamp, getAge } from '../components/Utilities/GeneralUtil';
-import ReportTable from '../components/Utilities/ReportTable';
 import ReportTableRow from '../components/DisplayTable/ReportTableRow';
-import { DatastoreContext } from '../context/DatastoreProvider';
-import env from '../env';
-
-import { memberInfoFetch } from '../components/Common/Controller'
+import { getAge, getDatestamp, updateTimestamp } from '../components/Utilities/GeneralUtil';
+import ReportTable from '../components/Utilities/ReportTable';
 
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
 
-const memberInfoQueryUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/info/`);
-
-function MemberReport({ id }) {
-  const { datastore } = useContext(DatastoreContext);
-  const [memberInfo, setMemberInfo] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [rowData, setRowData] = useState([]);
-  const [description, setDescription] = useState('')
-
-  useEffect(() => {
-    async function fetchData() {
-      const result = await memberInfoFetch(memberInfoQueryUrl, id)
-      setMemberInfo(result)
-    }
-    fetchData()
-  }, [id, memberInfo]);
-
-  useEffect(() => {
-    if (Object.keys(datastore.info).length > 0 && memberInfo.measurementType !== undefined) {
-      setIsLoading(datastore.isLoading);
-      setRowData(ReportTable.formatData(
-        memberInfo,
-        memberInfo.measurementType,
-        datastore.info,
-      ));
-      setDescription(datastore?.info[memberInfo.measurementType].description || 'Measure description not currently available.')
-    }
-  }, [datastore, memberInfo]);
-
-  const exportUrl = `${env.REACT_APP_HEDIS_MEASURE_API_URL}exports/member/?memberId=${memberInfo.memberId}`
-
-  const coverage = memberInfo.coverage?.find((item) => item.status?.value === 'active');
+function MemberReport({ id, memberInfo, datastoreInfo, exportUrl, coverage, rowData, description }) {
+  console.log('>>>>> MemberReport > datastoreInfo:', datastoreInfo)
 
   return (
-    <Box className="member-report">
+    <Box className="member-report" sx={{ background: 'white' }}>
       <Banner headerText="Reporting - Member's Data" lastUpdated={updateTimestamp(new Date(memberInfo.timeStamp))} />
       <Box className="member-report__info-panel">
         <Box className="member-report__info-title">
@@ -177,15 +135,10 @@ function MemberReport({ id }) {
           <Info infoText={measureAnalysisTip} />
         </Box>
       </Box>
-      {isLoading ? (
-        <Grid className="member-report__loading-container">
-          <CircularProgress size={250} thickness={3} className="member-report__loading-spinner" />
-        </Grid>
-      ) : (
         <Accordion>
           <AccordionSummary className="member-report__accordion-summary" expandIcon={<ExpandMoreIcon />}>
             <Typography variant="h4">
-              {`${datastore.info[memberInfo.measurementType].displayLabel} - ${datastore.info[memberInfo.measurementType].title}`}
+              {`${datastoreInfo[memberInfo.measurementType].displayLabel} - ${datastoreInfo[memberInfo.measurementType].title}`}
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -211,7 +164,6 @@ function MemberReport({ id }) {
             </Box>
           </AccordionDetails>
         </Accordion>
-      )}
     </Box>
   )
 }

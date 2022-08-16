@@ -5,7 +5,6 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import axios from 'axios';
 
 import { ThemeProvider } from '@emotion/react';
 
