@@ -2,7 +2,7 @@ import {
   Grid,
   Box,
 } from '@mui/material';
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';

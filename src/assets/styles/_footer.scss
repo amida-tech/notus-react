@@ -5,6 +5,7 @@ $block-class: 'footer';
     .#{$block-class} {
       width: 100%;
       padding: 2rem;
+      background-color: $default-white;
 
       a {
         text-decoration: none;

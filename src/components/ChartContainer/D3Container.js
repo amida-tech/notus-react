@@ -20,6 +20,7 @@ import ChartHeader from './ChartHeader'
 import D3Chart from './D3Chart';
 import MeasureSelector from '../Common/MeasureSelector';
 import FilterDrawer from '../FilterMenu/FilterDrawer';
+import RatingTrends from '../Summary/RatingTrends'
 
 import ColorMapping from '../Utilities/ColorMapping';
 import MeasureTable from '../Utilities/MeasureTable';
@@ -33,6 +34,7 @@ import {
   dashboardActionsProps,
   defaultActiveMeasure,
 } from './D3Props';
+
 import {
   filterByDOC,
   filterByPercentage,
@@ -166,24 +168,6 @@ function D3Container({
     }
   }, [store.currentResults]);
 
-  const handleFilteredDataUpdate = (measures, filters, timeline) => {
-    let newDisplayData = isComposite
-      ? store.results.map((result) => ({ ...result }))
-      : expandSubMeasureResults(activeMeasure, store);
-    newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
-    if (filters.domainsOfCare.length > 0) {
-      newDisplayData = filterByDOC(newDisplayData, filters, store);
-    }
-    if (filters.stars.length > 0) {
-      newDisplayData = filterByStars(newDisplayData, filters, store);
-    }
-    if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
-      newDisplayData = filterByPercentage(newDisplayData, filters, store);
-    }
-    newDisplayData = filterByTimeline(newDisplayData, timeline);
-    setDisplayData(newDisplayData);
-  };
-
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
       memberResults,
@@ -213,6 +197,24 @@ function D3Container({
       setTabValue('overview')
     }
   }, [activeMeasure.measure, memberResults, selectedMeasures, store.info, tabValue, tableFilter])
+
+  const handleFilteredDataUpdate = (measures, filters, timeline) => {
+    let newDisplayData = isComposite
+      ? store.results.map((result) => ({ ...result }))
+      : expandSubMeasureResults(activeMeasure, store);
+    newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
+    if (filters.domainsOfCare.length > 0) {
+      newDisplayData = filterByDOC(newDisplayData, filters, store);
+    }
+    if (filters.stars.length > 0) {
+      newDisplayData = filterByStars(newDisplayData, filters, store);
+    }
+    if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
+      newDisplayData = filterByPercentage(newDisplayData, filters, store);
+    }
+    newDisplayData = filterByTimeline(newDisplayData, timeline);
+    setDisplayData(newDisplayData);
+  };
 
   const handleSelectedMeasureChange = (event) => {
     setTableFilter([])
@@ -325,6 +327,19 @@ function D3Container({
             currentTimeline={currentTimeline}
           />
         </Grid>
+      )}
+
+      {dashboardState.isLoading ? (
+        <Grid className="d3-container__loading-container--d3-chart">
+          <Skeleton variant="rectangular" className="d3-container__loading-skeleton--d3-chart" />
+        </Grid>
+      ) : (
+        <RatingTrends
+          activeMeasure={activeMeasure}
+          trends={store.trends}
+          info={store.info}
+          isLoading={dashboardState.isLoading}
+        />
       )}
 
       {dashboardState.isLoading ? (
