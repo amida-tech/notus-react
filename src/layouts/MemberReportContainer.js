@@ -19,30 +19,37 @@ function MemberReportContainer({ id }) {
   const [exportUrl, setExportUrl] = useState('')
   const [rowData, setRowData] = useState([]);
   const [description, setDescription] = useState('')
-
-  const coverage = memberInfo?.coverage.find((item) => item.status?.value === 'active');
-
-  useEffect( async () => {
-    async function fetchData() {
-      const result = await memberInfoFetch(memberInfoQueryUrl, id)
-      setMemberInfo(result)
-      setExportUrl(`${env.REACT_APP_HEDIS_MEASURE_API_URL}exports/member/?memberId=${result.memberId}`)
-    }
-    await fetchData()
-    
-  }, [id]);
+  const [coverageStatus, setCoverageStatus] = useState('')
 
   useEffect(() => {
-    setIsLoading(datastore.isLoading);
+    console.log('>>>>>data store info:', datastore.info)
+    console.log('>>>>>member info:', memberInfo)
+    if (Object.keys(datastore.info).length > 0 && memberInfo) {
+      console.log('the data store has info!')
+      setIsLoading(datastore.isLoading);
       setRowData(ReportTable.formatData(
         memberInfo,
         memberInfo.measurementType,
         datastore.info,
       ));
       setDescription(datastore?.info[memberInfo.measurementType].description || 'Measure description not currently available.')
-  }, [id, memberInfo]);
+    } else {
+      console.log('data store had no info :(')
+    }
+  }, [datastore, memberInfo]);
 
-  console.log('>>>>> MemberReportContainer > datastore: ', datastore)
+  useEffect( async () => {
+    console.log('our id:', id)
+    async function fetchData() {
+      const result = await memberInfoFetch(memberInfoQueryUrl, id)
+      console.log('our result from axios request:', result)
+      setMemberInfo(result)
+      setCoverageStatus(result.coverage?.find((item) => item.status?.value === 'active'))
+      setExportUrl(`${env.REACT_APP_HEDIS_MEASURE_API_URL}exports/member/?memberId=${result.memberId}`)
+    }
+    await fetchData()
+    
+  }, [id]);
 
   return (
     memberInfo && !isLoading
@@ -51,9 +58,10 @@ function MemberReportContainer({ id }) {
         memberInfo={memberInfo}
         datastoreInfo={datastore.info}
         exportUrl={exportUrl}
-        coverage={coverage}
+        coverageStatus={coverageStatus}
         rowData={rowData}
         description={description}
+        sx={{ background: 'white' }}
       />
     :
     <CircularProgress size={250} thickness={3} />

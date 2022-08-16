@@ -14,8 +14,7 @@ import ReportTable from '../components/Utilities/ReportTable';
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
 
-function MemberReport({ id, memberInfo, datastoreInfo, exportUrl, coverage, rowData, description }) {
-  console.log('>>>>> MemberReport > datastoreInfo:', datastoreInfo)
+function MemberReport({ id, memberInfo, datastoreInfo, exportUrl, coverageStatus, rowData, description }) {
 
   return (
     <Box className="member-report" sx={{ background: 'white' }}>
@@ -65,16 +64,16 @@ function MemberReport({ id, memberInfo, datastoreInfo, exportUrl, coverage, rowD
             <Typography className="member-report__info-label">
               Coverage Status:&nbsp;
             </Typography>
-            <Typography className={`member-report__coverage member-report__coverage--${coverage?.status.value || 'inactive'}`}>
-              { coverage?.status.value || 'inactive' }
+            <Typography className={`member-report__coverage member-report__coverage--${coverageStatus?.status.value || 'inactive'}`}>
+              { coverageStatus?.status.value || 'inactive' }
             </Typography>
           </Box>
           <Box className="member-report__info-field">
             <Typography className="member-report__info-label">
               Participation Period:&nbsp;
             </Typography>
-            { coverage ? `${getDatestamp(new Date(coverage.period.start.value))} - ${
-              getDatestamp(new Date(coverage.period.end.value))}` : 'N/A' }
+            { coverageStatus ? `${getDatestamp(new Date(coverageStatus.period.start.value))} - ${
+              getDatestamp(new Date(coverageStatus.period.end.value))}` : 'N/A' }
           </Box>
         </Grid>
         {memberInfo.coverage && memberInfo.coverage.map((insurance) => (
