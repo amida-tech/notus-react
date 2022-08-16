@@ -11,6 +11,14 @@ export async function memberInfoFetch(url, id) {
     return error
   }
 }
+
+// D3Container.js
+export async function measureDataFetch(measure) {
+  const memberUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${measure}`)
+  const defaultVal = await axios.get(memberUrl).then((values) => values.data)
+  return defaultVal
+}
+
 // App.js
 export async function validateAccessToken(accessToken) {
   try {
@@ -22,10 +30,4 @@ export async function validateAccessToken(accessToken) {
     localStorage.removeItem('token')
   }
   return false
-}
-// D3Container.js
-export async function measureDataFetch(measure) {
-  const memberUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${measure}`)
-  const defaultVal = await axios.get(memberUrl).then((values) => values.data)
-  return defaultVal
 }

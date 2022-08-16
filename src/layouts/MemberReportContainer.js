@@ -42,6 +42,13 @@ function MemberReportContainer({ id }) {
     }
   }, [datastore, memberInfo]);
 
+  // The useEffect below is a completely different flow of data coming in than the data store... ideally we have one datastore flowing in
+  // A side effect of these not being together is before this slight refactor, you would see the page load and incomplete information
+  // temporarily even after it "loaded"
+  // I had to make both of these two data flows congruent with each other and the component conditionally renders in when BOTH are ready
+  // ideally, there is not a 'both', there is just one place all this data is being fetched and fed to our datastore
+  // If we can merge these two, this will also prune a few of the seven props currently being fed in
+
   useEffect( async () => {
     console.log('our id:', id)
     async function fetchData() {
@@ -65,7 +72,6 @@ function MemberReportContainer({ id }) {
         coverageStatus={coverageStatus}
         rowData={rowData}
         description={description}
-        sx={{ background: 'white' }}
       />
     :
     <Skeleton variant="rectangular" height='calc(100vh - 12rem - 14px)' animation="wave"/>
