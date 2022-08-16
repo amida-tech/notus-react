@@ -14,14 +14,21 @@ function MeasureTableRow({
   const compositeCheck = headerInfo[0].header === 'Measure'
 
   const alertTitle = 'Leaving Saraswati'
-  const alertPath = {
-    target: '_blank',
-    rel: 'noopener noreferrer',
-    pathto: 'https://www.ncqa.org/hedis/measures/',
+  const alertPath = (info) => {
+    if (measureInfo[info].link) {
+      return {
+        target: '_blank',
+        rel: 'noopener noreferrer',
+        pathto: measureInfo[info].link,
+      }
+    }
+    return {
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      pathto: null,
+    }
   }
-
   const [openAlert, setOpenAlert] = useState(false);
-
   if (compositeCheck) {
     return (
       <Box className="measure-table-row">
@@ -92,7 +99,11 @@ function MeasureTableRow({
                     title="Click for more information from NCQA"
                     arrow
                   >
-                    <Typography variant="caption" className="measure-table-row__data" onClick={() => setOpenAlert(true)}>
+                    <Typography
+                      variant="caption"
+                      className="measure-table-row__data"
+                      onClick={() => setOpenAlert(true)}
+                    >
                       {rowDataItem[fieldInfo.key]}
                     </Typography>
                   </Tooltip>
@@ -101,12 +112,13 @@ function MeasureTableRow({
                     openAlert={openAlert}
                     setOpenAlert={setOpenAlert}
                     title={alertTitle}
-                    options={alertPath}
+                    options={alertPath(rowDataItem.value)}
                   >
                     You are now leaving Saraswati and entering a site hosted by
                     a different Federal agency or company. If you are not
                     automatically forwarded, please proceed to:
-                    https://www.ncqa.org/hedis/measures/
+                    {' '}
+                    {alertPath(rowDataItem.value).pathto}
                   </Alert>
 
                 </>

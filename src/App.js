@@ -5,12 +5,16 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import axios from 'axios';
+
+import { ThemeProvider } from '@emotion/react';
+
 import {
   Snackbar, IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
-import axios from 'axios';
+import theme from './assets/styles/AppTheme';
 import Auth from './layouts/Auth';
 import ProtectedRoutes from './ProtectedRoutes';
 import env from './env';
@@ -66,7 +70,7 @@ export default function App() {
   }, [setShowWelcome, setAuthenticated, setLoaded]);
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Snackbar
         open={showWelcome}
         autoHideDuration={6000}
@@ -90,7 +94,7 @@ export default function App() {
             )}
         </Switch>
       </BrowserRouter>
-    </>
+    </ThemeProvider>
   )
 }
 

@@ -28,7 +28,7 @@ export default function Alert({
       </DialogTitle>
 
       <DialogContent>
-        <DialogContentText sx={{ lineHeight: '2rem' }} id="alert-dialog-description">
+        <DialogContentText sx={{ lineHeight: '2rem', marginBottom: '1rem' }} id="alert-dialog-description">
           {children}
         </DialogContentText>
       </DialogContent>
