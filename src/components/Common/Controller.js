@@ -15,9 +15,9 @@ export async function memberInfoFetch(url, id) {
 // D3Container.js
 export async function measureDataFetch(measure) {
   try {
-  const memberUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${measure}`)
-  const defaultVal = await axios.get(memberUrl).then((values) => values.data)
-  return defaultVal
+    const memberUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${measure}`)
+    const defaultVal = await axios.get(memberUrl).then((values) => values.data)
+    return defaultVal
   } catch (error) {
     return error
   }
@@ -34,4 +34,5 @@ export async function validateAccessToken(accessToken) {
     localStorage.removeItem('token')
     return false
   }
+  return false
 }

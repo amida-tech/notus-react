@@ -1,7 +1,7 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {
-  Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, Typography
+  Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import Banner from '../Common/Banner';
@@ -14,8 +14,15 @@ import ReportTable from '../Utilities/ReportTable';
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
 
-function MemberReport({ id, memberInfo, datastoreInfo, exportUrl, coverageStatus, rowData, description }) {
-
+function MemberReportDisplay({
+  id,
+  memberInfo,
+  datastoreInfo,
+  exportUrl,
+  coverageStatus,
+  rowData,
+  description,
+}) {
   return (
     <Box className="member-report" sx={{ background: 'white' }}>
       <Banner headerText="Reporting - Member's Data" lastUpdated={updateTimestamp(new Date(memberInfo.timeStamp))} />
@@ -134,45 +141,85 @@ function MemberReport({ id, memberInfo, datastoreInfo, exportUrl, coverageStatus
           <Info infoText={measureAnalysisTip} />
         </Box>
       </Box>
-        <Accordion>
-          <AccordionSummary className="member-report__accordion-summary" expandIcon={<ExpandMoreIcon />}>
-            <Typography variant="h4">
-              {`${datastoreInfo[memberInfo.measurementType].displayLabel} - ${datastoreInfo[memberInfo.measurementType].title}`}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Box className="member-report__accordion-text">
-              {description}
-            </Box>
-            <Box className="member-report__table-display">
-              <DisplayTable
-                rowData={rowData}
-                headerInfo={ReportTable.headerData}
-                pageSize={ReportTable.pageSize}
-                useCheckBox={false}
-                invertedColor
-              >
-                {rowData.map((item) => (
-                  <ReportTableRow
-                    key={`report-table-row-${item.value}`}
-                    rowDataItem={item}
-                    headerInfo={ReportTable.headerData}
-                  />
-                ))}
-              </DisplayTable>
-            </Box>
-          </AccordionDetails>
-        </Accordion>
+      <Accordion>
+        <AccordionSummary className="member-report__accordion-summary" expandIcon={<ExpandMoreIcon />}>
+          <Typography variant="h4">
+            {`${datastoreInfo[memberInfo.measurementType].displayLabel} - ${datastoreInfo[memberInfo.measurementType].title}`}
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Box className="member-report__accordion-text">
+            {description}
+          </Box>
+          <Box className="member-report__table-display">
+            <DisplayTable
+              rowData={rowData}
+              headerInfo={ReportTable.headerData}
+              pageSize={ReportTable.pageSize}
+              useCheckBox={false}
+              invertedColor
+            >
+              {rowData.map((item) => (
+                <ReportTableRow
+                  key={`report-table-row-${item.value}`}
+                  rowDataItem={item}
+                  headerInfo={ReportTable.headerData}
+                />
+              ))}
+            </DisplayTable>
+          </Box>
+        </AccordionDetails>
+      </Accordion>
     </Box>
   )
 }
 
-MemberReport.propTypes = {
+MemberReportDisplay.propTypes = {
   id: PropTypes.string,
+  memberInfo: PropTypes.shape({
+    dob: PropTypes.string,
+    timeStamp: PropTypes.string,
+    gender: PropTypes.string,
+    coverage: PropTypes.arrayOf(
+      PropTypes.shape({
+        any: PropTypes.string,
+      }),
+    ),
+    measurementType: PropTypes.string,
+  }),
+  datastoreInfo: PropTypes.shape({
+    any: PropTypes.string,
+  }),
+  exportUrl: PropTypes.string,
+  coverageStatus: PropTypes.shape({
+    status: PropTypes.shape({
+      value: PropTypes.string,
+    }),
+    period: PropTypes.shape({
+      start: PropTypes.shape({
+        value: PropTypes.string,
+      }),
+      end: PropTypes.shape({
+        value: PropTypes.string,
+      }),
+    }),
+  }),
+  rowData: PropTypes.arrayOf(
+    PropTypes.shape({
+      any: PropTypes.string,
+    }),
+  ),
+  description: PropTypes.string,
 }
 
-MemberReport.defaultProps = {
+MemberReportDisplay.defaultProps = {
   id: '',
+  memberInfo: {},
+  datastoreInfo: {},
+  exportUrl: '',
+  coverageStatus: {},
+  rowData: {},
+  description: '',
 }
 
-export default MemberReport;
+export default MemberReportDisplay;

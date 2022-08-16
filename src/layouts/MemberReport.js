@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import {
   useContext,
   useEffect,
-  useState
+  useState,
 } from 'react';
 import {
-  Skeleton
+  Skeleton,
 } from '@mui/material';
 import { memberInfoFetch } from '../components/Common/Controller';
 import ReportTable from '../components/Utilities/ReportTable';
@@ -15,7 +15,7 @@ import MemberReportDisplay from '../components/MemberReport/MemberReportDisplay'
 
 const memberInfoQueryUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/info/`);
 
-function MemberReportContainer({ id }) {
+function MemberReport({ id }) {
   const { datastore } = useContext(DatastoreContext);
   const [isLoading, setIsLoading] = useState(true);
   const [memberInfo, setMemberInfo] = useState();
@@ -36,41 +36,41 @@ function MemberReportContainer({ id }) {
     }
   }, [datastore, memberInfo]);
 
-  useEffect( async () => {
+  useEffect(() => {
     async function fetchData() {
       const result = await memberInfoFetch(memberInfoQueryUrl, id)
       setMemberInfo(result)
       setCoverageStatus(result.coverage?.find((item) => item.status?.value === 'active'))
       setExportUrl(`${env.REACT_APP_HEDIS_MEASURE_API_URL}exports/member/?memberId=${result.memberId}`)
     }
-    await fetchData()
-    
+    fetchData()
   }, [id]);
 
   return (
     memberInfo && !isLoading
-    ? <MemberReportDisplay
-        id={id}
-        memberInfo={memberInfo}
-        datastoreInfo={datastore.info}
-        exportUrl={exportUrl}
-        coverageStatus={coverageStatus}
-        rowData={rowData}
-        description={description}
-      />
-    :
-    <Skeleton variant="rectangular" height='calc(100vh - 12rem - 14px)' animation="wave"/>
-    // MUI anticipates loading skeletons alongside components,
-    // so this seems to be the MUI-inelegant loading solution but wtvr
+      ? (
+        <MemberReportDisplay
+          id={id}
+          memberInfo={memberInfo}
+          datastoreInfo={datastore.info}
+          exportUrl={exportUrl}
+          coverageStatus={coverageStatus}
+          rowData={rowData}
+          description={description}
+        />
+      )
+      : <Skeleton variant="rectangular" height="calc(100vh - 12rem - 14px)" animation="wave" />
+  // MUI anticipates loading skeletons alongside components,
+  // so this seems to be the MUI-inelegant loading solution but wtvr
   )
 }
 
-MemberReportContainer.propTypes = {
+MemberReport.propTypes = {
   id: PropTypes.string,
 }
 
-MemberReportContainer.defaultProps = {
+MemberReport.defaultProps = {
   id: '',
 }
 
-export default MemberReportContainer;
+export default MemberReport;

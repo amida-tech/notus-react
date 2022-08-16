@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Typography,
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@mui/material';
 
 export default function Alert({
@@ -59,7 +59,9 @@ Alert.propTypes = {
     rel: PropTypes.string,
     pathto: PropTypes.string,
   }),
-  children: PropTypes.string,
+  children: PropTypes.arrayOf(
+    PropTypes.node,
+  ),
 };
 
 Alert.defaultProps = {
