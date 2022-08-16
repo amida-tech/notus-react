@@ -58,7 +58,9 @@ Alert.propTypes = {
     rel: PropTypes.string,
     pathto: PropTypes.string,
   }),
-  children: PropTypes.string,
+  children: PropTypes.arrayOf(
+    PropTypes.node,
+  ),
 };
 
 Alert.defaultProps = {

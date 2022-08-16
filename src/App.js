@@ -5,7 +5,6 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
-import axios from 'axios';
 
 import { ThemeProvider } from '@emotion/react';
 
@@ -13,7 +12,7 @@ import {
   Snackbar, IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { validateAccessToken } from './components/Common/Controller'
 import theme from './assets/styles/AppTheme';
 import Auth from './layouts/Auth';
 import ProtectedRoutes from './ProtectedRoutes';
@@ -96,16 +95,4 @@ export default function App() {
       </BrowserRouter>
     </ThemeProvider>
   )
-}
-
-const validateAccessToken = async (accessToken) => {
-  try {
-    const res = await axios.get(`${env.REACT_APP_TOKENINFO}?access_token=${accessToken}`);
-    if (res.status === 200) {
-      return true;
-    }
-  } catch (error) {
-    localStorage.removeItem('token');
-  }
-  return false;
 }
