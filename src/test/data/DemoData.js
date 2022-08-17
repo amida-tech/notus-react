@@ -3081,3 +3081,5 @@ export const infoObject = {
     hasSubMeasures: false,
   },
 }
+
+export const memberId = 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad'

@@ -33,6 +33,9 @@ function MemberReport({ id }) {
       ));
       setDescription(datastore?.info[memberInfo.measurementType].description || 'Measure description not currently available.')
       setIsLoading(datastore.isLoading);
+
+      // console.log('exportUrl', exportUrl, 'rowData', rowData, 'description', description, 'coverage', coverageStatus)
+
     }
   }, [datastore, memberInfo]);
 

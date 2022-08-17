@@ -7,6 +7,7 @@ import MemberReport from '../../../layouts/MemberReport'
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay'
 import { DatastoreReducer } from '../../../context/DatastoreReducer';
 import { resultList, infoObject, memberId, memberInfo } from '../../data/DemoData';
+import { exportUrl, description, rowData, coverageStatus } from '../../data/MemberReport'
 
 describe('Member view page', () => {
   const mockInitState = {
@@ -20,7 +21,6 @@ describe('Member view page', () => {
   const datastore = DatastoreReducer(mockInitState, { type: 'SET_RESULTS', payload: { results: resultList, info: infoObject } })
   // const mockToggleData = jest.fn(() => false)
 
-  // providing data context to components that rely on the data store in our future tests is essential
   beforeEach(async () => {
     const container = render(
       <DatastoreContext.Provider value={{ datastore }}>
