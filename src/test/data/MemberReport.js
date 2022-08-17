@@ -9,7 +9,7 @@ export const coverageStatus = {
         "coding": [
             {
                 "system": {
-                    "value": "http://terminology.hl7.org/CodeSystem/v3-ActCode"
+                    "value": "https://example.com"
                 },
                 "code": {
                     "value": "MCPOL"
