@@ -62,7 +62,7 @@ function MemberReport({ id }) {
           description={description}
         />
       )
-      : <Skeleton variant="rectangular" height="calc(100vh - 12rem - 14px)" animation="wave" />
+      : <Skeleton data-testid="loading" variant="rectangular" height="calc(100vh - 12rem - 14px)" animation="wave" />
   // MUI anticipates loading skeletons alongside components,
   // so this seems to be the MUI-inelegant loading solution but wtvr
   )

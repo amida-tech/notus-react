@@ -1,5 +1,5 @@
 import {
-  waitForElementToBeRemoved, getByText, userEvent, render, screen, waitFor, cleanup,
+  waitForElementToBeRemoved, getByText, userEvent, render, screen, waitFor, cleanup, queryByAttribute,
 } from '@testing-library/react';
 
 import { DatastoreContext } from 'context/DatastoreProvider';
@@ -17,7 +17,6 @@ describe('Member view page', () => {
     info: {},
     lastUpdated: 'Updating now...',
   }
-
   const datastore = DatastoreReducer(mockInitState, { type: 'SET_RESULTS', payload: { results: resultList, info: infoObject } })
   // const mockToggleData = jest.fn(() => false)
 
@@ -39,16 +38,19 @@ describe('Member view page', () => {
         </MemberReport>
       </DatastoreContext.Provider>,
     )
-    await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
-    await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
-    // jest.setTimeout(10000)
+    await waitForElementToBeRemoved(() => container.getByTestId('loading'))
+
+    // Please keep this for when we move the loading state to the Display
+    // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
+    // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
+
   })
 
   afterEach(async () => {
     cleanup
   })
 
-  it('Headings rendered', () => {
+  it('Headings render', () => {
     expect(screen.getAllByRole('heading').length).toBe(4)
     expect(screen.getByRole('heading', { name: "Reporting - Member's Data" })).not.toBeNull()
     expect(screen.getByRole('heading', { name: 'General Information' })).not.toBeNull()
@@ -56,7 +58,7 @@ describe('Member view page', () => {
     expect(screen.getByRole('heading', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
   })
 
-  it('Buttons are loaded', () => {
+  it('Buttons render', () => {
     expect(screen.getAllByRole('button').length).toBe(4)
     expect(screen.getByRole('button', { name: 'Export' })).not.toBeNull()
     expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
