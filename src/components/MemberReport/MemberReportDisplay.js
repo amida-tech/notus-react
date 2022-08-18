@@ -19,6 +19,7 @@ function MemberReportDisplay({
   memberInfo,
   datastoreInfo,
   exportUrl,
+  coverage,
   coverageStatus,
   rowData,
   description,
@@ -71,16 +72,16 @@ function MemberReportDisplay({
             <Typography className="member-report__info-label">
               Coverage Status:&nbsp;
             </Typography>
-            <Typography className={`member-report__coverage member-report__coverage--${coverageStatus?.status.value || 'inactive'}`}>
-              { coverageStatus?.status.value || 'inactive' }
+            <Typography className={`member-report__coverage member-report__coverage--${coverageStatus || 'inactive'}`}>
+              { coverageStatus || 'inactive' }
             </Typography>
           </Box>
           <Box className="member-report__info-field">
             <Typography className="member-report__info-label">
               Participation Period:&nbsp;
             </Typography>
-            { coverageStatus ? `${getDatestamp(new Date(coverageStatus.period.start.value))} - ${
-              getDatestamp(new Date(coverageStatus.period.end.value))}` : 'N/A' }
+            { coverageStatus ? `${getDatestamp(new Date(coverage[0].period.start.value))} - ${
+              getDatestamp(new Date(coverage[0].period.end.value))}` : 'N/A' }
           </Box>
         </Grid>
         {memberInfo.coverage && memberInfo.coverage.map((insurance) => (
@@ -144,7 +145,7 @@ function MemberReportDisplay({
       <Accordion>
         <AccordionSummary className="member-report__accordion-summary" expandIcon={<ExpandMoreIcon />}>
           <Typography variant="h4">
-            {`${datastoreInfo[memberInfo.measurementType].displayLabel} - ${datastoreInfo[memberInfo.measurementType].title}`}
+            {`${datastoreInfo[memberInfo.measurementType]?.displayLabel || '???'} - ${datastoreInfo[memberInfo.measurementType]?.title || 'Undefined Measure'}`}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -191,19 +192,66 @@ MemberReportDisplay.propTypes = {
     any: PropTypes.string,
   }),
   exportUrl: PropTypes.string,
-  coverageStatus: PropTypes.shape({
-    status: PropTypes.shape({
-      value: PropTypes.string,
-    }),
-    period: PropTypes.shape({
-      start: PropTypes.shape({
+  coverage: PropTypes.arrayOf(
+    PropTypes.shape({
+      status: PropTypes.shape({
         value: PropTypes.string,
       }),
-      end: PropTypes.shape({
+      type: PropTypes.shape({
+        coding: PropTypes.arrayOf(
+          PropTypes.shape({
+            system: PropTypes.shape({
+              value: PropTypes.string,
+            }),
+            code: PropTypes.shape({
+              value: PropTypes.string,
+            }),
+            display: PropTypes.shape({
+              value: PropTypes.string,
+            }),
+          }),
+        ),
+      }),
+      subscriber: PropTypes.shape({
+        reference: PropTypes.shape({
+          value: PropTypes.string,
+        }),
+      }),
+      beneficiary: PropTypes.shape({
+        reference: PropTypes.shape({
+          value: PropTypes.string,
+        }),
+      }),
+      relationship: PropTypes.shape({
+        coding: PropTypes.arrayOf(
+          PropTypes.shape({
+            code: PropTypes.shape({
+              value: PropTypes.string,
+            }),
+          }),
+        ),
+      }),
+      period: PropTypes.shape({
+        start: PropTypes.shape({
+          value: PropTypes.string,
+        }),
+        end: PropTypes.shape({
+          value: PropTypes.string,
+        }),
+      }),
+      payor: PropTypes.arrayOf(
+        PropTypes.shape({
+          reference: PropTypes.shape({
+            value: PropTypes.string,
+          }),
+        }),
+      ),
+      id: PropTypes.shape({
         value: PropTypes.string,
       }),
-    }),
-  }),
+    })
+  ),
+  coverageStatus: PropTypes.string,
   rowData: PropTypes.arrayOf(
     PropTypes.shape({
       any: PropTypes.string,
@@ -217,8 +265,9 @@ MemberReportDisplay.defaultProps = {
   memberInfo: {},
   datastoreInfo: {},
   exportUrl: '',
-  coverageStatus: {},
-  rowData: {},
+  coverage: {},
+  coverageStatus: '',
+  rowData: [],
   description: '',
 }
 
