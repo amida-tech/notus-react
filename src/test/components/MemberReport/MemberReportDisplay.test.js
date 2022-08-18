@@ -47,7 +47,7 @@ describe('Member view page', () => {
   })
 
   afterEach(async () => {
-    cleanup
+    cleanup()
   })
 
   it('Headings render', () => {
@@ -68,7 +68,6 @@ describe('Member view page', () => {
   it('Buttons are clickable', () => {
     const infoBtnArry = screen.getAllByLabelText('info-button')
     // fireEvent.click(infoBtnArry[0]);
-    // screen.debug()
   })
 
   // clicking buttons does their function more or less
