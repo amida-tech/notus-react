@@ -1,7 +1,7 @@
 export const exportUrl = 'this.is.a.valid.url/wow'
 
-export const coverage = {
-  0: {
+export const coverage = [
+  {
     status: {
       value: 'active',
     },
@@ -58,7 +58,7 @@ export const coverage = {
       value: '6bd97cad-779f-418a-8bd5-0c3fce18cade',
     },
   },
-}
+]
 
 export const rowData = [{
   0:

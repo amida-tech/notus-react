@@ -23,7 +23,7 @@ export default function ProtectedRoute({ authenticated }) {
             <MemberReport
               id={match.params.id}
               memberInfoFetch={memberInfoFetch}
-              loading="true"
+              loading
             />
           )}
         />

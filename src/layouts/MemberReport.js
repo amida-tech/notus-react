@@ -71,10 +71,14 @@ function MemberReport({ id, memberInfoFetch, loading }) {
 
 MemberReport.propTypes = {
   id: PropTypes.string,
+  memberInfoFetch: PropTypes.func,
+  loading: PropTypes.bool,
 }
 
 MemberReport.defaultProps = {
   id: '',
+  memberInfoFetch: () => undefined,
+  loading: true,
 }
 
 export default MemberReport;

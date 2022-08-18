@@ -1,40 +1,29 @@
 import {
-  waitFor, waitForElementToBeRemoved, getByText, fireEvent, render, screen, cleanup, queryByAttribute,
+  waitFor, waitForElementToBeRemoved, getByText, fireEvent,
+  render, screen, cleanup, queryByAttribute,
 } from '@testing-library/react'
 
-import { DatastoreContext } from 'context/DatastoreProvider';
-import MemberReport from '../../../layouts/MemberReport'
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay'
-import { DatastoreReducer } from '../../../context/DatastoreReducer';
-import { resultList, infoObject, memberId, memberInfo, datastore } from '../../data/DemoData';
-import { exportUrl, description, rowData, coverage } from '../../data/MemberReport'
+import {
+  memberId, memberInfo, datastore,
+} from '../../data/DemoData';
+import {
+  exportUrl, description, rowData, coverage,
+} from '../../data/MemberReport'
 
 describe('Member view page', () => {
-  const testLoading = false
-
-  const mockMemberInfoFetch = jest.fn(() => {
-
-    console.debug('MemberReportDisplay.test > mockMemberInfoFetch() reached! returning memberInfo...: ', memberInfo);
-
-    return memberInfo;
-  });
-
   beforeEach(async () => {
-
-    // console.debug('>>>>> MemberReportDisplay.test > memberInfo: ', memberInfo);
-    // console.debug('>>>>> MemberReportDisplay.test > mockMemberInfoFetch(): ', mockMemberInfoFetch());
-
     const container = render(
       <MemberReportDisplay
         id={memberId}
         memberInfo={memberInfo}
         datastoreInfo={datastore.info}
         exportUrl={exportUrl}
-        coverage={coverage[0]}
-        coverageStatus='active'
+        coverage={coverage}
+        coverageStatus="active"
         rowData={rowData}
         description={description}
-      />
+      />,
     )
 
     // console.debug('>>>>> MemberReportDisplay.test > container: ', container);
@@ -43,11 +32,10 @@ describe('Member view page', () => {
     // await waitForElementToBeRemoved(() => container.getByTestId('loading'))
     // console.log('loading stopped')
     // screen.debug()
-    
+
     // Please keep this for when we move the loading state to the Display
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
-
   })
 
   afterEach(async () => {
@@ -67,6 +55,7 @@ describe('Member view page', () => {
     expect(screen.getByRole('button', { name: 'Export' })).not.toBeNull()
     expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
     expect(screen.getAllByLabelText('info-button').length).toBe(2)
+    screen.debug()
   })
 
   // it('Buttons are clickable', () => {
@@ -96,5 +85,5 @@ describe('Member view page', () => {
   // measure analysis pop up has information
   // measure analysis drop down renders
   // measure analysis has all the necessary information
-  // measure, type, status, exclusions, practitioner, dates, conditions, and recommendations render
+  // display table renders
 })

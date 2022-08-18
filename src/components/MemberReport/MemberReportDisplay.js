@@ -249,7 +249,7 @@ MemberReportDisplay.propTypes = {
       id: PropTypes.shape({
         value: PropTypes.string,
       }),
-    })
+    }),
   ),
   coverageStatus: PropTypes.string,
   rowData: PropTypes.arrayOf(
