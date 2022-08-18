@@ -14,6 +14,7 @@ function Info({ infoText }) {
         className="info__info-button"
         disableFocusRipple
         disableRipple
+        aria-label='info-button'
         onClick={() => setDisplayInfo(!displayInfo)}
       >
         <InfoIcon className="info__info-icon" fontSize="small" />

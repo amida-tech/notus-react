@@ -1,6 +1,6 @@
 import {
-  waitForElementToBeRemoved, getByText, userEvent, render, screen, waitFor, cleanup, queryByAttribute,
-} from '@testing-library/react';
+  waitForElementToBeRemoved, getByText, fireEvent, render, screen, cleanup, queryByAttribute,
+} from '@testing-library/react'
 
 import { DatastoreContext } from 'context/DatastoreProvider';
 import MemberReport from '../../../layouts/MemberReport'
@@ -18,7 +18,7 @@ describe('Member view page', () => {
     lastUpdated: 'Updating now...',
   }
   const datastore = DatastoreReducer(mockInitState, { type: 'SET_RESULTS', payload: { results: resultList, info: infoObject } })
-  // const mockToggleData = jest.fn(() => false)
+  const mockFunc = jest.fn(() => console.info('I was clicked'))
 
   beforeEach(async () => {
     const container = render(
@@ -62,7 +62,28 @@ describe('Member view page', () => {
     expect(screen.getAllByRole('button').length).toBe(4)
     expect(screen.getByRole('button', { name: 'Export' })).not.toBeNull()
     expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
+    expect(screen.getAllByLabelText('info-button').length).toBe(2)
   })
+
+  it('Buttons are clickable', () => {
+    const infoBtnArry = screen.getAllByLabelText('info-button')
+    // fireEvent.click(infoBtnArry[0]);
+    // screen.debug()
+  })
+
+  // clicking buttons does their function more or less
+
+  it('Links render', () => {
+    expect(screen.getAllByRole('link').length).toBe(1)
+    expect(screen.getByRole('link', { name: 'Export' })).not.toBeNull()
+  })
+
+  // it('Export link clicks', () => {
+  //   const exportBtn = screen.getByRole('link', { name: 'Export' })
+  //   fireEvent.click(exportBtn);
+  // })
+
+  // clicking export does a thing
 
   // export button exists, is clickable
   // general info pop up has information
