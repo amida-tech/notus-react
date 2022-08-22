@@ -31,14 +31,17 @@ $block-class: 'member-report';
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
+            margin-left: 1rem;
             // justify-items: left;
         }
 
         & &__member-card {
             border: 1px solid $blue-grey-darken-4;
+            border-radius: 3px;
             padding: 1rem;
             margin: 0 1rem;
-            max-width: 42ch;
+            width: 35ch;
+            // need to upgrade RTL for userEvents
             // margin-right: auto;
             // margin-left: auto;
         }
@@ -95,6 +98,7 @@ $block-class: 'member-report';
 
         & &__table-display {
             border: 1px solid $blue-grey-darken-4;
+            border-radius: 3px;
         }
     }
 }

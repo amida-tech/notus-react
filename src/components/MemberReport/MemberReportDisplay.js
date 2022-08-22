@@ -1,7 +1,8 @@
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {
-  Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, Typography, List, ListItem, ListItemText,
+  Accordion, AccordionDetails, AccordionSummary, Box, Button, List, ListItem,
+  ListItemText, Typography
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import Banner from '../Common/Banner';
@@ -46,43 +47,42 @@ function MemberReportDisplay({
         <List className="member-report__member-card">
           <ListItem disablePadding className="member-report__info-field">
             <ListItemText
-              sx={{ ml: '10px' }}
+              sx={{ m: 0 }}
               primary="MemberID:"
               secondary={id}
             />
           </ListItem>
           <ListItem disablePadding className="member-report__info-field">
             <ListItemText
-              sx={{ ml: '10px' }}
+              sx={{ m: 0 }}
               primary="Date of Birth:&nbsp;"
               secondary={memberInfo.dob || 'N/A'}
             />
           </ListItem>
           <ListItem disablePadding className="member-report__info-field">
             <ListItemText
-              sx={{ ml: '10px' }}
+              sx={{ m: 0 }}
               primary="Age:&nbsp;"
               secondary={memberInfo.dob ? getAge(memberInfo.dob) : 'N/A'}
             />
           </ListItem>
           <ListItem disablePadding className="member-report__info-field">
             <ListItemText
-              sx={{ ml: '10px' }}
+              sx={{ m: 0 }}
               primary="Gender:&nbsp;"
               secondary={memberInfo.gender || 'N/A'}
             />
           </ListItem>
           <ListItem disablePadding className="member-report__info-field">
             <ListItemText
-              sx={{ ml: '10px' }}
-              className={`member-report__coverage member-report__coverage--${coverageStatus || 'inactive'}`}
+              sx={{ m: 0 }}
               primary="Coverage Status:&nbsp;"
               secondary={coverageStatus || 'inactive'}
             />
           </ListItem>
           <ListItem disablePadding className="member-report__info-field">
             <ListItemText
-              sx={{ ml: '10px' }}
+              sx={{ m: 0 }}
               primary="Participation Period:&nbsp;"
               secondary={coverageStatus ? `${getDatestamp(new Date(coverage[0].period.start.value))} - ${
                 getDatestamp(new Date(coverage[0].period.end.value))}` : 'N/A'}
@@ -94,49 +94,49 @@ function MemberReportDisplay({
           <List key={`insurance-card-${insurance.id.value}`} className="member-report__member-card">
             <ListItem disablePadding className="member-report__info-field">
               <ListItemText
-                sx={{ ml: '10px' }}
+                sx={{ m: 0 }}
                 primary="Policy ID:&nbsp;"
                 secondary={insurance.id.value}
               />
             </ListItem>
             <ListItem disablePadding className="member-report__info-field">
               <ListItemText
-                sx={{ ml: '10px' }}
+                sx={{ m: 0 }}
                 primary="Payor/Provider:&nbsp;"
                 secondary={insurance.payor[0]?.reference.value || 'N/A'}
               />
             </ListItem>
             <ListItem disablePadding className="member-report__info-field">
               <ListItemText
-                sx={{ ml: '10px' }}
+                sx={{ m: 0 }}
                 primary="Plan:&nbsp;"
                 secondary="N/A"
               />
             </ListItem>
             <ListItem disablePadding className="member-report__info-field">
               <ListItemText
-                sx={{ ml: '10px' }}
+                sx={{ m: 0 }}
                 primary=" Dependents:&nbsp;"
                 secondary="N/A"
               />
             </ListItem>
             <ListItem disablePadding className="member-report__info-field">
               <ListItemText
-                sx={{ ml: '10px' }}
+                sx={{ m: 0 }}
                 primary="Relationship:&nbsp;"
                 secondary={insurance.relationship?.coding[0]?.code.value}
               />
             </ListItem>
             <ListItem disablePadding className="member-report__info-field">
               <ListItemText
-                sx={{ ml: '10px' }}
+                sx={{ m: 0 }}
                 primary="Type:&nbsp;"
                 secondary={`${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}` || 'N/A'}
               />
             </ListItem>
             <ListItem disablePadding className="member-report__info-field">
               <ListItemText
-                sx={{ ml: '10px' }}
+                sx={{ m: 0 }}
                 primary="Participation Period:&nbsp;"
                 secondary={insurance.period ? `${getDatestamp(new Date(insurance.period.start.value))} - ${
                   getDatestamp(new Date(insurance.period.end.value))}` : 'N/A'}

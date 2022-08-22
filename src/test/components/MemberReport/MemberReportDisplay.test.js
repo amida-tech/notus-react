@@ -44,12 +44,14 @@ describe('Member view page', () => {
     expect(screen.getAllByRole('button').length).toBe(4)
     expect(screen.getByRole('button', { name: 'Export' })).toBeInTheDocument
     expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeInTheDocument
-    expect(screen.getAllByLabelText('info-button').length).toBe(2)
     // screen.debug()
   })
 
-  it('Buttons are clickable', () => {
-    const infoBtnArry = screen.getAllByLabelText('info-button')
+  it('Tooltips render text', () => {
+    const tooltips = screen.getAllByLabelText('info-button')
+    expect(tooltips.length).toBe(2)
+    const generalInfoTip = 'The basic information about this member, including provider and payor information.';
+    const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
     // upgrade RTL for user events
   })
 
@@ -109,8 +111,8 @@ describe('Member view page', () => {
 
   it('Export button exists', () => {
     const exportBtn = screen.getByRole('link', { name: 'Export' })
-    // need to upgrade RTL for userEvents
     expect(exportBtn.href).toBe(`http://localhost/${exportUrl}`)
+    // need to upgrade RTL for userEvents
   })
 
   it('Tooltips pop out and in', () => {
@@ -118,10 +120,23 @@ describe('Member view page', () => {
     // upgrade RTL for user events
   })
 
-  it('Accordian display renders data', () => {
+  it('Measure analysis renders text', () => {
     const dsDescription = datastore.info.aab.description
     expect(screen.getByText(dsDescription)).toBeInTheDocument
     // screen.debug()
+    const analysisLabels = [
+      'Measure',
+      'Type',
+      'Status',
+      'Exclusions',
+      'Practicioner',
+      'Dates',
+      'Conditions',
+      'Recommendations'
+    ]
+    // analysisLabels.map((label, i) => {
+    //   expect(within)
+    // })
   })
 
   // measure analysis pop up has information
