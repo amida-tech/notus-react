@@ -1,19 +1,16 @@
 import {
-  waitFor, waitForElementToBeRemoved, getByText, fireEvent,
-  render, screen, cleanup, queryByAttribute,
+  waitFor, waitForElementToBeRemoved, getByText, fireEvent, mount,
+  render, screen, cleanup, queryByAttribute, within, toHaveBeenCalled, toHaveAttribute
 } from '@testing-library/react'
-
+import { getAge, getDatestamp, updateTimestamp } from '../../../components/Utilities/GeneralUtil'
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay'
 import {
-  memberId, memberInfo, datastore,
+  memberId, memberInfo, datastore, exportUrl, rowData, coverage,
 } from '../../data/DemoData';
-import {
-  exportUrl, description, rowData, coverage,
-} from '../../data/MemberReport'
 
 describe('Member view page', () => {
   beforeEach(async () => {
-    const container = render(
+    render(
       <MemberReportDisplay
         id={memberId}
         memberInfo={memberInfo}
@@ -22,66 +19,111 @@ describe('Member view page', () => {
         coverage={coverage}
         coverageStatus="active"
         rowData={rowData}
-        description={description}
-      />,
+        description={datastore.info.aab.description}
+      />
     )
-
-    // console.debug('>>>>> MemberReportDisplay.test > container: ', container);
-
-    // await waitFor(() => container.getByTestId('loading'))
-    // await waitForElementToBeRemoved(() => container.getByTestId('loading'))
-    // console.log('loading stopped')
-    // screen.debug()
 
     // Please keep this for when we move the loading state to the Display
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
   })
 
-  afterEach(async () => {
-    cleanup()
-  })
+  // afterEach(async () => {
+  //   cleanup()
+  // })
 
   it('Headings render', () => {
     expect(screen.getAllByRole('heading').length).toBe(4)
-    expect(screen.getByRole('heading', { name: "Reporting - Member's Data" })).not.toBeNull()
-    expect(screen.getByRole('heading', { name: 'General Information' })).not.toBeNull()
-    expect(screen.getByRole('heading', { name: 'Measure Analysis' })).not.toBeNull()
-    expect(screen.getByRole('heading', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
+    expect(screen.getByRole('heading', { name: "Reporting - Member's Data" })).toBeInTheDocument
+    expect(screen.getByRole('heading', { name: 'General Information' })).toBeInTheDocument
+    expect(screen.getByRole('heading', { name: 'Measure Analysis' })).toBeInTheDocument
+    expect(screen.getByRole('heading', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeInTheDocument
   })
 
   it('Buttons render', () => {
     expect(screen.getAllByRole('button').length).toBe(4)
-    expect(screen.getByRole('button', { name: 'Export' })).not.toBeNull()
-    expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
+    expect(screen.getByRole('button', { name: 'Export' })).toBeInTheDocument
+    expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeInTheDocument
     expect(screen.getAllByLabelText('info-button').length).toBe(2)
-    screen.debug()
+    // screen.debug()
   })
 
-  // it('Buttons are clickable', () => {
-  //   const infoBtnArry = screen.getAllByLabelText('info-button')
-  //   // fireEvent.click(infoBtnArry[0]);
-  // })
+  it('Buttons are clickable', () => {
+    const infoBtnArry = screen.getAllByLabelText('info-button')
+    // upgrade RTL for user events
+  })
 
-  // clicking buttons does their function more or less
+  it('Member and policy info text fields exist', () => {
+    const renderedMemberInfo = screen.getAllByRole('listitem')
+    expect(renderedMemberInfo.length).toBe(13)
+    const memberInfoLabels = [
+      'MemberID:',
+      'Date of Birth:',
+      'Age:',
+      'Gender:',
+      'Coverage Status:',
+      'Participation Period:',
+      'Policy ID:',
+      'Payor/Provider:',
+      'Plan:',
+      'Dependents:',
+      'Relationship:',
+      'Type:',
+      'Participation Period:'
+    ]
+    memberInfoLabels.map((label, i) => {
+      expect(within(renderedMemberInfo[i]).getByText(label)).toBeInTheDocument
+    })
+  })
 
-  // it('Links render', () => {
-  //   expect(screen.getAllByRole('link').length).toBe(1)
-  //   expect(screen.getByRole('link', { name: 'Export' })).not.toBeNull()
-  // })
+  it('Member and policy info is loaded', () => {
+    const renderedMemberInfo = screen.getAllByRole('listitem')
+    const insurance = memberInfo.coverage[0]
+    // we need more complete test data for this to be fleshed out
+    const memberInfoData = [
+      memberId,
+      memberInfo.dob,
+      getAge(memberInfo.dob),
+      memberInfo.gender,
+      'active',
+      `${getDatestamp(new Date(coverage[0].period.start.value))} - ${
+        getDatestamp(new Date(coverage[0].period.end.value))}`,
+      insurance.id.value,
+      insurance.payor[0].reference.value,
+      'N/A',
+      'N/A',
+      insurance.relationship.coding[0].code.value,
+      `${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}`,
+      `${getDatestamp(new Date(insurance.period.start.value))} - ${
+        getDatestamp(new Date(insurance.period.end.value))}`
+    ]
+    memberInfoData.map((label, i) => {
+      expect(within(renderedMemberInfo[i]).getByText(label)).toBeInTheDocument
+    })
+  })
 
-  // it('Export link clicks', () => {
-  //   const exportBtn = screen.getByRole('link', { name: 'Export' })
-  //   fireEvent.click(exportBtn);
-  // })
+  it('Links render', () => {
+    expect(screen.getAllByRole('link').length).toBe(1)
+    expect(screen.getByRole('link', { name: 'Export' })).toBeInTheDocument
+  })
 
-  // clicking export does a thing
+  it('Export button exists', () => {
+    const exportBtn = screen.getByRole('link', { name: 'Export' })
+    // need to upgrade RTL for userEvents
+    expect(exportBtn.href).toBe(`http://localhost/${exportUrl}`)
+  })
 
-  // export button exists, is clickable
-  // general info pop up has information
-  // general information has all the necessary information
-  // member id, dob, age, gender, coverage status, participation period
-  // policy id, payor, plan, dependents, relationship, type, participation period
+  it('Tooltips pop out and in', () => {
+    const tooltipBtns = screen.getAllByLabelText('info-button')
+    // upgrade RTL for user events
+  })
+
+  it('Accordian display renders data', () => {
+    const dsDescription = datastore.info.aab.description
+    expect(screen.getByText(dsDescription)).toBeInTheDocument
+    // screen.debug()
+  })
+
   // measure analysis pop up has information
   // measure analysis drop down renders
   // measure analysis has all the necessary information

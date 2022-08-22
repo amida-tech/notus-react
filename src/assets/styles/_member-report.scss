@@ -28,7 +28,6 @@ $block-class: 'member-report';
         }
 
         & &__info-display {
-            margin: 1rem 0 0 3rem;
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
@@ -37,10 +36,9 @@ $block-class: 'member-report';
 
         & &__member-card {
             border: 1px solid $blue-grey-darken-4;
-            max-width: 27%;
-            flex-basis: 27%;
             padding: 1rem;
-            margin: 0 2.5rem;
+            margin: 0 1rem;
+            max-width: 42ch;
             // margin-right: auto;
             // margin-left: auto;
         }
@@ -49,6 +47,7 @@ $block-class: 'member-report';
             display: flex;
             margin-bottom: 0.5rem;
             align-items: center;
+            color: $blue-grey-darken-4;
         }
 
         & &__info-label {

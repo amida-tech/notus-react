@@ -50,7 +50,6 @@ function MemberReport({ id, memberInfoFetch, loading }) {
 
   return (
     !isLoading
-    // isLoading === false
       ? (
         <MemberReportDisplay
           id={id}
