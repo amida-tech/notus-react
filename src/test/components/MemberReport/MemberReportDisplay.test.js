@@ -1,6 +1,6 @@
 import {
   waitFor, waitForElementToBeRemoved, getByText, fireEvent, mount,
-  render, screen, cleanup, queryByAttribute, within, toHaveBeenCalled, toHaveAttribute
+  render, screen, cleanup, queryByAttribute, within, toHaveBeenCalled, toHaveAttribute,
 } from '@testing-library/react'
 import { getAge, getDatestamp, updateTimestamp } from '../../../components/Utilities/GeneralUtil'
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay'
@@ -20,7 +20,7 @@ describe('Member view page', () => {
         coverageStatus="active"
         rowData={rowData}
         description={datastore.info.aab.description}
-      />
+      />,
     )
 
     // Please keep this for when we move the loading state to the Display
@@ -69,7 +69,7 @@ describe('Member view page', () => {
       'Dependents:',
       'Relationship:',
       'Type:',
-      'Participation Period:'
+      'Participation Period:',
     ]
     memberInfoLabels.map((label, i) => {
       expect(within(renderedMemberInfo[i]).getByText(label)).toBeInTheDocument
@@ -95,7 +95,7 @@ describe('Member view page', () => {
       insurance.relationship.coding[0].code.value,
       `${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}`,
       `${getDatestamp(new Date(insurance.period.start.value))} - ${
-        getDatestamp(new Date(insurance.period.end.value))}`
+        getDatestamp(new Date(insurance.period.end.value))}`,
     ]
     memberInfoData.map((label, i) => {
       expect(within(renderedMemberInfo[i]).getByText(label)).toBeInTheDocument
