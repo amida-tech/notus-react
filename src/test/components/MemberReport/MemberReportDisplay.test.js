@@ -46,7 +46,12 @@ describe('Member view page', () => {
     // screen.debug()
   })
 
-  it('Tooltips render text', () => {
+  it('Links render', () => {
+    expect(screen.getAllByRole('link').length).toBe(1)
+    expect(screen.getByRole('link', { name: 'Export' })).not.toBeNull()
+  })
+
+  it('Tooltips render', () => {
     const tooltips = screen.getAllByLabelText('info-button')
     expect(tooltips.length).toBe(2)
     // upgrade RTL for user events
@@ -70,7 +75,7 @@ describe('Member view page', () => {
       'Type:',
       'Participation Period:',
     ]
-    memberInfoLabels.map((label, i) => expect(within(renderedMemberInfo[i])
+    memberInfoLabels.forEach((label, i) => expect(within(renderedMemberInfo[i])
       .getByText(label)).not.toBeNull())
   })
 
@@ -95,13 +100,8 @@ describe('Member view page', () => {
       `${getDatestamp(new Date(insurance.period.start.value))} - ${
         getDatestamp(new Date(insurance.period.end.value))}`,
     ]
-    memberInfoData.map((label, i) => expect(within(renderedMemberInfo[i])
+    memberInfoData.forEach((label, i) => expect(within(renderedMemberInfo[i])
       .getByText(label)).not.toBeNull())
-  })
-
-  it('Links render', () => {
-    expect(screen.getAllByRole('link').length).toBe(1)
-    expect(screen.getByRole('link', { name: 'Export' })).not.toBeNull()
   })
 
   it('Export button exists', () => {
@@ -110,10 +110,10 @@ describe('Member view page', () => {
     // need to upgrade RTL for userEvents
   })
 
-  it('Tooltips pop out and in', () => {
-    // const tooltipBtns = screen.getAllByLabelText('info-button')
-    // upgrade RTL for user events
-  })
+  // it('Tooltips pop out and in', () => {
+  //   // const tooltipBtns = screen.getAllByLabelText('info-button')
+  //   // upgrade RTL for user events
+  // })
 
   it('Measure analysis renders text', () => {
     const dsDescription = datastore.info.aab.description
