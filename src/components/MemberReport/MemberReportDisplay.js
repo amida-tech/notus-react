@@ -2,7 +2,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {
   Accordion, AccordionDetails, AccordionSummary, Box, Button, List, ListItem,
-  ListItemText, Typography
+  ListItemText, Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import Banner from '../Common/Banner';

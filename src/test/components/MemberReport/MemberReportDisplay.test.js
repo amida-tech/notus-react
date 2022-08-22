@@ -1,11 +1,10 @@
 import {
-  waitFor, waitForElementToBeRemoved, getByText, fireEvent, mount,
-  render, screen, cleanup, queryByAttribute, within, toHaveBeenCalled, toHaveAttribute,
-} from '@testing-library/react'
-import { getAge, getDatestamp, updateTimestamp } from '../../../components/Utilities/GeneralUtil'
-import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay'
+  render, screen, within,
+} from '@testing-library/react';
+import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
+import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil';
 import {
-  memberId, memberInfo, datastore, exportUrl, rowData, coverage,
+  coverage, datastore, exportUrl, memberId, memberInfo, rowData,
 } from '../../data/DemoData';
 
 describe('Member view page', () => {
@@ -34,24 +33,22 @@ describe('Member view page', () => {
 
   it('Headings render', () => {
     expect(screen.getAllByRole('heading').length).toBe(4)
-    expect(screen.getByRole('heading', { name: "Reporting - Member's Data" })).toBeInTheDocument
-    expect(screen.getByRole('heading', { name: 'General Information' })).toBeInTheDocument
-    expect(screen.getByRole('heading', { name: 'Measure Analysis' })).toBeInTheDocument
-    expect(screen.getByRole('heading', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeInTheDocument
+    expect(screen.getByRole('heading', { name: "Reporting - Member's Data" })).not.toBeNull()
+    expect(screen.getByRole('heading', { name: 'General Information' })).not.toBeNull()
+    expect(screen.getByRole('heading', { name: 'Measure Analysis' })).not.toBeNull()
+    expect(screen.getByRole('heading', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
   })
 
   it('Buttons render', () => {
     expect(screen.getAllByRole('button').length).toBe(4)
-    expect(screen.getByRole('button', { name: 'Export' })).toBeInTheDocument
-    expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeInTheDocument
+    expect(screen.getByRole('button', { name: 'Export' })).not.toBeNull()
+    expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
     // screen.debug()
   })
 
   it('Tooltips render text', () => {
     const tooltips = screen.getAllByLabelText('info-button')
     expect(tooltips.length).toBe(2)
-    const generalInfoTip = 'The basic information about this member, including provider and payor information.';
-    const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
     // upgrade RTL for user events
   })
 
@@ -73,9 +70,8 @@ describe('Member view page', () => {
       'Type:',
       'Participation Period:',
     ]
-    memberInfoLabels.map((label, i) => {
-      expect(within(renderedMemberInfo[i]).getByText(label)).toBeInTheDocument
-    })
+    memberInfoLabels.map((label, i) => expect(within(renderedMemberInfo[i])
+      .getByText(label)).not.toBeNull())
   })
 
   it('Member and policy info is loaded', () => {
@@ -99,14 +95,13 @@ describe('Member view page', () => {
       `${getDatestamp(new Date(insurance.period.start.value))} - ${
         getDatestamp(new Date(insurance.period.end.value))}`,
     ]
-    memberInfoData.map((label, i) => {
-      expect(within(renderedMemberInfo[i]).getByText(label)).toBeInTheDocument
-    })
+    memberInfoData.map((label, i) => expect(within(renderedMemberInfo[i])
+      .getByText(label)).not.toBeNull())
   })
 
   it('Links render', () => {
     expect(screen.getAllByRole('link').length).toBe(1)
-    expect(screen.getByRole('link', { name: 'Export' })).toBeInTheDocument
+    expect(screen.getByRole('link', { name: 'Export' })).not.toBeNull()
   })
 
   it('Export button exists', () => {
@@ -116,27 +111,23 @@ describe('Member view page', () => {
   })
 
   it('Tooltips pop out and in', () => {
-    const tooltipBtns = screen.getAllByLabelText('info-button')
+    // const tooltipBtns = screen.getAllByLabelText('info-button')
     // upgrade RTL for user events
   })
 
   it('Measure analysis renders text', () => {
     const dsDescription = datastore.info.aab.description
-    expect(screen.getByText(dsDescription)).toBeInTheDocument
-    // screen.debug()
-    const analysisLabels = [
-      'Measure',
-      'Type',
-      'Status',
-      'Exclusions',
-      'Practicioner',
-      'Dates',
-      'Conditions',
-      'Recommendations'
-    ]
-    // analysisLabels.map((label, i) => {
-    //   expect(within)
-    // })
+    expect(screen.getByText(dsDescription)).not.toBeNull()
+    // const analysisLabels = [
+    //   'Measure',
+    //   'Type',
+    //   'Status',
+    //   'Exclusions',
+    //   'Practicioner',
+    //   'Dates',
+    //   'Conditions',
+    //   'Recommendations',
+    // ]
   })
 
   // measure analysis pop up has information
