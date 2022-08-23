@@ -1,5 +1,5 @@
 import {
-  render, screen, within,
+  render, screen, within, fireEvent
 } from '@testing-library/react';
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
 import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil';
@@ -26,10 +26,6 @@ describe('Member view page', () => {
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
   })
-
-  // afterEach(async () => {
-  //   cleanup()
-  // })
 
   it('Headings render', () => {
     expect(screen.getAllByRole('heading').length).toBe(4)
@@ -110,24 +106,70 @@ describe('Member view page', () => {
     // need to upgrade RTL for userEvents
   })
 
-  // it('Tooltips pop out and in', () => {
-  //   // const tooltipBtns = screen.getAllByLabelText('info-button')
-  //   // upgrade RTL for user events
-  // })
+  it('Tooltips pop out and in', () => {
+    const tooltips = [
+      'The basic information about this member, including provider and payor information.',
+      'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.'
+    ]
+    const tooltipBtns = screen.getAllByLabelText('info-button')
+
+    tooltipBtns.forEach((tip, i) => {
+      fireEvent.click(tip)
+      expect(screen.getByText(tooltips[i])).not.toBeNull()
+      fireEvent.click(screen.getByText('CLOSE'))
+      expect(screen.queryByText(tooltips[i])).toBeNull()
+    })
+  })
 
   it('Measure analysis renders text', () => {
     const dsDescription = datastore.info.aab.description
     expect(screen.getByText(dsDescription)).not.toBeNull()
-    // const analysisLabels = [
+
+    const analysisLabels = [
+      'Measure',
+      'Type',
+      'Status',
+      'Exclusions',
+      'Practitioner',
+      'Dates',
+      'Conditions',
+      'Recommendations',
+    ]
+
+    analysisLabels.forEach((label, i) => 
+      expect(screen.getByText(label)).not.toBeNull()
+    )
+
+    // const analysisData = [
+    //   'AAB',
     //   'Measure',
-    //   'Type',
-    //   'Status',
-    //   'Exclusions',
-    //   'Practicioner',
-    //   'Dates',
-    //   'Conditions',
-    //   'Recommendations',
+    //   an icon 'Not Compliant',
+    //   an icon,
+    //   'N/A',
+    //   'N/A',
+    //   an icon 'N/A',
+    //   'N/A'
     // ]
+
+    // the only thing the labels and data have in common
+    // are their index in a list
+    // it might be time to use an actual table
+
+    // const {container} = render(<MemberReportDisplay
+    //   id={memberId}
+    //   memberInfo={memberInfo}
+    //   datastoreInfo={datastore.info}
+    //   exportUrl={exportUrl}
+    //   coverage={coverage}
+    //   coverageStatus="active"
+    //   rowData={rowData}
+    //   description={datastore.info.aab.description}
+    // />);
+
+    // // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+    // const displayTable = container.getElementsByClassName('display-table');
+
+    // console.log(displayTable) // this doesn't work
   })
 
   // measure analysis pop up has information
