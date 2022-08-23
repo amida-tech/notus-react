@@ -61,7 +61,7 @@ describe('Member view page', () => {
     const renderedMemberInfo = screen.getAllByRole('listitem')
     expect(renderedMemberInfo.length).toBe(13)
     const memberInfoLabels = [
-      'MemberID:',
+      'Member ID:',
       'Date of Birth:',
       'Age:',
       'Gender:',

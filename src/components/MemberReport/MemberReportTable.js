@@ -5,7 +5,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import PropTypes from 'prop-types';
 
-function MemberReportTable(rowData) {
+function MemberReportTable({ rowData }) {
   const formattedData = []
   function createData(rowDataObj) {
     return {
@@ -20,7 +20,7 @@ function MemberReportTable(rowData) {
     }
   }
 
-  rowData.rowData.forEach((row) => { formattedData.push(createData(row)) })
+  rowData.forEach((row) => { formattedData.push(createData(row)) })
 
   return (
     <TableContainer component={Paper}>
@@ -61,7 +61,9 @@ function MemberReportTable(rowData) {
 
 MemberReportTable.propTypes = {
   rowData: PropTypes.arrayOf(
-    PropTypes.string,
+    PropTypes.shape({
+      value: PropTypes.string,
+    }),
   ),
 }
 
