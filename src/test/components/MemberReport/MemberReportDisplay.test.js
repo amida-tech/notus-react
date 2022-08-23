@@ -21,7 +21,6 @@ describe('Member view page', () => {
         description={datastore.info.aab.description}
       />,
     )
-
     // Please keep this for when we move the loading state to the Display
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
@@ -29,31 +28,36 @@ describe('Member view page', () => {
 
   it('Headings render', () => {
     expect(screen.getAllByRole('heading').length).toBe(4)
-    expect(screen.getByRole('heading', { name: "Reporting - Member's Data" })).not.toBeNull()
-    expect(screen.getByRole('heading', { name: 'General Information' })).not.toBeNull()
-    expect(screen.getByRole('heading', { name: 'Measure Analysis' })).not.toBeNull()
-    expect(screen.getByRole('heading', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
+    expect(screen.getByRole('heading', { name: "Reporting - Member's Data" })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'General Information' })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'Measure Analysis' })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeTruthy()
   })
 
   it('Buttons render', () => {
     expect(screen.getAllByRole('button').length).toBe(4)
-    expect(screen.getByRole('button', { name: 'Export' })).not.toBeNull()
-    expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).not.toBeNull()
+    expect(screen.getByRole('button', { name: 'Export' })).toBeTruthy()
+    expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeTruthy()
     // screen.debug()
   })
 
   it('Links render', () => {
     expect(screen.getAllByRole('link').length).toBe(1)
-    expect(screen.getByRole('link', { name: 'Export' })).not.toBeNull()
+    expect(screen.getByRole('link', { name: 'Export' })).toBeTruthy()
   })
 
   it('Tooltips render', () => {
     const tooltips = screen.getAllByLabelText('info-button')
     expect(tooltips.length).toBe(2)
-    // upgrade RTL for user events
   })
 
-  it('Member and policy info text fields exist', () => {
+  it('Export button render', () => {
+    const exportBtn = screen.getByRole('link', { name: 'Export' })
+    expect(exportBtn.href).toBe(`http://localhost/${exportUrl}`)
+    // need to upgrade RTL for userEvents
+  })
+
+  it('Member and policy info labels render', () => {
     const renderedMemberInfo = screen.getAllByRole('listitem')
     expect(renderedMemberInfo.length).toBe(13)
     const memberInfoLabels = [
@@ -72,10 +76,10 @@ describe('Member view page', () => {
       'Participation Period:',
     ]
     memberInfoLabels.forEach((label, i) => expect(within(renderedMemberInfo[i])
-      .getByText(label)).not.toBeNull())
+      .getByText(label)).toBeTruthy())
   })
 
-  it('Member and policy info is loaded', () => {
+  it('Member and policy data render', () => {
     const renderedMemberInfo = screen.getAllByRole('listitem')
     const insurance = memberInfo.coverage[0]
     // we need more complete test data for this to be fleshed out
@@ -97,16 +101,10 @@ describe('Member view page', () => {
         getDatestamp(new Date(insurance.period.end.value))}`,
     ]
     memberInfoData.forEach((label, i) => expect(within(renderedMemberInfo[i])
-      .getByText(label)).not.toBeNull())
+      .getByText(label)).toBeTruthy())
   })
 
-  it('Export button exists', () => {
-    const exportBtn = screen.getByRole('link', { name: 'Export' })
-    expect(exportBtn.href).toBe(`http://localhost/${exportUrl}`)
-    // need to upgrade RTL for userEvents
-  })
-
-  it('Tooltips pop out and in', () => {
+  it('Tooltips pop in and out', () => {
     const tooltips = [
       'The basic information about this member, including provider and payor information.',
       'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.'
@@ -115,15 +113,15 @@ describe('Member view page', () => {
 
     tooltipBtns.forEach((tip, i) => {
       fireEvent.click(tip)
-      expect(screen.getByText(tooltips[i])).not.toBeNull()
+      expect(screen.getByText(tooltips[i])).toBeTruthy()
       fireEvent.click(screen.getByText('CLOSE'))
       expect(screen.queryByText(tooltips[i])).toBeNull()
     })
   })
 
-  it('Measure analysis renders text', () => {
+  it('Measure analysis labels render', () => {
     const dsDescription = datastore.info.aab.description
-    expect(screen.getByText(dsDescription)).not.toBeNull()
+    expect(screen.getByText(dsDescription)).toBeTruthy()
 
     const analysisLabels = [
       'Measure',
@@ -137,7 +135,7 @@ describe('Member view page', () => {
     ]
 
     analysisLabels.forEach((label, i) => 
-      expect(screen.getByText(label)).not.toBeNull()
+      expect(screen.getByText(label)).toBeTruthy()
     )
 
     // const analysisData = [
