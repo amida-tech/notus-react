@@ -11,6 +11,7 @@ import DisplayTable from '../DisplayTable/DisplayTable';
 import ReportTableRow from '../DisplayTable/ReportTableRow';
 import { getAge, getDatestamp, updateTimestamp } from '../Utilities/GeneralUtil';
 import ReportTable from '../Utilities/ReportTable';
+import MemberReportTable from './MemberReportTable';
 
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
@@ -164,7 +165,10 @@ function MemberReportDisplay({
             {description}
           </Box>
           <Box className="member-report__table-display">
-            <DisplayTable
+            <MemberReportTable
+              rowData={rowData}
+            />
+            {/* <DisplayTable
               rowData={rowData}
               headerInfo={ReportTable.headerData}
               pageSize={ReportTable.pageSize}
@@ -178,7 +182,7 @@ function MemberReportDisplay({
                   headerInfo={ReportTable.headerData}
                 />
               ))}
-            </DisplayTable>
+            </DisplayTable> */}
           </Box>
         </AccordionDetails>
       </Accordion>
