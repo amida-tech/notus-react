@@ -1,5 +1,5 @@
 import {
-  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow
+  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -16,14 +16,11 @@ function MemberReportTable(rowData) {
       practitioner: rowDataObj.practitioner || 'N/A',
       dates: rowDataObj.dates || 'N/A',
       conditions: rowDataObj.conditions || 'N/A',
-      recommendations: rowDataObj.recommendations|| 'N/A'
+      recommendations: rowDataObj.recommendations || 'N/A',
     }
   }
 
   rowData.rowData.forEach((row) => { formattedData.push(createData(row)) })
-
-  console.log('og', rowData.rowData[0])
-  console.log('format', formattedData)
 
   return (
     <TableContainer component={Paper}>
@@ -43,12 +40,12 @@ function MemberReportTable(rowData) {
         <TableBody>
           {formattedData.map((row) => (
             <TableRow
-              key={row.value}
+              key={row.type}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell>{row.measure}</TableCell>
               <TableCell align="center">{row.type}</TableCell>
-              <TableCell align="center">{row.status ? row.status : <CancelIcon />}</TableCell>
+              <TableCell align="center">{row.status ? <CheckCircleIcon /> : <CancelIcon />}</TableCell>
               <TableCell align="center">{row.exclusions.length > 0 ? row.exclusions : <CancelIcon />}</TableCell>
               <TableCell align="center">{row.practitioner}</TableCell>
               <TableCell align="center">{row.dates}</TableCell>
@@ -60,6 +57,16 @@ function MemberReportTable(rowData) {
       </Table>
     </TableContainer>
   );
+}
+
+MemberReportTable.propTypes = {
+  rowData: PropTypes.arrayOf(
+    PropTypes.string,
+  ),
+}
+
+MemberReportTable.defaultProps = {
+  rowData: {},
 }
 
 export default MemberReportTable;

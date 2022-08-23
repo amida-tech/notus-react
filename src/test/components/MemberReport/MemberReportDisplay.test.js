@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent
+  render, screen, within, fireEvent,
 } from '@testing-library/react';
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
 import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil';
@@ -107,7 +107,7 @@ describe('Member view page', () => {
   it('Tooltips pop in and out', () => {
     const tooltips = [
       'The basic information about this member, including provider and payor information.',
-      'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.'
+      'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.',
     ]
     const tooltipBtns = screen.getAllByLabelText('info-button')
 
@@ -134,9 +134,7 @@ describe('Member view page', () => {
       'Recommendations',
     ]
 
-    analysisLabels.forEach((label, i) => 
-      expect(screen.getByText(label)).toBeTruthy()
-    )
+    analysisLabels.forEach((label) => expect(screen.getByText(label)).toBeTruthy())
 
     // const analysisData = [
     //   'AAB',

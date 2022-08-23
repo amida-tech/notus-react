@@ -7,10 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import Banner from '../Common/Banner';
 import Info from '../Common/Info';
-import DisplayTable from '../DisplayTable/DisplayTable';
-import ReportTableRow from '../DisplayTable/ReportTableRow';
 import { getAge, getDatestamp, updateTimestamp } from '../Utilities/GeneralUtil';
-import ReportTable from '../Utilities/ReportTable';
 import MemberReportTable from './MemberReportTable';
 
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
