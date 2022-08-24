@@ -24,7 +24,7 @@ export async function measureDataFetch(measure) {
 // ChartBar.js
 export async function retrieveMeasureExport(currentFilters) {
   try {
-    const exportUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measure`);
+    const exportUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/export`);
     return axios.post(exportUrl, currentFilters).then((response) => response);
   } catch (error) {
     return error;
