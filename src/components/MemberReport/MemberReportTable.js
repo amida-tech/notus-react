@@ -46,7 +46,7 @@ function MemberReportTable({ rowData }) {
               <TableCell>{row.measure}</TableCell>
               <TableCell align="center">{row.type}</TableCell>
               <TableCell align="center">{row.status ? <CheckCircleIcon /> : <CancelIcon />}</TableCell>
-              <TableCell align="center">{row.exclusions.length > 0 ? row.exclusions : <CancelIcon />}</TableCell>
+              <TableCell align="center">{row.exclusions?.length > 0 ? row.exclusions : <CancelIcon />}</TableCell>
               <TableCell align="center">{row.practitioner}</TableCell>
               <TableCell align="center">{row.dates}</TableCell>
               <TableCell align="center">{row.conditions}</TableCell>
@@ -62,7 +62,16 @@ function MemberReportTable({ rowData }) {
 MemberReportTable.propTypes = {
   rowData: PropTypes.arrayOf(
     PropTypes.shape({
-      value: PropTypes.string,
+      measure: PropTypes.string,
+      type: PropTypes.string,
+      status: PropTypes.bool,
+      exclusions: PropTypes.arrayOf(
+        PropTypes.string
+      ),
+      practitioner: PropTypes.string,
+      dates: PropTypes.string,
+      conditions: PropTypes.string,
+      recommendations: PropTypes.string,
     }),
   ),
 }

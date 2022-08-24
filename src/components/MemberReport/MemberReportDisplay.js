@@ -191,21 +191,6 @@ function MemberReportDisplay({
             <MemberReportTable
               rowData={rowData}
             />
-            {/* <DisplayTable
-              rowData={rowData}
-              headerInfo={ReportTable.headerData}
-              pageSize={ReportTable.pageSize}
-              useCheckBox={false}
-              invertedColor
-            >
-              {rowData.map((item) => (
-                <ReportTableRow
-                  key={`report-table-row-${item.value}`}
-                  rowDataItem={item}
-                  headerInfo={ReportTable.headerData}
-                />
-              ))}
-            </DisplayTable> */}
           </Box>
         </AccordionDetails>
       </Accordion>

@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent,
+  render, screen, within, fireEvent, waitFor,
 } from '@testing-library/react';
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
 import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil';
@@ -119,9 +119,11 @@ describe('Member view page', () => {
     })
   })
 
-  it('Measure analysis labels render', () => {
+  it('Measure analysis labels render', async () => {
     const dsDescription = datastore.info.aab.description
     expect(screen.getByText(dsDescription)).toBeTruthy()
+
+    const memberReportTable = screen.getByLabelText('member table')
 
     const analysisLabels = [
       'Measure',
@@ -133,43 +135,20 @@ describe('Member view page', () => {
       'Conditions',
       'Recommendations',
     ]
+    analysisLabels.forEach((label) => expect(within(memberReportTable).getByText(label)).toBeTruthy())
+    const analysisData = rowData[0]
 
-    analysisLabels.forEach((label) => expect(screen.getByText(label)).toBeTruthy())
+    let boolCounter = 0
 
-    // const analysisData = [
-    //   'AAB',
-    //   'Measure',
-    //   an icon 'Not Compliant',
-    //   an icon,
-    //   'N/A',
-    //   'N/A',
-    //   an icon 'N/A',
-    //   'N/A'
-    // ]
-
-    // the only thing the labels and data have in common
-    // are their index in a list
-    // it might be time to use an actual table
-
-    // const {container} = render(<MemberReportDisplay
-    //   id={memberId}
-    //   memberInfo={memberInfo}
-    //   datastoreInfo={datastore.info}
-    //   exportUrl={exportUrl}
-    //   coverage={coverage}
-    //   coverageStatus="active"
-    //   rowData={rowData}
-    //   description={datastore.info.aab.description}
-    // />);
-
-    // // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
-    // const displayTable = container.getElementsByClassName('display-table');
-
-    // console.log(displayTable) // this doesn't work
+    Object.values(analysisData).forEach((column) => {
+      if (typeof column === 'boolean' && column === true) {
+        const positiveArr = within(memberReportTable).getAllByTestId('CheckCircleIcon')
+        expect(positiveArr[boolCounter]).toBeTruthy()
+      } else if (column.length === 0 || column === false) {
+        const negativeArr = within(memberReportTable).getAllByTestId('CancelIcon')
+        expect(negativeArr[boolCounter]).toBeTruthy()
+      } else {
+        expect(within(memberReportTable).getByText(column)).toBeTruthy()}
+    })
   })
-
-  // measure analysis pop up has information
-  // measure analysis drop down renders
-  // measure analysis has all the necessary information
-  // display table renders
 })

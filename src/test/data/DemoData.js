@@ -58421,17 +58421,15 @@ export const coverage = [
   },
 ]
 
-export const rowData = [{
-  0:
+export const rowData = [
     {
-      conditions: 'N/A',
-      dates: 'N/A',
-      exclusions: [],
-      measure: 'AAB',
-      practitioner: 'N/A',
-      recommendations: 'N/A',
-      status: false,
-      type: 'Measure',
-      value: 'aab',
-    },
-}]
+        "measure": "AAB",
+        "type": "sub-measure",
+        "status": false,
+        "exclusions": [],
+        "practitioner": "dr. cat",
+        "dates": "01/01/1992 - 03/14/2001",
+        "conditions": "bones hurt",
+        "recommendations": "remove bones"
+    }
+]
