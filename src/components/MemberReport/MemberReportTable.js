@@ -1,12 +1,14 @@
 import {
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import PropTypes from 'prop-types';
 
 function MemberReportTable({ rowData }) {
   const formattedData = []
+  const theme = useTheme()
   function createData(rowDataObj) {
     return {
       measure: rowDataObj.measure || 'N/A',
@@ -45,8 +47,12 @@ function MemberReportTable({ rowData }) {
             >
               <TableCell>{row.measure}</TableCell>
               <TableCell align="center">{row.type}</TableCell>
-              <TableCell align="center">{row.status ? <CheckCircleIcon /> : <CancelIcon />}</TableCell>
-              <TableCell align="center">{row.exclusions?.length > 0 ? row.exclusions : <CancelIcon />}</TableCell>
+              <TableCell align="center">
+                {row.status
+                  ? <CheckCircleIcon sx={{ color: theme.palette.success.main }} />
+                  : <CancelIcon sx={{ color: theme.palette.error.main }} /> }
+              </TableCell>
+              <TableCell align="center">{row.exclusions?.length > 0 ? row.exclusions : <CancelIcon sx={{ color: theme.palette.error.main }} />}</TableCell>
               <TableCell align="center">{row.practitioner}</TableCell>
               <TableCell align="center">{row.dates}</TableCell>
               <TableCell align="center">{row.conditions}</TableCell>
@@ -66,7 +72,7 @@ MemberReportTable.propTypes = {
       type: PropTypes.string,
       status: PropTypes.bool,
       exclusions: PropTypes.arrayOf(
-        PropTypes.string
+        PropTypes.string,
       ),
       practitioner: PropTypes.string,
       dates: PropTypes.string,

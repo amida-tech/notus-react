@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent, waitFor,
+  render, screen, within, fireEvent,
 } from '@testing-library/react';
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
 import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil';
@@ -135,10 +135,13 @@ describe('Member view page', () => {
       'Conditions',
       'Recommendations',
     ]
-    analysisLabels.forEach((label) => expect(within(memberReportTable).getByText(label)).toBeTruthy())
+    analysisLabels.forEach(
+      (label) => expect(within(memberReportTable)
+        .getByText(label)).toBeTruthy(),
+    )
     const analysisData = rowData[0]
 
-    let boolCounter = 0
+    const boolCounter = 0
 
     Object.values(analysisData).forEach((column) => {
       if (typeof column === 'boolean' && column === true) {
@@ -148,7 +151,8 @@ describe('Member view page', () => {
         const negativeArr = within(memberReportTable).getAllByTestId('CancelIcon')
         expect(negativeArr[boolCounter]).toBeTruthy()
       } else {
-        expect(within(memberReportTable).getByText(column)).toBeTruthy()}
+        expect(within(memberReportTable).getByText(column)).toBeTruthy()
+      }
     })
   })
 })
