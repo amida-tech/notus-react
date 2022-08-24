@@ -10,6 +10,7 @@ import {
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import { TimelineOptions } from '../Utilities/ChartUtil';
 import env from '../../env';
 
@@ -83,6 +84,23 @@ function ChartBar({
     <Box className="chart-bar">
       <Grid container direction="row" justifyContent="flex-end" spacing={0.1}>
         <Grid item sx={buttonStyling}>
+          <Badge badgeContent={filterSum} className={`chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
+            <Button
+              className="chart-bar__filter-button"
+              color="tertiary"
+              variant="text"
+              onClick={() => console.log('bananas')}
+              startIcon={(
+                <FileDownloadIcon />
+              )}
+            >
+              <Typography variant="caption">
+                Export
+              </Typography>
+            </Button>
+          </Badge>
+        </Grid>
+        <Grid item sx={buttonStyling}>
           <Button
             key="d3-YTD"
             color="tertiary"
@@ -118,33 +136,33 @@ function ChartBar({
                   label={option.label}
                 />
               ))}
-              { env.REACT_APP_MVP_SETTING === 'false'
+              {env.REACT_APP_MVP_SETTING === 'false'
                 && (
-                <Box className="chart-bar__date-range">
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                    <DesktopDateRangePicker
-                      className="chart-bar__date-range-picker"
-                      startText="Start"
-                      value={currentTimeline.range}
-                      onChange={dateSelector}
-                      style={{ color: 'black' }}
-                      renderInput={(startProps, endProps) => (
-                        <Box className="chart-bar__date-panel">
-                          <TextField className="chart-bar__date-text" {...startProps} />
-                          <Box className="chart-bar__between-text"> to </Box>
-                          <TextField className="chart-bar__date-text" {...endProps} />
-                        </Box>
-                      )}
-                    />
-                  </LocalizationProvider>
-                  <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
-                    <Grid item>
-                      <Button variant="contained" color="tertiary" onClick={clearDate}>
-                        Clear Selection
-                      </Button>
+                  <Box className="chart-bar__date-range">
+                    <LocalizationProvider dateAdapter={AdapterMoment}>
+                      <DesktopDateRangePicker
+                        className="chart-bar__date-range-picker"
+                        startText="Start"
+                        value={currentTimeline.range}
+                        onChange={dateSelector}
+                        style={{ color: 'black' }}
+                        renderInput={(startProps, endProps) => (
+                          <Box className="chart-bar__date-panel">
+                            <TextField className="chart-bar__date-text" {...startProps} />
+                            <Box className="chart-bar__between-text"> to </Box>
+                            <TextField className="chart-bar__date-text" {...endProps} />
+                          </Box>
+                        )}
+                      />
+                    </LocalizationProvider>
+                    <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
+                      <Grid item>
+                        <Button variant="contained" color="tertiary" onClick={clearDate}>
+                          Clear Selection
+                        </Button>
+                      </Grid>
                     </Grid>
-                  </Grid>
-                </Box>
+                  </Box>
                 )}
             </RadioGroup>
           </Menu>
