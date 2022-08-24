@@ -298,6 +298,7 @@ function D3Container({
             handleTimelineChange={handleTimelineChange}
             filterSum={currentFilters.sum}
             filterDisabled={filterDisabled}
+            currentFilters={currentFilters}
           />
         </Grid>
       )}
