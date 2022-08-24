@@ -4,8 +4,9 @@ import {
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
 import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil';
 import {
-  coverage, datastore, exportUrl, memberId, memberInfo, rowData,
+  coverage, exportUrl, memberId, memberInfo, rowData,
 } from '../../data/DemoData';
+import { datastore } from '../../data/datastore'
 
 describe('Member view page', () => {
   beforeEach(async () => {
