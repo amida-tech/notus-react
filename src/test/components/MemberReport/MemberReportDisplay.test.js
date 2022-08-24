@@ -39,7 +39,6 @@ describe('Member view page', () => {
     expect(screen.getAllByRole('button').length).toBe(4)
     expect(screen.getByRole('button', { name: 'Export' })).toBeTruthy()
     expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeTruthy()
-    // screen.debug()
   })
 
   it('Links render', () => {
