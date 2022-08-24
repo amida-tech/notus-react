@@ -4,7 +4,7 @@ import {
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
 import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil';
 import {
-  coverage, exportUrl, memberId, memberInfo, rowData,
+  exportUrl, memberId, memberInfo, rowData,
 } from '../../data/DemoData';
 import { datastore } from '../../data/datastore'
 
@@ -16,7 +16,7 @@ describe('Member view page', () => {
         memberInfo={memberInfo}
         datastoreInfo={datastore.info}
         exportUrl={exportUrl}
-        coverage={coverage}
+        coverage={memberInfo.coverage}
         coverageStatus="active"
         rowData={rowData}
         description={datastore.info.aab.description}
@@ -88,9 +88,9 @@ describe('Member view page', () => {
       memberInfo.dob,
       getAge(memberInfo.dob),
       memberInfo.gender,
-      'active',
-      `${getDatestamp(new Date(coverage[0].period.start.value))} - ${
-        getDatestamp(new Date(coverage[0].period.end.value))}`,
+      'ACTIVE',
+      `${getDatestamp(new Date(memberInfo.coverage[0].period.start.value))} - ${
+        getDatestamp(new Date(memberInfo.coverage[0].period.end.value))}`,
       insurance.id.value,
       insurance.payor[0].reference.value,
       'N/A',
