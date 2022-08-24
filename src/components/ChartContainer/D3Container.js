@@ -165,7 +165,7 @@ D3Container.defaultProps = {
   filterDisabled: true,
   displayData: [],
   colorMap: [],
-  graphWidth: 123,
+  graphWidth: 500,
 };
 
 export default D3Container;
