@@ -11,6 +11,7 @@ import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import { retrieveMeasureExport } from '../Common/Controller';
 import { TimelineOptions } from '../Utilities/ChartUtil';
 import env from '../../env';
 
@@ -34,6 +35,7 @@ function ChartBar({
   currentTimeline,
   handleTimelineChange,
   filterDisabled,
+  currentFilters,
 }) {
   const buttonStyling = {};
 
@@ -84,21 +86,19 @@ function ChartBar({
     <Box className="chart-bar">
       <Grid container direction="row" justifyContent="flex-end" spacing={0.1}>
         <Grid item sx={buttonStyling}>
-          <Badge badgeContent={filterSum} className={`chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
-            <Button
-              className="chart-bar__filter-button"
-              color="tertiary"
-              variant="text"
-              onClick={() => console.log('bananas')}
-              startIcon={(
-                <FileDownloadIcon />
+          <Button
+            className="chart-bar__filter-button"
+            color="tertiary"
+            variant="text"
+            onClick={() => retrieveMeasureExport(currentFilters)}
+            startIcon={(
+              <FileDownloadIcon />
               )}
-            >
-              <Typography variant="caption">
-                Export
-              </Typography>
-            </Button>
-          </Badge>
+          >
+            <Typography variant="caption">
+              Export
+            </Typography>
+          </Button>
         </Grid>
         <Grid item sx={buttonStyling}>
           <Button
@@ -202,6 +202,12 @@ ChartBar.propTypes = {
   }),
   handleTimelineChange: PropTypes.func,
   filterDisabled: PropTypes.bool,
+  currentFilters: PropTypes.shape({
+    domainsOfCare: PropTypes.arrayOf(PropTypes.string),
+    stars: PropTypes.arrayOf(PropTypes.number),
+    percentRange: PropTypes.arrayOf(PropTypes.number),
+    sum: PropTypes.number,
+  }),
 };
 
 ChartBar.defaultProps = {
@@ -214,6 +220,12 @@ ChartBar.defaultProps = {
   },
   handleTimelineChange: undefined,
   filterDisabled: false,
+  currentFilters: {
+    domainsOfCare: [],
+    stars: [],
+    percentRange: [0, 100],
+    sum: 0,
+  },
 }
 
 export default ChartBar;
