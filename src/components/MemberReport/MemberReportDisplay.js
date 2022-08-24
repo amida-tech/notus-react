@@ -4,6 +4,7 @@ import {
   Accordion, AccordionDetails, AccordionSummary, Box, Button, List, ListItem,
   ListItemText, Typography,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
 import Banner from '../Common/Banner';
 import Info from '../Common/Info';
@@ -23,6 +24,8 @@ function MemberReportDisplay({
   rowData,
   description,
 }) {
+  const theme = useTheme()
+  const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main
   return (
     <Box className="member-report" sx={{ background: 'white' }}>
       <Banner headerText="Reporting - Member's Data" lastUpdated={updateTimestamp(new Date(memberInfo.timeStamp))} />
@@ -83,9 +86,14 @@ function MemberReportDisplay({
             <ListItemText
               sx={{ m: 0, display: 'flex', gap: '.5rem' }}
               primaryTypographyProps={{ fontWeight: '700' }}
-              secondaryTypographyProps={{ alignSelf: 'center' }}
+              secondaryTypographyProps={{
+                alignSelf: 'center',
+                color: coverageStatusColor,
+              }}
               primary="Coverage Status:&nbsp;"
-              secondary={coverageStatus || 'inactive'}
+              secondary={coverageStatus === 'active'
+                ? 'ACTIVE'
+                : 'INACTIVE'}
             />
           </ListItem>
           <ListItem disablePadding className="member-report__info-field">
@@ -177,7 +185,7 @@ function MemberReportDisplay({
           <Info infoText={measureAnalysisTip} />
         </Box>
       </Box>
-      <Accordion>
+      <Accordion defaultExpanded>
         <AccordionSummary className="member-report__accordion-summary" expandIcon={<ExpandMoreIcon />}>
           <Typography variant="h4">
             {`${datastoreInfo[memberInfo.measurementType]?.displayLabel || '???'} - ${datastoreInfo[memberInfo.measurementType]?.title || 'Undefined Measure'}`}

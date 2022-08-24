@@ -29,14 +29,14 @@ function MemberReportTable({ rowData }) {
       <Table sx={{ minWidth: 650 }} aria-label="member table">
         <TableHead>
           <TableRow>
-            <TableCell>Measure</TableCell>
-            <TableCell align="center">Type</TableCell>
-            <TableCell align="center">Status</TableCell>
-            <TableCell align="center">Exclusions</TableCell>
-            <TableCell align="center">Practitioner</TableCell>
-            <TableCell align="center">Dates</TableCell>
-            <TableCell align="center">Conditions</TableCell>
-            <TableCell align="center">Recommendations</TableCell>
+            <TableCell sx={{ fontWeight: '700' }}>Measure</TableCell>
+            <TableCell sx={{ fontWeight: '700' }} align="center">Type</TableCell>
+            <TableCell sx={{ fontWeight: '700' }} align="center">Status</TableCell>
+            <TableCell sx={{ fontWeight: '700' }} align="center">Exclusions</TableCell>
+            <TableCell sx={{ fontWeight: '700' }} align="center">Practitioner</TableCell>
+            <TableCell sx={{ fontWeight: '700' }} align="center">Dates</TableCell>
+            <TableCell sx={{ fontWeight: '700' }} align="center">Conditions</TableCell>
+            <TableCell sx={{ fontWeight: '700' }} align="center">Recommendations</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
