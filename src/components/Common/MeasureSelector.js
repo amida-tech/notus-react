@@ -13,6 +13,7 @@ function MeasureSelector({
         className="measure-selector__select"
         value={measure}
         label="Select Measure"
+        name="Select Measure"
         onChange={handleMeasureChange}
         sx={{ color: 'black.light' }}
       >
@@ -21,6 +22,7 @@ function MeasureSelector({
             sx={{ color: 'black.light' }}
             key={`by-line-menu-item-selector-${result.measure}`}
             value={result.measure}
+            name="Select Measure"
           >
             {result.label}
           </MenuItem>
