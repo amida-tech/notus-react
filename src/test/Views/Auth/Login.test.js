@@ -2,6 +2,7 @@ import {
   fireEvent, render, screen,
 } from '@testing-library/react';
 import Login from '../../../views/auth/Login'
+import env from '../../../env'
 
 describe('Login', () => {
   it('Renders on Load', () => {
@@ -9,6 +10,7 @@ describe('Login', () => {
   });
 });
 describe('Links render as expected', () => {
+  if (env.REACT_APP_MVP_SETTING === true) {
   it('2 Links render on page', () => {
     render(<Login />)
     const linksOnPage = document.getElementsByTagName('a')
@@ -27,7 +29,20 @@ describe('Links render as expected', () => {
     const forgotPasswordLink = linksOnPage[1]
     expect(forgotPasswordLink.href.includes('#pablo')).toBeTruthy()
     expect(forgotPasswordLink.innerHTML).toBe('Forgot password')
-  });
+  })} else {
+    it('One Link render on page', () => {
+      render(<Login />)
+      const linksOnPage = document.getElementsByTagName('a')
+      expect(linksOnPage.length).toBe(1)
+    });
+    it('"Forgot Password" link renders to page with correct text and href', () => {
+      render(<Login />)
+      const linksOnPage = document.getElementsByTagName('a')
+      const forgotPasswordLink = linksOnPage[0]
+      expect(forgotPasswordLink.href.includes('#pablo')).toBeTruthy()
+      expect(forgotPasswordLink.innerHTML).toBe('Forgot password')
+    })
+  }
 });
 
 describe('Labels render as expected', () => {
@@ -92,14 +107,14 @@ describe('Button renders as expected', () => {
     expect(loginButton.textContent.includes('Login')).toBe(true)
   })
 })
-
+if (env.REACT_APP_MVP_SETTING === false) {
 describe('Sign up link renders and navigates as expected', () => {
   it("Sign up link navigates to '/auth/register'", () => {
     render(<Login />)
     const registerLink = screen.getByRole('link', { name: 'Sign Up' })
     expect(registerLink.hasAttribute('href', '/auth/register')).toBe(true)
   })
-})
+})}
 
 describe('Google OAuth logging in', () => {
   it('Button is clickable', () => {

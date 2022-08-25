@@ -29,7 +29,7 @@ export default function Login() {
                 component="span"
                 variant="h5"
                 display="inline"
-                sx={{ color: (theme) => theme.palette.bluegray.main, fontWeight: 700 }}
+                sx={{ color: (theme) => theme.palette.bluegray?.main, fontWeight: 700 }}
               >
                 {' '}
                 SARASWATI
@@ -42,7 +42,7 @@ export default function Login() {
           </Grid>
         </Grid>
 
-        { env.REACT_APP_MVP_SETTING === 'false'
+        { env.REACT_APP_MVP_SETTING === false
           && (
           <Grid
             item
@@ -83,7 +83,7 @@ export default function Login() {
               }}
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: (theme) => theme.palette.bluegray.L5,
+                  backgroundColor: (theme) => theme.palette.bluegray?.L5,
                 },
               }}
               placeholder="Username or email address"
@@ -103,7 +103,7 @@ export default function Login() {
               margin="dense"
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: (theme) => theme.palette.bluegray.L5,
+                  backgroundColor: (theme) => theme.palette.bluegray?.L5,
                 },
               }}
               InputProps={{
