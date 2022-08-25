@@ -2,9 +2,8 @@ import LockIcon from '@mui/icons-material/Lock';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import {
   Box,
-  Button, Container, Grid, Link, Paper, TextField, Typography
+  Button, Container, Grid, Link, Paper, TextField, Typography,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import env from '../../env';
 
@@ -43,7 +42,8 @@ export default function Login() {
           </Grid>
         </Grid>
 
-        { env.REACT_APP_MVP_SETTING === 'false' &&
+        { env.REACT_APP_MVP_SETTING === 'false'
+          && (
           <Grid
             item
             xs={6}
@@ -62,7 +62,8 @@ export default function Login() {
             >
               Sign Up
             </Link>
-          </Grid> }
+          </Grid>
+          ) }
 
         <Grid container spacing={2} direction="column" sx={{ my: '.5rem' }}>
           <Grid item>
@@ -114,14 +115,15 @@ export default function Login() {
           <Link
             color="primary"
             underline="none"
+            href="#pablo"
             disabled
             sx={{
               m: '1rem 0 0 0',
               alignSelf: 'end',
-              ":hover": {
+              ':hover': {
                 pointerEvents: 'auto',
                 cursor: 'not-allowed',
-              }
+              },
             }}
           >
             Forgot password
@@ -153,10 +155,10 @@ export default function Login() {
           sx={{
             width: '100%',
             textAlign: 'end',
-            "&:hover": {
+            '&:hover': {
               pointerEvents: 'auto',
               cursor: 'not-allowed',
-            }
+            },
           }}
         >
           <Button
@@ -165,7 +167,7 @@ export default function Login() {
             disabled
             sx={{
               width: '12rem',
-              height: '3rem'
+              height: '3rem',
             }}
           >
             Login
