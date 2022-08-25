@@ -14,7 +14,7 @@ const theme = createTheme({
       dark: '#1976D2',
       transparent: '#DFF4FC40',
     },
-    tertiary: {
+    neutral: {
       main: '#546E7A',
       light: '#B0BEC5',
       dark: '#455A64',
@@ -35,7 +35,6 @@ const theme = createTheme({
       disabled: '#90A4AE',
     },
     warning: {
-      fontSize: '14pt',
       main: '#FFCA28;',
       light: '#FFD75E',
       dark: '#DEA600',
@@ -47,7 +46,7 @@ const theme = createTheme({
     },
     bluegray: {
       main: '#607D8B',
-      L5: '#ECEFF1',
+      L5: '#E7ECEE',
       L4: '#CFD8DC',
       L3: '#B0BEC5',
       L2: '#90A4AE',
@@ -56,10 +55,11 @@ const theme = createTheme({
       D2: '#455A64',
       D3: '#37474F',
       D4: '#263238',
+      test: 'red',
     },
   },
   typography: {
-    color: '#808080',
+    color: '#263238',
   },
   components: {
 

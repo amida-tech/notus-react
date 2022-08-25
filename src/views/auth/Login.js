@@ -1,15 +1,10 @@
-import {
-  Container,
-  Paper,
-  Box,
-  Button,
-  Link,
-  Typography,
-  Grid,
-  TextField,
-} from '@mui/material'
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import LockIcon from '@mui/icons-material/Lock';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import {
+  Box,
+  Button, Container, Grid, Link, Paper, TextField, Typography
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import env from '../../env';
 
@@ -31,13 +26,24 @@ export default function Login() {
           <Grid item xs={6} md={9}>
             <Typography variant="h5">
               Welcome to
-              <span style={{ color: '#546E7A', fontWeight: 700 }}> SARASWATI</span>
+              <Typography
+                component="span"
+                variant="h5"
+                display="inline"
+                sx={{ color: (theme) => theme.palette.bluegray.main, fontWeight: 700 }}
+              >
+                {' '}
+                SARASWATI
+              </Typography>
             </Typography>
 
             <Typography variant="h3" sx={{ fontWeight: 500, mb: '1rem' }}>
               Sign in
             </Typography>
           </Grid>
+        </Grid>
+
+        { env.REACT_APP_MVP_SETTING === 'false' &&
           <Grid
             item
             xs={6}
@@ -45,7 +51,7 @@ export default function Login() {
             sx={{
             }}
           >
-            <Typography variant="body1" color="bluegray.L1">
+            <Typography variant="body1">
               No Account?
             </Typography>
             <Link
@@ -56,31 +62,7 @@ export default function Login() {
             >
               Sign Up
             </Link>
-          </Grid>
-        </Grid>
-
-        <Grid container spacing={2} sx={{ my: '.5rem' }}>
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<GoogleSvg />}
-              onClick={() => oauthSignIn()}
-              sx={{
-                boxShadow: 'unset',
-                backgroundColor: '#E9F1FF',
-                color: '#498AF5',
-
-                '&:hover': {
-                  backgroundColor: '#bbcbe2',
-                  boxShadow: 'unset',
-                },
-              }}
-            >
-              Sign in with Google
-            </Button>
-          </Grid>
-        </Grid>
+          </Grid> }
 
         <Grid container spacing={2} direction="column" sx={{ my: '.5rem' }}>
           <Grid item>
@@ -100,7 +82,7 @@ export default function Login() {
               }}
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: '#e8f1fe',
+                  backgroundColor: (theme) => theme.palette.bluegray.L5,
                 },
               }}
               placeholder="Username or email address"
@@ -120,7 +102,7 @@ export default function Login() {
               margin="dense"
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: '#e8f1fe',
+                  backgroundColor: (theme) => theme.palette.bluegray.L5,
                 },
               }}
               InputProps={{
@@ -132,35 +114,58 @@ export default function Login() {
           <Link
             color="primary"
             underline="none"
-            href="#pablo"
+            disabled
             sx={{
-              m: '1rem 0 2rem 0',
+              m: '1rem 0 0 0',
               alignSelf: 'end',
+              ":hover": {
+                pointerEvents: 'auto',
+                cursor: 'not-allowed',
+              }
             }}
           >
             Forgot password
           </Link>
         </Grid>
 
+        <Grid container spacing={0} sx={{ mb: '.5rem' }}>
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<GoogleSvg />}
+              onClick={() => oauthSignIn()}
+              sx={{
+                backgroundColor: '#E9F1FF',
+                color: '#498AF5',
+
+                '&:hover': {
+                  backgroundColor: '#d0e2fb',
+                },
+              }}
+            >
+              Sign in with Google
+            </Button>
+          </Grid>
+        </Grid>
+
         <Box
           sx={{
             width: '100%',
             textAlign: 'end',
+            "&:hover": {
+              pointerEvents: 'auto',
+              cursor: 'not-allowed',
+            }
           }}
         >
           <Button
             variant="contained"
             color="primary"
+            disabled
             sx={{
               width: '12rem',
-              height: '7ch',
-              boxShadow: 'unset',
-              backgroundColor: 'gray',
-              color: 'black',
-              '&:hover': {
-                backgroundColor: 'darkgray',
-                boxShadow: 'unset',
-              },
+              height: '3rem'
             }}
           >
             Login
