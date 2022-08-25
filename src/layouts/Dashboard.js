@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import { Box, Grid, Paper } from '@mui/material';
 import { useParams, useHistory } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
 import { DatastoreContext } from '../context/DatastoreProvider';
@@ -23,38 +21,15 @@ import {
   getSubMeasureCurrentResults,
 } from '../components/ChartContainer/D3ContainerUtils';
 
-import { measureDataFetch } from '../components/Common/Controller'
-
-const chartColorArray = [
-  '#88CCEE',
-  '#CC6677',
-  '#DDCC77',
-  '#117733',
-  '#332288',
-  '#AA4499',
-  '#44AA99',
-  '#999933',
-  '#661100',
-  '#6699CC',
-  '#888888',
-];
-
-// If nothing set, select all.
-const defaultFilterState = {
-  domainsOfCare: [],
-  stars: [],
-  percentRange: [0, 100],
-  sum: 0,
-};
-
-const defaultTimelineState = {
-  choice: 'all', // 30, 60, ytd or custom.
-  range: [null, null],
-};
+import {
+  measureDataFetch,
+  // filterSearch,
+} from '../components/Common/Controller'
 
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
+  // const [filterActivated, setFilterActivated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
   const history = useHistory();
@@ -65,8 +40,8 @@ export default function Dashboard() {
   const [currentResults, setCurrentResults] = useState([]);
   const [colorMap, setColorMap] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
-  const [currentFilters, setCurrentFilters] = useState(defaultFilterState);
-  const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
+  const [currentFilters, setCurrentFilters] = useState(datastore.defaultFilterState);
+  const [currentTimeline, setCurrentTimeline] = useState(datastore.defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
   const [memberResults, setMemberResults] = useState([]);
@@ -82,9 +57,9 @@ export default function Dashboard() {
       setActiveMeasure(datastore.currentResults.find(
         (result) => result.measure === currentMeasure,
       ) || defaultActiveMeasure);
-      setIsLoading(datastore.isLoading);
+      setIsLoading(datastore.datastoreLoading);
     }
-  }, [datastore.currentResults, datastore.isLoading, measure]);
+  }, [datastore.currentResults, datastore.datastoreLoading, measure]);
 
   useEffect(() => {
     function handleResize() {
@@ -99,10 +74,10 @@ export default function Dashboard() {
   useEffect(() => { // Break apart later if we feel we need to separate concerns.
     const baseColorMap = datastore.currentResults.map((item, index) => ({
       value: item.measure,
-      color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
+      color: index <= 11 ? datastore.chartColorArray[index] : datastore.chartColorArray[index % 11],
     }));
-    setCurrentTimeline(defaultTimelineState);
-    setCurrentFilters(defaultFilterState);
+    setCurrentTimeline(datastore.defaultTimelineState);
+    setCurrentFilters(datastore.defaultFilterState);
     if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
       setComposite(true);
       setDisplayData(datastore.results.map((result) => ({ ...result })));
@@ -120,8 +95,8 @@ export default function Dashboard() {
       setDisplayData(expandSubMeasureResults(activeMeasure, datastore));
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
-      setColorMap(ColorMapping(baseColorMap, chartColorArray, subMeasureCurrentResults));
-      setFilterDisabled(true);
+      setColorMap(ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults));
+      setFilterDisabled(false);
       setMemberResults([]);
       setTableFilter([]);
       setRowEntries([])
@@ -157,12 +132,11 @@ export default function Dashboard() {
   useEffect(() => {
     const path = window.location.pathname
     if (path.includes('members')) {
-      const pathMeasure = path.replace('/', '').replace('/members', '');
-      const subMeasures = Object.keys(datastore.info).filter((item) => item.includes(pathMeasure));
+      const subMeasures = Object.keys(datastore.info).filter((item) => item.includes(measure));
       setHeaderInfo(MemberTable.headerData(subMeasures, datastore.info));
       setRowEntries(MemberTable.formatData(
         memberResults,
-        pathMeasure,
+        measure,
         datastore.info,
         tableFilter,
       ))
@@ -174,7 +148,7 @@ export default function Dashboard() {
       setTabValue('overview')
     }
   }, [
-    activeMeasure.measure,
+    measure,
     memberResults,
     selectedMeasures,
     datastore.info,
@@ -185,6 +159,8 @@ export default function Dashboard() {
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
   const handleFilteredDataUpdate = (measures, filters, timeline) => {
+    // const searchResults = filterSearch(measures[0], filters, isComposite, datastore.info);
+
     let newDisplayData = isComposite
       ? datastore.results.map((result) => ({ ...result }))
       : expandSubMeasureResults(activeMeasure, datastore);
@@ -263,7 +239,7 @@ export default function Dashboard() {
               <Banner headerText="HEDIS Dashboard" lastUpdated={datastore.lastUpdated} />
             </Grid>
             <Grid item xs={12}>
-              { datastore.isLoading
+              { isLoading
                 ? <Skeleton variant="rectangular" height={300} />
                 : (
                   <D3Container
@@ -292,7 +268,7 @@ export default function Dashboard() {
                 )}
             </Grid>
             <Grid item xs={12}>
-              { datastore.isLoading
+              { isLoading
                 ? <Skeleton variant="rectangular" height={200} />
                 : (
                   <RatingTrends
@@ -303,7 +279,7 @@ export default function Dashboard() {
                 )}
             </Grid>
             <Grid item xs={12}>
-              { datastore.isLoading
+              { isLoading
                 ? <Skeleton variant="rectangular" height={500} />
                 : (
                   <Grid className="d3-container__bottom-display">

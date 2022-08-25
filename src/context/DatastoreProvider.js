@@ -17,6 +17,11 @@ const searchUrl = useLegacyResults === 'true'
   : new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/dailyMeasureResults`);
 const trendUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/trends?legacyResults=${useLegacyResults}`);
 const infoUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/info`);
+const payorsUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}payors`);
+const healthcareProvidersUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}healthcareproviders`);
+const healthcareCoveragesUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}healthcarecoverages`);
+const practitionersUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}practitioners`);
+
 const devData = `${env.REACT_APP_DEV_DATA}`;
 
 export const DatastoreContext = createContext(initialState);
@@ -27,6 +32,16 @@ export default function DatastoreProvider({ children }) {
   const datastoreActions = useMemo(() => ({
     setResults: (results, info) => dispatch({ type: 'SET_RESULTS', payload: { results, info } }),
     setTrends: (trends) => dispatch({ type: 'SET_TRENDS', payload: trends }),
+    setHealthcareFilterOptions:
+    (payors, healthcareProviders, healthcareCoverages, practitioners) => dispatch({
+      type: 'SET_FILTER_OPTIONS',
+      payload: {
+        payors,
+        healthcareProviders,
+        healthcareCoverages,
+        practitioners,
+      },
+    }),
     setIsLoading: (isLoading) => dispatch({ type: 'SET_ISLOADING', payload: isLoading }),
   }), [dispatch]);
 
@@ -36,17 +51,37 @@ export default function DatastoreProvider({ children }) {
       datastoreActions.setTrends(trendList);
       datastoreActions.setIsLoading(false);
     } else {
-      axios.get(trendUrl)
-        .then((res) => {
-          datastoreActions.setTrends(res.data);
-        });
+      const trendPromise = axios.get(trendUrl)
 
       const searchPromise = axios.get(searchUrl)
 
       const infoPromise = axios.get(infoUrl)
 
-      Promise.all([searchPromise, infoPromise]).then((values) => {
+      const payorsPromise = axios.get(payorsUrl);
+
+      const healthcareProvidersPromise = axios.get(healthcareProvidersUrl);
+
+      const healthcareCoveragesPromise = axios.get(healthcareCoveragesUrl);
+
+      const practitionersPromise = axios.get(practitionersUrl);
+
+      Promise.all([
+        searchPromise,
+        infoPromise,
+        payorsPromise,
+        healthcareProvidersPromise,
+        healthcareCoveragesPromise,
+        practitionersPromise,
+        trendPromise,
+      ]).then((values) => {
+        datastoreActions.setHealthcareFilterOptions(
+          values[2].data.payors,
+          values[3].data.healthcareProviders,
+          values[4].data.healthcareCoverages,
+          values[5].data.practitioner,
+        );
         datastoreActions.setResults(values[0].data, values[1].data);
+        datastoreActions.setTrends(values[6].data);
         datastoreActions.setIsLoading(false);
       });
     }

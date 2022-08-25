@@ -67,6 +67,10 @@ export const currentFiltersProps = PropTypes.shape({
   percentRange: PropTypes.PropTypes.arrayOf(PropTypes.number),
   stars: PropTypes.PropTypes.arrayOf(PropTypes.number),
   sum: PropTypes.number,
+  payors: PropTypes.PropTypes.arrayOf(PropTypes.string),
+  healthcareProviders: PropTypes.PropTypes.arrayOf(PropTypes.string),
+  healthcareCoverages: PropTypes.PropTypes.arrayOf(PropTypes.string),
+  practitioners: PropTypes.PropTypes.arrayOf(PropTypes.string),
 })
 
 export const currentTimelineProps = PropTypes.shape({

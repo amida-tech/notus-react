@@ -36,3 +36,22 @@ export async function validateAccessToken(accessToken) {
   }
   return false
 }
+
+// Filter Search
+export async function filterSearch(searchLocation, searchMeasure, searchArray, isComposite) {
+  try {
+    const searchObject = {
+      submeasure: searchMeasure || false,
+      [searchLocation]: searchArray,
+      isComposite: isComposite || false,
+    }
+    const filterSearchURL = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}${searchLocation}/filterSearch`)
+    const filterResults = await axios.post(filterSearchURL, searchObject)
+    const results = new Promise(filterResults.data)
+    return { [searchLocation]: results.foundMembers }
+  } catch (error) {
+    // console.log(error);
+    // winston
+    return []
+  }
+}
