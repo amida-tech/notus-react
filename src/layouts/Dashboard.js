@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -73,7 +73,7 @@ export default function Dashboard() {
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
-  const [tabValue, setTabValue] = React.useState('overview');
+  const [tabValue, setTabValue] = useState('overview');
   const { measure } = useParams();
 
   useEffect(() => {
