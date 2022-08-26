@@ -73,6 +73,7 @@ const theme = createTheme({
   },
   shape: {
     borderRadius: '3px',
+    borderColor: '#455A64',
   },
 });
 
