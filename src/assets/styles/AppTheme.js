@@ -46,7 +46,7 @@ const theme = createTheme({
     },
     bluegray: {
       main: '#607D8B',
-      L5: '#E7ECEE',
+      L5: '#ECEFF1',
       L4: '#CFD8DC',
       L3: '#B0BEC5',
       L2: '#90A4AE',
@@ -55,7 +55,6 @@ const theme = createTheme({
       D2: '#455A64',
       D3: '#37474F',
       D4: '#263238',
-      test: 'red',
     },
   },
   typography: {
