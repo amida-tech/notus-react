@@ -14,7 +14,7 @@ const theme = createTheme({
       dark: '#1976D2',
       transparent: '#DFF4FC40',
     },
-    tertiary: {
+    neutral: {
       main: '#546E7A',
       light: '#B0BEC5',
       dark: '#455A64',
@@ -35,7 +35,6 @@ const theme = createTheme({
       disabled: '#90A4AE',
     },
     warning: {
-      fontSize: '14pt',
       main: '#FFCA28;',
       light: '#FFD75E',
       dark: '#DEA600',
@@ -59,7 +58,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    color: '#808080',
+    color: '#263238',
   },
   components: {
 
