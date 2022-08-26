@@ -21,7 +21,7 @@ const defaultFilterState = {
   payors: [],
   healthcareProviders: [],
   healthcareCoverages: [],
-  practitioners: [],
+  healthcarePractitioners: [],
 };
 const defaultTimelineState = {
   choice: 'all', // 30, 60, ytd or custom.
@@ -38,9 +38,15 @@ export const initialState = {
   chartColorArray,
   defaultFilterState,
   defaultTimelineState,
+  filterOptions: {
+    payors: [],
+    healthcareProviders: [],
+    healthcareCoverages: [],
+    healthcarePractitioners: [],
+  },
 };
 
-const createLabel = (measure, info) => {
+export const createLabel = (measure, info) => {
   if (info[measure]) {
     return `${info[measure].displayLabel} - ${info[measure].title}`
   }
@@ -53,7 +59,7 @@ const createLabel = (measure, info) => {
   return measure.toUpperCase();
 }
 
-const createSubMeasureLabel = (subMeasure, info) => {
+export const createSubMeasureLabel = (subMeasure, info) => {
   let displayLabel = '';
   if (subMeasure.length > 3 && subMeasure.charAt(3) === 'e') {
     displayLabel = `${subMeasure.slice(0, 3).toUpperCase()}-E`;
@@ -96,7 +102,6 @@ export const DatastoreReducer = (state, action) => {
           if (b.measure === 'composite') return 1;
           return a.measure > b.measure ? 1 : -1;
         });
-
       return {
         ...state,
         results,
@@ -116,10 +121,12 @@ export const DatastoreReducer = (state, action) => {
         ...state,
         defaultFilterState: {
           ...state.defaultFilterState,
+        },
+        filterOptions: {
           payors: action.payload.payors,
           healthcareProviders: action.payload.healthcareProviders,
           healthcareCoverages: action.payload.healthcareCoverages,
-          practitioners: action.payload.practitioners,
+          healthcarePractitioners: action.payload.practitioners,
         },
       }
     case 'SET_ISLOADING':

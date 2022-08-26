@@ -14,6 +14,7 @@ import MeasureTable from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
 
 import {
+  calcMemberResults,
   expandSubMeasureResults, filterByDOC,
   filterByPercentage,
   filterByStars,
@@ -23,13 +24,15 @@ import {
 
 import {
   measureDataFetch,
-  // filterSearch,
+  filterSearch,
 } from '../components/Common/Controller'
 
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
-  // const [filterActivated, setFilterActivated] = useState(false);
+  const [filterActivated, setFilterActivated] = useState(false);
+  const [filterInfo, setFilterInfo] = useState([]);
+  const [filterDrawerFail, setFilterDrawerFail] = useState(false)
   const [isLoading, setIsLoading] = useState(true);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
   const history = useHistory();
@@ -41,6 +44,7 @@ export default function Dashboard() {
   const [colorMap, setColorMap] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
   const [currentFilters, setCurrentFilters] = useState(datastore.defaultFilterState);
+  const [additionalFilterOptions, setAdditionalFilterOptions] = useState(datastore.filterOptions)
   const [currentTimeline, setCurrentTimeline] = useState(datastore.defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
@@ -78,6 +82,7 @@ export default function Dashboard() {
     }));
     setCurrentTimeline(datastore.defaultTimelineState);
     setCurrentFilters(datastore.defaultFilterState);
+    setAdditionalFilterOptions(datastore.filterOptions);
     if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
       setComposite(true);
       setDisplayData(datastore.results.map((result) => ({ ...result })));
@@ -91,8 +96,11 @@ export default function Dashboard() {
       setHeaderInfo(MeasureTable.headerData(true));
     } else {
       setComposite(false);
-      const subMeasureCurrentResults = getSubMeasureCurrentResults(activeMeasure, datastore);
-      setDisplayData(expandSubMeasureResults(activeMeasure, datastore));
+      const subMeasureCurrentResults = getSubMeasureCurrentResults(
+        activeMeasure,
+        datastore.currentResults,
+      );
+      setDisplayData(expandSubMeasureResults(activeMeasure, datastore.results));
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
       setColorMap(ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults));
@@ -121,16 +129,43 @@ export default function Dashboard() {
   }, [datastore.currentResults]);
 
   useEffect(() => {
-    setRowEntries(MemberTable.formatData(
-      memberResults,
-      activeMeasure.measure,
-      datastore.info,
-      tableFilter,
-    ))
-  }, [tableFilter, memberResults, activeMeasure.measure, datastore.info])
+    if (filterActivated) {
+      setRowEntries(MemberTable.formatData(
+        filterInfo.members,
+        activeMeasure.measure,
+        datastore.info,
+        tableFilter,
+      ))
+    } else {
+      setRowEntries(MemberTable.formatData(
+        memberResults,
+        activeMeasure.measure,
+        datastore.info,
+        tableFilter,
+      ))
+    }
+  }, [tableFilter, memberResults, activeMeasure.measure, datastore.info, filterActivated])
 
   useEffect(() => {
     const path = window.location.pathname
+    // if (filterActivated) {
+    //   if (path.includes('members')) {
+    //     const subMeasures = Object.keys(datastore.info).filter((item) => item.includes(measure));
+    //     setHeaderInfo(MemberTable.headerData(subMeasures, datastore.info));
+    //     setRowEntries(MemberTable.formatData(
+    //       filterInfo,
+    //       measure,
+    //       datastore.info,
+    //       tableFilter,
+    //     ))
+    //     setComposite(false)
+    //     setTabValue('members')
+    //   } else if (path === '/') {
+    //     setTabValue('overview')
+    //   } else {
+    //     setTabValue('overview')
+    //   }
+    // }
     if (path.includes('members')) {
       const subMeasures = Object.keys(datastore.info).filter((item) => item.includes(measure));
       setHeaderInfo(MemberTable.headerData(subMeasures, datastore.info));
@@ -159,23 +194,44 @@ export default function Dashboard() {
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
   const handleFilteredDataUpdate = (measures, filters, timeline) => {
-    // const searchResults = filterSearch(measures[0], filters, isComposite, datastore.info);
+    const searchResults = filterSearch(measures[0], filters, isComposite)
+    if (searchResults.status !== 'Failed') {
+      setFilterInfo(searchResults)
+      setFilterActivated(true)
+      const compositeDisplayData = calcMemberResults(
+        searchResults.dailyMeasureResults,
+        datastore.info,
+      ).results
 
-    let newDisplayData = isComposite
-      ? datastore.results.map((result) => ({ ...result }))
-      : expandSubMeasureResults(activeMeasure, datastore);
-    newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
-    if (filters.domainsOfCare.length > 0) {
-      newDisplayData = filterByDOC(newDisplayData, filters, datastore);
+      const nonCompositeDisplayData = expandSubMeasureResults(activeMeasure, compositeDisplayData)
+
+      let newDisplayData = isComposite
+        ? compositeDisplayData
+        : nonCompositeDisplayData
+      newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
+
+      if (filters.domainsOfCare.length > 0) {
+        newDisplayData = filterByDOC(newDisplayData, filters, datastore);
+      }
+
+      if (filters.stars.length > 0) {
+        newDisplayData = filterByStars(newDisplayData, filters, datastore);
+      }
+
+      if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
+        newDisplayData = filterByPercentage(newDisplayData, filters, datastore);
+      }
+
+      newDisplayData = filterByTimeline(newDisplayData, timeline);
+      setDisplayData(newDisplayData);
+      setIsLoading(false)
+      // eslint-disable-next-line no-else-return
+    } else {
+      setFilterDrawerFail(true)
+      alert('No Patients Found with given search parameters. Filters will be reset to original state ')
+      setFilterDrawerFail(false)
+      setIsLoading(false)
     }
-    if (filters.stars.length > 0) {
-      newDisplayData = filterByStars(newDisplayData, filters, datastore);
-    }
-    if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
-      newDisplayData = filterByPercentage(newDisplayData, filters, datastore);
-    }
-    newDisplayData = filterByTimeline(newDisplayData, timeline);
-    setDisplayData(newDisplayData);
   };
 
   const handleSelectedMeasureChange = (event) => {
@@ -243,6 +299,7 @@ export default function Dashboard() {
                 ? <Skeleton variant="rectangular" height={300} />
                 : (
                   <D3Container
+                    additionalFilterOptions={additionalFilterOptions}
                     setCurrentFilters={setCurrentFilters}
                     selectedMeasures={selectedMeasures}
                     currentTimeline={currentTimeline}
@@ -264,6 +321,10 @@ export default function Dashboard() {
                     colorMap={colorMap}
                     store={datastore}
                     graphWidth={graphWidth}
+                    setFilterActivated={setFilterActivated}
+                    setIsLoading={setIsLoading}
+                    filterDrawerFail={filterDrawerFail}
+                    setFilterDrawerFail={setFilterDrawerFail}
                   />
                 )}
             </Grid>

@@ -29,6 +29,11 @@ import {
   displayDataProps,
   colorMapProps,
   graphWidthProps,
+  setFilterActivatedProps,
+  setIsLoadingProps,
+  additionalFilterOptionsProps,
+  filterDrawerFailProps,
+  setFilterDrawerFailProps,
 } from './D3Props';
 
 export const firstRenderContext = createContext(true);
@@ -68,7 +73,11 @@ function D3Container({
   colorMap,
   store,
   graphWidth,
-
+  setFilterActivated,
+  setIsLoading,
+  additionalFilterOptions,
+  filterDrawerFail,
+  setFilterDrawerFail,
 }) {
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
@@ -85,6 +94,11 @@ function D3Container({
         toggleFilterDrawer={toggleFilterDrawer}
         currentFilters={currentFilters}
         handleFilterChange={handleFilterChange}
+        additionalFilterOptions={additionalFilterOptions}
+        setFilterActivated={setFilterActivated}
+        setIsLoading={setIsLoading}
+        filterDrawerFail={filterDrawerFail}
+        setFilterDrawerFail={setFilterDrawerFail}
       />
       <ChartHeader
         isComposite={isComposite}
@@ -142,12 +156,18 @@ D3Container.propTypes = {
   displayData: displayDataProps,
   colorMap: colorMapProps,
   graphWidth: graphWidthProps,
+  setFilterActivated: setFilterActivatedProps,
+  setIsLoading: setIsLoadingProps,
+  additionalFilterOptions: additionalFilterOptionsProps,
+  filterDrawerFail: filterDrawerFailProps,
+  setFilterDrawerFail: setFilterDrawerFailProps,
 };
 
 D3Container.defaultProps = {
   store: [],
   activeMeasure: defaultActiveMeasure,
   filterDrawerOpen: false,
+  filterDrawerFail: false,
   isLoading: true,
   toggleFilterDrawer: false,
   handleFilteredDataUpdate: () => undefined,
@@ -166,6 +186,10 @@ D3Container.defaultProps = {
   displayData: [],
   colorMap: [],
   graphWidth: 500,
+  setFilterActivated: () => undefined,
+  setIsLoading: () => undefined,
+  additionalFilterOptions: {},
+  setFilterDrawerFail: () => undefined,
 };
 
 export default D3Container;
