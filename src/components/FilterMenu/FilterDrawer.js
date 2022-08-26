@@ -5,7 +5,7 @@ import ToolTip from '@mui/material/Tooltip';
 import {
   Box, Button, Drawer, Grid, Slider, Typography,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   filterDrawerOpenProps,
   currentFiltersProps,
@@ -14,8 +14,6 @@ import {
   setFilterActivatedProps,
   additionalFilterOptionsProps,
   setIsLoadingProps,
-  filterDrawerFailProps,
-  setFilterDrawerFailProps,
 } from '../ChartContainer/D3Props'
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemData from './FilterDrawerItemData';
@@ -30,8 +28,6 @@ function FilterDrawer({
   setFilterActivated,
   additionalFilterOptions,
   setIsLoading,
-  filterDrawerFail,
-  setFilterDrawerFail,
 }) {
   const [percentSliderValue, setPercentSliderValue] = useState(
     Array.from(currentFilters.percentRange),
@@ -157,14 +153,6 @@ function FilterDrawer({
     handleFilterChange(filterOptions);
     toggleFilterDrawer(false);
   }
-  useEffect(() => {
-    if (filterDrawerFail) {
-      handleResetFilter()
-      setFilterDrawerFail(false)
-    } else {
-      console.log("set to false")
-    }
-  }, [filterDrawerFail, setFilterDrawerFail])
   const sliderValuetext = (value) => `${value}%`;
 
   return (
@@ -293,8 +281,6 @@ FilterDrawer.propTypes = {
   setFilterActivated: setFilterActivatedProps,
   additionalFilterOptions: additionalFilterOptionsProps,
   setIsLoading: setIsLoadingProps,
-  filterDrawerFail: filterDrawerFailProps,
-  setFilterDrawerFail: setFilterDrawerFailProps,
 };
 
 FilterDrawer.defaultProps = {
@@ -314,8 +300,6 @@ FilterDrawer.defaultProps = {
   setFilterActivated: () => undefined,
   additionalFilterOptions: {},
   setIsLoading: () => undefined,
-  filterDrawerFail: false,
-  setFilterDrawerFail: () => undefined,
 }
 
 export default FilterDrawer;

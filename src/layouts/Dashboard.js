@@ -31,8 +31,7 @@ export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [filterActivated, setFilterActivated] = useState(false);
-  const [filterInfo, setFilterInfo] = useState([]);
-  const [filterDrawerFail, setFilterDrawerFail] = useState(false)
+  const [filterInfo, setFilterInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
   const history = useHistory();
@@ -76,7 +75,10 @@ export default function Dashboard() {
   })
 
   useEffect(() => { // Break apart later if we feel we need to separate concerns.
-    const baseColorMap = datastore.currentResults.map((item, index) => ({
+    const baseColorMap = filterActivated ? datastore.currentResults.map((item, index) => ({
+      value: item.measure,
+      color: index <= 11 ? datastore.chartColorArray[index] : datastore.chartColorArray[index % 11],
+    })) : datastore.currentResults.map((item, index) => ({
       value: item.measure,
       color: index <= 11 ? datastore.chartColorArray[index] : datastore.chartColorArray[index % 11],
     }));
@@ -84,17 +86,51 @@ export default function Dashboard() {
     setCurrentFilters(datastore.defaultFilterState);
     setAdditionalFilterOptions(datastore.filterOptions);
     if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
-      setComposite(true);
-      setDisplayData(datastore.results.map((result) => ({ ...result })));
-      setCurrentResults(datastore.currentResults);
-      setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
-      setColorMap(baseColorMap);
+      if (filterActivated) {
+        const filterInfoCurrentResults = calcMemberResults(
+          filterInfo.members,
+          datastore.info,
+        ).currentResults
+        setComposite(true);
+        setDisplayData(filterInfo.members);
+        setCurrentResults(filterInfoCurrentResults);
+        setSelectedMeasures(filterInfoCurrentResults.map((result) => result.measure));
+        setColorMap(baseColorMap);
+      } else {
+        setComposite(true);
+        setDisplayData(datastore.results.map((result) => ({ ...result })));
+        setCurrentResults(datastore.currentResults);
+        setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
+        setColorMap(baseColorMap);
+      }
       setFilterDisabled(false);
       setMemberResults([]);
       setTableFilter([]);
-      setRowEntries([])
+      setRowEntries([]);
       setHeaderInfo(MeasureTable.headerData(true));
     } else {
+      if (filterActivated) {
+        setComposite(false);
+        const filterInfoCurrentResults = calcMemberResults(
+          filterInfo.members,
+          datastore.info,
+        ).currentResults
+        const subMeasureCurrentResults = getSubMeasureCurrentResults(
+          activeMeasure,
+          filterInfoCurrentResults,
+        );
+        setDisplayData(expandSubMeasureResults(activeMeasure, datastore.results));
+        setCurrentResults(subMeasureCurrentResults);
+        setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
+        setColorMap(
+          ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
+        );
+        setFilterDisabled(false);
+        setMemberResults([]);
+        setTableFilter([]);
+        setRowEntries([])
+        setHeaderInfo(MeasureTable.headerData(false));
+      }
       setComposite(false);
       const subMeasureCurrentResults = getSubMeasureCurrentResults(
         activeMeasure,
@@ -110,7 +146,7 @@ export default function Dashboard() {
       setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(false));
     }
-  }, [setTableFilter, history, activeMeasure, isComposite, datastore]);
+  }, [setTableFilter, history, activeMeasure, isComposite, datastore, filterActivated]);
 
   useEffect(() => {
     async function fetchData() {
@@ -148,24 +184,24 @@ export default function Dashboard() {
 
   useEffect(() => {
     const path = window.location.pathname
-    // if (filterActivated) {
-    //   if (path.includes('members')) {
-    //     const subMeasures = Object.keys(datastore.info).filter((item) => item.includes(measure));
-    //     setHeaderInfo(MemberTable.headerData(subMeasures, datastore.info));
-    //     setRowEntries(MemberTable.formatData(
-    //       filterInfo,
-    //       measure,
-    //       datastore.info,
-    //       tableFilter,
-    //     ))
-    //     setComposite(false)
-    //     setTabValue('members')
-    //   } else if (path === '/') {
-    //     setTabValue('overview')
-    //   } else {
-    //     setTabValue('overview')
-    //   }
-    // }
+    if (filterActivated) {
+      if (path.includes('members')) {
+        const subMeasures = Object.keys(datastore.info).filter((item) => item.includes(measure));
+        setHeaderInfo(MemberTable.headerData(subMeasures, datastore.info));
+        setRowEntries(MemberTable.formatData(
+          filterInfo.members,
+          measure,
+          datastore.info,
+          tableFilter,
+        ))
+        setComposite(false)
+        setTabValue('members')
+      } else if (path === '/') {
+        setTabValue('overview')
+      } else {
+        setTabValue('overview')
+      }
+    }
     if (path.includes('members')) {
       const subMeasures = Object.keys(datastore.info).filter((item) => item.includes(measure));
       setHeaderInfo(MemberTable.headerData(subMeasures, datastore.info));
@@ -193,11 +229,16 @@ export default function Dashboard() {
 
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
-  const handleFilteredDataUpdate = (measures, filters, timeline) => {
-    const searchResults = filterSearch(measures[0], filters, isComposite)
+  const handleFilteredDataUpdate = async (measures, filters, timeline) => {
+    const searchResults = await filterSearch(measures[0], filters, isComposite)
     if (searchResults.status !== 'Failed') {
-      setFilterInfo(searchResults)
-      setFilterActivated(true)
+      setFilterInfo({
+        ...searchResults,
+        currentResults: calcMemberResults(
+          searchResults.members,
+          datastore.info,
+        ).currentResults,
+      })
       const compositeDisplayData = calcMemberResults(
         searchResults.dailyMeasureResults,
         datastore.info,
@@ -223,14 +264,14 @@ export default function Dashboard() {
       }
 
       newDisplayData = filterByTimeline(newDisplayData, timeline);
+      setFilterActivated(true)
       setDisplayData(newDisplayData);
       setIsLoading(false)
       // eslint-disable-next-line no-else-return
     } else {
-      setFilterDrawerFail(true)
+      // eslint-disable-next-line no-alert
       alert('No Patients Found with given search parameters. Filters will be reset to original state ')
-      setFilterDrawerFail(false)
-      setIsLoading(false)
+      window.location.reload();
     }
   };
 
@@ -285,7 +326,6 @@ export default function Dashboard() {
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
-
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -323,8 +363,6 @@ export default function Dashboard() {
                     graphWidth={graphWidth}
                     setFilterActivated={setFilterActivated}
                     setIsLoading={setIsLoading}
-                    filterDrawerFail={filterDrawerFail}
-                    setFilterDrawerFail={setFilterDrawerFail}
                   />
                 )}
             </Grid>
