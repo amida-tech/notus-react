@@ -3081,3 +3081,109 @@ export const infoObject = {
     hasSubMeasures: false,
   },
 }
+
+export const memberId = 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad'
+
+export const memberInfo = {
+  _id: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad-aab-0',
+  measurementType: 'aab',
+  memberId: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
+  timeStamp: '2022-06-06T14:51:01.488Z',
+  dob: '01-01-1990',
+  gender: 'plant',
+  coverage: [
+    {
+      status: {
+        value: 'active',
+      },
+      type: {
+        coding: [
+          {
+            system: {
+              value: 'httpl/waemanopige,jl2,erg/CidiSastim/v0-EckCede',
+            },
+            code: {
+              value: 'MCPOL',
+            },
+            display: {
+              value: 'Managed Care Policy',
+            },
+          },
+        ],
+      },
+      subscriber: {
+        reference: {
+          value: 'Patient/aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
+        },
+      },
+      beneficiary: {
+        reference: {
+          value: 'Patient/aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
+        },
+      },
+      relationship: {
+        coding: [
+          {
+            code: {
+              value: 'self',
+            },
+          },
+        ],
+      },
+      period: {
+        start: {
+          value: '2021-06-06',
+        },
+        end: {
+          value: '2023-06-06',
+        },
+      },
+      payor: [
+        {
+          reference: {
+            value: 'Organization/3',
+          },
+        },
+      ],
+      id: {
+        value: '6bd97cad-779f-418a-8bd5-0c3fce18cade',
+      },
+    },
+  ],
+  providers: [
+    {
+      reference: 'Organization?identifier=71533123',
+      display: 'Springfield Hospital',
+    },
+    {
+      reference: 'Practitioner?identifier=1143',
+      display: 'Dr. Marc Weber, General Practitioner',
+    },
+  ],
+  'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad': {
+    'Initial Population': [
+      '2022-04-14',
+    ],
+    Exclusions: [],
+    Denominator: [
+      '2022-04-14',
+    ],
+    Numerator: [],
+    id: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
+  },
+}
+
+export const exportUrl = 'this.is.a.valid.url/wow'
+
+export const rowData = [
+  {
+    measure: 'AAB',
+    type: 'sub-measure',
+    status: false,
+    exclusions: [],
+    practitioner: 'dr. cat',
+    dates: '01/01/1992 - 03/14/2001',
+    conditions: 'bones hurt',
+    recommendations: 'remove bones',
+  },
+]
