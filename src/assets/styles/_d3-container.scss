@@ -31,6 +31,7 @@ $block-class: 'd3-container';
         }
 
         & &__table-selection-button:hover,
+        
         & &__table-selection-button:focus {
             color: $secondary-blue;
             border-radius: 0.5rem;
@@ -142,27 +143,27 @@ $block-class: 'd3-container';
             margin: .85rem 1rem 0 0;
         }
 
-        &__measure-selector {
+        & &__measure-selector {
             margin: 1rem 1rem 0 0;
             display: flex;
             flex-direction: row;
             justify-content: right;
         }
 
-        &__entries-display {
+        & &__entries-display {
             color: $blue-grey-darken-1;
             font-weight: 600;
             margin-top: 1.5rem;
             margin-left: 1.5rem;
         }
 
-        &__no-entries {
+        & &__no-entries {
             padding: 1.5rem .5rem;
             font-size: 1.5rem;
             text-align: center;
         }
 
-        &__bottom-display {
+        & &__bottom-display {
             border-radius: 3px;
             padding: 0 1rem;
             border: $outline-blue solid 1px;
