@@ -51,11 +51,11 @@ function DisplayTableContainer({
         <TabContext value={tabValue}>
           <Box className="d3-container__table-tab-bar">
             {isComposite ? (
-              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
+              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
                 <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
               </TabList>
             ) : (
-              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
+              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
                 <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
                 <Tab className="d3-container__table-selection-button" label="Members" value="members" />
               </TabList>

@@ -4,7 +4,7 @@ $block-class: 'd3-container';
 
 @at-root {
     .#{$block-class} {
-        & &__overview-member-chart {
+        &__overview-member-chart {
             margin: 0 -1rem;
         }
 
@@ -12,14 +12,14 @@ $block-class: 'd3-container';
             width: 100;
         }
 
-        & &__table-tab-bar {
-            height: 9rem;
+        &__table-tab-bar {
+            height: 4rem;
             outline: $outline-blue solid 1px;
             border-radius: 3px;
             background-color: $primary-blue;
         }
 
-        & &__table-selection-button {
+        &__table-selection-button {
             color: $secondary-blue;
             max-height: 2.2rem;
             font-weight: light;
@@ -27,18 +27,17 @@ $block-class: 'd3-container';
             border: unset;
             text-transform: capitalize;
             font-size: 1.3rem;
-            margin: 1rem .5rem;
         }
 
-        & &__table-selection-button:hover,
-        & &__table-selection-button:focus {
+        &__table-selection-button:hover,
+        &__table-selection-button:focus {
             color: $secondary-blue;
             border-radius: 0.5rem;
             background-color: $secondary-blue-transparent;
             transition: 200ms;
         }
 
-        & &__table-selection-button.Mui-selected {
+        &__table-selection-button.Mui-selected {
             color: $primary-blue;
             background-color: $secondary-blue;
             border-radius: 0.5rem;
@@ -164,7 +163,7 @@ $block-class: 'd3-container';
 
         &__bottom-display {
             border-radius: 3px;
-            padding: 0;
+            padding: 0 1rem;
             border: $outline-blue solid 1px;
         }
     }
