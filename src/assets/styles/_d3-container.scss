@@ -13,7 +13,7 @@ $block-class: 'd3-container';
         }
 
         & &__table-tab-bar {
-            height: 4rem;
+            height: 9rem;
             outline: $outline-blue solid 1px;
             border-radius: 3px;
             background-color: $primary-blue;
@@ -164,7 +164,7 @@ $block-class: 'd3-container';
 
         &__bottom-display {
             border-radius: 3px;
-            padding: 0 1rem;
+            padding: 0;
             border: $outline-blue solid 1px;
         }
     }

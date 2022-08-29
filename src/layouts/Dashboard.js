@@ -306,24 +306,23 @@ export default function Dashboard() {
               { datastore.isLoading
                 ? <Skeleton variant="rectangular" height={500} />
                 : (
-                  <Grid className="d3-container__bottom-display">
-                    <DisplayTableContainer
-                      activeMeasure={activeMeasure}
-                      store={datastore}
-                      tabValue={tabValue}
-                      isComposite={isComposite}
-                      headerInfo={headerInfo}
-                      handleSelectedMeasureChange={handleSelectedMeasureChange}
-                      selectedMeasures={selectedMeasures}
-                      currentResults={currentResults}
-                      colorMap={colorMap}
-                      tableFilter={tableFilter}
-                      handleTableFilterChange={handleTableFilterChange}
-                      rowEntries={rowEntries}
-                      setTableFilter={setTableFilter}
-                      handleTabChange={handleTabChange}
-                    />
-                  </Grid>
+                  <DisplayTableContainer
+                    activeMeasure={activeMeasure}
+                    store={datastore}
+                    tabValue={tabValue}
+                    isComposite={isComposite}
+                    headerInfo={headerInfo}
+                    handleSelectedMeasureChange={handleSelectedMeasureChange}
+                    selectedMeasures={selectedMeasures}
+                    currentResults={currentResults}
+                    colorMap={colorMap}
+                    tableFilter={tableFilter}
+                    handleTableFilterChange={handleTableFilterChange}
+                    rowEntries={rowEntries}
+                    setTableFilter={setTableFilter}
+                    handleTabChange={handleTabChange}
+                  />
+
                 )}
             </Grid>
           </Grid>
