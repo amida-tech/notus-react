@@ -10,7 +10,7 @@ import {
 } from '../../data/DemoData';
 import { datastore } from '../../data/datastore'
 
-describe('Dashboard: DisplayTable component', () => {
+describe('Dashboard: DisplayTable: Measure Member View', () => {
   // Display Table Container
   const mockHandleMeasureChange = jest.fn(() => false);
   const mockHandleTableFilterChange = jest.fn(() => false);
@@ -24,9 +24,9 @@ describe('Dashboard: DisplayTable component', () => {
   // Measure Table Row
   const mockHandleSelectedMeasureChange = jest.fn(() => false);
 
-  const activeMeasure = resultList[0]
-  const tabValue = 'overview'
-  const isComposite = true
+  const activeMeasure = resultList[1]
+  const tabValue = 'members'
+  const isComposite = false
   const tableFilter = []
   const rowEntries = []
 
@@ -65,28 +65,27 @@ describe('Dashboard: DisplayTable component', () => {
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
   })
 
-  it('COMPOSITE OVERVIEW: tablist and tabs render', () => {
+  it('MEASURE MEMBER VIEW: tablist and tabs render', () => {
     const tablist = screen.getAllByRole('tablist')
     expect(tablist.length).toBe(1)
-    const tabs = screen.getAllByRole('tab', { name: 'Overview' })
-    expect(tabs.length).toBe(1)
-    const tabpanel = screen.getAllByRole('tabpanel', { name: 'Overview' })
+    const tabpanel = screen.getAllByRole('tabpanel')
     expect(tabpanel.length).toBe(1)
+    const tabs = screen.getAllByRole('tab')
+    expect(tabs.length).toBe(2)
   })
 
-  it('COMPOSITE OVERVIEW: links render', () => {
-    const links = screen.getAllByRole('link')
-    expect(links.length).toBe(10)
+  it('MEASURE MEMBER VIEW: buttons render', () => {
+    const buttons = screen.getAllByRole('button')
+    expect(buttons.length).toBe(1)
   })
 
-  it('COMPOSITE OVERVIEW: buttons render', () => {
-    const buttons = screen.getAllByRole('link')
-    expect(buttons.length).toBe(10)
-  })
-
-  it('COMPOSITE OVERVIEW: checkboxes render', () => {
+  it('MEASURE MEMBER VIEW: checkboxes render', () => {
     const checkboxes = screen.getAllByRole('checkbox')
-    expect(checkboxes.length).toBe(11)
+    expect(checkboxes.length).toBe(3)
     // screen.debug()
   })
 })
+
+// verify member id and measure headers are there
+// results displays accurate entries found
+// verify data is loaded and matched/unmatched icons are visible
