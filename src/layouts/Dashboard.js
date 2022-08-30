@@ -1,5 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Box, Grid, Paper } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import { useParams, useHistory } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
 import { DatastoreContext } from '../context/DatastoreProvider';
@@ -51,7 +53,7 @@ export default function Dashboard() {
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
-  const [tabValue, setTabValue] = React.useState('overview');
+  const [tabValue, setTabValue] = useState('overview');
   const { measure } = useParams();
 
   useEffect(() => {
@@ -381,7 +383,8 @@ export default function Dashboard() {
               { isLoading
                 ? <Skeleton variant="rectangular" height={500} />
                 : (
-                  <Grid className="d3-container__bottom-display">
+                  <div className="d3-container">
+
                     <DisplayTableContainer
                       activeMeasure={activeMeasure}
                       store={datastore}
@@ -398,7 +401,7 @@ export default function Dashboard() {
                       setTableFilter={setTableFilter}
                       handleTabChange={handleTabChange}
                     />
-                  </Grid>
+                  </div>
                 )}
             </Grid>
           </Grid>

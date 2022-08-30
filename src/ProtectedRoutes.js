@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
+import { memberInfoFetch } from './components/Common/Controller'
 import Footer from './components/Common/Footer';
 import Navbar from './components/Common/Navbar';
 import ScrollToTop from './components/Utilities/ScrollToTop';
@@ -16,7 +17,16 @@ export default function ProtectedRoute({ authenticated }) {
       <ScrollToTop />
       <Switch>
         <Route path="/reports" component={Reports} />
-        <Route path="/member/:id" render={({ match }) => <MemberReport id={match.params.id} />} />
+        <Route
+          path="/member/:id"
+          render={({ match }) => (
+            <MemberReport
+              id={match.params.id}
+              memberInfoFetch={memberInfoFetch}
+              loading
+            />
+          )}
+        />
         <Route exact path="/:measure/members" component={Dashboard} loggedIn={authenticated} />
         <Route exact path="/:measure" component={Dashboard} loggedIn={authenticated} />
         <Route exact path="/" component={Dashboard} loggedIn={authenticated} />

@@ -85,7 +85,7 @@ function ChartBar({
         <Grid item sx={buttonStyling}>
           <Button
             key="d3-YTD"
-            color="tertiary"
+            color="neutral"
             onClick={handleDateOpen}
             variant="text"
             startIcon={<DateRangeIcon />}
@@ -139,7 +139,7 @@ function ChartBar({
                   </LocalizationProvider>
                   <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
                     <Grid item>
-                      <Button variant="contained" color="tertiary" onClick={clearDate}>
+                      <Button variant="contained" color="neutral" onClick={clearDate}>
                         Clear Selection
                       </Button>
                     </Grid>
@@ -154,7 +154,7 @@ function ChartBar({
           <Badge badgeContent={filterSum} className={`chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
             <Button
               className="chart-bar__filter-button"
-              color="tertiary"
+              color="neutral"
               variant="text"
               onClick={onClickFilter}
               disabled={filterDisabled}
