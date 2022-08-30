@@ -33,7 +33,7 @@ export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [filterActivated, setFilterActivated] = useState(false);
-  const [filterInfo, setFilterInfo] = useState({});
+  const [filterInfo, setFilterInfo] = useState({ members: [], currentResults: [] });
   const [isLoading, setIsLoading] = useState(true);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
   const history = useHistory();
@@ -234,12 +234,13 @@ export default function Dashboard() {
   const handleFilteredDataUpdate = async (measures, filters, timeline) => {
     const searchResults = await filterSearch(measures[0], filters, isComposite)
     if (searchResults.status !== 'Failed') {
+      const newMemberResults = calcMemberResults(
+        searchResults.dailyMeasureResults,
+        datastore.info,
+      ).currentResults
       setFilterInfo({
-        ...searchResults,
-        currentResults: calcMemberResults(
-          searchResults.members,
-          datastore.info,
-        ).currentResults,
+        members: searchResults.members,
+        currentResults: newMemberResults,
       })
       const compositeDisplayData = calcMemberResults(
         searchResults.dailyMeasureResults,
@@ -248,30 +249,31 @@ export default function Dashboard() {
 
       const nonCompositeDisplayData = expandSubMeasureResults(activeMeasure, compositeDisplayData)
 
-      let newDisplayData = isComposite
-        ? compositeDisplayData
-        : nonCompositeDisplayData
-      newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
+      // let newDisplayData = isComposite
+      //   ? compositeDisplayData
+      //   : nonCompositeDisplayData
+      // newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
 
-      if (filters.domainsOfCare.length > 0) {
-        newDisplayData = filterByDOC(newDisplayData, filters, datastore);
-      }
+      // if (filters.domainsOfCare.length > 0) {
+      //   newDisplayData = filterByDOC(newDisplayData, filters, datastore);
+      // }
 
-      if (filters.stars.length > 0) {
-        newDisplayData = filterByStars(newDisplayData, filters, datastore);
-      }
+      // if (filters.stars.length > 0) {
+      //   newDisplayData = filterByStars(newDisplayData, filters, datastore);
+      // }
 
-      if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
-        newDisplayData = filterByPercentage(newDisplayData, filters, datastore);
-      }
+      // if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
+      //   newDisplayData = filterByPercentage(newDisplayData, filters, datastore);
+      // }
 
-      newDisplayData = filterByTimeline(newDisplayData, timeline);
-      setFilterActivated(true)
-      setDisplayData(newDisplayData);
-      setIsLoading(false)
+      // newDisplayData = filterByTimeline(newDisplayData, timeline);
+      // setFilterActivated(true)
+      // setDisplayData(newDisplayData);
+      // setIsLoading(false)
       // eslint-disable-next-line no-else-return
     } else {
       // eslint-disable-next-line no-alert
+      setIsLoading(false)
       alert('No Patients Found with given search parameters. Filters will be reset to original state ')
       window.location.reload();
     }

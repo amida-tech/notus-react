@@ -1,8 +1,3 @@
-import {
-  createLabel,
-  createSubMeasureLabel,
-} from '../../context/DatastoreReducer'
-
 export function filterByStars(displayData, filters, store) {
   return (displayData.filter((result) => filters.stars.includes(
     Math.floor( // Floor for the .5 stars.
@@ -68,10 +63,41 @@ export function getSubMeasureCurrentResults(activeMeasure, currentResults) {
   }
   return subMeasureCurrentResults;
 }
+export const createLabel = (measure, info) => {
+  if (info[measure]) {
+    return `${info[measure].displayLabel} - ${info[measure].title}`
+  }
+  if (measure === 'composite') {
+    return 'Composite';
+  }
+  if (measure.length > 3 && measure.charAt(3) === 'e') {
+    return `${measure.slice(0, 3).toUpperCase()}-E`;
+  }
+  return measure.toUpperCase();
+}
 
-export const calcMemberResults = (MemberResults, measureInfo) => {
+export const createSubMeasureLabel = (subMeasure, info) => {
+  let displayLabel = '';
+  if (subMeasure.length > 3 && subMeasure.charAt(3) === 'e') {
+    displayLabel = `${subMeasure.slice(0, 3).toUpperCase()}-E`;
+  } else {
+    displayLabel = subMeasure.toUpperCase();
+  }
+
+  if (info[subMeasure]) {
+    return `${displayLabel} - ${info[subMeasure].title}`
+  }
+
+  return displayLabel;
+}
+
+export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
+  console.log({
+    dailyMeasureResults,
+    measureInfo,
+  })
   const workingList = {};
-  MemberResults.forEach((item) => {
+  dailyMeasureResults.forEach((item) => {
     if (workingList[item.measure] === undefined
             || item.date > workingList[item.measure].date) {
       workingList[item.measure] = item;
@@ -94,8 +120,9 @@ export const calcMemberResults = (MemberResults, measureInfo) => {
       if (b.measure === 'composite') return 1;
       return a.measure > b.measure ? 1 : -1;
     });
+
   return {
-    results: MemberResults,
+    results: dailyMeasureResults,
     currentResults,
   }
 }
