@@ -1,5 +1,16 @@
 export const resultList = [
   {
+    _id: 'composite-2022-02-12',
+    measure: 'composite',
+    starRating: 3,
+    value: 56.54450261780105,
+    numerator: 216,
+    denominator: 382,
+    initialPopulation: 376,
+    exclusions: 316,
+    date: '2022-02-12T00:00:00.000Z',
+  },
+  {
     _id: 'drre-2022-02-12',
     measure: 'drre',
     date: '2022-02-12T00:00:00.000Z',
@@ -163,17 +174,6 @@ export const resultList = [
         exclusions: 10,
       },
     ],
-  },
-  {
-    _id: 'composite-2022-02-12',
-    measure: 'composite',
-    starRating: 3,
-    value: 56.54450261780105,
-    numerator: 216,
-    denominator: 382,
-    initialPopulation: 376,
-    exclusions: 316,
-    date: '2022-02-12T00:00:00.000Z',
   },
   {
     _id: 'drre-2022-02-13',
@@ -3367,43 +3367,843 @@ export const formattedData = [
 ]
 
 export const currentResults = [
-  {
-      "measure": "composite",
-      "date": "2022-08-29T00:00:00.000Z",
-      "value": 50.00254619060871,
-      "starRating": 2.5,
-      "numerator": 20980,
-      "denominator": 38525,
-      "initialPopulation": 39638,
-      "exclusions": 16898,
-      "label": "Composite - Composite Score",
-      "shortLabel": "Composite",
-      "title": "Composite Score"
-  },
-  {
-      "measure": "aab",
-      "date": "2022-08-29T00:00:00.000Z",
-      "value": 42.462311557788944,
-      "starRating": 2,
-      "denominator": 796,
-      "numerator": 458,
-      "initialPopulation": 796,
-      "exclusions": 141,
-      "label": "AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis",
-      "shortLabel": "AAB",
-      "title": "Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis"
-  },
-  {
-      "measure": "uri",
-      "date": "2022-08-29T00:00:00.000Z",
-      "value": 26.347305389221553,
-      "starRating": 1.5,
-      "denominator": 167,
-      "numerator": 123,
-      "initialPopulation": 167,
-      "exclusions": 41,
-      "label": "URI - Appropriate Treatment for Children With Upper Respiratory Infection",
-      "shortLabel": "URI",
-      "title": "Appropriate Treatment for Children With Upper Respiratory Infection"
-  }
+    {
+        "measure": "composite",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 50.00254619060871,
+        "starRating": 2.5,
+        "numerator": 20980,
+        "denominator": 38525,
+        "initialPopulation": 39638,
+        "exclusions": 16898,
+        "label": "Composite - Composite Score",
+        "shortLabel": "Composite",
+        "title": "Composite Score"
+    },
+    {
+        "measure": "aab",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 42.462311557788944,
+        "starRating": 2,
+        "denominator": 796,
+        "numerator": 458,
+        "initialPopulation": 796,
+        "exclusions": 141,
+        "label": "AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis",
+        "shortLabel": "AAB",
+        "title": "Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis"
+    },
+    {
+        "measure": "adde",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 24.15506958250497,
+        "starRating": 1,
+        "denominator": 1006,
+        "numerator": 243,
+        "initialPopulation": 1192,
+        "exclusions": 736,
+        "subScores": [
+            {
+                "measure": "adde-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 27.89473684210526,
+                "denominator": 760,
+                "numerator": 212,
+                "initialPopulation": 760,
+                "exclusions": 368,
+                "label": "ADD-E - Follow-Up Care After Initiation of Treatment"
+            },
+            {
+                "measure": "adde-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 12.601626016260163,
+                "denominator": 246,
+                "numerator": 31,
+                "initialPopulation": 432,
+                "exclusions": 368,
+                "label": "ADD-E - Follow-Up Care After Initiation of Treatment"
+            }
+        ],
+        "label": "ADD-E - Follow-Up Care for Children Prescribed ADHD Medication",
+        "shortLabel": "ADD-E",
+        "title": "Follow-Up Care for Children Prescribed ADHD Medication"
+    },
+    {
+        "measure": "aise",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 64.86401012017711,
+        "starRating": 3,
+        "denominator": 6324,
+        "numerator": 4102,
+        "initialPopulation": 6324,
+        "exclusions": 3932,
+        "subScores": [
+            {
+                "measure": "aise-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 66.92874692874693,
+                "denominator": 2035,
+                "numerator": 1362,
+                "initialPopulation": 2035,
+                "exclusions": 983,
+                "label": "AIS-E - Adult Immunization Status: Influenza"
+            },
+            {
+                "measure": "aise-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 65.7002457002457,
+                "denominator": 2035,
+                "numerator": 1337,
+                "initialPopulation": 2035,
+                "exclusions": 983,
+                "label": "AIS-E - Adult Immunization Status: Td/Tdap"
+            },
+            {
+                "measure": "aise-3",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 66.56626506024097,
+                "denominator": 1328,
+                "numerator": 884,
+                "initialPopulation": 1328,
+                "exclusions": 983,
+                "label": "AIS-E - Adult Immunization Status: Zoster"
+            },
+            {
+                "measure": "aise-4",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 56.04751619870411,
+                "denominator": 926,
+                "numerator": 519,
+                "initialPopulation": 926,
+                "exclusions": 983,
+                "label": "AIS-E - Adult Immunization Status: Pneumococcal"
+            }
+        ],
+        "label": "AIS-E - Adult Immunization Status",
+        "shortLabel": "AIS-E",
+        "title": "Adult Immunization Status"
+    },
+    {
+        "measure": "apme",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 62.851782363977485,
+        "starRating": 3,
+        "denominator": 1599,
+        "numerator": 1005,
+        "initialPopulation": 1599,
+        "exclusions": 837,
+        "subScores": [
+            {
+                "measure": "apme-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 66.22889305816135,
+                "denominator": 533,
+                "numerator": 353,
+                "initialPopulation": 533,
+                "exclusions": 279,
+                "label": "APM-E - Blood Glucose Monitoring for Children and Adolescents on Antipsychotics"
+            },
+            {
+                "measure": "apme-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 68.48030018761726,
+                "denominator": 533,
+                "numerator": 365,
+                "initialPopulation": 533,
+                "exclusions": 279,
+                "label": "APM-E - Cholesterol Monitoring for Children and Adolescents on Antipsychotics"
+            },
+            {
+                "measure": "apme-3",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 53.84615384615385,
+                "denominator": 533,
+                "numerator": 287,
+                "initialPopulation": 533,
+                "exclusions": 279,
+                "label": "APM-E - Blood Glucose and Cholesterol Monitoring for Children and Adolescents on Antipsychotics"
+            }
+        ],
+        "label": "APM-E - Metabolic Monitoring for Children and Adolescents on Antipsychotics",
+        "shortLabel": "APM-E",
+        "title": "Metabolic Monitoring for Children and Adolescents on Antipsychotics"
+    },
+    {
+        "measure": "asfe",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 57.58039816232772,
+        "starRating": 3,
+        "denominator": 1306,
+        "numerator": 752,
+        "initialPopulation": 1628,
+        "exclusions": 858,
+        "subScores": [
+            {
+                "measure": "asfe-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 67.69041769041769,
+                "denominator": 814,
+                "numerator": 551,
+                "initialPopulation": 814,
+                "exclusions": 429,
+                "label": "ASF-E - Unhealthy Alcohol Use Screening"
+            },
+            {
+                "measure": "asfe-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 40.853658536585364,
+                "denominator": 492,
+                "numerator": 201,
+                "initialPopulation": 814,
+                "exclusions": 429,
+                "label": "ASF-E - Counseling or Other Follow-Up on Positive Screen for Unhealthy Alcohol Use"
+            }
+        ],
+        "label": "ASF-E - Unhealthy Alcohol Use Screening and Follow-Up",
+        "shortLabel": "ASF-E",
+        "title": "Unhealthy Alcohol Use Screening and Follow-Up"
+    },
+    {
+        "measure": "bcse",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 85.83877995642702,
+        "starRating": 4.5,
+        "denominator": 459,
+        "numerator": 394,
+        "initialPopulation": 459,
+        "exclusions": 230,
+        "label": "BCS-E - Breast Cancer Screening Rate",
+        "shortLabel": "BCS-E",
+        "title": "Breast Cancer Screening Rate"
+    },
+    {
+        "measure": "ccs",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 55.5956678700361,
+        "starRating": 3,
+        "denominator": 277,
+        "numerator": 154,
+        "initialPopulation": 277,
+        "exclusions": 150,
+        "label": "CCS - Cervical Cancer Screening Rate",
+        "shortLabel": "CCS",
+        "title": "Cervical Cancer Screening Rate"
+    },
+    {
+        "measure": "cise",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 40.67531305903399,
+        "starRating": 2,
+        "denominator": 4472,
+        "numerator": 1819,
+        "initialPopulation": 4472,
+        "exclusions": 1105,
+        "subScores": [
+            {
+                "measure": "cise-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 50.2906976744186,
+                "denominator": 344,
+                "numerator": 173,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: DTaP"
+            },
+            {
+                "measure": "cise-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 51.162790697674424,
+                "denominator": 344,
+                "numerator": 176,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: IPV"
+            },
+            {
+                "measure": "cise-3",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 52.03488372093024,
+                "denominator": 344,
+                "numerator": 179,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: MMR"
+            },
+            {
+                "measure": "cise-4",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 52.32558139534884,
+                "denominator": 344,
+                "numerator": 180,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: HiB"
+            },
+            {
+                "measure": "cise-5",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 48.25581395348838,
+                "denominator": 344,
+                "numerator": 166,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: Hepatitus B"
+            },
+            {
+                "measure": "cise-6",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 48.54651162790697,
+                "denominator": 344,
+                "numerator": 167,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: VZV"
+            },
+            {
+                "measure": "cise-7",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 51.162790697674424,
+                "denominator": 344,
+                "numerator": 176,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: Pneumococcal Conjugate"
+            },
+            {
+                "measure": "cise-8",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 47.383720930232556,
+                "denominator": 344,
+                "numerator": 163,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: Hepatitus A"
+            },
+            {
+                "measure": "cise-9",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 48.837209302325576,
+                "denominator": 344,
+                "numerator": 168,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: Rotavirus"
+            },
+            {
+                "measure": "cise-10",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 47.383720930232556,
+                "denominator": 344,
+                "numerator": 163,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: Influenza"
+            },
+            {
+                "measure": "cise-11",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 12.5,
+                "denominator": 344,
+                "numerator": 43,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: Combination 3"
+            },
+            {
+                "measure": "cise-12",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 9.883720930232558,
+                "denominator": 344,
+                "numerator": 34,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: Combination 7"
+            },
+            {
+                "measure": "cise-13",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 9.011627906976743,
+                "denominator": 344,
+                "numerator": 31,
+                "initialPopulation": 344,
+                "exclusions": 85,
+                "label": "CIS-E - Childhood Immunization Status: Combination 10"
+            }
+        ],
+        "label": "CIS-E - Childhood Immunization Status",
+        "shortLabel": "CIS-E",
+        "title": "Childhood Immunization Status"
+    },
+    {
+        "measure": "cole",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 54.166666666666664,
+        "starRating": 2.5,
+        "denominator": 264,
+        "numerator": 143,
+        "initialPopulation": 264,
+        "exclusions": 139,
+        "label": "CCS - Colorectal Cancer Screening Rate",
+        "shortLabel": "CCS",
+        "title": "Colorectal Cancer Screening Rate"
+    },
+    {
+        "measure": "cou",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 38.68778280542987,
+        "starRating": 2,
+        "denominator": 1326,
+        "numerator": 513,
+        "initialPopulation": 1326,
+        "exclusions": 698,
+        "subScores": [
+            {
+                "measure": "cou-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 47.3604826546003,
+                "denominator": 663,
+                "numerator": 314,
+                "initialPopulation": 663,
+                "exclusions": 349,
+                "label": "COU-1 - 15 or More Days of Opioid Medications in 30 Day Period"
+            },
+            {
+                "measure": "cou-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 30.015082956259427,
+                "denominator": 663,
+                "numerator": 199,
+                "initialPopulation": 663,
+                "exclusions": 349,
+                "label": "COU-2 - 31 or More Days of Opioid Medications in 62 Day Period"
+            }
+        ],
+        "label": "COU - Risk of Continued Opioid Use",
+        "shortLabel": "COU",
+        "title": "Risk of Continued Opioid Use"
+    },
+    {
+        "measure": "cwp",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 37.183098591549296,
+        "starRating": 2,
+        "denominator": 710,
+        "numerator": 264,
+        "initialPopulation": 710,
+        "exclusions": 128,
+        "label": "CWP - Appropriate Testing for Children with Pharyngitis",
+        "shortLabel": "CWP",
+        "title": "Appropriate Testing for Children with Pharyngitis"
+    },
+    {
+        "measure": "dmse",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 59.26372963186481,
+        "starRating": 3,
+        "denominator": 1657,
+        "numerator": 982,
+        "initialPopulation": 1657,
+        "exclusions": 1008,
+        "subScores": [
+            {
+                "measure": "dmse-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 64.1891891891892,
+                "denominator": 444,
+                "numerator": 285,
+                "initialPopulation": 444,
+                "exclusions": 336,
+                "label": "DMS-E - Assessment Period 1: January 1 - April 30"
+            },
+            {
+                "measure": "dmse-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 60.595446584938706,
+                "denominator": 571,
+                "numerator": 346,
+                "initialPopulation": 571,
+                "exclusions": 336,
+                "label": "DMS-E - Assessment Period 2: May 1 - August 31"
+            },
+            {
+                "measure": "dmse-3",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 54.67289719626168,
+                "denominator": 642,
+                "numerator": 351,
+                "initialPopulation": 642,
+                "exclusions": 336,
+                "label": "DMS-E - Assessment Period 3: September 1 - December 31"
+            }
+        ],
+        "label": "DMS-E - Monitor Depression Symptoms for Adolescents and Adults",
+        "shortLabel": "DMS-E",
+        "title": "Monitor Depression Symptoms for Adolescents and Adults"
+    },
+    {
+        "measure": "drre",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 58.66530473272046,
+        "starRating": 3,
+        "denominator": 8811,
+        "numerator": 5169,
+        "initialPopulation": 8811,
+        "exclusions": 2619,
+        "subScores": [
+            {
+                "measure": "drre-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 100,
+                "denominator": 2937,
+                "numerator": 2937,
+                "initialPopulation": 2937,
+                "exclusions": 873,
+                "label": "DRR-E - Depression Follow-Up for Adolescents and Adults"
+            },
+            {
+                "measure": "drre-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 34.35478379298604,
+                "denominator": 2937,
+                "numerator": 1009,
+                "initialPopulation": 2937,
+                "exclusions": 873,
+                "label": "DRR-E - Depression Remission for Adolescents and Adults"
+            },
+            {
+                "measure": "drre-3",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 41.641130405175346,
+                "denominator": 2937,
+                "numerator": 1223,
+                "initialPopulation": 2937,
+                "exclusions": 873,
+                "label": "DRR-E - Depression Response for Adolescents and Adults"
+            }
+        ],
+        "label": "DRR-E - Depression Remission or Response for Adolescents and Adults",
+        "shortLabel": "DRR-E",
+        "title": "Depression Remission or Response for Adolescents and Adults"
+    },
+    {
+        "measure": "dsfe",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 48.84417808219178,
+        "starRating": 2.5,
+        "denominator": 2336,
+        "numerator": 1141,
+        "initialPopulation": 2824,
+        "exclusions": 1440,
+        "subScores": [
+            {
+                "measure": "dsfe-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 57.29461756373938,
+                "denominator": 1412,
+                "numerator": 809,
+                "initialPopulation": 1412,
+                "exclusions": 720,
+                "label": "DSF-E - Depression Screening for Adolescents and Adults"
+            },
+            {
+                "measure": "dsfe-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 35.93073593073593,
+                "denominator": 924,
+                "numerator": 332,
+                "initialPopulation": 1412,
+                "exclusions": 720,
+                "label": "DSF-E - Follow-Up on Positive Depression Screen for Adolescents and Adults"
+            }
+        ],
+        "label": "DSF-E - Depression Screening and Follow-Up for Adolescents and Adults",
+        "shortLabel": "DSF-E",
+        "title": "Depression Screening and Follow-Up for Adolescents and Adults"
+    },
+    {
+        "measure": "fum",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 56.00000000000001,
+        "starRating": 3,
+        "denominator": 850,
+        "numerator": 476,
+        "initialPopulation": 850,
+        "exclusions": 158,
+        "subScores": [
+            {
+                "measure": "fum-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 63.05882352941177,
+                "denominator": 425,
+                "numerator": 268,
+                "initialPopulation": 425,
+                "exclusions": 79,
+                "label": "FUM-1 - Follow-Up Within 7 Days of Emergancy Department Visit"
+            },
+            {
+                "measure": "fum-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 48.94117647058824,
+                "denominator": 425,
+                "numerator": 208,
+                "initialPopulation": 425,
+                "exclusions": 79,
+                "label": "FUM-2 - Follow-Up Within 30 Days of Emergancy Department Visit"
+            }
+        ],
+        "label": "FUM - Follow-Up After Emergency Department Visit for Mental Illness",
+        "shortLabel": "FUM",
+        "title": "Follow-Up After Emergency Department Visit for Mental Illness"
+    },
+    {
+        "measure": "imae",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 47.72616136919316,
+        "starRating": 2.5,
+        "denominator": 2045,
+        "numerator": 976,
+        "initialPopulation": 2045,
+        "exclusions": 630,
+        "subScores": [
+            {
+                "measure": "imae-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 58.924205378973106,
+                "denominator": 409,
+                "numerator": 241,
+                "initialPopulation": 409,
+                "exclusions": 126,
+                "label": "IMA-E - Meningococcal Serogroups A, C, W, Y"
+            },
+            {
+                "measure": "imae-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 54.278728606356964,
+                "denominator": 409,
+                "numerator": 222,
+                "initialPopulation": 409,
+                "exclusions": 126,
+                "label": "IMA-E - Tdap"
+            },
+            {
+                "measure": "imae-3",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 54.52322738386308,
+                "denominator": 409,
+                "numerator": 223,
+                "initialPopulation": 409,
+                "exclusions": 126,
+                "label": "IMA-E - HPV"
+            },
+            {
+                "measure": "imae-4",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 39.85330073349633,
+                "denominator": 409,
+                "numerator": 163,
+                "initialPopulation": 409,
+                "exclusions": 126,
+                "label": "IMA-E - Combination 1: Meningococcal, Tdap"
+            },
+            {
+                "measure": "imae-5",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 31.05134474327628,
+                "denominator": 409,
+                "numerator": 127,
+                "initialPopulation": 409,
+                "exclusions": 126,
+                "label": "IMA-E - Combination 2: Meningococcal, Tdap, HPV"
+            }
+        ],
+        "label": "IMA-E - Immunizations for Adolescents",
+        "shortLabel": "IMA-E",
+        "title": "Immunizations for Adolescents"
+    },
+    {
+        "measure": "pdse",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 48.08080808080808,
+        "starRating": 2.5,
+        "denominator": 495,
+        "numerator": 238,
+        "initialPopulation": 598,
+        "exclusions": 316,
+        "subScores": [
+            {
+                "measure": "pdse-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 46.82274247491639,
+                "denominator": 299,
+                "numerator": 140,
+                "initialPopulation": 299,
+                "exclusions": 158,
+                "label": "PDS-E - Postpartum Depression Screening"
+            },
+            {
+                "measure": "pdse-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 50,
+                "denominator": 196,
+                "numerator": 98,
+                "initialPopulation": 299,
+                "exclusions": 158,
+                "label": "PDS-E - Follow-Up on Positive Postpartum Depression Screen"
+            }
+        ],
+        "label": "PDS-E - Postpartum Depression Screening and Follow-up",
+        "shortLabel": "PDS-E",
+        "title": "Postpartum Depression Screening and Follow-up"
+    },
+    {
+        "measure": "pnde",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 79.69283276450511,
+        "starRating": 4,
+        "denominator": 586,
+        "numerator": 467,
+        "initialPopulation": 600,
+        "exclusions": 320,
+        "subScores": [
+            {
+                "measure": "pnde-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 92.33333333333333,
+                "denominator": 300,
+                "numerator": 277,
+                "initialPopulation": 300,
+                "exclusions": 160,
+                "label": "PND-E - Prenatal Depression Screening"
+            },
+            {
+                "measure": "pnde-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 66.43356643356644,
+                "denominator": 286,
+                "numerator": 190,
+                "initialPopulation": 300,
+                "exclusions": 160,
+                "label": "PND-E - Follow-Up on Positive Prenatal Depression Screen"
+            }
+        ],
+        "label": "PND-E - Prenatal Depression Screening and Follow-up",
+        "shortLabel": "PND-E",
+        "title": "Prenatal Depression Screening and Follow-up"
+    },
+    {
+        "measure": "prse",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 39.928698752228165,
+        "starRating": 2,
+        "denominator": 561,
+        "numerator": 224,
+        "initialPopulation": 561,
+        "exclusions": 264,
+        "subScores": [
+            {
+                "measure": "prse-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 26.737967914438503,
+                "denominator": 187,
+                "numerator": 50,
+                "initialPopulation": 187,
+                "exclusions": 88,
+                "label": "PRS-E - Immunization Status: Influenza"
+            },
+            {
+                "measure": "prse-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 23.52941176470588,
+                "denominator": 187,
+                "numerator": 44,
+                "initialPopulation": 187,
+                "exclusions": 88,
+                "label": "PRS-E - Immunization Status: Tdap"
+            },
+            {
+                "measure": "prse-3",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 69.5187165775401,
+                "denominator": 187,
+                "numerator": 130,
+                "initialPopulation": 187,
+                "exclusions": 88,
+                "label": "PRS-E - Immunization Status: Influenza and Tdap"
+            }
+        ],
+        "label": "PRS-E - Prenatal Immunization Status",
+        "shortLabel": "PRS-E",
+        "title": "Prenatal Immunization Status"
+    },
+    {
+        "measure": "psa",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 16.260162601626014,
+        "starRating": 1,
+        "denominator": 615,
+        "numerator": 100,
+        "initialPopulation": 615,
+        "exclusions": 305,
+        "label": "PSA - Non-Recommended PSA-Based Screening in Older Men",
+        "shortLabel": "PSA",
+        "title": "Non-Recommended PSA-Based Screening in Older Men"
+    },
+    {
+        "measure": "uop",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 66.39828234031133,
+        "starRating": 3.5,
+        "denominator": 1863,
+        "numerator": 1237,
+        "initialPopulation": 1863,
+        "exclusions": 843,
+        "subScores": [
+            {
+                "measure": "uop-1",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 71.65861513687601,
+                "denominator": 621,
+                "numerator": 445,
+                "initialPopulation": 621,
+                "exclusions": 281,
+                "label": "UOP-1 - Use of Opioids from Multiple Prescribers"
+            },
+            {
+                "measure": "uop-2",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 68.92109500805152,
+                "denominator": 621,
+                "numerator": 428,
+                "initialPopulation": 621,
+                "exclusions": 281,
+                "label": "UOP-2 - Use of Opioids from Multiple Pharmacies"
+            },
+            {
+                "measure": "uop-3",
+                "date": "2022-08-29T00:00:00.000Z",
+                "value": 58.615136876006446,
+                "denominator": 621,
+                "numerator": 364,
+                "initialPopulation": 621,
+                "exclusions": 281,
+                "label": "UOP-3 - Use of Opioids from Multiple Prescribers and Pharmacies"
+            }
+        ],
+        "label": "UOP - Use of Opioids from Multiple Providers",
+        "shortLabel": "UOP",
+        "title": "Use of Opioids from Multiple Providers"
+    },
+    {
+        "measure": "uri",
+        "date": "2022-08-29T00:00:00.000Z",
+        "value": 26.347305389221553,
+        "starRating": 1.5,
+        "denominator": 167,
+        "numerator": 123,
+        "initialPopulation": 167,
+        "exclusions": 41,
+        "label": "URI - Appropriate Treatment for Children With Upper Respiratory Infection",
+        "shortLabel": "URI",
+        "title": "Appropriate Treatment for Children With Upper Respiratory Infection"
+    }
 ]

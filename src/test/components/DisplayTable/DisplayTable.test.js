@@ -31,7 +31,6 @@ describe('Dashboard: DisplayTable component', () => {
   const rowEntries = []
 
   beforeEach( () => {
-
     render(
       <BrowserRouter>
         <DisplayTableContainer
@@ -64,11 +63,30 @@ describe('Dashboard: DisplayTable component', () => {
     // Please keep this for when we move the loading state to the Display
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
-
   })
 
-  it('Checkboxes render', () => {
+  it('COMPOSITE OVERVIEW: tablist and tabs render', () => {
+    const tablist = screen.getAllByRole('tablist')
+    expect(tablist.length).toBe(1)
+    const tabs = screen.getAllByRole('tab', { name: 'Overview' })
+    expect(tabs.length).toBe(1)
+    const tabpanel = screen.getAllByRole('tabpanel', { name: 'Overview' })
+    expect(tabpanel.length).toBe(1)
+  })
+
+  it('COMPOSITE OVERVIEW: links render', () => {
+    const links = screen.getAllByRole('link')
+    expect(links.length).toBe(10)
+  })
+
+  it('COMPOSITE OVERVIEW: buttons render', () => {
+    const buttons = screen.getAllByRole('link')
+    expect(buttons.length).toBe(10)
+  })
+
+  it('COMPOSITE OVERVIEW: checkboxes render', () => {
     const checkboxes = screen.getAllByRole('checkbox')
-    screen.debug()
+    expect(checkboxes.length).toBe(11)
+    // screen.debug()
   })
 })
