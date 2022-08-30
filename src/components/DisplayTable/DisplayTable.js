@@ -19,6 +19,7 @@ function DisplayTable({
   handleCheckBoxChange,
   children,
 }) {
+
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(pageSize);
 

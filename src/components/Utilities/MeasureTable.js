@@ -86,6 +86,7 @@ const subHeaderInfo = [
 
 const formatData = (currentResults) => {
   const formattedData = [];
+  // console.debug('fdatares:', currentResults)
   currentResults.forEach((measureResult) => {
     formattedData.push({
       value: measureResult.measure,

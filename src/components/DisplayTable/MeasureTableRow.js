@@ -12,6 +12,8 @@ function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
   const compositeCheck = headerInfo[0].header === 'Measure'
+  // console.debug('rowDataItem:', rowDataItem)
+  // console.debug('measureInfo:', measureInfo)
 
   const alertTitle = 'Leaving Saraswati'
   const alertPath = (info) => {
@@ -57,7 +59,7 @@ function MeasureTableRow({
                       key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
                     >
                       <Typography variant="caption" className="measure-table-row__data">
-                        <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
+                        <Tooltip title={measureInfo[rowDataItem.value]?.title} arrow>
                           <Link to={{ pathname: `/${rowDataItem.value}` }}>
                             {rowDataItem[fieldInfo.key]}
                           </Link>

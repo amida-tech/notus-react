@@ -3187,3 +3187,223 @@ export const rowData = [
     recommendations: 'remove bones',
   },
 ]
+
+export const headerInfo = [
+  {
+    key: 'label',
+    link: true,
+    header: 'Measure',
+    tooltip: 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)',
+    flexBasis: 'large',
+  },
+  {
+    key: 'included',
+    header: 'Remaining Inclusions',
+    tooltip: 'The population remaining after exclusions are removed.',
+    flexBasis: 'standard',
+    alignContent: 'center',
+  },
+  {
+    key: 'eligible',
+    header: 'Eligible Population',
+    tooltip: 'The population of members who are eligible for this measure.',
+    flexBasis: 'standard',
+    alignContent: 'center',
+  },
+  {
+    key: 'numerator',
+    header: 'Numerator',
+    tooltip: 'The number of members who have satisfied the criteria for this measure.',
+    flexBasis: 'standard',
+    alignContent: 'center',
+  },
+  {
+    key: 'denominator',
+    header: 'Denominator',
+    tooltip: 'The population of members who are eligible for this measure. Currently the same as Eligible Population.',
+    flexBasis: 'standard',
+    alignContent: 'center',
+  },
+  {
+    key: 'exclusions',
+    header: 'Available Exclusions',
+    tooltip: 'The population that can be excluded based on criteria.',
+    flexBasis: 'standard',
+    alignContent: 'center',
+  },
+]
+
+export const selectedMeasures = [
+  "composite",
+  "aab",
+  "uri"
+]
+
+export const colorMap = [
+  {
+      value: "composite",
+      color: "#88CCEE"
+  },
+  {
+      value: "aab",
+      color: "#CC6677"
+  },
+  {
+      value: "adde",
+      color: "#DDCC77"
+  },
+  {
+      value: "aise",
+      color: "#117733"
+  },
+  {
+      value: "apme",
+      color: "#332288"
+  },
+  {
+      value: "asfe",
+      color: "#AA4499"
+  },
+  {
+      value: "bcse",
+      color: "#44AA99"
+  },
+  {
+      value: "ccs",
+      color: "#999933"
+  },
+  {
+      value: "cise",
+      color: "#661100"
+  },
+  {
+      value: "cole",
+      color: "#6699CC"
+  },
+  {
+      value: "cou",
+      color: "#888888"
+  },
+  {
+      "value": "cwp"
+  },
+  {
+      value: "dmse",
+      color: "#CC6677"
+  },
+  {
+      value: "drre",
+      color: "#DDCC77"
+  },
+  {
+      value: "dsfe",
+      color: "#117733"
+  },
+  {
+      value: "fum",
+      color: "#332288"
+  },
+  {
+      value: "imae",
+      color: "#AA4499"
+  },
+  {
+      value: "pdse",
+      color: "#44AA99"
+  },
+  {
+      value: "pnde",
+      color: "#999933"
+  },
+  {
+      value: "prse",
+      color: "#661100"
+  },
+  {
+      value: "psa",
+      color: "#6699CC"
+  },
+  {
+      value: "uop",
+      color: "#888888"
+  },
+  {
+      value: "uri",
+      color: "#88CCEE"
+  }
+]
+
+export const formattedData = [
+{
+  value: "composite",
+  label: "Composite - Composite Score",
+  type: "measure",
+  included: 22740,
+  eligible: 39638,
+  numerator: 20980,
+  denominator: 38525,
+  exclusions: 16898
+},
+{
+  value: "aab",
+  label: "AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis",
+  type: "measure",
+  included: 655,
+  eligible: 796,
+  numerator: 458,
+  denominator: 796,
+  exclusions: 141
+},
+{
+  value: "uri",
+  label: "URI - Appropriate Treatment for Children With Upper Respiratory Infection",
+  type: "measure",
+  included: 126,
+  eligible: 167,
+  numerator: 123,
+  denominator: 167,
+  exclusions: 41
+}
+]
+
+export const currentResults = [
+  {
+      "measure": "composite",
+      "date": "2022-08-29T00:00:00.000Z",
+      "value": 50.00254619060871,
+      "starRating": 2.5,
+      "numerator": 20980,
+      "denominator": 38525,
+      "initialPopulation": 39638,
+      "exclusions": 16898,
+      "label": "Composite - Composite Score",
+      "shortLabel": "Composite",
+      "title": "Composite Score"
+  },
+  {
+      "measure": "aab",
+      "date": "2022-08-29T00:00:00.000Z",
+      "value": 42.462311557788944,
+      "starRating": 2,
+      "denominator": 796,
+      "numerator": 458,
+      "initialPopulation": 796,
+      "exclusions": 141,
+      "label": "AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis",
+      "shortLabel": "AAB",
+      "title": "Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis"
+  },
+  {
+      "measure": "uri",
+      "date": "2022-08-29T00:00:00.000Z",
+      "value": 26.347305389221553,
+      "starRating": 1.5,
+      "denominator": 167,
+      "numerator": 123,
+      "initialPopulation": 167,
+      "exclusions": 41,
+      "label": "URI - Appropriate Treatment for Children With Upper Respiratory Infection",
+      "shortLabel": "URI",
+      "title": "Appropriate Treatment for Children With Upper Respiratory Infection"
+  }
+]
