@@ -53,7 +53,8 @@ describe('Member view page', () => {
 
   it('Export button render', () => {
     const exportBtn = screen.getByRole('link', { name: 'Export' })
-    expect(exportBtn.href).toBe(`http://localhost/${exportUrl}`)
+    const location = exportBtn.href.split('/').slice(-2).join('/')
+    expect(location).toBe(exportUrl)
     // need to upgrade RTL for userEvents
   })
 

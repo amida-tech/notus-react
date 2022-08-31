@@ -3236,6 +3236,26 @@ export const headerInfo = [
 export const selectedMeasures = [
   "composite",
   "aab",
+  "adde",
+  "aise",
+  "apme",
+  "asfe",
+  "bcse",
+  "ccs",
+  "cise",
+  "cole",
+  "cou",
+  "cwp",
+  "dmse",
+  "drre",
+  "dsfe",
+  "fum",
+  "imae",
+  "pdse",
+  "pnde",
+  "prse",
+  "psa",
+  "uop",
   "uri"
 ]
 

@@ -66,11 +66,18 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
 
   it('COMPOSITE OVERVIEW: tablist and tabs render', () => {
     const tablist = screen.getAllByRole('tablist')
-    expect(tablist.length).toBe(1)
-    const tabs = screen.getAllByRole('tab', { name: 'Overview' })
-    expect(tabs.length).toBe(1)
-    const tabpanel = screen.getAllByRole('tabpanel', { name: 'Overview' })
-    expect(tabpanel.length).toBe(1)
+    const tabs = screen.getAllByRole('tab')
+    const tabpanel = screen.getAllByRole('tabpanel')
+
+    if (activeMeasure.measure === 'composite') {
+      expect(tablist.length).toBe(1)
+      expect(tabs.length).toBe(1)
+      expect(tabpanel.length).toBe(1)
+    } else {
+      expect(tablist.length).toBe(1)
+      expect(tabs.length).toBe(2)
+      expect(tabpanel.length).toBe(2)
+    }
   })
 
   it('COMPOSITE OVERVIEW: links render', () => {
@@ -83,53 +90,50 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
     expect(buttons.length).toBe(10)
   })
 
-  it('COMPOSITE OVERVIEW: checkboxes render and are checked', async () => {
+  it('COMPOSITE OVERVIEW: checkboxes render', async () => {
     const checkboxes = screen.getAllByRole('checkbox')
     expect(checkboxes.length).toBe(11)
 
-    // Material UI doesn't like you or me or anyone
+    // Material UI doesn't like you or me or anyone, saving for later
     // https://stackoverflow.com/questions/53271663/how-to-test-material-ui-checkbox-is-checked-with-react-testing-library
-    // checkboxes.forEach((box, i) => {
-    //   expect(box).toHaveProperty('checked', true)
-      // expect(box.checked).toBe(true);
-      // fireEvent.click(box)
-      // expect(box.checked).toBe(false);
-    // })
   })
 
   it('COMPOSITE OVERVIEW: headers and their tooltips render', async () => {
-    const overviewHeaders = {
-      "Measure": 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)',
-      "Remaining Inclusions": 'The population remaining after exclusions are removed.',
-      "Eligible Population": 'The population of members who are eligible for this measure.',
-      "Numerator": 'The number of members who have satisfied the criteria for this measure.',
-      "Denominator": 'The population of members who are eligible for this measure. Currently the same as Eligible Population.',
-      "Available Exclusions": 'The population that can be excluded based on criteria.'
+    for (let [key, value] of Object.entries(headerInfo)) {
+      expect(screen.getByText(value.header)).toBeTruthy()
+      fireEvent.mouseOver(screen.getByText(value.header));
+      await waitFor(() => screen.getByLabelText(value.tooltip))
+      expect(screen.getByLabelText(value.tooltip)).toBeTruthy()
     }
+  })
 
-    for (let [header, tip] of Object.entries(overviewHeaders)) {
-      expect(screen.getByText(header)).toBeTruthy()
-      fireEvent.mouseOver(screen.getByText(header));
-      await waitFor(() => screen.getByLabelText(tip))
-      expect(screen.getByLabelText(tip)).toBeTruthy()
-    }
+  it('COMPOSITE OVERVIEW: measure links have correct href', () => {
+    const links = screen.getAllByRole('link')
+    links.forEach((link, i) => {
+      const location = link.href.split('/').pop()
+      expect(location).toBe(selectedMeasures[i])
+    })
+  })
+
+  it('COMPOSITE OVERVIEW: measure data renders', () => {
+    Object.values(currentResults.slice(0,9)).map((value) => {
+      const currentRow = screen.getByLabelText(`${value.measure} row`)
+      const inclusions = parseInt(value.initialPopulation) - parseInt(value.exclusions)
+      const columnValues = {
+        'Remaining Inclusions': inclusions,
+        'Eligible Population': value.initialPopulation,
+        'Numerator': value.numerator,
+        'Denominator': value.denominator,
+        'Available Exclusions': value.exclusions
+      }
+      for (let [key, value] of Object.entries(columnValues)) {
+        const columnHeader = within(currentRow).getByLabelText(key)
+        expect(
+          within(columnHeader).getByText(value)
+        ).toBeTruthy()
+      }
+    })
   })
 })
 
-  // it('COMPOSITE OVERVIEW: checkboxes uncheck and check and updates data store', async () => {
-  //   const checkboxes = screen.getAllByRole('checkbox')
-  //   checkboxes.forEach((box, i) => {
-  //     fireEvent.click(box)
-  //     // if(i === 0) {
-  //     //   checkboxes.forEach
-  //     //   expect(checkboxes[1].checked).toBe(false);
-  //     // }
-  //     expect(box.checked).toBe(false);
-  //   })
-  // })
-
-// unchecking box unchecks main checkbox
-// unchecking main box unchecks all
-// measure link has correct navigation
-
-// select measure opens up list and correct href -- list items? clicking not opening
+// select measure opens up list and correct href -- list items? clicking not opening -- I blame MUI

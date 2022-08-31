@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent,
+  render, screen, within, fireEvent, waitFor
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
@@ -83,6 +83,23 @@ describe('Dashboard: DisplayTable: Measure Member View', () => {
     expect(checkboxes.length).toBe(3)
     // screen.debug()
   })
+
+  it('MEASURE MEMBER VIEW: headers and their tooltips render', async () => {
+    for (let [key, value] of Object.entries(headerInfo)) {
+      expect(screen.getByText(value.header)).toBeTruthy()
+      fireEvent.mouseOver(screen.getByText(value.header));
+      await waitFor(() => screen.getByLabelText(value.tooltip))
+      expect(screen.getByLabelText(value.tooltip)).toBeTruthy()
+    }
+  })
+
+  // it('MEASURE MEMBER VIEW: measure links have correct href', () => {
+  //   const links = screen.getAllByRole('link')
+  //   links.forEach((link, i) => {
+  //     const location = link.href.split('/').pop()
+  //     expect(location).toBe(selectedMeasures[i])
+  //   })
+  // })
 })
 
 // verify member id and measure headers are there

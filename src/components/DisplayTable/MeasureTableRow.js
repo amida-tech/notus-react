@@ -12,8 +12,6 @@ function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
   const compositeCheck = headerInfo[0].header === 'Measure'
-  // console.debug('rowDataItem:', rowDataItem)
-  // console.debug('measureInfo:', measureInfo)
 
   const alertTitle = 'Leaving Saraswati'
   const alertPath = (info) => {
@@ -33,7 +31,7 @@ function MeasureTableRow({
   const [openAlert, setOpenAlert] = useState(false);
   if (compositeCheck) {
     return (
-      <Box className="measure-table-row">
+      <Box className="measure-table-row" aria-label={`${rowDataItem.value} row`}>
         <Grid container className="measure-table-row__row-section">
           {useCheckBox && (
             <CheckBoxCell
@@ -50,7 +48,7 @@ function MeasureTableRow({
               className={`measure-table-row__data-align measure-table-row__data-align--${fieldInfo.flexBasis}`}
               key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
             >
-              <Typography variant="caption" className="measure-table-row__data">
+              <Typography variant="caption" className="measure-table-row__data" aria-label={fieldInfo.header}>
                 {fieldInfo.header === 'Measure'
                   ? (
                     <Grid
