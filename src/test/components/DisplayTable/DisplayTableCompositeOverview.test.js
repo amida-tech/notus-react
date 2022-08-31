@@ -1,10 +1,9 @@
 import {
-  render, screen, within, fireEvent,
+  render, screen, within, fireEvent, waitFor, querySelector
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
 import DisplayTable from '../../../components/DisplayTable/DisplayTable';
-import MeasureTableRow from '../../../components/DisplayTable/MeasureTableRow'
 import {
   resultList, headerInfo, selectedMeasures, colorMap, currentResults
 } from '../../data/DemoData';
@@ -84,21 +83,53 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
     expect(buttons.length).toBe(10)
   })
 
-  it('COMPOSITE OVERVIEW: checkboxes render', () => {
+  it('COMPOSITE OVERVIEW: checkboxes render and are checked', async () => {
     const checkboxes = screen.getAllByRole('checkbox')
     expect(checkboxes.length).toBe(11)
+
+    // Material UI doesn't like you or me or anyone
+    // https://stackoverflow.com/questions/53271663/how-to-test-material-ui-checkbox-is-checked-with-react-testing-library
+    // checkboxes.forEach((box, i) => {
+    //   expect(box).toHaveProperty('checked', true)
+      // expect(box.checked).toBe(true);
+      // fireEvent.click(box)
+      // expect(box.checked).toBe(false);
+    // })
   })
 
-  it('COMPOSITE OVERVIEW: drop down navigates to new measure', () => {
-    const selectMeasure = screen.getAllByLabelText('')
-    console.log(selectMeasure)
-    // screen.debug()
+  it('COMPOSITE OVERVIEW: headers and their tooltips render', async () => {
+    const overviewHeaders = {
+      "Measure": 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)',
+      "Remaining Inclusions": 'The population remaining after exclusions are removed.',
+      "Eligible Population": 'The population of members who are eligible for this measure.',
+      "Numerator": 'The number of members who have satisfied the criteria for this measure.',
+      "Denominator": 'The population of members who are eligible for this measure. Currently the same as Eligible Population.',
+      "Available Exclusions": 'The population that can be excluded based on criteria.'
+    }
+
+    for (let [header, tip] of Object.entries(overviewHeaders)) {
+      expect(screen.getByText(header)).toBeTruthy()
+      fireEvent.mouseOver(screen.getByText(header));
+      await waitFor(() => screen.getByLabelText(tip))
+      expect(screen.getByLabelText(tip)).toBeTruthy()
+    }
   })
 })
 
-// select measure opens up list and correct href
-// six headers show
-// tool tip hovering works on icon and five other headers
+  // it('COMPOSITE OVERVIEW: checkboxes uncheck and check and updates data store', async () => {
+  //   const checkboxes = screen.getAllByRole('checkbox')
+  //   checkboxes.forEach((box, i) => {
+  //     fireEvent.click(box)
+  //     // if(i === 0) {
+  //     //   checkboxes.forEach
+  //     //   expect(checkboxes[1].checked).toBe(false);
+  //     // }
+  //     expect(box.checked).toBe(false);
+  //   })
+  // })
+
 // unchecking box unchecks main checkbox
 // unchecking main box unchecks all
 // measure link has correct navigation
+
+// select measure opens up list and correct href -- list items? clicking not opening

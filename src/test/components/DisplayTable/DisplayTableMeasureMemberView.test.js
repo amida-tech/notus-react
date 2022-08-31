@@ -4,7 +4,6 @@ import {
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
 import DisplayTable from '../../../components/DisplayTable/DisplayTable';
-import MeasureTableRow from '../../../components/DisplayTable/MeasureTableRow'
 import {
   resultList, headerInfo, selectedMeasures, colorMap, currentResults
 } from '../../data/DemoData';
