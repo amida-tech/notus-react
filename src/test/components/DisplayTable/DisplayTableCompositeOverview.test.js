@@ -64,7 +64,7 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
   })
 
-  it('COMPOSITE OVERVIEW: tablist and tabs render', () => {
+  it('tablist and tabs render', () => {
     const tablist = screen.getAllByRole('tablist')
     const tabs = screen.getAllByRole('tab')
     const tabpanel = screen.getAllByRole('tabpanel')
@@ -80,25 +80,24 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
     }
   })
 
-  it('COMPOSITE OVERVIEW: links render', () => {
+  it('links render', () => {
     const links = screen.getAllByRole('link')
     expect(links.length).toBe(10)
   })
 
-  it('COMPOSITE OVERVIEW: buttons render', () => {
-    const buttons = screen.getAllByRole('link')
-    expect(buttons.length).toBe(10)
+  it('buttons render', () => {
+    const buttons = screen.getAllByRole('button')
+    expect(buttons.length).toBe(4)
   })
 
-  it('COMPOSITE OVERVIEW: checkboxes render', async () => {
+  it('checkboxes render', () => {
     const checkboxes = screen.getAllByRole('checkbox')
     expect(checkboxes.length).toBe(11)
-
-    // Material UI doesn't like you or me or anyone, saving for later
+    // save for later
     // https://stackoverflow.com/questions/53271663/how-to-test-material-ui-checkbox-is-checked-with-react-testing-library
   })
 
-  it('COMPOSITE OVERVIEW: headers and their tooltips render', async () => {
+  it('headers and their tooltips render', async () => {
     for (let [key, value] of Object.entries(headerInfo)) {
       expect(screen.getByText(value.header)).toBeTruthy()
       fireEvent.mouseOver(screen.getByText(value.header));
@@ -107,7 +106,7 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
     }
   })
 
-  it('COMPOSITE OVERVIEW: measure links have correct href', () => {
+  it('measure links have correct href', () => {
     const links = screen.getAllByRole('link')
     links.forEach((link, i) => {
       const location = link.href.split('/').pop()
@@ -115,7 +114,7 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
     })
   })
 
-  it('COMPOSITE OVERVIEW: measure data renders', () => {
+  it('measure data renders', () => {
     Object.values(currentResults.slice(0,9)).map((value) => {
       const currentRow = screen.getByLabelText(`${value.measure} row`)
       const inclusions = parseInt(value.initialPopulation) - parseInt(value.exclusions)

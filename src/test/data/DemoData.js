@@ -11,6 +11,27 @@ export const resultList = [
     date: '2022-02-12T00:00:00.000Z',
   },
   {
+    _id: 'aab-2022-02-12',
+    measure: 'aab',
+    date: '2022-02-12T00:00:00.000Z',
+    value: 75,
+    denominator: 24,
+    numerator: 18,
+    initialPopulation: 22,
+    exclusions: 22,
+    subScores: [
+      {
+        measure: 'aab-1',
+        date: '2022-02-12T00:00:00.000Z',
+        value: 75,
+        denominator: 24,
+        numerator: 18,
+        initialPopulation: 22,
+        exclusions: 22,
+      },
+    ],
+  },
+  {
     _id: 'drre-2022-02-12',
     measure: 'drre',
     date: '2022-02-12T00:00:00.000Z',
@@ -46,27 +67,6 @@ export const resultList = [
         numerator: 8,
         initialPopulation: 12,
         exclusions: 1,
-      },
-    ],
-  },
-  {
-    _id: 'aab-2022-02-12',
-    measure: 'aab',
-    date: '2022-02-12T00:00:00.000Z',
-    value: 75,
-    denominator: 24,
-    numerator: 18,
-    initialPopulation: 22,
-    exclusions: 22,
-    subScores: [
-      {
-        measure: 'aab-1',
-        date: '2022-02-12T00:00:00.000Z',
-        value: 75,
-        denominator: 24,
-        numerator: 18,
-        initialPopulation: 22,
-        exclusions: 22,
       },
     ],
   },
@@ -3233,6 +3233,23 @@ export const headerInfo = [
   },
 ]
 
+export const aabHeaderInfo = [
+  {
+      "key": "label",
+      "link": true,
+      "header": "MemberID",
+      "tooltip": "The member's member ID.",
+      "flexBasis": "larger"
+  },
+  {
+      "key": "aab",
+      "link": false,
+      "header": "AAB",
+      "tooltip": "Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis",
+      "flexBasis": "medium"
+  }
+]
+
 export const selectedMeasures = [
   "composite",
   "aab",
@@ -4226,4 +4243,169 @@ export const currentResults = [
         "shortLabel": "URI",
         "title": "Appropriate Treatment for Children With Upper Respiratory Infection"
     }
+]
+
+export const rowEntries = [
+  {
+      "value": "aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad",
+      "label": "aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-073a1654-6c4e-4c74-9fe7-82156485086a",
+      "label": "aab-073a1654-6c4e-4c74-9fe7-82156485086a",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-2b6fa31b-c5da-4579-97ad-f2ff0c1962c7",
+      "label": "aab-2b6fa31b-c5da-4579-97ad-f2ff0c1962c7",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-c51037d2-d9e9-4507-972e-156dcd460acf",
+      "label": "aab-c51037d2-d9e9-4507-972e-156dcd460acf",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-64b9c4ac-199a-4796-880b-af0a19bb0b27",
+      "label": "aab-64b9c4ac-199a-4796-880b-af0a19bb0b27",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-90ccc2a6-5e28-4170-beb2-81a7e88b81fb",
+      "label": "aab-90ccc2a6-5e28-4170-beb2-81a7e88b81fb",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-39380539-6dcc-4397-b30d-fecdd92ba3ef",
+      "label": "aab-39380539-6dcc-4397-b30d-fecdd92ba3ef",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-04acc3f7-f250-4421-af80-5b0096db2403",
+      "label": "aab-04acc3f7-f250-4421-af80-5b0096db2403",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-41c0abfe-3064-4f50-bfa1-7bbf8245b1d3",
+      "label": "aab-41c0abfe-3064-4f50-bfa1-7bbf8245b1d3",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-6fb976e7-4045-4976-b9c9-3344239e5e89",
+      "label": "aab-6fb976e7-4045-4976-b9c9-3344239e5e89",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-e6c98e74-89fd-42a6-a061-8620e2c9081a",
+      "label": "aab-e6c98e74-89fd-42a6-a061-8620e2c9081a",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-f9247bb4-7f2d-4716-a404-a37544208ba2",
+      "label": "aab-f9247bb4-7f2d-4716-a404-a37544208ba2",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-092c98bd-3e90-47b0-9e32-a401c7f7d5e0",
+      "label": "aab-092c98bd-3e90-47b0-9e32-a401c7f7d5e0",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-82bca0c8-80ce-45e1-90a3-031b233740e3",
+      "label": "aab-82bca0c8-80ce-45e1-90a3-031b233740e3",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-4964b1ad-c55d-4fd5-8616-afa2a220cb28",
+      "label": "aab-4964b1ad-c55d-4fd5-8616-afa2a220cb28",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-9ecc43eb-698e-4c26-9d87-7ee53d4f3494",
+      "label": "aab-9ecc43eb-698e-4c26-9d87-7ee53d4f3494",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-2eb30051-6e43-4637-b0d1-06482d91b17c",
+      "label": "aab-2eb30051-6e43-4637-b0d1-06482d91b17c",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-7b963613-ab4a-49d8-9e99-0d59132311a5",
+      "label": "aab-7b963613-ab4a-49d8-9e99-0d59132311a5",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-c21c77f9-b1af-4772-84bf-38d8d8b8dc8d",
+      "label": "aab-c21c77f9-b1af-4772-84bf-38d8d8b8dc8d",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-905d7e75-3945-433a-9ba4-86b306b1c90a",
+      "label": "aab-905d7e75-3945-433a-9ba4-86b306b1c90a",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-e194322f-d02b-410a-8ce5-4f1e69e35c5c",
+      "label": "aab-e194322f-d02b-410a-8ce5-4f1e69e35c5c",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-a11a13e1-9fbe-476c-b9cb-21b283164845",
+      "label": "aab-a11a13e1-9fbe-476c-b9cb-21b283164845",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-6a95644e-f3b2-43d8-badb-f1ae851422d5",
+      "label": "aab-6a95644e-f3b2-43d8-badb-f1ae851422d5",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-f99548cb-6217-4293-a5cf-7159b3d1d136",
+      "label": "aab-f99548cb-6217-4293-a5cf-7159b3d1d136",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-b9b18798-747d-4a64-8839-4a0db56591a7",
+      "label": "aab-b9b18798-747d-4a64-8839-4a0db56591a7",
+      "type": "member",
+      "aab": "true"
+  },
+  {
+      "value": "aab-f5c1b44b-e70c-4ee6-82fa-15b7db2defb4",
+      "label": "aab-f5c1b44b-e70c-4ee6-82fa-15b7db2defb4",
+      "type": "member",
+      "aab": "false"
+  },
+  {
+      "value": "aab-d880c97c-3716-43fe-92b1-2fa191afa75a",
+      "label": "aab-d880c97c-3716-43fe-92b1-2fa191afa75a",
+      "type": "member",
+      "aab": "false"
+  }
 ]
