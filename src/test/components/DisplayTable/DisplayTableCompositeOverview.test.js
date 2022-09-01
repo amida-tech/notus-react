@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent, waitFor,
+  render, screen, within, fireEvent,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
@@ -93,13 +93,12 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
     // https://stackoverflow.com/questions/53271663/how-to-test-material-ui-checkbox-is-checked-with-react-testing-library
   })
 
-  it('headers and their tooltips render', async () => {
-    for (const value of Object.values(headerInfo)) {
+  it('headers and their tooltips render', () => {
+    Object.values(headerInfo).forEach((value) => {
       expect(screen.getByText(value.header)).toBeTruthy()
-      fireEvent.mouseOver(screen.getByText(value.header));
-      await waitFor(() => screen.getByLabelText(value.tooltip))
+      fireEvent.mouseOver(screen.getByText(value.header))
       expect(screen.getByLabelText(value.tooltip)).toBeTruthy()
-    }
+    })
   })
 
   it('measure links have correct href', () => {
@@ -111,22 +110,22 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
   })
 
   it('measure data renders', () => {
-    Object.values(currentResults.slice(0, 9)).forEach((value) => {
-      const currentRow = screen.getByLabelText(`${value.measure} row`)
-      const inclusions = parseInt(value.initialPopulation) - parseInt(value.exclusions)
+    Object.values(currentResults.slice(0, 9)).forEach((row) => {
+      const currentRow = screen.getByLabelText(`${row.measure} row`)
+      const inclusions = Number(row.initialPopulation) - Number(row.exclusions)
       const columnValues = {
         'Remaining Inclusions': inclusions,
-        'Eligible Population': value.initialPopulation,
-        Numerator: value.numerator,
-        Denominator: value.denominator,
-        'Available Exclusions': value.exclusions,
+        'Eligible Population': row.initialPopulation,
+        Numerator: row.numerator,
+        Denominator: row.denominator,
+        'Available Exclusions': row.exclusions,
       }
-      for (const [key, value] of Object.entries(columnValues)) {
+      Object.entries(columnValues).forEach(([key, value]) => {
         const columnHeader = within(currentRow).getByLabelText(key)
         expect(
           within(columnHeader).getByText(value),
         ).toBeTruthy()
-      }
+      })
     })
   })
 })

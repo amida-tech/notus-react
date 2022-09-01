@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent, waitFor,
+  render, screen, within, fireEvent,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
@@ -87,13 +87,12 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
     // https://stackoverflow.com/questions/53271663/how-to-test-material-ui-checkbox-is-checked-with-react-testing-library
   })
 
-  it('headers and their tooltips render', async () => {
-    for (const value of Object.values(aabHeaderInfo)) {
+  it('headers and their tooltips render', () => {
+    Object.values(aabHeaderInfo).forEach((value) => {
       expect(screen.getByText(value.header)).toBeTruthy()
-      fireEvent.mouseOver(screen.getByText(value.header));
-      await waitFor(() => screen.getByLabelText(value.tooltip))
+      fireEvent.mouseOver(screen.getByText(value.header))
       expect(screen.getByLabelText(value.tooltip)).toBeTruthy()
-    }
+    })
   })
 
   it('measure links have correct href', () => {
@@ -121,7 +120,7 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
       const currentRow = screen.getByLabelText(`${row.value} row`)
 
       // FOR EACH COLUMN, LET US CHECK THE RENDERED VALUE VERSUS EXPECTED
-      for (const [key, value] of Object.entries(columnValues)) {
+      Object.entries(columnValues).forEach(([key, value]) => {
         // GRAB THE COLUMN
         const columnHeader = within(currentRow).getByLabelText(`${key} column`)
 
@@ -140,7 +139,7 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
             within(columnHeader).getByText('Unmatched'),
           ).toBeTruthy()
         }
-      }
+      })
     })
   })
 })
