@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent, waitFor, querySelector
+  render, screen, within, fireEvent, waitFor
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
@@ -19,9 +19,6 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
   // Display Table
   const selectedRows = []
   const mockHandleCheckBoxChange = jest.fn(() => false);
-
-  // Measure Table Row
-  const mockHandleSelectedMeasureChange = jest.fn(() => false);
 
   const activeMeasure = resultList[0]
   const tabValue = 'overview'
@@ -98,7 +95,7 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
   })
 
   it('headers and their tooltips render', async () => {
-    for (let [key, value] of Object.entries(headerInfo)) {
+    for (let [value] of Object.entries(headerInfo)) {
       expect(screen.getByText(value.header)).toBeTruthy()
       fireEvent.mouseOver(screen.getByText(value.header));
       await waitFor(() => screen.getByLabelText(value.tooltip))
