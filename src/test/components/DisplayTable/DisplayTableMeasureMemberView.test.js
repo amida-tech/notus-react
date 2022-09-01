@@ -107,6 +107,8 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
   })
 
   it('measure data renders', () => {
+    const stringToBool = (str) => { return str.split('').length > 5 ? str : JSON.parse(str) }
+
     // CHECKING EACH ROW
     Object.values(rowEntries.slice(0,9)).map((row, i) => {
       const columnValues = {}
@@ -125,22 +127,20 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
         // GRAB THE COLUMN
         const columnHeader = within(currentRow).getByLabelText(`${key} column`)
 
-        if (value === 'true' || value === 'false') {
-          if (value === 'true') {
-            expect(
-              within(columnHeader).getByText('Matched')
-            ).toBeTruthy()
-          } else {
-            expect(
-              within(columnHeader).getByText('Unmatched')
-            ).toBeTruthy()
-          }
-        } else if (typeof value === 'string') {
+        const newValue = stringToBool(value)
+
+        if (typeof newValue === 'string') {
           expect(
-            within(columnHeader).getByText(value)
+            within(columnHeader).getByText(newValue)
+          ).toBeTruthy()
+        } else if (newValue === true) {
+          expect(
+            within(columnHeader).getByText('Matched')
           ).toBeTruthy()
         } else {
-          expect(false)
+          expect(
+            within(columnHeader).getByText('Unmatched')
+          ).toBeTruthy()
         }
       }
     })
