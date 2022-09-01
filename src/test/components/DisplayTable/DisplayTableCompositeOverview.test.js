@@ -95,7 +95,7 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
   })
 
   it('headers and their tooltips render', async () => {
-    for (let [value] of Object.entries(headerInfo)) {
+    for (let value of Object.values(headerInfo)) {
       expect(screen.getByText(value.header)).toBeTruthy()
       fireEvent.mouseOver(screen.getByText(value.header));
       await waitFor(() => screen.getByLabelText(value.tooltip))

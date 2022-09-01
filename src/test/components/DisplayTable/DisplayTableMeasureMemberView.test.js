@@ -20,12 +20,9 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
   const selectedRows = []
   const mockHandleCheckBoxChange = jest.fn(() => false);
 
-  // Measure Table Row
-  const mockHandleSelectedMeasureChange = jest.fn(() => false);
-
   let tableFilter = []
 
-  beforeEach( async () => {
+  beforeEach(() => {
     render(
       <BrowserRouter>
         <DisplayTableContainer
@@ -115,7 +112,7 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
       const columnValues = {}
 
       // CHECKING HEADERS AND WHAT EXPECTED VALUES ARE IN THEM -- COMPARE TO THIS OBJECT
-      Object.values(aabHeaderInfo).map((value, i) => {
+      Object.values(aabHeaderInfo).map((value) => {
         const headerVal = value.header
         columnValues[`${headerVal}`] = headerVal === 'MemberID' ? row.value : row[headerVal.toLowerCase()]
       })
@@ -134,15 +131,15 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
 
         if (typeof value === 'string') {
           expect(
-            within(currentRow).getByText(value)
+            within(columnHeader).getByText(value)
           ).toBeTruthy()
         } else if (value === true) {
           expect(
-            within(currentRow).getByText('Matched')
+            within(columnHeader).getByText('Matched')
           ).toBeTruthy()
         } else {
           expect(
-            within(currentRow).getByText('Unmatched')
+            within(columnHeader).getByText('Unmatched')
           ).toBeTruthy()
         }
       }
