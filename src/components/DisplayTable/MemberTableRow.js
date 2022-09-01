@@ -36,13 +36,13 @@ function MemberTableRow({
   rowDataItem, headerInfo,
 }) {
   const ciseCheck = headerInfo[1].header === 'CIS-E' ? 'cise' : 'member'
-
   return (
-    <Box className={`${ciseCheck}-table-row`}>
+    <Box className={`${ciseCheck}-table-row`} aria-label={`${rowDataItem.value} row`}>
       <Grid container className={`${ciseCheck}-table-row__row-section ${ciseCheck}-table-row__row-section--wide`}>
         {headerInfo.map((fieldInfo) => (
           <Grid
             item
+            aria-label={`${fieldInfo.header} column`}
             className={`${ciseCheck}-table-row__data-align ${ciseCheck}-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >

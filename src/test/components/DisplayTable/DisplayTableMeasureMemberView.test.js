@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent, waitForElementToBeRemoved
+  render, screen, within, fireEvent, waitFor
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
@@ -72,80 +72,81 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
     expect(tablist.length).toBe(1)
     expect(tabs.length).toBe(2)
     expect(tabpanel.length).toBe(1)
-
-    screen.debug()
   })
 
-  // link true key label rowDataItem {
-  //   value: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
-  //   label: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
-  //   type: 'member',
-  //   aab: 'false'
-  // } ciseCheck member
+  it('links render', () => {
+    const links = screen.getAllByRole('link')
+    expect(links.length).toBe(10)
+  })
 
-  // MeasureTableRow props
+  it('buttons render', () => {
+    const buttons = screen.getAllByRole('button')
+    expect(buttons.length).toBe(3)
+  })
 
-  // link true key label rowDataItem {
-  // value: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
-  // label: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
-  // type: 'member', aab: 'false'}
-  // aab: "false"
-  // } ciseCheck member
-
-  // it('links render', () => {
-  //   const links = screen.getAllByRole('link')
-  //   expect(links.length).toBe(10)
-  // })
-
-  // it('buttons render', () => {
-  //   const buttons = screen.getAllByRole('button')
-  //   expect(buttons.length).toBe(3)
-  // })
-
-  // it('checkboxes render', () => {
-  //   const checkboxes = screen.getAllByRole('checkbox')
-  //   expect(checkboxes.length).toBe(3)
+  it('checkboxes render', () => {
+    const checkboxes = screen.getAllByRole('checkbox')
+    expect(checkboxes.length).toBe(3)
 
     // Material UI doesn't like you or me or anyone, saving for later
     // https://stackoverflow.com/questions/53271663/how-to-test-material-ui-checkbox-is-checked-with-react-testing-library
-  // })
+  })
 
-  // it('headers and their tooltips render', async () => {
-  //   for (let [key, value] of Object.entries(headerInfo)) {
-  //     expect(screen.getByText(value.header)).toBeTruthy()
-  //     fireEvent.mouseOver(screen.getByText(value.header));
-  //     await waitFor(() => screen.getByLabelText(value.tooltip))
-  //     expect(screen.getByLabelText(value.tooltip)).toBeTruthy()
-  //   }
-  // })
+  it('headers and their tooltips render', async () => {
+    for (let [key, value] of Object.entries(aabHeaderInfo)) {
+      expect(screen.getByText(value.header)).toBeTruthy()
+      fireEvent.mouseOver(screen.getByText(value.header));
+      await waitFor(() => screen.getByLabelText(value.tooltip))
+      expect(screen.getByLabelText(value.tooltip)).toBeTruthy()
+    }
+  })
 
-  // it('measure links have correct href', () => {
-  //   const links = screen.getAllByRole('link')
-  //   links.forEach((link, i) => {
-  //     const location = link.href.split('/').pop()
-  //     expect(location).toBe(selectedMeasures[i])
-  //   })
-  // })
+  it('measure links have correct href', () => {
+    const links = screen.getAllByRole('link')
+    links.forEach((link, i) => {
+      const location = link.href.split('/').pop()
+      expect(location).toBe(rowEntries[i].value)
+    })
+  })
 
-  // it('measure data renders', () => {
-  //   Object.values(currentResults.slice(0,9)).map((value) => {
-  //     const currentRow = screen.getByLabelText(`${value.measure} row`)
-  //     const inclusions = parseInt(value.initialPopulation) - parseInt(value.exclusions)
-  //     const columnValues = {
-  //       'Remaining Inclusions': inclusions,
-  //       'Eligible Population': value.initialPopulation,
-  //       'Numerator': value.numerator,
-  //       'Denominator': value.denominator,
-  //       'Available Exclusions': value.exclusions
-  //     }
-  //     for (let [key, value] of Object.entries(columnValues)) {
-  //       const columnHeader = within(currentRow).getByLabelText(key)
-  //       expect(
-  //         within(columnHeader).getByText(value)
-  //       ).toBeTruthy()
-  //     }
-  //   })
-  // })
+  it('measure data renders', () => {
+    // CHECKING EACH ROW
+    Object.values(rowEntries.slice(0,9)).map((row, i) => {
+      const columnValues = {}
+
+      // CHECKING HEADERS AND WHAT EXPECTED VALUES ARE IN THEM -- COMPARE TO THIS OBJECT
+      Object.values(aabHeaderInfo).map((value, i) => {
+        const headerVal = value.header
+        columnValues[`${headerVal}`] = headerVal === 'MemberID' ? row.value : row[headerVal.toLowerCase()]
+      })
+
+      // GRABBING THE ACTUAL ROW
+      const currentRow = screen.getByLabelText(`${row.value} row`)
+
+      // FOR EACH COLUMN, LET US CHECK THE RENDERED VALUE VERSUS EXPECTED
+      for (let [key, value] of Object.entries(columnValues)) {
+        // GRAB THE COLUMN
+        const columnHeader = within(currentRow).getByLabelText(`${key} column`)
+
+        if (value.split('').length < 6) {
+          value = value == 'true'
+        }
+
+        if (typeof value === 'string') {
+          expect(
+            within(currentRow).getByText(value)
+          ).toBeTruthy()
+        } else if (value === true) {
+          expect(
+            within(currentRow).getByText('Matched')
+          ).toBeTruthy()
+        } else {
+          expect(
+            within(currentRow).getByText('Unmatched')
+          ).toBeTruthy()
+        }
+      }
+    })
+  })
+
 })
-
-// select measure opens up list and correct href -- list items? clicking not opening -- I blame MUI
