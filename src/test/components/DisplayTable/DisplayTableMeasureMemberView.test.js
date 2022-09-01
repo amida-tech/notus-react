@@ -1,11 +1,11 @@
 import {
-  render, screen, within, fireEvent, waitFor
+  render, screen, within, fireEvent, waitFor,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
 import DisplayTable from '../../../components/DisplayTable/DisplayTable';
 import {
-  resultList, aabHeaderInfo, selectedMeasures, colorMap, currentResults, rowEntries
+  resultList, aabHeaderInfo, selectedMeasures, colorMap, currentResults, rowEntries,
 } from '../../data/DemoData';
 import { datastore } from '../../data/datastore'
 
@@ -17,10 +17,9 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
   const mockHandleTabChange = jest.fn(() => false);
 
   // Display Table
-  const selectedRows = []
   const mockHandleCheckBoxChange = jest.fn(() => false);
 
-  let tableFilter = []
+  const tableFilter = []
 
   beforeEach(() => {
     render(
@@ -28,7 +27,7 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
         <DisplayTableContainer
           activeMeasure={resultList[1]}
           store={datastore}
-          tabValue={'members'}
+          tabValue="members"
           isComposite={false}
           headerInfo={aabHeaderInfo}
           selectedMeasures={[selectedMeasures[1]]}
@@ -47,10 +46,9 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
             useCheckBox
             selectedRows={[]}
             handleCheckBoxChange={mockHandleCheckBoxChange}
-          >
-          </DisplayTable>
+          />
         </DisplayTableContainer>
-      </BrowserRouter>
+      </BrowserRouter>,
     )
 
     const memberTab = screen.getByRole('tab', { name: 'Members' });
@@ -90,7 +88,7 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
   })
 
   it('headers and their tooltips render', async () => {
-    for (let value of Object.values(aabHeaderInfo)) {
+    for (const value of Object.values(aabHeaderInfo)) {
       expect(screen.getByText(value.header)).toBeTruthy()
       fireEvent.mouseOver(screen.getByText(value.header));
       await waitFor(() => screen.getByLabelText(value.tooltip))
@@ -107,15 +105,15 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
   })
 
   it('measure data renders', () => {
-    const stringToBool = (str) => { return str.split('').length > 5 ? str : JSON.parse(str) }
+    const stringToBool = (str) => (str.split('').length > 5 ? str : JSON.parse(str))
 
     // CHECKING EACH ROW
-    Object.values(rowEntries.slice(0,9)).map((row, i) => {
+    Object.values(rowEntries.slice(0, 9)).forEach((row) => {
       const columnValues = {}
 
       // CHECKING HEADERS AND WHAT EXPECTED VALUES ARE IN THEM -- COMPARE TO THIS OBJECT
-      Object.values(aabHeaderInfo).map((value) => {
-        const headerVal = value.header
+      Object.values(aabHeaderInfo).forEach((column) => {
+        const headerVal = column.header
         columnValues[`${headerVal}`] = headerVal === 'MemberID' ? row.value : row[headerVal.toLowerCase()]
       })
 
@@ -123,7 +121,7 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
       const currentRow = screen.getByLabelText(`${row.value} row`)
 
       // FOR EACH COLUMN, LET US CHECK THE RENDERED VALUE VERSUS EXPECTED
-      for (let [key, value] of Object.entries(columnValues)) {
+      for (const [key, value] of Object.entries(columnValues)) {
         // GRAB THE COLUMN
         const columnHeader = within(currentRow).getByLabelText(`${key} column`)
 
@@ -131,19 +129,18 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
 
         if (typeof newValue === 'string') {
           expect(
-            within(columnHeader).getByText(newValue)
+            within(columnHeader).getByText(newValue),
           ).toBeTruthy()
         } else if (newValue === true) {
           expect(
-            within(columnHeader).getByText('Matched')
+            within(columnHeader).getByText('Matched'),
           ).toBeTruthy()
         } else {
           expect(
-            within(columnHeader).getByText('Unmatched')
+            within(columnHeader).getByText('Unmatched'),
           ).toBeTruthy()
         }
       }
     })
   })
-
 })

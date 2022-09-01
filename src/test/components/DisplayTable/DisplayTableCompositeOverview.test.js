@@ -1,11 +1,11 @@
 import {
-  render, screen, within, fireEvent, waitFor
+  render, screen, within, fireEvent, waitFor,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
 import DisplayTable from '../../../components/DisplayTable/DisplayTable';
 import {
-  resultList, headerInfo, selectedMeasures, colorMap, currentResults
+  resultList, headerInfo, selectedMeasures, colorMap, currentResults,
 } from '../../data/DemoData';
 import { datastore } from '../../data/datastore'
 
@@ -26,7 +26,7 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
   const tableFilter = []
   const rowEntries = []
 
-  beforeEach( () => {
+  beforeEach(() => {
     render(
       <BrowserRouter>
         <DisplayTableContainer
@@ -51,10 +51,9 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
             useCheckBox
             selectedRows={selectedRows}
             handleCheckBoxChange={mockHandleCheckBoxChange}
-          >
-          </DisplayTable>
+          />
         </DisplayTableContainer>
-      </BrowserRouter>
+      </BrowserRouter>,
     )
     // The below code assists in loading states that aren't obviously controlled with a loading prop
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
@@ -95,7 +94,7 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
   })
 
   it('headers and their tooltips render', async () => {
-    for (let value of Object.values(headerInfo)) {
+    for (const value of Object.values(headerInfo)) {
       expect(screen.getByText(value.header)).toBeTruthy()
       fireEvent.mouseOver(screen.getByText(value.header));
       await waitFor(() => screen.getByLabelText(value.tooltip))
@@ -112,20 +111,20 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
   })
 
   it('measure data renders', () => {
-    Object.values(currentResults.slice(0,9)).map((value) => {
+    Object.values(currentResults.slice(0, 9)).forEach((value) => {
       const currentRow = screen.getByLabelText(`${value.measure} row`)
       const inclusions = parseInt(value.initialPopulation) - parseInt(value.exclusions)
       const columnValues = {
         'Remaining Inclusions': inclusions,
         'Eligible Population': value.initialPopulation,
-        'Numerator': value.numerator,
-        'Denominator': value.denominator,
-        'Available Exclusions': value.exclusions
+        Numerator: value.numerator,
+        Denominator: value.denominator,
+        'Available Exclusions': value.exclusions,
       }
-      for (let [key, value] of Object.entries(columnValues)) {
+      for (const [key, value] of Object.entries(columnValues)) {
         const columnHeader = within(currentRow).getByLabelText(key)
         expect(
-          within(columnHeader).getByText(value)
+          within(columnHeader).getByText(value),
         ).toBeTruthy()
       }
     })
