@@ -45,20 +45,6 @@ function DisplayTableContainer({
   setTableFilter,
   handleTabChange,
 }) {
-  // console.debug(
-  //   'woop there it is',
-  //   'selectedmea', selectedMeasures,
-  //   'currentres', currentResults,
-  //   'color', colorMap,
-  //   'rowen', rowEntries,
-  // )
-  // console.log(
-  //   'woop there it is',
-  //   'selectedmea', selectedMeasures,
-  //   'currentres', currentResults,
-  //   'color', colorMap,
-  //   'rowen', rowEntries,
-  // )
   return (
     <Grid className="d3-container__bottom-display">
       <Box className="d3-container__overview-member-chart">

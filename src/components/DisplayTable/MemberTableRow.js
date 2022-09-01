@@ -36,8 +36,6 @@ function MemberTableRow({
   rowDataItem, headerInfo,
 }) {
   const ciseCheck = headerInfo[1].header === 'CIS-E' ? 'cise' : 'member'
-  // console.log('headerInfo', headerInfo)
-  // console.debug('headerInfo', headerInfo)
 
   return (
     <Box className={`${ciseCheck}-table-row`}>
