@@ -90,7 +90,7 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
   })
 
   it('headers and their tooltips render', async () => {
-    for (let [key, value] of Object.entries(aabHeaderInfo)) {
+    for (let value of Object.values(aabHeaderInfo)) {
       expect(screen.getByText(value.header)).toBeTruthy()
       fireEvent.mouseOver(screen.getByText(value.header));
       await waitFor(() => screen.getByLabelText(value.tooltip))
@@ -125,22 +125,22 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
         // GRAB THE COLUMN
         const columnHeader = within(currentRow).getByLabelText(`${key} column`)
 
-        if (value.split('').length < 6) {
-          value = value == 'true'
-        }
-
-        if (typeof value === 'string') {
+        if (value === 'true' || value === 'false') {
+          if (value === 'true') {
+            expect(
+              within(columnHeader).getByText('Matched')
+            ).toBeTruthy()
+          } else {
+            expect(
+              within(columnHeader).getByText('Unmatched')
+            ).toBeTruthy()
+          }
+        } else if (typeof value === 'string') {
           expect(
             within(columnHeader).getByText(value)
           ).toBeTruthy()
-        } else if (value === true) {
-          expect(
-            within(columnHeader).getByText('Matched')
-          ).toBeTruthy()
         } else {
-          expect(
-            within(columnHeader).getByText('Unmatched')
-          ).toBeTruthy()
+          expect(false)
         }
       }
     })
