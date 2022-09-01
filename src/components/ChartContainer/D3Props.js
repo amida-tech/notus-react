@@ -189,8 +189,10 @@ export const currentResultsProps = PropTypes.arrayOf(
     value: PropTypes.number,
   }),
 )
-export const setSelectedMeasuresProps = PropTypes.func
-export const handleFilteredDataUpdateProps = PropTypes.func
+export const setMemberResultsProps = PropTypes.func;
+export const setRowEntriesProps = PropTypes.func;
+export const setSelectedMeasuresProps = PropTypes.func;
+export const handleFilteredDataUpdateProps = PropTypes.func;
 export const headerInfoProps = PropTypes.arrayOf(
   PropTypes.shape({
     key: PropTypes.string,

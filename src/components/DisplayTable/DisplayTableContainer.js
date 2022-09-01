@@ -67,7 +67,7 @@ function DisplayTableContainer({
               <Typography className="d3-container__selector-title">Detailed View:</Typography>
               <MeasureSelector
                 measure={activeMeasure.measure}
-                currentResults={store.currentResults}
+                currentResults={currentResults}
                 handleMeasureChange={handleSelectedMeasureChange}
               />
             </Grid>

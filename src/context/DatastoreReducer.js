@@ -79,7 +79,6 @@ export const DatastoreReducer = (state, action) => {
     case 'SET_RESULTS': {
       const workingList = {};
       const { results, info } = action.payload;
-      console.log("results", results)
       results.forEach((item) => {
         if (workingList[item.measure] === undefined
           || item.date > workingList[item.measure].date) {

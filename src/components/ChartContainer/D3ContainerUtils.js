@@ -92,10 +92,6 @@ export const createSubMeasureLabel = (subMeasure, info) => {
 }
 
 export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
-  console.log({
-    dailyMeasureResults,
-    measureInfo,
-  })
   const workingList = {};
   dailyMeasureResults.forEach((item) => {
     if (workingList[item.measure] === undefined

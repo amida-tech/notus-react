@@ -85,7 +85,6 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
 
     formattedData.push(formattedResult);
   });
-
   return filterByNonCompliance(formattedData, tableFilter);
 };
 
@@ -127,7 +126,6 @@ const filterByNonCompliance = (formattedData, tableFilter) => {
       counting(ns, filterVal)
     })
   }
-
   return filteredData
 }
 

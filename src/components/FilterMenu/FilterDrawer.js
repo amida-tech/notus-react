@@ -14,6 +14,10 @@ import {
   setFilterActivatedProps,
   additionalFilterOptionsProps,
   setIsLoadingProps,
+  setCompositeProps,
+  setMemberResultsProps,
+  setTableFilterProps,
+  setRowEntriesProps,
 } from '../ChartContainer/D3Props'
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemData from './FilterDrawerItemData';
@@ -28,6 +32,10 @@ function FilterDrawer({
   setFilterActivated,
   additionalFilterOptions,
   setIsLoading,
+  setComposite,
+  setMemberResults,
+  setTableFilter,
+  setRowEntries,
 }) {
   const [percentSliderValue, setPercentSliderValue] = useState(
     Array.from(currentFilters.percentRange),
@@ -48,7 +56,6 @@ function FilterDrawer({
   const [healthcarePractitionersChoices, setHealthcarePractitionersChoices] = useState(
     Array.from(currentFilters.healthcarePractitioners),
   );
-
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')
     ) {
@@ -57,6 +64,7 @@ function FilterDrawer({
     toggleFilterDrawer(open);
   };
   const handleResetFilter = () => {
+    setIsLoading(true)
     handleFilterChange({
       domainsOfCare: [],
       stars: [],
@@ -75,7 +83,7 @@ function FilterDrawer({
     setHealthcareCoverageChoices([]);
     setHealthcarePractitionersChoices([]);
     toggleFilterDrawer(false);
-    setFilterActivated(false);
+    window.location.reload();
   }
   const handlePayorChange = (event) => {
     if (event.target.checked) {
@@ -136,6 +144,10 @@ function FilterDrawer({
     setHealthcarePractitionersChoices(Array.from(currentFilters.healthcarePractitioners));
     toggleFilterDrawer(false);
     setFilterActivated(false);
+    setMemberResults([])
+    setTableFilter([])
+    setRowEntries([])
+    setComposite(true)
   }
 
   const handleApplyFilter = () => {
@@ -152,6 +164,7 @@ function FilterDrawer({
     filterOptions.sum = filterDrawerItemData.sumCalculator(filterOptions, additionalFilterOptions);
     handleFilterChange(filterOptions);
     toggleFilterDrawer(false);
+    setComposite(true)
   }
   const sliderValuetext = (value) => `${value}%`;
 
@@ -281,6 +294,10 @@ FilterDrawer.propTypes = {
   setFilterActivated: setFilterActivatedProps,
   additionalFilterOptions: additionalFilterOptionsProps,
   setIsLoading: setIsLoadingProps,
+  setComposite: setCompositeProps,
+  setMemberResults: setMemberResultsProps,
+  setTableFilter: setTableFilterProps,
+  setRowEntries: setRowEntriesProps,
 };
 
 FilterDrawer.defaultProps = {
@@ -300,6 +317,10 @@ FilterDrawer.defaultProps = {
   setFilterActivated: () => undefined,
   additionalFilterOptions: {},
   setIsLoading: () => undefined,
+  setComposite: () => undefined,
+  setMemberResults: () => undefined,
+  setTableFilter: () => undefined,
+  setRowEntries: () => undefined,
 }
 
 export default FilterDrawer;
