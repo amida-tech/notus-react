@@ -276,6 +276,8 @@ export default function Dashboard() {
     && displayDataCheck
     && resultsCheck) {
       setFilterActivated(true)
+    } else {
+      setFilterActivated(false)
     }
   }, [filterInfo])
   // If control needs to be shared across multiple components,
@@ -384,7 +386,38 @@ export default function Dashboard() {
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
-
+  const handleResetData = () => {
+    const baseColorMap = datastore.currentResults.map((item, index) => ({
+      value: item.measure,
+      color: index <= 11 ? datastore.chartColorArray[index] : datastore.chartColorArray[index % 11],
+    }));
+    setCurrentTimeline(datastore.defaultTimelineState);
+    setCurrentFilters(datastore.defaultFilterState);
+    if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
+      setComposite(true);
+      setCurrentResults(datastore.currentResults);
+      setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
+      setDisplayData(datastore.results.map((result) => ({ ...result })));
+      setColorMap(baseColorMap);
+      setFilterDisabled(false);
+      setMemberResults([]);
+      setTableFilter([]);
+      setRowEntries([])
+      setHeaderInfo(MeasureTable.headerData(true));
+    } else {
+      setComposite(false);
+      const subMeasureCurrentResults = getSubMeasureCurrentResults(activeMeasure, datastore);
+      setDisplayData(expandSubMeasureResults(activeMeasure, datastore));
+      setCurrentResults(subMeasureCurrentResults);
+      setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
+      setColorMap(ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults));
+      setFilterDisabled(true);
+      setMemberResults([]);
+      setTableFilter([]);
+      setRowEntries([])
+      setHeaderInfo(MeasureTable.headerData(false));
+    }
+  }
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -424,6 +457,8 @@ export default function Dashboard() {
                     setIsLoading={setIsLoading}
                     setMemberResults={setMemberResults}
                     setRowEntries={setRowEntries}
+                    handleResetData={handleResetData}
+                    setFilterInfo={setFilterInfo}
                   />
                 )}
             </Grid>

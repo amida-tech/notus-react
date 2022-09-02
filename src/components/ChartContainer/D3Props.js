@@ -26,7 +26,8 @@ export const defaultActiveMeasure = {
   starRating: 0,
   title: '',
 };
-
+export const setFilterInfoProps = PropTypes.func;
+export const handleResetDataProps = PropTypes.func;
 export const filterDrawerOpenProps = PropTypes.bool;
 export const dashboardStateProps = PropTypes.shape({
 });

@@ -30,10 +30,12 @@ import {
   colorMapProps,
   graphWidthProps,
   setMemberResultsProps,
+  handleResetDataProps,
   setRowEntriesProps,
   setFilterActivatedProps,
   setIsLoadingProps,
   additionalFilterOptionsProps,
+  setFilterInfoProps,
 } from './D3Props';
 
 export const firstRenderContext = createContext(true);
@@ -78,6 +80,8 @@ function D3Container({
   additionalFilterOptions,
   setMemberResults,
   setRowEntries,
+  handleResetData,
+  setFilterInfo,
 }) {
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
@@ -101,6 +105,8 @@ function D3Container({
         setMemberResults={setMemberResults}
         setTableFilter={setTableFilter}
         setRowEntries={setRowEntries}
+        handleResetData={handleResetData}
+        setFilterInfo={setFilterInfo}
       />
       <ChartHeader
         isComposite={isComposite}
@@ -163,6 +169,8 @@ D3Container.propTypes = {
   additionalFilterOptions: additionalFilterOptionsProps,
   setMemberResults: setMemberResultsProps,
   setRowEntries: setRowEntriesProps,
+  handleResetData: handleResetDataProps,
+  setFilterInfo: setFilterInfoProps,
 };
 
 D3Container.defaultProps = {
@@ -192,6 +200,8 @@ D3Container.defaultProps = {
   additionalFilterOptions: {},
   setMemberResults: () => undefined,
   setRowEntries: () => undefined,
+  handleResetData: () => undefined,
+  setFilterInfo: () => undefined,
 };
 
 export default D3Container;

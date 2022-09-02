@@ -18,6 +18,8 @@ import {
   setMemberResultsProps,
   setTableFilterProps,
   setRowEntriesProps,
+  handleResetDataProps,
+  setFilterInfoProps,
 } from '../ChartContainer/D3Props'
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemData from './FilterDrawerItemData';
@@ -36,6 +38,8 @@ function FilterDrawer({
   setMemberResults,
   setTableFilter,
   setRowEntries,
+  handleResetData,
+  setFilterInfo,
 }) {
   const [percentSliderValue, setPercentSliderValue] = useState(
     Array.from(currentFilters.percentRange),
@@ -83,7 +87,15 @@ function FilterDrawer({
     setHealthcareCoverageChoices([]);
     setHealthcarePractitionersChoices([]);
     toggleFilterDrawer(false);
-    window.location.reload();
+    setFilterActivated(false)
+    setFilterInfo({
+      members: [],
+      currentResults: [],
+      displayData: [],
+      results: [],
+      filters: {},
+    })
+    handleResetData()
   }
   const handlePayorChange = (event) => {
     if (event.target.checked) {
@@ -298,6 +310,8 @@ FilterDrawer.propTypes = {
   setMemberResults: setMemberResultsProps,
   setTableFilter: setTableFilterProps,
   setRowEntries: setRowEntriesProps,
+  handleResetData: handleResetDataProps,
+  setFilterInfo: setFilterInfoProps,
 };
 
 FilterDrawer.defaultProps = {
@@ -321,6 +335,8 @@ FilterDrawer.defaultProps = {
   setMemberResults: () => undefined,
   setTableFilter: () => undefined,
   setRowEntries: () => undefined,
+  handleResetData: () => undefined,
+  setFilterInfo: () => undefined,
 }
 
 export default FilterDrawer;
