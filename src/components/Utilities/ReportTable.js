@@ -60,6 +60,14 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
   const measureData = memberData[memberData.memberId];
   const measureList = Object.keys(storeInfo).filter((key) => key.includes(selectedMeasure));
 
+  const practitionerFinder = memberData.providers.filter((pro) => pro.reference.includes('Practitioner')).map((prac, index) => {
+    if (index === 0) {
+      return prac.display
+    }
+    return ` ${prac.display}`
+  })
+  console.log(memberData)
+  
   const formattedData = [];
   formattedData.push({
     value: measureList[0],
@@ -68,6 +76,7 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
     status: complianceResult.every((entry) => entry),
     exclusions: measureData.Exclusions,
     practitioner: 'N/A',
+    // practitioner: practitionerFinder.toString(),
     dates: 'N/A',
     conditions: 'N/A',
     recommendations: 'N/A',

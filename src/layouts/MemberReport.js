@@ -47,7 +47,6 @@ function MemberReport({ id, memberInfoFetch, loading }) {
     }
     fetchData()
   }, [id, memberInfoFetch]);
-
   return (
     !isLoading
       ? (
