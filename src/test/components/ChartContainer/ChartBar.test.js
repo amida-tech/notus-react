@@ -18,7 +18,7 @@ describe('D3 Container: Chart bar', () => {
         null
     ]
   }
-  const handleTimelineChange = jest.fn(() => false)
+  const mockHandleTimelineChange = jest.fn(() => false)
   const filterDisabled = false
 
   beforeEach(() => {
@@ -29,7 +29,7 @@ describe('D3 Container: Chart bar', () => {
           toggleFilterDrawer={mockToggleFilterDrawer}
           filterSum={filterSum}
           currentTimeline={currentTimeline}
-          handleTimelineChange={handleTimelineChange}
+          handleTimelineChange={mockHandleTimelineChange}
           filterDisabled={filterDisabled}
         >
           <LocalizationProvider
@@ -66,6 +66,7 @@ describe('D3 Container: Chart bar', () => {
       const dropdownMenu = screen.getByRole('menu')
       expect(within(dropdownMenu).getByText(key)).toBeTruthy()
       fireEvent.click(within(dropdownMenu).getByText(key))
+      expect(mockHandleTimelineChange).toHaveBeenCalled()
     })
   })
 
