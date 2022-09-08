@@ -9,7 +9,7 @@ import AdapterMoment from '@mui/lab/AdapterMoment'
 
 describe('D3 Container: Chart bar', () => {
   const filterDrawerOpen = false
-  const toggleFilterDrawer = jest.fn(() => false)
+  const mockToggleFilterDrawer = jest.fn(() => false)
   const filterSum = 0
   const currentTimeline = {
     "choice": "all",
@@ -26,7 +26,7 @@ describe('D3 Container: Chart bar', () => {
       <ThemeProvider theme={theme}>
         <ChartBar
           filterDrawerOpen={filterDrawerOpen}
-          toggleFilterDrawer={toggleFilterDrawer}
+          toggleFilterDrawer={mockToggleFilterDrawer}
           filterSum={filterSum}
           currentTimeline={currentTimeline}
           handleTimelineChange={handleTimelineChange}
@@ -55,17 +55,22 @@ describe('D3 Container: Chart bar', () => {
     const timelineOptions = {
       'All Available': 'All',
       'Last 30 Days': '30 Days',
-      // 'Last 60 Days': '60 Days',
-      // 'Last 90 Days': '90 Days',
-      // 'Year to Date': 'YTD Days'
+      'Last 60 Days': '60 Days',
+      'Last 90 Days': '90 Days',
+      'Year to Date': 'YTD Days'
     }
 
-    Object.entries(timelineOptions).forEach(([key, value]) => {
+    Object.keys(timelineOptions).forEach((key) => {
       const timelineBtn = screen.getByRole('button', { name: `Timeline: All` })
       fireEvent.click(timelineBtn)
       const dropdownMenu = screen.getByRole('menu')
       expect(within(dropdownMenu).getByText(key)).toBeTruthy()
       fireEvent.click(within(dropdownMenu).getByText(key))
     })
+  })
+
+  it('Filter button shows proper options', () => {
+    fireEvent.click(screen.getByRole('button', { name: 'Filter' }))
+    expect(mockToggleFilterDrawer).toHaveBeenCalled()
   })
 })
