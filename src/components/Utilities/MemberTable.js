@@ -50,6 +50,7 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   memberResults.forEach((memberResult) => {
     const memberResultArray = [];
     const complianceResult = getMeasureCompliance(memberResult);
+    console.log({ complianceResult })
     if (complianceResult.length === 1) {
       memberResultArray.push({
         memberID: memberResult.memberId,
