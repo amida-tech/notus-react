@@ -193,7 +193,7 @@ export default function Dashboard() {
   const handleFilteredDataUpdate = (measures, filters, timeline) => {
     let newDisplayData = isComposite
       ? datastore.results.map((result) => ({ ...result }))
-      : expandSubMeasureResults(activeMeasure, datastore);
+      : expandSubMeasureResults(activeMeasure, datastore.results);
     newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
     if (filters.domainsOfCare.length > 0) {
       newDisplayData = filterByDOC(newDisplayData, filters, datastore);
