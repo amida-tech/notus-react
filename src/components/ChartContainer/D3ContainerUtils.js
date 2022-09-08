@@ -38,9 +38,9 @@ export function filterByTimeline(timelineDisplayData, timeline) {
   return timelineDisplayData;
 }
 
-export function expandSubMeasureResults(selectedMeasure, store) {
+export function expandSubMeasureResults(selectedMeasure, results) {
   const expandedResults = [];
-  store.results.filter(
+  results.filter(
     (result) => result.measure === selectedMeasure.measure,
   ).forEach((byLine) => {
     expandedResults.push(byLine);
