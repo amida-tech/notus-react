@@ -6,7 +6,7 @@ import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil'
 import {
   exportUrl, memberId, memberInfo, rowData,
 } from '../../data/DemoData';
-import { datastore } from '../../data/datastore'
+import { default as datastore } from '../../data/datastore'
 
 describe('Member view page', () => {
   beforeEach(async () => {

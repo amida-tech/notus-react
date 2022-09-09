@@ -1,4 +1,4 @@
-export const datastore = {
+export default {
   results: [
     {
       measure: 'aab',
