@@ -1,22 +1,22 @@
 import {
-  render, screen, fireEvent, within
+  render, screen, fireEvent, within,
 } from '@testing-library/react';
-import ChartBar from '../../../components/ChartContainer/ChartBar';
 import { ThemeProvider } from '@emotion/react';
-import theme from '../../../assets/styles/AppTheme'
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterMoment from '@mui/lab/AdapterMoment'
+import theme from '../../../assets/styles/AppTheme'
+import ChartBar from '../../../components/ChartContainer/ChartBar';
 
 describe('D3 Container: Chart bar', () => {
   const filterDrawerOpen = false
   const mockToggleFilterDrawer = jest.fn(() => false)
   const filterSum = 0
   const currentTimeline = {
-    "choice": "all",
-    "range": [
-        null,
-        null
-    ]
+    choice: 'all',
+    range: [
+      null,
+      null,
+    ],
   }
   const mockHandleTimelineChange = jest.fn(() => false)
   const filterDisabled = false
@@ -34,11 +34,9 @@ describe('D3 Container: Chart bar', () => {
         >
           <LocalizationProvider
             dateAdapter={AdapterMoment}
-          >
-
-          </LocalizationProvider>
+          />
         </ChartBar>
-      </ThemeProvider>
+      </ThemeProvider>,
     )
   })
 
@@ -48,7 +46,7 @@ describe('D3 Container: Chart bar', () => {
     buttonLabels.forEach((label, i) => {
       const button = screen.getAllByRole('button')[i]
       expect(button.textContent).toBe(label)
-    }) 
+    })
   })
 
   it('Timeline button shows timeline options and updates', () => {
@@ -57,11 +55,11 @@ describe('D3 Container: Chart bar', () => {
       'Last 30 Days': '30 Days',
       'Last 60 Days': '60 Days',
       'Last 90 Days': '90 Days',
-      'Year to Date': 'YTD Days'
+      'Year to Date': 'YTD Days',
     }
 
     Object.keys(timelineOptions).forEach((key) => {
-      const timelineBtn = screen.getByRole('button', { name: `Timeline: All` })
+      const timelineBtn = screen.getByRole('button', { name: 'Timeline: All' })
       fireEvent.click(timelineBtn)
       const dropdownMenu = screen.getByRole('menu')
       expect(within(dropdownMenu).getByText(key)).toBeTruthy()
