@@ -29,6 +29,8 @@ import DisplayTable from './DisplayTable';
 import MeasureSelector from '../Common/MeasureSelector';
 import MeasureTableRow from './MeasureTableRow';
 
+// TODO: REMOVE DEFAULT COLOR LOGIC
+
 function DisplayTableContainer({
   activeMeasure,
   store,
