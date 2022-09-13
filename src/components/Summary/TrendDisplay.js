@@ -13,14 +13,17 @@ function TrendDisplay({ trend, percentWidth }) {
 
   let trendClass = '';
   let trendValue = 'N/A';
-  if (trend.percentChange !== undefined) {
+  if (trend.percentChange !== undefined && trend.percentChange !== null) {
     if (trend.percentChange >= 0) {
       trendClass = 'trend-display__percent-change--positive';
-      trendValue = `+${trend.percentChange} %`
+      trendValue = `+${trend.percentChange}%`
     } else {
       trendClass = 'trend-display__percent-change--negative';
-      trendValue = `-${Math.abs(trend.percentChange)} %`
+      trendValue = `-${Math.abs(trend.percentChange)}%`
     }
+  } else {
+    trendClass = 'trend-display__percent-change--positive';
+    trendValue = '+0%';
   }
 
   return (
@@ -29,7 +32,7 @@ function TrendDisplay({ trend, percentWidth }) {
         {`${trend.measure} Score % Change`}
       </Typography>
       <Typography className={`trend-display__percent-change ${trendClass}`}>
-        { trendValue }
+        {trendValue}
       </Typography>
       <Typography>
         (over the past week)
