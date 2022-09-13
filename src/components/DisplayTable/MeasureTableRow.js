@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import {
-  Grid, Box, Typography,
+  Grid, Box, Typography, Link,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import CheckBoxCell from './CheckBoxCell';
 import Alert from '../Utilities/Alert'
@@ -58,7 +57,7 @@ function MeasureTableRow({
                     >
                       <Typography variant="caption" className="measure-table-row__data">
                         <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
-                          <Link to={{ pathname: `/${rowDataItem.value}` }}>
+                          <Link href={{ pathname: `/${rowDataItem.value}` }}>
                             {rowDataItem[fieldInfo.key]}
                           </Link>
                         </Tooltip>
