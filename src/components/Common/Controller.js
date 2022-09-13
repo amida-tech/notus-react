@@ -36,3 +36,34 @@ export async function validateAccessToken(accessToken) {
   }
   return false
 }
+// Filter Search
+export async function filterSearch(searchMeasure, searchArray, isComposite) {
+  try {
+    const searchObject = {
+      submeasure: isComposite ? false : searchMeasure,
+      filters: searchArray,
+      isComposite,
+    }
+    const filterSearchURL = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}/filter`)
+    const filterResults = await axios.post(filterSearchURL, searchObject).then((res) => res.data)
+    if (filterResults.status === 'Success') {
+      const { members, dailyMeasureResults } = filterResults
+      return {
+        status: filterResults.status,
+        members,
+        dailyMeasureResults,
+      }
+    }
+    return {
+      status: 'Failed',
+      members: [],
+      dailyMeasureResults: [],
+    }
+  } catch (error) {
+    return {
+      status: 'Failed',
+      members: [],
+      dailyMeasureResults: [],
+    }
+  }
+}

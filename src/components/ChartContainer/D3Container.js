@@ -131,7 +131,7 @@ function D3Container({
       </Grid>
       <Grid className="d3-container__main-chart">
         <D3Chart
-          displayData={displayData}
+          displayData={displayData.filter((result) => selectedMeasures.includes(result.measure))}
           colorMapping={colorMap}
           measureInfo={store.info}
           graphWidth={graphWidth}
