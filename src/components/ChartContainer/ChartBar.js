@@ -79,6 +79,8 @@ function ChartBar({
     handleTimelineChange(newDateSetting);
   }
 
+  const timelineCaption = `Timeline: ${timelineLabel(currentTimeline.choice)}`
+
   return (
     <Box className="chart-bar">
       <Grid container direction="row" justifyContent="flex-end" spacing={0.1}>
@@ -91,8 +93,7 @@ function ChartBar({
             startIcon={<DateRangeIcon />}
           >
             <Typography variant="caption">
-              Timeline:&nbsp;
-              {timelineLabel(currentTimeline.choice)}
+              {timelineCaption}
             </Typography>
           </Button>
           <Menu
