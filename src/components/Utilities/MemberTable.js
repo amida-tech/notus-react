@@ -77,9 +77,19 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
     if (memberResultArray.length === 1) {
       formattedResult[subMeasures[0]] = memberResultArray[0].value.toString()
     } else {
+      // console.log({ memberResultArray })
+      // console.log(allValuesEqual(memberResultArray))
+      // console.log(allValuesEqual(memberResultArray).toString())
+
       formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
+      // console.log(formattedResult[subMeasures[0]])
+      // console.log(subMeasures.length)
+      // console.log(subMeasures)
       for (let k = 1; k < subMeasures.length; k += 1) {
+        // console.log("IN FoR LOOP", memberResultArray[k - 1])
+        // if (formattedResult[subMeasures[k]]) {
         formattedResult[subMeasures[k]] = memberResultArray[k - 1].value.toString();
+        // }
       }
     }
 
