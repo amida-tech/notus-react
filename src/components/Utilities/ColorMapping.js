@@ -11,7 +11,7 @@ const ColorMapping = (allResults, displayData) => {
     '#AA4499',
     '#44AA99',
     '#999933',
-    '#888888',
+    '#555555',
     '#661100',
     '#6699CC'
   ];
@@ -56,7 +56,7 @@ const ColorMapping = (allResults, displayData) => {
       value: baseMeasure,
       color: baseMeasureColor
     })
-    displayData.splice(0, 1)
+    displayData.slice(0, 1)
 
     // ADD SUBMEASURES WITH MODIFIED COLOURS
     displayData.forEach((category, idx) => {

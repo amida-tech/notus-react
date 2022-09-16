@@ -102,6 +102,7 @@ export default function Dashboard() {
       setDisplayData(expandSubMeasureResults(activeMeasure, datastore));
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
+      console.log('subMeasureCurrentResults', subMeasureCurrentResults)
       setColorMap(ColorMapping(datastore.currentResults, subMeasureCurrentResults));
       setFilterDisabled(true);
       setMemberResults([]);
