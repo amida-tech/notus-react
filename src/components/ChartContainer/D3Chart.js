@@ -5,8 +5,6 @@ import { useEffect, useRef } from 'react';
 import { TickChange, TimelineOptions } from '../Utilities/ChartUtil';
 import { colorMappingProps } from './D3Props';
 
-// TODO: REMOVE DEFAULT COLOR LOGIC
-
 function D3Chart({
   displayData, colorMapping, measureInfo, graphWidth, currentTimeline,
 }) {
