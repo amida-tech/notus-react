@@ -23,7 +23,6 @@ function TrendDisplay({ trend, percentWidth }) {
     }
   } else {
     trendClass = 'trend-display__percent-change--positive';
-    trendValue = '+0%';
   }
 
   return (
