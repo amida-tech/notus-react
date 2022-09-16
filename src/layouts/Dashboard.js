@@ -109,6 +109,7 @@ export default function Dashboard() {
       setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(false));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setTableFilter, history, activeMeasure, isComposite, datastore]);
 
   useEffect(() => {
