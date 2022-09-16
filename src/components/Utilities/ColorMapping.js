@@ -14,20 +14,22 @@ const ColorMapping = (allResults, displayData) => {
     '#888888',
     '#661100',
     '#6699CC',
-    // NOT APPROVED BELOW THIS LINE
-    '#FB0505',
-    '#FB9C05',
-    '#E4DB05',
-    '#D0FB05',
-    '#9AFB05',
-    '#05FB7B',
-    '#05FBF9',
-    '#057EFB',
-    '#0516FB',
-    '#5205FB',
-    '#BE05FB',
-    '#FB05D6',
-    '#FB0566',
+    // REPEATING BELOW
+    '#88CCEE',
+    '#CC6677',
+    '#DDCC77',
+    '#117733',
+    '#332288',
+    '#AA4499',
+    '#44AA99',
+    '#999933',
+    '#888888',
+    '#661100',
+    '#6699CC',
+    '#88CCEE',
+    '#CC6677',
+    '#DDCC77',
+    '#117733',
   ];
 
   const baseColors = []
@@ -37,15 +39,15 @@ const ColorMapping = (allResults, displayData) => {
 
   const distortColor = (color, idx) => {
     if (idx <= 3) {
-      return tinycolor(color).brighten(idx * 15).spin(10).toString()
+      return tinycolor(color).brighten(idx * 15).spin(idx * 10).toString()
     } else if (idx <= 6) {
-      return tinycolor(color).darken(idx * 5).spin(10).toString()
+      return tinycolor(color).darken((idx % 3) * 15).spin((idx % 3) * 15).toString()
     } else if (idx <= 9) {
-      return tinycolor(color).saturate(idx * 5).spin(10).toString()
+      return tinycolor(color).brighten((idx % 3) * 15).spin((idx % 3) * -15).toString()
     } else if (idx <= 12) {
-      return tinycolor(color).desaturate(idx * 2).spin(10).toString()
+      return tinycolor(color).darken((idx % 3) * 15).saturate((idx % 3) * 10).spin((idx % 3) * -15).toString()
     } else if (idx <= 15) {
-      return tinycolor(color).darken(idx * 2).saturate(i * 2).spin(10).toString()
+      return tinycolor(color).lighten((idx % 3) * 15).spin((idx % 3) * -25).toString()
     } else {
       return color
     }
@@ -80,6 +82,7 @@ const ColorMapping = (allResults, displayData) => {
       })
     })
   }
+  console.log('byMeasureColorMap', byMeasureColorMap)
   return byMeasureColorMap;
 };
 
