@@ -13,16 +13,14 @@ function TrendDisplay({ trend, percentWidth }) {
 
   let trendClass = '';
   let trendValue = 'N/A';
-  if (trend.percentChange !== undefined && trend.percentChange !== null) {
+  if (trend.percentChange !== undefined) {
     if (trend.percentChange >= 0) {
       trendClass = 'trend-display__percent-change--positive';
-      trendValue = `+${trend.percentChange}%`
+      trendValue = `+${trend.percentChange} %`
     } else {
       trendClass = 'trend-display__percent-change--negative';
-      trendValue = `-${Math.abs(trend.percentChange)}%`
+      trendValue = `-${Math.abs(trend.percentChange)} %`
     }
-  } else {
-    trendClass = 'trend-display__percent-change--positive';
   }
 
   return (
