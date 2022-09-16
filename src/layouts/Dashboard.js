@@ -90,7 +90,7 @@ export default function Dashboard() {
       setDisplayData(datastore.results.map((result) => ({ ...result })));
       setCurrentResults(datastore.currentResults);
       setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
-      setColorMap(ColorMapping());
+      setColorMap(ColorMapping(currentResults));
       setFilterDisabled(false);
       setMemberResults([]);
       setTableFilter([]);
@@ -102,7 +102,7 @@ export default function Dashboard() {
       setDisplayData(expandSubMeasureResults(activeMeasure, datastore));
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
-      setColorMap(ColorMapping(subMeasureCurrentResults));
+      setColorMap(ColorMapping(datastore.currentResults, subMeasureCurrentResults));
       setFilterDisabled(true);
       setMemberResults([]);
       setTableFilter([]);

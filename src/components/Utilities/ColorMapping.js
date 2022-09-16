@@ -1,102 +1,9 @@
-const ColorMapping = (displayData) => {
-  const colorMapping = [
-    {
-      value: 'composite',
-      color: '#88CCEE',
-    },
-    {
-      value: 'aab',
-      color: '#CC6677',
-    },
-    {
-      value: 'adde',
-      color: '#DDCC77',
-    },
-    {
-      value: 'aise',
-      color: '#117733',
-    },
-    {
-      value: 'apme',
-      color: '#332288',
-    },
-    {
-      value: 'asfe',
-      color: '#AA4499',
-    },
-    {
-      value: 'bcse',
-      color: '#44AA99',
-    },
-    {
-      value: 'ccs',
-      color: '#999933',
-    },
-    {
-      value: 'cise',
-      color: '#661100',
-    },
-    {
-      value: 'cole',
-      color: '#6699CC',
-    },
-    {
-      value: 'cou',
-      color: '#888888',
-    },
-    {
-      value: 'cwp',
-      color: '#000000',
-    },
-    {
-      value: 'dmse',
-      color: '#CC6677',
-    },
-    {
-      value: 'drre',
-      color: '#DDCC77',
-    },
-    {
-      value: 'dsfe',
-      color: '#117733',
-    },
-    {
-      value: 'fum',
-      color: '#332288',
-    },
-    {
-      value: 'imae',
-      color: '#AA4499',
-    },
-    {
-      value: 'pdse',
-      color: '#44AA99',
-    },
-    {
-      value: 'pnde',
-      color: '#999933',
-    },
-    {
-      value: 'prse',
-      color: '#661100',
-    },
-    {
-      value: 'psa',
-      color: '#6699CC',
-    },
-    {
-      value: 'uop',
-      color: '#888888',
-    },
-    {
-      value: 'uri',
-      color: '#88CCEE',
-    },
-  ]
+import tinycolor from 'tinycolor2'
 
-  if (!displayData) {
-    return colorMapping
-  }
+const ColorMapping = (allResults, displayData) => {
+  console.log('>>>>>>>>>>>>>>COLOR MAPPING START>>>>>>>>>>>>>>>>.')
+  // console.log('all measures:', allResults)
+  // console.log('measures to be  coloured:', displayData)
 
   const chartColorArray = [
     '#88CCEE',
@@ -110,37 +17,81 @@ const ColorMapping = (displayData) => {
     '#661100',
     '#6699CC',
     '#888888',
+    // NOT APPROVED BELOW THIS LINE
+    '#FB0505',
+    '#FB9C05',
+    '#E4DB05',
+    '#D0FB05',
+    '#9AFB05',
+    '#05FB7B',
+    '#05FBF9',
+    '#057EFB',
+    '#0516FB', // APME
+    '#5205FB',
+    '#BE05FB',
+    '#FB05D6',
+    '#FB0566',
   ];
 
-  // console.log('displayData:', displayData)
+  const baseColors = []
+  const byMeasureColorMap = [];
 
-  const measureList = [];
-  // Get base measure and filter out the mapped color
-  const baseMeasure = displayData[0].measure;
-  const filteredColorArray = chartColorArray.filter(
-    (color) => color !== colorMapping.find((mapping) => mapping.value === baseMeasure).color,
-  );
+  const colorBySeed = (seed) => chartColorArray.pop(seed.split('').length, 1)
 
-  // Create list of measures from subscores (if needed)
-  if (displayData[0].subScores && displayData[0].subScores.length > 1) {
-    displayData[0].subScores.forEach((subScore) => measureList.push(subScore.measure));
+  const distortColor = (color, idx) => {
+    if (idx <= 3) {
+      return tinycolor(color).brighten(idx * 15).spin(10).toString()
+    } else if (idx <= 6) {
+      return tinycolor(color).darken(idx * 5).spin(10).toString()
+    } else if (idx <= 9) {
+      return tinycolor(color).saturate(idx * 5).spin(10).toString()
+    } else if (idx <= 12) {
+      return tinycolor(color).desaturate(idx * 2).spin(10).toString()
+    } else if (idx <= 15) {
+      return tinycolor(color).darken(idx * 2).saturate(i * 2).spin(10).toString()
+    } else {
+      return color
+    }
   }
 
-  // Generate colormap for subscores
-  const byMeasureColorMap = measureList.map((item, index) => ({
-    value: item,
-    color: index <= 10 ? filteredColorArray[index] : filteredColorArray[index % 10],
-  }));
+  // CREATES COLOR MAP FOR ALL CURRENT MEASURES
+  allResults.forEach((category) => {
+    baseColors.push({
+      value: category.measure,
+      color: colorBySeed(category.measure)
+    })
+  })
 
-  // Add in base measure and it's originally mapped color
-  measureList.unshift(baseMeasure);
-  byMeasureColorMap.unshift({
-    value: baseMeasure,
-    color: colorMapping.find((mapping) => mapping.value === baseMeasure).color,
-  });
+  // HANDLES COMPOSITE VIEW
+  if (!displayData || displayData.length === 0) {
+    // console.log('base colors for all measures:', baseColors)
+    return baseColors
+  } else {
+    // HANDLES MEASURE VIEW
+    // SEARCH FOR BASE COLOR OF MEASURE
+    const baseMeasure = displayData[0].measure
+    const baseMeasureColor = baseColors.find((mapping) => mapping.value === baseMeasure).color
 
-  console.log('color map return:', byMeasureColorMap)
+    // ADD MEASURE WITH BASE COLOR
+    byMeasureColorMap.push({
+      value: baseMeasure,
+      color: baseMeasureColor
+    })
+    displayData.splice(0, 1)
 
+    // console.log('time to color:', chartColorArray, displayData)
+
+    // ADD SUBMEASURES WITH MODIFIED COLOURS
+    displayData.forEach((category, idx) => {
+      // console.log('time to assign a color', category)
+      byMeasureColorMap.push({
+        value: category.measure,
+        color: distortColor(baseMeasureColor, idx)
+      })
+    })
+  }
+  // console.log('color map return:', byMeasureColorMap)
+  console.log('byMeasureColorMap', byMeasureColorMap)
   return byMeasureColorMap;
 };
 
