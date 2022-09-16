@@ -36,6 +36,7 @@ import {
   setIsLoadingProps,
   additionalFilterOptionsProps,
   setFilterInfoProps,
+  handleResetProps
 } from './D3Props';
 
 export const firstRenderContext = createContext(true);
@@ -82,14 +83,15 @@ function D3Container({
   setRowEntries,
   handleResetData,
   setFilterInfo,
+  handleReset,
 }) {
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
-    handleFilteredDataUpdate(selectedMeasures, filterOptions, currentTimeline);
+    handleFilteredDataUpdate(filterOptions, currentTimeline);
   }
   const handleTimelineChange = (timelineUpdate) => {
     setCurrentTimeline(timelineUpdate);
-    handleFilteredDataUpdate(selectedMeasures, currentFilters, timelineUpdate);
+    handleFilteredDataUpdate(currentFilters, timelineUpdate);
   }
   return (
     <div className="d3-container">
@@ -118,6 +120,8 @@ function D3Container({
         labelGenerator={labelGenerator}
         currentResults={currentResults}
         activeMeasure={activeMeasure}
+        setMemberResults={setMemberResults}
+        handleReset={handleResetData}
       />
       <Grid item className="d3-container__chart-bar">
         <ChartBar
@@ -171,6 +175,7 @@ D3Container.propTypes = {
   setRowEntries: setRowEntriesProps,
   handleResetData: handleResetDataProps,
   setFilterInfo: setFilterInfoProps,
+  handleReset: handleResetProps,
 };
 
 D3Container.defaultProps = {
@@ -202,6 +207,7 @@ D3Container.defaultProps = {
   setRowEntries: () => undefined,
   handleResetData: () => undefined,
   setFilterInfo: () => undefined,
+  handleReset: () => undefined,
 };
 
 export default D3Container;

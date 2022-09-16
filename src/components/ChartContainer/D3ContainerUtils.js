@@ -63,6 +63,18 @@ export function getSubMeasureCurrentResults(activeMeasure, currentResults) {
   }
   return subMeasureCurrentResults;
 }
+export function getSubMeasureCurrentResultsPerMeasure(givenMeasure, currentResults) {
+  let subMeasureCurrentResults = [];
+  const subMeasurePrime = currentResults.find(
+    (item) => item.measure === givenMeasure,
+  );
+  if (subMeasurePrime.subScores && subMeasurePrime.subScores.length > 1) {
+    subMeasureCurrentResults = [subMeasurePrime, ...subMeasurePrime.subScores];
+  } else {
+    subMeasureCurrentResults = [subMeasurePrime];
+  }
+  return subMeasureCurrentResults;
+}
 export const createLabel = (measure, info) => {
   if (info[measure]) {
     return `${info[measure].displayLabel} - ${info[measure].title}`

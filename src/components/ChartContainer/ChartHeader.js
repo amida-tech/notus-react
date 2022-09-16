@@ -4,6 +4,7 @@ import { Grid, Typography } from '@mui/material';
 
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { setMemberResultsProps } from './D3Props';
 
 function ChartHeader({
   isComposite,
@@ -15,6 +16,9 @@ function ChartHeader({
   labelGenerator,
   currentResults,
   activeMeasure,
+  setMemberResults,
+  handleReset,
+  filterCurrentResultsLength,
 }) {
   const allMeasureText = (
     <Grid className="d3-container__return-title-display">
@@ -24,11 +28,26 @@ function ChartHeader({
   const allMeasureTextWithLinks = (
     <Grid
       className="d3-container__return-link-display"
+      // onClick={() => {
+      //   if (filterCurrentResultsLength > 0) {
+      //     setComposite(true);
+      //     setTabValue('overview');
+      //     setMemberResults([])
+      //     setTableFilter([]);
+      //   } else {
+      //     setComposite(true);
+      //     setTabValue('overview');
+      //     setTableFilter([]);
+      //   }
+      //   history.push('/');
+      // }}
       onClick={() => {
-        setComposite(true);
-        setTabValue('overview');
-        setTableFilter([]);
+        // setComposite(true);
+        // setTabValue('overview');
+        // setTableFilter([]);
+        handleReset()
         history.push('/');
+
       }}
     >
       <Typography className="d3-container__title">
@@ -70,6 +89,9 @@ ChartHeader.propTypes = {
     starRating: PropTypes.number,
     title: PropTypes.string,
   }),
+  setMemberResults: setMemberResultsProps,
+  handleReset: PropTypes.func,
+  filterCurrentResultsLength: PropTypes.number,
 }
 
 ChartHeader.defaultProps = {
@@ -88,6 +110,9 @@ ChartHeader.defaultProps = {
     starRating: 0,
     title: '',
   },
+  setMemberResults: () => undefined,
+  handleReset: () => undefined,
+  filterCurrentResultsLength: 0,
 }
 
 export default ChartHeader

@@ -58,7 +58,7 @@ function MeasureTableRow({
                     >
                       <Typography variant="caption" className="measure-table-row__data">
                         <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
-                          <Link to={{ pathname: `/${rowDataItem.value}` }}>
+                          <Link to={{ pathname: `/${rowDataItem.value}` }} variant="body2">
                             {rowDataItem[fieldInfo.key]}
                           </Link>
                         </Tooltip>

@@ -10,6 +10,7 @@ export const storeProps = PropTypes.shape({
     PropTypes.shape({}),
   ),
 });
+export const filterActivatedProps = PropTypes.bool;
 export const setFilterDrawerFailProps = PropTypes.func;
 export const activeMeasureProps = PropTypes.shape({
   measure: PropTypes.string,
@@ -18,7 +19,8 @@ export const activeMeasureProps = PropTypes.shape({
   starRating: PropTypes.number,
   title: PropTypes.string,
 });
-
+export const hardResetProps = PropTypes.bool;
+export const setHardResetProps = PropTypes.func;
 export const defaultActiveMeasure = {
   measure: '',
   denominator: 0,
@@ -26,6 +28,7 @@ export const defaultActiveMeasure = {
   starRating: 0,
   title: '',
 };
+export const handleResetProps = PropTypes.func;
 export const setFilterInfoProps = PropTypes.func;
 export const handleResetDataProps = PropTypes.func;
 export const filterDrawerOpenProps = PropTypes.bool;

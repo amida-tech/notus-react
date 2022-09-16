@@ -21,7 +21,7 @@ import {
   rowEntriesProps,
   setTableFilterProps,
   handleTabChangeProps,
-
+  filterActivatedProps,
 } from '../ChartContainer/D3Props';
 import MemberTableRow from './MemberTableRow';
 import TableFilterPanel from './TableFilterPanel';
@@ -63,14 +63,18 @@ function DisplayTableContainer({
           </Box>
 
           <TabPanel value="overview">
-            <Grid className="d3-container__measure-selector">
-              <Typography className="d3-container__selector-title">Detailed View:</Typography>
-              <MeasureSelector
-                measure={activeMeasure.measure}
-                currentResults={store.currentResults}
-                handleMeasureChange={handleSelectedMeasureChange}
-              />
-            </Grid>
+            {headerInfo[0].header !== 'Sub-Measure'
+              ? (
+                <Grid className="d3-container__measure-selector">
+                  <Typography className="d3-container__selector-title">Detailed View:</Typography>
+                  <MeasureSelector
+                    measure={activeMeasure.measure}
+                    currentResults={store.currentResults}
+                    handleMeasureChange={handleSelectedMeasureChange}
+                  />
+                </Grid>
+              ) : null}
+
             <DisplayTable
               headerInfo={headerInfo}
               pageSize={MeasureTable.pageSize}
@@ -157,6 +161,7 @@ DisplayTableContainer.propTypes = {
   rowEntries: rowEntriesProps,
   setTableFilter: setTableFilterProps,
   handleTabChange: handleTabChangeProps,
+  filterActivated: filterActivatedProps,
 };
 
 DisplayTableContainer.defaultProps = {
@@ -174,6 +179,7 @@ DisplayTableContainer.defaultProps = {
   rowEntries: [],
   setTableFilter: () => undefined,
   handleTabChange: () => undefined,
+  filterActivated: false,
 };
 
 export default DisplayTableContainer
