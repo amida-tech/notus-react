@@ -13,29 +13,13 @@ const ColorMapping = (allResults, displayData) => {
     '#999933',
     '#888888',
     '#661100',
-    '#6699CC',
-    // REPEATING BELOW
-    '#88CCEE',
-    '#CC6677',
-    '#DDCC77',
-    '#117733',
-    '#332288',
-    '#AA4499',
-    '#44AA99',
-    '#999933',
-    '#888888',
-    '#661100',
-    '#6699CC',
-    '#88CCEE',
-    '#CC6677',
-    '#DDCC77',
-    '#117733',
+    '#6699CC'
   ];
 
   const baseColors = []
   const byMeasureColorMap = [];
 
-  const colorBySeed = (seed) => chartColorArray.pop(seed.split('').length, 1)
+  const colorBySeed = ((seed, idx) => chartColorArray[idx % 11])
 
   const distortColor = (color, idx) => {
     if (idx <= 3) {
@@ -54,10 +38,10 @@ const ColorMapping = (allResults, displayData) => {
   }
 
   // CREATES COLOR MAP FOR ALL CURRENT MEASURES
-  allResults.forEach((category) => {
+  allResults.forEach((category, idx) => {
     baseColors.push({
       value: category.measure,
-      color: colorBySeed(category.measure)
+      color: colorBySeed(category.measure, idx)
     })
   })
 
