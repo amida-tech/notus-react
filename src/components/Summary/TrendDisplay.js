@@ -31,7 +31,7 @@ function TrendDisplay({ trend, percentWidth }) {
         {`${trend.measure} Score % Change`}
       </Typography>
       <Typography className={`trend-display__percent-change ${trendClass}`}>
-        {trendValue}
+        { trendValue }
       </Typography>
       <Typography>
         (over the past week)
