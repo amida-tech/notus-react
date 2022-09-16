@@ -64,7 +64,6 @@ export default function Dashboard() {
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
   const [tabValue, setTabValue] = useState('overview');
-  const [hardReset, setHardReset] = useState(false);
   const { measure } = useParams();
 
   useEffect(() => {
@@ -115,25 +114,25 @@ export default function Dashboard() {
     setAdditionalFilterOptions(datastore.filterOptions);
     const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
     if (ActiveMeasureTest && filterInfo.currentResults.length === 0) {
-      console.log('3-1', 'composite, filterInfo.currentResults.length === 0')
+      // console.log('3-1', 'composite, filterInfo.currentResults.length === 0')
       setComposite(true);
       setDisplayData(datastore.results.map((result) => ({ ...result })));
       setCurrentResults(datastore.currentResults);
       setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
       setColorMap(baseColorMap);
       setFilterDisabled(false);
-      setMemberResults([]);
+      // setMemberResults([]);
       setTableFilter([]);
       setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(true));
     } else if (ActiveMeasureTest && filterInfo.currentResults.length > 0) {
-      console.log('3-1-2', 'composite, filterInfo.currentResults.length > 0')
+      // console.log('3-1-2', 'composite, filterInfo.currentResults.length > 0')
       if (filterInfo.members.length !== memberResults.length) {
         setCurrentResults(filterInfo.currentResults)
         setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
         setDisplayData(filterInfo.results.map((result) => ({ ...result })));
       }
-      setMemberResults([]);
+      // setMemberResults([]);
       setComposite(true);
       setColorMap(baseColorMap);
       setFilterDisabled(false);
@@ -141,7 +140,7 @@ export default function Dashboard() {
       setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(true));
     } else if (!ActiveMeasureTest && filterInfo.currentResults.length === 0) {
-      console.log('3-2-1', 'NON COMPOSITE, filterInfo.currentResults.length === 0')
+      // console.log('3-2-1', 'NON COMPOSITE, filterInfo.currentResults.length === 0')
       setComposite(false);
       const subMeasureCurrentResults = getSubMeasureCurrentResults(
         activeMeasure,
@@ -152,12 +151,12 @@ export default function Dashboard() {
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
       setColorMap(ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults));
       setFilterDisabled(false);
-      setMemberResults([]);
+      // setMemberResults([]);
       setTableFilter([]);
       setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(false));
     } else if (!ActiveMeasureTest && filterInfo.currentResults.length > 0) {
-      console.log('3-2-2', 'NON COMPOSITE, filterInfo.currentResults.length > 0')
+      // console.log('3-2-2', 'NON COMPOSITE, filterInfo.currentResults.length > 0')
       setComposite(false);
       const subMeasureCurrentResults = getSubMeasureCurrentResults(
         activeMeasure,
@@ -169,75 +168,66 @@ export default function Dashboard() {
       setColorMap(
         ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
       );
-      setMemberResults([]);
+      // setMemberResults([]);
       setFilterDisabled(false);
       setTableFilter([]);
       setHeaderInfo(MeasureTable.headerData(false));
     }
-
-    // if (
-    //   filterInfo.filters.sum > 0
-    // ) {
-    //   setFilterActivated(true)
-    // } else {
-    //   setFilterActivated(false)
-    // handleResetData()
-    // }
   }, [setTableFilter, history, activeMeasure, isComposite, datastore]);
 
   useEffect(() => {
-    console.log({filterInfo})
-    console.log({memberResults})
+    console.log('>>>>FILTER INFO:', filterInfo)
+    console.log('>>>>MEMBER RESULTS:', memberResults)
+
     async function fetchData() {
       const records = await measureDataFetch(activeMeasure.measure)
-      console.log('4-2', 'NON COMPOSITE MEMBER RESULTS WAS EMPTY NOW IS: ', { records })
       setMemberResults(records)
     }
-    if (!isComposite) {
-      if (filterInfo.members.length > 0 && memberResults.length === 0) {
+    // HANDLE COMPOSITE
+    if (isComposite) {
+      console.log('COMPOSITE/DEFAULT FILTERING')
+    }
+    // HANDLE NON-COMPOSITE
+    else {
+      console.log('NON-COMPOSITE FILTERING')
+      // FILTERS EXIST
+      if (filterInfo.members.length > 0) {
+        console.log('FILTERS EXIST')
+        // 120 IS THE TOTAL AND 15 IS THE EXPECTED AMOUNT
         const selectMemberResults = filterInfo.members
-          // .filter((result) => activeMeasure.measure.includes(result.measurementType))
-        console.log(
-          '4-1',
-          'NON COMPOSITE MEMBER RESULTS WAS EMPTY NOW IS: ',
-          selectMemberResults.length,
-        )
+        .filter((result) => activeMeasure.measure.includes(result.measurementType))
+        console.log('selectMemberResults', selectMemberResults)
+
         setMemberResults(selectMemberResults)
       } else {
-      // if (memberResults.length === 0) {
+        console.log('FILTERS DO NOT EXIST')
+        // FILTERS DO NOT EXIST
         fetchData()
       }
     }
-    // if (!isComposite && memberResults.length === 0 && filterInfo.members.length === 0) {
-    //   fetchData()
-    // } else if (!isComposite && memberResults.length === 0) {
-    //   
-    // } else {
-    //   setMemberResults([])
-    // }
+  
   }, [
     isComposite,
-    // memberResults,
     filterInfo,
     activeMeasure.measure,
     setMemberResults,
   ])
-
+  
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
-      memberResults,
+      filterInfo.members.length > 0 ? filterInfo.members : memberResults,
       activeMeasure.measure,
       datastore.info,
       tableFilter,
     ))
-  }, [tableFilter, memberResults, activeMeasure.measure, datastore.info])
+  }, [tableFilter, filterInfo, memberResults, activeMeasure.measure, datastore.info])
 
   useEffect(() => {
     const path = window.location.pathname
     if (path.includes('members')) {
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
       setRowEntries(MemberTable.formatData(
-        memberResults,
+        filterInfo.members.length > 0 ? filterInfo.members : memberResults,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
@@ -318,10 +308,10 @@ export default function Dashboard() {
         timeline,
         subMeasureCurrentResults,
       }
-      setFilterInfo(newFilterInfo)
       setCurrentResults(newFilterInfo.currentResults)
       setSelectedMeasures(newFilterInfo.currentResults.map((result) => result.measure));
       setDisplayData(newFilterInfo.results.map((result) => ({ ...result })));
+      setFilterInfo(newFilterInfo)
       setFilterActivated(true)
     } else {
       setIsLoading(true)
@@ -370,7 +360,7 @@ export default function Dashboard() {
       history.push(`/${activeMeasure.measure}/members`)
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
       setRowEntries(MemberTable.formatData(
-        memberResults,
+        filterInfo.members.length > 0 ? filterInfo.members : memberResults,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
