@@ -1,9 +1,6 @@
 import tinycolor from 'tinycolor2'
 
 const ColorMapping = (allResults, displayData) => {
-  console.log('>>>>>>>>>>>>>>COLOR MAPPING START>>>>>>>>>>>>>>>>.')
-  // console.log('all measures:', allResults)
-  // console.log('measures to be  coloured:', displayData)
 
   const chartColorArray = [
     '#88CCEE',
@@ -14,9 +11,9 @@ const ColorMapping = (allResults, displayData) => {
     '#AA4499',
     '#44AA99',
     '#999933',
+    '#888888',
     '#661100',
     '#6699CC',
-    '#888888',
     // NOT APPROVED BELOW THIS LINE
     '#FB0505',
     '#FB9C05',
@@ -26,7 +23,7 @@ const ColorMapping = (allResults, displayData) => {
     '#05FB7B',
     '#05FBF9',
     '#057EFB',
-    '#0516FB', // APME
+    '#0516FB',
     '#5205FB',
     '#BE05FB',
     '#FB05D6',
@@ -64,34 +61,25 @@ const ColorMapping = (allResults, displayData) => {
 
   // HANDLES COMPOSITE VIEW
   if (!displayData || displayData.length === 0) {
-    // console.log('base colors for all measures:', baseColors)
     return baseColors
   } else {
     // HANDLES MEASURE VIEW
-    // SEARCH FOR BASE COLOR OF MEASURE
     const baseMeasure = displayData[0].measure
     const baseMeasureColor = baseColors.find((mapping) => mapping.value === baseMeasure).color
-
-    // ADD MEASURE WITH BASE COLOR
     byMeasureColorMap.push({
       value: baseMeasure,
       color: baseMeasureColor
     })
     displayData.splice(0, 1)
 
-    // console.log('time to color:', chartColorArray, displayData)
-
     // ADD SUBMEASURES WITH MODIFIED COLOURS
     displayData.forEach((category, idx) => {
-      // console.log('time to assign a color', category)
       byMeasureColorMap.push({
         value: category.measure,
         color: distortColor(baseMeasureColor, idx)
       })
     })
   }
-  // console.log('color map return:', byMeasureColorMap)
-  console.log('byMeasureColorMap', byMeasureColorMap)
   return byMeasureColorMap;
 };
 
