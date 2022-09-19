@@ -86,20 +86,6 @@ export default function Dashboard() {
   })
 
   useEffect(() => { // Break apart later if we feel we need to separate concerns.
-    const baseColorMap = filterInfo.currentResults.length === 0
-      ? datastore.currentResults.map((item, index) => ({
-        value: item.measure,
-        color: index <= 11
-          ? datastore.chartColorArray[index]
-          : datastore.chartColorArray[index % 11],
-      }))
-      : filterInfo.currentResults.map((item, index) => ({
-        value: item.measure,
-        color: index <= 11
-          ? datastore.chartColorArray[index]
-          : datastore.chartColorArray[index % 11],
-      }));
-
     setCurrentTimeline(
       filterInfo.currentResults.length === 0
         ? datastore.defaultTimelineState
@@ -117,7 +103,7 @@ export default function Dashboard() {
       setDisplayData(datastore.results.map((result) => ({ ...result })));
       setCurrentResults(datastore.currentResults);
       setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
-      setColorMap(baseColorMap);
+      setColorMap(ColorMapping(currentResults));
       setFilterDisabled(false);
       setTableFilter([]);
       setRowEntries([])
@@ -129,7 +115,7 @@ export default function Dashboard() {
         setDisplayData(filterInfo.results.map((result) => ({ ...result })));
       }
       setComposite(true);
-      setColorMap(baseColorMap);
+      setColorMap(ColorMapping(currentResults));
       setFilterDisabled(false);
       setTableFilter([]);
       setRowEntries([])
@@ -143,7 +129,7 @@ export default function Dashboard() {
       setDisplayData(expandSubMeasureResults(activeMeasure, datastore.results));
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
-      setColorMap(ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults));
+      setColorMap(ColorMapping(datastore.currentResults, subMeasureCurrentResults));
       setFilterDisabled(false);
       setTableFilter([]);
       setRowEntries([])
@@ -158,12 +144,13 @@ export default function Dashboard() {
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
       setColorMap(
-        ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
+        ColorMapping(datastore.currentResults, subMeasureCurrentResults),
       );
       setFilterDisabled(false);
       setTableFilter([]);
       setHeaderInfo(MeasureTable.headerData(false));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setTableFilter, history, activeMeasure, isComposite, datastore]);
 
   useEffect(() => {
@@ -349,10 +336,6 @@ export default function Dashboard() {
   };
 
   const handleResetData = () => {
-    const baseColorMap = datastore.currentResults.map((item, index) => ({
-      value: item.measure,
-      color: index <= 11 ? datastore.chartColorArray[index] : datastore.chartColorArray[index % 11],
-    }));
     setCurrentTimeline(datastore.defaultTimelineState);
     setCurrentFilters({
       domainsOfCare: [],
@@ -369,7 +352,7 @@ export default function Dashboard() {
       setCurrentResults(datastore.currentResults);
       setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
       setDisplayData(datastore.results.map((result) => ({ ...result })));
-      setColorMap(baseColorMap);
+      setColorMap(ColorMapping(currentResults));
       setFilterDisabled(false);
       setMemberResults([]);
       setTableFilter([]);
@@ -384,7 +367,7 @@ export default function Dashboard() {
       setDisplayData(expandSubMeasureResults(activeMeasure, datastore.results));
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
-      setColorMap(ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults));
+      setColorMap(ColorMapping(datastore.currentResults, subMeasureCurrentResults));
       setFilterDisabled(false);
       setMemberResults([]);
       setTableFilter([]);
