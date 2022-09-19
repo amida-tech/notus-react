@@ -204,6 +204,7 @@ export default function Dashboard() {
     } else {
       setTabValue('overview')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     activeMeasure.measure,
     memberResults,
