@@ -21,7 +21,6 @@ import {
   rowEntriesProps,
   setTableFilterProps,
   handleTabChangeProps,
-  filterActivatedProps,
 } from '../ChartContainer/D3Props';
 import MemberTableRow from './MemberTableRow';
 import TableFilterPanel from './TableFilterPanel';
@@ -161,7 +160,6 @@ DisplayTableContainer.propTypes = {
   rowEntries: rowEntriesProps,
   setTableFilter: setTableFilterProps,
   handleTabChange: handleTabChangeProps,
-  filterActivated: filterActivatedProps,
 };
 
 DisplayTableContainer.defaultProps = {
@@ -179,7 +177,6 @@ DisplayTableContainer.defaultProps = {
   rowEntries: [],
   setTableFilter: () => undefined,
   handleTabChange: () => undefined,
-  filterActivated: false,
 };
 
 export default DisplayTableContainer

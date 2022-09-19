@@ -4,21 +4,15 @@ import { Grid, Typography } from '@mui/material';
 
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { setMemberResultsProps } from './D3Props';
 
 function ChartHeader({
   isComposite,
-  setComposite,
-  setTabValue,
-  setTableFilter,
   history,
   isLoading,
   labelGenerator,
   currentResults,
   activeMeasure,
-  setMemberResults,
   handleReset,
-  filterCurrentResultsLength,
 }) {
   const allMeasureText = (
     <Grid className="d3-container__return-title-display">
@@ -28,26 +22,9 @@ function ChartHeader({
   const allMeasureTextWithLinks = (
     <Grid
       className="d3-container__return-link-display"
-      // onClick={() => {
-      //   if (filterCurrentResultsLength > 0) {
-      //     setComposite(true);
-      //     setTabValue('overview');
-      //     setMemberResults([])
-      //     setTableFilter([]);
-      //   } else {
-      //     setComposite(true);
-      //     setTabValue('overview');
-      //     setTableFilter([]);
-      //   }
-      //   history.push('/');
-      // }}
       onClick={() => {
-        // setComposite(true);
-        // setTabValue('overview');
-        // setTableFilter([]);
         handleReset()
         history.push('/');
-
       }}
     >
       <Typography className="d3-container__title">
@@ -72,9 +49,6 @@ function ChartHeader({
 
 ChartHeader.propTypes = {
   isComposite: PropTypes.bool,
-  setComposite: PropTypes.func,
-  setTabValue: PropTypes.func,
-  setTableFilter: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func,
     any: PropTypes.func,
@@ -89,16 +63,11 @@ ChartHeader.propTypes = {
     starRating: PropTypes.number,
     title: PropTypes.string,
   }),
-  setMemberResults: setMemberResultsProps,
   handleReset: PropTypes.func,
-  filterCurrentResultsLength: PropTypes.number,
 }
 
 ChartHeader.defaultProps = {
   isComposite: true,
-  setComposite: () => undefined,
-  setTabValue: () => undefined,
-  setTableFilter: () => undefined,
   history: {},
   isLoading: true,
   labelGenerator: () => undefined,
@@ -110,9 +79,7 @@ ChartHeader.defaultProps = {
     starRating: 0,
     title: '',
   },
-  setMemberResults: () => undefined,
   handleReset: () => undefined,
-  filterCurrentResultsLength: 0,
 }
 
 export default ChartHeader

@@ -21,7 +21,6 @@ import {
   setCurrentTimelineProps,
   isCompositeProps,
   setCompositeProps,
-  setTabValueProps,
   setTableFilterProps,
   historyProps,
   currentResultsProps,
@@ -36,7 +35,6 @@ import {
   setIsLoadingProps,
   additionalFilterOptionsProps,
   setFilterInfoProps,
-  handleResetProps
 } from './D3Props';
 
 export const firstRenderContext = createContext(true);
@@ -65,7 +63,6 @@ function D3Container({
   toggleFilterDrawer,
   isComposite,
   setComposite,
-  setTabValue,
   setTableFilter,
   history,
   isLoading,
@@ -83,7 +80,6 @@ function D3Container({
   setRowEntries,
   handleResetData,
   setFilterInfo,
-  handleReset,
 }) {
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
@@ -112,15 +108,11 @@ function D3Container({
       />
       <ChartHeader
         isComposite={isComposite}
-        setComposite={setComposite}
-        setTabValue={setTabValue}
-        setTableFilter={setTableFilter}
         history={history}
         isLoading={isLoading}
         labelGenerator={labelGenerator}
         currentResults={currentResults}
         activeMeasure={activeMeasure}
-        setMemberResults={setMemberResults}
         handleReset={handleResetData}
       />
       <Grid item className="d3-container__chart-bar">
@@ -160,7 +152,6 @@ D3Container.propTypes = {
   setCurrentTimeline: setCurrentTimelineProps,
   isComposite: isCompositeProps,
   setComposite: setCompositeProps,
-  setTabValue: setTabValueProps,
   setTableFilter: setTableFilterProps,
   history: historyProps,
   currentResults: currentResultsProps,
@@ -175,7 +166,6 @@ D3Container.propTypes = {
   setRowEntries: setRowEntriesProps,
   handleResetData: handleResetDataProps,
   setFilterInfo: setFilterInfoProps,
-  handleReset: handleResetProps,
 };
 
 D3Container.defaultProps = {
@@ -192,7 +182,6 @@ D3Container.defaultProps = {
   setCurrentTimeline: () => undefined,
   isComposite: true,
   setComposite: () => undefined,
-  setTabValue: () => undefined,
   setTableFilter: () => undefined,
   history: {},
   currentResults: [],
@@ -207,7 +196,6 @@ D3Container.defaultProps = {
   setRowEntries: () => undefined,
   handleResetData: () => undefined,
   setFilterInfo: () => undefined,
-  handleReset: () => undefined,
 };
 
 export default D3Container;

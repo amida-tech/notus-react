@@ -40,8 +40,6 @@ function FilterDrawer({
   setRowEntries,
   handleResetData,
   setFilterInfo,
-  hardReset,
-  setHardReset,
 }) {
   const [percentSliderValue, setPercentSliderValue] = useState(
     Array.from(currentFilters.percentRange),

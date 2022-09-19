@@ -4,11 +4,10 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { useParams, useHistory } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
-import { DatastoreContext } from '../context/DatastoreProvider';
-import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 import { Snackbar, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-
+import { DatastoreContext } from '../context/DatastoreProvider';
+import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 
 import Banner from '../components/Common/Banner';
 import D3Container from '../components/ChartContainer';
@@ -114,25 +113,21 @@ export default function Dashboard() {
     setAdditionalFilterOptions(datastore.filterOptions);
     const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
     if (ActiveMeasureTest && filterInfo.currentResults.length === 0) {
-      // console.log('3-1', 'composite, filterInfo.currentResults.length === 0')
       setComposite(true);
       setDisplayData(datastore.results.map((result) => ({ ...result })));
       setCurrentResults(datastore.currentResults);
       setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
       setColorMap(baseColorMap);
       setFilterDisabled(false);
-      // setMemberResults([]);
       setTableFilter([]);
       setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(true));
     } else if (ActiveMeasureTest && filterInfo.currentResults.length > 0) {
-      // console.log('3-1-2', 'composite, filterInfo.currentResults.length > 0')
       if (filterInfo.members.length !== memberResults.length) {
         setCurrentResults(filterInfo.currentResults)
         setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
         setDisplayData(filterInfo.results.map((result) => ({ ...result })));
       }
-      // setMemberResults([]);
       setComposite(true);
       setColorMap(baseColorMap);
       setFilterDisabled(false);
@@ -140,7 +135,6 @@ export default function Dashboard() {
       setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(true));
     } else if (!ActiveMeasureTest && filterInfo.currentResults.length === 0) {
-      // console.log('3-2-1', 'NON COMPOSITE, filterInfo.currentResults.length === 0')
       setComposite(false);
       const subMeasureCurrentResults = getSubMeasureCurrentResults(
         activeMeasure,
@@ -151,12 +145,10 @@ export default function Dashboard() {
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
       setColorMap(ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults));
       setFilterDisabled(false);
-      // setMemberResults([]);
       setTableFilter([]);
       setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(false));
     } else if (!ActiveMeasureTest && filterInfo.currentResults.length > 0) {
-      // console.log('3-2-2', 'NON COMPOSITE, filterInfo.currentResults.length > 0')
       setComposite(false);
       const subMeasureCurrentResults = getSubMeasureCurrentResults(
         activeMeasure,
@@ -168,7 +160,6 @@ export default function Dashboard() {
       setColorMap(
         ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
       );
-      // setMemberResults([]);
       setFilterDisabled(false);
       setTableFilter([]);
       setHeaderInfo(MeasureTable.headerData(false));
@@ -176,43 +167,30 @@ export default function Dashboard() {
   }, [setTableFilter, history, activeMeasure, isComposite, datastore]);
 
   useEffect(() => {
-    console.log('>>>>FILTER INFO:', filterInfo)
-    console.log('>>>>MEMBER RESULTS:', memberResults)
-
     async function fetchData() {
       const records = await measureDataFetch(activeMeasure.measure)
       setMemberResults(records)
     }
     // HANDLE COMPOSITE
-    if (isComposite) {
-      console.log('COMPOSITE/DEFAULT FILTERING')
-    }
-    // HANDLE NON-COMPOSITE
-    else {
-      console.log('NON-COMPOSITE FILTERING')
+    if (!isComposite) {
       // FILTERS EXIST
       if (filterInfo.members.length > 0) {
-        console.log('FILTERS EXIST')
         // 120 IS THE TOTAL AND 15 IS THE EXPECTED AMOUNT
         const selectMemberResults = filterInfo.members
-        .filter((result) => activeMeasure.measure.includes(result.measurementType))
-        console.log('selectMemberResults', selectMemberResults)
+          .filter((result) => activeMeasure.measure.includes(result.measurementType))
 
         setMemberResults(selectMemberResults)
       } else {
-        console.log('FILTERS DO NOT EXIST')
         // FILTERS DO NOT EXIST
         fetchData()
       }
     }
-  
   }, [
     isComposite,
     filterInfo,
     activeMeasure.measure,
     setMemberResults,
   ])
-  
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
       filterInfo.members.length > 0 ? filterInfo.members : memberResults,
@@ -251,7 +229,6 @@ export default function Dashboard() {
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
   const handleFilteredDataUpdate = async (filters, timeline, newMeasureSelected) => {
-    // console.log({ filters, timeline, newMeasureSelected })
     let newDisplayData
     let cloneDailyMeasureResults
     let cloneMembers = []
@@ -437,9 +414,6 @@ export default function Dashboard() {
       <CloseIcon fontSize="small" />
     </IconButton>
   );
-  // console.log({filterActivated})
-  // console.log({filterInfo})
-  // console.log({memberResults})
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -484,7 +458,6 @@ export default function Dashboard() {
                     toggleFilterDrawer={toggleFilterDrawer}
                     isComposite={isComposite}
                     setComposite={setComposite}
-                    setTabValue={setTabValue}
                     setTableFilter={setTableFilter}
                     history={history}
                     isLoading={isLoading}
@@ -532,7 +505,6 @@ export default function Dashboard() {
                       currentResults={currentResults}
                       colorMap={colorMap}
                       tableFilter={tableFilter}
-                      filterActivated={filterActivated}
                       handleTableFilterChange={handleTableFilterChange}
                       rowEntries={rowEntries}
                       setTableFilter={setTableFilter}
