@@ -7,12 +7,14 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 function ChartHeader({
   isComposite,
+  setComposite,
+  setTabValue,
+  setTableFilter,
   history,
   isLoading,
   labelGenerator,
   currentResults,
   activeMeasure,
-  handleReset,
 }) {
   const allMeasureText = (
     <Grid className="d3-container__return-title-display">
@@ -23,7 +25,9 @@ function ChartHeader({
     <Grid
       className="d3-container__return-link-display"
       onClick={() => {
-        handleReset()
+        setComposite(true);
+        setTabValue('overview');
+        setTableFilter([]);
         history.push('/');
       }}
     >
@@ -49,6 +53,9 @@ function ChartHeader({
 
 ChartHeader.propTypes = {
   isComposite: PropTypes.bool,
+  setComposite: PropTypes.func,
+  setTabValue: PropTypes.func,
+  setTableFilter: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func,
     any: PropTypes.func,
@@ -63,11 +70,13 @@ ChartHeader.propTypes = {
     starRating: PropTypes.number,
     title: PropTypes.string,
   }),
-  handleReset: PropTypes.func,
 }
 
 ChartHeader.defaultProps = {
   isComposite: true,
+  setComposite: () => undefined,
+  setTabValue: () => undefined,
+  setTableFilter: () => undefined,
   history: {},
   isLoading: true,
   labelGenerator: () => undefined,
@@ -79,7 +88,6 @@ ChartHeader.defaultProps = {
     starRating: 0,
     title: '',
   },
-  handleReset: () => undefined,
 }
 
 export default ChartHeader

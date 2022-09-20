@@ -23,6 +23,7 @@ $block-class: 'navbar';
         padding-left: 1rem;
         padding-right: 1rem;
         align-self: center;
+        text-decoration: none;
 
         &-nav-dashboard{
           @extend .navbar__text;
