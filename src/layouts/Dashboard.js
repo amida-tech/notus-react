@@ -66,12 +66,18 @@ export default function Dashboard() {
   const { measure } = useParams();
 
   useEffect(() => {
-    if (datastore.currentResults !== undefined) {
+    // CURRENT RESULTS EXIST
+    if (datastore.currentResults) {
       const currentMeasure = measure || 'composite';
       setActiveMeasure(datastore.currentResults.find(
         (result) => result.measure === currentMeasure,
       ) || defaultActiveMeasure);
+
+      console.log('current measure and active measure:', currentMeasure, activeMeasure)
+
       setIsLoading(datastore.datastoreLoading);
+    } else {
+      // NO CURRENT RESULTS
     }
   }, [datastore.currentResults, datastore.datastoreLoading, measure]);
 

@@ -44,11 +44,33 @@ const allValuesEqual = (valueArray) => {
 
 const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   const formattedData = [];
+  let workingData = []
 
   const subMeasures = Object.keys(storeInfo).filter((item) => item.includes(activeMeasure));
 
-  if (memberResults) {
-    memberResults.forEach((memberResult) => {
+  console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+  console.log('memberResults:', memberResults)
+  console.log('activeMeasure:', activeMeasure)
+
+  if (activeMeasure !== 'composite' && activeMeasure !== '') {
+    // loop through member results for active measure
+    console.log('working data must be filtered compared to memberResults[i].measurementType')
+    memberResults.forEach((res, i) => {
+      if (res.measurementType === activeMeasure) {
+        workingData.push(res)
+      }
+    })
+      // workingData = memberResults
+      //   .filter((result) => activeMeasure.measure.includes(result.measurementType))
+
+  } else {
+    workingData = memberResults
+  }
+
+  console.log('our working data >>>>>>>>>', workingData)
+
+  if (workingData && activeMeasure) {
+    workingData.forEach((memberResult) => {
       const memberResultArray = [];
       const complianceResult = getMeasureCompliance(memberResult);
       if (complianceResult.length === 1) {
@@ -87,6 +109,7 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
       formattedData.push(formattedResult);
     });
   }
+
   return filterByNonCompliance(formattedData, tableFilter);
 };
 
