@@ -19,7 +19,6 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
   // Display Table
   const selectedRows = []
   const mockHandleCheckBoxChange = jest.fn(() => false);
-
   const activeMeasure = resultList[0]
   const tabValue = 'overview'
   const isComposite = true
