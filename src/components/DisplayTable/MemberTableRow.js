@@ -24,6 +24,7 @@ function RowGenerator(link, key, rowDataItem, ciseCheck) {
       </Grid>
     )
   }
+  
   return (
     <Grid className={`${ciseCheck}-table-row__compliance-panel ${ciseCheck}-table-row__compliance-panel--unmatched`}>
       <CancelIcon className={`${ciseCheck}-table-row__compliance-icon`} />
