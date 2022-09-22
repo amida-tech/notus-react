@@ -18,7 +18,6 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
 
   // Display Table
   const mockHandleCheckBoxChange = jest.fn(() => false);
-
   const tableFilter = []
 
   beforeEach(() => {
