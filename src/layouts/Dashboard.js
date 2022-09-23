@@ -196,8 +196,9 @@ export default function Dashboard() {
     const path = window.location.pathname
     if (path.includes('members')) {
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
+      const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : memberResults
       setRowEntries(MemberTable.formatData(
-        filterInfo.members.length > 0 ? filterInfo.members : memberResults,
+        wantedMembers,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
@@ -428,6 +429,7 @@ export default function Dashboard() {
       <CloseIcon fontSize="small" />
     </IconButton>
   );
+  console.log({rowEntries})
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
