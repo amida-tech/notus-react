@@ -11,7 +11,16 @@ export async function memberInfoFetch(url, id) {
     return error
   }
 }
-
+export async function recommendationsInfoFetch(formattedMemberData) {
+  try {
+    const recommendationURL = `${env.REACT_APP_HEDIS_MEASURE_API_URL}recommendations`
+    const results = axios.post(recommendationURL, { formattedMemberData })
+    console.log({results: results.data})
+    return []
+  } catch (error) {
+    return error
+  }
+}
 // D3Container.js
 export async function measureDataFetch(measure) {
   try {
