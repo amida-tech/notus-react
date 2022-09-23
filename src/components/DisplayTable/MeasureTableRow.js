@@ -11,8 +11,11 @@ import Alert from '../Utilities/Alert'
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
-  const compositeCheck = headerInfo[0].header === 'Measure'
-
+ console.log("MeasureTableRow",{
+  rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
+})
+const compositeCheck = headerInfo[0].header === 'Measure'
+console.log({compositeCheck})
   const alertTitle = 'Leaving Saraswati'
   const alertPath = (info) => {
     if (measureInfo[info].link) {
