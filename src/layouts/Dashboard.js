@@ -25,20 +25,6 @@ import {
 
 import { measureDataFetch } from '../components/Common/Controller'
 
-const chartColorArray = [
-  '#88CCEE',
-  '#CC6677',
-  '#DDCC77',
-  '#117733',
-  '#332288',
-  '#AA4499',
-  '#44AA99',
-  '#999933',
-  '#661100',
-  '#6699CC',
-  '#888888',
-];
-
 // If nothing set, select all.
 const defaultFilterState = {
   domainsOfCare: [],
@@ -97,10 +83,6 @@ export default function Dashboard() {
   })
 
   useEffect(() => { // Break apart later if we feel we need to separate concerns.
-    const baseColorMap = datastore.currentResults.map((item, index) => ({
-      value: item.measure,
-      color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
-    }));
     setCurrentTimeline(defaultTimelineState);
     setCurrentFilters(defaultFilterState);
     if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
@@ -108,7 +90,7 @@ export default function Dashboard() {
       setDisplayData(datastore.results.map((result) => ({ ...result })));
       setCurrentResults(datastore.currentResults);
       setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
-      setColorMap(baseColorMap);
+      setColorMap(ColorMapping(currentResults));
       setFilterDisabled(false);
       setMemberResults([]);
       setTableFilter([]);
@@ -120,13 +102,14 @@ export default function Dashboard() {
       setDisplayData(expandSubMeasureResults(activeMeasure, datastore));
       setCurrentResults(subMeasureCurrentResults);
       setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
-      setColorMap(ColorMapping(baseColorMap, chartColorArray, subMeasureCurrentResults));
+      setColorMap(ColorMapping(datastore.currentResults, subMeasureCurrentResults));
       setFilterDisabled(true);
       setMemberResults([]);
       setTableFilter([]);
       setRowEntries([])
       setHeaderInfo(MeasureTable.headerData(false));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setTableFilter, history, activeMeasure, isComposite, datastore]);
 
   useEffect(() => {
