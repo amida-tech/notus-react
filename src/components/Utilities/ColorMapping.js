@@ -23,17 +23,18 @@ const ColorMapping = (allResults, displayData) => {
   const distortColor = (color, idx) => {
     if (idx <= 3) {
       return tinycolor(color).brighten(idx * 15).spin(idx * 10).toString()
-    } if (idx <= 6) {
+    } else if (idx <= 6) {
       return tinycolor(color).darken((idx % 3) * 15).spin((idx % 3) * 15).toString()
-    } if (idx <= 9) {
+    } else if (idx <= 9) {
       return tinycolor(color).brighten((idx % 3) * 15).spin((idx % 3) * -15).toString()
-    } if (idx <= 12) {
+    } else if (idx <= 12) {
       return tinycolor(color).darken((idx % 3) * 15).saturate((idx % 3) * 10).spin((idx % 3) * -15)
         .toString()
-    } if (idx <= 15) {
+    } else if (idx <= 15) {
       return tinycolor(color).lighten((idx % 3) * 15).spin((idx % 3) * -25).toString()
+    } else {
+      return color
     }
-    return color
   }
 
   // CREATES COLOR MAP FOR ALL CURRENT MEASURES
