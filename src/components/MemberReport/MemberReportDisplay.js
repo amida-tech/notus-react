@@ -5,11 +5,10 @@ import {
   ListItemText, Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import Banner from '../Common/Banner';
 import Info from '../Common/Info';
-import { getAge, updateTimestamp } from '../Utilities/GeneralUtil';
+import { getAge, getDatestamp, updateTimestamp } from '../Utilities/GeneralUtil';
 import MemberReportTable from './MemberReportTable';
 
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
@@ -27,11 +26,6 @@ function MemberReportDisplay({
 }) {
   const theme = useTheme()
   const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main
-  const participationPeriod = `${moment(coverage[0].period.start.value)
-    .format('MM/DD/YYYY')}
-    - ${moment(coverage[0].period.end.value)
-    .format('MM/DD/YYYY')}`
-
   return (
     <Box className="member-report" sx={{ background: 'white' }}>
       <Banner headerText="Reporting - Member's Data" lastUpdated={updateTimestamp(new Date(memberInfo.timeStamp))} />
@@ -108,7 +102,8 @@ function MemberReportDisplay({
               primaryTypographyProps={{ fontWeight: '700' }}
               secondaryTypographyProps={{ alignSelf: 'center' }}
               primary="Participation Period:&nbsp;"
-              secondary={coverageStatus ? participationPeriod : 'N/A'}
+              secondary={coverageStatus ? `${getDatestamp(new Date(coverage[0].period.start.value))} - ${
+                getDatestamp(new Date(coverage[0].period.end.value))}` : 'N/A'}
             />
           </ListItem>
         </List>
@@ -175,7 +170,8 @@ function MemberReportDisplay({
                 primaryTypographyProps={{ fontWeight: '700' }}
                 secondaryTypographyProps={{ alignSelf: 'center' }}
                 primary="Participation Period:&nbsp;"
-                secondary={insurance.period ? participationPeriod : 'N/A'}
+                secondary={insurance.period ? `${getDatestamp(new Date(insurance.period.start.value))} - ${
+                  getDatestamp(new Date(insurance.period.end.value))}` : 'N/A'}
               />
             </ListItem>
           </List>
