@@ -150,23 +150,21 @@ function MemberReportDisplay({
 MemberReportDisplay.propTypes = {
   id: PropTypes.string,
   memberInfo: PropTypes.shape({
-    memberInfo: PropTypes.shape({
-      dob: PropTypes.string,
-      timeStamp: PropTypes.string,
-      gender: PropTypes.string,
-      coverage: PropTypes.arrayOf(
-        PropTypes.shape({
-          type: PropTypes.shape({
-            coding: PropTypes.shape({
-              display: PropTypes.shape({
-                value: PropTypes.string,
-              }),
+    dob: PropTypes.string,
+    timeStamp: PropTypes.string,
+    gender: PropTypes.string,
+    coverage: PropTypes.arrayOf(
+      PropTypes.shape({
+        type: PropTypes.shape({
+          coding: PropTypes.shape({
+            display: PropTypes.shape({
+              value: PropTypes.string,
             }),
           }),
         }),
-      ),
-      measurementType: PropTypes.string,
-    }),
+      }),
+    ),
+    measurementType: PropTypes.string,
   }),
   datastoreInfo: PropTypes.shape({
     any: PropTypes.string,

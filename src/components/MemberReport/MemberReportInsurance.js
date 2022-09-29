@@ -107,11 +107,10 @@ function MemberReportInsurance({ memberInfo }) {
         }}
       >
         <TabList
-              // TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }}
-              // sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }}
           orientation="vertical"
           variant="scrollable"
-          scrollButtons
+          scrollButtons="auto"
+          sx={{ margin: '1rem 0' }}
           onChange={handleTabChange}
           aria-label="insurance tabs"
         >
@@ -130,11 +129,13 @@ MemberReportInsurance.propTypes = {
     coverage: PropTypes.arrayOf(
       PropTypes.shape({
         type: PropTypes.shape({
-          coding: PropTypes.shape({
-            display: PropTypes.shape({
-              value: PropTypes.string,
+          coding: PropTypes.arrayOf(
+            PropTypes.shape({
+              display: PropTypes.shape({
+                value: PropTypes.string,
+              }),
             }),
-          }),
+          ),
         }),
       }),
     ),

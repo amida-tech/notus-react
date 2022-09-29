@@ -38,7 +38,7 @@ $block-class: 'member-report';
             border-radius: 3px;
             padding: 32px 24px;
             margin: 0 1rem;
-            width: 45%;
+            max-width: 45%;
             // need to upgrade RTL for userEvents
             // margin-right: auto;
             // margin-left: auto;
@@ -50,7 +50,7 @@ $block-class: 'member-report';
             margin: 0 1rem;
             display: grid;
             grid-template-columns: 3fr 1fr;
-            width: 55%;
+            max-width: 40%;
         }
 
         & &__info-field {
