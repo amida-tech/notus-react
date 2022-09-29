@@ -9,18 +9,19 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { getDatestamp } from '../Utilities/GeneralUtil';
 
 function MemberReportInsurance({ memberInfo }) {
-  const coverageObjArr = memberInfo.memberInfo.coverage
+  const coverageObjArr = memberInfo.coverage
   const [tabValue, setTabValue] = useState(coverageObjArr[0].type.coding[0].display.value);
 
   const insuranceTabList = coverageObjArr.map((insurance, i) => (
     <Tab
+      key={insurance.type.coding[i].display.value}
       label={insurance.type.coding[i].display.value}
       value={insurance.type.coding[i].display.value}
     />
   ))
 
   const insuranceTabPanels = coverageObjArr.map((insurance, i) => (
-    <TabPanel value={insurance.type.coding[i].display.value}>
+    <TabPanel key={insurance.type.coding[i].display.value} value={insurance.type.coding[i].display.value}>
       <List key={`insurance-card-${insurance.id.value}`}>
         <ListItem disablePadding className="member-report__info-field">
           <ListItemText

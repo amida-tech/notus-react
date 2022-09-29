@@ -40,9 +40,9 @@ function MemberReportTable({ rowData }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {formattedData.map((row) => (
+          {formattedData.map((row, i) => (
             <TableRow
-              key={row.type}
+              key={`table-row-for-${row.type}-${i}`}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell>{row.measure}</TableCell>
@@ -71,9 +71,7 @@ MemberReportTable.propTypes = {
       measure: PropTypes.string,
       type: PropTypes.string,
       status: PropTypes.bool,
-      exclusions: PropTypes.arrayOf(
-        PropTypes.string,
-      ),
+      exclusions: PropTypes.bool,
       practitioner: PropTypes.string,
       dates: PropTypes.string,
       conditions: PropTypes.string,

@@ -2,7 +2,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {
   Accordion, AccordionDetails, AccordionSummary, Box, Button, List, ListItem,
-  ListItemText, Typography,
+  ListItemText, Typography, Link,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import PropTypes from 'prop-types';
@@ -37,13 +37,13 @@ function MemberReportDisplay({
           </Typography>
           <Info infoText={generalInfoTip} />
         </Box>
-        <a href={exportUrl} target="_parent" rel="noreferrer">
+        <Link href={exportUrl} target="_parent" rel="noreferrer" sx={{ alignSelf: 'center' }}>
           <Button className="member-report__download-icon" startIcon={<FileDownloadIcon />}>
             <Typography variant="caption">
               Export
             </Typography>
           </Button>
-        </a>
+        </Link>
       </Box>
 
       <Box className="member-report__info-display">
@@ -150,15 +150,23 @@ function MemberReportDisplay({
 MemberReportDisplay.propTypes = {
   id: PropTypes.string,
   memberInfo: PropTypes.shape({
-    dob: PropTypes.string,
-    timeStamp: PropTypes.string,
-    gender: PropTypes.string,
-    coverage: PropTypes.arrayOf(
-      PropTypes.shape({
-        any: PropTypes.string,
-      }),
-    ),
-    measurementType: PropTypes.string,
+    memberInfo: PropTypes.shape({
+      dob: PropTypes.string,
+      timeStamp: PropTypes.string,
+      gender: PropTypes.string,
+      coverage: PropTypes.arrayOf(
+        PropTypes.shape({
+          type: PropTypes.shape({
+            coding: PropTypes.shape({
+              display: PropTypes.shape({
+                value: PropTypes.string,
+              }),
+            }),
+          }),
+        }),
+      ),
+      measurementType: PropTypes.string,
+    }),
   }),
   datastoreInfo: PropTypes.shape({
     any: PropTypes.string,
