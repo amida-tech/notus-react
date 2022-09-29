@@ -28,22 +28,29 @@ $block-class: 'member-report';
         }
 
         & &__info-display {
+            margin: 1rem;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            margin-left: 1rem;
-            // justify-items: left;
+            flex-direction: row;
         }
 
         & &__member-card {
             border: 1px solid $blue-grey-darken-4;
             border-radius: 3px;
-            padding: 1rem;
+            padding: 32px 24px;
             margin: 0 1rem;
-            width: 45ch;
+            width: 45%;
             // need to upgrade RTL for userEvents
             // margin-right: auto;
             // margin-left: auto;
+        }
+
+        & &__insurance-card {
+            border: 1px solid $blue-grey-darken-4;
+            border-radius: 3px;
+            margin: 0 1rem;
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            width: 55%;
         }
 
         & &__info-field {

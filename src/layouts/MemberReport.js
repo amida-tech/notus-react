@@ -33,6 +33,7 @@ function MemberReport({ id, memberInfoFetch, loading }) {
       ));
       setDescription(datastore?.info[memberInfo.measurementType].description || 'Measure description not currently available.')
       setIsLoading(false);
+      console.log('memberInfo', memberInfo.providers)
     }
   }, [datastore, memberInfo]);
 
