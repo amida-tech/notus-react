@@ -40,25 +40,28 @@ function MemberReportTable({ rowData }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {formattedData.map((row, i) => (
-            <TableRow
-              key={`table-row-for-${row.type}-${i}`}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell>{row.measure}</TableCell>
-              <TableCell align="center">{row.type}</TableCell>
-              <TableCell align="center">
-                {row.status
-                  ? <CheckCircleIcon sx={{ color: theme.palette.success.main }} />
-                  : <CancelIcon sx={{ color: theme.palette.error.main }} /> }
-              </TableCell>
-              <TableCell align="center">{row.exclusions?.length > 0 ? row.exclusions : <CancelIcon sx={{ color: theme.palette.error.main }} />}</TableCell>
-              <TableCell align="center">{row.practitioner}</TableCell>
-              <TableCell align="center">{row.dates}</TableCell>
-              <TableCell align="center">{row.conditions}</TableCell>
-              <TableCell align="center">{row.recommendations}</TableCell>
-            </TableRow>
-          ))}
+          {formattedData.map((row, i) => {
+            Object.assign(row, { key: i });
+            return (
+              <TableRow
+                key={row.key}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell>{row.measure}</TableCell>
+                <TableCell align="center">{row.type}</TableCell>
+                <TableCell align="center">
+                  {row.status
+                    ? <CheckCircleIcon sx={{ color: theme.palette.success.main }} />
+                    : <CancelIcon sx={{ color: theme.palette.error.main }} /> }
+                </TableCell>
+                <TableCell align="center">{row.exclusions?.length > 0 ? row.exclusions : <CancelIcon sx={{ color: theme.palette.error.main }} />}</TableCell>
+                <TableCell align="center">{row.practitioner}</TableCell>
+                <TableCell align="center">{row.dates}</TableCell>
+                <TableCell align="center">{row.conditions}</TableCell>
+                <TableCell align="center">{row.recommendations}</TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>
