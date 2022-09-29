@@ -21,7 +21,10 @@ function MemberReportInsurance({ memberInfo }) {
   ))
 
   const insuranceTabPanels = coverageObjArr.map((insurance, i) => (
-    <TabPanel key={insurance.type.coding[i].display.value} value={insurance.type.coding[i].display.value}>
+    <TabPanel
+      key={insurance.type.coding[i].display.value}
+      value={insurance.type.coding[i].display.value}
+    >
       <List key={`insurance-card-${insurance.id.value}`}>
         <ListItem disablePadding className="member-report__info-field">
           <ListItemText
@@ -121,23 +124,21 @@ function MemberReportInsurance({ memberInfo }) {
 
 MemberReportInsurance.propTypes = {
   memberInfo: PropTypes.shape({
-    memberInfo: PropTypes.shape({
-      dob: PropTypes.string,
-      timeStamp: PropTypes.string,
-      gender: PropTypes.string,
-      coverage: PropTypes.arrayOf(
-        PropTypes.shape({
-          type: PropTypes.shape({
-            coding: PropTypes.shape({
-              display: PropTypes.shape({
-                value: PropTypes.string,
-              }),
+    dob: PropTypes.string,
+    timeStamp: PropTypes.string,
+    gender: PropTypes.string,
+    coverage: PropTypes.arrayOf(
+      PropTypes.shape({
+        type: PropTypes.shape({
+          coding: PropTypes.shape({
+            display: PropTypes.shape({
+              value: PropTypes.string,
             }),
           }),
         }),
-      ),
-      measurementType: PropTypes.string,
-    }),
+      }),
+    ),
+    measurementType: PropTypes.string,
   }),
 }
 
