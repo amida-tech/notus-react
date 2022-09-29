@@ -1,27 +1,27 @@
 import {
   useState,
 } from 'react';
-import { Tab, Box, List, ListItem, ListItemText } from '@mui/material'
+import PropTypes from 'prop-types';
+import {
+  Tab, Box, List, ListItem, ListItemText,
+} from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { getAge, getDatestamp, updateTimestamp } from '../Utilities/GeneralUtil';
+import { getDatestamp } from '../Utilities/GeneralUtil';
 
-function MemberReportInsurance(memberInfo) {
+function MemberReportInsurance({ memberInfo }) {
   const coverageObjArr = memberInfo.memberInfo.coverage
   const [tabValue, setTabValue] = useState(coverageObjArr[0].type.coding[0].display.value);
 
-  console.log('covey', tabValue)
+  const insuranceTabList = coverageObjArr.map((insurance, i) => (
+    <Tab
+      label={insurance.type.coding[i].display.value}
+      value={insurance.type.coding[i].display.value}
+    />
+  ))
 
-  const insuranceTabList = coverageObjArr.map((insurance, i) => {
-    console.log('tab list insurance:', insurance)
-    return (
-      <Tab label={insurance.type.coding[i].display.value} value={insurance.type.coding[i].display.value} />
-    )
-    })
-
-  const insuranceTabPanels = coverageObjArr.map((insurance, i) => {
-    return (
-      <TabPanel value={insurance.type.coding[i].display.value}>
-        <List key={`insurance-card-${insurance.id.value}`}>
+  const insuranceTabPanels = coverageObjArr.map((insurance, i) => (
+    <TabPanel value={insurance.type.coding[i].display.value}>
+      <List key={`insurance-card-${insurance.id.value}`}>
         <ListItem disablePadding className="member-report__info-field">
           <ListItemText
             sx={{ m: 0, display: 'flex', gap: '.5rem' }}
@@ -85,11 +85,10 @@ function MemberReportInsurance(memberInfo) {
             secondary={insurance.period ? `${getDatestamp(new Date(insurance.period.start.value))} - ${
               getDatestamp(new Date(insurance.period.end.value))}` : 'N/A'}
           />
-       </ListItem>
-     </List>
+        </ListItem>
+      </List>
     </TabPanel>
-    )
-  })
+  ))
 
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
@@ -100,7 +99,7 @@ function MemberReportInsurance(memberInfo) {
       {insuranceTabPanels}
       <Box
         sx={{
-          padding: "0 1rem 1rem 0"
+          padding: '0 1rem 1rem 0',
         }}
       >
         <TabList
@@ -119,8 +118,30 @@ function MemberReportInsurance(memberInfo) {
   )
 }
 
+MemberReportInsurance.propTypes = {
+  memberInfo: PropTypes.shape({
+    memberInfo: PropTypes.shape({
+      dob: PropTypes.string,
+      timeStamp: PropTypes.string,
+      gender: PropTypes.string,
+      coverage: PropTypes.arrayOf(
+        PropTypes.shape({
+          type: PropTypes.shape({
+            coding: PropTypes.shape({
+              display: PropTypes.shape({
+                value: PropTypes.string,
+              }),
+            }),
+          }),
+        }),
+      ),
+      measurementType: PropTypes.string,
+    }),
+  }),
+}
+
 MemberReportInsurance.defaultProps = {
-  coverage: {},
+  memberInfo: {},
 }
 
 export default MemberReportInsurance;
