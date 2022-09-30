@@ -2,7 +2,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {
   Accordion, AccordionDetails, AccordionSummary, Box, Button, List, ListItem,
-  ListItemText, Typography,
+  ListItemText, Typography, Link,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import moment from 'moment';
@@ -11,6 +11,7 @@ import Banner from '../Common/Banner';
 import Info from '../Common/Info';
 import { getAge, updateTimestamp } from '../Utilities/GeneralUtil';
 import MemberReportTable from './MemberReportTable';
+import MemberReportInsurance from './MemberReportInsurance'
 
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
@@ -42,15 +43,17 @@ function MemberReportDisplay({
           </Typography>
           <Info infoText={generalInfoTip} />
         </Box>
-        <a href={exportUrl} target="_parent" rel="noreferrer">
+        <Link href={exportUrl} target="_parent" rel="noreferrer" sx={{ alignSelf: 'center' }}>
           <Button className="member-report__download-icon" startIcon={<FileDownloadIcon />}>
             <Typography variant="caption">
               Export
             </Typography>
           </Button>
-        </a>
+        </Link>
       </Box>
+
       <Box className="member-report__info-display">
+        {/* General info box */}
         <List className="member-report__member-card">
           <ListItem disablePadding className="member-report__info-field">
             <ListItemText
@@ -112,75 +115,14 @@ function MemberReportDisplay({
             />
           </ListItem>
         </List>
-
-        {memberInfo.coverage && memberInfo.coverage.map((insurance) => (
-          <List key={`insurance-card-${insurance.id.value}`} className="member-report__member-card">
-            <ListItem disablePadding className="member-report__info-field">
-              <ListItemText
-                sx={{ m: 0, display: 'flex', gap: '.5rem' }}
-                primaryTypographyProps={{ fontWeight: '700' }}
-                secondaryTypographyProps={{ alignSelf: 'center' }}
-                primary="Policy ID:&nbsp;"
-                secondary={insurance.id.value}
-              />
-            </ListItem>
-            <ListItem disablePadding className="member-report__info-field">
-              <ListItemText
-                sx={{ m: 0, display: 'flex', gap: '.5rem' }}
-                primaryTypographyProps={{ fontWeight: '700' }}
-                secondaryTypographyProps={{ alignSelf: 'center' }}
-                primary="Payor/Provider:&nbsp;"
-                secondary={insurance.payor[0]?.reference.value || 'N/A'}
-              />
-            </ListItem>
-            <ListItem disablePadding className="member-report__info-field">
-              <ListItemText
-                sx={{ m: 0, display: 'flex', gap: '.5rem' }}
-                primaryTypographyProps={{ fontWeight: '700' }}
-                secondaryTypographyProps={{ alignSelf: 'center' }}
-                primary="Plan:&nbsp;"
-                secondary="N/A"
-              />
-            </ListItem>
-            <ListItem disablePadding className="member-report__info-field">
-              <ListItemText
-                sx={{ m: 0, display: 'flex', gap: '.5rem' }}
-                primaryTypographyProps={{ fontWeight: '700' }}
-                secondaryTypographyProps={{ alignSelf: 'center' }}
-                primary=" Dependents:&nbsp;"
-                secondary="N/A"
-              />
-            </ListItem>
-            <ListItem disablePadding className="member-report__info-field">
-              <ListItemText
-                sx={{ m: 0, display: 'flex', gap: '.5rem' }}
-                primaryTypographyProps={{ fontWeight: '700' }}
-                secondaryTypographyProps={{ alignSelf: 'center' }}
-                primary="Relationship:&nbsp;"
-                secondary={insurance.relationship?.coding[0]?.code.value}
-              />
-            </ListItem>
-            <ListItem disablePadding className="member-report__info-field">
-              <ListItemText
-                sx={{ m: 0, display: 'flex', gap: '.5rem' }}
-                primaryTypographyProps={{ fontWeight: '700' }}
-                secondaryTypographyProps={{ alignSelf: 'center' }}
-                primary="Type:&nbsp;"
-                secondary={`${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}` || 'N/A'}
-              />
-            </ListItem>
-            <ListItem disablePadding className="member-report__info-field">
-              <ListItemText
-                sx={{ m: 0, display: 'flex', gap: '.5rem' }}
-                primaryTypographyProps={{ fontWeight: '700' }}
-                secondaryTypographyProps={{ alignSelf: 'center' }}
-                primary="Participation Period:&nbsp;"
-                secondary={insurance.period ? participationPeriod : 'N/A'}
-              />
-            </ListItem>
-          </List>
-        ))}
+        {/* Insurance box */}
+        <Box className="member-report__insurance-card">
+          <MemberReportInsurance
+            memberInfo={memberInfo}
+          />
+        </Box>
       </Box>
+
       <Box className="member-report__info-panel">
         <Box className="member-report__info-title">
           <Typography variant="h2" className="member-report__h2-header">
@@ -218,7 +160,15 @@ MemberReportDisplay.propTypes = {
     gender: PropTypes.string,
     coverage: PropTypes.arrayOf(
       PropTypes.shape({
-        any: PropTypes.string,
+        type: PropTypes.shape({
+          coding: PropTypes.arrayOf(
+            PropTypes.shape({
+              display: PropTypes.shape({
+                value: PropTypes.string,
+              }),
+            }),
+          ),
+        }),
       }),
     ),
     measurementType: PropTypes.string,
