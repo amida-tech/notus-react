@@ -74,7 +74,9 @@ MemberReportTable.propTypes = {
       measure: PropTypes.string,
       type: PropTypes.string,
       status: PropTypes.bool,
-      exclusions: PropTypes.bool,
+      exclusions: PropTypes.arrayOf(
+        PropTypes.bool,
+      ),
       practitioner: PropTypes.string,
       dates: PropTypes.string,
       conditions: PropTypes.string,

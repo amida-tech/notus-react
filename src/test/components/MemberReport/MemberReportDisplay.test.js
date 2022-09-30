@@ -6,7 +6,8 @@ import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil'
 import {
   exportUrl, memberId, memberInfo, rowData,
 } from '../../data/DemoData';
-import { datastore } from '../../data/datastore'
+import { datastore } from '../../data/datastore';
+import moment from 'moment';
 
 describe('Member view page', () => {
   beforeEach(async () => {
@@ -90,16 +91,18 @@ describe('Member view page', () => {
       getAge(memberInfo.dob),
       memberInfo.gender,
       'ACTIVE',
-      `${getDatestamp(new Date(memberInfo.coverage[0].period.start.value))} - ${
-        getDatestamp(new Date(memberInfo.coverage[0].period.end.value))}`,
+      `${moment(memberInfo.coverage[0].period.start.value)
+        .format('MM/DD/YYYY')} - ${moment(memberInfo.coverage[0].period.end.value)
+        .format('MM/DD/YYYY')}`,
       insurance.id.value,
       insurance.payor[0].reference.value,
       'N/A',
       'N/A',
       insurance.relationship.coding[0].code.value,
       `${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}`,
-      `${getDatestamp(new Date(insurance.period.start.value))} - ${
-        getDatestamp(new Date(insurance.period.end.value))}`,
+      `${moment(memberInfo.coverage[0].period.start.value)
+        .format('MM/DD/YYYY')} - ${moment(memberInfo.coverage[0].period.end.value)
+        .format('MM/DD/YYYY')}`,
     ]
     memberInfoData.forEach((label, i) => expect(within(renderedMemberInfo[i])
       .getByText(label)).toBeTruthy())

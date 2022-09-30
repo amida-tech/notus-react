@@ -161,11 +161,13 @@ MemberReportDisplay.propTypes = {
     coverage: PropTypes.arrayOf(
       PropTypes.shape({
         type: PropTypes.shape({
-          coding: PropTypes.shape({
-            display: PropTypes.shape({
-              value: PropTypes.string,
+          coding: PropTypes.arrayOf(
+            PropTypes.shape({
+              display: PropTypes.shape({
+                value: PropTypes.string,
+              }),
             }),
-          }),
+          ),
         }),
       }),
     ),
