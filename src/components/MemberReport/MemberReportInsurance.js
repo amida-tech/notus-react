@@ -6,7 +6,7 @@ import {
   Tab, Box, List, ListItem, ListItemText,
 } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { getDatestamp } from '../Utilities/GeneralUtil';
+import moment from 'moment';
 
 function MemberReportInsurance({ memberInfo }) {
   const coverageObjArr = memberInfo.coverage
@@ -20,8 +20,12 @@ function MemberReportInsurance({ memberInfo }) {
     />
   ))
 
-  const insuranceTabPanels = coverageObjArr.map((insurance, i) => (
-    <TabPanel
+  const insuranceTabPanels = coverageObjArr.map((insurance, i) => {
+    console.log('insurance value:', insurance)
+    console.log('momentized insurance:', moment(insurance.period.start.value).format('MM/DD/YYYY'))
+
+    return (
+      <TabPanel
       key={insurance.type.coding[i].display.value}
       value={insurance.type.coding[i].display.value}
     >
@@ -68,7 +72,7 @@ function MemberReportInsurance({ memberInfo }) {
             primaryTypographyProps={{ fontWeight: '700' }}
             secondaryTypographyProps={{ alignSelf: 'center' }}
             primary="Relationship:&nbsp;"
-            secondary={insurance.relationship?.coding[0]?.code.value}
+            secondary={insurance.relationship.coding[0].code.value}
           />
         </ListItem>
         <ListItem disablePadding className="member-report__info-field">
@@ -77,7 +81,7 @@ function MemberReportInsurance({ memberInfo }) {
             primaryTypographyProps={{ fontWeight: '700' }}
             secondaryTypographyProps={{ alignSelf: 'center' }}
             primary="Type:&nbsp;"
-            secondary={`${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}` || 'N/A'}
+            secondary={`${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0].display.value}` || 'N/A'}
           />
         </ListItem>
         <ListItem disablePadding className="member-report__info-field">
@@ -86,13 +90,15 @@ function MemberReportInsurance({ memberInfo }) {
             primaryTypographyProps={{ fontWeight: '700' }}
             secondaryTypographyProps={{ alignSelf: 'center' }}
             primary="Participation Period:&nbsp;"
-            secondary={insurance.period ? `${getDatestamp(new Date(insurance.period.start.value))} - ${
-              getDatestamp(new Date(insurance.period.end.value))}` : 'N/A'}
+            secondary={insurance.period ? `${moment(insurance.period.start.value)
+              .format('MM/DD/YYYY')} - ${moment(insurance.period.end.value)
+              .format('MM/DD/YYYY')}` : 'N/A'}
           />
         </ListItem>
       </List>
     </TabPanel>
-  ))
+    )
+  })
 
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
