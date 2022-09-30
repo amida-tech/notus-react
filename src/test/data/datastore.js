@@ -1,4 +1,4 @@
-export default {
+export const datastore = {
   results: [
     {
       measure: 'aab',
@@ -811,3 +811,5 @@ export default {
   lastUpdated: 'Aug 18 2001, 05:52 PM',
   isLoading: false,
 }
+
+export default datastore;
