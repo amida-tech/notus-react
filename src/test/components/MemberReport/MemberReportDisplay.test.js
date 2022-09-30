@@ -1,13 +1,13 @@
 import {
   render, screen, within, fireEvent,
 } from '@testing-library/react';
+import moment from 'moment';
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
-import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil';
+import { getAge } from '../../../components/Utilities/GeneralUtil';
 import {
   exportUrl, memberId, memberInfo, rowData,
 } from '../../data/DemoData';
 import { datastore } from '../../data/datastore';
-import moment from 'moment';
 
 describe('Member view page', () => {
   beforeEach(async () => {

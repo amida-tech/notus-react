@@ -20,12 +20,8 @@ function MemberReportInsurance({ memberInfo }) {
     />
   ))
 
-  const insuranceTabPanels = coverageObjArr.map((insurance, i) => {
-    console.log('insurance value:', insurance)
-    console.log('momentized insurance:', moment(insurance.period.start.value).format('MM/DD/YYYY'))
-
-    return (
-      <TabPanel
+  const insuranceTabPanels = coverageObjArr.map((insurance, i) => (
+    <TabPanel
       key={insurance.type.coding[i].display.value}
       value={insurance.type.coding[i].display.value}
     >
@@ -97,8 +93,7 @@ function MemberReportInsurance({ memberInfo }) {
         </ListItem>
       </List>
     </TabPanel>
-    )
-  })
+  ))
 
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
