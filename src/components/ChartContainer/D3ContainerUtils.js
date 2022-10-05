@@ -1,16 +1,16 @@
-export function filterByStars(displayData, filters, store) {
+export function filterByStars(displayData, filters, currentResults) {
   return (displayData.filter((result) => filters.stars.includes(
     Math.floor( // Floor for the .5 stars.
-      store.currentResults.find(
+      currentResults.find(
         (current) => current.measure === result.measure,
       ).starRating,
     ),
   )));
 }
 
-export function filterByPercentage(displayData, filters, store) {
+export function filterByPercentage(displayData, filters, currentResults) {
   return (displayData.filter((result) => {
-    const { value } = store.currentResults.find(
+    const { value } = currentResults.find(
       (current) => current.measure === result.measure,
     );
     return (
@@ -19,9 +19,9 @@ export function filterByPercentage(displayData, filters, store) {
   }));
 }
 
-export function filterByDOC(displayData, filters, store) {
+export function filterByDOC(displayData, filters, storeinfo) {
   return displayData.filter(
-    (result) => filters.domainsOfCare.includes(store.info[result.measure].domainOfCare),
+    (result) => filters.domainsOfCare.includes(storeinfo[result.measure].domainOfCare),
   );
 }
 

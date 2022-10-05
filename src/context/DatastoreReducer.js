@@ -1,5 +1,19 @@
 import { updateTimestamp } from '../components/Utilities/GeneralUtil';
 
+const chartColorArray = [
+  '#88CCEE',
+  '#CC6677',
+  '#DDCC77',
+  '#117733',
+  '#332288',
+  '#AA4499',
+  '#44AA99',
+  '#999933',
+  '#661100',
+  '#6699CC',
+  '#888888',
+];
+
 const defaultFilterState = {
   domainsOfCare: [],
   stars: [],
@@ -23,6 +37,7 @@ export const initialState = {
   info: {},
   lastUpdated: 'Updating now...',
   defaultFilterState,
+  chartColorArray,
   defaultTimelineState,
   filterOptions: {
     payors: [],

@@ -31,6 +31,7 @@ import {
   setMemberResultsProps,
   handleResetDataProps,
   setRowEntriesProps,
+  setTabValueProps,
   setFilterActivatedProps,
   setIsLoadingProps,
   additionalFilterOptionsProps,
@@ -77,6 +78,7 @@ function D3Container({
   setIsLoading,
   additionalFilterOptions,
   setMemberResults,
+  setTabValue,
   setRowEntries,
   handleResetData,
   setFilterInfo,
@@ -108,12 +110,14 @@ function D3Container({
       />
       <ChartHeader
         isComposite={isComposite}
+        setComposite={setComposite}
+        setTabValue={setTabValue}
+        setTableFilter={setTableFilter}
         history={history}
         isLoading={isLoading}
         labelGenerator={labelGenerator}
         currentResults={currentResults}
         activeMeasure={activeMeasure}
-        handleReset={handleResetData}
       />
       <Grid item className="d3-container__chart-bar">
         <ChartBar
@@ -165,6 +169,7 @@ D3Container.propTypes = {
   setMemberResults: setMemberResultsProps,
   setRowEntries: setRowEntriesProps,
   handleResetData: handleResetDataProps,
+  setTabValue: setTabValueProps,
   setFilterInfo: setFilterInfoProps,
 };
 
@@ -196,6 +201,7 @@ D3Container.defaultProps = {
   setRowEntries: () => undefined,
   handleResetData: () => undefined,
   setFilterInfo: () => undefined,
+  setTabValue: () => undefined,
 };
 
 export default D3Container;
