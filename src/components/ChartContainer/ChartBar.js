@@ -31,6 +31,7 @@ function ChartBar({
   toggleFilterDrawer,
   filterSum,
   currentTimeline,
+  handleResetData,
   handleTimelineChange,
   filterDisabled,
 }) {
@@ -58,6 +59,7 @@ function ChartBar({
   }
 
   const onClickFilter = () => {
+    handleResetData()
     toggleFilterDrawer(!filterDrawerOpen);
   };
 

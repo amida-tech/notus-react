@@ -115,6 +115,7 @@ function D3Container({
         setTableFilter={setTableFilter}
         history={history}
         isLoading={isLoading}
+        handleResetData={handleResetData}
         labelGenerator={labelGenerator}
         currentResults={currentResults}
         activeMeasure={activeMeasure}
@@ -124,6 +125,7 @@ function D3Container({
           filterDrawerOpen={filterDrawerOpen}
           toggleFilterDrawer={toggleFilterDrawer}
           currentTimeline={currentTimeline}
+          handleResetData={handleResetData}
           handleTimelineChange={handleTimelineChange}
           filterSum={currentFilters.sum}
           filterDisabled={filterDisabled}
