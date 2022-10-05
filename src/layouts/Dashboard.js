@@ -31,6 +31,20 @@ import {
   filterSearch,
 } from '../components/Common/Controller'
 
+const chartColorArray = [
+  '#88CCEE',
+  '#CC6677',
+  '#DDCC77',
+  '#117733',
+  '#332288',
+  '#AA4499',
+  '#44AA99',
+  '#999933',
+  '#661100',
+  '#6699CC',
+  '#888888',
+];
+
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
@@ -91,7 +105,7 @@ export default function Dashboard() {
   useEffect(() => { // Break apart later if we feel we need to separate concerns.
     const baseColorMap = datastore.currentResults.map((item, index) => ({
       value: item.measure,
-      color: index <= 11 ? datastore.chartColorArray[index] : datastore.chartColorArray[index % 11],
+      color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
     }));
     setCurrentTimeline(
       filterInfo.currentResults.length === 0
@@ -122,7 +136,7 @@ export default function Dashboard() {
         setDisplayData(filterInfo.results.map((result) => ({ ...result })));
       }
       setComposite(true);
-      setColorMap(baseColorMap);
+      setColorMap(ColorMapping(baseColorMap, chartColorArray, subMeasureCurrentResults));
       setFilterDisabled(false);
       setTableFilter([]);
       setRowEntries([])
