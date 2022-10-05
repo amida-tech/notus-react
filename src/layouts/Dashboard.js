@@ -31,6 +31,20 @@ import {
   filterSearch,
 } from '../components/Common/Controller'
 
+const chartColorArray = [
+  '#88CCEE',
+  '#CC6677',
+  '#DDCC77',
+  '#117733',
+  '#332288',
+  '#AA4499',
+  '#44AA99',
+  '#999933',
+  '#661100',
+  '#6699CC',
+  '#888888',
+];
+
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
@@ -51,6 +65,7 @@ export default function Dashboard() {
   );
   const [isComposite, setComposite] = useState(true);
   const [currentResults, setCurrentResults] = useState([]);
+  const [colorMap, setColorMap] = useState([]);
   const [colorMap, setColorMap] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
   const [currentFilters, setCurrentFilters] = useState(datastore.defaultFilterState);
@@ -92,6 +107,10 @@ export default function Dashboard() {
   })
 
   useEffect(() => { // Break apart later if we feel we need to separate concerns.
+    const baseColorMap = datastore.currentResults.map((item, index) => ({
+      value: item.measure,
+      color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
+    }));
     setCurrentTimeline(
       filterInfo.currentResults.length === 0
         ? datastore.defaultTimelineState
@@ -109,7 +128,7 @@ export default function Dashboard() {
       setDisplayData(datastore.results.map((result) => ({ ...result })));
       setCurrentResults(datastore.currentResults);
       setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
-      setColorMap(ColorMapping(currentResults));
+      setColorMap(baseColorMap);
       setFilterDisabled(false);
       setTableFilter([]);
       setRowEntries([])
@@ -121,7 +140,7 @@ export default function Dashboard() {
         setDisplayData(filterInfo.results.map((result) => ({ ...result })));
       }
       setComposite(true);
-      setColorMap(ColorMapping(currentResults));
+      setColorMap(ColorMapping(baseColorMap, chartColorArray, subMeasureCurrentResults));
       setFilterDisabled(false);
       setTableFilter([]);
       setRowEntries([])
