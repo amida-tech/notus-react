@@ -12,6 +12,7 @@ function ChartHeader({
   setTableFilter,
   history,
   isLoading,
+  handleResetData,
   labelGenerator,
   currentResults,
   activeMeasure,
@@ -28,6 +29,7 @@ function ChartHeader({
         setComposite(true);
         setTabValue('overview');
         setTableFilter([]);
+        handleResetData();
         history.push('/');
       }}
     >
