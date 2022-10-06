@@ -17,17 +17,20 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar sx={{ backgroundColor: (theme) => theme.palette.bluegray?.D4 }}>
         <Toolbar position="fixed">
-          <Box>
+          <Box sx={{ pl: '.7rem' }}>
             <Link
               sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
               component={RouterLink}
-              className="navbar__text-nav-dashboard"
+              className="navbar__text"
               to="/"
             >
               Saraswati
             </Link>
           </Box>
-          <Box sx={{ flexGrow: 1, textAlign: 'end' }}>
+          <Box sx={{
+            flexGrow: 1, display: 'flex', gap: '2rem', justifyContent: 'flex-end',
+          }}
+          >
             <Link
               sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
               component={RouterLink}
@@ -47,7 +50,7 @@ export default function Navbar() {
             <Link
               sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
               component={RouterLink}
-              className="navbar__text-signout"
+              className="navbar__text"
               to={{ pathname: '/auth/login' }}
               onClick={logout}
             >
@@ -60,53 +63,3 @@ export default function Navbar() {
     </Box>
   )
 }
-
-// export default function Navbar() {
-//   return (
-//     <Box className="navbar" sx={{ flexGrow: 1 }}>
-//       <AppBar className="navbar__container">
-//         <Toolbar className="navbar__toolbar">
-//           <Box className="navbar__link-holder-left">
-//             <Link
-//               sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
-//               component={RouterLink}
-//               className="navbar__text-nav-dashboard"
-//               to="/"
-//             >
-//               Saraswati
-//             </Link>
-//           </Box>
-
-//           <Box className="navbar__link-holder-right">
-//             <Link
-//               sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
-//               component={RouterLink}
-//               className="navbar__text"
-//               to={{ pathname: '/' }}
-//             >
-//               Dashboard
-//             </Link>
-//             <Link
-//               sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
-//               component={RouterLink}
-//               className="navbar__text"
-//               to={{ pathname: '/reports/' }}
-//             >
-//               Reports
-//             </Link>
-//             <Link
-//               sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
-//               component={RouterLink}
-//               className="navbar__text-signout"
-//               to={{ pathname: '/auth/login' }}
-//               onClick={logout}
-//             >
-//               Sign Out
-//             </Link>
-//           </Box>
-//         </Toolbar>
-//       </AppBar>
-//       <Offset />
-//     </Box>
-//   );
-// }
