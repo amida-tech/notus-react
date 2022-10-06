@@ -44,6 +44,7 @@ function DisplayTableContainer({
   setTableFilter,
   handleTabChange,
 }) {
+  console.log('ROW ENTRIES FROM DTC', rowEntries)
   return (
     <Grid className="d3-container__bottom-display">
       <Box className="d3-container__overview-member-chart">

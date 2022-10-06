@@ -200,7 +200,7 @@ export default function Dashboard() {
         setDisplayData(filterInfo.results.map((result) => ({ ...result })));
       }
       setComposite(true);
-      setColorMap(ColorMapping(baseColorMap, chartColorArray, subMeasureCurrentResults));
+      setColorMap(ColorMapping(baseColorMap, chartColorArray));
       setFilterDisabled(false);
       setTableFilter([]);
       setRowEntries([])
@@ -300,6 +300,9 @@ export default function Dashboard() {
 
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
+
+  // THIS NEEDS ROWENTRIES TO BE MODIFIED
+
   const handleFilteredDataUpdate = async (filters, timeline, newMeasureSelected) => {
     // console.log("handleFilteredDataUpdate", filters, timeline, newMeasureSelected)
     let newDisplayData
@@ -322,10 +325,12 @@ export default function Dashboard() {
       if (newMeasureSelected) {
         currentMeasure = newMeasureSelected
       }
-      const SearchMeasure = currentMeasure === 'composite' ? false : currentMeasure
-      const searchResults = await filterSearch(SearchMeasure, filters, isComposite)
+      const searchMeasure = currentMeasure === 'composite' ? false : currentMeasure
+      console.log('search results props:', searchMeasure, filters, isComposite)
+      const searchResults = await filterSearch(searchMeasure, filters, isComposite)
       cloneDailyMeasureResults = structuredClone(searchResults.dailyMeasureResults)
       cloneMembers = structuredClone(searchResults.members)
+      console.log('CLONED MEMBERS IN FILTER', searchResults)
       calcResults = calcMemberResults(cloneDailyMeasureResults, datastore.info)
       newDisplayData = isComposite
         ? calcResults.results.map((result) => ({ ...result }))
