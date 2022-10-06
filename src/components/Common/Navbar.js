@@ -1,7 +1,10 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import { Link } from 'react-router-dom';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Link,
+} from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 
 const logout = () => {
@@ -16,10 +19,10 @@ export default function Navbar() {
         <Toolbar className="navbar__toolbar">
           <div className="navbar__link-holder-left">
             <Link
+              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              component={RouterLink}
               className="navbar__text-nav-dashboard"
-              to={{
-                pathname: '/',
-              }}
+              to="/"
             >
               Saraswati
             </Link>
@@ -27,18 +30,24 @@ export default function Navbar() {
 
           <div className="navbar__link-holder-right">
             <Link
+              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              component={RouterLink}
               className="navbar__text"
               to={{ pathname: '/' }}
             >
               Dashboard
             </Link>
             <Link
+              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              component={RouterLink}
               className="navbar__text"
               to={{ pathname: '/reports/' }}
             >
               Reports
             </Link>
             <Link
+              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              component={RouterLink}
               className="navbar__text-signout"
               to={{ pathname: '/auth/login' }}
               onClick={logout}

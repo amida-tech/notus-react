@@ -21,20 +21,23 @@ const ColorMapping = (allResults, displayData) => {
   const colorBySeed = ((seed, idx) => chartColorArray[idx % 11])
 
   const distortColor = (color, idx) => {
+    let newColor = ''
     if (idx <= 3) {
-      return tinycolor(color).brighten(idx * 15).spin(idx * 10).toString()
+      newColor = tinycolor(color).brighten(idx * 15).spin(idx * 10).toString()
     } else if (idx <= 6) {
-      return tinycolor(color).darken((idx % 3) * 15).spin((idx % 3) * 15).toString()
+      newColor = tinycolor(color).darken((idx % 3) * 15).spin((idx % 3) * 15).toString()
     } else if (idx <= 9) {
-      return tinycolor(color).brighten((idx % 3) * 15).spin((idx % 3) * -15).toString()
+      newColor = tinycolor(color).brighten((idx % 3) * 15).spin((idx % 3) * -15).toString()
     } else if (idx <= 12) {
-      return tinycolor(color).darken((idx % 3) * 15).saturate((idx % 3) * 10).spin((idx % 3) * -15)
+      newColor = tinycolor(color).darken((idx % 3) * 15)
+        .saturate((idx % 3) * 10).spin((idx % 3) * -15)
         .toString()
     } else if (idx <= 15) {
-      return tinycolor(color).lighten((idx % 3) * 15).spin((idx % 3) * -25).toString()
+      newColor = tinycolor(color).lighten((idx % 3) * 15).spin((idx % 3) * -25).toString()
     } else {
-      return color
+      newColor = color
     }
+    return newColor
   }
 
   // CREATES COLOR MAP FOR ALL CURRENT MEASURES
