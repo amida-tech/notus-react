@@ -19,10 +19,10 @@ export function filterByPercentage(displayData, filters, currentResults) {
   }));
 }
 
-export function filterByDOC(displayData, filters, storeinfo) {
-  console.log('filterbyDOC')
+export function filterByDOC(displayData, filters, storeInfo) {
+  console.log('filterbyDOC', displayData, storeInfo)
   return displayData.filter(
-    (result) => filters.domainsOfCare.includes(storeinfo[result.measure].domainOfCare),
+    (result) => filters.domainsOfCare.includes(storeInfo[result.measure].domainOfCare),
   );
 }
 

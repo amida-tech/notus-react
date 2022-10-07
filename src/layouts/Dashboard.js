@@ -309,28 +309,32 @@ export default function Dashboard() {
     let cloneDailyMeasureResults
     let cloneMembers = []
     let calcResults = null
+
+    let currentMeasure = ''
+    if (measure === undefined) {
+      currentMeasure = 'composite'
+    }
+    if (measure !== undefined) {
+      currentMeasure = measure
+    }
+    if (newMeasureSelected) {
+      currentMeasure = newMeasureSelected
+    }
+    const searchMeasure = currentMeasure === 'composite' ? false : currentMeasure
+    console.log('search results props:', searchMeasure, filters, isComposite)
+    const searchResults = await filterSearch(searchMeasure, filters, isComposite)
+    console.log('the search', searchResults)
+    cloneDailyMeasureResults = structuredClone(searchResults.dailyMeasureResults)
+    cloneMembers = structuredClone(searchResults.members)
+
     if (
       filters.healthcareCoverages.length > 0
         || filters.healthcareProviders.length > 0
         || filters.payors.length > 0
         || filters.healthcarePractitioners.length > 0
-    ) {
-      let currentMeasure = ''
-      if (measure === undefined) {
-        currentMeasure = 'composite'
-      }
-      if (measure !== undefined) {
-        currentMeasure = measure
-      }
-      if (newMeasureSelected) {
-        currentMeasure = newMeasureSelected
-      }
-      const searchMeasure = currentMeasure === 'composite' ? false : currentMeasure
-      console.log('search results props:', searchMeasure, filters, isComposite)
-      const searchResults = await filterSearch(searchMeasure, filters, isComposite)
-      cloneDailyMeasureResults = structuredClone(searchResults.dailyMeasureResults)
-      cloneMembers = structuredClone(searchResults.members)
-      console.log('CLONED MEMBERS IN FILTER', searchResults)
+    )
+      // IF HERA FILTERS ARE DETECTED
+    {
       calcResults = calcMemberResults(cloneDailyMeasureResults, datastore.info)
       newDisplayData = isComposite
         ? calcResults.results.map((result) => ({ ...result }))
@@ -345,7 +349,9 @@ export default function Dashboard() {
         newDisplayData = filterByPercentage(newDisplayData, filters, calcResults.currentResults);
       }
       newDisplayData = filterByTimeline(newDisplayData, timeline);
-    } else {
+    }
+      // IF HERA FILTERS ARE NOT DETECTED
+    else {
       newDisplayData = isComposite
         ? datastore.results.map((result) => ({ ...result }))
         : expandSubMeasureResults(activeMeasure, datastore.results);
