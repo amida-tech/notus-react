@@ -1,5 +1,5 @@
 import { updateTimestamp } from '../components/Utilities/GeneralUtil';
-import { createLabel, createSubMeasureLabel } from '../components/ChartContainer/D3ContainerUtils';
+import { calcMemberResults } from '../components/ChartContainer/D3ContainerUtils';
 
 const chartColorArray = [
   '#88CCEE',
@@ -51,31 +51,8 @@ export const initialState = {
 export const DatastoreReducer = (state, action) => {
   switch (action.type) {
     case 'SET_RESULTS': {
-      const workingList = {};
       const { results, info } = action.payload;
-      results.forEach((item) => {
-        if (workingList[item.measure] === undefined
-          || item.date > workingList[item.measure].date) {
-          workingList[item.measure] = item;
-        }
-      });
-      Object.keys(workingList).forEach((key) => {
-        workingList[key].label = createLabel(workingList[key].measure, info);
-        workingList[key].shortLabel = info[workingList[key].measure]?.displayLabel;
-        workingList[key].title = info[workingList[key].measure]?.title;
-        if (workingList[key].subScores) {
-          workingList[key].subScores.forEach((subscore) => {
-            const newSubscore = subscore;
-            newSubscore.label = createSubMeasureLabel(newSubscore.measure, info);
-          });
-        }
-      });
-      const currentResults = Object.values(workingList)
-        .sort((a, b) => {
-          if (a.measure === 'composite') return -1;
-          if (b.measure === 'composite') return 1;
-          return a.measure > b.measure ? 1 : -1;
-        });
+      const { currentResults } = calcMemberResults(results, info)
       return {
         ...state,
         results,
