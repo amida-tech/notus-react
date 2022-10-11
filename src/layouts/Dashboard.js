@@ -4,6 +4,8 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { useParams, useHistory } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
+import { Snackbar } from '@mui/material';
+import Alert from '../components/Utilities/Alert'
 import { DatastoreContext } from '../context/DatastoreProvider';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 
@@ -16,6 +18,7 @@ import MeasureTable from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
 
 import {
+  calcMemberResults,
   expandSubMeasureResults, filterByDOC,
   filterByPercentage,
   filterByStars,
@@ -23,7 +26,11 @@ import {
   getSubMeasureCurrentResults,
 } from '../components/ChartContainer/D3ContainerUtils';
 
-import { measureDataFetch } from '../components/Common/Controller'
+import {
+  measureDataFetch,
+  filterSearch,
+  infoDataFetch,
+} from '../components/Common/Controller'
 
 const chartColorArray = [
   '#88CCEE',
@@ -39,22 +46,18 @@ const chartColorArray = [
   '#888888',
 ];
 
-// If nothing set, select all.
-const defaultFilterState = {
-  domainsOfCare: [],
-  stars: [],
-  percentRange: [0, 100],
-  sum: 0,
-};
-
-const defaultTimelineState = {
-  choice: 'all', // 30, 60, ytd or custom.
-  range: [null, null],
-};
-
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
+  const [filterActivated, setFilterActivated] = useState(false);
+  const [noResultsFound, setNoResultsFound] = useState(false);
+  const [filterInfo, setFilterInfo] = useState({
+    members: [],
+    currentResults: [],
+    displayData: [],
+    results: [],
+    filters: {},
+  });
   const [isLoading, setIsLoading] = useState(true);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
   const history = useHistory();
@@ -65,8 +68,9 @@ export default function Dashboard() {
   const [currentResults, setCurrentResults] = useState([]);
   const [colorMap, setColorMap] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState([]);
-  const [currentFilters, setCurrentFilters] = useState(defaultFilterState);
-  const [currentTimeline, setCurrentTimeline] = useState(defaultTimelineState);
+  const [currentFilters, setCurrentFilters] = useState([]);
+  const [additionalFilterOptions, setAdditionalFilterOptions] = useState([])
+  const [currentTimeline, setCurrentTimeline] = useState(datastore.defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
   const [memberResults, setMemberResults] = useState([]);
@@ -76,15 +80,104 @@ export default function Dashboard() {
   const [tabValue, setTabValue] = useState('overview');
   const { measure } = useParams();
 
+  const handleResetData = (router) => {
+    const baseColorMap = datastore.currentResults.map((item, index) => ({
+      value: item.measure,
+      color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
+    }));
+    if (router === undefined) {
+      setIsLoading(true)
+      setCurrentTimeline(datastore.defaultTimelineState);
+      setCurrentFilters(datastore.defaultFilterState);
+      setAdditionalFilterOptions(datastore.filterOptions);
+      const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
+      if (ActiveMeasureTest) {
+        setFilterInfo({
+          members: [],
+          currentResults: [],
+          displayData: [],
+          results: [],
+          filters: {},
+        })
+        setComposite(true);
+        setDisplayData(datastore.results.map((result) => ({ ...result })));
+        setCurrentResults(datastore.currentResults);
+        setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
+        setColorMap(baseColorMap);
+        setFilterDisabled(false);
+        setTableFilter([]);
+        setRowEntries([])
+        setHeaderInfo(MeasureTable.headerData(true));
+      } else {
+        setFilterInfo({
+          members: [],
+          currentResults: [],
+          displayData: [],
+          results: [],
+          filters: {},
+        })
+        setComposite(false);
+        const subMeasureCurrentResults = getSubMeasureCurrentResults(
+          activeMeasure,
+          datastore.currentResults,
+        );
+        setDisplayData(expandSubMeasureResults(activeMeasure, datastore.results));
+        setCurrentResults(subMeasureCurrentResults);
+        setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
+        setColorMap(
+          ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
+        );
+        setFilterDisabled(false);
+        setTableFilter([]);
+        setRowEntries([])
+        setHeaderInfo(MeasureTable.headerData(false));
+      }
+      setFilterActivated(false)
+      setNoResultsFound(false)
+      setIsLoading(false)
+    } else if (router === 'ALL MEASURES') {
+      const otherMeasureFinder = filterInfo.results.filter(
+        (res) => !res.measure.includes(measure),
+      );
+      if (otherMeasureFinder.length > 0) {
+        if (filterInfo.members.length !== memberResults.length) {
+          setCurrentResults(filterInfo.currentResults)
+          setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
+          setDisplayData(filterInfo.results.map((result) => ({ ...result })));
+        }
+        setComposite(true);
+        setFilterDisabled(false);
+        setTableFilter([]);
+        setRowEntries([]);
+        setColorMap(baseColorMap);
+        setHeaderInfo(MeasureTable.headerData(true));
+        history.push('/');
+      } else {
+        const isEmpty = (filter) => Object.keys(filter).length === 0
+        if (isEmpty(filterInfo.filters)) {
+          setCurrentTimeline(datastore.defaultTimelineState);
+          setCurrentFilters(datastore.defaultFilterState);
+          history.push('/');
+        } else {
+          setIsLoading(true)
+          handleFilteredDataUpdate(currentFilters, filterInfo.timeline, 'GO BACK')
+          history.push('/');
+        }
+      }
+    }
+  }
   useEffect(() => {
-    if (datastore.currentResults !== undefined) {
+    // CURRENT RESULTS EXIST
+    if (datastore.currentResults) {
       const currentMeasure = measure || 'composite';
       setActiveMeasure(datastore.currentResults.find(
         (result) => result.measure === currentMeasure,
       ) || defaultActiveMeasure);
-      setIsLoading(datastore.isLoading);
+      setIsLoading(datastore.datastoreLoading);
+    } else {
+      // NO CURRENT RESULTS
     }
-  }, [datastore.currentResults, datastore.isLoading, measure]);
+  }, [datastore.currentResults, datastore.datastoreLoading, measure]);
 
   useEffect(() => {
     function handleResize() {
@@ -96,73 +189,153 @@ export default function Dashboard() {
     }
   })
 
-  useEffect(() => { // Break apart later if we feel we need to separate concerns.
-    const baseColorMap = datastore.currentResults.map((item, index) => ({
-      value: item.measure,
-      color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
-    }));
-    setCurrentTimeline(defaultTimelineState);
-    setCurrentFilters(defaultFilterState);
-    if (activeMeasure.measure === 'composite' || activeMeasure.measure === '') {
-      setComposite(true);
-      setDisplayData(datastore.results.map((result) => ({ ...result })));
-      setCurrentResults(datastore.currentResults);
-      setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
-      setColorMap(baseColorMap);
-      setFilterDisabled(false);
-      setMemberResults([]);
-      setTableFilter([]);
-      setRowEntries([])
-      setHeaderInfo(MeasureTable.headerData(true));
-    } else {
-      setComposite(false);
-      const subMeasureCurrentResults = getSubMeasureCurrentResults(activeMeasure, datastore);
-      setDisplayData(expandSubMeasureResults(activeMeasure, datastore));
-      setCurrentResults(subMeasureCurrentResults);
-      setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
-      setColorMap(ColorMapping(baseColorMap, chartColorArray, subMeasureCurrentResults));
-      setFilterDisabled(true);
-      setMemberResults([]);
-      setTableFilter([]);
-      setRowEntries([])
-      setHeaderInfo(MeasureTable.headerData(false));
+  useEffect(() => {
+    if (!filterActivated) {
+      const baseColorMap = datastore.currentResults.map((item, index) => ({
+        value: item.measure,
+        color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
+      }));
+      setCurrentTimeline(datastore.defaultTimelineState);
+      setCurrentFilters(datastore.defaultFilterState);
+      setAdditionalFilterOptions(datastore.filterOptions);
+      const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
+      if (ActiveMeasureTest) {
+        setFilterInfo({
+          members: [],
+          currentResults: [],
+          displayData: [],
+          results: [],
+          filters: {},
+        })
+        setComposite(true);
+        setDisplayData(datastore.results.map((result) => ({ ...result })));
+        setCurrentResults(datastore.currentResults);
+        setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
+        setColorMap(baseColorMap);
+        setFilterDisabled(false);
+        setTableFilter([]);
+        setRowEntries([])
+        setHeaderInfo(MeasureTable.headerData(true));
+      } else {
+        setFilterInfo({
+          members: [],
+          currentResults: [],
+          displayData: [],
+          results: [],
+          filters: {},
+        })
+        setComposite(false);
+        const subMeasureCurrentResults = getSubMeasureCurrentResults(
+          activeMeasure,
+          datastore.currentResults,
+        );
+        setDisplayData(expandSubMeasureResults(activeMeasure, datastore.results));
+        setCurrentResults(subMeasureCurrentResults);
+        setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
+        setColorMap(
+          ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
+        );
+        setFilterDisabled(false);
+        setTableFilter([]);
+        setRowEntries([])
+        setHeaderInfo(MeasureTable.headerData(false));
+      }
     }
-  }, [setTableFilter, history, activeMeasure, isComposite, datastore]);
+  }, [setTableFilter, history, activeMeasure, isComposite, datastore, filterActivated])
+
+  useEffect(() => {
+    if (filterActivated) {
+      const baseColorMap = datastore.currentResults.map((item, index) => ({
+        value: item.measure,
+        color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
+      }));
+      setCurrentTimeline(filterInfo.timeline);
+      setCurrentFilters(filterInfo.filters);
+      setAdditionalFilterOptions(datastore.filterOptions);
+      const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
+      if (ActiveMeasureTest) {
+        if (filterInfo.members.length !== memberResults.length) {
+          setCurrentResults(filterInfo.currentResults)
+          setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
+          setDisplayData(filterInfo.results.map((result) => ({ ...result })));
+        }
+        setComposite(true);
+        setColorMap(baseColorMap);
+        setFilterDisabled(false);
+        setTableFilter([]);
+        setRowEntries([])
+        setHeaderInfo(MeasureTable.headerData(true));
+      } else {
+        setComposite(false);
+        const subMeasureCurrentResults = getSubMeasureCurrentResults(
+          activeMeasure,
+          filterInfo.currentResults,
+        );
+        setDisplayData(expandSubMeasureResults(activeMeasure, filterInfo.results));
+        setCurrentResults(subMeasureCurrentResults);
+        setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
+        setColorMap(
+          ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
+        );
+        setFilterDisabled(false);
+        setTableFilter([]);
+        setHeaderInfo(MeasureTable.headerData(false));
+      }
+    }
+  }, [
+    setTableFilter,
+    history,
+    activeMeasure,
+    isComposite,
+    datastore,
+    filterActivated,
+    filterInfo,
+    memberResults,
+  ])
 
   useEffect(() => {
     async function fetchData() {
       const records = await measureDataFetch(activeMeasure.measure)
       setMemberResults(records)
     }
-    if (!isComposite && memberResults.length === 0) {
-      fetchData()
-    }
-  })
+    // HANDLE COMPOSITE
+    if (!isComposite) {
+      // FILTERS EXIST
+      if (filterInfo.members.length > 0) {
+        // 120 IS THE TOTAL AND 15 IS THE EXPECTED AMOUNT
+        const selectMemberResults = filterInfo.members
+          .filter((result) => activeMeasure.measure.includes(result.measurementType))
 
-  useEffect(() => {
-    if (datastore.currentResults !== undefined) {
-      setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
+        setMemberResults(selectMemberResults)
+      } else {
+        // FILTERS DO NOT EXIST
+        fetchData()
+      }
     }
-  }, [datastore.currentResults]);
+  }, [
+    isComposite,
+    filterInfo,
+    activeMeasure.measure,
+    setMemberResults,
+  ])
 
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
-      memberResults,
+      filterInfo.members.length > 0 ? filterInfo.members : memberResults,
       activeMeasure.measure,
       datastore.info,
       tableFilter,
     ))
-  }, [tableFilter, memberResults, activeMeasure.measure, datastore.info])
+  }, [tableFilter, filterInfo, memberResults, activeMeasure.measure, datastore.info])
 
   useEffect(() => {
     const path = window.location.pathname
     if (path.includes('members')) {
-      const pathMeasure = path.replace('/', '').replace('/members', '');
-      const subMeasures = Object.keys(datastore.info).filter((item) => item.includes(pathMeasure));
-      setHeaderInfo(MemberTable.headerData(subMeasures, datastore.info));
+      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
+      const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : memberResults
       setRowEntries(MemberTable.formatData(
-        memberResults,
-        pathMeasure,
+        wantedMembers,
+        activeMeasure.measure,
         datastore.info,
         tableFilter,
       ))
@@ -173,6 +346,7 @@ export default function Dashboard() {
     } else {
       setTabValue('overview')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     activeMeasure.measure,
     memberResults,
@@ -184,22 +358,80 @@ export default function Dashboard() {
 
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
-  const handleFilteredDataUpdate = (measures, filters, timeline) => {
-    let newDisplayData = isComposite
-      ? datastore.results.map((result) => ({ ...result }))
-      : expandSubMeasureResults(activeMeasure, datastore);
-    newDisplayData = newDisplayData.filter((result) => measures.includes(result.measure));
+
+  // THIS NEEDS ROWENTRIES TO BE MODIFIED
+
+  const handleFilteredDataUpdate = async (filters, timeline, direction) => {
+    setIsLoading(true)
+    // let newDisplayData
+    let cloneDailyMeasureResults = {}
+    let cloneMembers = []
+    let searchResults = []
+    const currentMeasureResolver = measure === undefined ? false : measure;
+    const info = await infoDataFetch();
+    if (direction === 'GO BACK') {
+      searchResults = await filterSearch(
+        false,
+        filters,
+      )
+    } else {
+      searchResults = await filterSearch(
+        currentMeasureResolver,
+        filters,
+      )
+    }
+    cloneDailyMeasureResults = structuredClone(searchResults.dailyMeasureResults)
+    cloneMembers = structuredClone(searchResults.members)
     if (filters.domainsOfCare.length > 0) {
-      newDisplayData = filterByDOC(newDisplayData, filters, datastore);
+      cloneDailyMeasureResults = filterByDOC(cloneDailyMeasureResults, filters, info);
     }
     if (filters.stars.length > 0) {
-      newDisplayData = filterByStars(newDisplayData, filters, datastore);
+      cloneDailyMeasureResults = filterByStars(
+        cloneDailyMeasureResults,
+        filters,
+        cloneDailyMeasureResults,
+      );
     }
     if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
-      newDisplayData = filterByPercentage(newDisplayData, filters, datastore);
+      cloneDailyMeasureResults = filterByPercentage(
+        cloneDailyMeasureResults,
+        filters,
+        cloneDailyMeasureResults,
+      );
     }
-    newDisplayData = filterByTimeline(newDisplayData, timeline);
-    setDisplayData(newDisplayData);
+    cloneDailyMeasureResults = filterByTimeline(cloneDailyMeasureResults, timeline);
+    if (cloneDailyMeasureResults.length > 0) {
+      const calcResults = calcMemberResults(cloneDailyMeasureResults, info)
+      const resultsByState = isComposite || direction === 'GO BACK'
+        ? calcResults.results
+        : expandSubMeasureResults(activeMeasure, calcResults.results);
+      const newFilterInfo = {
+        members: cloneMembers,
+        currentResults: activeMeasure.measure === 'composite' || activeMeasure.measure === '' || direction === 'GO BACK'
+          ? calcResults.currentResults
+          : getSubMeasureCurrentResults(
+            activeMeasure,
+            calcResults.currentResults,
+          ),
+        results: resultsByState,
+        filters,
+        timeline,
+      }
+      setCurrentResults(newFilterInfo.currentResults)
+      setSelectedMeasures(newFilterInfo.currentResults.map((result) => result.measure));
+      setDisplayData(newFilterInfo.results.map((result) => ({ ...result })));
+      setCurrentFilters(newFilterInfo.filters)
+      setCurrentTimeline(newFilterInfo.timeline)
+      setFilterInfo(newFilterInfo)
+      if (direction) {
+        setComposite(true)
+      }
+      setFilterActivated(true)
+    } else {
+      setIsLoading(true)
+      setNoResultsFound(true)
+    }
+    setIsLoading(false)
   };
 
   const handleSelectedMeasureChange = (event) => {
@@ -215,7 +447,6 @@ export default function Dashboard() {
         ? [] : selectedMeasures.filter((result) => result !== event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     }
-    handleFilteredDataUpdate(newSelectedMeasures, currentFilters, currentTimeline);
     const MeasureSelectorCheck = event.target.name === 'Select Measure';
     if (MeasureSelectorCheck) {
       history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`)
@@ -243,7 +474,7 @@ export default function Dashboard() {
       history.push(`/${activeMeasure.measure}/members`)
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
       setRowEntries(MemberTable.formatData(
-        memberResults,
+        filterInfo.members.length > 0 ? filterInfo.members : memberResults,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
@@ -262,11 +493,40 @@ export default function Dashboard() {
             <Grid item className="dashboard__summary" sm={12}>
               <Banner headerText="HEDIS Dashboard" lastUpdated={datastore.lastUpdated} />
             </Grid>
+            {!noResultsFound && (
+            <Snackbar
+              open={filterActivated}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+              message="Filters are active. To reset, click on 'RESET FILTERS' in the filter panel."
+              sx={{
+                '& .MuiSnackbarContent-root': { backgroundColor: '#DFF4FC', color: '#263238' },
+              }}
+            />
+            )}
+            <Alert
+              openAlert={noResultsFound}
+              setOpenAlert={setNoResultsFound}
+              title="NO RESULTS FOUND"
+              noResultsALERT
+              handleResetData={handleResetData}
+            >
+              No results found. Please click button to reset the data to the initial results.
+              <div style={{
+                fontSize: '2rem',
+                width: '100%',
+                textAlign: 'center',
+                marginTop: '1rem',
+              }}
+              >
+                (^-^)
+              </div>
+            </Alert>
             <Grid item xs={12}>
-              { datastore.isLoading
+              { isLoading || noResultsFound
                 ? <Skeleton variant="rectangular" height={300} />
                 : (
                   <D3Container
+                    additionalFilterOptions={additionalFilterOptions}
                     setCurrentFilters={setCurrentFilters}
                     selectedMeasures={selectedMeasures}
                     currentTimeline={currentTimeline}
@@ -277,22 +537,29 @@ export default function Dashboard() {
                     toggleFilterDrawer={toggleFilterDrawer}
                     isComposite={isComposite}
                     setComposite={setComposite}
-                    setTabValue={setTabValue}
                     setTableFilter={setTableFilter}
                     history={history}
                     isLoading={isLoading}
                     currentResults={currentResults}
+                    setTabValue={setTabValue}
                     activeMeasure={activeMeasure}
                     filterDisabled={filterDisabled}
                     displayData={displayData}
                     colorMap={colorMap}
                     store={datastore}
                     graphWidth={graphWidth}
+                    setFilterActivated={setFilterActivated}
+                    setIsLoading={setIsLoading}
+                    setMemberResults={setMemberResults}
+                    setRowEntries={setRowEntries}
+                    handleResetData={handleResetData}
+                    setFilterInfo={setFilterInfo}
+                    filterCurrentResultsLength={filterInfo.currentResults.length}
                   />
                 )}
             </Grid>
             <Grid item xs={12}>
-              { datastore.isLoading
+              { isLoading
                 ? <Skeleton variant="rectangular" height={200} />
                 : (
                   <RatingTrends
@@ -303,11 +570,10 @@ export default function Dashboard() {
                 )}
             </Grid>
             <Grid item xs={12}>
-              { datastore.isLoading
+              { isLoading
                 ? <Skeleton variant="rectangular" height={500} />
                 : (
                   <div className="d3-container">
-
                     <DisplayTableContainer
                       activeMeasure={activeMeasure}
                       store={datastore}
