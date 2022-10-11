@@ -163,7 +163,7 @@ DisplayTableContainer.propTypes = {
 };
 
 DisplayTableContainer.defaultProps = {
-  store: [],
+  store: {},
   activeMeasure: defaultActiveMeasure,
   tabValue: 'overview',
   isComposite: true,
