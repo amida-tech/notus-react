@@ -98,7 +98,6 @@ const formatData = (currentResults) => {
       exclusions: measureResult.exclusions,
     });
   });
-  console.log("MEasure Table Fiinal results: ", formattedData)
 
   return formattedData;
 };

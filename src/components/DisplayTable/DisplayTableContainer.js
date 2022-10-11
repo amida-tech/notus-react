@@ -44,7 +44,6 @@ function DisplayTableContainer({
   setTableFilter,
   handleTabChange,
 }) {
-  console.log({currentResults})
   return (
     <Grid className="d3-container__bottom-display">
       <Box className="d3-container__overview-member-chart">

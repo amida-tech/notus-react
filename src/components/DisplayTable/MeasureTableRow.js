@@ -11,11 +11,7 @@ import Alert from '../Utilities/Alert'
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
- console.log("MeasureTableRow",{
-  rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
-})
-const compositeCheck = headerInfo[0].header === 'Measure'
-console.log({compositeCheck})
+  const compositeCheck = headerInfo[0].header === 'Measure'
   const alertTitle = 'Leaving Saraswati'
   const alertPath = (info) => {
     if (measureInfo[info].link) {
@@ -116,6 +112,7 @@ console.log({compositeCheck})
                     setOpenAlert={setOpenAlert}
                     title={alertTitle}
                     options={alertPath(rowDataItem.value)}
+                    noResultsALERT={false}
                   >
                     You are now leaving Saraswati and entering a site hosted by
                     a different Federal agency or company. If you are not

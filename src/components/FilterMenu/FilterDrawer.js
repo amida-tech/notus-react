@@ -19,7 +19,6 @@ import {
   setTableFilterProps,
   setRowEntriesProps,
   handleResetDataProps,
-  setFilterInfoProps,
 } from '../ChartContainer/D3Props'
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemData from './FilterDrawerItemData';
@@ -39,7 +38,6 @@ function FilterDrawer({
   setTableFilter,
   setRowEntries,
   handleResetData,
-  setFilterInfo,
 }) {
   const [percentSliderValue, setPercentSliderValue] = useState(
     Array.from(currentFilters.percentRange),
@@ -69,16 +67,6 @@ function FilterDrawer({
   };
   const handleResetFilter = () => {
     setIsLoading(true)
-    handleFilterChange({
-      domainsOfCare: [],
-      stars: [],
-      percentRange: [0, 100],
-      sum: 0,
-      payors: [],
-      healthcareProviders: [],
-      healthcareCoverages: [],
-      healthcarePractitioners: [],
-    });
     setStarChoices([]);
     setDomainOfCareChoices([]);
     setPercentSliderValue([0, 100]);
@@ -88,13 +76,6 @@ function FilterDrawer({
     setHealthcarePractitionersChoices([]);
     toggleFilterDrawer(false);
     setFilterActivated(false)
-    setFilterInfo({
-      members: [],
-      currentResults: [],
-      displayData: [],
-      results: [],
-      filters: {},
-    })
     handleResetData()
   }
   const handlePayorChange = (event) => {
@@ -147,6 +128,7 @@ function FilterDrawer({
     setPercentSliderValue(newValue);
   };
   const handleCancel = () => {
+    setIsLoading(true)
     setPercentSliderValue(Array.from(currentFilters.percentRange));
     setStarChoices(Array.from(currentFilters.stars));
     setDomainOfCareChoices(Array.from(currentFilters.domainsOfCare));
@@ -160,6 +142,7 @@ function FilterDrawer({
     setTableFilter([])
     setRowEntries([])
     setComposite(true)
+    setIsLoading(false)
   }
 
   const handleApplyFilter = () => {
@@ -311,7 +294,6 @@ FilterDrawer.propTypes = {
   setTableFilter: setTableFilterProps,
   setRowEntries: setRowEntriesProps,
   handleResetData: handleResetDataProps,
-  setFilterInfo: setFilterInfoProps,
 };
 
 FilterDrawer.defaultProps = {
@@ -336,7 +318,6 @@ FilterDrawer.defaultProps = {
   setTableFilter: () => undefined,
   setRowEntries: () => undefined,
   handleResetData: () => undefined,
-  setFilterInfo: () => undefined,
 }
 
 export default FilterDrawer;

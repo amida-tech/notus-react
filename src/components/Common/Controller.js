@@ -1,5 +1,5 @@
-import axios from 'axios'
-import env from '../../env'
+import axios from 'axios';
+import env from '../../env';
 
 // MemberReport.js
 export async function memberInfoFetch(url, id) {
@@ -65,5 +65,14 @@ export async function filterSearch(searchMeasure, searchArray, isComposite) {
       members: [],
       dailyMeasureResults: [],
     }
+  }
+}
+export async function infoDataFetch() {
+  try {
+    const infoUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/info`);
+    const infoPromise = await axios.get(infoUrl).then((res) => res.data)
+    return infoPromise
+  } catch (error) {
+    return error
   }
 }
