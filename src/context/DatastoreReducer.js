@@ -1,4 +1,5 @@
 import { updateTimestamp } from '../components/Utilities/GeneralUtil';
+import { createLabel, createSubMeasureLabel } from '../components/ChartContainer/D3ContainerUtils';
 
 const chartColorArray = [
   '#88CCEE',
@@ -46,34 +47,6 @@ export const initialState = {
     healthcarePractitioners: [],
   },
 };
-
-export const createLabel = (measure, info) => {
-  if (info[measure]) {
-    return `${info[measure].displayLabel} - ${info[measure].title}`
-  }
-  if (measure === 'composite') {
-    return 'Composite';
-  }
-  if (measure.length > 3 && measure.charAt(3) === 'e') {
-    return `${measure.slice(0, 3).toUpperCase()}-E`;
-  }
-  return measure.toUpperCase();
-}
-
-export const createSubMeasureLabel = (subMeasure, info) => {
-  let displayLabel = '';
-  if (subMeasure.length > 3 && subMeasure.charAt(3) === 'e') {
-    displayLabel = `${subMeasure.slice(0, 3).toUpperCase()}-E`;
-  } else {
-    displayLabel = subMeasure.toUpperCase();
-  }
-
-  if (info[subMeasure]) {
-    return `${displayLabel} - ${info[subMeasure].title}`
-  }
-
-  return displayLabel;
-}
 
 export const DatastoreReducer = (state, action) => {
   switch (action.type) {

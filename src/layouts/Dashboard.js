@@ -4,8 +4,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { useParams, useHistory } from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
-import { Snackbar, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { Snackbar } from '@mui/material';
 import Alert from '../components/Utilities/Alert'
 import { DatastoreContext } from '../context/DatastoreProvider';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
@@ -486,19 +485,6 @@ export default function Dashboard() {
     }
   };
 
-  const action = (givenFunction) => (
-    <IconButton
-      className="dashboard__snackbar-close"
-      size="small"
-      aria-label="close"
-      color="inherit"
-      disableFocusRipple
-      disableRipple
-      onClick={() => givenFunction()}
-    >
-      <CloseIcon fontSize="small" />
-    </IconButton>
-  );
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
