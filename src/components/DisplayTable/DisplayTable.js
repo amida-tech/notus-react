@@ -127,7 +127,7 @@ function DisplayTable({
         <StyledEngineProvider injectFirst>
           <TablePagination
             component="div"
-            rowsPerPageOptions={[5, 10, 15]}
+            rowsPerPageOptions={[10, 25, 50]}
             count={children.length}
             page={currentPage}
             onPageChange={handleChangePage}
@@ -187,7 +187,7 @@ function DisplayTable({
         <StyledEngineProvider injectFirst>
           <TablePagination
             component="div"
-            rowsPerPageOptions={[5, 10, 15]}
+            rowsPerPageOptions={[10, 25, 50]}
             count={children.length}
             page={currentPage}
             onPageChange={handleChangePage}

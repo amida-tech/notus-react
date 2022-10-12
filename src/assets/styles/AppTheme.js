@@ -62,13 +62,13 @@ const theme = createTheme({
   },
   components: {
 
-    // MuiButton: {
-    //   styleOverrides: {
-    //     root: {
-    //       borderRadius: '3px',
-    //     },
-    //   },
-    // },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: 'none',
+        },
+      },
+    },
 
   },
   shape: {

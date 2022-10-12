@@ -1,7 +1,10 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import { Link } from 'react-router-dom';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  Link,
+} from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 
 const logout = () => {
@@ -11,44 +14,52 @@ const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 export default function Navbar() {
   return (
-    <Box className="navbar" sx={{ flexGrow: 1 }}>
-      <AppBar className="navbar__container">
-        <Toolbar className="navbar__toolbar">
-          <div className="navbar__link-holder-left">
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar sx={{ backgroundColor: (theme) => theme.palette.bluegray?.D4 }}>
+        <Toolbar position="fixed">
+          <Box sx={{ pl: '.7rem' }}>
             <Link
-              className="navbar__text-nav-dashboard"
-              to={{
-                pathname: '/',
-              }}
+              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              component={RouterLink}
+              className="navbar__text"
+              to="/"
             >
               Saraswati
             </Link>
-          </div>
-
-          <div className="navbar__link-holder-right">
+          </Box>
+          <Box sx={{
+            flexGrow: 1, display: 'flex', gap: '2rem', justifyContent: 'flex-end',
+          }}
+          >
             <Link
+              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              component={RouterLink}
               className="navbar__text"
               to={{ pathname: '/' }}
             >
               Dashboard
             </Link>
             <Link
+              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              component={RouterLink}
               className="navbar__text"
               to={{ pathname: '/reports/' }}
             >
               Reports
             </Link>
             <Link
-              className="navbar__text-signout"
+              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              component={RouterLink}
+              className="navbar__text"
               to={{ pathname: '/auth/login' }}
               onClick={logout}
             >
               Sign Out
             </Link>
-          </div>
+          </Box>
         </Toolbar>
       </AppBar>
       <Offset />
     </Box>
-  );
+  )
 }
