@@ -32,20 +32,6 @@ import {
   infoDataFetch,
 } from '../components/Common/Controller'
 
-const chartColorArray = [
-  '#88CCEE',
-  '#CC6677',
-  '#DDCC77',
-  '#117733',
-  '#332288',
-  '#AA4499',
-  '#44AA99',
-  '#999933',
-  '#661100',
-  '#6699CC',
-  '#888888',
-];
-
 export default function Dashboard() {
   const { datastore } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
@@ -81,10 +67,6 @@ export default function Dashboard() {
   const { measure } = useParams();
 
   const handleResetData = (router) => {
-    const baseColorMap = datastore.currentResults.map((item, index) => ({
-      value: item.measure,
-      color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
-    }));
     if (router === undefined) {
       setIsLoading(true)
       setCurrentTimeline(datastore.defaultTimelineState);
@@ -103,7 +85,7 @@ export default function Dashboard() {
         setDisplayData(datastore.results.map((result) => ({ ...result })));
         setCurrentResults(datastore.currentResults);
         setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
-        setColorMap(baseColorMap);
+        setColorMap(ColorMapping(datastore.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
@@ -125,7 +107,7 @@ export default function Dashboard() {
         setCurrentResults(subMeasureCurrentResults);
         setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
         setColorMap(
-          ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
+          ColorMapping(datastore.currentResults, subMeasureCurrentResults),
         );
         setFilterDisabled(false);
         setTableFilter([]);
@@ -149,7 +131,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([]);
-        setColorMap(baseColorMap);
+        setColorMap(ColorMapping(filterInfo.currentResults))
         setHeaderInfo(MeasureTable.headerData(true));
         history.push('/');
       } else {
@@ -191,10 +173,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!filterActivated) {
-      const baseColorMap = datastore.currentResults.map((item, index) => ({
-        value: item.measure,
-        color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
-      }));
       setCurrentTimeline(datastore.defaultTimelineState);
       setCurrentFilters(datastore.defaultFilterState);
       setAdditionalFilterOptions(datastore.filterOptions);
@@ -211,7 +189,7 @@ export default function Dashboard() {
         setDisplayData(datastore.results.map((result) => ({ ...result })));
         setCurrentResults(datastore.currentResults);
         setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
-        setColorMap(baseColorMap);
+        setColorMap(ColorMapping(datastore.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
@@ -233,7 +211,7 @@ export default function Dashboard() {
         setCurrentResults(subMeasureCurrentResults);
         setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
         setColorMap(
-          ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
+          ColorMapping(datastore.currentResults, subMeasureCurrentResults),
         );
         setFilterDisabled(false);
         setTableFilter([]);
@@ -245,10 +223,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (filterActivated) {
-      const baseColorMap = datastore.currentResults.map((item, index) => ({
-        value: item.measure,
-        color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
-      }));
       setCurrentTimeline(filterInfo.timeline);
       setCurrentFilters(filterInfo.filters);
       setAdditionalFilterOptions(datastore.filterOptions);
@@ -260,7 +234,7 @@ export default function Dashboard() {
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
         }
         setComposite(true);
-        setColorMap(baseColorMap);
+        setColorMap(ColorMapping(filterInfo.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
@@ -275,7 +249,7 @@ export default function Dashboard() {
         setCurrentResults(subMeasureCurrentResults);
         setSelectedMeasures(subMeasureCurrentResults.map((result) => result.measure));
         setColorMap(
-          ColorMapping(baseColorMap, datastore.chartColorArray, subMeasureCurrentResults),
+          ColorMapping(filterInfo.currentResults, subMeasureCurrentResults),
         );
         setFilterDisabled(false);
         setTableFilter([]);
