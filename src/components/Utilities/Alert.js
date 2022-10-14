@@ -11,11 +11,36 @@ export default function Alert({
   title,
   options,
   children,
+  noResultsALERT,
+  handleResetData,
 }) {
   function handleAlert() {
     return openAlert ? setOpenAlert(false) : setOpenAlert(true)
   }
+  if (noResultsALERT) {
+    return (
+      <Dialog
+        open={openAlert}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        sx={{ padding: '1rem' }}
+      >
+        <DialogTitle id="alert-dialog-title">
+          {title}
+        </DialogTitle>
 
+        <DialogContent>
+          <DialogContentText sx={{ lineHeight: '2rem', marginBottom: '1rem' }} id="alert-dialog-description">
+            {children}
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          <Button variant="contained" onClick={() => handleResetData()}>Reset Data</Button>
+        </DialogActions>
+      </Dialog>
+    )
+  }
   return (
     <Dialog
       open={openAlert}
@@ -61,6 +86,8 @@ Alert.propTypes = {
   children: PropTypes.arrayOf(
     PropTypes.node,
   ),
+  noResultsALERT: PropTypes.bool,
+  handleResetData: PropTypes.func,
 };
 
 Alert.defaultProps = {
@@ -69,4 +96,6 @@ Alert.defaultProps = {
   title: '',
   options: {},
   children: '',
+  noResultsALERT: false,
+  handleResetData: () => undefined,
 }

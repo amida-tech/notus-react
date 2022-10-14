@@ -10,7 +10,8 @@ export const storeProps = PropTypes.shape({
     PropTypes.shape({}),
   ),
 });
-
+export const filterActivatedProps = PropTypes.bool;
+export const setFilterDrawerFailProps = PropTypes.func;
 export const activeMeasureProps = PropTypes.shape({
   measure: PropTypes.string,
   denominator: PropTypes.number,
@@ -18,7 +19,8 @@ export const activeMeasureProps = PropTypes.shape({
   starRating: PropTypes.number,
   title: PropTypes.string,
 });
-
+export const hardResetProps = PropTypes.bool;
+export const setHardResetProps = PropTypes.func;
 export const defaultActiveMeasure = {
   measure: '',
   denominator: 0,
@@ -26,7 +28,9 @@ export const defaultActiveMeasure = {
   starRating: 0,
   title: '',
 };
-
+export const handleResetProps = PropTypes.func;
+export const setFilterInfoProps = PropTypes.func;
+export const handleResetDataProps = PropTypes.func;
 export const filterDrawerOpenProps = PropTypes.bool;
 export const dashboardStateProps = PropTypes.shape({
 });
@@ -46,7 +50,7 @@ export const colorMapProps = PropTypes.arrayOf(
     color: PropTypes.string,
   }),
 );
-
+export const handleFilterChangeProps = PropTypes.func;
 export const handleSelectedMeasureChangeProps = PropTypes.func;
 export const handleTableFilterChangeProps = PropTypes.func;
 export const measureInfoProps = PropTypes.shape({
@@ -62,11 +66,16 @@ export const measureInfoProps = PropTypes.shape({
     weight: PropTypes.number,
   }),
 })
+export const filterDrawerFailProps = PropTypes.bool;
 export const currentFiltersProps = PropTypes.shape({
-  domainsOfCare: PropTypes.PropTypes.arrayOf(PropTypes.number),
-  percentRange: PropTypes.PropTypes.arrayOf(PropTypes.number),
-  stars: PropTypes.PropTypes.arrayOf(PropTypes.number),
+  domainsOfCare: PropTypes.arrayOf(PropTypes.string),
+  percentRange: PropTypes.arrayOf(PropTypes.number),
+  stars: PropTypes.arrayOf(PropTypes.number),
   sum: PropTypes.number,
+  payors: PropTypes.arrayOf(PropTypes.string),
+  healthcareProviders: PropTypes.arrayOf(PropTypes.string),
+  healthcareCoverages: PropTypes.arrayOf(PropTypes.string),
+  practitioners: PropTypes.arrayOf(PropTypes.string),
 })
 
 export const currentTimelineProps = PropTypes.shape({
@@ -81,6 +90,7 @@ export const dashboardActionsProps = PropTypes.shape({
   toggleFilterDrawer: PropTypes.func,
   setActiveMeasure: PropTypes.func,
 })
+
 export const memberResultsProps = PropTypes.arrayOf(
   PropTypes.shape({
     denominator: PropTypes.number,
@@ -105,6 +115,41 @@ export const displayDataProps = PropTypes.arrayOf(
     value: PropTypes.number,
   }),
 )
+
+export const additionalFilterOptionsProps = PropTypes.shape({
+  payors: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      payor: PropTypes.string,
+      value: PropTypes.string,
+      timestamp: PropTypes.string,
+    }),
+  ),
+  healthcareProviders: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      provider: PropTypes.string,
+      value: PropTypes.string,
+      timestamp: PropTypes.string,
+    }),
+  ),
+  healthcareCoverages: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      coverage: PropTypes.string,
+      value: PropTypes.string,
+      timestamp: PropTypes.string,
+    }),
+  ),
+  practitioners: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string,
+      practitioner: PropTypes.string,
+      value: PropTypes.string,
+      timestamp: PropTypes.string,
+    }),
+  ),
+})
 
 export const setCompositeProps = PropTypes.func;
 
@@ -148,8 +193,10 @@ export const currentResultsProps = PropTypes.arrayOf(
     value: PropTypes.number,
   }),
 )
-export const setSelectedMeasuresProps = PropTypes.func
-export const handleFilteredDataUpdateProps = PropTypes.func
+export const setMemberResultsProps = PropTypes.func;
+export const setRowEntriesProps = PropTypes.func;
+export const setSelectedMeasuresProps = PropTypes.func;
+export const handleFilteredDataUpdateProps = PropTypes.func;
 export const headerInfoProps = PropTypes.arrayOf(
   PropTypes.shape({
     key: PropTypes.string,
@@ -159,3 +206,5 @@ export const headerInfoProps = PropTypes.arrayOf(
     flexBasis: PropTypes.string,
   }),
 )
+export const setFilterActivatedProps = PropTypes.func;
+export const setIsLoadingProps = PropTypes.func;

@@ -63885,3 +63885,5 @@ export const datastore = {
   lastUpdated: 'Aug 30 2022, 08:53 AM',
   isLoading: false,
 }
+
+export default datastore;

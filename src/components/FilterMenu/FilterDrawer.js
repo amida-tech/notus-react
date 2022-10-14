@@ -6,7 +6,20 @@ import {
   Box, Button, Drawer, Grid, Slider, Typography,
 } from '@mui/material';
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import {
+  filterDrawerOpenProps,
+  currentFiltersProps,
+  toggleFilterDrawerProps,
+  handleFilterChangeProps,
+  setFilterActivatedProps,
+  additionalFilterOptionsProps,
+  setIsLoadingProps,
+  setCompositeProps,
+  setMemberResultsProps,
+  setTableFilterProps,
+  setRowEntriesProps,
+  handleResetDataProps,
+} from '../ChartContainer/D3Props'
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemData from './FilterDrawerItemData';
 
@@ -17,6 +30,14 @@ function FilterDrawer({
   handleFilterChange,
   filterDrawerOpen,
   toggleFilterDrawer,
+  setFilterActivated,
+  additionalFilterOptions,
+  setIsLoading,
+  setComposite,
+  setMemberResults,
+  setTableFilter,
+  setRowEntries,
+  handleResetData,
 }) {
   const [percentSliderValue, setPercentSliderValue] = useState(
     Array.from(currentFilters.percentRange),
@@ -25,7 +46,18 @@ function FilterDrawer({
   const [domainOfCareChoices, setDomainOfCareChoices] = useState(
     Array.from(currentFilters.domainsOfCare),
   );
-
+  const [payorChoices, setPayorChoices] = useState(
+    Array.from(currentFilters.payors),
+  );
+  const [healthcareProviderChoices, setHealthcareProviderChoices] = useState(
+    Array.from(currentFilters.healthcareProviders),
+  );
+  const [healthcareCoverageChoices, setHealthcareCoverageChoices] = useState(
+    Array.from(currentFilters.healthcareCoverages),
+  );
+  const [healthcarePractitionersChoices, setHealthcarePractitionersChoices] = useState(
+    Array.from(currentFilters.healthcarePractitioners),
+  );
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')
     ) {
@@ -33,20 +65,50 @@ function FilterDrawer({
     }
     toggleFilterDrawer(open);
   };
-
   const handleResetFilter = () => {
-    handleFilterChange({
-      domainsOfCare: [],
-      stars: [],
-      percentRange: [0, 100],
-      sum: 0,
-    });
+    setIsLoading(true)
     setStarChoices([]);
     setDomainOfCareChoices([]);
     setPercentSliderValue([0, 100]);
+    setPayorChoices([]);
+    setHealthcareProviderChoices([]);
+    setHealthcareCoverageChoices([]);
+    setHealthcarePractitionersChoices([]);
     toggleFilterDrawer(false);
+    setFilterActivated(false)
+    handleResetData()
   }
-
+  const handlePayorChange = (event) => {
+    if (event.target.checked) {
+      setPayorChoices(payorChoices.concat(event.target.value));
+    } else {
+      setPayorChoices(payorChoices.filter((payer) => payer !== event.target.value));
+    }
+  }
+  const handleHealthcareProviderChange = (event) => {
+    if (event.target.checked) {
+      setHealthcareProviderChoices(healthcareProviderChoices.concat(event.target.value));
+    } else {
+      setHealthcareProviderChoices(healthcareProviderChoices
+        .filter((provider) => provider !== event.target.value));
+    }
+  }
+  const handleHealthcareCoverageChange = (event) => {
+    if (event.target.checked) {
+      setHealthcareCoverageChoices(healthcareCoverageChoices.concat(event.target.value));
+    } else {
+      setHealthcareCoverageChoices(healthcareCoverageChoices
+        .filter((coverage) => coverage !== event.target.value));
+    }
+  }
+  const handlePractitionerChange = (event) => {
+    if (event.target.checked) {
+      setHealthcarePractitionersChoices(healthcarePractitionersChoices.concat(event.target.value));
+    } else {
+      setHealthcarePractitionersChoices(healthcarePractitionersChoices
+        .filter((practitioner) => practitioner !== event.target.value));
+    }
+  }
   const handleStarChange = (event) => {
     if (event.target.checked) {
       setStarChoices(starChoices.concat(parseInt(event.target.value, 10)));
@@ -54,7 +116,6 @@ function FilterDrawer({
       setStarChoices(starChoices.filter((star) => (star !== parseInt(event.target.value, 10))));
     }
   }
-
   const handleDomainOfCareChange = (event) => {
     if (event.target.checked) {
       setDomainOfCareChoices(domainOfCareChoices.concat(event.target.value));
@@ -62,30 +123,44 @@ function FilterDrawer({
       setDomainOfCareChoices(domainOfCareChoices.filter((doc) => doc !== event.target.value));
     }
   }
-
   // https://mui.com/components/slider/#minimum-distance
   const handleSliderChange = (event, newValue) => {
     setPercentSliderValue(newValue);
   };
-
   const handleCancel = () => {
+    setIsLoading(true)
     setPercentSliderValue(Array.from(currentFilters.percentRange));
     setStarChoices(Array.from(currentFilters.stars));
     setDomainOfCareChoices(Array.from(currentFilters.domainsOfCare));
+    setPayorChoices(Array.from(currentFilters.payors));
+    setHealthcareProviderChoices(Array.from(currentFilters.healthcareProviders));
+    setHealthcareCoverageChoices(Array.from(currentFilters.healthcareCoverages));
+    setHealthcarePractitionersChoices(Array.from(currentFilters.healthcarePractitioners));
     toggleFilterDrawer(false);
+    setFilterActivated(false);
+    setMemberResults([])
+    setTableFilter([])
+    setRowEntries([])
+    setComposite(true)
+    setIsLoading(false)
   }
 
   const handleApplyFilter = () => {
+    setIsLoading(true)
     const filterOptions = {
       domainsOfCare: domainOfCareChoices,
       stars: starChoices,
       percentRange: percentSliderValue,
+      payors: payorChoices,
+      healthcareProviders: healthcareProviderChoices,
+      healthcareCoverages: healthcareCoverageChoices,
+      healthcarePractitioners: healthcarePractitionersChoices,
     };
-    filterOptions.sum = filterDrawerItemData.sumCalculator(filterOptions);
+    filterOptions.sum = filterDrawerItemData.sumCalculator(filterOptions, additionalFilterOptions);
     handleFilterChange(filterOptions);
     toggleFilterDrawer(false);
+    setComposite(true)
   }
-
   const sliderValuetext = (value) => `${value}%`;
 
   return (
@@ -157,14 +232,28 @@ function FilterDrawer({
             currentFilter={starChoices}
           />
           <FilterDrawerItem
-            filterItem={filterDrawerItemData.providers}
-            filterAction={() => null}
-            currentFilter={starChoices}
+            filterItem={filterDrawerItemData
+              .payors(additionalFilterOptions.payors)}
+            filterAction={handlePayorChange}
+            currentFilter={payorChoices}
           />
           <FilterDrawerItem
-            filterItem={filterDrawerItemData.coverage}
-            filterAction={() => null}
-            currentFilter={starChoices}
+            filterItem={filterDrawerItemData
+              .healthcareProviders(additionalFilterOptions.healthcareProviders)}
+            filterAction={handleHealthcareProviderChange}
+            currentFilter={healthcareProviderChoices}
+          />
+          <FilterDrawerItem
+            filterItem={filterDrawerItemData
+              .healthcareCoverages(additionalFilterOptions.healthcareCoverages)}
+            filterAction={handleHealthcareCoverageChange}
+            currentFilter={healthcareCoverageChoices}
+          />
+          <FilterDrawerItem
+            filterItem={filterDrawerItemData
+              .healthcarePractitioners(additionalFilterOptions.healthcarePractitioners)}
+            filterAction={handlePractitionerChange}
+            currentFilter={healthcarePractitionersChoices}
           />
           <Grid container className="filter-drawer__button-control-section">
             <Grid item className="filter-drawer__button-panel">
@@ -193,15 +282,18 @@ function FilterDrawer({
 }
 
 FilterDrawer.propTypes = {
-  filterDrawerOpen: PropTypes.bool,
-  currentFilters: PropTypes.shape({
-    domainsOfCare: PropTypes.arrayOf(PropTypes.string),
-    stars: PropTypes.arrayOf(PropTypes.number),
-    percentRange: PropTypes.arrayOf(PropTypes.number),
-    sum: PropTypes.number,
-  }),
-  toggleFilterDrawer: PropTypes.func,
-  handleFilterChange: PropTypes.func,
+  filterDrawerOpen: filterDrawerOpenProps,
+  currentFilters: currentFiltersProps,
+  toggleFilterDrawer: toggleFilterDrawerProps,
+  handleFilterChange: handleFilterChangeProps,
+  setFilterActivated: setFilterActivatedProps,
+  additionalFilterOptions: additionalFilterOptionsProps,
+  setIsLoading: setIsLoadingProps,
+  setComposite: setCompositeProps,
+  setMemberResults: setMemberResultsProps,
+  setTableFilter: setTableFilterProps,
+  setRowEntries: setRowEntriesProps,
+  handleResetData: handleResetDataProps,
 };
 
 FilterDrawer.defaultProps = {
@@ -211,9 +303,21 @@ FilterDrawer.defaultProps = {
     stars: [],
     percentRange: [0, 100],
     sum: 0,
+    payor: [],
+    healthcareProvider: [],
+    healthcareCoverage: [],
+    practitioner: [],
   },
   toggleFilterDrawer: undefined,
   handleFilterChange: undefined,
+  setFilterActivated: () => undefined,
+  additionalFilterOptions: {},
+  setIsLoading: () => undefined,
+  setComposite: () => undefined,
+  setMemberResults: () => undefined,
+  setTableFilter: () => undefined,
+  setRowEntries: () => undefined,
+  handleResetData: () => undefined,
 }
 
 export default FilterDrawer;

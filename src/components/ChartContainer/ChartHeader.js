@@ -2,16 +2,12 @@ import PropTypes from 'prop-types';
 
 import { Grid, Typography } from '@mui/material';
 
-import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 function ChartHeader({
   isComposite,
-  setComposite,
-  setTabValue,
-  setTableFilter,
-  history,
   isLoading,
+  handleResetData,
   labelGenerator,
   currentResults,
   activeMeasure,
@@ -25,10 +21,7 @@ function ChartHeader({
     <Grid
       className="d3-container__return-link-display"
       onClick={() => {
-        setComposite(true);
-        setTabValue('overview');
-        setTableFilter([]);
-        history.push('/');
+        handleResetData('ALL MEASURES');
       }}
     >
       <Typography className="d3-container__title">
@@ -37,7 +30,6 @@ function ChartHeader({
       </Typography>
       {!isLoading && (
       <Grid className="d3-container__return-measure-display">
-        <DisabledByDefaultRoundedIcon className="d3-container__cancel-icon" />
         {labelGenerator(
           currentResults.find((result) => result.measure === activeMeasure.measure),
         )}
@@ -53,9 +45,7 @@ function ChartHeader({
 
 ChartHeader.propTypes = {
   isComposite: PropTypes.bool,
-  setComposite: PropTypes.func,
-  setTabValue: PropTypes.func,
-  setTableFilter: PropTypes.func,
+  handleResetData: PropTypes.func,
   history: PropTypes.shape({
     push: PropTypes.func,
     any: PropTypes.func,
@@ -74,9 +64,6 @@ ChartHeader.propTypes = {
 
 ChartHeader.defaultProps = {
   isComposite: true,
-  setComposite: () => undefined,
-  setTabValue: () => undefined,
-  setTableFilter: () => undefined,
   history: {},
   isLoading: true,
   labelGenerator: () => undefined,
@@ -88,6 +75,7 @@ ChartHeader.defaultProps = {
     starRating: 0,
     title: '',
   },
+  handleResetData: () => undefined,
 }
 
 export default ChartHeader
