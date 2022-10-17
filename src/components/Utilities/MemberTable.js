@@ -44,47 +44,62 @@ const allValuesEqual = (valueArray) => {
 
 const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   const formattedData = [];
+  let workingData = []
 
   const subMeasures = Object.keys(storeInfo).filter((item) => item.includes(activeMeasure));
 
-  memberResults.forEach((memberResult) => {
-    const memberResultArray = [];
-    const complianceResult = getMeasureCompliance(memberResult);
-    if (complianceResult.length === 1) {
-      memberResultArray.push({
-        memberID: memberResult.memberId,
-        measure: subMeasures[0],
-        label: storeInfo[subMeasures[0]].displayLabel,
-        value: complianceResult[0],
-      });
-    } else {
-      complianceResult.forEach((result, index) => {
+  if (activeMeasure !== 'composite' && activeMeasure !== '') {
+    // loop through member results for active measure
+    memberResults.forEach((res) => {
+      if (res.measurementType === activeMeasure) {
+        workingData.push(res)
+      }
+    })
+    // workingData = memberResults
+    //   .filter((result) => activeMeasure.measure.includes(result.measurementType))
+  } else {
+    workingData = memberResults
+  }
+  if (workingData && activeMeasure) {
+    workingData.forEach((memberResult) => {
+      const memberResultArray = [];
+      const complianceResult = getMeasureCompliance(memberResult);
+      if (complianceResult.length === 1) {
         memberResultArray.push({
           memberID: memberResult.memberId,
-          measure: subMeasures[index + 1],
-          label: storeInfo[subMeasures[index + 1]]?.displayLabel,
-          value: result,
+          measure: subMeasures[0],
+          label: storeInfo[subMeasures[0]].displayLabel,
+          value: complianceResult[0],
         });
-      });
-    }
-
-    const formattedResult = {
-      value: memberResult.memberId,
-      label: memberResult.memberId,
-      type: 'member',
-    }
-
-    if (memberResultArray.length === 1) {
-      formattedResult[subMeasures[0]] = memberResultArray[0].value.toString()
-    } else {
-      formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
-      for (let k = 1; k < subMeasures.length; k += 1) {
-        formattedResult[subMeasures[k]] = memberResultArray[k - 1].value.toString();
+      } else {
+        complianceResult.forEach((result, index) => {
+          memberResultArray.push({
+            memberID: memberResult.memberId,
+            measure: subMeasures[index + 1],
+            label: storeInfo[subMeasures[index + 1]]?.displayLabel,
+            value: result,
+          });
+        });
       }
-    }
 
-    formattedData.push(formattedResult);
-  });
+      const formattedResult = {
+        value: memberResult.memberId,
+        label: memberResult.memberId,
+        type: 'member',
+      }
+
+      if (memberResultArray.length === 1) {
+        formattedResult[subMeasures[0]] = memberResultArray[0].value.toString()
+      } else {
+        formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
+        for (let k = 1; k < subMeasures.length; k += 1) {
+          formattedResult[subMeasures[k]] = memberResultArray[k - 1].value.toString();
+        }
+      }
+
+      formattedData.push(formattedResult);
+    });
+  }
 
   return filterByNonCompliance(formattedData, tableFilter);
 };

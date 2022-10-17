@@ -43,23 +43,44 @@ const subMeasures = {
 // the options and values arrays from the ingested data from HERA.
 // HERA needs to pass forward the set of providers forward as a unique set.
 
-const providers = {
-  name: 'Healthcare Providers',
+const payors = (payor) => ({
+  name: 'Payors (Payers)',
   tip: 'The providers of the services recieved in the context of member data.',
-  options: ['Norton Hill Carecenter', 'Doctor Anne Guish', 'Nurse Karen Patches'],
-  values: ['Organization?identifier=71533123', 'Practitioner?identifier=1143', 'Practitioner?identifier=1221'],
-}
+  options: payor.map((payer) => payer.payor),
+  values: payor.map((payer) => payer.payor),
+})
 
 // TODO: When adding functionality, change this to an object returned by a function that assembles
 // the options and values arrays from the ingested data from HERA.
 // HERA needs to pass forward the set of policies forward as a unique set.
 
-const coverage = {
-  name: 'Coverage',
+const healthcareProviders = (healthcareProvider) => ({
+  name: 'Healthcare Providers',
   tip: 'The coverage plan types covering the relevant member data.',
-  options: ['Managed Care Policy', 'Health Maintenance Organization Policy', 'Preferred Provider Organization Policy'],
-  values: ['MCPOL', 'HMO', 'PPO'],
-}
+  options: healthcareProvider.map((provider) => provider.provider),
+  values: healthcareProvider.map((provider) => provider.provider),
+})
+// TODO: When adding functionality, change this to an object returned by a function that assembles
+// the options and values arrays from the ingested data from HERA.
+// HERA needs to pass forward the set of providers forward as a unique set.
+
+const healthcareCoverages = (healthcareCoverage) => ({
+  name: 'Healthcare Coverages',
+  tip: 'The providers of the services recieved in the context of member data.',
+  options: healthcareCoverage.map((coverage) => coverage.coverage),
+  values: healthcareCoverage.map((coverage) => coverage.coverage),
+})
+
+// TODO: When adding functionality, change this to an object returned by a function that assembles
+// the options and values arrays from the ingested data from HERA.
+// HERA needs to pass forward the set of policies forward as a unique set.
+
+const healthcarePractitioners = (practitioner) => ({
+  name: 'Healthcare Practitioners',
+  tip: 'The coverage plan types covering the relevant member data.',
+  options: practitioner.map((prac) => prac.practitioner),
+  values: practitioner.map((prac) => prac.practitioner),
+})
 
 const percentMarks = [
   {
@@ -84,13 +105,32 @@ const percentMarks = [
   },
 ]
 
-const sumCalculator = (filter) => {
+const sumCalculator = (filter, additionalFilterOptions) => {
   let sum = 0;
+
   if (filter.domainsOfCare.length < domainsOfCare.options.length) {
     sum += filter.domainsOfCare.length;
   }
   if (filter.stars.length < starRating.options.length) {
     sum += filter.stars.length;
+  }
+  if (filter.payors.length < payors(additionalFilterOptions.payors).options.length) {
+    sum += filter.payors.length
+  }
+  if (filter.healthcareProviders.length < healthcareProviders(
+    additionalFilterOptions.healthcareProviders,
+  ).options.length) {
+    sum += filter.healthcareProviders.length
+  }
+  if (filter.healthcareCoverages.length < healthcareCoverages(
+    additionalFilterOptions.healthcareCoverages,
+  ).options.length) {
+    sum += filter.healthcareCoverages.length
+  }
+  if (filter.healthcarePractitioners.length < healthcarePractitioners(
+    additionalFilterOptions.healthcarePractitioners,
+  ).options.length) {
+    sum += filter.healthcarePractitioners.length
   }
   if (filter.percentRange[0] > 0) {
     sum += 1;
@@ -108,8 +148,10 @@ const filterDrawerItemData = {
   ncqaBonus,
   measureTypes,
   subMeasures,
-  providers,
-  coverage,
+  payors,
+  healthcareProviders,
+  healthcareCoverages,
+  healthcarePractitioners,
   percentMarks,
   sumCalculator,
 };

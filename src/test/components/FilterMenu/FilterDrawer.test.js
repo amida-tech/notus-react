@@ -2,12 +2,17 @@ import {
   fireEvent, render, screen,
 } from '@testing-library/react';
 import FilterDrawer from '../../../components/FilterMenu/FilterDrawer';
+import { default as datastore } from '../../data/datastore'
 
 const filters = {
-  domainsOfCare: ['EOC'],
-  stars: [1],
-  percentRange: [5, 95],
-  sum: 3,
+  domainsOfCare: [],
+  stars: [],
+  percentRange: [0, 100],
+  sum: 0,
+  payors: [],
+  healthcareCoverages: [],
+  healthcarePractitioners: [],
+  healthcareProviders: [],
 };
 
 const mockHandleFilterChange = jest.fn(() => false);
@@ -25,11 +30,19 @@ const givenPropsTest = async (getByText) => {
 const closeOpenDrawerTest = async (rerender) => {
   rerender(<FilterDrawer
     filterDrawerOpen={false}
+    handleFilterChange={mockHandleFilterChange}
+    currentFilters={filters}
+    toggleFilterDrawer={mockToggleFilterDrawer}
+    additionalFilterOptions={datastore.filterOptions}
   />);
   const refineByText = screen.queryByText('Refine by');
   expect(refineByText).toBe(null);
   rerender(<FilterDrawer
     filterDrawerOpen
+    handleFilterChange={mockHandleFilterChange}
+    currentFilters={filters}
+    toggleFilterDrawer={mockToggleFilterDrawer}
+    additionalFilterOptions={datastore.filterOptions}
   />);
 }
 
@@ -70,6 +83,17 @@ describe('FilterDrawer', () => {
         filterDrawerOpen
         handleFilterChange={mockHandleFilterChange}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        currentFilters={{
+          domainsOfCare: [],
+          stars: [],
+          percentRange: [0, 100],
+          sum: 0,
+          payors: [],
+          healthcareCoverages: [],
+          healthcarePractitioners: [],
+          healthcareProviders: [],
+        }}
+        additionalFilterOptions={datastore.filterOptions}
       />,
     );
 
@@ -91,17 +115,36 @@ describe('FilterDrawer', () => {
       stars: [2, 3],
       percentRange: [0, 100],
       sum: 3,
+      healthcareCoverages: [],
+      healthcarePractitioners: [],
+      healthcareProviders: [],
+      payors: [],
     });
     expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
 
     rerender(<FilterDrawer
       filterDrawerOpen={false}
+      handleFilterChange={mockHandleFilterChange}
+      toggleFilterDrawer={mockToggleFilterDrawer}
+      currentFilters={{
+        domainsOfCare: [],
+        stars: [],
+        percentRange: [0, 100],
+        sum: 0,
+        payors: [],
+        healthcareCoverages: [],
+        healthcarePractitioners: [],
+        healthcareProviders: [],
+      }}
+      additionalFilterOptions={datastore.filterOptions}
     />);
     const refineByText = screen.queryByText('Refine by');
     expect(refineByText).toBe(null);
 
     rerender(<FilterDrawer
       filterDrawerOpen
+      currentFilters={filters}
+      additionalFilterOptions={datastore.filterOptions}
     />);
     expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
     expect(screen.getByDisplayValue('2').checked).toBe(true);
@@ -115,6 +158,7 @@ describe('FilterDrawer', () => {
         handleFilterChange={mockHandleFilterChange}
         currentFilters={filters}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        additionalFilterOptions={datastore.filterOptions}
       />,
     );
 
@@ -125,6 +169,10 @@ describe('FilterDrawer', () => {
       stars: [],
       percentRange: [0, 100],
       sum: 0,
+      payors: [],
+      healthcareCoverages: [],
+      healthcarePractitioners: [],
+      healthcareProviders: [],
     });
     expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
 
@@ -142,6 +190,7 @@ describe('FilterDrawer', () => {
         handleFilterChange={mockHandleFilterChange}
         currentFilters={filters}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        additionalFilterOptions={datastore.filterOptions}
       />,
     );
 
