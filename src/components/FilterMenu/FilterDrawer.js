@@ -218,7 +218,6 @@ function FilterDrawer({
             <Slider
               getAriaLabel={() => 'Measurement percentage range'}
               getAriaValueText={sliderValueText}
-              data-testid="slider"
               defaultValue={percentSliderValue}
               value={percentSliderValue}
               onChange={handleSliderChange}
