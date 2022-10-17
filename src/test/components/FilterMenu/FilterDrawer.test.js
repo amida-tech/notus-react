@@ -35,6 +35,35 @@ const closeOpenDrawerTest = async (rerender) => {
 
 // TO DO: Write test for the slider. https://stackoverflow.com/questions/58856094/testing-a-material-ui-slider-with-testing-library-react
 describe('FilterDrawer', () => {
+
+  test('MUI slider values renders default values and can be adjusted', () => {
+    render(
+      <FilterDrawer
+        filterDrawerOpen
+        handleFilterChange={mockHandleFilterChange}
+        currentFilters={filters}
+        toggleFilterDrawer={mockToggleFilterDrawer}
+      />,
+    )
+
+    // grab the slider points
+    const sliderPoints = screen.getAllByLabelText('Measurement percentage range')
+    expect(sliderPoints.length).toBe(2)
+    const startPoint = sliderPoints[0]
+    const endPoint = sliderPoints[1]
+    
+    // values of slider points -- aria-valuetext OR aria-valuenow -- to match given filter percentageRange value
+    expect(startPoint.getAttribute('aria-valuenow')).toBe('5')
+    expect(endPoint.getAttribute('aria-valuenow')).toBe('95')
+
+    // move pointers to new values
+    fireEvent.change(startPoint, { target: { value: 25 } });
+    fireEvent.change(endPoint, { target: { value: 75 } });
+    
+    expect(startPoint.getAttribute('aria-valuenow')).toBe('25')
+    expect(endPoint.getAttribute('aria-valuenow')).toBe('75')
+  })
+
   test('checks that the filter is applied', () => {
     const { getByText, rerender } = render(
       <FilterDrawer
