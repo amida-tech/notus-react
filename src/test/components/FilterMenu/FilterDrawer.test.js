@@ -68,6 +68,12 @@ describe('FilterDrawer', () => {
     // values of slider points -- aria-valuetext OR aria-valuenow -- to match given filter percentageRange value
     expect(startPoint.getAttribute('aria-valuenow')).toBe('5')
     expect(endPoint.getAttribute('aria-valuenow')).toBe('95')
+    
+    expect(startPoint.getAttribute('max')).toBe('100')
+    expect(startPoint.getAttribute('min')).toBe('0')
+
+    expect(endPoint.getAttribute('max')).toBe('100')
+    expect(endPoint.getAttribute('min')).toBe('0')
 
     // move pointers to new values
     fireEvent.change(startPoint, { target: { value: 25 } });
