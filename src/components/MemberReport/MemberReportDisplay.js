@@ -26,9 +26,10 @@ function MemberReportDisplay({
 }) {
   const theme = useTheme()
   const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main
+  const updatedTime = updateTimestamp(new Date(memberInfo.timeStamp))
   return (
     <Box className="member-report" sx={{ background: 'white' }}>
-      <Banner headerText="Reporting - Member's Data" lastUpdated={updateTimestamp(new Date(memberInfo.timeStamp))} />
+      <Banner headerText="Reporting - Member's Data" lastUpdated={updatedTime} />
       <Box className="member-report__info-panel">
         <Box className="member-report__info-title">
           <Typography variant="h2" className="member-report__h2-header">
@@ -198,6 +199,7 @@ function MemberReportDisplay({
           <Box className="member-report__table-display">
             <MemberReportTable
               rowData={rowData}
+              updatedTime={new Date(memberInfo.timeStamp)}
             />
           </Box>
         </AccordionDetails>
