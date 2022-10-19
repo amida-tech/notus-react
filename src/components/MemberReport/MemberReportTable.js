@@ -7,7 +7,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import PropTypes from 'prop-types';
 import moment from 'moment'
 
-function MemberReportTable({ rowData, updatedTime } ) {
+function MemberReportTable({ rowData, updatedTime }) {
   const formattedData = []
   const theme = useTheme()
   function createData(rowDataObj) {
@@ -24,8 +24,6 @@ function MemberReportTable({ rowData, updatedTime } ) {
   }
 
   rowData.forEach((row) => { formattedData.push(createData(row)) })
-
-  console.log(updatedTime)
 
   return (
     <TableContainer component={Paper}>
@@ -83,10 +81,12 @@ MemberReportTable.propTypes = {
       recommendations: PropTypes.string,
     }),
   ),
+  updatedTime: PropTypes.string,
 }
 
 MemberReportTable.defaultProps = {
   rowData: {},
+  updatedTime: '',
 }
 
 export default MemberReportTable;
