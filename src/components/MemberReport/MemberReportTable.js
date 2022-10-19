@@ -19,7 +19,7 @@ function MemberReportTable({ rowData, updatedTime } ) {
       practitioner: rowDataObj.practitioner || 'N/A',
       dates: rowDataObj.dates || 'N/A',
       conditions: rowDataObj.conditions || 'N/A',
-      recommendations: `Member compliant as of ${moment(updatedTime).format('MM/DD/YYYY')}`,
+      recommendations: rowDataObj.recommendations || `Member compliant as of ${moment(updatedTime).format('MM/DD/YYYY')}`,
     }
   }
 
