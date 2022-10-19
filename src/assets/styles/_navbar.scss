@@ -2,64 +2,12 @@ $block-class: 'navbar';
 @import 'colors';
 
 @at-root {
-    .#{$block-class} {
-      width: 100%;
-      color: $default-white;
-
-      &__container {
-        position:fixed;
-      }
-      &__toolbar {
-      background-color: $blue-grey-darken-4;
-      display: flex;
-      justify-content: space-between;
-      }
-      &__text{
-        --text-opacity: 1;
-        color: $default-white;
-        font-size: 0.875rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        align-self: center;
-
-        &-nav-dashboard{
-          @extend .navbar__text;
-          padding-left: .7rem;
-          padding-right: 2rem;
-        }
-        &-signout{
-          @extend .navbar__text;
-          width: max-content;
-        }
-
-      } 
-      &__link-holder{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-
-        &-left{
-          width: 75%;
-          @media (min-width: 640px) { 
-            width: 50%;
-          }
-          @media (min-width: 768px) { 
-            width: 50%;
-          }
-          @media (min-width: 1024px) { 
-            width: 60%;
-          }
-          @media (min-width: 1280px) { 
-            width: 75%;
-          }
-        }
-        &-right{
-          display: flex;
-          flex-direction: row;
-          justify-content:right;
-        }
-      }
-    }
+  .#{$block-class} {
+    
+    &__text{
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    } 
+  }
 }

@@ -61,7 +61,6 @@ function ChartBar({
     toggleFilterDrawer(!filterDrawerOpen);
   };
 
-  // TODO: Fix with the custom date picker in the future.
   const dateSelector = (newValue) => {
     const newDateSetting = {
       choice: 'custom',
@@ -70,7 +69,6 @@ function ChartBar({
     handleTimelineChange(newDateSetting);
   }
 
-  // TODO: Fix with the custom date picker in the future.
   const clearDate = () => {
     const newDateSetting = {
       choice: 'custom',

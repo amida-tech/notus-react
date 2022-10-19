@@ -35,7 +35,7 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="https://github.com/creativetimofficial/notus-react/blob/master/LICENSE.md?ref=nr-footer-admin"
+                href="https://github.com/amida-tech/saraswati-dashboard/blob/develop/LICENSE.md"
                 className="footer__text-right"
               >
                 MIT License

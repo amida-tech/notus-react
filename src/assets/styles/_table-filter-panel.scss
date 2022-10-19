@@ -4,7 +4,7 @@ $block-class: 'table-filter-panel';
 @at-root {
     .#{$block-class} {
         display: grid;
-        grid-template-columns: 4fr 10fr 1fr;
+        grid-template-columns: 4fr 10fr;
 
         & &__member-search { // TODO //placeholder styles
             color: $blue-grey-darken-4;
