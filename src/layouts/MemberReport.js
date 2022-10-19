@@ -7,7 +7,6 @@ import {
 import {
   Skeleton,
 } from '@mui/material';
-import { recommendationsInfoFetch } from '../components/Common/Controller';
 import ReportTable from '../components/Utilities/ReportTable';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import env from '../env';
@@ -25,35 +24,37 @@ function MemberReport({
   const [memberInfo, setMemberInfo] = useState();
   const [exportUrl, setExportUrl] = useState('')
   const [rowData, setRowData] = useState([]);
-  const [description, setDescription] = useState('')
+  const [description, setDescription] = useState({})
   const [coverage, setCoverage] = useState({})
   const [coverageStatus, setCoverageStatus] = useState('')
-  const [recommendations, setRecommendations] = useState([])
 
   useEffect(() => {
-    async function fetchRecommendations(formattedMemberData) {
-      const recommendationsResults = await recommendationsInfoFetch(formattedMemberData)
-      console.log({ recommendationsResults })
-      setRecommendations(recommendationsResults)
-    }
     if (Object.keys(datastore.info).length > 0 && memberInfo) {
+      const descriptions = {
+        noDescription: 'Measure description not currently available.',
+        description: '',
+        description_list: [],
+      }
+      if (datastore?.info[memberInfo.measurementType]) {
+        descriptions.description = datastore?.info[memberInfo.measurementType].description
+      }
+      if (datastore?.info[memberInfo.measurementType].description_list.length > 0) {
+        descriptions.description_list = datastore?.info[memberInfo.measurementType].description_list
+      }
+      setDescription(descriptions)
       const formattedMemberData = ReportTable.formatData(
         memberInfo,
         memberInfo.measurementType,
         datastore.info,
-      )
+      );
       setRowData(formattedMemberData);
-      setDescription(datastore?.info[memberInfo.measurementType].description || 'Measure description not currently available.')
       setIsLoading(false);
-      if (recommendations.length === 0) {
-        fetchRecommendations(memberInfo)
-      }
     }
   }, [datastore, memberInfo]);
 
   useEffect(() => {
     async function fetchData() {
-      const result = await memberInfoFetch(memberInfoQueryUrl, id)
+      const result = await memberInfoFetch(memberInfoQueryUrl, id);
       setMemberInfo(result)
       setCoverage(result?.coverage)
       setCoverageStatus(result?.coverage[0].status.value)
@@ -73,7 +74,6 @@ function MemberReport({
           coverageStatus={coverageStatus}
           rowData={rowData}
           description={description}
-          recommendations={recommendations}
         />
       )
       : <Skeleton data-testid="loading" variant="rectangular" height="calc(100vh - 12rem - 14px)" animation="wave" />

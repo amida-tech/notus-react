@@ -59,15 +59,6 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
   const complianceResult = getMeasureCompliance(memberData);
   const measureData = memberData[memberData.memberId];
   const measureList = Object.keys(storeInfo).filter((key) => key.includes(selectedMeasure));
-
-  const practitionerFinder = memberData.providers.filter((pro) => pro.reference.includes('Practitioner')).map((prac, index) => {
-    if (index === 0) {
-      return prac.display
-    }
-    return ` ${prac.display}`
-  })
-  console.log(memberData)
-  
   const formattedData = [];
   formattedData.push({
     value: measureList[0],
@@ -76,10 +67,13 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
     status: complianceResult.every((entry) => entry),
     exclusions: measureData.Exclusions,
     practitioner: 'N/A',
-    // practitioner: practitionerFinder.toString(),
     dates: 'N/A',
     conditions: 'N/A',
-    recommendations: 'N/A',
+    recommendations: {
+      recommendation: storeInfo[measureList[0]].recommendation,
+      recommendation_list: storeInfo[measureList[0]].recommendation_list,
+    },
+    inverted: storeInfo[measureList[0]].inverted,
   });
 
   if (complianceResult.length === 1) {
@@ -96,7 +90,10 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       practitioner: 'N/A',
       dates: 'N/A',
       conditions: 'N/A',
-      recommendations: 'N/A',
+      recommendations: {
+        recommendation: storeInfo[measureList[index + 1]].recommendation,
+        recommendation_list: storeInfo[measureList[index + 1]].recommendation_list,
+      },
     });
   });
 

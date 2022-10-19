@@ -11,12 +11,11 @@ export async function memberInfoFetch(url, id) {
     return error
   }
 }
-export async function recommendationsInfoFetch(formattedMemberData) {
+export async function recommendationsInfoFetch(measure) {
   try {
     const recommendationURL = `${env.REACT_APP_HEDIS_MEASURE_API_URL}recommendations`
-    const results = axios.post(recommendationURL, { formattedMemberData })
-    console.log({results: results.data})
-    return []
+    const results = await axios.post(recommendationURL, measure)
+    return results.data
   } catch (error) {
     return error
   }

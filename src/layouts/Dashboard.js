@@ -236,7 +236,6 @@ export default function Dashboard() {
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
-
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
