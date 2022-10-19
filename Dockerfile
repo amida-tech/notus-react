@@ -20,6 +20,9 @@ COPY ./yarn.lock .
 RUN yarn install --frozen-lockfile && yarn cache clean
 # Up til this point should get cached and only re-run if dependencies change
 
+# Update browser list
+RUN npx browserslist@latest --update-db
+
 # Copy necessary files to build
 COPY . /app
 COPY ./public/index.html /app/public

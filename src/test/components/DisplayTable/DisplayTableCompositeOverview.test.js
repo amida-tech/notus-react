@@ -7,7 +7,7 @@ import DisplayTable from '../../../components/DisplayTable/DisplayTable';
 import {
   resultList, headerInfo, selectedMeasures, colorMap, currentResults,
 } from '../../data/DemoData';
-import { datastore } from '../../data/datastore'
+import { default as datastore } from '../../data/datastore'
 
 describe('Dashboard: DisplayTable: Composite Overview', () => {
   // Display Table Container

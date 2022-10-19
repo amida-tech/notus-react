@@ -7,7 +7,7 @@ import DisplayTable from '../../../components/DisplayTable/DisplayTable';
 import {
   resultList, aabHeaderInfo, selectedMeasures, colorMap, currentResults, rowEntries,
 } from '../../data/DemoData';
-import { datastore } from '../../data/datastore'
+import { default as datastore } from '../../data/datastore'
 
 describe('Dashboard: DisplayTable: AAB Member View', () => {
   // Display Table Container

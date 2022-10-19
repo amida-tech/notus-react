@@ -98,6 +98,7 @@ const formatData = (currentResults) => {
       exclusions: measureResult.exclusions,
     });
   });
+
   return formattedData;
 };
 
