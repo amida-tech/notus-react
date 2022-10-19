@@ -2,7 +2,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {
   Accordion, AccordionDetails, AccordionSummary, Box, Button, List, ListItem,
-  ListItemText, Typography
+  ListItemText, Typography,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import moment from 'moment';
