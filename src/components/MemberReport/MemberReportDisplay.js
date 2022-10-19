@@ -32,10 +32,11 @@ function MemberReportDisplay({
     .format('MM/DD/YYYY')}
     - ${moment(coverage[0].period.end.value)
     .format('MM/DD/YYYY')}`
+  const updatedTime = updateTimestamp(new Date(memberInfo.timeStamp))
 
   return (
     <Box className="member-report" sx={{ background: 'white' }}>
-      <Banner headerText="Reporting - Member's Data" lastUpdated={updateTimestamp(new Date(memberInfo.timeStamp))} />
+      <Banner headerText="Reporting - Member's Data" lastUpdated={updatedTime} />
       <Box className="member-report__info-panel">
         <Box className="member-report__info-title">
           <Typography variant="h2" className="member-report__h2-header">
@@ -119,6 +120,7 @@ function MemberReportDisplay({
         <Box className="member-report__insurance-card">
           <MemberReportInsurance
             memberInfo={memberInfo}
+            updatedTime={memberInfo.timeStamp}
           />
         </Box>
       </Box>

@@ -5,8 +5,9 @@ import { useTheme } from '@mui/material/styles';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import PropTypes from 'prop-types';
+import moment from 'moment'
 
-function MemberReportTable({ rowData }) {
+function MemberReportTable({ rowData, updatedTime }) {
   const formattedData = []
   const theme = useTheme()
   function createData(rowDataObj) {
@@ -18,7 +19,7 @@ function MemberReportTable({ rowData }) {
       practitioner: rowDataObj.practitioner || 'N/A',
       dates: rowDataObj.dates || 'N/A',
       conditions: rowDataObj.conditions || 'N/A',
-      recommendations: rowDataObj.recommendations || 'N/A',
+      recommendations: rowDataObj.recommendations || `Member compliant as of ${moment(updatedTime).format('MM/DD/YYYY')}`,
     }
   }
 
@@ -83,10 +84,12 @@ MemberReportTable.propTypes = {
       recommendations: PropTypes.string,
     }),
   ),
+  updatedTime: PropTypes.string,
 }
 
 MemberReportTable.defaultProps = {
   rowData: {},
+  updatedTime: '',
 }
 
 export default MemberReportTable;

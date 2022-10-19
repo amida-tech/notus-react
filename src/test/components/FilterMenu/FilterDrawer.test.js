@@ -2,7 +2,7 @@ import {
   fireEvent, render, screen,
 } from '@testing-library/react';
 import FilterDrawer from '../../../components/FilterMenu/FilterDrawer';
-import { default as datastore } from '../../data/datastore'
+import datastore from '../../data/datastore'
 
 const filters = {
   domainsOfCare: [],
