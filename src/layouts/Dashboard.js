@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
-import {Box, Grid, Paper, Button, Snackbar, Skeleton} from '@mui/material';
+import {
+  Box, Grid, Paper, Button, Snackbar, Skeleton,
+} from '@mui/material';
 import { useParams, useHistory } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
@@ -68,7 +70,6 @@ export default function Dashboard() {
   )
 
   const handleResetData = (router) => {
-    console.log('time to reset')
     if (router === undefined) {
       setIsLoading(true)
       setCurrentTimeline(datastore.defaultTimelineState);
@@ -304,10 +305,6 @@ export default function Dashboard() {
     activeMeasure.measure,
   ])
 
-  // AAB TOTAL 128
-  // ORG 2 TOTAL 39
-
-  // CULPRIT #1
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
       datastore.memberResults,
@@ -317,12 +314,9 @@ export default function Dashboard() {
     ))
   }, [tableFilter, filterInfo, datastore.memberResults, activeMeasure.measure, datastore.info])
 
-  // CULPRIT #2
   useEffect(() => {
     const path = window.location.pathname
-    console.log('culprit 2')
     if (filterInfo.members.length > 0) {
-      console.log('culprit 2 filtered')
       datastoreActions.setMemberResults(filterInfo.members)
     }
 
@@ -586,7 +580,6 @@ export default function Dashboard() {
                       tableFilter={tableFilter}
                       handleTableFilterChange={handleTableFilterChange}
                       rowEntries={rowEntries}
-                      setTableFilter={setTableFilter}
                       handleTabChange={handleTabChange}
                       handleResetData={handleResetData}
                     />
