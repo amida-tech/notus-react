@@ -33,7 +33,7 @@ import {
 } from '../components/Common/Controller'
 
 export default function Dashboard() {
-  const { datastore } = useContext(DatastoreContext);
+  const { datastore, datastoreActions } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [filterActivated, setFilterActivated] = useState(false);
   const [noResultsFound, setNoResultsFound] = useState(false);
@@ -219,7 +219,7 @@ export default function Dashboard() {
         setHeaderInfo(MeasureTable.headerData(false));
       }
     }
-  }, [setTableFilter, history, activeMeasure, isComposite, datastore, filterActivated])
+  }, [setTableFilter, history, activeMeasure, isComposite, filterActivated])
 
   useEffect(() => {
     console.log('member results were updated')
@@ -273,7 +273,6 @@ export default function Dashboard() {
     history,
     activeMeasure,
     isComposite,
-    datastore,
     filterActivated,
     filterInfo,
     memberResults,
@@ -282,7 +281,7 @@ export default function Dashboard() {
   useEffect(() => {
     async function fetchData() {
       const records = await measureDataFetch(activeMeasure.measure)
-      setMemberResults(records)
+      datastoreActions.setMemberResults(records)
     }
     // HANDLE COMPOSITE
     if (!isComposite) {
@@ -292,7 +291,7 @@ export default function Dashboard() {
         const selectMemberResults = filterInfo.members
           .filter((result) => activeMeasure.measure.includes(result.measurementType))
 
-        setMemberResults(selectMemberResults)
+        datastoreActions.setMemberResults(selectMemberResults)
       } else {
         // FILTERS DO NOT EXIST
         fetchData()
@@ -302,49 +301,47 @@ export default function Dashboard() {
     isComposite,
     filterInfo,
     activeMeasure.measure,
-    setMemberResults,
   ])
 
   // CULPRIT #1
-  // useEffect(() => {
-  //   setRowEntries(MemberTable.formatData(
-  //     filterInfo.members.length > 0 ? filterInfo.members : memberResults,
-  //     activeMeasure.measure,
-  //     datastore.info,
-  //     tableFilter,
-  //   ))
-  // }, [tableFilter, filterInfo, memberResults, activeMeasure.measure, datastore.info])
+  useEffect(() => {
+    setRowEntries(MemberTable.formatData(
+      filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
+      activeMeasure.measure,
+      datastore.info,
+      tableFilter,
+    ))
+  }, [tableFilter, filterInfo, memberResults, activeMeasure.measure, datastore.info])
 
   // CULPRIT #2
-  // useEffect(() => {
-  //   const path = window.location.pathname
+  useEffect(() => {
+    const path = window.location.pathname
 
-  //   if (path.includes('members')) {
-  //     setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-  //     const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : memberResults
+    if (path.includes('members')) {
+      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
+      const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults
       
-  //     setRowEntries(MemberTable.formatData(
-  //       wantedMembers,
-  //       activeMeasure.measure,
-  //       datastore.info,
-  //       tableFilter,
-  //     ))
-  //     setComposite(false)
-  //     setTabValue('members')
-  //   } else if (path === '/') {
-  //     setTabValue('overview')
-  //   } else {
-  //     setTabValue('overview')
-  //   }
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [
-  //   activeMeasure.measure,
-  //   memberResults,
-  //   selectedMeasures,
-  //   datastore.info,
-  //   tabValue,
-  //   tableFilter,
-  // ]);
+      setRowEntries(MemberTable.formatData(
+        wantedMembers,
+        activeMeasure.measure,
+        datastore.info,
+        tableFilter,
+      ))
+      setComposite(false)
+      setTabValue('members')
+    } else if (path === '/') {
+      setTabValue('overview')
+    } else {
+      setTabValue('overview')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    activeMeasure.measure,
+    selectedMeasures,
+    datastore.info,
+    tabValue,
+    tableFilter,
+  ]);
 
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.
