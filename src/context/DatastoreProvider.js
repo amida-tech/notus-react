@@ -30,40 +30,45 @@ export default function DatastoreProvider({ children }) {
   const [datastore, dispatch] = useReducer(DatastoreReducer, initialState);
 
   const datastoreActions = useMemo(() => ({
-    setResults: (results, info) => dispatch({ type: 'SET_RESULTS', payload: { results, info } }),
-    setTrends: (trends) => dispatch({ type: 'SET_TRENDS', payload: trends }),
-    setHealthcareFilterOptions:
-    (payors, healthcareProviders, healthcareCoverages, practitioners) => dispatch({
-      type: 'SET_FILTER_OPTIONS',
+    setResults: (results, info) =>
+      dispatch({ type: 'SET_RESULTS',
+      payload: { results, info } }),
+
+    setMemberResults: (memberResults) =>
+      dispatch({ type: 'SET_MEMBER_RESULTS',
+      payload: memberResults }),
+
+    setTrends: (trends) =>
+      dispatch({ type: 'SET_TRENDS',
+      payload: trends }),
+
+    setHealthcareFilterOptions: (payors, healthcareProviders, healthcareCoverages, practitioners) =>
+      dispatch({ type: 'SET_FILTER_OPTIONS',
       payload: {
         payors,
         healthcareProviders,
         healthcareCoverages,
         practitioners,
-      },
-    }),
-    setIsLoading: (isLoading) => dispatch({ type: 'SET_ISLOADING', payload: isLoading }),
+      } }),
+
+    setIsLoading: (isLoading) =>
+      dispatch({ type: 'SET_ISLOADING',
+      payload: isLoading }),
+
   }), [dispatch]);
 
   useEffect(() => {
-    console.log('provider is doing a thing')
     if (devData === 'true') {
       datastoreActions.setResults(resultList, infoObject);
       datastoreActions.setTrends(trendList);
       datastoreActions.setIsLoading(false);
     } else {
       const trendPromise = axios.get(trendUrl)
-
       const searchPromise = axios.get(searchUrl)
-
       const infoPromise = axios.get(infoUrl)
-
       const payorsPromise = axios.get(payorsUrl);
-
       const healthcareProvidersPromise = axios.get(healthcareProvidersUrl);
-
       const healthcareCoveragesPromise = axios.get(healthcareCoveragesUrl);
-
       const practitionersPromise = axios.get(practitionersUrl);
 
       Promise.all([

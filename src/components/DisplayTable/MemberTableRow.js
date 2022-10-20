@@ -37,6 +37,9 @@ function MemberTableRow({
 }) {
   const ciseCheck = headerInfo[1].header === 'CIS-E' ? 'cise' : 'member'
 
+  console.log('rowdataitem', rowDataItem)
+  console.log('headerInfo', headerInfo)
+
   return (
     <Box className={`${ciseCheck}-table-row`}>
       <Grid container className={`${ciseCheck}-table-row__row-section ${ciseCheck}-table-row__row-section--wide`}>

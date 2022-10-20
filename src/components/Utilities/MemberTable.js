@@ -43,6 +43,7 @@ const allValuesEqual = (valueArray) => {
 }
 
 const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
+  console.log('format data received results', memberResults)
   const formattedData = [];
   let workingData = []
 
@@ -100,6 +101,8 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
       formattedData.push(formattedResult);
     });
   }
+
+  console.log('what we are returning for rowEntries:', filterByNonCompliance(formattedData, tableFilter))
 
   return filterByNonCompliance(formattedData, tableFilter);
 };

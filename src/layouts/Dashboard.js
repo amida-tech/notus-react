@@ -222,6 +222,18 @@ export default function Dashboard() {
   }, [setTableFilter, history, activeMeasure, isComposite, datastore, filterActivated])
 
   useEffect(() => {
+    console.log('member results were updated')
+    console.log('time to update row entries')
+    setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
+    setRowEntries(MemberTable.formatData(
+      datastore.memberResults,
+      activeMeasure.measure,
+      datastore.info,
+      tableFilter,
+    ))
+  }, [datastore.memberResults])
+
+  useEffect(() => {
     if (filterActivated) {
       setCurrentTimeline(filterInfo.timeline);
       setCurrentFilters(filterInfo.filters);
@@ -293,42 +305,46 @@ export default function Dashboard() {
     setMemberResults,
   ])
 
-  useEffect(() => {
-    setRowEntries(MemberTable.formatData(
-      filterInfo.members.length > 0 ? filterInfo.members : memberResults,
-      activeMeasure.measure,
-      datastore.info,
-      tableFilter,
-    ))
-  }, [tableFilter, filterInfo, memberResults, activeMeasure.measure, datastore.info])
+  // CULPRIT #1
+  // useEffect(() => {
+  //   setRowEntries(MemberTable.formatData(
+  //     filterInfo.members.length > 0 ? filterInfo.members : memberResults,
+  //     activeMeasure.measure,
+  //     datastore.info,
+  //     tableFilter,
+  //   ))
+  // }, [tableFilter, filterInfo, memberResults, activeMeasure.measure, datastore.info])
 
-  useEffect(() => {
-    const path = window.location.pathname
-    if (path.includes('members')) {
-      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-      const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : memberResults
-      setRowEntries(MemberTable.formatData(
-        wantedMembers,
-        activeMeasure.measure,
-        datastore.info,
-        tableFilter,
-      ))
-      setComposite(false)
-      setTabValue('members')
-    } else if (path === '/') {
-      setTabValue('overview')
-    } else {
-      setTabValue('overview')
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    activeMeasure.measure,
-    memberResults,
-    selectedMeasures,
-    datastore.info,
-    tabValue,
-    tableFilter,
-  ]);
+  // CULPRIT #2
+  // useEffect(() => {
+  //   const path = window.location.pathname
+
+  //   if (path.includes('members')) {
+  //     setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
+  //     const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : memberResults
+      
+  //     setRowEntries(MemberTable.formatData(
+  //       wantedMembers,
+  //       activeMeasure.measure,
+  //       datastore.info,
+  //       tableFilter,
+  //     ))
+  //     setComposite(false)
+  //     setTabValue('members')
+  //   } else if (path === '/') {
+  //     setTabValue('overview')
+  //   } else {
+  //     setTabValue('overview')
+  //   }
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [
+  //   activeMeasure.measure,
+  //   memberResults,
+  //   selectedMeasures,
+  //   datastore.info,
+  //   tabValue,
+  //   tableFilter,
+  // ]);
 
   // If control needs to be shared across multiple components,
   // add them through useState above and append them to these.

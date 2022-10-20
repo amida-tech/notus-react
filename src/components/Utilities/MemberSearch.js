@@ -6,8 +6,17 @@ import { memberInfoSearch } from '../Common/Controller'
 import { DatastoreContext } from '../../context/DatastoreProvider';
 
 export default function MemberSearch() {
-  const { datastore } = useContext(DatastoreContext);
+  const { datastore, datastoreActions } = useContext(DatastoreContext);
   const [query, setQuery] = useState('');
+
+  // We need access to setRowEntries and set with these four props in format data:
+    // searched member info
+    // active measure
+    // datastore.info
+    // table filter
+  // OR we need to update datastore.results perhaps and it triggers a useEffect on dash
+  // memberResults on dash is our target but the fifty billion useEffects will have
+  // to be studied to make sure we hit it correctly
 
   const handleChange = (event) => {
     setQuery(event.target.value);
@@ -17,9 +26,8 @@ export default function MemberSearch() {
     if (event.key === 'Enter') {
       event.preventDefault();
       const memberInfo = await memberInfoSearch(query)
-      // the memberInfo needs to go into the datastore.results
-      // console.log(memberInfo)
-      console.log(datastore)
+      console.log(memberInfo)
+      datastoreActions.setMemberResults(memberInfo)
     }
   }
 
