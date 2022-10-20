@@ -1,15 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import {Box, Grid, Paper, Button, Snackbar, Skeleton} from '@mui/material';
 import { useParams, useHistory } from 'react-router-dom';
-import Skeleton from '@mui/material/Skeleton';
-import { Snackbar } from '@mui/material';
-import Alert from '../components/Utilities/Alert'
 import { DatastoreContext } from '../context/DatastoreProvider';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 
 import Banner from '../components/Common/Banner';
+import Alert from '../components/Utilities/Alert'
 import D3Container from '../components/ChartContainer';
 import DisplayTableContainer from '../components/DisplayTable/DisplayTableContainer';
 import RatingTrends from '../components/Summary/RatingTrends';
@@ -59,14 +55,20 @@ export default function Dashboard() {
   const [currentTimeline, setCurrentTimeline] = useState(datastore.defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
-  const [memberResults, setMemberResults] = useState([]);
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
   const [tabValue, setTabValue] = useState('overview');
   const { measure } = useParams();
 
+  const resetAction = (
+    <Button color="primary" size="small" onClick={() => handleResetData()}>
+      Reset
+    </Button>
+  )
+
   const handleResetData = (router) => {
+    console.log('time to reset')
     if (router === undefined) {
       setIsLoading(true)
       setCurrentTimeline(datastore.defaultTimelineState);
@@ -122,7 +124,7 @@ export default function Dashboard() {
         (res) => !res.measure.includes(measure),
       );
       if (otherMeasureFinder.length > 0) {
-        if (filterInfo.members.length !== memberResults.length) {
+        if (filterInfo.members.length !== datastore.memberResults.length) {
           setCurrentResults(filterInfo.currentResults)
           setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
@@ -240,7 +242,7 @@ export default function Dashboard() {
       setAdditionalFilterOptions(datastore.filterOptions);
       const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
       if (ActiveMeasureTest) {
-        if (filterInfo.members.length !== memberResults.length) {
+        if (filterInfo.members.length !== datastore.memberResults.length) {
           setCurrentResults(filterInfo.currentResults)
           setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
@@ -275,7 +277,6 @@ export default function Dashboard() {
     isComposite,
     filterActivated,
     filterInfo,
-    memberResults,
   ])
 
   useEffect(() => {
@@ -303,24 +304,31 @@ export default function Dashboard() {
     activeMeasure.measure,
   ])
 
+  // AAB TOTAL 128
+  // ORG 2 TOTAL 39
+
   // CULPRIT #1
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
-      filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
+      datastore.memberResults,
       activeMeasure.measure,
       datastore.info,
       tableFilter,
     ))
-  }, [tableFilter, filterInfo, memberResults, activeMeasure.measure, datastore.info])
+  }, [tableFilter, filterInfo, datastore.memberResults, activeMeasure.measure, datastore.info])
 
   // CULPRIT #2
   useEffect(() => {
     const path = window.location.pathname
+    console.log('culprit 2')
+    if (filterInfo.members.length > 0) {
+      console.log('culprit 2 filtered')
+      datastoreActions.setMemberResults(filterInfo.members)
+    }
 
     if (path.includes('members')) {
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-      const wantedMembers = filterInfo.members.length > 0 ?
-        filterInfo.members : datastore.memberResults
+      const wantedMembers = datastore.memberResults
 
       setRowEntries(MemberTable.formatData(
         wantedMembers,
@@ -465,7 +473,7 @@ export default function Dashboard() {
       history.push(`/${activeMeasure.measure}/members`)
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
       setRowEntries(MemberTable.formatData(
-        filterInfo.members.length > 0 ? filterInfo.members : memberResults,
+        filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
@@ -488,7 +496,8 @@ export default function Dashboard() {
             <Snackbar
               open={filterActivated}
               anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              message="Filters are active. To reset, click on 'RESET FILTERS' in the filter panel."
+              message="Filters are active!"
+              action={resetAction}
               sx={{
                 '& .MuiSnackbarContent-root': { backgroundColor: '#DFF4FC', color: '#263238' },
               }}
@@ -541,7 +550,6 @@ export default function Dashboard() {
                     graphWidth={graphWidth}
                     setFilterActivated={setFilterActivated}
                     setIsLoading={setIsLoading}
-                    setMemberResults={setMemberResults}
                     setRowEntries={setRowEntries}
                     handleResetData={handleResetData}
                     setFilterInfo={setFilterInfo}
@@ -580,6 +588,7 @@ export default function Dashboard() {
                       rowEntries={rowEntries}
                       setTableFilter={setTableFilter}
                       handleTabChange={handleTabChange}
+                      handleResetData={handleResetData}
                     />
                   </div>
                 )}

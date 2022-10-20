@@ -7,7 +7,7 @@ import { memberInfoSearch } from '../Common/Controller'
 import { DatastoreContext } from '../../context/DatastoreProvider';
 
 export default function MemberSearch() {
-  const { datastoreActions } = useContext(DatastoreContext);
+  const { datastore, datastoreActions } = useContext(DatastoreContext);
   const [query, setQuery] = useState('');
 
   const handleChange = (event) => {
@@ -19,6 +19,7 @@ export default function MemberSearch() {
       event.preventDefault();
       const memberInfo = await memberInfoSearch(query)
       datastoreActions.setMemberResults(memberInfo)
+      console.log(datastore)
     }
   }
 

@@ -4,6 +4,7 @@ import {
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import MemberTable from '../Utilities/MemberTable';
 import MeasureTable from '../Utilities/MeasureTable';
+import PropTypes from 'prop-types';
 
 import {
   storeProps,
@@ -43,6 +44,7 @@ function DisplayTableContainer({
   rowEntries,
   setTableFilter,
   handleTabChange,
+  handleResetData
 }) {
   return (
     <Grid className="d3-container__bottom-display">
@@ -121,7 +123,7 @@ function DisplayTableContainer({
                       className="d3-container__no-entries-button"
                       aria-label="clear"
                       onClick={() => {
-                        setTableFilter([])
+                        handleResetData()
                       }}
                     >
                       Reset Table
@@ -160,6 +162,7 @@ DisplayTableContainer.propTypes = {
   rowEntries: rowEntriesProps,
   setTableFilter: setTableFilterProps,
   handleTabChange: handleTabChangeProps,
+  handleResetData: PropTypes.func,
 };
 
 DisplayTableContainer.defaultProps = {
@@ -177,6 +180,7 @@ DisplayTableContainer.defaultProps = {
   rowEntries: [],
   setTableFilter: () => undefined,
   handleTabChange: () => undefined,
+  handleResetData: () => undefined
 };
 
 export default DisplayTableContainer
