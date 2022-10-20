@@ -222,15 +222,16 @@ export default function Dashboard() {
   }, [setTableFilter, history, activeMeasure, isComposite, filterActivated])
 
   useEffect(() => {
-    console.log('member results were updated')
-    console.log('time to update row entries')
-    setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-    setRowEntries(MemberTable.formatData(
-      datastore.memberResults,
-      activeMeasure.measure,
-      datastore.info,
-      tableFilter,
-    ))
+    if (tabValue === 'members') {
+      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
+      setRowEntries(MemberTable.formatData(
+        datastore.memberResults,
+        activeMeasure.measure,
+        datastore.info,
+        tableFilter,
+      ))
+    }
+    
   }, [datastore.memberResults])
 
   useEffect(() => {
@@ -250,7 +251,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(true));
+        setHeaderInfo(MeasureTable.headerData(isComposite))
       } else {
         setComposite(false);
         const subMeasureCurrentResults = getSubMeasureCurrentResults(
@@ -331,11 +332,14 @@ export default function Dashboard() {
       setTabValue('members')
     } else if (path === '/') {
       setTabValue('overview')
+      setHeaderInfo(MeasureTable.headerData(isComposite))
     } else {
       setTabValue('overview')
+      setHeaderInfo(MeasureTable.headerData(isComposite))
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    history,
     activeMeasure.measure,
     selectedMeasures,
     datastore.info,
