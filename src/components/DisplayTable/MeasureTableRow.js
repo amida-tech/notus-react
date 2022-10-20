@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  Grid, Box, Typography, Link,
+  Grid, Box, Typography,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -63,7 +63,7 @@ function MeasureTableRow({
                           }
                           arrow
                         >
-                          <Link to={{ pathname: `/${rowDataItem.value}` }}>
+                          <Link style={{ color: '#1976D2' }} to={{ pathname: `/${rowDataItem.value}` }}>
                             {rowDataItem[fieldInfo.key]}
                           </Link>
                         </Tooltip>
@@ -108,6 +108,7 @@ function MeasureTableRow({
                     arrow
                   >
                     <Typography
+                      style={{ color: '#1976D2' }}
                       variant="caption"
                       className="measure-table-row__data"
                       onClick={() => setOpenAlert(true)}

@@ -10,6 +10,7 @@ function RowGenerator(link, key, rowDataItem, ciseCheck) {
   if (link) {
     return (
       <Link
+        style={{ color: '#1976D2' }}
         to={{ pathname: `/member/${rowDataItem.value}` }}
       >
         {rowDataItem[key]}
