@@ -63,7 +63,6 @@ export const DatastoreReducer = (state, action) => {
       }
     }
     case 'SET_MEMBER_RESULTS': {
-      console.log('setting memberResults', action.payload)
       return {
         ...state,
         memberResults: action.payload,

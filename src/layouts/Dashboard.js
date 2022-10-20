@@ -231,7 +231,6 @@ export default function Dashboard() {
         tableFilter,
       ))
     }
-    
   }, [datastore.memberResults])
 
   useEffect(() => {
@@ -320,8 +319,9 @@ export default function Dashboard() {
 
     if (path.includes('members')) {
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-      const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults
-      
+      const wantedMembers = filterInfo.members.length > 0 ?
+        filterInfo.members : datastore.memberResults
+
       setRowEntries(MemberTable.formatData(
         wantedMembers,
         activeMeasure.measure,

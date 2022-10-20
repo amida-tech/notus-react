@@ -18,7 +18,6 @@ export default function MemberSearch() {
     if (event.key === 'Enter') {
       event.preventDefault();
       const memberInfo = await memberInfoSearch(query)
-      console.log(memberInfo)
       datastoreActions.setMemberResults(memberInfo)
     }
   }
@@ -37,13 +36,13 @@ export default function MemberSearch() {
           <InputAdornment position="end">
             <IconButton
               aria-label="cancel search"
-              onClick={() => {setQuery('')}}
+              onClick={() => { setQuery('') }}
               edge="end"
             >
               { query ? <CancelRoundedIcon /> : null }
             </IconButton>
           </InputAdornment>
-        )
+        ),
       }}
     />
   )

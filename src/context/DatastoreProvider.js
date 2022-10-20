@@ -30,30 +30,36 @@ export default function DatastoreProvider({ children }) {
   const [datastore, dispatch] = useReducer(DatastoreReducer, initialState);
 
   const datastoreActions = useMemo(() => ({
-    setResults: (results, info) =>
-      dispatch({ type: 'SET_RESULTS',
-      payload: { results, info } }),
+    setResults: (results, info) => dispatch({
+      type: 'SET_RESULTS',
+      payload: { results, info },
+    }),
 
-    setMemberResults: (memberResults) =>
-      dispatch({ type: 'SET_MEMBER_RESULTS',
-      payload: memberResults }),
+    setMemberResults: (memberResults) => dispatch({
+      type: 'SET_MEMBER_RESULTS',
+      payload: memberResults,
+    }),
 
-    setTrends: (trends) =>
-      dispatch({ type: 'SET_TRENDS',
-      payload: trends }),
+    setTrends: (trends) => dispatch({
+      type: 'SET_TRENDS',
+      payload: trends,
+    }),
 
-    setHealthcareFilterOptions: (payors, healthcareProviders, healthcareCoverages, practitioners) =>
-      dispatch({ type: 'SET_FILTER_OPTIONS',
-      payload: {
-        payors,
-        healthcareProviders,
-        healthcareCoverages,
-        practitioners,
-      } }),
+    setHealthcareFilterOptions:
+      (payors, healthcareProviders, healthcareCoverages, practitioners) => dispatch({
+        type: 'SET_FILTER_OPTIONS',
+        payload: {
+          payors,
+          healthcareProviders,
+          healthcareCoverages,
+          practitioners,
+        },
+      }),
 
-    setIsLoading: (isLoading) =>
-      dispatch({ type: 'SET_ISLOADING',
-      payload: isLoading }),
+    setIsLoading: (isLoading) => dispatch({
+      type: 'SET_ISLOADING',
+      payload: isLoading,
+    }),
 
   }), [dispatch]);
 
