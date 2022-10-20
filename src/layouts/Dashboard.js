@@ -222,6 +222,7 @@ export default function Dashboard() {
         setHeaderInfo(MeasureTable.headerData(false));
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setTableFilter, history, activeMeasure, isComposite, filterActivated])
 
   useEffect(() => {
@@ -234,6 +235,7 @@ export default function Dashboard() {
         tableFilter,
       ))
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [datastore.memberResults])
 
   useEffect(() => {
@@ -271,6 +273,7 @@ export default function Dashboard() {
         setHeaderInfo(MeasureTable.headerData(false));
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     setTableFilter,
     history,
@@ -299,6 +302,7 @@ export default function Dashboard() {
         fetchData()
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isComposite,
     filterInfo,
