@@ -336,9 +336,6 @@ export default function Dashboard() {
       ))
       setComposite(false)
       setTabValue('members')
-    } else if (path === '/') {
-      setTabValue('overview')
-      setHeaderInfo(MeasureTable.headerData(isComposite))
     } else {
       setTabValue('overview')
       setHeaderInfo(MeasureTable.headerData(isComposite))
