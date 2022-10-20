@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import {
   TextField,
 } from '@mui/material';
+import { memberInfoSearch } from '../Common/Controller'
+import { DatastoreContext } from '../../context/DatastoreProvider';
 
 export default function MemberSearch() {
+  const { datastore } = useContext(DatastoreContext);
   const [query, setQuery] = useState('');
+
   const handleChange = (event) => {
     setQuery(event.target.value);
   };
-  const handleKeyPress = (event) => {
+
+  const handleKeyPress = async (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
-
-      console.log('our query:', query)
+      const memberInfo = await memberInfoSearch(query)
+      // the memberInfo needs to go into the datastore.results
+      // console.log(memberInfo)
+      console.log(datastore)
     }
   }
 

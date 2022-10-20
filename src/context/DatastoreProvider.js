@@ -46,6 +46,7 @@ export default function DatastoreProvider({ children }) {
   }), [dispatch]);
 
   useEffect(() => {
+    console.log('provider is doing a thing')
     if (devData === 'true') {
       datastoreActions.setResults(resultList, infoObject);
       datastoreActions.setTrends(trendList);
