@@ -1,7 +1,8 @@
 import {
-  Box, Checkbox, Divider, FormGroup, FormControlLabel, Typography,
+  Box, Checkbox, Divider, FormControlLabel, FormGroup, Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import MemberSearch from '../Utilities/MemberSearch';
 
 const memberComplianceItems = [
   { label: '1 Non-Compliant Submeasure', value: 'one' },
@@ -16,7 +17,7 @@ function TableFilterPanel({
     <>
       <Box className="table-filter-panel">
         <Box className="table-filter-panel__member-search">
-          Search Bar
+          <MemberSearch />
         </Box>
         <FormGroup className="table-filter-panel__button-panel">
           <Typography className="table-filter-panel__label">

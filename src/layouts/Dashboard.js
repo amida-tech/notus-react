@@ -1,15 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
+import {
+  Box, Grid, Paper, Snackbar, Skeleton,
+} from '@mui/material';
 import { useParams, useHistory } from 'react-router-dom';
-import Skeleton from '@mui/material/Skeleton';
-import { Snackbar } from '@mui/material';
-import Alert from '../components/Utilities/Alert'
 import { DatastoreContext } from '../context/DatastoreProvider';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 
 import Banner from '../components/Common/Banner';
+import Alert from '../components/Utilities/Alert'
 import D3Container from '../components/ChartContainer';
 import DisplayTableContainer from '../components/DisplayTable/DisplayTableContainer';
 import RatingTrends from '../components/Summary/RatingTrends';
@@ -33,7 +31,7 @@ import {
 } from '../components/Common/Controller'
 
 export default function Dashboard() {
-  const { datastore } = useContext(DatastoreContext);
+  const { datastore, datastoreActions } = useContext(DatastoreContext);
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [filterActivated, setFilterActivated] = useState(false);
   const [noResultsFound, setNoResultsFound] = useState(false);
@@ -59,7 +57,6 @@ export default function Dashboard() {
   const [currentTimeline, setCurrentTimeline] = useState(datastore.defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
-  const [memberResults, setMemberResults] = useState([]);
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
@@ -122,7 +119,7 @@ export default function Dashboard() {
         (res) => !res.measure.includes(measure),
       );
       if (otherMeasureFinder.length > 0) {
-        if (filterInfo.members.length !== memberResults.length) {
+        if (filterInfo.members.length !== datastore.memberResults.length) {
           setCurrentResults(filterInfo.currentResults)
           setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
@@ -219,7 +216,21 @@ export default function Dashboard() {
         setHeaderInfo(MeasureTable.headerData(false));
       }
     }
-  }, [setTableFilter, history, activeMeasure, isComposite, datastore, filterActivated])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setTableFilter, history, activeMeasure, isComposite, filterActivated])
+
+  useEffect(() => {
+    if (tabValue === 'members') {
+      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
+      setRowEntries(MemberTable.formatData(
+        datastore.memberResults,
+        activeMeasure.measure,
+        datastore.info,
+        tableFilter,
+      ))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [datastore.memberResults])
 
   useEffect(() => {
     if (filterActivated) {
@@ -228,7 +239,7 @@ export default function Dashboard() {
       setAdditionalFilterOptions(datastore.filterOptions);
       const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
       if (ActiveMeasureTest) {
-        if (filterInfo.members.length !== memberResults.length) {
+        if (filterInfo.members.length !== datastore.memberResults.length) {
           setCurrentResults(filterInfo.currentResults)
           setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
@@ -238,7 +249,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(true));
+        setHeaderInfo(MeasureTable.headerData(isComposite))
       } else {
         setComposite(false);
         const subMeasureCurrentResults = getSubMeasureCurrentResults(
@@ -256,21 +267,20 @@ export default function Dashboard() {
         setHeaderInfo(MeasureTable.headerData(false));
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     setTableFilter,
     history,
     activeMeasure,
     isComposite,
-    datastore,
     filterActivated,
     filterInfo,
-    memberResults,
   ])
 
   useEffect(() => {
     async function fetchData() {
       const records = await measureDataFetch(activeMeasure.measure)
-      setMemberResults(records)
+      datastoreActions.setMemberResults(records)
     }
     // HANDLE COMPOSITE
     if (!isComposite) {
@@ -280,33 +290,38 @@ export default function Dashboard() {
         const selectMemberResults = filterInfo.members
           .filter((result) => activeMeasure.measure.includes(result.measurementType))
 
-        setMemberResults(selectMemberResults)
+        datastoreActions.setMemberResults(selectMemberResults)
       } else {
         // FILTERS DO NOT EXIST
         fetchData()
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isComposite,
     filterInfo,
     activeMeasure.measure,
-    setMemberResults,
   ])
 
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
-      filterInfo.members.length > 0 ? filterInfo.members : memberResults,
+      datastore.memberResults,
       activeMeasure.measure,
       datastore.info,
       tableFilter,
     ))
-  }, [tableFilter, filterInfo, memberResults, activeMeasure.measure, datastore.info])
+  }, [tableFilter, filterInfo, datastore.memberResults, activeMeasure.measure, datastore.info])
 
   useEffect(() => {
     const path = window.location.pathname
+    if (filterInfo.members.length > 0) {
+      datastoreActions.setMemberResults(filterInfo.members)
+    }
+
     if (path.includes('members')) {
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-      const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : memberResults
+      const wantedMembers = datastore.memberResults
+
       setRowEntries(MemberTable.formatData(
         wantedMembers,
         activeMeasure.measure,
@@ -315,15 +330,14 @@ export default function Dashboard() {
       ))
       setComposite(false)
       setTabValue('members')
-    } else if (path === '/') {
-      setTabValue('overview')
     } else {
       setTabValue('overview')
+      setHeaderInfo(MeasureTable.headerData(isComposite))
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    history,
     activeMeasure.measure,
-    memberResults,
     selectedMeasures,
     datastore.info,
     tabValue,
@@ -448,7 +462,7 @@ export default function Dashboard() {
       history.push(`/${activeMeasure.measure}/members`)
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
       setRowEntries(MemberTable.formatData(
-        filterInfo.members.length > 0 ? filterInfo.members : memberResults,
+        filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
@@ -524,7 +538,6 @@ export default function Dashboard() {
                     graphWidth={graphWidth}
                     setFilterActivated={setFilterActivated}
                     setIsLoading={setIsLoading}
-                    setMemberResults={setMemberResults}
                     setRowEntries={setRowEntries}
                     handleResetData={handleResetData}
                     setFilterInfo={setFilterInfo}
@@ -561,8 +574,8 @@ export default function Dashboard() {
                       tableFilter={tableFilter}
                       handleTableFilterChange={handleTableFilterChange}
                       rowEntries={rowEntries}
-                      setTableFilter={setTableFilter}
                       handleTabChange={handleTabChange}
+                      handleResetData={handleResetData}
                     />
                   </div>
                 )}
