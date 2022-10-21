@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import {
-  Box, Grid, Paper, Button, Snackbar, Skeleton,
+  Box, Grid, Paper, Snackbar, Skeleton,
 } from '@mui/material';
 import { useParams, useHistory } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
@@ -62,12 +62,6 @@ export default function Dashboard() {
   const [rowEntries, setRowEntries] = useState([])
   const [tabValue, setTabValue] = useState('overview');
   const { measure } = useParams();
-
-  const resetAction = (
-    <Button color="primary" size="small" onClick={() => handleResetData()}>
-      Reset
-    </Button>
-  )
 
   const handleResetData = (router) => {
     if (router === undefined) {
@@ -491,8 +485,7 @@ export default function Dashboard() {
             <Snackbar
               open={filterActivated}
               anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-              message="Filters are active!"
-              action={resetAction}
+              message="Filters are active. To reset, click on 'RESET FILTERS' in the filter panel."
               sx={{
                 '& .MuiSnackbarContent-root': { backgroundColor: '#DFF4FC', color: '#263238' },
               }}

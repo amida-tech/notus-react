@@ -124,7 +124,7 @@ function DisplayTableContainer({
                         handleResetData()
                       }}
                     >
-                      Reset Table
+                      Reset Table Filters
                     </Button>
                   </Box>
                 )
