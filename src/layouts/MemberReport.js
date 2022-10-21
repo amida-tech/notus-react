@@ -20,26 +20,37 @@ function MemberReport({ id, memberInfoFetch, loading }) {
   const [memberInfo, setMemberInfo] = useState();
   const [exportUrl, setExportUrl] = useState('')
   const [rowData, setRowData] = useState([]);
-  const [description, setDescription] = useState('')
+  const [description, setDescription] = useState({})
   const [coverage, setCoverage] = useState({})
   const [coverageStatus, setCoverageStatus] = useState('')
 
   useEffect(() => {
     if (Object.keys(datastore.info).length > 0 && memberInfo) {
-      setRowData(ReportTable.formatData(
+      const descriptions = {
+        noDescription: 'Measure description not currently available.',
+        description: '',
+        description_list: [],
+      }
+      if (datastore?.info[memberInfo.measurementType]) {
+        descriptions.description = datastore?.info[memberInfo.measurementType].description
+      }
+      if (datastore?.info[memberInfo.measurementType].description_list.length > 0) {
+        descriptions.description_list = datastore?.info[memberInfo.measurementType].description_list
+      }
+      setDescription(descriptions)
+      const formattedMemberData = ReportTable.formatData(
         memberInfo,
         memberInfo.measurementType,
         datastore.info,
-      ));
-      setDescription(datastore?.info[memberInfo.measurementType].description || 'Measure description not currently available.')
+      );
+      setRowData(formattedMemberData);
       setIsLoading(false);
     }
   }, [datastore, memberInfo]);
 
   useEffect(() => {
     async function fetchData() {
-      const result = await memberInfoFetch(memberInfoQueryUrl, id)
-
+      const result = await memberInfoFetch(memberInfoQueryUrl, id);
       setMemberInfo(result)
       setCoverage(result?.coverage)
       setCoverageStatus(result?.coverage[0].status.value)

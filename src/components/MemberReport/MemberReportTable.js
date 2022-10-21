@@ -9,20 +9,69 @@ import PropTypes from 'prop-types';
 function MemberReportTable({ rowData }) {
   const formattedData = []
   const theme = useTheme()
-  function createData(rowDataObj) {
-    return {
-      measure: rowDataObj.measure || 'N/A',
-      type: rowDataObj.type || 'N/A',
-      status: rowDataObj.status || null,
-      exclusions: rowDataObj.exclusions || null,
-      practitioner: rowDataObj.practitioner || 'N/A',
-      dates: rowDataObj.dates || 'N/A',
-      conditions: rowDataObj.conditions || 'N/A',
-      recommendations: rowDataObj.recommendations || 'N/A',
+  function createTableRows(rowDataObj) {
+    let recommendation = (
+      <>
+        <strong>{'Member is '}</strong>
+        <strong style={{ color: 'red' }}>NOT COMPLIANT</strong>
+        <strong>{' of '}</strong>
+        <strong>{rowDataObj.measure.toUpperCase()}</strong>
+      </>
+    )
+    if (rowDataObj.recommendations) {
+      const baseRecommendation = rowDataObj.recommendations.recommendation
+      const additionalRecommendation = rowDataObj.recommendations.recommendation_list
+      if (baseRecommendation) {
+        recommendation = baseRecommendation
+        if (additionalRecommendation.length > 0) {
+          recommendation = (
+            <>
+              <strong>{baseRecommendation}</strong>
+              <ul style={{ listStyle: 'none', marginTop: '0.5rem' }}>
+                {additionalRecommendation.map((item) => <li>{item}</li>)}
+                <li />
+              </ul>
+            </>
+          )
+        }
+      }
     }
+    return (
+      <TableRow
+        key={rowDataObj.type}
+        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+      >
+        <TableCell>{rowDataObj.measure}</TableCell>
+        <TableCell align="center">{rowDataObj.type}</TableCell>
+        <TableCell align="center">
+          {rowDataObj.status
+            ? <CheckCircleIcon sx={{ color: theme.palette.success.main }} />
+            : <CancelIcon sx={{ color: theme.palette.error.main }} /> }
+        </TableCell>
+        <TableCell align="center">{rowDataObj.exclusions?.length > 0 ? rowDataObj.exclusions : <CancelIcon sx={{ color: theme.palette.error.main }} />}</TableCell>
+        <TableCell align="center">{rowDataObj.practitioner}</TableCell>
+        <TableCell align="center">{rowDataObj.dates}</TableCell>
+        <TableCell
+          align={
+          rowDataObj.type === 'Measure' || rowDataObj.type === 'Sub-Measure'
+            ? 'left'
+            : 'center'
+        }
+        >
+          {rowDataObj.status ? (
+            <>
+              <strong>{'Member is '}</strong>
+              <strong style={{ color: 'green' }}>COMPLIANT</strong>
+              <strong>{' of '}</strong>
+              <strong>{rowDataObj.measure.toUpperCase()}</strong>
+            </>
+          ) : recommendation}
+        </TableCell>
+      </TableRow>
+    )
   }
 
-  rowData.forEach((row) => { formattedData.push(createData(row)) })
+  rowData.forEach((row) => { formattedData.push(createTableRows(row)) })
 
   return (
     <TableContainer component={Paper}>
@@ -35,33 +84,11 @@ function MemberReportTable({ rowData }) {
             <TableCell sx={{ fontWeight: '700' }} align="center">Exclusions</TableCell>
             <TableCell sx={{ fontWeight: '700' }} align="center">Practitioner</TableCell>
             <TableCell sx={{ fontWeight: '700' }} align="center">Dates</TableCell>
-            <TableCell sx={{ fontWeight: '700' }} align="center">Conditions</TableCell>
-            <TableCell sx={{ fontWeight: '700' }} align="center">Recommendations</TableCell>
+            <TableCell sx={{ fontWeight: '700' }} align="left">Recommendations</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {formattedData.map((row, i) => {
-            Object.assign(row, { key: i });
-            return (
-              <TableRow
-                key={row.key}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell>{row.measure}</TableCell>
-                <TableCell align="center">{row.type}</TableCell>
-                <TableCell align="center">
-                  {row.status
-                    ? <CheckCircleIcon sx={{ color: theme.palette.success.main }} />
-                    : <CancelIcon sx={{ color: theme.palette.error.main }} /> }
-                </TableCell>
-                <TableCell align="center">{row.exclusions?.length > 0 ? row.exclusions : <CancelIcon sx={{ color: theme.palette.error.main }} />}</TableCell>
-                <TableCell align="center">{row.practitioner}</TableCell>
-                <TableCell align="center">{row.dates}</TableCell>
-                <TableCell align="center">{row.conditions}</TableCell>
-                <TableCell align="center">{row.recommendations}</TableCell>
-              </TableRow>
-            )
-          })}
+          {formattedData.map((row) => row)}
         </TableBody>
       </Table>
     </TableContainer>
@@ -75,7 +102,7 @@ MemberReportTable.propTypes = {
       type: PropTypes.string,
       status: PropTypes.bool,
       exclusions: PropTypes.arrayOf(
-        PropTypes.bool,
+        PropTypes.string,
       ),
       practitioner: PropTypes.string,
       dates: PropTypes.string,

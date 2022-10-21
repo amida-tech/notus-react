@@ -70,7 +70,11 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
     practitioner: 'N/A',
     dates: 'N/A',
     conditions: 'N/A',
-    recommendations: 'N/A',
+    recommendations: {
+      recommendation: storeInfo[measureList[0]].recommendation,
+      recommendation_list: storeInfo[measureList[0]].recommendation_list,
+    },
+    inverted: storeInfo[measureList[0]].inverted,
   });
 
   if (complianceResult.length === 1) {
@@ -87,7 +91,10 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       practitioner: 'N/A',
       dates: 'N/A',
       conditions: 'N/A',
-      recommendations: 'N/A',
+      recommendations: {
+        recommendation: storeInfo[measureList[index + 1]].recommendation,
+        recommendation_list: storeInfo[measureList[index + 1]].recommendation_list,
+      },
     });
   });
 

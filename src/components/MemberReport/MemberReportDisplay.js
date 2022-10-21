@@ -28,6 +28,28 @@ function MemberReportDisplay({
 }) {
   const theme = useTheme()
   const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main
+  const descriptionCreator = (descriptionObj) => {
+    let newDescription = <p>{descriptionObj.noDescription}</p>
+    if (descriptionObj.description) {
+      newDescription = <p style={{ marginBottom: '0.5rem' }}>{descriptionObj.description}</p>
+      if (descriptionObj.description_list.length > 0) {
+        newDescription = (
+          <>
+            <p style={{ marginBottom: '0.5rem' }}>{descriptionObj.description}</p>
+            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
+              {descriptionObj.description_list.map((item) => (
+                <li style={{ marginTop: '0.5rem' }}>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </>
+        )
+      }
+    }
+
+    return newDescription
+  }
   const participationPeriod = `${moment(coverage[0].period.start.value)
     .format('MM/DD/YYYY')}
     - ${moment(coverage[0].period.end.value)
@@ -139,7 +161,7 @@ function MemberReportDisplay({
         </AccordionSummary>
         <AccordionDetails>
           <Box className="member-report__accordion-text">
-            {description}
+            {descriptionCreator(description)}
           </Box>
           <Box className="member-report__table-display">
             <MemberReportTable
