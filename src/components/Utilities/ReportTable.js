@@ -73,14 +73,15 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       recommendation: storeInfo[measureList[0]].recommendation,
       recommendation_list: storeInfo[measureList[0]].recommendation_list,
     },
-    inverted: storeInfo[measureList[0]].inverted,
   });
-
+console.log(measureData.Exclusions)
   if (complianceResult.length === 1) {
     return formattedData;
   }
 
   complianceResult.forEach((result, index) => {
+console.log({ exclusions: measureData[`Exclusions ${index + 1}`] })
+
     formattedData.push({
       value: measureList[index + 1],
       measure: storeInfo[measureList[index + 1]].displayLabel,
@@ -96,6 +97,7 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       },
     });
   });
+
 
   return (formattedData);
 };

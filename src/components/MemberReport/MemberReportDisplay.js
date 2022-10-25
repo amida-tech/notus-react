@@ -26,6 +26,7 @@ function MemberReportDisplay({
 }) {
   const theme = useTheme()
   const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main
+
   const descriptionCreator = (descriptionObj) => {
     let newDescription = <p>{descriptionObj.noDescription}</p>
     if (descriptionObj.description) {
@@ -45,9 +46,9 @@ function MemberReportDisplay({
         )
       }
     }
-
     return newDescription
   }
+
   return (
     <Box className="member-report" sx={{ background: 'white' }}>
       <Banner headerText="Reporting - Member's Data" lastUpdated={updateTimestamp(new Date(memberInfo.timeStamp))} />
@@ -310,7 +311,13 @@ MemberReportDisplay.propTypes = {
       any: PropTypes.string,
     }),
   ),
-  description: PropTypes.string,
+  description: PropTypes.shape({
+    description: PropTypes.string,
+    description_list: PropTypes.arrayOf(
+      PropTypes.string,
+    ),
+    noDescription: PropTypes.string,
+  }),
   recommendations: PropTypes.shape({
     measure: PropTypes.string,
     recommendation: PropTypes.string,
@@ -331,7 +338,7 @@ MemberReportDisplay.defaultProps = {
   coverage: {},
   coverageStatus: '',
   rowData: [],
-  description: '',
+  description: {},
   recommendations: {},
 }
 

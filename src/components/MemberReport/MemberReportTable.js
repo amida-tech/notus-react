@@ -117,7 +117,12 @@ MemberReportTable.propTypes = {
       practitioner: PropTypes.string,
       dates: PropTypes.string,
       conditions: PropTypes.string,
-      recommendations: PropTypes.string,
+      recommendations: PropTypes.shape({
+        recommendation: PropTypes.string,
+        recommendation_list: PropTypes.arrayOf(
+          PropTypes.string,
+        ),
+      }),
     }),
   ),
 }
