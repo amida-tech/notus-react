@@ -485,15 +485,7 @@ export default function Dashboard() {
               handleResetData={handleResetData}
             >
               No results found. Please click button to reset the data to the initial results.
-              <div style={{
-                fontSize: '2rem',
-                width: '100%',
-                textAlign: 'center',
-                marginTop: '1rem',
-              }}
-              >
-                (^-^)
-              </div>
+              {' '}
             </Alert>
             <Grid item xs={12}>
               { isLoading || noResultsFound
