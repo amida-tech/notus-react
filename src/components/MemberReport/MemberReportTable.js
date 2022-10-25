@@ -11,12 +11,12 @@ function MemberReportTable({ rowData }) {
   const theme = useTheme()
   function createTableRows(rowDataObj) {
     let recommendation = (
-      <>
-        <strong>{'Member is '}</strong>
-        <strong style={{ color: 'red' }}>NOT COMPLIANT</strong>
-        <strong>{' of '}</strong>
-        <strong>{rowDataObj.measure.toUpperCase()}</strong>
-      </>
+      <strong>
+        {'Member is '}
+        <strong style={{ color: theme.palette.error.main }}>NOT COMPLIANT</strong>
+        {' of '}
+
+      </strong>
     )
     if (rowDataObj.recommendations) {
       const baseRecommendation = rowDataObj.recommendations.recommendation
@@ -25,16 +25,26 @@ function MemberReportTable({ rowData }) {
         recommendation = baseRecommendation
         if (additionalRecommendation.length > 0) {
           recommendation = (
-            <>
+            <p>
               <strong>{baseRecommendation}</strong>
               <ul style={{ listStyle: 'none', marginTop: '0.5rem' }}>
                 {additionalRecommendation.map((item) => <li>{item}</li>)}
                 <li />
               </ul>
-            </>
+            </p>
           )
         }
       }
+    } else {
+      recommendation = (
+        <p>
+          No Recommendations available for
+          {' '}
+          <strong>{rowDataObj.measure.toUpperCase()}</strong>
+          {' '}
+          at this moment. Please check back soon.
+        </p>
+      )
     }
     return (
       <TableRow
@@ -59,12 +69,12 @@ function MemberReportTable({ rowData }) {
         }
         >
           {rowDataObj.status ? (
-            <>
-              <strong>{'Member is '}</strong>
-              <strong style={{ color: 'green' }}>COMPLIANT</strong>
-              <strong>{' of '}</strong>
-              <strong>{rowDataObj.measure.toUpperCase()}</strong>
-            </>
+            <strong>
+              {'Member is '}
+              <strong style={{ color: theme.palette.success.main }}>COMPLIANT</strong>
+              {' of '}
+              {rowDataObj.measure.toUpperCase()}
+            </strong>
           ) : recommendation}
         </TableCell>
       </TableRow>
