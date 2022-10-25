@@ -74,14 +74,11 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       recommendation_list: storeInfo[measureList[0]].recommendation_list,
     },
   });
-console.log(measureData.Exclusions)
   if (complianceResult.length === 1) {
     return formattedData;
   }
 
   complianceResult.forEach((result, index) => {
-console.log({ exclusions: measureData[`Exclusions ${index + 1}`] })
-
     formattedData.push({
       value: measureList[index + 1],
       measure: storeInfo[measureList[index + 1]].displayLabel,
@@ -97,7 +94,6 @@ console.log({ exclusions: measureData[`Exclusions ${index + 1}`] })
       },
     });
   });
-
 
   return (formattedData);
 };

@@ -7,6 +7,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import PropTypes from 'prop-types';
 
 function MemberReportTable({ rowData }) {
+  console.log(rowData)
   const formattedData = []
   const theme = useTheme()
   function createTableRows(rowDataObj) {
@@ -48,7 +49,7 @@ function MemberReportTable({ rowData }) {
     }
     return (
       <TableRow
-        key={rowDataObj.type}
+        key={rowDataObj.key}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
       >
         <TableCell>{rowDataObj.measure}</TableCell>
@@ -98,7 +99,10 @@ function MemberReportTable({ rowData }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {formattedData.map((row) => row)}
+          {/* {formattedData.map((row, i) => {
+            Object.assign(row, { key: i });
+            return row
+          })} */}
         </TableBody>
       </Table>
     </TableContainer>
@@ -111,9 +115,7 @@ MemberReportTable.propTypes = {
       measure: PropTypes.string,
       type: PropTypes.string,
       status: PropTypes.bool,
-      exclusions: PropTypes.arrayOf(
-        PropTypes.string,
-      ),
+      exclusions: PropTypes.bool,
       practitioner: PropTypes.string,
       dates: PropTypes.string,
       conditions: PropTypes.string,
