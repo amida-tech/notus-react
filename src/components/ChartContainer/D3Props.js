@@ -91,18 +91,6 @@ export const dashboardActionsProps = PropTypes.shape({
   setActiveMeasure: PropTypes.func,
 })
 
-export const memberResultsProps = PropTypes.arrayOf(
-  PropTypes.shape({
-    denominator: PropTypes.number,
-    numerator: PropTypes.number,
-    starRating: PropTypes.number,
-    exclusions: PropTypes.number,
-    initialPopulation: PropTypes.number,
-    value: PropTypes.number,
-    date: PropTypes.string,
-    measure: PropTypes.string,
-  }),
-)
 export const displayDataProps = PropTypes.arrayOf(
   PropTypes.shape({
     date: PropTypes.string,
@@ -193,7 +181,6 @@ export const currentResultsProps = PropTypes.arrayOf(
     value: PropTypes.number,
   }),
 )
-export const setMemberResultsProps = PropTypes.func;
 export const setRowEntriesProps = PropTypes.func;
 export const setSelectedMeasuresProps = PropTypes.func;
 export const handleFilteredDataUpdateProps = PropTypes.func;

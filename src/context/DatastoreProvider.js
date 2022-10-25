@@ -30,19 +30,37 @@ export default function DatastoreProvider({ children }) {
   const [datastore, dispatch] = useReducer(DatastoreReducer, initialState);
 
   const datastoreActions = useMemo(() => ({
-    setResults: (results, info) => dispatch({ type: 'SET_RESULTS', payload: { results, info } }),
-    setTrends: (trends) => dispatch({ type: 'SET_TRENDS', payload: trends }),
-    setHealthcareFilterOptions:
-    (payors, healthcareProviders, healthcareCoverages, practitioners) => dispatch({
-      type: 'SET_FILTER_OPTIONS',
-      payload: {
-        payors,
-        healthcareProviders,
-        healthcareCoverages,
-        practitioners,
-      },
+    setResults: (results, info) => dispatch({
+      type: 'SET_RESULTS',
+      payload: { results, info },
     }),
-    setIsLoading: (isLoading) => dispatch({ type: 'SET_ISLOADING', payload: isLoading }),
+
+    setMemberResults: (memberResults) => dispatch({
+      type: 'SET_MEMBER_RESULTS',
+      payload: memberResults,
+    }),
+
+    setTrends: (trends) => dispatch({
+      type: 'SET_TRENDS',
+      payload: trends,
+    }),
+
+    setHealthcareFilterOptions:
+      (payors, healthcareProviders, healthcareCoverages, practitioners) => dispatch({
+        type: 'SET_FILTER_OPTIONS',
+        payload: {
+          payors,
+          healthcareProviders,
+          healthcareCoverages,
+          practitioners,
+        },
+      }),
+
+    setIsLoading: (isLoading) => dispatch({
+      type: 'SET_ISLOADING',
+      payload: isLoading,
+    }),
+
   }), [dispatch]);
 
   useEffect(() => {
@@ -52,17 +70,11 @@ export default function DatastoreProvider({ children }) {
       datastoreActions.setIsLoading(false);
     } else {
       const trendPromise = axios.get(trendUrl)
-
       const searchPromise = axios.get(searchUrl)
-
       const infoPromise = axios.get(infoUrl)
-
       const payorsPromise = axios.get(payorsUrl);
-
       const healthcareProvidersPromise = axios.get(healthcareProvidersUrl);
-
       const healthcareCoveragesPromise = axios.get(healthcareCoveragesUrl);
-
       const practitionersPromise = axios.get(practitionersUrl);
 
       Promise.all([

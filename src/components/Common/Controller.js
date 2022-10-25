@@ -31,6 +31,17 @@ export async function measureDataFetch(measure) {
   }
 }
 
+// Search bar
+export async function memberInfoSearch(query) {
+  try {
+    const searchUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/search?memberId=${query}`)
+    const memberInfo = await axios.get(searchUrl).then((values) => values.data)
+    return memberInfo
+  } catch (error) {
+    return error
+  }
+}
+
 // App.js
 export async function validateAccessToken(accessToken) {
   try {
@@ -44,6 +55,7 @@ export async function validateAccessToken(accessToken) {
   }
   return false
 }
+
 // Filter Search
 export async function filterSearch(searchMeasure, searchArray, isComposite) {
   try {
