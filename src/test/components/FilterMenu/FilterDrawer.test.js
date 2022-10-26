@@ -1,5 +1,5 @@
 import {
-  fireEvent, render, screen,
+  fireEvent, render, screen, getByRole, getByTestId
 } from '@testing-library/react';
 import FilterDrawer from '../../../components/FilterMenu/FilterDrawer';
 import { additionalFilterOptions } from '../../data/DemoData';
@@ -17,6 +17,7 @@ const filters = {
 
 const mockHandleFilterChange = jest.fn(() => false);
 const mockToggleFilterDrawer = jest.fn(() => false);
+const mockHandleResetData = jest.fn(() => false);
 
 const closeOpenDrawerTest = (rerender) => {
   rerender(<FilterDrawer
@@ -108,6 +109,7 @@ describe('FilterDrawer', () => {
         currentFilters={filters}
         additionalFilterOptions={additionalFilterOptions}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        handleResetData={mockHandleResetData}
       />,
     );
 
@@ -127,54 +129,39 @@ describe('FilterDrawer', () => {
       if (value) {
         fireEvent.click(checkboxes.find((box) => box.value === key))
       }
-      expect( value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
+      expect(value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
     });
 
-    fireEvent.click(getByText('Reset Filters'));
-    expect(mockHandleFilterChange).toHaveBeenCalledWith({
-      domainsOfCare: [],
-      stars: [],
-      percentRange: [0, 100],
-      sum: 0,
-      healthcareCoverages: [],
-      healthcarePractitioners: [],
-      healthcareProviders: [],
-      payors: [],
-    });
+    fireEvent.click(screen.getByRole('button', { name: 'Reset Filters' }))
+    expect(mockHandleResetData).toHaveBeenCalled();
     expect(mockToggleFilterDrawer).toHaveBeenCalled();
-
-    // closeOpenDrawerTest(rerender);
-    // expect(screen.getByDisplayValue('EOC').checked).toBe(false);
-    // expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-    // expect(screen.getByDisplayValue('1').checked).toBe(false);
-    // expect(screen.getByDisplayValue('2').checked).toBe(false);
   });
 
-  // test('cancels the filter changes', () => {
-  //   const { getByText, rerender } = render(
-  //     <FilterDrawer
-  //       filterDrawerOpen
-  //       handleFilterChange={mockHandleFilterChange}
-  //       currentFilters={filters}
-  //       additionalFilterOptions={additionalFilterOptions}
-  //       toggleFilterDrawer={mockToggleFilterDrawer}
-  //     />,
-  //   );
+  test('cancels the filter changes', () => {
+    const { getByText, rerender } = render(
+      <FilterDrawer
+        filterDrawerOpen
+        handleFilterChange={mockHandleFilterChange}
+        currentFilters={filters}
+        additionalFilterOptions={additionalFilterOptions}
+        toggleFilterDrawer={mockToggleFilterDrawer}
+      />,
+    );
 
-  //   givenPropsTest(getByText);
-  //   expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-  //   expect(screen.getByDisplayValue('2').checked).toBe(false);
-  //   fireEvent.click(screen.getByDisplayValue('ECDS'));
-  //   fireEvent.click(screen.getByDisplayValue('2'));
-  //   expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
-  //   expect(screen.getByDisplayValue('2').checked).toBe(true);
+    givenPropsTest(getByText);
+    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
+    expect(screen.getByDisplayValue('2').checked).toBe(false);
+    fireEvent.click(screen.getByDisplayValue('ECDS'));
+    fireEvent.click(screen.getByDisplayValue('2'));
+    expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
+    expect(screen.getByDisplayValue('2').checked).toBe(true);
 
-  //   fireEvent.click(getByText('Cancel'));
-  //   expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
-  //   expect(mockHandleFilterChange).not.toHaveBeenCalled();
+    fireEvent.click(getByText('Cancel'));
+    expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
+    expect(mockHandleFilterChange).not.toHaveBeenCalled();
 
-  //   closeOpenDrawerTest(rerender);
-  //   expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-  //   expect(screen.getByDisplayValue('2').checked).toBe(false);
-  // });
+    closeOpenDrawerTest(rerender);
+    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
+    expect(screen.getByDisplayValue('2').checked).toBe(false);
+  });
 })
