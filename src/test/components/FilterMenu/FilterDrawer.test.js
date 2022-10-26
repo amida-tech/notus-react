@@ -72,7 +72,7 @@ describe('FilterDrawer', () => {
       expect( value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
     });
 
-    // we expect our handleFilterChange function to be called with appropriate filteres and the drawer closes
+    // we expect our handleFilterChange function to be called with appropriate filters when the drawer closes and opens again
     fireEvent.click(getByText('Apply Filters'));
     expect(mockHandleFilterChange).toHaveBeenCalledWith({
       domainsOfCare: ['ECDS'],
@@ -86,18 +86,27 @@ describe('FilterDrawer', () => {
     });
     expect(mockToggleFilterDrawer).toHaveBeenCalled();
 
-    // rerender(<FilterDrawer
-    //   filterDrawerOpen={false}
-    // />);
-    // const refineByText = screen.queryByText('Refine by');
-    // expect(refineByText).toBe(null);
+    rerender(<FilterDrawer
+        filterDrawerOpen={false}
+        currentFilters={filters}
+        additionalFilterOptions={additionalFilterOptions}
+        handleFilterChange={mockHandleFilterChange}
+        toggleFilterDrawer={mockToggleFilterDrawer}
+      />);
+    const refineByText = screen.queryByText('Refine by');
+    expect(refineByText).toBe(null);
 
-    // rerender(<FilterDrawer
-    //   filterDrawerOpen
-    // />);
-    // expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
-    // expect(screen.getByDisplayValue('2').checked).toBe(true);
-    // expect(screen.getByDisplayValue('3').checked).toBe(true);
+    rerender(<FilterDrawer
+      filterDrawerOpen
+      currentFilters={filters}
+      additionalFilterOptions={additionalFilterOptions}
+      handleFilterChange={mockHandleFilterChange}
+      toggleFilterDrawer={mockToggleFilterDrawer}
+    />);
+
+    Object.values(expectedValues).forEach((value) => {
+      expect( value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
+    });
   })
 
   // test('resets to the default filter state', () => {
