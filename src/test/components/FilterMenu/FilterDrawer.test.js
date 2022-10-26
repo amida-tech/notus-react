@@ -148,7 +148,6 @@ describe('FilterDrawer', () => {
       />,
     );
 
-    givenPropsTest(getByText);
     expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
     expect(screen.getByDisplayValue('2').checked).toBe(false);
     fireEvent.click(screen.getByDisplayValue('ECDS'));
