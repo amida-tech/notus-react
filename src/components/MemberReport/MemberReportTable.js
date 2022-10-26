@@ -7,16 +7,26 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import PropTypes from 'prop-types';
 
 function MemberReportTable({ rowData }) {
-  console.log(rowData)
   const formattedData = []
   const theme = useTheme()
   function createTableRows(rowDataObj) {
+    return {
+      measure: rowDataObj.measure || 'N/A',
+      type: rowDataObj.type || 'N/A',
+      status: rowDataObj.status || null,
+      exclusions: rowDataObj.exclusions || null,
+      practitioner: rowDataObj.practitioner || 'N/A',
+      dates: rowDataObj.dates || 'N/A',
+      conditions: rowDataObj.conditions || 'N/A',
+      recommendations: recommendationsGenerator(rowDataObj) || 'N/A',
+    }
+  }
+  function recommendationsGenerator(rowDataObj) {
     let recommendation = (
       <strong>
         {'Member is '}
         <strong style={{ color: theme.palette.error.main }}>NOT COMPLIANT</strong>
         {' of '}
-
       </strong>
     )
     if (rowDataObj.recommendations) {
@@ -26,13 +36,13 @@ function MemberReportTable({ rowData }) {
         recommendation = baseRecommendation
         if (additionalRecommendation.length > 0) {
           recommendation = (
-            <p>
+            <div>
               <strong>{baseRecommendation}</strong>
               <ul style={{ listStyle: 'none', marginTop: '0.5rem' }}>
-                {additionalRecommendation.map((item) => <li>{item}</li>)}
+                {additionalRecommendation.map((item) => <li key={item}>{item}</li>)}
                 <li />
               </ul>
-            </p>
+            </div>
           )
         }
       }
@@ -47,41 +57,8 @@ function MemberReportTable({ rowData }) {
         </p>
       )
     }
-    return (
-      <TableRow
-        key={rowDataObj.key}
-        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-      >
-        <TableCell>{rowDataObj.measure}</TableCell>
-        <TableCell align="center">{rowDataObj.type}</TableCell>
-        <TableCell align="center">
-          {rowDataObj.status
-            ? <CheckCircleIcon sx={{ color: theme.palette.success.main }} />
-            : <CancelIcon sx={{ color: theme.palette.error.main }} /> }
-        </TableCell>
-        <TableCell align="center">{rowDataObj.exclusions?.length > 0 ? rowDataObj.exclusions : <CancelIcon sx={{ color: theme.palette.error.main }} />}</TableCell>
-        <TableCell align="center">{rowDataObj.practitioner}</TableCell>
-        <TableCell align="center">{rowDataObj.dates}</TableCell>
-        <TableCell
-          align={
-          rowDataObj.type === 'Measure' || rowDataObj.type === 'Sub-Measure'
-            ? 'left'
-            : 'center'
-        }
-        >
-          {rowDataObj.status ? (
-            <strong>
-              {'Member is '}
-              <strong style={{ color: theme.palette.success.main }}>COMPLIANT</strong>
-              {' of '}
-              {rowDataObj.measure.toUpperCase()}
-            </strong>
-          ) : recommendation}
-        </TableCell>
-      </TableRow>
-    )
+    return recommendation
   }
-
   rowData.forEach((row) => { formattedData.push(createTableRows(row)) })
 
   return (
@@ -99,10 +76,42 @@ function MemberReportTable({ rowData }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {/* {formattedData.map((row, i) => {
-            Object.assign(row, { key: i });
-            return row
-          })} */}
+          {formattedData.map((row, idx) => {
+            Object.assign(row, { key: idx })
+            return (
+              <TableRow
+                key={row.key}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell>{row.measure}</TableCell>
+                <TableCell align="center">{row.type}</TableCell>
+                <TableCell align="center">
+                  {row.status
+                    ? <CheckCircleIcon sx={{ color: theme.palette.success.main }} />
+                    : <CancelIcon sx={{ color: theme.palette.error.main }} /> }
+                </TableCell>
+                <TableCell align="center">{row.exclusions?.length > 0 ? row.exclusions : <CancelIcon sx={{ color: theme.palette.error.main }} />}</TableCell>
+                <TableCell align="center">{row.practitioner}</TableCell>
+                <TableCell align="center">{row.dates}</TableCell>
+                <TableCell
+                  align={
+                row.type === 'Measure' || row.type === 'Sub-Measure'
+                  ? 'left'
+                  : 'center'
+              }
+                >
+                  {row.status ? (
+                    <strong>
+                      {'Member is '}
+                      <strong style={{ color: theme.palette.success.main }}>COMPLIANT</strong>
+                      {' of '}
+                      {row.measure.toUpperCase()}
+                    </strong>
+                  ) : row.recommendations}
+                </TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>
