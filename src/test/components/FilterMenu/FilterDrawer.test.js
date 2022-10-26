@@ -106,7 +106,7 @@ describe('FilterDrawer', () => {
   })
 
   test('resets to the default filter state', () => {
-    const { getByText, rerender } = render(
+    render(
       <FilterDrawer
         filterDrawerOpen
         handleFilterChange={mockHandleFilterChange}
