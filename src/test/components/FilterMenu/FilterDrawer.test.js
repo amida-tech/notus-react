@@ -50,8 +50,9 @@ describe('FilterDrawer', () => {
         toggleFilterDrawer={mockToggleFilterDrawer}
       />,
     );
-    const checkboxes = screen.getAllByRole('checkbox');
-    const checkboxesReal = [...checkboxes]
+
+    // grab all checkboxes on DOM, select which we want checked with 'true'
+    const checkboxes = [...screen.getAllByRole('checkbox')];
     const expectedValues = {
       EOS: false,
       ECDS: true,
@@ -61,33 +62,29 @@ describe('FilterDrawer', () => {
       4: false,
       5: false,
     };
-    // console.log("--------->", key, checkboxesReal.find((box) => box.value === key))
-    // console.log(checkboxes)
-    // console.log(checkboxesReal.map((chek)=>chek.value))
+ 
+    // for each of values to be tested, we will click or not
+    // expect box to be sucessefully checked or not
     Object.entries(expectedValues).forEach(([key, value]) => {
       if (value) {
-        fireEvent.click(checkboxesReal.find((box) => box.value === key))
+        fireEvent.click(checkboxes.find((box) => box.value === key))
       }
-      expect(checkboxesReal.find((box) => box.checked))
+      expect( value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
     });
 
-    // expect(screen.getByDisplayValue('EOC').checked).toBe(false);
-    // expectedValues.forEach((value) => fireEvent.click(screen.getByDisplayValue(value)))
-    // expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
-    // expect(screen.getByDisplayValue('1').checked).toBe(false);
-    // expect(screen.getByDisplayValue('2').checked).toBe(true);
-    // expect(screen.getByDisplayValue('3').checked).toBe(true);
-    // expect(screen.getByDisplayValue('4').checked).toBe(false);
-    // expect(screen.getByDisplayValue('5').checked).toBe(false);
-
-    // fireEvent.click(getByText('Apply Filters'));
-    // expect(mockHandleFilterChange).toHaveBeenCalledWith({
-    //   domainsOfCare: ['ECDS'],
-    //   stars: [2, 3],
-    //   percentRange: [0, 100],
-    //   sum: 3,
-    // });
-    // expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
+    // we expect our handleFilterChange function to be called with appropriate filteres and the drawer closes
+    fireEvent.click(getByText('Apply Filters'));
+    expect(mockHandleFilterChange).toHaveBeenCalledWith({
+      domainsOfCare: ['ECDS'],
+      stars: [2, 3],
+      percentRange: [0, 100],
+      sum: 3,
+      healthcareCoverages: [],
+      healthcarePractitioners: [],
+      healthcareProviders: [],
+      payors: [],
+    });
+    expect(mockToggleFilterDrawer).toHaveBeenCalled();
 
     // rerender(<FilterDrawer
     //   filterDrawerOpen={false}
