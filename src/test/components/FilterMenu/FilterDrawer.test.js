@@ -18,15 +18,6 @@ const filters = {
 const mockHandleFilterChange = jest.fn(() => false);
 const mockToggleFilterDrawer = jest.fn(() => false);
 
-const givenPropsTest = async (getByText) => {
-  expect(getByText('Apply Filters')).toBeTruthy();
-  expect(getByText('95')).toBeTruthy();
-  expect(screen.getByDisplayValue('EOC').checked).toBe(true);
-  expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-  expect(screen.getByDisplayValue('1').checked).toBe(true);
-  expect(screen.getByDisplayValue('2').checked).toBe(false);
-}
-
 const closeOpenDrawerTest = (rerender) => {
   rerender(<FilterDrawer
     filterDrawerOpen={false}
@@ -54,7 +45,7 @@ describe('FilterDrawer', () => {
     // grab all checkboxes on DOM, select which we want checked with 'true'
     const checkboxes = [...screen.getAllByRole('checkbox')];
     const expectedValues = {
-      EOS: false,
+      EOC: false,
       ECDS: true,
       1: false,
       2: true,
@@ -109,37 +100,55 @@ describe('FilterDrawer', () => {
     });
   })
 
-  // test('resets to the default filter state', () => {
-  //   const { getByText, rerender } = render(
-  //     <FilterDrawer
-  //       filterDrawerOpen
-  //       handleFilterChange={mockHandleFilterChange}
-  //       currentFilters={filters}
-  //       additionalFilterOptions={additionalFilterOptions}
-  //       toggleFilterDrawer={mockToggleFilterDrawer}
-  //     />,
-  //   );
+  test('resets to the default filter state', () => {
+    const { getByText, rerender } = render(
+      <FilterDrawer
+        filterDrawerOpen
+        handleFilterChange={mockHandleFilterChange}
+        currentFilters={filters}
+        additionalFilterOptions={additionalFilterOptions}
+        toggleFilterDrawer={mockToggleFilterDrawer}
+      />,
+    );
 
-  //   givenPropsTest(getByText);
-  //   fireEvent.click(getByText('Reset Filters'));
-  //   expect(mockHandleFilterChange).toHaveBeenCalledWith({
-  //     domainsOfCare: [],
-  //     stars: [],
-  //     percentRange: [0, 100],
-  //     sum: 0,
-  //     healthcareCoverages: [],
-  //     healthcarePractitioners: [],
-  //     healthcareProviders: [],
-  //     payors: [],
-  //   });
-  //   expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
+    // grab all checkboxes on DOM, select which we want checked with 'true'
+    const checkboxes = [...screen.getAllByRole('checkbox')];
+    const expectedValues = {
+      EOC: true,
+      ECDS: false,
+      1: true,
+      2: false,
+      3: false,
+      4: true,
+      5: false,
+    };
 
-  //   closeOpenDrawerTest(rerender);
-  //   expect(screen.getByDisplayValue('EOC').checked).toBe(false);
-  //   expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-  //   expect(screen.getByDisplayValue('1').checked).toBe(false);
-  //   expect(screen.getByDisplayValue('2').checked).toBe(false);
-  // });
+    Object.entries(expectedValues).forEach(([key, value]) => {
+      if (value) {
+        fireEvent.click(checkboxes.find((box) => box.value === key))
+      }
+      expect( value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
+    });
+
+    fireEvent.click(getByText('Reset Filters'));
+    expect(mockHandleFilterChange).toHaveBeenCalledWith({
+      domainsOfCare: [],
+      stars: [],
+      percentRange: [0, 100],
+      sum: 0,
+      healthcareCoverages: [],
+      healthcarePractitioners: [],
+      healthcareProviders: [],
+      payors: [],
+    });
+    expect(mockToggleFilterDrawer).toHaveBeenCalled();
+
+    // closeOpenDrawerTest(rerender);
+    // expect(screen.getByDisplayValue('EOC').checked).toBe(false);
+    // expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
+    // expect(screen.getByDisplayValue('1').checked).toBe(false);
+    // expect(screen.getByDisplayValue('2').checked).toBe(false);
+  });
 
   // test('cancels the filter changes', () => {
   //   const { getByText, rerender } = render(
