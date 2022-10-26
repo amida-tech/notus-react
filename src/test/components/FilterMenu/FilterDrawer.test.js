@@ -1,5 +1,5 @@
 import {
-  fireEvent, render, screen, getByRole, getByTestId
+  fireEvent, render, screen,
 } from '@testing-library/react';
 import FilterDrawer from '../../../components/FilterMenu/FilterDrawer';
 import { additionalFilterOptions } from '../../data/DemoData';
@@ -37,7 +37,7 @@ const closeOpenDrawerTest = (rerender) => {
 // TO DO: Write test for the slider. https://stackoverflow.com/questions/58856094/testing-a-material-ui-slider-with-testing-library-react
 describe('FilterDrawer', () => {
   test('checks that the filter is applied', () => {
-    const { getByText, rerender } = render(
+    const { rerender } = render(
       <FilterDrawer
         filterDrawerOpen
         currentFilters={filters}
@@ -58,18 +58,17 @@ describe('FilterDrawer', () => {
       4: false,
       5: false,
     };
- 
+
     // for each of values to be tested, we will click or not
     // expect box to be sucessefully checked or not
     Object.entries(expectedValues).forEach(([key, value]) => {
       if (value) {
         fireEvent.click(checkboxes.find((box) => box.value === key))
       }
-      expect( value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
+      expect(value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
     });
 
-    // we expect our handleFilterChange function to be called with appropriate filters when the drawer closes and opens again
-    fireEvent.click(getByText('Apply Filters'));
+    // we expect our handleFilterChange function to be called with appropriate filters
     expect(mockHandleFilterChange).toHaveBeenCalledWith({
       domainsOfCare: ['ECDS'],
       stars: [2, 3],
@@ -83,12 +82,12 @@ describe('FilterDrawer', () => {
     expect(mockToggleFilterDrawer).toHaveBeenCalled();
 
     rerender(<FilterDrawer
-        filterDrawerOpen={false}
-        currentFilters={filters}
-        additionalFilterOptions={additionalFilterOptions}
-        handleFilterChange={mockHandleFilterChange}
-        toggleFilterDrawer={mockToggleFilterDrawer}
-      />);
+      filterDrawerOpen={false}
+      currentFilters={filters}
+      additionalFilterOptions={additionalFilterOptions}
+      handleFilterChange={mockHandleFilterChange}
+      toggleFilterDrawer={mockToggleFilterDrawer}
+    />);
     const refineByText = screen.queryByText('Refine by');
     expect(refineByText).toBe(null);
 
@@ -101,7 +100,7 @@ describe('FilterDrawer', () => {
     />);
 
     Object.values(expectedValues).forEach((value) => {
-      expect( value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
+      expect(value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
     });
   })
 
@@ -142,7 +141,7 @@ describe('FilterDrawer', () => {
   });
 
   test('cancels the filter changes', () => {
-    const { getByText, rerender } = render(
+    const { rerender } = render(
       <FilterDrawer
         filterDrawerOpen
         currentFilters={filters}
@@ -163,14 +162,14 @@ describe('FilterDrawer', () => {
       4: false,
       5: false,
     };
- 
+
     // for each of values to be tested, we will click or not
     // expect box to be sucessefully checked or not
     Object.entries(expectedValues).forEach(([key, value]) => {
       if (value) {
         fireEvent.click(checkboxes.find((box) => box.value === key))
       }
-      expect( value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
+      expect(value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
     });
 
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
