@@ -22,11 +22,15 @@ const mockHandleResetData = jest.fn(() => false);
 const closeOpenDrawerTest = (rerender) => {
   rerender(<FilterDrawer
     filterDrawerOpen={false}
+    currentFilters={filters}
+    additionalFilterOptions={additionalFilterOptions}
   />);
   const refineByText = screen.queryByText('Refine by');
   expect(refineByText).toBe(null);
   rerender(<FilterDrawer
     filterDrawerOpen
+    currentFilters={filters}
+    additionalFilterOptions={additionalFilterOptions}
   />);
 }
 
