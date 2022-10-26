@@ -22,11 +22,15 @@ const mockHandleResetData = jest.fn(() => false);
 const closeOpenDrawerTest = (rerender) => {
   rerender(<FilterDrawer
     filterDrawerOpen={false}
+    currentFilters={filters}
+    additionalFilterOptions={additionalFilterOptions}
   />);
   const refineByText = screen.queryByText('Refine by');
   expect(refineByText).toBe(null);
   rerender(<FilterDrawer
     filterDrawerOpen
+    currentFilters={filters}
+    additionalFilterOptions={additionalFilterOptions}
   />);
 }
 
@@ -141,26 +145,37 @@ describe('FilterDrawer', () => {
     const { getByText, rerender } = render(
       <FilterDrawer
         filterDrawerOpen
-        handleFilterChange={mockHandleFilterChange}
         currentFilters={filters}
         additionalFilterOptions={additionalFilterOptions}
+        handleFilterChange={mockHandleFilterChange}
         toggleFilterDrawer={mockToggleFilterDrawer}
       />,
     );
 
-    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-    expect(screen.getByDisplayValue('2').checked).toBe(false);
-    fireEvent.click(screen.getByDisplayValue('ECDS'));
-    fireEvent.click(screen.getByDisplayValue('2'));
-    expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
-    expect(screen.getByDisplayValue('2').checked).toBe(true);
+    // grab all checkboxes on DOM, select which we want checked with 'true'
+    const checkboxes = [...screen.getAllByRole('checkbox')];
+    const expectedValues = {
+      EOC: false,
+      ECDS: true,
+      1: false,
+      2: true,
+      3: true,
+      4: false,
+      5: false,
+    };
+ 
+    // for each of values to be tested, we will click or not
+    // expect box to be sucessefully checked or not
+    Object.entries(expectedValues).forEach(([key, value]) => {
+      if (value) {
+        fireEvent.click(checkboxes.find((box) => box.value === key))
+      }
+      expect( value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
+    });
 
-    fireEvent.click(getByText('Cancel'));
-    expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
-    expect(mockHandleFilterChange).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    expect(mockToggleFilterDrawer).toHaveBeenCalled();
 
     closeOpenDrawerTest(rerender);
-    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-    expect(screen.getByDisplayValue('2').checked).toBe(false);
   });
 })
