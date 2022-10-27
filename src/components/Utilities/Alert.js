@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from '@mui/material'
 import PropTypes from 'prop-types';
 
 import {
@@ -62,6 +63,7 @@ export default function Alert({
         <Button onClick={() => handleAlert()}>Go Back</Button>
         <Button variant="contained" onClick={() => handleAlert()}>
           <Link
+            component={RouterLink}
             target={options.target}
             rel={options.rel}
             to={{ pathname: options.pathto }}

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
+import { Link } from '@mui/material'
 
 class NotFound extends React.PureComponent {
   render() {
@@ -8,7 +9,12 @@ class NotFound extends React.PureComponent {
         <h1>404 Error</h1>
         <p className="not-found__explanation">
           The page you&apos;re seeking is not found. You may wish to return to the
-          <Link to="/">&nbsp;main page.</Link>
+          <Link
+              component={RouterLink}
+              to="/"
+            >
+              &nbsp;main page.
+            </Link>
         </p>
       </div>
     );
