@@ -19,6 +19,21 @@ const mockHandleFilterChange = jest.fn(() => false);
 const mockToggleFilterDrawer = jest.fn(() => false);
 const mockHandleResetData = jest.fn(() => false);
 
+const clickNCheck = (boxes, values) => {
+  return Object.entries(values).map(([key, value]) => {
+    if (value) {
+      fireEvent.click(boxes.find((box) => box.value === key))
+    }
+    expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
+  });
+}
+
+const simpleCheck = (boxes, values) => {
+  return Object.values(values).map((value) => {
+    expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
+  });
+}
+
 const closeOpenDrawerTest = (rerender) => {
   rerender(<FilterDrawer
     filterDrawerOpen={false}
@@ -37,7 +52,7 @@ const closeOpenDrawerTest = (rerender) => {
 // TO DO: Write test for the slider. https://stackoverflow.com/questions/58856094/testing-a-material-ui-slider-with-testing-library-react
 describe('FilterDrawer', () => {
   test('checks that the filter is applied', () => {
-    const { rerender } = render(
+    const { getByText, rerender } = render(
       <FilterDrawer
         filterDrawerOpen
         currentFilters={filters}
@@ -61,12 +76,8 @@ describe('FilterDrawer', () => {
 
     // for each of values to be tested, we will click or not
     // expect box to be sucessefully checked or not
-    Object.entries(expectedValues).forEach(([key, value]) => {
-      if (value) {
-        fireEvent.click(checkboxes.find((box) => box.value === key))
-      }
-      expect(value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
-    });
+    clickNCheck(checkboxes, expectedValues)
+    fireEvent.click(getByText('Apply Filters'));
 
     // we expect our handleFilterChange function to be called with appropriate filters
     expect(mockHandleFilterChange).toHaveBeenCalledWith({
@@ -99,9 +110,7 @@ describe('FilterDrawer', () => {
       toggleFilterDrawer={mockToggleFilterDrawer}
     />);
 
-    Object.values(expectedValues).forEach((value) => {
-      expect(value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
-    });
+    simpleCheck(checkboxes, expectedValues)
   })
 
   test('resets to the default filter state', () => {
@@ -128,12 +137,7 @@ describe('FilterDrawer', () => {
       5: false,
     };
 
-    Object.entries(expectedValues).forEach(([key, value]) => {
-      if (value) {
-        fireEvent.click(checkboxes.find((box) => box.value === key))
-      }
-      expect(value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
-    });
+    clickNCheck(checkboxes, expectedValues)
 
     fireEvent.click(screen.getByRole('button', { name: 'Reset Filters' }))
     expect(mockHandleResetData).toHaveBeenCalled();
@@ -165,12 +169,7 @@ describe('FilterDrawer', () => {
 
     // for each of values to be tested, we will click or not
     // expect box to be sucessefully checked or not
-    Object.entries(expectedValues).forEach(([key, value]) => {
-      if (value) {
-        fireEvent.click(checkboxes.find((box) => box.value === key))
-      }
-      expect(value ? checkboxes.find((box) => box.checked) : checkboxes.find((box) => !box.checked))
-    });
+    clickNCheck(checkboxes, expectedValues)
 
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
     expect(mockToggleFilterDrawer).toHaveBeenCalled();
