@@ -1,11 +1,11 @@
 import {
   Grid, Box, Typography,
+  Link,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
-import { Link } from '@mui/material'
 
 function RowGenerator(link, key, rowDataItem, ciseCheck) {
   if (link) {

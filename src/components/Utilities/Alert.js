@@ -1,10 +1,9 @@
 import { Link as RouterLink } from 'react-router-dom';
-import { Link } from '@mui/material'
-import PropTypes from 'prop-types';
-
 import {
+  Link,
   Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-} from '@mui/material';
+} from '@mui/material'
+import PropTypes from 'prop-types';
 
 export default function Alert({
   openAlert,

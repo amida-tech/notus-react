@@ -10,11 +10,11 @@ class NotFound extends React.PureComponent {
         <p className="not-found__explanation">
           The page you&apos;re seeking is not found. You may wish to return to the
           <Link
-              component={RouterLink}
-              to="/"
-            >
+            component={RouterLink}
+            to="/"
+          >
               &nbsp;main page.
-            </Link>
+          </Link>
         </p>
       </div>
     );
