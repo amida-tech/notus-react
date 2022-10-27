@@ -59,7 +59,7 @@ export default function Login() {
               color="primary"
               underline="none"
               sx={{ fontWeight: 500 }}
-              href="/auth/register"
+              to="/auth/register"
             >
               Sign Up
             </Link>
@@ -117,7 +117,7 @@ export default function Login() {
             component={RouterLink}
             color="primary"
             underline="none"
-            href="#pablo"
+            to="#pablo"
             disabled
             sx={{
               m: '1rem 0 0 0',
