@@ -1,8 +1,7 @@
-import { Link } from '@mui/material'
 import PropTypes from 'prop-types';
 
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Link,
 } from '@mui/material';
 
 export default function Alert({
