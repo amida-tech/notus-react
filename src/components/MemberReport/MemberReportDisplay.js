@@ -28,10 +28,26 @@ function MemberReportDisplay({
   const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main
 
   const descriptionCreator = (descriptionArr) => {
-    const descriptions = descriptionArr.map((des, idx) => (
-      <p style={idx === 0 ? { fontWeight: 'bold', marginBottom: '0.5rem' } : { marginBottom: '0.5rem' }}>{des}</p>
-    ))
-    return descriptions
+    let descrip = ''
+    if (descriptionArr.length > 0) {
+      let additionalDescriptions = ''
+      if (description.length === 1) {
+        additionalDescriptions = (
+          <p style={{ margin: '0.5rem 0' }}>{descriptionArr[0]}</p>
+        )
+      } else {
+        additionalDescriptions = descriptionArr.map((des, idx) => (
+          idx !== 0
+            ? <p key={des} style={{ marginTop: '0.5rem' }}>{des}</p>
+            : <p key={des} style={{ fontWeight: 'bold' }}>{des}</p>))
+      }
+
+      descrip = additionalDescriptions
+    } else {
+      descrip = 'No description found for current measure'
+    }
+    return descrip
+    // MAKE A NO FOUND RESPONSE
   }
 
   return (
@@ -296,13 +312,7 @@ MemberReportDisplay.propTypes = {
       any: PropTypes.string,
     }),
   ),
-  description: PropTypes.shape({
-    description: PropTypes.string,
-    description_list: PropTypes.arrayOf(
-      PropTypes.string,
-    ),
-    noDescription: PropTypes.string,
-  }),
+  description: PropTypes.arrayOf(PropTypes.string),
   recommendations: PropTypes.shape({
     measure: PropTypes.string,
     recommendation: PropTypes.string,
@@ -323,7 +333,7 @@ MemberReportDisplay.defaultProps = {
   coverage: {},
   coverageStatus: '',
   rowData: [],
-  description: {},
+  description: [],
   recommendations: {},
 }
 

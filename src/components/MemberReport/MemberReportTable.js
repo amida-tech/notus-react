@@ -18,47 +18,43 @@ function MemberReportTable({ rowData }) {
       practitioner: rowDataObj.practitioner || 'N/A',
       dates: rowDataObj.dates || 'N/A',
       conditions: rowDataObj.conditions || 'N/A',
-      recommendations: recommendationsGenerator(rowDataObj) || 'N/A',
+      recommendations: recommendationsGenerator(rowDataObj.recommendations, rowDataObj.measure) || 'N/A',
     }
   }
-  function recommendationsGenerator(rowDataObj) {
-    let recommendation = (
-      <strong>
-        {'Member is '}
-        <strong style={{ color: theme.palette.error.main }}>NOT COMPLIANT</strong>
-        {' of '}
-      </strong>
-    )
-    if (rowDataObj.recommendations) {
-      const baseRecommendation = rowDataObj.recommendations.recommendation
-      const additionalRecommendation = rowDataObj.recommendations.recommendation_list
-      if (baseRecommendation) {
-        recommendation = baseRecommendation
-        if (additionalRecommendation.length > 0) {
-          recommendation = (
-            <div>
-              <strong>{baseRecommendation}</strong>
-              <ul style={{ listStyle: 'none', marginTop: '0.5rem' }}>
-                {additionalRecommendation.map((item) => <li key={item}>{item}</li>)}
-                <li />
-              </ul>
-            </div>
-          )
+  function recommendationsGenerator(recommendationArray, rowDataMeasure) {
+    let recommendation = ''
+    let baseRecommendation = ''
+    if (recommendationArray.length > 0) {
+      baseRecommendation = <strong>{recommendationArray[0]}</strong>
+      const additionalFilterOptions = recommendationArray.map((item, idx) => {
+        if (idx !== 0) {
+          return item.includes(': ') || item === 'OR'
+            ? <li key={item} style={item !== 'OR' ? { fontWeight: 'bold', marginBottom: '0.5rem' } : { fontWeight: 'bold', marginBottom: '0.5rem' }}>{item}</li>
+            : <li key={item} style={{ marginBottom: '0.5rem' }}>{item}</li>
         }
-      }
+        return ''
+      })
+      recommendation = (
+        <div>
+          <p>{baseRecommendation}</p>
+          <ul style={{ listStyle: 'none', marginTop: '0.5rem' }}>
+            {additionalFilterOptions}
+          </ul>
+        </div>
+      )
     } else {
       recommendation = (
-        <p>
-          No Recommendations available for
-          {' '}
-          <strong>{rowDataObj.measure.toUpperCase()}</strong>
-          {' '}
-          at this moment. Please check back soon.
-        </p>
+        <strong>
+          {'Member is '}
+          <strong style={{ color: theme.palette.error.main }}>NOT COMPLIANT</strong>
+          {' of '}
+          {rowDataMeasure.toUpperCase()}
+        </strong>
       )
     }
     return recommendation
   }
+
   rowData.forEach((row) => { formattedData.push(createTableRows(row)) })
 
   return (
@@ -128,12 +124,9 @@ MemberReportTable.propTypes = {
       practitioner: PropTypes.string,
       dates: PropTypes.string,
       conditions: PropTypes.string,
-      recommendations: PropTypes.shape({
-        recommendation: PropTypes.string,
-        recommendation_list: PropTypes.arrayOf(
-          PropTypes.string,
-        ),
-      }),
+      recommendations: PropTypes.arrayOf(
+        PropTypes.string,
+      ),
     }),
   ),
 }

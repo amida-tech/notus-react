@@ -69,10 +69,7 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
     practitioner: 'N/A',
     dates: 'N/A',
     conditions: 'N/A',
-    recommendations: {
-      recommendation: storeInfo[measureList[0]].recommendation,
-      recommendation_list: storeInfo[measureList[0]].recommendation_list,
-    },
+    recommendations: storeInfo[measureList[0]].recommendation,
   });
   if (complianceResult.length === 1) {
     return formattedData;
@@ -88,10 +85,7 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       practitioner: 'N/A',
       dates: 'N/A',
       conditions: 'N/A',
-      recommendations: {
-        recommendation: storeInfo[measureList[index + 1]].recommendation,
-        recommendation_list: storeInfo[measureList[index + 1]].recommendation_list,
-      },
+      recommendations: storeInfo[measureList[index + 1]].recommendation,
     });
   });
 
