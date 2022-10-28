@@ -3183,8 +3183,7 @@ export const rowData = [
     exclusions: [],
     practitioner: 'dr. cat',
     dates: '01/01/1992 - 03/14/2001',
-    conditions: 'bones hurt',
-    recommendations: 'remove bones',
+    recommendations: ['remove bones'],
   },
 ]
 

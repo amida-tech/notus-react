@@ -269,7 +269,9 @@ MemberReportDisplay.propTypes = {
       any: PropTypes.string,
     }),
   ),
-  description: PropTypes.string,
+  description: PropTypes.arrayOf(
+    PropTypes.string,
+  ),
 }
 
 MemberReportDisplay.defaultProps = {
@@ -280,7 +282,7 @@ MemberReportDisplay.defaultProps = {
   coverage: {},
   coverageStatus: '',
   rowData: [],
-  description: '',
+  description: [],
 }
 
 export default MemberReportDisplay;
