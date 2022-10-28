@@ -1,47 +1,66 @@
-import { Box } from '@mui/system';
+import { Box, Typography, Link } from '@mui/material';
 import amidaLogo from '../../assets/img/amida_logo.png'
+import theme from '../../assets/styles/AppTheme';
 
 export default function Footer() {
   return (
-    <footer className="footer">
-      <hr className="footer__top-border" />
-      <Box className="footer__display">
-        <Box className="footer__left-side">
-          <img className="footer__logo" src={amidaLogo} alt="Amida Logo" />
-          <Box className="footer__text-left">
-            ©
-            {' '}
-            {new Date().getFullYear()}
-            {' '}
-            <a
-              href="https://www.amida.com"
-              className="footer__text-link"
-            >
+    <footer>
+      <Box
+        sx={{
+          height: '10rem',
+          width: 'auto',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-end',
+          marginBottom: '1rem',
+        }}
+      >
+        <Box
+          sx={{
+            backgroundColor: theme.palette.bluegray?.D4,
+            marginTop: '4rem',
+            height: '.2rem',
+            width: '90%',
+            alignSelf: 'center',
+          }}
+        />
+        <Box
+          sx={{
+            height: '5rem',
+            width: '90%',
+            display: 'flex',
+            alignSelf: 'center',
+          }}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center', width: '95%' }}>
+            <img
+              src={amidaLogo}
+              style={{ width: '8rem', marginRight: '2rem' }}
+              alt="Amida Logo"
+            />
+            <Typography variant="body1">
+              ©
+              &nbsp;
+              {new Date().getFullYear()}
+            </Typography>
+            <Link variant="body1" href="https://www.amida.com/" color={theme.palette.bluegray?.D2}>
+              &nbsp;
               AMIDA TECHNOLOGY SOLUTIONS
-            </a>
-            {' '}
-            — ALL RIGHTS RESERVED
+              &nbsp;
+            </Link>
+            <Typography variant="body1">— ALL RIGHTS RESERVED</Typography>
           </Box>
-        </Box>
-        <Box className="footer__right-side">
-          <ul className="footer__right-items">
-            <li>
-              <a
-                href="https://www.amida.com"
-                className="footer__text-right"
-              >
-                Amida
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/amida-tech/saraswati-dashboard/blob/develop/LICENSE.md"
-                className="footer__text-right"
-              >
-                MIT License
-              </a>
-            </li>
-          </ul>
+          <Box sx={{
+            display: 'flex', alignItems: 'center', width: '95%', placeContent: 'flex-end',
+          }}
+          >
+            <Link variant="body1" color={theme.palette.bluegray?.D2} href="https://www.amida.com/" sx={{ marginRight: '1.5rem' }}>
+              Amida
+            </Link>
+            <Link variant="body1" color={theme.palette.bluegray?.D2} href="https://github.com/amida-tech/saraswati-dashboard/blob/develop/LICENSE.md">
+              MIT License
+            </Link>
+          </Box>
         </Box>
       </Box>
     </footer>
