@@ -26,17 +26,9 @@ function MemberReport({ id, memberInfoFetch, loading }) {
 
   useEffect(() => {
     if (Object.keys(datastore.info).length > 0 && memberInfo) {
-      const descriptions = {
-        noDescription: 'Measure description not currently available.',
-        description: '',
-        description_list: [],
-      }
-      if (datastore?.info[memberInfo.measurementType]) {
-        descriptions.description = datastore?.info[memberInfo.measurementType].description
-      }
-      if (datastore?.info[memberInfo.measurementType].description_list.length > 0) {
-        descriptions.description_list = datastore?.info[memberInfo.measurementType].description_list
-      }
+      // DESCRIPTIONS ARE PULLED FROM DATASTORE INFO
+      const descriptions = datastore?.info[memberInfo.measurementType].description
+      setDescription(descriptions)
       setDescription(descriptions)
       const formattedMemberData = ReportTable.formatData(
         memberInfo,

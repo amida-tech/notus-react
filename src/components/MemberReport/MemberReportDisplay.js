@@ -28,28 +28,33 @@ function MemberReportDisplay({
 }) {
   const theme = useTheme()
   const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main
-  const descriptionCreator = (descriptionObj) => {
-    let newDescription = <p>{descriptionObj.noDescription}</p>
-    if (descriptionObj.description) {
-      newDescription = <p style={{ marginBottom: '0.5rem' }}>{descriptionObj.description}</p>
-      if (descriptionObj.description_list.length > 0) {
-        newDescription = (
-          <>
-            <p style={{ marginBottom: '0.5rem' }}>{descriptionObj.description}</p>
-            <ul style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-              {descriptionObj.description_list.map((item) => (
-                <li style={{ marginTop: '0.5rem' }}>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </>
+  const descriptionCreator = (descriptionArr) => {
+    let descrip = ''
+    // IF DESCRIPTION ARRAY IS GREATER THAN 0 USE DESCRIPTION
+    if (descriptionArr.length > 0) {
+      let additionalDescriptions = ''
+      if (description.length === 1) {
+        // IF DESCRIPTION ARRAY EQUALS 1 USE FIRST DESCRIPTION
+        additionalDescriptions = (
+          <p style={{ margin: '0.5rem 0' }}>{descriptionArr[0]}</p>
         )
+      } else {
+        // IF DESCRIPTION ARRAY IS GREATER THAN 1
+        additionalDescriptions = descriptionArr.map((des, idx) => (
+          idx !== 0
+          // SEND BACK P TAG DESCRIPTION
+            ? <p key={des} style={{ marginTop: '0.5rem' }}>{des}</p>
+          // SEND BACK BOLD P TAG DESCRIPTION
+            : <p key={des} style={{ fontWeight: 'bold' }}>{des}</p>))
       }
+      descrip = additionalDescriptions
+    } else {
+    // IF DESCRIPTION ARRAY EQUALS 0 USE DESCRIPTION
+      descrip = 'No description found for current measure'
     }
-
-    return newDescription
+    return descrip
   }
+
   const participationPeriod = `${moment(coverage[0].period.start.value)
     .format('MM/DD/YYYY')}
     - ${moment(coverage[0].period.end.value)
