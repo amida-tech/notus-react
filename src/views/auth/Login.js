@@ -1,8 +1,8 @@
 import LockIcon from '@mui/icons-material/Lock';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import { Link as RouterLink } from 'react-router-dom';
 import {
-  Box,
-  Button, Container, Grid, Link, Paper, TextField, Typography,
+  Box, Button, Container, Grid, Link, Paper, TextField, Typography,
 } from '@mui/material';
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import env from '../../env';
@@ -55,10 +55,11 @@ export default function Login() {
               No Account?
             </Typography>
             <Link
+              component={RouterLink}
               color="primary"
               underline="none"
               sx={{ fontWeight: 500 }}
-              href="/auth/register"
+              to="/auth/register"
             >
               Sign Up
             </Link>
@@ -113,9 +114,10 @@ export default function Login() {
             />
           </Grid>
           <Link
+            component={RouterLink}
             color="primary"
             underline="none"
-            href="#pablo"
+            to="#pablo"
             disabled
             sx={{
               m: '1rem 0 0 0',
