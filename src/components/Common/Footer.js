@@ -24,12 +24,13 @@ export default function Footer() {
             alignSelf: 'center',
           }}
         />
-        <Box sx={{
-          height: '5rem',
-          width: '90%',
-          display: 'flex',
-          alignSelf: 'center',
-        }}
+        <Box
+          sx={{
+            height: '5rem',
+            width: '90%',
+            display: 'flex',
+            alignSelf: 'center',
+          }}
         >
           <Box sx={{ display: 'flex', alignItems: 'center', width: '95%' }}>
             <img
