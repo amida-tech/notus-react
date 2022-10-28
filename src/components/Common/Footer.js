@@ -36,26 +36,26 @@ export default function Footer() {
             style={{ width: '8rem', marginRight: '2rem' }}
             alt="Amida Logo"
           />
-          <Typography variant="body2">
+          <Typography variant="body1">
             ©
             &nbsp;
             {new Date().getFullYear()}
           </Typography>
-          <Link variant="body2" href="https://www.amida.com/" color={theme.palette.bluegray?.D2}>
+          <Link variant="body1" href="https://www.amida.com/" color={theme.palette.bluegray?.D2}>
             &nbsp;
             AMIDA TECHNOLOGY SOLUTIONS
             &nbsp;
           </Link>
-          <Typography variant="body2">— ALL RIGHTS RESERVED</Typography>
+          <Typography variant="body1">— ALL RIGHTS RESERVED</Typography>
         </Box>
         <Box sx={{
           display: 'flex', alignItems: 'center', width: '95%', placeContent: 'flex-end',
         }}
         >
-          <Link color={theme.palette.bluegray?.D2} href="https://www.amida.com/" sx={{ margin: '0 .75rem' }}>
+          <Link variant="body1" color={theme.palette.bluegray?.D2} href="https://www.amida.com/" sx={{ marginRight: '1.5rem' }}>
             Amida
           </Link>
-          <Link color={theme.palette.bluegray?.D2} href="https://github.com/amida-tech/saraswati-dashboard/blob/develop/LICENSE.md" sx={{ margin: '0 .75rem' }}>
+          <Link variant="body1" color={theme.palette.bluegray?.D2} href="https://github.com/amida-tech/saraswati-dashboard/blob/develop/LICENSE.md">
             MIT License
           </Link>
         </Box>
