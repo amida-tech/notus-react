@@ -30,6 +30,7 @@ function MemberReport({
 
   useEffect(() => {
     if (Object.keys(datastore.info).length > 0 && memberInfo) {
+    // DESCRIPTIONS ARE PULLED FROM DATASTORE INFO
       const descriptions = datastore?.info[memberInfo.measurementType].description
       setDescription(descriptions)
       const formattedMemberData = ReportTable.formatData(

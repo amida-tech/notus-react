@@ -59,6 +59,7 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
   const complianceResult = getMeasureCompliance(memberData);
   const measureData = memberData[memberData.memberId];
   const measureList = Object.keys(storeInfo).filter((key) => key.includes(selectedMeasure));
+
   const formattedData = [];
   formattedData.push({
     value: measureList[0],
@@ -69,8 +70,10 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
     practitioner: 'N/A',
     dates: 'N/A',
     conditions: 'N/A',
+    // RECOMMENDATION IS PULLED FROM storeInfo THIS IS FOR MEASURES WITH NO SUBMEASURES
     recommendations: storeInfo[measureList[0]].recommendation,
   });
+
   if (complianceResult.length === 1) {
     return formattedData;
   }
@@ -85,6 +88,7 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       practitioner: 'N/A',
       dates: 'N/A',
       conditions: 'N/A',
+      // RECOMMENDATION IS PULLED FROM storeInfo THIS IS FOR MEASURES WITH SUBMEASURES
       recommendations: storeInfo[measureList[index + 1]].recommendation,
     });
   });

@@ -29,25 +29,29 @@ function MemberReportDisplay({
 
   const descriptionCreator = (descriptionArr) => {
     let descrip = ''
+    // IF DESCRIPTION ARRAY IS GREATER THAN 0 USE DESCRIPTION
     if (descriptionArr.length > 0) {
       let additionalDescriptions = ''
       if (description.length === 1) {
+        // IF DESCRIPTION ARRAY EQUALS 1 USE FIRST DESCRIPTION
         additionalDescriptions = (
           <p style={{ margin: '0.5rem 0' }}>{descriptionArr[0]}</p>
         )
       } else {
+        // IF DESCRIPTION ARRAY IS GREATER THAN 1
         additionalDescriptions = descriptionArr.map((des, idx) => (
           idx !== 0
+          // SEND BACK P TAG DESCRIPTION
             ? <p key={des} style={{ marginTop: '0.5rem' }}>{des}</p>
+          // SEND BACK BOLD P TAG DESCRIPTION
             : <p key={des} style={{ fontWeight: 'bold' }}>{des}</p>))
       }
-
       descrip = additionalDescriptions
     } else {
+    // IF DESCRIPTION ARRAY EQUALS 0 USE DESCRIPTION
       descrip = 'No description found for current measure'
     }
     return descrip
-    // MAKE A NO FOUND RESPONSE
   }
 
   return (

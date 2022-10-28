@@ -24,30 +24,41 @@ function MemberReportTable({ rowData }) {
   function recommendationsGenerator(recommendationArray, rowDataMeasure) {
     let recommendation = ''
     let baseRecommendation = ''
+    // IF recommendationArray IS GREATER THAN 1
     if (recommendationArray.length > 0) {
+    // BASE RECOMMENDATIONS ARE BOLDED.
       baseRecommendation = <strong>{recommendationArray[0]}</strong>
-      const additionalFilterOptions = recommendationArray.map((item, idx) => {
+      // ADDITIONAL RECOMMENDATIONS FORMATTED WITH SPACING
+      const additionalRecommendations = recommendationArray.map((item, idx) => {
         if (idx !== 0) {
-          return item.includes(': ') || item === 'OR'
-            ? <li key={item} style={item !== 'OR' ? { fontWeight: 'bold', marginBottom: '0.5rem' } : { fontWeight: 'bold', marginBottom: '0.5rem' }}>{item}</li>
-            : <li key={item} style={{ marginBottom: '0.5rem' }}>{item}</li>
+          // ADDITIONAL RECOMMENDATIONS WITH COLON OR 'OR'
+          // IN STRING ARE STYLED WITH BOLD FONT WEIGHT
+          if (item.includes(': ') || item === 'OR') {
+            return (
+              <li key={item} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>{item}</li>
+            )
+          }
+          return (<li key={item} style={{ marginBottom: '0.5rem' }}>{item}</li>)
         }
         return ''
       })
+      // WHAT WE RETURN IF recommendationArray IS GREATER THAN 1
       recommendation = (
         <div>
           <p>{baseRecommendation}</p>
           <ul style={{ listStyle: 'none', marginTop: '0.5rem' }}>
-            {additionalFilterOptions}
+            {additionalRecommendations}
           </ul>
         </div>
       )
     } else {
+    // IF recommendationArray IS EQUALS 0 RETURN NOT COMPLIANT.
+    // ALL SUBMEASURES SHOULD HAVE A RECOMMENDATION.
       recommendation = (
         <strong>
           {'Member is '}
           <strong style={{ color: theme.palette.error.main }}>NOT COMPLIANT</strong>
-          {' of '}
+          {' with '}
           {rowDataMeasure.toUpperCase()}
         </strong>
       )
@@ -96,11 +107,13 @@ function MemberReportTable({ rowData }) {
                   : 'center'
               }
                 >
+                  {/* IF STATUS IS TRUE WE RETURN COMPLAINT
+                   RESULT IF NOT WE RETURN A RECOMENDATION */}
                   {row.status ? (
                     <strong>
                       {'Member is '}
                       <strong style={{ color: theme.palette.success.main }}>COMPLIANT</strong>
-                      {' of '}
+                      {' with '}
                       {row.measure.toUpperCase()}
                     </strong>
                   ) : row.recommendations}
