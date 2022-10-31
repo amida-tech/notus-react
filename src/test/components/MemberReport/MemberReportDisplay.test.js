@@ -1,8 +1,9 @@
 import {
   render, screen, within, fireEvent,
 } from '@testing-library/react';
+import moment from 'moment';
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
-import { getAge, getDatestamp } from '../../../components/Utilities/GeneralUtil';
+import { getAge } from '../../../components/Utilities/GeneralUtil';
 import {
   exportUrl, memberId, memberInfo, rowData,
 } from '../../data/DemoData';
@@ -53,7 +54,8 @@ describe('Member view page', () => {
 
   it('Export button render', () => {
     const exportBtn = screen.getByRole('link', { name: 'Export' })
-    expect(exportBtn.href).toBe(`http://localhost/${exportUrl}`)
+    const location = exportBtn.href.split('/').slice(-2).join('/')
+    expect(location).toBe(exportUrl)
     // need to upgrade RTL for userEvents
   })
 
@@ -89,16 +91,18 @@ describe('Member view page', () => {
       getAge(memberInfo.dob),
       memberInfo.gender,
       'ACTIVE',
-      `${getDatestamp(new Date(memberInfo.coverage[0].period.start.value))} - ${
-        getDatestamp(new Date(memberInfo.coverage[0].period.end.value))}`,
+      `${moment(memberInfo.coverage[0].period.start.value)
+        .format('MM/DD/YYYY')} - ${moment(memberInfo.coverage[0].period.end.value)
+        .format('MM/DD/YYYY')}`,
       insurance.id.value,
       insurance.payor[0].reference.value,
       'N/A',
       'N/A',
       insurance.relationship.coding[0].code.value,
       `${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}`,
-      `${getDatestamp(new Date(insurance.period.start.value))} - ${
-        getDatestamp(new Date(insurance.period.end.value))}`,
+      `${moment(memberInfo.coverage[0].period.start.value)
+        .format('MM/DD/YYYY')} - ${moment(memberInfo.coverage[0].period.end.value)
+        .format('MM/DD/YYYY')}`,
     ]
     memberInfoData.forEach((label, i) => expect(within(renderedMemberInfo[i])
       .getByText(label)).toBeTruthy())
@@ -120,7 +124,7 @@ describe('Member view page', () => {
   })
 
   it('Measure analysis labels render', async () => {
-    const dsDescription = datastore.info.aab.description
+    const dsDescription = datastore.info.aab.description[0]
     expect(screen.getByText(dsDescription)).toBeTruthy()
 
     const memberReportTable = screen.getByLabelText('member table')
@@ -132,7 +136,6 @@ describe('Member view page', () => {
       'Exclusions',
       'Practitioner',
       'Dates',
-      'Conditions',
       'Recommendations',
     ]
     analysisLabels.forEach(

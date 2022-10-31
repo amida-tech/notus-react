@@ -4,13 +4,16 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useTheme } from '@mui/material/styles';
+
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 
-function RowGenerator(link, key, rowDataItem, ciseCheck) {
+function RowGenerator(link, key, rowDataItem, ciseCheck, theme) {
   if (link) {
     return (
       <Link
+        style={{ color: theme.palette.primary.main }}
         component={RouterLink}
         to={{ pathname: `/member/${rowDataItem.value}` }}
       >
@@ -26,6 +29,7 @@ function RowGenerator(link, key, rowDataItem, ciseCheck) {
       </Grid>
     )
   }
+
   return (
     <Grid className={`${ciseCheck}-table-row__compliance-panel ${ciseCheck}-table-row__compliance-panel--unmatched`}>
       <CancelIcon className={`${ciseCheck}-table-row__compliance-icon`} />
@@ -37,19 +41,21 @@ function RowGenerator(link, key, rowDataItem, ciseCheck) {
 function MemberTableRow({
   rowDataItem, headerInfo,
 }) {
-  const ciseCheck = headerInfo[1].header === 'CIS-E' ? 'cise' : 'member'
+  const theme = useTheme()
 
+  const ciseCheck = headerInfo[1].header === 'CIS-E' ? 'cise' : 'member'
   return (
-    <Box className={`${ciseCheck}-table-row`}>
+    <Box className={`${ciseCheck}-table-row`} aria-label={`${rowDataItem.value} row`}>
       <Grid container className={`${ciseCheck}-table-row__row-section ${ciseCheck}-table-row__row-section--wide`}>
         {headerInfo.map((fieldInfo) => (
           <Grid
             item
+            aria-label={`${fieldInfo.header} column`}
             className={`${ciseCheck}-table-row__data-align ${ciseCheck}-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
             <Typography variant="caption" className={`${ciseCheck}-table-row__data`}>
-              {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem, ciseCheck)}
+              {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem, ciseCheck, theme)}
             </Typography>
           </Grid>
         ))}

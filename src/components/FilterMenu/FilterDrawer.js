@@ -161,7 +161,8 @@ function FilterDrawer({
     toggleFilterDrawer(false);
     setComposite(true)
   }
-  const sliderValuetext = (value) => `${value}%`;
+
+  const sliderValueText = (value) => `${value}%`;
 
   return (
     <Drawer
@@ -216,11 +217,11 @@ function FilterDrawer({
           <Grid item className="filter-drawer__slider-body">
             <Slider
               getAriaLabel={() => 'Measurement percentage range'}
+              getAriaValueText={sliderValueText}
               defaultValue={percentSliderValue}
               value={percentSliderValue}
               onChange={handleSliderChange}
               valueLabelDisplay="on"
-              getAriaValueText={sliderValuetext}
               className="filter-drawer__slider"
               marks={filterDrawerItemData.percentMarks}
               disableSwap
