@@ -1,28 +1,73 @@
-const ColorMapping = (colorMapping, chartColorArray, displayData) => {
-  const measureList = [];
-  // Get base measure and filter out the mapped color
-  const baseMeasure = displayData[0].measure;
-  const filteredColorArray = chartColorArray.filter(
-    (color) => color !== colorMapping.find((mapping) => mapping.value === baseMeasure).color,
-  );
+import tinycolor from 'tinycolor2'
 
-  // Create list of measures from subscores (if needed)
-  if (displayData[0].subScores && displayData[0].subScores.length > 1) {
-    displayData[0].subScores.forEach((subScore) => measureList.push(subScore.measure));
+const ColorMapping = (allResults, displayData) => {
+  const chartColorArray = [
+    '#88CCEE',
+    '#CC6677',
+    '#DDCC77',
+    '#117733',
+    '#332288',
+    '#AA4499',
+    '#44AA99',
+    '#999933',
+    '#555555',
+    '#661100',
+    '#6699CC',
+  ];
+
+  const baseColors = []
+  const byMeasureColorMap = [];
+
+  const colorBySeed = ((seed, idx) => chartColorArray[idx % 11])
+
+  const distortColor = (color, idx) => {
+    let newColor = ''
+    if (idx <= 3) {
+      newColor = tinycolor(color).brighten(idx * 15).spin(idx * 10).toString()
+    } else if (idx <= 6) {
+      newColor = tinycolor(color).darken((idx % 3) * 15).spin((idx % 3) * 15).toString()
+    } else if (idx <= 9) {
+      newColor = tinycolor(color).brighten((idx % 3) * 15).spin((idx % 3) * -15).toString()
+    } else if (idx <= 12) {
+      newColor = tinycolor(color).darken((idx % 3) * 15)
+        .saturate((idx % 3) * 10).spin((idx % 3) * -15)
+        .toString()
+    } else if (idx <= 15) {
+      newColor = tinycolor(color).lighten((idx % 3) * 15).spin((idx % 3) * -25).toString()
+    } else {
+      newColor = color
+    }
+    return newColor
   }
 
-  // Generate colormap for subscores
-  const byMeasureColorMap = measureList.map((item, index) => ({
-    value: item,
-    color: index <= 10 ? filteredColorArray[index] : filteredColorArray[index % 10],
-  }));
+  // CREATES COLOR MAP FOR ALL CURRENT MEASURES
+  allResults.forEach((category, idx) => {
+    baseColors.push({
+      value: category.measure,
+      color: colorBySeed(category.measure, idx),
+    })
+  })
 
-  // Add in base measure and it's originally mapped color
-  measureList.unshift(baseMeasure);
-  byMeasureColorMap.unshift({
+  // HANDLES COMPOSITE VIEW
+  if (!displayData || displayData.length === 0) {
+    return baseColors
+  }
+  // HANDLES MEASURE VIEW
+  const baseMeasure = displayData[0].measure
+  const baseMeasureColor = baseColors.find((mapping) => mapping.value === baseMeasure).color
+  byMeasureColorMap.push({
     value: baseMeasure,
-    color: colorMapping.find((mapping) => mapping.value === baseMeasure).color,
-  });
+    color: baseMeasureColor,
+  })
+  displayData.slice(0, 1)
+
+  // ADD SUBMEASURES WITH MODIFIED COLOURS
+  displayData.forEach((category, idx) => {
+    byMeasureColorMap.push({
+      value: category.measure,
+      color: distortColor(baseMeasureColor, idx),
+    })
+  })
 
   return byMeasureColorMap;
 };

@@ -28,7 +28,6 @@ import {
   displayDataProps,
   colorMapProps,
   graphWidthProps,
-  setMemberResultsProps,
   handleResetDataProps,
   setRowEntriesProps,
   setTabValueProps,
@@ -77,7 +76,6 @@ function D3Container({
   setFilterActivated,
   setIsLoading,
   additionalFilterOptions,
-  setMemberResults,
   setTabValue,
   setRowEntries,
   handleResetData,
@@ -102,7 +100,6 @@ function D3Container({
         setFilterActivated={setFilterActivated}
         setIsLoading={setIsLoading}
         setComposite={setComposite}
-        setMemberResults={setMemberResults}
         setTableFilter={setTableFilter}
         setRowEntries={setRowEntries}
         handleResetData={handleResetData}
@@ -167,7 +164,6 @@ D3Container.propTypes = {
   setFilterActivated: setFilterActivatedProps,
   setIsLoading: setIsLoadingProps,
   additionalFilterOptions: additionalFilterOptionsProps,
-  setMemberResults: setMemberResultsProps,
   setRowEntries: setRowEntriesProps,
   handleResetData: handleResetDataProps,
   setTabValue: setTabValueProps,
@@ -198,7 +194,6 @@ D3Container.defaultProps = {
   setFilterActivated: () => undefined,
   setIsLoading: () => undefined,
   additionalFilterOptions: {},
-  setMemberResults: () => undefined,
   setRowEntries: () => undefined,
   handleResetData: () => undefined,
   setFilterInfo: () => undefined,

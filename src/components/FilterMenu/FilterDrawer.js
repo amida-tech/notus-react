@@ -5,7 +5,8 @@ import ToolTip from '@mui/material/Tooltip';
 import {
   Box, Button, Drawer, Grid, Slider, Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { DatastoreContext } from '../../context/DatastoreProvider';
 import {
   filterDrawerOpenProps,
   currentFiltersProps,
@@ -15,7 +16,6 @@ import {
   additionalFilterOptionsProps,
   setIsLoadingProps,
   setCompositeProps,
-  setMemberResultsProps,
   setTableFilterProps,
   setRowEntriesProps,
   handleResetDataProps,
@@ -34,11 +34,11 @@ function FilterDrawer({
   additionalFilterOptions,
   setIsLoading,
   setComposite,
-  setMemberResults,
   setTableFilter,
   setRowEntries,
   handleResetData,
 }) {
+  const { datastoreActions } = useContext(DatastoreContext);
   const [percentSliderValue, setPercentSliderValue] = useState(
     Array.from(currentFilters.percentRange),
   );
@@ -138,7 +138,7 @@ function FilterDrawer({
     setHealthcarePractitionersChoices(Array.from(currentFilters.healthcarePractitioners));
     toggleFilterDrawer(false);
     setFilterActivated(false);
-    setMemberResults([])
+    datastoreActions.setMemberResults([])
     setTableFilter([])
     setRowEntries([])
     setComposite(true)
@@ -291,7 +291,6 @@ FilterDrawer.propTypes = {
   additionalFilterOptions: additionalFilterOptionsProps,
   setIsLoading: setIsLoadingProps,
   setComposite: setCompositeProps,
-  setMemberResults: setMemberResultsProps,
   setTableFilter: setTableFilterProps,
   setRowEntries: setRowEntriesProps,
   handleResetData: handleResetDataProps,
@@ -315,7 +314,6 @@ FilterDrawer.defaultProps = {
   additionalFilterOptions: {},
   setIsLoading: () => undefined,
   setComposite: () => undefined,
-  setMemberResults: () => undefined,
   setTableFilter: () => undefined,
   setRowEntries: () => undefined,
   handleResetData: () => undefined,

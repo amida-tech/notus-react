@@ -30,9 +30,11 @@ describe('Tests the logic of the D3Component\'s filters', () => {
       sum: 1,
     }
     const mockDataStore = DatastoreReducer(mockInitState, { type: 'SET_RESULTS', payload: { results: resultList, info: infoObject } })
-    expect(
-      filterByPercentage(resultList, percentFilterMock, mockDataStore.currentResults).length,
-    ).toBe(32);
+    expect(filterByPercentage(
+      resultList,
+      percentFilterMock,
+      mockDataStore.currentResults,
+    ).length).toBe(32);
   })
 
   test('Filter by Domain of Care', () => {

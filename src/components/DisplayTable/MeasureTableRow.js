@@ -8,6 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useTheme } from '@mui/material/styles';
 import CheckBoxCell from './CheckBoxCell';
 import Alert from '../Utilities/Alert'
+
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {

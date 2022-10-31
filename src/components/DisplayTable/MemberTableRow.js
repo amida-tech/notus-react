@@ -1,18 +1,20 @@
 import {
   Grid, Box, Typography,
+  Link,
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useTheme } from '@mui/material/styles';
 
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 function RowGenerator(link, key, rowDataItem, ciseCheck, theme) {
   if (link) {
     return (
       <Link
         style={{ color: theme.palette.primary.main }}
+        component={RouterLink}
         to={{ pathname: `/member/${rowDataItem.value}` }}
       >
         {rowDataItem[key]}

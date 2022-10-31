@@ -2,6 +2,7 @@ import {
   Grid, Typography, Box, Tab, Button,
 } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
+import PropTypes from 'prop-types';
 import MemberTable from '../Utilities/MemberTable';
 import MeasureTable from '../Utilities/MeasureTable';
 
@@ -19,7 +20,6 @@ import {
   tableFilterProps,
   handleTableFilterChangeProps,
   rowEntriesProps,
-  setTableFilterProps,
   handleTabChangeProps,
 } from '../ChartContainer/D3Props';
 import MemberTableRow from './MemberTableRow';
@@ -41,8 +41,8 @@ function DisplayTableContainer({
   tableFilter,
   handleTableFilterChange,
   rowEntries,
-  setTableFilter,
   handleTabChange,
+  handleResetData,
 }) {
   return (
     <Grid className="d3-container__bottom-display">
@@ -121,10 +121,10 @@ function DisplayTableContainer({
                       className="d3-container__no-entries-button"
                       aria-label="clear"
                       onClick={() => {
-                        setTableFilter([])
+                        handleResetData()
                       }}
                     >
-                      Reset Table
+                      Reset Table Filters
                     </Button>
                   </Box>
                 )
@@ -158,8 +158,8 @@ DisplayTableContainer.propTypes = {
   tableFilter: tableFilterProps,
   handleTableFilterChange: handleTableFilterChangeProps,
   rowEntries: rowEntriesProps,
-  setTableFilter: setTableFilterProps,
   handleTabChange: handleTabChangeProps,
+  handleResetData: PropTypes.func,
 };
 
 DisplayTableContainer.defaultProps = {
@@ -175,8 +175,8 @@ DisplayTableContainer.defaultProps = {
   tableFilter: [],
   handleTableFilterChange: () => undefined,
   rowEntries: [],
-  setTableFilter: () => undefined,
   handleTabChange: () => undefined,
+  handleResetData: () => undefined,
 };
 
 export default DisplayTableContainer

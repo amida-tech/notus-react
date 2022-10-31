@@ -4408,3 +4408,115 @@ export const rowEntries = [
     aab: 'false',
   },
 ]
+export const additionalFilterOptions = {
+  payors: [
+    {
+      _id: '635843b0c1fd507c9b81d57b',
+      payor: 'Organization/3',
+      value: 'Organization/3',
+      timestamp: '2022-10-25T20:14:40.103Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d57a',
+      payor: 'Organization/2',
+      value: 'Organization/2',
+      timestamp: '2022-10-25T20:14:40.103Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d579',
+      payor: 'Organization/1',
+      value: 'Organization/1',
+      timestamp: '2022-10-25T20:14:40.101Z',
+    },
+  ],
+  healthcareProviders: [
+    {
+      _id: '635843b0c1fd507c9b81d582',
+      provider: 'Springfield Hospital',
+      value: 'Organization?identifier=71533123',
+      timestamp: '2022-10-25T20:14:40.105Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d583',
+      provider: 'Cancer Treatment & Care',
+      value: 'Organization?identifier=8554',
+      timestamp: '2022-10-25T20:14:40.106Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d584',
+      provider: "Anova Women's Birthing Service",
+      value: 'Organization?identifier=9911',
+      timestamp: '2022-10-25T20:14:40.106Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d588',
+      provider: 'Norton Hill Carecenter',
+      value: 'Organization?identifier=71533123',
+      timestamp: '2022-10-25T20:14:40.105Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d581',
+      provider: 'Hollifield Clinics',
+      value: 'Organization?identifier=667531',
+      timestamp: '2022-10-25T20:14:40.105Z',
+    },
+  ],
+  healthcareCoverages: [
+    {
+      _id: '635843b0c1fd507c9b81d585',
+      coverage: 'Health Maintenance Organization Policy',
+      value: 'HMO',
+      timestamp: '2022-10-25T20:14:40.106Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d586',
+      coverage: 'Preferred Provider Organization Policy',
+      value: 'PPO',
+      timestamp: '2022-10-25T20:14:40.106Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d587',
+      coverage: 'Managed Care Policy',
+      value: 'MCPOL',
+      timestamp: '2022-10-25T20:14:40.107Z',
+    },
+  ],
+  healthcarePractitioners: [
+    {
+      _id: '635843b0c1fd507c9b81d57c',
+      practitioner: 'Nurse Practitioner Sharon Arthurs',
+      value: 'Practitioner?identifier=7882499',
+      timestamp: '2022-10-25T20:14:40.103Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d589',
+      practitioner: 'Dr. Larry McDaniels',
+      value: 'Practitioner?identifier=903321',
+      timestamp: '2022-10-25T20:14:40.104Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d57e',
+      practitioner: 'Nurse Karen Patches',
+      value: 'Practitioner?identifier=1221',
+      timestamp: '2022-10-25T20:14:40.104Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d580',
+      practitioner: 'Dr. Colette DeBarge',
+      value: 'Practitioner?identifier=8123',
+      timestamp: '2022-10-25T20:14:40.105Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d57f',
+      practitioner: 'Dr. Marc Weber, General Practitioner',
+      value: 'Practitioner?identifier=1143',
+      timestamp: '2022-10-25T20:14:40.104Z',
+    },
+    {
+      _id: '635843b0c1fd507c9b81d57d',
+      practitioner: 'Doctor Anne Guish',
+      value: 'Practitioner?identifier=1143',
+      timestamp: '2022-10-25T20:14:40.104Z',
+    },
+  ],
+}

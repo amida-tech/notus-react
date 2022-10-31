@@ -2,53 +2,51 @@ import {
   fireEvent, render, screen,
 } from '@testing-library/react';
 import FilterDrawer from '../../../components/FilterMenu/FilterDrawer';
-import { default as datastore } from '../../data/datastore'
+import { additionalFilterOptions } from '../../data/DemoData';
 
 const filters = {
   domainsOfCare: [],
   stars: [],
   percentRange: [0, 100],
   sum: 0,
-  payors: [],
   healthcareCoverages: [],
   healthcarePractitioners: [],
   healthcareProviders: [],
+  payors: [],
 };
 
 const mockHandleFilterChange = jest.fn(() => false);
 const mockToggleFilterDrawer = jest.fn(() => false);
+const mockHandleResetData = jest.fn(() => false);
 
-const givenPropsTest = async (getByText) => {
-  expect(getByText('Apply Filters')).toBeTruthy();
-  expect(getByText('95')).toBeTruthy();
-  expect(screen.getByDisplayValue('EOC').checked).toBe(true);
-  expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-  expect(screen.getByDisplayValue('1').checked).toBe(true);
-  expect(screen.getByDisplayValue('2').checked).toBe(false);
-}
+const clickNCheck = (boxes, values) => Object.entries(values).map(([key, value]) => {
+  if (value) {
+    fireEvent.click(boxes.find((box) => box.value === key))
+  }
+  expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
+})
 
-const closeOpenDrawerTest = async (rerender) => {
+const simpleCheck = (boxes, values) => Object.values(values).map((value) => {
+  expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
+})
+
+const closeOpenDrawerTest = (rerender) => {
   rerender(<FilterDrawer
     filterDrawerOpen={false}
-    handleFilterChange={mockHandleFilterChange}
     currentFilters={filters}
-    toggleFilterDrawer={mockToggleFilterDrawer}
-    additionalFilterOptions={datastore.filterOptions}
+    additionalFilterOptions={additionalFilterOptions}
   />);
   const refineByText = screen.queryByText('Refine by');
   expect(refineByText).toBe(null);
   rerender(<FilterDrawer
     filterDrawerOpen
-    handleFilterChange={mockHandleFilterChange}
     currentFilters={filters}
-    toggleFilterDrawer={mockToggleFilterDrawer}
-    additionalFilterOptions={datastore.filterOptions}
+    additionalFilterOptions={additionalFilterOptions}
   />);
 }
 
 // TO DO: Write test for the slider. https://stackoverflow.com/questions/58856094/testing-a-material-ui-slider-with-testing-library-react
 describe('FilterDrawer', () => {
-
   test('MUI slider values renders default values and can be adjusted', () => {
     render(
       <FilterDrawer
@@ -64,11 +62,11 @@ describe('FilterDrawer', () => {
     expect(sliderPoints.length).toBe(2)
     const startPoint = sliderPoints[0]
     const endPoint = sliderPoints[1]
-    
+
     // values of slider points -- aria-valuetext OR aria-valuenow -- to match given filter percentageRange value
     expect(startPoint.getAttribute('aria-valuenow')).toBe('5')
     expect(endPoint.getAttribute('aria-valuenow')).toBe('95')
-    
+
     expect(startPoint.getAttribute('max')).toBe('100')
     expect(startPoint.getAttribute('min')).toBe('0')
 
@@ -78,7 +76,7 @@ describe('FilterDrawer', () => {
     // move pointers to new values
     fireEvent.change(startPoint, { target: { value: 25 } });
     fireEvent.change(endPoint, { target: { value: 75 } });
-    
+
     expect(startPoint.getAttribute('aria-valuenow')).toBe('25')
     expect(endPoint.getAttribute('aria-valuenow')).toBe('75')
   })
@@ -87,35 +85,31 @@ describe('FilterDrawer', () => {
     const { getByText, rerender } = render(
       <FilterDrawer
         filterDrawerOpen
+        currentFilters={filters}
+        additionalFilterOptions={additionalFilterOptions}
         handleFilterChange={mockHandleFilterChange}
         toggleFilterDrawer={mockToggleFilterDrawer}
-        currentFilters={{
-          domainsOfCare: [],
-          stars: [],
-          percentRange: [0, 100],
-          sum: 0,
-          payors: [],
-          healthcareCoverages: [],
-          healthcarePractitioners: [],
-          healthcareProviders: [],
-        }}
-        additionalFilterOptions={datastore.filterOptions}
       />,
     );
 
-    fireEvent.click(screen.getByDisplayValue('ECDS'));
-    fireEvent.click(screen.getByDisplayValue('2'));
-    fireEvent.click(screen.getByDisplayValue('3'));
+    // grab all checkboxes on DOM, select which we want checked with 'true'
+    const checkboxes = [...screen.getAllByRole('checkbox')];
+    const expectedValues = {
+      EOC: false,
+      ECDS: true,
+      1: false,
+      2: true,
+      3: true,
+      4: false,
+      5: false,
+    };
 
-    expect(screen.getByDisplayValue('EOC').checked).toBe(false);
-    expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
-    expect(screen.getByDisplayValue('1').checked).toBe(false);
-    expect(screen.getByDisplayValue('2').checked).toBe(true);
-    expect(screen.getByDisplayValue('3').checked).toBe(true);
-    expect(screen.getByDisplayValue('4').checked).toBe(false);
-    expect(screen.getByDisplayValue('5').checked).toBe(false);
-
+    // for each of values to be tested, we will click or not
+    // expect box to be sucessefully checked or not
+    clickNCheck(checkboxes, expectedValues)
     fireEvent.click(getByText('Apply Filters'));
+
+    // we expect our handleFilterChange function to be called with appropriate filters
     expect(mockHandleFilterChange).toHaveBeenCalledWith({
       domainsOfCare: ['ECDS'],
       stars: [2, 3],
@@ -126,23 +120,14 @@ describe('FilterDrawer', () => {
       healthcareProviders: [],
       payors: [],
     });
-    expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
+    expect(mockToggleFilterDrawer).toHaveBeenCalled();
 
     rerender(<FilterDrawer
       filterDrawerOpen={false}
+      currentFilters={filters}
+      additionalFilterOptions={additionalFilterOptions}
       handleFilterChange={mockHandleFilterChange}
       toggleFilterDrawer={mockToggleFilterDrawer}
-      currentFilters={{
-        domainsOfCare: [],
-        stars: [],
-        percentRange: [0, 100],
-        sum: 0,
-        payors: [],
-        healthcareCoverages: [],
-        healthcarePractitioners: [],
-        healthcareProviders: [],
-      }}
-      additionalFilterOptions={datastore.filterOptions}
     />);
     const refineByText = screen.queryByText('Refine by');
     expect(refineByText).toBe(null);
@@ -150,70 +135,75 @@ describe('FilterDrawer', () => {
     rerender(<FilterDrawer
       filterDrawerOpen
       currentFilters={filters}
-      additionalFilterOptions={datastore.filterOptions}
+      additionalFilterOptions={additionalFilterOptions}
+      handleFilterChange={mockHandleFilterChange}
+      toggleFilterDrawer={mockToggleFilterDrawer}
     />);
-    expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
-    expect(screen.getByDisplayValue('2').checked).toBe(true);
-    expect(screen.getByDisplayValue('3').checked).toBe(true);
+
+    simpleCheck(checkboxes, expectedValues)
   })
 
   test('resets to the default filter state', () => {
-    const { getByText, rerender } = render(
+    render(
       <FilterDrawer
         filterDrawerOpen
         handleFilterChange={mockHandleFilterChange}
         currentFilters={filters}
+        additionalFilterOptions={additionalFilterOptions}
         toggleFilterDrawer={mockToggleFilterDrawer}
-        additionalFilterOptions={datastore.filterOptions}
+        handleResetData={mockHandleResetData}
       />,
     );
 
-    givenPropsTest(getByText);
-    fireEvent.click(getByText('Reset Filters'));
-    expect(mockHandleFilterChange).toHaveBeenCalledWith({
-      domainsOfCare: [],
-      stars: [],
-      percentRange: [0, 100],
-      sum: 0,
-      payors: [],
-      healthcareCoverages: [],
-      healthcarePractitioners: [],
-      healthcareProviders: [],
-    });
-    expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
+    // grab all checkboxes on DOM, select which we want checked with 'true'
+    const checkboxes = [...screen.getAllByRole('checkbox')];
+    const expectedValues = {
+      EOC: true,
+      ECDS: false,
+      1: true,
+      2: false,
+      3: false,
+      4: true,
+      5: false,
+    };
 
-    closeOpenDrawerTest(rerender);
-    expect(screen.getByDisplayValue('EOC').checked).toBe(false);
-    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-    expect(screen.getByDisplayValue('1').checked).toBe(false);
-    expect(screen.getByDisplayValue('2').checked).toBe(false);
+    clickNCheck(checkboxes, expectedValues)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Reset Filters' }))
+    expect(mockHandleResetData).toHaveBeenCalled();
+    expect(mockToggleFilterDrawer).toHaveBeenCalled();
   });
 
   test('cancels the filter changes', () => {
-    const { getByText, rerender } = render(
+    const { rerender } = render(
       <FilterDrawer
         filterDrawerOpen
-        handleFilterChange={mockHandleFilterChange}
         currentFilters={filters}
+        additionalFilterOptions={additionalFilterOptions}
+        handleFilterChange={mockHandleFilterChange}
         toggleFilterDrawer={mockToggleFilterDrawer}
-        additionalFilterOptions={datastore.filterOptions}
       />,
     );
 
-    givenPropsTest(getByText);
-    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-    expect(screen.getByDisplayValue('2').checked).toBe(false);
-    fireEvent.click(screen.getByDisplayValue('ECDS'));
-    fireEvent.click(screen.getByDisplayValue('2'));
-    expect(screen.getByDisplayValue('ECDS').checked).toBe(true);
-    expect(screen.getByDisplayValue('2').checked).toBe(true);
+    // grab all checkboxes on DOM, select which we want checked with 'true'
+    const checkboxes = [...screen.getAllByRole('checkbox')];
+    const expectedValues = {
+      EOC: false,
+      ECDS: true,
+      1: false,
+      2: true,
+      3: true,
+      4: false,
+      5: false,
+    };
 
-    fireEvent.click(getByText('Cancel'));
-    expect(mockToggleFilterDrawer).toHaveBeenCalledWith(false);
-    expect(mockHandleFilterChange).not.toHaveBeenCalled();
+    // for each of values to be tested, we will click or not
+    // expect box to be sucessefully checked or not
+    clickNCheck(checkboxes, expectedValues)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    expect(mockToggleFilterDrawer).toHaveBeenCalled();
 
     closeOpenDrawerTest(rerender);
-    expect(screen.getByDisplayValue('ECDS').checked).toBe(false);
-    expect(screen.getByDisplayValue('2').checked).toBe(false);
   });
 })

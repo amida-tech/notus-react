@@ -4,13 +4,14 @@ $block-class: 'table-filter-panel';
 @at-root {
     .#{$block-class} {
         display: grid;
-        grid-template-columns: 4fr 10fr 1fr;
+        grid-template-columns: 1fr 3fr;
 
         & &__member-search { // TODO //placeholder styles
             color: $blue-grey-darken-4;
             display: flex;
-            justify-content: center;
+            width: auto;
             align-items: center;
+            margin: 0 2.5rem 0 0.5rem;
         }
 
         & &__button-panel {

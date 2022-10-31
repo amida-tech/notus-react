@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Link,
 } from '@mui/material';
 
 export default function Alert({
@@ -62,9 +61,10 @@ export default function Alert({
         <Button onClick={() => handleAlert()}>Go Back</Button>
         <Button variant="contained" onClick={() => handleAlert()}>
           <Link
+            color="secondary"
             target={options.target}
             rel={options.rel}
-            to={{ pathname: options.pathto }}
+            href={options.pathto}
           >
             Continue
           </Link>
