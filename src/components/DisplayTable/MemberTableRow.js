@@ -3,13 +3,16 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import { useTheme } from '@mui/material/styles';
+
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-function RowGenerator(link, key, rowDataItem, ciseCheck) {
+function RowGenerator(link, key, rowDataItem, ciseCheck, theme) {
   if (link) {
     return (
       <Link
+        style={{ color: theme.palette.primary.main }}
         to={{ pathname: `/member/${rowDataItem.value}` }}
       >
         {rowDataItem[key]}
@@ -36,6 +39,8 @@ function RowGenerator(link, key, rowDataItem, ciseCheck) {
 function MemberTableRow({
   rowDataItem, headerInfo,
 }) {
+  const theme = useTheme()
+
   const ciseCheck = headerInfo[1].header === 'CIS-E' ? 'cise' : 'member'
   return (
     <Box className={`${ciseCheck}-table-row`} aria-label={`${rowDataItem.value} row`}>
@@ -48,7 +53,7 @@ function MemberTableRow({
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
             <Typography variant="caption" className={`${ciseCheck}-table-row__data`}>
-              {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem, ciseCheck)}
+              {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem, ciseCheck, theme)}
             </Typography>
           </Grid>
         ))}
