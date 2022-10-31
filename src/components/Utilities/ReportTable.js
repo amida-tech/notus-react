@@ -71,7 +71,7 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
     dates: 'N/A',
     conditions: 'N/A',
     // RECOMMENDATION IS PULLED FROM storeInfo THIS IS FOR MEASURES WITH NO SUBMEASURES
-    recommendations: storeInfo[measureList[0]].recommendation,
+    recommendations: storeInfo[measureList[0]].recommendation || ['No current recommendations found'],
   });
 
   if (complianceResult.length === 1) {
@@ -89,7 +89,7 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       dates: 'N/A',
       conditions: 'N/A',
       // RECOMMENDATION IS PULLED FROM storeInfo THIS IS FOR MEASURES WITH SUBMEASURES
-      recommendations: storeInfo[measureList[index + 1]].recommendation,
+      recommendations: storeInfo[measureList[index + 1]].recommendation || ['No current recommendations found'],
     });
   });
 

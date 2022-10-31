@@ -28,8 +28,11 @@ function MemberReport({ id, memberInfoFetch, loading }) {
     if (Object.keys(datastore.info).length > 0 && memberInfo) {
       // DESCRIPTIONS ARE PULLED FROM DATASTORE INFO
       const descriptions = datastore?.info[memberInfo.measurementType].description
-      setDescription(descriptions)
-      setDescription(descriptions)
+      if (Array.isArray(descriptions)) {
+        setDescription(descriptions)
+      } else {
+        setDescription(['No current description for this measure'])
+      }
       const formattedMemberData = ReportTable.formatData(
         memberInfo,
         memberInfo.measurementType,
