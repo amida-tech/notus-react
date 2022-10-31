@@ -70,7 +70,8 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
     practitioner: 'N/A',
     dates: 'N/A',
     conditions: 'N/A',
-    recommendations: 'N/A',
+    // RECOMMENDATION IS PULLED FROM storeInfo THIS IS FOR MEASURES WITH NO SUBMEASURES
+    recommendations: storeInfo[measureList[0]].recommendation,
   });
 
   if (complianceResult.length === 1) {
@@ -87,7 +88,8 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       practitioner: 'N/A',
       dates: 'N/A',
       conditions: 'N/A',
-      recommendations: 'N/A',
+      // RECOMMENDATION IS PULLED FROM storeInfo THIS IS FOR MEASURES WITH SUBMEASURES
+      recommendations: storeInfo[measureList[index + 1]].recommendation,
     });
   });
 

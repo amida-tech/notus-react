@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 function MemberReportTable({ rowData }) {
   const formattedData = []
   const theme = useTheme()
-  function createData(rowDataObj) {
+  function createTableRows(rowDataObj) {
     return {
       measure: rowDataObj.measure || 'N/A',
       type: rowDataObj.type || 'N/A',
@@ -18,11 +18,55 @@ function MemberReportTable({ rowData }) {
       practitioner: rowDataObj.practitioner || 'N/A',
       dates: rowDataObj.dates || 'N/A',
       conditions: rowDataObj.conditions || 'N/A',
-      recommendations: rowDataObj.recommendations || 'N/A',
+      recommendations: recommendationsGenerator(rowDataObj.recommendations, rowDataObj.measure) || 'N/A',
     }
   }
+  function recommendationsGenerator(recommendationArray, rowDataMeasure) {
+    let recommendation = ''
+    let baseRecommendation = ''
+    // IF recommendationArray IS GREATER THAN 1
+    if (recommendationArray.length > 0) {
+    // BASE RECOMMENDATIONS ARE BOLDED.
+      baseRecommendation = <strong>{recommendationArray[0]}</strong>
+      // ADDITIONAL RECOMMENDATIONS FORMATTED WITH SPACING
+      const additionalRecommendations = recommendationArray.map((item, idx) => {
+        if (idx !== 0) {
+          // ADDITIONAL RECOMMENDATIONS WITH COLON OR 'OR'
+          // IN STRING ARE STYLED WITH BOLD FONT WEIGHT
+          if (item.includes(': ') || item === 'OR') {
+            return (
+              <li key={item} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>{item}</li>
+            )
+          }
+          return (<li key={item} style={{ marginBottom: '0.5rem' }}>{item}</li>)
+        }
+        return ''
+      })
+      // WHAT WE RETURN IF recommendationArray IS GREATER THAN 1
+      recommendation = (
+        <div>
+          <p>{baseRecommendation}</p>
+          <ul style={{ listStyle: 'none', marginTop: '0.5rem' }}>
+            {additionalRecommendations}
+          </ul>
+        </div>
+      )
+    } else {
+    // IF recommendationArray IS EQUALS 0 RETURN NOT COMPLIANT.
+    // ALL SUBMEASURES SHOULD HAVE A RECOMMENDATION.
+      recommendation = (
+        <strong>
+          {'Member is '}
+          <strong style={{ color: theme.palette.error.main }}>NOT COMPLIANT</strong>
+          {' with '}
+          {rowDataMeasure.toUpperCase()}
+        </strong>
+      )
+    }
+    return recommendation
+  }
 
-  rowData.forEach((row) => { formattedData.push(createData(row)) })
+  rowData.forEach((row) => { formattedData.push(createTableRows(row)) })
 
   return (
     <TableContainer component={Paper}>
@@ -35,13 +79,12 @@ function MemberReportTable({ rowData }) {
             <TableCell sx={{ fontWeight: '700' }} align="center">Exclusions</TableCell>
             <TableCell sx={{ fontWeight: '700' }} align="center">Practitioner</TableCell>
             <TableCell sx={{ fontWeight: '700' }} align="center">Dates</TableCell>
-            <TableCell sx={{ fontWeight: '700' }} align="center">Conditions</TableCell>
-            <TableCell sx={{ fontWeight: '700' }} align="center">Recommendations</TableCell>
+            <TableCell sx={{ fontWeight: '700' }} align="left">Recommendations</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {formattedData.map((row, i) => {
-            Object.assign(row, { key: i });
+          {formattedData.map((row, idx) => {
+            Object.assign(row, { key: idx })
             return (
               <TableRow
                 key={row.key}
@@ -57,8 +100,24 @@ function MemberReportTable({ rowData }) {
                 <TableCell align="center">{row.exclusions?.length > 0 ? row.exclusions : <CancelIcon sx={{ color: theme.palette.error.main }} />}</TableCell>
                 <TableCell align="center">{row.practitioner}</TableCell>
                 <TableCell align="center">{row.dates}</TableCell>
-                <TableCell align="center">{row.conditions}</TableCell>
-                <TableCell align="center">{row.recommendations}</TableCell>
+                <TableCell
+                  align={
+                row.type === 'Measure' || row.type === 'Sub-Measure'
+                  ? 'left'
+                  : 'center'
+              }
+                >
+                  {/* IF STATUS IS TRUE WE RETURN COMPLAINT
+                   RESULT IF NOT WE RETURN A RECOMENDATION */}
+                  {row.status ? (
+                    <strong>
+                      {'Member is '}
+                      <strong style={{ color: theme.palette.success.main }}>COMPLIANT</strong>
+                      {' with '}
+                      {row.measure.toUpperCase()}
+                    </strong>
+                  ) : row.recommendations}
+                </TableCell>
               </TableRow>
             )
           })}
@@ -75,12 +134,14 @@ MemberReportTable.propTypes = {
       type: PropTypes.string,
       status: PropTypes.bool,
       exclusions: PropTypes.arrayOf(
-        PropTypes.bool,
+        PropTypes.string,
       ),
       practitioner: PropTypes.string,
       dates: PropTypes.string,
       conditions: PropTypes.string,
-      recommendations: PropTypes.string,
+      recommendations: PropTypes.arrayOf(
+        PropTypes.string,
+      ),
     }),
   ),
 }

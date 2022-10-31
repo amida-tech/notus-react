@@ -124,7 +124,7 @@ describe('Member view page', () => {
   })
 
   it('Measure analysis labels render', async () => {
-    const dsDescription = datastore.info.aab.description
+    const dsDescription = datastore.info.aab.description[0]
     expect(screen.getByText(dsDescription)).toBeTruthy()
 
     const memberReportTable = screen.getByLabelText('member table')
@@ -136,7 +136,6 @@ describe('Member view page', () => {
       'Exclusions',
       'Practitioner',
       'Dates',
-      'Conditions',
       'Recommendations',
     ]
     analysisLabels.forEach(

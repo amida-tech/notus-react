@@ -5,12 +5,13 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Tooltip from '@mui/material/Tooltip';
+import { useTheme } from '@mui/material/styles';
 import CheckBoxCell from './CheckBoxCell';
 import Alert from '../Utilities/Alert'
-
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
+  const theme = useTheme()
   const compositeCheck = headerInfo[0].header === 'Measure'
   const alertTitle = 'Leaving Saraswati'
   const alertPath = (info) => {
@@ -56,8 +57,14 @@ function MeasureTableRow({
                       key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
                     >
                       <Typography variant="caption" className="measure-table-row__data">
-                        <Tooltip title={measureInfo[rowDataItem.value].title} arrow>
-                          <Link component={RouterLink} to={{ pathname: `/${rowDataItem.value}` }}>
+                        <Tooltip
+                          title={
+                            measureInfo[rowDataItem.value].tooltip
+                            || measureInfo[rowDataItem.value].title
+                          }
+                          arrow
+                        >
+                          <Link style={{ color: theme.palette.primary.main }} component={RouterLink} to={{ pathname: `/${rowDataItem.value}` }}>
                             {rowDataItem[fieldInfo.key]}
                           </Link>
                         </Tooltip>
@@ -95,10 +102,14 @@ function MeasureTableRow({
               ? (
                 <>
                   <Tooltip
-                    title="Click for more information from NCQA"
+                    title={
+                      measureInfo[rowDataItem.value].tooltip
+                      || 'Click for more information from NCQA'
+                    }
                     arrow
                   >
                     <Typography
+                      style={{ color: theme.palette.primary.main }}
                       variant="caption"
                       className="measure-table-row__data"
                       onClick={() => setOpenAlert(true)}
