@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { ThemeProvider } from '@emotion/react';
+import theme from '../../assets/styles/AppTheme';
 
 import {
   Snackbar, IconButton,
@@ -78,7 +79,7 @@ export default function App() {
         message="Welcome to Saraswati, where knowledge is power."
         action={action(setShowWelcome)}
         sx={{
-          '& .MuiSnackbarContent-root': { backgroundColor: '#DFF4FC', color: '#263238' },
+          '& .MuiSnackbarContent-root': { backgroundColor: theme.palette.primary.light, color: theme.palette.text },
         }}
       />
       <BrowserRouter>
