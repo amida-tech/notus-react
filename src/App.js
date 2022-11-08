@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import { ThemeProvider } from '@emotion/react';
-import theme from '../../assets/styles/AppTheme';
+// import theme from '../../assets/styles/AppTheme';
 
 import {
   Snackbar, IconButton,
