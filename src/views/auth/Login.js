@@ -139,6 +139,7 @@ export default function Login() {
               color="primary"
               startIcon={<GoogleSvg />}
               onClick={() => oauthSignIn()}
+              // These are Google colors
               sx={{
                 backgroundColor: '#E9F1FF',
                 color: '#498AF5',
