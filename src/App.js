@@ -7,14 +7,13 @@ import {
 } from 'react-router-dom';
 
 import { ThemeProvider } from '@emotion/react';
-// import theme from '../../assets/styles/AppTheme';
 
 import {
   Snackbar, IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { validateAccessToken } from './components/Common/Controller'
 import theme from './assets/styles/AppTheme';
+import { validateAccessToken } from './components/Common/Controller'
 import Auth from './layouts/Auth';
 import ProtectedRoutes from './ProtectedRoutes';
 import env from './env';
