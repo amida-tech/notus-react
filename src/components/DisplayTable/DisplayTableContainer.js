@@ -27,6 +27,7 @@ import TableFilterPanel from './TableFilterPanel';
 import DisplayTable from './DisplayTable';
 import MeasureSelector from '../Common/MeasureSelector';
 import MeasureTableRow from './MeasureTableRow';
+import theme from '../../assets/styles/AppTheme'
 
 function DisplayTableContainer({
   activeMeasure,
@@ -89,7 +90,10 @@ function DisplayTableContainer({
                   useCheckBox
                   handleCheckBoxEvent={handleSelectedMeasureChange}
                   rowSelected={selectedMeasures.includes(item.value)}
-                  color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
+                  color={
+                    colorMap.find((mapping) => mapping.value === item.value)?.color
+                    || theme.palette?.primary.main
+                  }
                   measureInfo={store.info}
                 />
               ))}
