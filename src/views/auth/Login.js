@@ -1,5 +1,6 @@
 import LockIcon from '@mui/icons-material/Lock';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import { blueGrey } from '@mui/material/colors'
 import { Link as RouterLink } from 'react-router-dom';
 import {
   Box, Button, Container, Grid, Link, Paper, TextField, Typography,
@@ -29,7 +30,7 @@ export default function Login() {
                 component="span"
                 variant="h5"
                 display="inline"
-                sx={{ color: (theme) => theme.palette.bluegray?.main, fontWeight: 700 }}
+                sx={{ color: blueGrey[500], fontWeight: 700 }}
               >
                 {' '}
                 SARASWATI
@@ -84,7 +85,7 @@ export default function Login() {
               }}
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: (theme) => theme.palette.bluegray?.L5,
+                  backgroundColor: blueGrey[50],
                 },
               }}
               placeholder="Username or email address"
@@ -104,7 +105,7 @@ export default function Login() {
               margin="dense"
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: (theme) => theme.palette.bluegray?.L5,
+                  backgroundColor: blueGrey[50],
                 },
               }}
               InputProps={{
