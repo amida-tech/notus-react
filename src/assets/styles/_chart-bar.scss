@@ -13,10 +13,6 @@ $block-class: 'chart-bar';
       padding: 0 1rem;
     }
 
-    &__radio-label {
-      color: $blue-grey-darken-4;
-    }
-
     &__badge > span {
       color: $default-white;
       background-color: $default-red;
@@ -46,19 +42,21 @@ $block-class: 'chart-bar';
       color: $blue-grey-darken-4;
     }
 
-    &__date-range-picker {
-      .MuiDateRangePickerDay-day {
-        color: $blue-grey-darken-4;
-      }
+    // THE DATE RANGE PICKER IS A PREMIUM MUI FEATURE??
 
-      .MuiTypography-subtitle1 {
-        color: $blue-grey-darken-4;
-      }
+    // &__date-range-picker {
+    //   .MuiDateRangePickerDay-day {
+    //     color: $blue-grey-darken-4;
+    //   }
 
-      .MuiPickersDay-today {
-        color: $primary-blue;
-      }
-    }
+    //   .MuiTypography-subtitle1 {
+    //     color: $blue-grey-darken-4;
+    //   }
+
+    //   .MuiPickersDay-today {
+    //     color: $primary-blue;
+    //   }
+    // }
   }
 }
 

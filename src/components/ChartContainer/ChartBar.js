@@ -7,6 +7,7 @@ import AdapterMoment from '@mui/lab/AdapterMoment';
 import {
   Badge, Button, FormControlLabel, Grid, Menu, Radio, RadioGroup, TextField, Typography,
 } from '@mui/material';
+import theme from '../../assets/styles/AppTheme'
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
@@ -111,6 +112,7 @@ function ChartBar({
               {TimelineOptions.map((option) => (
                 <FormControlLabel
                   key={`chart-bar-timeline-${option.value}`}
+                  color={theme.palette?.bluegray.D4}
                   className="chart-bar__radio-label"
                   value={option.value}
                   control={<Radio onClick={handleDateChange} />}
@@ -126,10 +128,10 @@ function ChartBar({
                       startText="Start"
                       value={currentTimeline.range}
                       onChange={dateSelector}
-                      style={{ color: 'black' }}
+                      color={theme.palette?.bluegray.D4}
                       renderInput={(startProps, endProps) => (
                         <Box className="chart-bar__date-panel">
-                          <TextField className="chart-bar__date-text" {...startProps} />
+                          <TextField color={theme.palette?.bluegray.D4} className="chart-bar__date-text" {...startProps} />
                           <Box className="chart-bar__between-text"> to </Box>
                           <TextField className="chart-bar__date-text" {...endProps} />
                         </Box>

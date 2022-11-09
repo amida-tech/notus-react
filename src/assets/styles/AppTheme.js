@@ -1,9 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 
-// IF YOU CANNOT FIND THE COLOR YOU WANT/NEED, PLEASE CHECK HERE FIRST:
-// https://mui.com/material-ui/customization/color/
-// THIS INCLUDES THE BLUEGREY PALETTE
-
 const theme = createTheme({
   palette: {
     mode: 'light',
@@ -41,6 +37,18 @@ const theme = createTheme({
       main: '#C62828',
       light: '#DD5757',
       dark: '#951F1F',
+    },
+    bluegray: {
+      main: '#607D8B',
+      L5: '#ECEFF1',
+      L4: '#CFD8DC',
+      L3: '#B0BEC5',
+      L2: '#90A4AE',
+      L1: '#78909C',
+      D1: '#546E7A',
+      D2: '#455A64',
+      D3: '#37474F',
+      D4: '#263238',
     },
   },
   typography: {
