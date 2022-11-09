@@ -138,7 +138,7 @@ function FilterDrawer({
     setHealthcarePractitionersChoices(Array.from(currentFilters.healthcarePractitioners));
     toggleFilterDrawer(false);
     setFilterActivated(false);
-    datastoreActions.setMemberResults([])
+    datastoreActions?.setMemberResults([])
     setTableFilter([])
     setRowEntries([])
     setComposite(true)

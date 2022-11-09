@@ -19,14 +19,14 @@ const mockHandleFilterChange = jest.fn(() => false);
 const mockToggleFilterDrawer = jest.fn(() => false);
 const mockHandleResetData = jest.fn(() => false);
 
-const clickNCheck = (boxes, values) => Object.entries(values).map(([key, value]) => {
+const clickNCheck = (boxes, values) => Object.entries(values).forEach(([key, value]) => {
   if (value) {
     fireEvent.click(boxes.find((box) => box.value === key))
   }
   expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
 })
 
-const simpleCheck = (boxes, values) => Object.values(values).map((value) => {
+const simpleCheck = (boxes, values) => Object.values(values).forEach((value) => {
   expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
 })
 
@@ -63,7 +63,8 @@ describe('FilterDrawer', () => {
     const startPoint = sliderPoints[0]
     const endPoint = sliderPoints[1]
 
-    // values of slider points -- aria-valuetext OR aria-valuenow -- to match given filter percentageRange value
+    // values of slider points -- aria-valuetext OR aria-valuenow --
+    // to match given filter percentageRange value
     expect(startPoint.getAttribute('aria-valuenow')).toBe('5')
     expect(endPoint.getAttribute('aria-valuenow')).toBe('95')
 

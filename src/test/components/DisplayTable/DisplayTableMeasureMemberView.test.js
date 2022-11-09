@@ -75,7 +75,7 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
 
   it('buttons render', () => {
     const buttons = screen.getAllByRole('button')
-    expect(buttons.length).toBe(3)
+    expect(buttons.length).toBe(4)
   })
 
   it('checkboxes render', () => {

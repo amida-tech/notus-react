@@ -1,5 +1,8 @@
 import { createTheme } from '@mui/material/styles';
 
+// IF YOU CANNOT FIND THE COLOR YOU WANT/NEED, PLEASE CHECK HERE FIRST:
+// https://mui.com/material-ui/customization/color/
+
 const theme = createTheme({
   palette: {
     mode: 'light',
