@@ -38,18 +38,6 @@ const theme = createTheme({
       light: '#DD5757',
       dark: '#951F1F',
     },
-    bluegray: {
-      main: '#607D8B',
-      L5: '#ECEFF1',
-      L4: '#CFD8DC',
-      L3: '#B0BEC5',
-      L2: '#90A4AE',
-      L1: '#78909C',
-      D1: '#546E7A',
-      D2: '#455A64',
-      D3: '#37474F',
-      D4: '#263238',
-    },
   },
   typography: {
     color: '#263238',
