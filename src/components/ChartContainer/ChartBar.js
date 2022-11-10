@@ -1,18 +1,13 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import DesktopDateRangePicker from '@mui/lab/DesktopDateRangePicker';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterMoment from '@mui/lab/AdapterMoment';
 import {
-  Badge, Button, FormControlLabel, Grid, Menu, Radio, RadioGroup, TextField, Typography,
+  Badge, Box, Button, FormControlLabel, Grid, Menu, Radio, RadioGroup, Typography,
 } from '@mui/material';
-import theme from '../../assets/styles/AppTheme'
-import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import theme from '../../assets/styles/AppTheme';
 import { TimelineOptions } from '../Utilities/ChartUtil';
-import env from '../../env';
 
 const timelineLabel = (choice) => {
   switch (choice) {
@@ -62,22 +57,6 @@ function ChartBar({
     toggleFilterDrawer(!filterDrawerOpen);
   };
 
-  const dateSelector = (newValue) => {
-    const newDateSetting = {
-      choice: 'custom',
-      range: [newValue[0], newValue[1]],
-    }
-    handleTimelineChange(newDateSetting);
-  }
-
-  const clearDate = () => {
-    const newDateSetting = {
-      choice: 'custom',
-      range: [null, null],
-    }
-    handleTimelineChange(newDateSetting);
-  }
-
   const timelineCaption = `Timeline: ${timelineLabel(currentTimeline.choice)}`
 
   return (
@@ -119,34 +98,6 @@ function ChartBar({
                   label={option.label}
                 />
               ))}
-              { env.REACT_APP_MVP_SETTING === 'false'
-                && (
-                <Box className="chart-bar__date-range">
-                  <LocalizationProvider dateAdapter={AdapterMoment}>
-                    <DesktopDateRangePicker
-                      className="chart-bar__date-range-picker"
-                      startText="Start"
-                      value={currentTimeline.range}
-                      onChange={dateSelector}
-                      color={theme.palette?.bluegray.D4}
-                      renderInput={(startProps, endProps) => (
-                        <Box className="chart-bar__date-panel">
-                          <TextField color={theme.palette?.bluegray.D4} className="chart-bar__date-text" {...startProps} />
-                          <Box className="chart-bar__between-text"> to </Box>
-                          <TextField className="chart-bar__date-text" {...endProps} />
-                        </Box>
-                      )}
-                    />
-                  </LocalizationProvider>
-                  <Grid container justifyContent="center" sx={{ m: '10px', ml: '-10px' }}>
-                    <Grid item>
-                      <Button variant="contained" color="secondary" onClick={clearDate}>
-                        Clear Selection
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Box>
-                )}
             </RadioGroup>
           </Menu>
         </Grid>
