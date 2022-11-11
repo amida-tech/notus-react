@@ -18,12 +18,7 @@ $block-class: 'filter-drawer-item';
             margin: 0;
         }
 
-        & &__label {
-            color: $blue-grey-lighten-2;
-        }
-
         &__help-icon {
-            @extend .filter-drawer__help-icon; 
             margin-left: .5rem;
         }
 
@@ -36,7 +31,6 @@ $block-class: 'filter-drawer-item';
         }
 
         & &__option-label {
-            color: $blue-grey-lighten-2;
             font-size: 0.75rem;
             line-height: 1.66;
             letter-spacing: 0.03333em;

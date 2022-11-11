@@ -85,7 +85,7 @@ function ChartBar({
             }}
           >
             <RadioGroup
-              className="chart-bar__radio-panel"
+              sx={{ padding: '0 1rem' }}
               value={currentTimeline.choice}
             >
               {TimelineOptions.map((option) => (
@@ -106,6 +106,7 @@ function ChartBar({
           <Badge badgeContent={filterSum} className={`chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
             <Button
               className="chart-bar__filter-button"
+              sx={{ width: '7 rem', justifyContent: 'left' }}
               color="secondary"
               variant="text"
               onClick={onClickFilter}

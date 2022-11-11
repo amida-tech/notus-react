@@ -12,20 +12,10 @@ $block-class: 'filter-drawer';
             margin-top: 1rem;
         }
 
-        & &__title {
-            margin: .5rem 0;
-            color: $blue-grey-lighten-2;
-        }
-
         & &__refine-section {
             display: flex;
             flex-direction: row;
             align-items: center;
-        }
-
-        & &__refine-label {
-            color: $blue-grey-lighten-2;
-            margin-top:auto;
         }
 
         & &__reset-button {
@@ -38,19 +28,8 @@ $block-class: 'filter-drawer';
             height: 1.1rem;
         }
 
-        &__help-icon {
-            color: $blue-grey-lighten-4;
-            margin-bottom: 0.3rem;
-            margin-left: 0.5rem;
-
-            &:hover {
-                color: $primary-blue;
-            }
-        }
-
         & &__close-icon {
             margin: .75rem .4rem .2rem .2rem;
-            color: $blue-grey-lighten-2;
         }
         
         & &__options-section {
@@ -64,10 +43,6 @@ $block-class: 'filter-drawer';
             width: calc(100% + 1rem);
         }
 
-        &__slider-label {
-            color: $blue-grey-lighten-2;
-        }
-
         & &__slider-body {
             min-width: 9.5rem;
             margin-left: 0.6rem;
@@ -75,11 +50,7 @@ $block-class: 'filter-drawer';
 
         & &__slider {
             margin-top: 2rem;
-            color: $primary-blue;
             width: 80%;
-            .MuiSlider-markLabelActive {
-                color: $blue-grey-lighten-4;
-            }
         }
 
         & &__button-control-section {

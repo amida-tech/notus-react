@@ -2,6 +2,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import {
   Checkbox, FormControlLabel, FormGroup, Grid, Tooltip, Typography,
 } from '@mui/material';
+import theme from '../../assets/styles/AppTheme'
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -19,7 +20,7 @@ function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
         </Grid>
         <Grid item className="filter-drawer-item__row">
           <Tooltip title={filterItem.tip}>
-            <HelpIcon className="filter-drawer-item__help-icon" />
+            <HelpIcon sx={{ fill: theme.palette?.bluegray.L3 }} className="filter-drawer-item__help-icon" />
           </Tooltip>
         </Grid>
       </Grid>

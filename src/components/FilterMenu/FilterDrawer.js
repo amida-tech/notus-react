@@ -1,25 +1,19 @@
+import CancelIcon from '@mui/icons-material/Cancel';
 import CloseIcon from '@mui/icons-material/Close';
 import HelpIcon from '@mui/icons-material/Help';
-import CancelIcon from '@mui/icons-material/Cancel'
-import ToolTip from '@mui/material/Tooltip';
 import {
   Box, Button, Drawer, Grid, Slider, Typography,
 } from '@mui/material';
-import { useState, useContext } from 'react';
+import ToolTip from '@mui/material/Tooltip';
+import { useContext, useState } from 'react';
+import theme from '../../assets/styles/AppTheme';
 import { DatastoreContext } from '../../context/DatastoreProvider';
 import {
-  filterDrawerOpenProps,
-  currentFiltersProps,
-  toggleFilterDrawerProps,
-  handleFilterChangeProps,
-  setFilterActivatedProps,
-  additionalFilterOptionsProps,
-  setIsLoadingProps,
-  setCompositeProps,
-  setTableFilterProps,
-  setRowEntriesProps,
-  handleResetDataProps,
-} from '../ChartContainer/D3Props'
+  additionalFilterOptionsProps, currentFiltersProps, filterDrawerOpenProps,
+  handleFilterChangeProps, handleResetDataProps, setCompositeProps,
+  setFilterActivatedProps, setIsLoadingProps, setRowEntriesProps,
+  setTableFilterProps, toggleFilterDrawerProps,
+} from '../ChartContainer/D3Props';
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemData from './FilterDrawerItemData';
 
@@ -172,20 +166,34 @@ function FilterDrawer({
     >
       <Box
         className="filter-drawer"
+        sx={{ mb: 3 }}
         role="presentation"
         onKeyDown={toggleDrawer(false)}
       >
         <Grid container className="filter-drawer__title-section">
           <Grid item>
-            <Typography className="filter-drawer__title" variant="h6">Filters</Typography>
+            <Typography color={theme.palette?.bluegray.L2} sx={{ margin: '.5rem 0' }} variant="h6">Filters</Typography>
           </Grid>
           <Grid item className="filter-drawer__close-icon-panel">
-            <CloseIcon className="filter-drawer__close-icon" onClick={toggleDrawer(false)} />
+            <CloseIcon
+              color='primary'
+              sx={{
+                '&:hover': {
+                  cursor: 'pointer',
+                }
+              }}
+              onClick={toggleDrawer(false)}
+            />
           </Grid>
         </Grid>
         <Grid container className="filter-drawer__refine-section">
           <Grid item className="filter-drawer__refine-label-panel">
-            <Typography className="filter-drawer__refine-label" variant="body1">Refine by:</Typography>
+            <Typography
+              sx={{ marginTop: 'auto' }}
+              variant="body1"
+            >
+              Refine by:
+            </Typography>
           </Grid>
           <Grid item className="filter-drawer__refine-section">
             <Button
@@ -194,7 +202,7 @@ function FilterDrawer({
               onClick={handleResetFilter}
             >
               Reset Filters
-              <CancelIcon className="filter-drawer__cancel-icon" />
+              <CancelIcon color="primary" className="filter-drawer__cancel-icon" />
             </Button>
           </Grid>
         </Grid>
@@ -206,16 +214,33 @@ function FilterDrawer({
           />
           <Grid container item className="filter-drawer__slider-section">
             <Grid item className="filter-drawer__slider-title">
-              <Typography className="filter-drawer__slider-label" variant="body1">Percent Range:</Typography>
+              <Typography color="secondary" className="filter-drawer__slider-label" variant="body1">Percent Range:</Typography>
             </Grid>
             <Grid item className="filter-drawer__help-panel">
               <ToolTip title={sliderTip}>
-                <HelpIcon className="filter-drawer__help-icon" />
+                <HelpIcon
+                  sx={{
+                    margin: '0 .5rem .3rem 0',
+                    fill: theme.palette?.bluegray.L3,
+                  }}
+                />
               </ToolTip>
             </Grid>
           </Grid>
           <Grid item className="filter-drawer__slider-body">
             <Slider
+              sx={{
+                '& .MuiSlider-valueLabel': {
+                  backgroundColor: theme.palette?.primary.main,
+                },
+                '& .MuiSlider-thumb': {
+                  backgroundColor: theme.palette?.bluegray.D1,
+                },
+                '& .MuiSlider-track': {
+                  color: theme.palette?.bluegray.L3,
+                },
+              }}
+              color="secondary"
               getAriaLabel={() => 'Measurement percentage range'}
               getAriaValueText={sliderValueText}
               defaultValue={percentSliderValue}

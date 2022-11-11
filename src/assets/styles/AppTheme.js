@@ -54,7 +54,15 @@ const theme = createTheme({
   typography: {
     color: '#263238',
   },
+
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: '#546E7A',
+        },
+      },
+    },
 
     MuiLink: {
       styleOverrides: {
@@ -63,6 +71,28 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          transition: '400ms !important',
+          '&:hover': {
+            cursor: 'pointer',
+            animationTimingFunction: 'ease=in-out',
+          },
+        },
+      },
+    },
+
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            fill: '#1976D2',
+          }
+        }
+      }
+    }
 
   },
   shape: {
