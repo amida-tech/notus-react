@@ -78,7 +78,7 @@ const theme = createTheme({
           transition: '400ms !important',
           '&:hover': {
             cursor: 'pointer',
-            animationTimingFunction: 'ease=in-out',
+            animationTimingFunction: 'ease-in-out',
           },
         },
       },
