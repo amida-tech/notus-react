@@ -56,6 +56,7 @@ const theme = createTheme({
   },
 
   components: {
+
     MuiTypography: {
       styleOverrides: {
         root: {
@@ -68,6 +69,18 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textDecoration: 'none',
+        },
+      },
+    },
+
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          transition: '400ms !important',
+          '&:hover': {
+            cursor: 'pointer',
+            animationTimingFunction: 'ease-in-out',
+          },
         },
       },
     },

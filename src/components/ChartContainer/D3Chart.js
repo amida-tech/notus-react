@@ -214,7 +214,12 @@ function D3Chart({
       .style('fill', 'none');
   });
   return (
-    <div className="d3-chart">
+    <div className="d3-chart"
+      style={{
+        fill: theme.palette?.secondary.main,
+        color: theme.palette?.secondary.main,
+      }}
+    >
       <svg ref={D3LineChart} />
     </div>
   );
