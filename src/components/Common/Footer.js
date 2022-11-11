@@ -1,5 +1,5 @@
 import { Box, Typography, Link } from '@mui/material';
-import { blueGrey } from '@mui/material/colors'
+import theme from '../../assets/styles/AppTheme'
 import amidaLogo from '../../assets/img/amida_logo.png'
 
 export default function Footer() {
@@ -17,7 +17,7 @@ export default function Footer() {
       >
         <Box
           sx={{
-            backgroundColor: blueGrey[900],
+            backgroundColor: theme.palette?.bluegray.D3,
             marginTop: '4rem',
             height: '.2rem',
             width: '90%',
@@ -43,7 +43,7 @@ export default function Footer() {
               &nbsp;
               {new Date().getFullYear()}
             </Typography>
-            <Link variant="body1" href="https://www.amida.com/" color={blueGrey[700]}>
+            <Link variant="body1" href="https://www.amida.com/" color={theme.palette?.bluegray.main}>
               &nbsp;
               AMIDA TECHNOLOGY SOLUTIONS
               &nbsp;
@@ -54,10 +54,10 @@ export default function Footer() {
             display: 'flex', alignItems: 'center', width: '95%', placeContent: 'flex-end',
           }}
           >
-            <Link variant="body1" color={blueGrey[700]} href="https://www.amida.com/" sx={{ marginRight: '1.5rem' }}>
+            <Link variant="body1" color={theme.palette?.bluegray.D1} href="https://www.amida.com/" sx={{ marginRight: '1.5rem' }}>
               Amida
             </Link>
-            <Link variant="body1" color={blueGrey[700]} href="https://github.com/amida-tech/saraswati-dashboard/blob/develop/LICENSE.md">
+            <Link variant="body1" color={theme.palette?.bluegray.D1} href="https://github.com/amida-tech/saraswati-dashboard/blob/develop/LICENSE.md">
               MIT License
             </Link>
           </Box>

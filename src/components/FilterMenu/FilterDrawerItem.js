@@ -2,9 +2,9 @@ import HelpIcon from '@mui/icons-material/Help';
 import {
   Checkbox, FormControlLabel, FormGroup, Grid, Tooltip, Typography,
 } from '@mui/material';
-import theme from '../../assets/styles/AppTheme'
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
 
 function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
   const [defaultCheck] = useState(Array.from(currentFilter));

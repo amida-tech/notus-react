@@ -2,8 +2,7 @@
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
-
-import { grey, blueGrey } from '@mui/material/colors'
+import theme from '../../assets/styles/AppTheme'
 
 import { TickChange, TimelineOptions } from '../Utilities/ChartUtil';
 import { colorMappingProps } from './D3Props';
@@ -167,7 +166,7 @@ function D3Chart({
       tooltip.text(`${measureDisplay} \n ${valueDisplay} \n ${dateDisplay}`);
       const { color } = colorMapping.find(
         (mapping) => mapping.value === event.target.__data__[0].measure,
-      ) || grey[900];
+      ) || theme.palette?.bluegray.D1;
       const leftPosition = (event.pageX > width) ? event.pageX - 176 : event.pageX + 10
       return tooltip
         .attr('data-html', 'true')
@@ -187,7 +186,8 @@ function D3Chart({
           .attr('fill', 'none')
           .attr(
             'stroke',
-            colorMapping.find((mapping) => mapping.value === measure)?.color || grey[900],
+            colorMapping.find((mapping) => mapping.value === measure)?.color
+              || theme.palette?.bluegray.D1,
           )
           .attr('opacity', '.50')
           .attr('stroke-width', 5)
@@ -210,7 +210,7 @@ function D3Chart({
       .attr('x2', width)
       .attr('y2', height - margin.bottom)
       .style('stroke-width', 1)
-      .style('stroke', blueGrey[100])
+      .style('stroke', theme.palette?.bluegray.L3)
       .style('fill', 'none');
   });
   return (

@@ -89,10 +89,10 @@ const theme = createTheme({
         root: {
           '&:hover': {
             fill: '#1976D2',
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
 
   },
   shape: {

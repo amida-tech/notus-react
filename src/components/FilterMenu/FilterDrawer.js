@@ -176,11 +176,11 @@ function FilterDrawer({
           </Grid>
           <Grid item className="filter-drawer__close-icon-panel">
             <CloseIcon
-              color='primary'
+              color="primary"
               sx={{
                 '&:hover': {
                   cursor: 'pointer',
-                }
+                },
               }}
               onClick={toggleDrawer(false)}
             />
