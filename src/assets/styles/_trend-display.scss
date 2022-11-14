@@ -27,14 +27,6 @@ $block-class: 'trend-display';
             font-size: 2.5rem;
             font-weight: 500;
 
-            &--positive {
-                color: $green-text;
-            }
-
-            &--negative {
-                color: $default-red;
-            }
-
             &--hide {
                 display: none;
             }
