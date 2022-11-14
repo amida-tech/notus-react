@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import theme from '../../assets/styles/AppTheme'
 
 const Queries = [
   { name: 'Yearly Comparison' },
@@ -9,7 +10,13 @@ const Queries = [
 
 export default function SavedQueries() {
   return (
-    <Box className="saved-queries">
+    <Box
+      sx={{
+        color: theme.palette?.bluegray.D1,
+        border: `1px solid ${theme.palette?.bluegray.L3}`
+      }}
+      className="saved-queries"
+    >
       <Typography variant="h2" className="saved-queries__h2-header">Saved Queries</Typography>
       <Typography className="saved-queries__text">
         Generate data based off your previous queries.

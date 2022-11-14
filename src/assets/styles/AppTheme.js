@@ -100,9 +100,9 @@ const theme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          '&:hover': {
-            fill: '#1976D2',
-          },
+          // '&:hover': {
+          //   fill: '#1976D2',
+          // },
         },
       },
     },

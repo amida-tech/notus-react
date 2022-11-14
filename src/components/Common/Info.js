@@ -4,6 +4,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import {
   Typography, Box, IconButton, Button,
 } from '@mui/material';
+import theme from '../../assets/styles/AppTheme'
 
 function Info({ infoText }) {
   const [displayInfo, setDisplayInfo] = useState(false);
@@ -17,10 +18,19 @@ function Info({ infoText }) {
         aria-label="info-button"
         onClick={() => setDisplayInfo(!displayInfo)}
       >
-        <InfoIcon className="info__info-icon" fontSize="small" />
+        <InfoIcon
+          color="primary"
+          sx={{
+            '&:hover': {
+              fill: theme.palette?.primary.dark,
+            },
+          }}
+          className="info__info-icon"
+          fontSize="small"
+        />
       </IconButton>
       { displayInfo && (
-      <Box className="info__info-box">
+      <Box sx={{ backgroundColor: theme.palette?.primary.light}} className="info__info-box">
         <Typography className="info__text">
           {infoText}
         </Typography>
