@@ -57,7 +57,7 @@ const headerData = [
 
 const formatData = (memberData, selectedMeasure, storeInfo) => {
   const complianceResult = getMeasureCompliance(memberData);
-  const measureData = memberData[memberData.memberId];
+  const measureData = memberData.result;
   const measureList = Object.keys(storeInfo).filter((key) => key.includes(selectedMeasure));
 
   const formattedData = [];
