@@ -166,7 +166,7 @@ function D3Chart({
       tooltip.text(`${measureDisplay} \n ${valueDisplay} \n ${dateDisplay}`);
       const { color } = colorMapping.find(
         (mapping) => mapping.value === event.target.__data__[0].measure,
-      ) || theme.palette?.bluegray.D1;
+      ) || theme.palette.primary;
       const leftPosition = (event.pageX > width) ? event.pageX - 176 : event.pageX + 10
       return tooltip
         .attr('data-html', 'true')
@@ -214,7 +214,8 @@ function D3Chart({
       .style('fill', 'none');
   });
   return (
-    <div className="d3-chart"
+    <div
+      className="d3-chart"
       style={{
         fill: theme.palette?.secondary.main,
         color: theme.palette?.secondary.main,

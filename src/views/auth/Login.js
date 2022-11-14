@@ -20,7 +20,7 @@ export default function Login() {
         SARASWATI
       </Typography>
 
-      <Paper sx={{ backgroundColor: theme.palette?.primary.transparent}} className="login__header-section">
+      <Paper sx={{ backgroundColor: theme.palette?.primary.transparent }} className="login__header-section">
 
         <Grid container spacing={2}>
           <Grid item xs={6} md={9}>
