@@ -34,7 +34,6 @@ $block-class: 'member-report';
         }
 
         & &__member-card {
-            border: 1px solid $blue-grey-darken-4;
             border-radius: 3px;
             padding: 32px 24px;
             margin: 0 1rem;
@@ -45,7 +44,6 @@ $block-class: 'member-report';
         }
 
         & &__insurance-card {
-            border: 1px solid $blue-grey-darken-4;
             border-radius: 3px;
             margin: 0 1rem;
             display: grid;
@@ -57,7 +55,6 @@ $block-class: 'member-report';
             display: flex;
             margin-bottom: 0.5rem;
             align-items: center;
-            color: $blue-grey-darken-4;
         }
 
         & &__info-label {
@@ -73,39 +70,6 @@ $block-class: 'member-report';
         & &__coverage {
             text-transform: uppercase;
             margin-top: 0.05rem;
-            
-            &--active { 
-                color: $green-text;
-            }
-
-            &--inactive {
-                color: $default-red;
-            }
-        }
-
-        & &__loading-container {
-            display: flex;
-            justify-content: center;            
-        }
-
-        & &__loading-spinner {
-            color: $blue-grey-darken-1;
-            margin: 5rem auto;
-        }
-
-        & &__accordion-summary {
-            color: $blue-grey-darken-4;
-            background-color: $blue-grey-lighten-3;
-        }
-
-        & &__accordion-text {
-            color: $blue-grey-darken-4;
-            margin: 1rem;
-        }
-
-        & &__table-display {
-            border: 1px solid $blue-grey-darken-4;
-            border-radius: 3px;
         }
     }
 }

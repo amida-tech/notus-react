@@ -4,9 +4,9 @@ import {
   Accordion, AccordionDetails, AccordionSummary, Box, Button, List, ListItem,
   ListItemText, Typography, Link,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
 import Banner from '../Common/Banner';
 import Info from '../Common/Info';
 import { getAge, updateTimestamp } from '../Utilities/GeneralUtil';
@@ -26,7 +26,6 @@ function MemberReportDisplay({
   rowData,
   description,
 }) {
-  const theme = useTheme()
   const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main
   const descriptionCreator = (descriptionArr) => {
     let descrip = ''
@@ -81,7 +80,10 @@ function MemberReportDisplay({
 
       <Box className="member-report__info-display">
         {/* General info box */}
-        <List className="member-report__member-card">
+        <List
+          sx={{ border: `1px solid ${theme.palette?.bluegray.D4}` }}
+          className="member-report__member-card"
+        >
           <ListItem disablePadding className="member-report__info-field">
             <ListItemText
               sx={{ m: 0, display: 'flex', gap: '.5rem' }}
@@ -143,7 +145,10 @@ function MemberReportDisplay({
           </ListItem>
         </List>
         {/* Insurance box */}
-        <Box className="member-report__insurance-card">
+        <Box
+          sx={{ border: `1px solid ${theme.palette?.bluegray.D4}` }}
+          className="member-report__insurance-card"
+        >
           <MemberReportInsurance
             memberInfo={memberInfo}
           />
@@ -159,16 +164,29 @@ function MemberReportDisplay({
         </Box>
       </Box>
       <Accordion defaultExpanded>
-        <AccordionSummary className="member-report__accordion-summary" expandIcon={<ExpandMoreIcon />}>
+        <AccordionSummary
+          sx={{
+            color: theme.palette?.bluegray.D4,
+            backgroundColor: theme.palette?.bluegray.L3,
+          }}
+          expandIcon={<ExpandMoreIcon />}
+        >
           <Typography variant="h4">
             {`${datastoreInfo[memberInfo.measurementType]?.displayLabel || '???'} - ${datastoreInfo[memberInfo.measurementType]?.title || 'Undefined Measure'}`}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Box className="member-report__accordion-text">
+          <Box
+            sx={{ color: theme.palette?.bluegray.D4, margin: '1rem' }}
+          >
             {descriptionCreator(description)}
           </Box>
-          <Box className="member-report__table-display">
+          <Box
+            sx={{
+              border: `1px solid ${theme.palette?.bluegray.D4}`,
+              borderRadius: '3px',
+            }}
+          >
             <MemberReportTable
               rowData={rowData}
             />

@@ -5,8 +5,8 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import CancelIcon from '@mui/icons-material/Cancel';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
-import theme from '../../assets/styles/AppTheme'
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
 
 function TextRowGenerator(text) {
   return (
@@ -36,7 +36,7 @@ function IconRowGenerator(result, extraInfo) {
 function ArrayRowGenerator(info, extraInfo) {
   return (
     <Grid className="report-table-row__array-cell">
-      {extraInfo && <CheckCircleIcon color={theme.palette?.success}/>}
+      {extraInfo && <CheckCircleIcon color={theme.palette?.success} />}
       {info}
     </Grid>
   )
