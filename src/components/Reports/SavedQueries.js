@@ -13,7 +13,7 @@ export default function SavedQueries() {
     <Box
       sx={{
         color: theme.palette?.bluegray.D1,
-        border: `1px solid ${theme.palette?.bluegray.L3}`
+        border: `1px solid ${theme.palette?.bluegray.L3}`,
       }}
       className="saved-queries"
     >

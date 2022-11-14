@@ -1,8 +1,8 @@
 import {
   Box, Checkbox, Divider, FormControlLabel, FormGroup, Typography,
 } from '@mui/material';
-import theme from '../../assets/styles/AppTheme'
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
 import MemberSearch from '../Utilities/MemberSearch';
 
 const memberComplianceItems = [

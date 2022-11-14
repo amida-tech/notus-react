@@ -32,7 +32,6 @@ $block-class: 'report-table-row';
         }
 
         & &__data {
-            color: $blue-grey-darken-4;
             font-size:.9rem;
         }
 
@@ -47,28 +46,10 @@ $block-class: 'report-table-row';
             align-items: center;
             min-height: 3.5rem;
             max-height: 3.5rem;
-
-            &--matched {
-                color: $green-icon;
-            }
-    
-            &--unmatched {
-                color: $default-red;
-            }
         }
 
         & &__array-cell {
             display: flex;
-        }
-
-        & &__condition-icon {
-            &--good {
-                color: $green-text;
-            }
-    
-            &--bad {
-                color: $default-red;
-            }
         }
     }
 }

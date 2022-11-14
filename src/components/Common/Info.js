@@ -30,7 +30,7 @@ function Info({ infoText }) {
         />
       </IconButton>
       { displayInfo && (
-      <Box sx={{ backgroundColor: theme.palette?.primary.light}} className="info__info-box">
+      <Box sx={{ backgroundColor: theme.palette?.primary.light }} className="info__info-box">
         <Typography className="info__text">
           {infoText}
         </Typography>
