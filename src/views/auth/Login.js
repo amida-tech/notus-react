@@ -20,7 +20,7 @@ export default function Login() {
         SARASWATI
       </Typography>
 
-      <Paper className="login__header-section">
+      <Paper sx={{ backgroundColor: theme.palette?.primary.transparent}} className="login__header-section">
 
         <Grid container spacing={2}>
           <Grid item xs={6} md={9}>
@@ -85,7 +85,7 @@ export default function Login() {
               }}
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: theme.palette?.bluegray.D4,
+                  backgroundColor: theme.palette?.bluegray.L4,
                 },
               }}
               placeholder="Username or email address"
@@ -105,7 +105,7 @@ export default function Login() {
               margin="dense"
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: theme.palette?.bluegray.D4,
+                  backgroundColor: theme.palette?.bluegray.L4,
                 },
               }}
               InputProps={{
