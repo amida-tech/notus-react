@@ -4,16 +4,16 @@ import {
 } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { useTheme } from '@mui/material/styles';
 
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
+import theme from '../../assets/styles/AppTheme'
 
-function RowGenerator(link, key, rowDataItem, ciseCheck, theme) {
+function RowGenerator(link, key, rowDataItem, ciseCheck) {
   if (link) {
     return (
       <Link
-        style={{ color: theme.palette.primary.main }}
+        style={{ color: theme.palette?.primary.main }}
         component={RouterLink}
         to={{ pathname: `/member/${rowDataItem.value}` }}
       >
@@ -41,8 +41,6 @@ function RowGenerator(link, key, rowDataItem, ciseCheck, theme) {
 function MemberTableRow({
   rowDataItem, headerInfo,
 }) {
-  const theme = useTheme()
-
   const ciseCheck = headerInfo[1].header === 'CIS-E' ? 'cise' : 'member'
   return (
     <Box className={`${ciseCheck}-table-row`} aria-label={`${rowDataItem.value} row`}>
@@ -54,7 +52,7 @@ function MemberTableRow({
             className={`${ciseCheck}-table-row__data-align ${ciseCheck}-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
-            <Typography variant="caption" className={`${ciseCheck}-table-row__data`}>
+            <Typography variant="caption" color={theme.palette?.bluegray.D4} className={`${ciseCheck}-table-row__data`}>
               {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem, ciseCheck, theme)}
             </Typography>
           </Grid>

@@ -12,13 +12,6 @@ $block-class: 'd3-container';
             width: 100;
         }
 
-        & &__table-tab-bar {
-            height: 4rem;
-            outline: $outline-blue solid 1px;
-            border-radius: 3px;
-            background-color: $primary-blue;
-        }
-
         & &__table-selection-button {
             color: $secondary-blue;
             max-height: 2.2rem;

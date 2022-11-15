@@ -6,7 +6,7 @@ $block-class: 'display-table';
 
 @at-root {
     .#{$block-class} {
-        overflow-x: auto;
+        overflow-x: hidden;
         padding: 0 0 0.5rem 0;
         max-height: 40rem;
         margin: 1rem 0;

@@ -3,6 +3,7 @@ import {
 } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
 import MemberTable from '../Utilities/MemberTable';
 import MeasureTable from '../Utilities/MeasureTable';
 
@@ -27,7 +28,6 @@ import TableFilterPanel from './TableFilterPanel';
 import DisplayTable from './DisplayTable';
 import MeasureSelector from '../Common/MeasureSelector';
 import MeasureTableRow from './MeasureTableRow';
-import theme from '../../assets/styles/AppTheme'
 
 function DisplayTableContainer({
   activeMeasure,
@@ -49,15 +49,36 @@ function DisplayTableContainer({
     <Grid className="d3-container__bottom-display">
       <Box className="d3-container__overview-member-chart">
         <TabContext value={tabValue}>
-          <Box className="d3-container__table-tab-bar">
+          <Box
+            sx={{
+              height: '4rem',
+              outline: `${theme.palette?.primary.dark} solid 1px`,
+              backgroundColor: theme.palette?.primary.main,
+            }}
+          >
             {isComposite ? (
               <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+                <Tab
+                  className="d3-container__table-selection-button"
+                  sx={{
+                    color: theme.palette?.primary.light,
+                  }}
+                  label="Overview"
+                  value="overview"
+                />
               </TabList>
             ) : (
               <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
-                <Tab className="d3-container__table-selection-button" label="Members" value="members" />
+                <Tab
+                  className="d3-container__table-selection-button"
+                  label="Overview"
+                  value="overview"
+                />
+                <Tab
+                  className="d3-container__table-selection-button"
+                  label="Members"
+                  value="members"
+                />
               </TabList>
             )}
           </Box>
