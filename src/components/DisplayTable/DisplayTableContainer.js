@@ -46,7 +46,10 @@ function DisplayTableContainer({
   handleResetData,
 }) {
   return (
-    <Grid className="d3-container__bottom-display">
+    <Grid
+      sx={{ outline: `${theme.palette?.primary.dark} solid 1px` }}
+      className="d3-container__bottom-display"
+    >
       <Box className="d3-container__overview-member-chart">
         <TabContext value={tabValue}>
           <Box
@@ -87,7 +90,12 @@ function DisplayTableContainer({
             {headerInfo[0].header !== 'Sub-Measure'
               ? (
                 <Grid className="d3-container__measure-selector">
-                  <Typography className="d3-container__selector-title">Detailed View:</Typography>
+                  <Typography
+                    color={theme.palette?.bluegray.D4}
+                    className="d3-container__selector-title"
+                  >
+                    Detailed View:
+                  </Typography>
                   <MeasureSelector
                     measure={activeMeasure.measure}
                     currentResults={store.currentResults}
@@ -126,7 +134,7 @@ function DisplayTableContainer({
               tableFilter={tableFilter}
               handleTableFilterChange={handleTableFilterChange}
             />
-            <Box className="d3-container__entries-display">
+            <Box sx={{ color: theme.palette?.bluegray.D1 }} className="d3-container__entries-display">
               Results:&nbsp;
               <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
                 &nbsp;Entries Found
