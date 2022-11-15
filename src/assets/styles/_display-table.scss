@@ -6,7 +6,6 @@ $block-class: 'display-table';
 
 @at-root {
     .#{$block-class} {
-        color: $blue-grey-darken-1;
         overflow-x: auto;
         padding: 0 0 0.5rem 0;
         max-height: 40rem;
@@ -17,7 +16,6 @@ $block-class: 'display-table';
             position: -webkit-sticky;
             top: 0;
             display: flex;
-            background-color: $default-white;
             z-index: 5;
             margin: 0;
             height: 4rem;
@@ -25,11 +23,6 @@ $block-class: 'display-table';
             flex-wrap: nowrap;
             align-self: center;
             text-align: -webkit-center;
-
-            &--inverted {
-                background-color: $blue-grey-darken-1;
-                color: $blue-grey-lighten-5;
-            }
     
             &--wide {
                 justify-content: flex-start;
@@ -115,16 +108,6 @@ $block-class: 'display-table';
         & &__row:nth-of-type(2n) {
             background-color: $blue-grey-lighten-5;
         }
-
-        & &__header-divider {
-          background-color: $blue-grey-lighten-3;
-          height: 1px;
-        }
-
-        & &__pagination {
-            color: $blue-grey-darken-4;
-            margin-left: auto;
-        }
     }
 
     .MuiTablePagination-menuItem {
@@ -145,20 +128,5 @@ $block-class: 'display-table';
     .MuiTablePagination-displayedRows{
         font-weight: 800;
         font-size: .9rem;
-    }
-
-    .MuiTablePagination-toolbar {
-        color: $blue-grey-lighten-1;
-        font-weight: 700;
-    }
-
-    .MuiPaginationItem-root {
-        color: $blue-grey-darken-1;
-        border-radius: 3px;
-        border: .1rem solid $blue-grey-lighten-3;
-    }
-
-    .MuiList-root {
-        color: $blue-grey-lighten-1;
     }
 }
