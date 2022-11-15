@@ -16,6 +16,8 @@ $block-class: 'd3-chart';
     }
 
     &__y-axis {
+      // unused but maybe important later
+      display: block;
     }
 
     &__stroke-stroke-width-opacity {
