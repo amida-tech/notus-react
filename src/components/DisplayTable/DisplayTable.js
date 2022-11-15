@@ -69,6 +69,8 @@ function DisplayTable({
               className="cise-table__header-section"
               sx={{
                 backgroundColor: theme.palette?.background.main,
+                color: theme.palette?.bluegray.D1,
+                padding: '.5rem 0'
               }}
             >
               {useCheckBox && (
@@ -155,7 +157,13 @@ function DisplayTable({
         className="display-table"
         sx={{ flexDirection: nonCiseOverviewCheck, color: theme.palette?.bluegray.D1 }}
       >
-        <Grid container item className="display-table__header-section">
+        <Grid
+          sx={{
+            backgroundColor: theme.palette?.background.main,
+          }}
+          container item
+          className="display-table__header-section"
+        >
           {useCheckBox && (
             <CheckBoxCell
               handleCheckBoxEvent={handleCheckBoxChange}

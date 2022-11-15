@@ -6,8 +6,6 @@ $block-class: 'cise-table';
 
 @at-root {
     .#{$block-class} {
-        color: $blue-grey-darken-1;
-        padding: 0.5rem 0;
 
         & &__header-section {
             display: grid;
@@ -17,11 +15,6 @@ $block-class: 'cise-table';
             margin-left: 0.5rem;
             text-align: -webkit-center;
             grid-template-columns: 11.5rem repeat(15, 1fr);
-
-            &--inverted {
-                background-color: $blue-grey-darken-1;
-                color: $blue-grey-lighten-5;
-            }
     
             &--wide {
                 justify-content: flex-start;
@@ -111,45 +104,5 @@ $block-class: 'cise-table';
         & &__data-display::-webkit-scrollbar {
             display: none;
         }
-
-        & &__pagination {
-            color: $blue-grey-darken-4;
-            margin-left: auto;
-        }
-    }
-
-    .MuiTablePagination-menuItem {
-        font-weight: 800;
-        font-size: .9rem;
-    }
-
-    .MuiTablePagination-selectLabel{
-        font-weight: 800;
-        font-size: .9rem;
-    }
-
-    .MuiTablePagination-select{
-        font-weight: 800;
-        font-size: .9rem;
-    }
-
-    .MuiTablePagination-displayedRows{
-        font-weight: 800;
-        font-size: .9rem;
-    }
-
-    .MuiTablePagination-toolbar {
-        color: $blue-grey-lighten-1;
-        font-weight: 700;
-    }
-
-    .MuiPaginationItem-root {
-        color: $blue-grey-darken-1;
-        border-radius: 3px;
-        border: .1rem solid $blue-grey-lighten-3;
-    }
-
-    .MuiList-root {
-        color: $blue-grey-lighten-1;
     }
 }

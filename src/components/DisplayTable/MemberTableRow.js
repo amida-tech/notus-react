@@ -53,7 +53,7 @@ function MemberTableRow({
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
             <Typography variant="caption" color={theme.palette?.bluegray.D4} className={`${ciseCheck}-table-row__data`}>
-              {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem, ciseCheck, theme)}
+              {RowGenerator(fieldInfo.link, fieldInfo.key, rowDataItem, ciseCheck)}
             </Typography>
           </Grid>
         ))}
