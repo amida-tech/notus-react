@@ -17,7 +17,7 @@ $block-class: 'display-table';
             top: 0;
             display: flex;
             z-index: 5;
-            margin: 0;
+            margin: 0 0 0 .5rem;
             height: 4rem;
             align-items: center;
             flex-wrap: nowrap;
@@ -103,10 +103,6 @@ $block-class: 'display-table';
 
         & &__row {
             width: 100%;
-        }
-
-        & &__row:nth-of-type(2n) {
-            background-color: $blue-grey-lighten-5;
         }
     }
 

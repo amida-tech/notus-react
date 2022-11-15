@@ -146,7 +146,8 @@ function D3Chart({
     const tooltip = d3
       .select('body')
       .append('div')
-      .attr('class', 'd3-chart__tooltip');
+      .attr('class', 'd3-chart__tooltip')
+      .style('border', theme.palette?.bluegray.D4);
     const toolTipGenerator = (event) => {
       const normalizeTicks = dataCount - event.srcElement.__data__.length;
       const tickWidth = (width / (dataCount - 1));
@@ -171,6 +172,8 @@ function D3Chart({
       return tooltip
         .attr('data-html', 'true')
         .style('background-color', color)
+        .style('color', theme.palette?.primary.light)
+        .style('text-shadow', `1px 1px ${theme.palette?.primary.main}`)
         .style('visibility', 'visible')
         .style('width', '168px')
         .style('top', `${event.pageY - 10}px`)
