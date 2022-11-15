@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 
 import { Grid, Typography } from '@mui/material';
-import theme from '../../assets/styles/AppTheme'
-
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import theme from '../../assets/styles/AppTheme'
 
 function ChartHeader({
   isComposite,

@@ -70,7 +70,7 @@ function DisplayTable({
               sx={{
                 backgroundColor: theme.palette?.background.main,
                 color: theme.palette?.bluegray.D1,
-                padding: '.5rem 0'
+                padding: '.5rem 0',
               }}
             >
               {useCheckBox && (
@@ -161,7 +161,8 @@ function DisplayTable({
           sx={{
             backgroundColor: theme.palette?.background.main,
           }}
-          container item
+          container
+          item
           className="display-table__header-section"
         >
           {useCheckBox && (
