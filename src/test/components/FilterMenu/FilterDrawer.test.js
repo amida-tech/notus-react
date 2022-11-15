@@ -63,7 +63,9 @@ describe('FilterDrawer', () => {
     const startPoint = sliderPoints[0]
     const endPoint = sliderPoints[1]
 
-    // values of slider points -- aria-valuetext OR aria-valuenow -- to match given filter percentageRange value
+    // values of slider points
+    // -- aria-valuetext OR aria-valuenow --
+    // to match given filter percentageRange value
     expect(startPoint.getAttribute('aria-valuenow')).toBe('5')
     expect(endPoint.getAttribute('aria-valuenow')).toBe('95')
 

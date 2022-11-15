@@ -3160,7 +3160,7 @@ export const memberInfo = {
       display: 'Dr. Marc Weber, General Practitioner',
     },
   ],
-  'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad': {
+  result: {
     'Initial Population': [
       '2022-04-14',
     ],
