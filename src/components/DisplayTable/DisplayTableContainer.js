@@ -1,5 +1,5 @@
 import {
-  Grid, Typography, Box, Tab, Button,
+  Grid, Typography, Box, Button,
 } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import PropTypes from 'prop-types';
@@ -30,8 +30,6 @@ import TableFilterPanel from './TableFilterPanel';
 import DisplayTable from './DisplayTable';
 import MeasureSelector from '../Common/MeasureSelector';
 import MeasureTableRow from './MeasureTableRow';
-
-
 
 function DisplayTableContainer({
   activeMeasure,
