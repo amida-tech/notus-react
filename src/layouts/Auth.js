@@ -5,7 +5,6 @@ import Register from '../views/auth/Register';
 import image from '../assets/img/loginbg.jpg'
 
 export default function Auth() {
-
   return (
     <main
       style={{

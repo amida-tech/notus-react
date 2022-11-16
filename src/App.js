@@ -36,53 +36,74 @@ const action = (setShowWelcome) => (
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
-  const [isLoaded, setLoaded] = useState(false);
 
-  function ProtectedRoute() {
-    return authenticated
-      ? <ProtectedRoutes loggedIn={authenticated} />
-      : <Navigate to="/welcome" />
+  function ProtectedRoute({loggedIn}) {
+    console.log('should we show dash?', loggedIn)
+    return loggedIn
+      ? <ProtectedRoutes authenticated={loggedIn} />
+      : <Login />
   }
 
   useEffect(() => { // Check for .env first.
-    
-    console.log('env app auth:',
-      env.REACT_APP_AUTH
-    )
+    console.log('ARE WE AUTHENTICATED?', authenticated)
+    console.log('WHAT DOES THE ENV SAY?', env.REACT_APP_AUTH)
+    let accessToken;
 
-    if (env.REACT_APP_AUTH !== 'false') {
-      setAuthenticated(true);
-      setLoaded(true);
+    console.log('checking storage')
+    accessToken = localStorage.getItem('token')
+    console.log('did we find a token?', accessToken)
+    // finding a token, at root
+
+    if (accessToken) {
+      validateAccessToken(accessToken)
+        .then((loggedIn) => {
+          console.log('logged in?', loggedIn)
+          setShowWelcome(true);
+          setAuthenticated(loggedIn);
+        })
       return;
     }
+
+    // NO TOKEN IN STORAGE
+    console.log('we did not find a token in storage, checking url...')
 
     const { hash } = window.location;
     const urlParams = new URLSearchParams(hash);
-    let accessToken = urlParams.get('access_token');
+    accessToken = urlParams.get('access_token')
+    console.log('INIT:', accessToken, 'TYPE:', typeof accessToken)
 
-    console.log('access token', accessToken)
+    // check for access token, proceed
+    // check if on local storage, validate
+    // check for null
 
-    if (accessToken) { // Check if redirect
+    // WE GOT TOKEN
+    if (accessToken) {
+      console.log('ACCESS TOKEN EXISTS!', accessToken, typeof accessToken)
       setShowWelcome(true);
       localStorage.setItem('token', accessToken);
+      setShowWelcome(true);
       setAuthenticated(true);
-      setLoaded(true);
-      window.history.replaceState({}, document.title, '/');
       return;
-    }
 
-    accessToken = localStorage.getItem('token');
-
-    if (accessToken) { // Otherwise check existing token.
-      validateAccessToken(accessToken)
-        .then((loggedIn) => {
-          setAuthenticated(loggedIn);
-          setLoaded(true);
-        })
+      // NO TOKEN IN URL? CHECK LOCALLY
     } else {
-      setLoaded(true);
+        const { hash } = window.location;
+        const urlParams = new URLSearchParams(hash);
+        accessToken = urlParams.get('access_token')
+
+        console.log('ACCESS TOKEN NULL')
+        return;
+
+        // if (accessToken) { // Check if redirect
+        //   setShowWelcome(true);
+        //   localStorage.setItem('token', accessToken);
+        //   setAuthenticated(true);
+        //   return;
+        // }
+
     }
-  }, [setShowWelcome, setAuthenticated, setLoaded]);
+
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -99,7 +120,7 @@ export default function App() {
       />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ProtectedRoute />} />
+          <Route exact path="/" element={<ProtectedRoute loggedIn={authenticated} />} />
           <Route path="/welcome" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

@@ -19,6 +19,8 @@
     "gulp": "^4.0.2",
     "gulp-append-prepend": "1.0.9",
     "moment": "2.29.4",
+    "ncu": "^0.2.1",
+    "npm-check-updates": "^16.4.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "18.2.0",
