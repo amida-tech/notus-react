@@ -25,7 +25,7 @@ function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
         </Grid>
       </Grid>
       <FormGroup className="filter-drawer-item__options">
-        {filterItem.options.map((option, index) => (
+        {filterItem.options?.map((option, index) => (
           <FormControlLabel
             key={`filter-drawer-item-option-${option}`}
             componentsProps={{ typography: { className: 'filter-drawer-item__option-label' } }}
