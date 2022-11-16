@@ -1,7 +1,6 @@
 @use 'rating-trends';
 
 $block-class: 'trend-display';
-@import 'colors';
 
 @at-root {
     .#{$block-class} {
