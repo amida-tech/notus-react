@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function ScrollToTop({ history }) {
+  const navigate = useNavigate();
+
   useEffect(() => {
     const unlisten = history.listen(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -12,7 +14,7 @@ function ScrollToTop({ history }) {
     }
   }, [history]);
 
-  return (null);
+  return navigate(null);
 }
 
 ScrollToTop.propTypes = {
@@ -25,4 +27,4 @@ ScrollToTop.defaultProps = {
   history: () => undefined,
 }
 
-export default withRouter(ScrollToTop);
+export default ScrollToTop;

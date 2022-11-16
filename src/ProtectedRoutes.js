@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { memberInfoFetch } from './components/Common/Controller'
 import Footer from './components/Common/Footer';
 import Navbar from './components/Common/Navbar';
@@ -15,7 +15,7 @@ export default function ProtectedRoute({ authenticated }) {
     <DatastoreProvider>
       <Navbar />
       <ScrollToTop />
-      <Switch>
+      <Routes>
         <Route path="/reports" component={Reports} />
         <Route
           path="/member/:id"
@@ -31,7 +31,7 @@ export default function ProtectedRoute({ authenticated }) {
         <Route exact path="/:measure" component={Dashboard} loggedIn={authenticated} />
         <Route exact path="/" component={Dashboard} loggedIn={authenticated} />
         <Route path="*" component={NotFound} />
-      </Switch>
+      </Routes>
       <Footer />
     </DatastoreProvider>
   )

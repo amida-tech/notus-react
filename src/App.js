@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import {
   BrowserRouter,
-  Switch,
+  Routes,
   Route,
-  Redirect,
+  Navigate,
 } from 'react-router-dom';
 
 import { ThemeProvider } from '@emotion/react';
@@ -14,7 +14,8 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import { validateAccessToken } from './components/Common/Controller'
 import theme from './assets/styles/AppTheme';
-import Auth from './layouts/Auth';
+import Login from './views/auth/Login'
+import Register from './views/auth/Register'
 import ProtectedRoutes from './ProtectedRoutes';
 import env from './env';
 
@@ -37,8 +38,19 @@ export default function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [isLoaded, setLoaded] = useState(false);
 
+  function ProtectedRoute() {
+    return authenticated
+      ? <ProtectedRoutes loggedIn={authenticated} />
+      : <Navigate to="/welcome" />
+  }
+
   useEffect(() => { // Check for .env first.
-    if (`${env.REACT_APP_AUTH}` === 'false') {
+    
+    console.log('env app auth:',
+      env.REACT_APP_AUTH
+    )
+
+    if (env.REACT_APP_AUTH !== 'false') {
       setAuthenticated(true);
       setLoaded(true);
       return;
@@ -47,7 +59,10 @@ export default function App() {
     const { hash } = window.location;
     const urlParams = new URLSearchParams(hash);
     let accessToken = urlParams.get('access_token');
-    if (accessToken) { // Check if redirect.
+
+    console.log('access token', accessToken)
+
+    if (accessToken) { // Check if redirect
       setShowWelcome(true);
       localStorage.setItem('token', accessToken);
       setAuthenticated(true);
@@ -57,6 +72,7 @@ export default function App() {
     }
 
     accessToken = localStorage.getItem('token');
+
     if (accessToken) { // Otherwise check existing token.
       validateAccessToken(accessToken)
         .then((loggedIn) => {
@@ -82,16 +98,11 @@ export default function App() {
         }}
       />
       <BrowserRouter>
-        <Switch>
-          <Route path="/auth">
-            <Auth />
-          </Route>
-          {isLoaded
-            && (authenticated ? (
-              <ProtectedRoutes loggedIn={authenticated} />
-            ) : <Redirect to="/auth" />
-            )}
-        </Switch>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute />} />
+          <Route path="/welcome" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
       </BrowserRouter>
     </ThemeProvider>
   )

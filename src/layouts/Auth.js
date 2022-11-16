@@ -1,10 +1,11 @@
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../views/auth/Login';
 import Register from '../views/auth/Register';
 
 import image from '../assets/img/loginbg.jpg'
 
 export default function Auth() {
+
   return (
     <main
       style={{
@@ -16,11 +17,20 @@ export default function Auth() {
         '2rem',
       }}
     >
-      <Switch>
-        <Route path="/auth/login" component={Login} />
-        <Route path="/auth/register" component={Register} />
-        <Redirect from="/auth" to="/auth/login" />
-      </Switch>
+      <Routes>
+        <Route path="/auth" component={Login} />
+
+        {/* <Route
+          path="/auth"
+          element={
+            authenticated ?
+            <Navigate to="/auth/login" :
+            <Auth />
+          }
+        /> */}
+
+        {/* <Navigate from="/auth" to="/auth/login" /> */}
+      </Routes>
     </main>
   );
 }

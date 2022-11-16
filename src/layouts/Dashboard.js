@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import {
   Box, Grid, Paper, Snackbar, Skeleton,
 } from '@mui/material';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 
@@ -44,7 +44,7 @@ export default function Dashboard() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
-  const history = useHistory();
+  const history = useNavigate();
   const [displayData, setDisplayData] = useState(
     datastore.results.map((result) => ({ ...result })),
   );
