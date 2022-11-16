@@ -12,34 +12,6 @@ $block-class: 'd3-container';
             width: 100;
         }
 
-        & &__table-selection-button {
-            color: $secondary-blue;
-            max-height: 2.2rem;
-            font-weight: light;
-            padding: 0 2rem;
-            border: unset;
-            text-transform: capitalize;
-            font-size: 1.3rem;
-            margin: 1rem .5rem;
-        }
-
-        & &__table-selection-button:hover,
-        
-        & &__table-selection-button:focus {
-            color: $secondary-blue;
-            border-radius: 0.5rem;
-            background-color: $secondary-blue-transparent;
-            transition: 200ms;
-        }
-
-        & &__table-selection-button.Mui-selected {
-            color: $primary-blue;
-            background-color: $secondary-blue;
-            border-radius: 0.5rem;
-            height: 1.5rem;
-            place-self: center;
-        }
-
         & &__chart-bar {
             float: right;
             margin-top: 0.625rem;

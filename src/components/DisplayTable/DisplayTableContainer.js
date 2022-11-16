@@ -4,6 +4,8 @@ import {
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import PropTypes from 'prop-types';
 import theme from '../../assets/styles/AppTheme'
+
+import { TableTab } from '../Utilities/TableTab'
 import MemberTable from '../Utilities/MemberTable';
 import MeasureTable from '../Utilities/MeasureTable';
 
@@ -28,6 +30,8 @@ import TableFilterPanel from './TableFilterPanel';
 import DisplayTable from './DisplayTable';
 import MeasureSelector from '../Common/MeasureSelector';
 import MeasureTableRow from './MeasureTableRow';
+
+
 
 function DisplayTableContainer({
   activeMeasure,
@@ -60,8 +64,13 @@ function DisplayTableContainer({
             }}
           >
             {isComposite ? (
-              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                <Tab
+              <TabList
+                TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }}
+                sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }}
+                onChange={handleTabChange}
+                aria-label="overview and members tabs"
+              >
+                <TableTab
                   className="d3-container__table-selection-button"
                   sx={{
                     color: theme.palette?.primary.light,
@@ -72,12 +81,12 @@ function DisplayTableContainer({
               </TabList>
             ) : (
               <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                <Tab
+                <TableTab
                   className="d3-container__table-selection-button"
                   label="Overview"
                   value="overview"
                 />
-                <Tab
+                <TableTab
                   className="d3-container__table-selection-button"
                   label="Members"
                   value="members"
