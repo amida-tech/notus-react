@@ -10,13 +10,15 @@ import MemberReport from './layouts/MemberReport';
 import Reports from './layouts/Reports';
 import NotFound from './notFound';
 
-export default function ProtectedRoute({authenticated}) {
-  console.log('you made it to protected routes... authenticated?', authenticated)
+export default function ProtectedRoute({ authenticated }) {
   return (
+    <>
     <DatastoreProvider>
+      {/* Goodnight ScrollToTop... for now */}
       <Navbar />
       <Routes>
-        <Route path="/reports" component={Reports} />
+        <Route exact path="*" element={<Dashboard loggedIn={authenticated} />}  />
+        <Route path="/reports" element={Reports} />
         <Route
           path="/member/:id"
           render={({ match }) => (
@@ -27,13 +29,13 @@ export default function ProtectedRoute({authenticated}) {
             />
           )}
         />
-        <Route exact path="/:measure/members" component={Dashboard} loggedIn={authenticated} />
-        <Route exact path="/:measure" component={Dashboard} loggedIn={authenticated} />
-        <Route exact path="*" component={Dashboard} loggedIn={authenticated} />
-        <Route path="*" component={NotFound} />
+        <Route exact path="/:measure/members" element={<Dashboard loggedIn={authenticated} />} />
+        <Route exact path="/:measure" element={<Dashboard loggedIn={authenticated} />}  />
+        {/* <Route path="*" component={<NotFound />} /> */}
       </Routes>
       <Footer />
     </DatastoreProvider>
+    </>
   )
 }
 ProtectedRoute.propTypes = {

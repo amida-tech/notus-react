@@ -42,8 +42,6 @@ export default function Login() {
       form.appendChild(input);
     });
 
-    console.log('logging in...', dashboardUrl)
-
     // Add form to page and submit it to open the OAuth 2.0 endpoint.
     document.body.appendChild(form);
     form.submit();

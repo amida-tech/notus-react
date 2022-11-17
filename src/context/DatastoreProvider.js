@@ -9,7 +9,9 @@ import { resultList, trendList, infoObject } from '../test/data/DemoData';
 import { DatastoreReducer, initialState } from './DatastoreReducer';
 import env from '../env';
 
-const axios = require('axios').default;
+import axios from 'axios'
+
+console.log('DATASTOREPROVIDER>', 'env', env)
 
 const useLegacyResults = env.REACT_APP_LEGACY_RESULTS;
 const searchUrl = useLegacyResults === 'true'
@@ -21,6 +23,8 @@ const payorsUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}payors`);
 const healthcareProvidersUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}healthcareproviders`);
 const healthcareCoveragesUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}healthcarecoverages`);
 const practitionersUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}practitioners`);
+
+console.log(infoUrl)
 
 const devData = `${env.REACT_APP_DEV_DATA}`;
 
@@ -69,6 +73,10 @@ export default function DatastoreProvider({ children }) {
       datastoreActions.setTrends(trendList);
       datastoreActions.setIsLoading(false);
     } else {
+
+      // const trendy = async () => await axios.get(trendUrl)
+      // trendy()
+      
       const trendPromise = axios.get(trendUrl)
       const searchPromise = axios.get(searchUrl)
       const infoPromise = axios.get(infoUrl)
