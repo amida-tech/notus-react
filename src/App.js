@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   BrowserRouter,
   Routes,
@@ -8,9 +9,8 @@ import {
 import { ThemeProvider } from '@emotion/react';
 
 import {
-  Snackbar, IconButton,
+  Snackbar,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 
 import { validateAccessToken } from './components/Common/Controller'
 import theme from './assets/styles/AppTheme';
@@ -21,23 +21,18 @@ import ProtectedRoutes from './ProtectedRoutes';
 
 import LoadingPage from './components/Utilities/LoadingPage'
 
+function ProtectedRoute({ loggedIn }) {
+  return loggedIn
+    ? <ProtectedRoutes authenticated={loggedIn} />
+    : <Login />
+}
+
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true)
-  
-  // WE SHOULD ADD AN ACCESS TOKEN CHECK AND CONDITIONALLY RENDER LOGIN AND PROTECTED ROUTES FROM THERE
-
-  function ProtectedRoute({ loggedIn }) {
-    return loggedIn
-      ? <ProtectedRoutes authenticated={loggedIn} />
-      : <Login />
-  }
-
-  // TODO CLEAN UP
 
   useEffect(() => {
-
     // TRY TO GRAB TOKEN FROM BROWSER
     let accessToken;
     accessToken = localStorage.getItem('token')
@@ -63,7 +58,6 @@ export default function App() {
       setShowWelcome(true);
       setAuthenticated(true);
       setLoading(false)
-
     } else {
       setLoading(false)
     }
@@ -82,16 +76,24 @@ export default function App() {
         }}
       />
       <BrowserRouter>
-        { loading ?
-          <LoadingPage />
-          :
-          <Routes>
-            <Route exact path="*" element={<ProtectedRoute loggedIn={authenticated} />} />
-            <Route path="/welcome" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-          </Routes>
-        }
+        { loading
+          ? <LoadingPage />
+          : (
+            <Routes>
+              <Route exact path="*" element={<ProtectedRoute loggedIn={authenticated} />} />
+              <Route path="/welcome" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Routes>
+          )}
       </BrowserRouter>
     </ThemeProvider>
   )
 }
+
+ProtectedRoute.propTypes = {
+  loggedIn: PropTypes.string,
+};
+
+ProtectedRoute.defaultProps = {
+  loggedIn: '',
+};
