@@ -9,7 +9,7 @@ export const scrolly = (action, location) => {
   action(location)
 }
 
-// If if you don't want to navigate with scrolly
+// If you don't want to navigate with scrolly
 export function scrollTop() {
   window.scrollTo({
     top: 0,
