@@ -56,6 +56,8 @@ export default function Login() {
         '100vh',
         padding:
         '2rem',
+        marginBottom:
+        '-1rem',
       }}
     >
       <Container maxWidth={false} sx={{ padding: '1rem' }}>

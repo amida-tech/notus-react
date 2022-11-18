@@ -68,9 +68,6 @@ export default function DatastoreProvider({ children }) {
       datastoreActions.setTrends(trendList);
       datastoreActions.setIsLoading(false);
     } else {
-      // const trendy = async () => await axios.get(trendUrl)
-      // trendy()
-
       const trendPromise = axios.get(trendUrl)
       const searchPromise = axios.get(searchUrl)
       const infoPromise = axios.get(infoUrl)

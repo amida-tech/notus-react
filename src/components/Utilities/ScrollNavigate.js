@@ -1,3 +1,4 @@
+// Force a scroll to top with navigate... or perhaps more?
 export const scrolly = (action, location) => {
   if (action === 'navigate') {
     window.scrollTo({
@@ -5,14 +6,11 @@ export const scrolly = (action, location) => {
       behavior: 'smooth',
     });
   }
-
-  console.log('lesgooooo')
-
   action(location)
 }
 
+// If if you don't want to navigate with scrolly
 export function scrollTop() {
-  console.log('scroll top')
   window.scrollTo({
     top: 0,
     behavior: 'smooth',

@@ -9,7 +9,6 @@ import { styled } from '@mui/material/styles';
 
 const logout = () => {
   localStorage.removeItem('token');
-  console.log('local storage', localStorage)
 }
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 

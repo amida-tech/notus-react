@@ -3,7 +3,6 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Navigate,
 } from 'react-router-dom';
 
 import { ThemeProvider } from '@emotion/react';
@@ -12,12 +11,15 @@ import {
   Snackbar, IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+
 import { validateAccessToken } from './components/Common/Controller'
 import theme from './assets/styles/AppTheme';
+
 import Login from './views/auth/Login'
 import Register from './views/auth/Register'
 import ProtectedRoutes from './ProtectedRoutes';
-import env from './env';
+
+import LoadingPage from './components/Utilities/LoadingPage'
 
 const action = (setShowWelcome) => (
   <IconButton
@@ -36,6 +38,7 @@ const action = (setShowWelcome) => (
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   function ProtectedRoute({ loggedIn }) {
     return loggedIn
@@ -51,6 +54,7 @@ export default function App() {
       validateAccessToken(accessToken)
         .then((loggedIn) => {
           setAuthenticated(loggedIn);
+          setLoading(false)
         })
       return;
     }
@@ -69,12 +73,14 @@ export default function App() {
       localStorage.setItem('token', accessToken);
       setShowWelcome(true);
       setAuthenticated(true);
+      setLoading(false)
 
       // NO TOKEN IN URL? CHECK LOCALLY
     } else {
       const { hash } = window.location;
       const urlParams = new URLSearchParams(hash);
       accessToken = urlParams.get('access_token')
+      setLoading(false)
     }
   }, []);
 
@@ -92,11 +98,15 @@ export default function App() {
         }}
       />
       <BrowserRouter>
-        <Routes>
-          <Route exact path="*" element={<ProtectedRoute loggedIn={authenticated} />} />
-          <Route path="/welcome" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
+        { loading ?
+          <LoadingPage />
+          :
+          <Routes>
+            <Route exact path="*" element={<ProtectedRoute loggedIn={authenticated} />} />
+            <Route path="/welcome" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        }
       </BrowserRouter>
     </ThemeProvider>
   )

@@ -3,6 +3,7 @@ import { useLocation, useParams } from 'react-router-dom';
 
 import { DatastoreContext } from '../../context/DatastoreProvider'
 
+// scrolly and scrollTop 
 export default function ScrollToTop() {
   const { pathname } = useLocation();
   const parmesan = useParams()['*'].split('/').at(-1)
