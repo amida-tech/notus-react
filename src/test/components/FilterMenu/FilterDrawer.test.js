@@ -5,19 +5,20 @@ import FilterDrawer from '../../../components/FilterMenu/FilterDrawer';
 import { additionalFilterOptions } from '../../data/DemoData';
 
 const filters = {
-  domainsOfCare: [],
-  stars: [],
-  percentRange: [0, 100],
-  sum: 0,
-  healthcareCoverages: [],
-  healthcarePractitioners: [],
-  healthcareProviders: [],
-  payors: [],
-};
+  "domainsOfCare": [],
+  "stars": [],
+  "percentRange": [ 0, 100 ],
+  "sum": 0,
+  "payors": [],
+  "healthcareProviders": [],
+  "healthcareCoverages": [],
+  "healthcarePractitioners": []
+}
 
 const mockHandleFilterChange = jest.fn(() => false);
 const mockToggleFilterDrawer = jest.fn(() => false);
 const mockHandleResetData = jest.fn(() => false);
+const emptyFunction = jest.fn(() => false);
 
 const clickNCheck = (boxes, values) => Object.entries(values).forEach(([key, value]) => {
   if (value) {
@@ -35,6 +36,14 @@ const closeOpenDrawerTest = (rerender) => {
     filterDrawerOpen={false}
     currentFilters={filters}
     additionalFilterOptions={additionalFilterOptions}
+    handleFilterChange={mockHandleFilterChange}
+    toggleFilterDrawer={mockToggleFilterDrawer}
+    setFilterActivated={emptyFunction}
+    setIsLoading={emptyFunction}
+    setComposite={emptyFunction}
+    setTableFilter={emptyFunction}
+    setRowEntries={emptyFunction}
+    handleResetData={emptyFunction}
   />);
   const refineByText = screen.queryByText('Refine by');
   expect(refineByText).toBe(null);
@@ -54,6 +63,12 @@ describe('FilterDrawer', () => {
         handleFilterChange={mockHandleFilterChange}
         currentFilters={filters}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        setFilterActivated={emptyFunction}
+        setIsLoading={emptyFunction}
+        setComposite={emptyFunction}
+        setTableFilter={emptyFunction}
+        setRowEntries={emptyFunction}
+        handleResetData={emptyFunction}
       />,
     )
 
@@ -65,8 +80,8 @@ describe('FilterDrawer', () => {
 
     // values of slider points -- aria-valuetext OR aria-valuenow --
     // to match given filter percentageRange value
-    expect(startPoint.getAttribute('aria-valuenow')).toBe('5')
-    expect(endPoint.getAttribute('aria-valuenow')).toBe('95')
+    expect(startPoint.getAttribute('aria-valuenow')).toBe('0')
+    expect(endPoint.getAttribute('aria-valuenow')).toBe('100')
 
     expect(startPoint.getAttribute('max')).toBe('100')
     expect(startPoint.getAttribute('min')).toBe('0')
@@ -90,6 +105,12 @@ describe('FilterDrawer', () => {
         additionalFilterOptions={additionalFilterOptions}
         handleFilterChange={mockHandleFilterChange}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        setFilterActivated={emptyFunction}
+        setIsLoading={emptyFunction}
+        setComposite={emptyFunction}
+        setTableFilter={emptyFunction}
+        setRowEntries={emptyFunction}
+        handleResetData={emptyFunction}
       />,
     );
 
@@ -129,6 +150,12 @@ describe('FilterDrawer', () => {
       additionalFilterOptions={additionalFilterOptions}
       handleFilterChange={mockHandleFilterChange}
       toggleFilterDrawer={mockToggleFilterDrawer}
+      setFilterActivated={emptyFunction}
+      setIsLoading={emptyFunction}
+      setComposite={emptyFunction}
+      setTableFilter={emptyFunction}
+      setRowEntries={emptyFunction}
+      handleResetData={emptyFunction}
     />);
     const refineByText = screen.queryByText('Refine by');
     expect(refineByText).toBe(null);
@@ -139,6 +166,12 @@ describe('FilterDrawer', () => {
       additionalFilterOptions={additionalFilterOptions}
       handleFilterChange={mockHandleFilterChange}
       toggleFilterDrawer={mockToggleFilterDrawer}
+      setFilterActivated={emptyFunction}
+      setIsLoading={emptyFunction}
+      setComposite={emptyFunction}
+      setTableFilter={emptyFunction}
+      setRowEntries={emptyFunction}
+      handleResetData={emptyFunction}
     />);
 
     simpleCheck(checkboxes, expectedValues)
@@ -153,6 +186,11 @@ describe('FilterDrawer', () => {
         additionalFilterOptions={additionalFilterOptions}
         toggleFilterDrawer={mockToggleFilterDrawer}
         handleResetData={mockHandleResetData}
+        setFilterActivated={emptyFunction}
+        setIsLoading={emptyFunction}
+        setComposite={emptyFunction}
+        setTableFilter={emptyFunction}
+        setRowEntries={emptyFunction}
       />,
     );
 
@@ -183,6 +221,12 @@ describe('FilterDrawer', () => {
         additionalFilterOptions={additionalFilterOptions}
         handleFilterChange={mockHandleFilterChange}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        setFilterActivated={emptyFunction}
+        setIsLoading={emptyFunction}
+        setComposite={emptyFunction}
+        setTableFilter={emptyFunction}
+        setRowEntries={emptyFunction}
+        handleResetData={emptyFunction}
       />,
     );
 
