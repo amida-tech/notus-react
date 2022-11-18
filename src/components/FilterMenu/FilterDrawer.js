@@ -231,10 +231,10 @@ function FilterDrawer({
             <Slider
               sx={{
                 '& .MuiSlider-valueLabel': {
-                  backgroundColor: theme.palette?.primary.main,
+                  backgroundColor: theme.palette?.bluegray.D1,
                 },
                 '& .MuiSlider-thumb': {
-                  backgroundColor: theme.palette?.bluegray.D1,
+                  backgroundColor: theme.palette?.primary.main,
                 },
                 '& .MuiSlider-track': {
                   color: theme.palette?.bluegray.L3,
