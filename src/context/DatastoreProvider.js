@@ -5,11 +5,10 @@ import {
   useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios'
 import { resultList, trendList, infoObject } from '../test/data/DemoData';
 import { DatastoreReducer, initialState } from './DatastoreReducer';
 import env from '../env';
-
-import axios from 'axios'
 
 const useLegacyResults = env.REACT_APP_LEGACY_RESULTS;
 const searchUrl = useLegacyResults === 'true'
@@ -69,10 +68,9 @@ export default function DatastoreProvider({ children }) {
       datastoreActions.setTrends(trendList);
       datastoreActions.setIsLoading(false);
     } else {
-
       // const trendy = async () => await axios.get(trendUrl)
       // trendy()
-      
+
       const trendPromise = axios.get(trendUrl)
       const searchPromise = axios.get(searchUrl)
       const infoPromise = axios.get(infoUrl)

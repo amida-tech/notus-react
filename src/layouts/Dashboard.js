@@ -14,7 +14,7 @@ import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
 import MeasureTable from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
-import { scrollNavigate, scrollTop } from '../components/Utilities/ScrollNavigate'
+import { scrolly, scrollTop } from '../components/Utilities/ScrollNavigate'
 
 import {
   calcMemberResults,
@@ -132,20 +132,17 @@ export default function Dashboard() {
         setRowEntries([]);
         setColorMap(ColorMapping(filterInfo.currentResults))
         setHeaderInfo(MeasureTable.headerData(true));
-        console.log('scrolly')
-        scrollNavigate(navigate, '/');
+        scrolly(navigate, '/');
       } else {
         const isEmpty = (filter) => Object.keys(filter).length === 0
         if (isEmpty(filterInfo.filters)) {
           setCurrentTimeline(datastore.defaultTimelineState);
           setCurrentFilters(datastore.defaultFilterState);
-          console.log('scrolly')
-          scrollNavigate(navigate, '/');
+          scrolly(navigate, '/');
         } else {
           setIsLoading(true)
           handleFilteredDataUpdate(currentFilters, filterInfo.timeline, 'GO BACK')
-          console.log('scrolly')
-          scrollNavigate(navigate, '/');
+          scrolly(navigate, '/');
         }
       }
     }

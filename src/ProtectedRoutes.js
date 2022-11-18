@@ -11,34 +11,32 @@ import NotFound from './notFound';
 import ScrollToTop from './components/Utilities/ScrollToTop'
 
 export default function ProtectedRoute({ authenticated }) {
-  let parmesan = useParams()['*'].split('/').at(-1)
-  let memberId = parmesan || '/'
+  const parmesan = useParams()['*'].split('/').at(-1)
+  const memberId = parmesan || '/'
 
   return (
-    <>
     <DatastoreProvider>
       <ScrollToTop />
       <Navbar />
       <Routes>
-        <Route exact path="*" element={<Dashboard loggedIn={authenticated} />}  />
+        <Route exact path="*" element={<Dashboard loggedIn={authenticated} />} />
         <Route path="/reports" element={<Reports />} />
         <Route
           path="/member/:id"
-          element={
+          element={(
             <MemberReport
               id={memberId}
               memberInfoFetch={memberInfoFetch}
               loading
             />
-          }
+          )}
         />
         <Route exact path="/:measure/members" element={<Dashboard loggedIn={authenticated} />} />
-        <Route exact path="/:measure" element={<Dashboard loggedIn={authenticated} />}  />
+        <Route exact path="/:measure" element={<Dashboard loggedIn={authenticated} />} />
         <Route path="/*" component={<NotFound />} />
       </Routes>
       <Footer />
     </DatastoreProvider>
-    </>
   )
 }
 ProtectedRoute.propTypes = {
