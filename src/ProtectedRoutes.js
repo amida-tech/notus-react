@@ -11,8 +11,8 @@ import NotFound from './notFound';
 import ScrollToTop from './components/Utilities/ScrollToTop'
 
 export default function ProtectedRoute({ authenticated }) {
-  const parmesan = useParams()['*'].split('/').at(-1)
-  const memberId = parmesan || '/'
+  const lastParameter = useParams()['*'].split('/').at(-1)
+  const memberId = lastParameter || '/'
 
   return (
     <DatastoreProvider>

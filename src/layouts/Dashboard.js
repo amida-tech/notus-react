@@ -14,6 +14,8 @@ import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
 import MeasureTable from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
+
+// scrolly is a navigate function wrapped with scrollToTop
 import { scrolly, scrollTop } from '../components/Utilities/ScrollNavigate'
 
 import {
