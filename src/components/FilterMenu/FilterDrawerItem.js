@@ -25,7 +25,6 @@ function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
         </Grid>
       </Grid>
       <FormGroup className="filter-drawer-item__options">
-        {/* THIS BREAKS */}
         {filterItem.options ?
         (filterItem.options.map((option, index) => (
           <FormControlLabel
