@@ -24,7 +24,10 @@ function RowGenerator(link, key, rowDataItem, ciseCheck) {
   if (rowDataItem[key] === 'true') {
     return (
       <Grid sx={{ color: theme.palette?.success.main }} className={`${ciseCheck}-table-row__compliance-panel`}>
-        <CheckCircleIcon className={`${ciseCheck}-table-row__compliance-icon`} />
+        <CheckCircleIcon
+          sx={{ '&:hover': { fill: theme.palette?.success.main } }}
+          className={`${ciseCheck}-table-row__compliance-icon`}
+        />
         Matched
       </Grid>
     )
@@ -32,7 +35,10 @@ function RowGenerator(link, key, rowDataItem, ciseCheck) {
 
   return (
     <Grid sx={{ color: theme.palette?.error.main }} className={`${ciseCheck}-table-row__compliance-panel`}>
-      <CancelIcon className={`${ciseCheck}-table-row__compliance-icon`} />
+      <CancelIcon
+        sx={{ '&:hover': { fill: theme.palette?.error.main } }}
+        className={`${ciseCheck}-table-row__compliance-icon`}
+      />
       Unmatched
     </Grid>
   )

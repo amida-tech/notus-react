@@ -64016,5 +64016,3 @@ export const datastore = {
     ],
   },
 }
-
-export default datastore;
