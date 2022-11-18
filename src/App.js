@@ -21,24 +21,12 @@ import ProtectedRoutes from './ProtectedRoutes';
 
 import LoadingPage from './components/Utilities/LoadingPage'
 
-const action = (setShowWelcome) => (
-  <IconButton
-    className="dashboard__snackbar-close"
-    size="small"
-    aria-label="close"
-    color="inherit"
-    disableFocusRipple
-    disableRipple
-    onClick={() => setShowWelcome(false)}
-  >
-    <CloseIcon fontSize="small" />
-  </IconButton>
-);
-
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true)
+  
+  // WE SHOULD ADD AN ACCESS TOKEN CHECK AND CONDITIONALLY RENDER LOGIN AND PROTECTED ROUTES FROM THERE
 
   function ProtectedRoute({ loggedIn }) {
     return loggedIn
@@ -46,10 +34,15 @@ export default function App() {
       : <Login />
   }
 
+  // TODO CLEAN UP
+
   useEffect(() => {
+
+    // TRY TO GRAB TOKEN FROM BROWSER
     let accessToken;
     accessToken = localStorage.getItem('token')
 
+    // CHECK TOKEN IF VALID OR NOT
     if (accessToken) {
       validateAccessToken(accessToken)
         .then((loggedIn) => {
@@ -59,27 +52,19 @@ export default function App() {
       return;
     }
 
-    // NO TOKEN IN STORAGE
+    // NO TOKEN IN STORAGE, CHECK URL
     const { hash } = window.location;
     const urlParams = new URLSearchParams(hash);
     accessToken = urlParams.get('access_token')
 
-    // check for access token, proceed
-    // check if on local storage, validate
-    // check for null
-
-    // WE GOT TOKEN
+    // STORE NEW TOKEN FROM URL
     if (accessToken) {
       localStorage.setItem('token', accessToken);
       setShowWelcome(true);
       setAuthenticated(true);
       setLoading(false)
 
-      // NO TOKEN IN URL? CHECK LOCALLY
     } else {
-      const { hash } = window.location;
-      const urlParams = new URLSearchParams(hash);
-      accessToken = urlParams.get('access_token')
       setLoading(false)
     }
   }, []);
@@ -88,11 +73,10 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <Snackbar
         open={showWelcome}
-        autoHideDuration={6000}
+        autoHideDuration={2000}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         onClose={() => setShowWelcome(false)}
         message="Welcome to Saraswati, where knowledge is power."
-        action={action(setShowWelcome)}
         sx={{
           '& .MuiSnackbarContent-root': { backgroundColor: '#DFF4FC', color: '#263238' },
         }}

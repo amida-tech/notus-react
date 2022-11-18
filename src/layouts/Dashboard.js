@@ -147,6 +147,7 @@ export default function Dashboard() {
       }
     }
   }
+
   useEffect(() => {
     // CURRENT RESULTS EXIST
     if (datastore.currentResults) {
@@ -344,11 +345,6 @@ export default function Dashboard() {
     tableFilter,
   ]);
 
-  // If control needs to be shared across multiple components,
-  // add them through useState above and append them to these.
-
-  // THIS NEEDS ROWENTRIES TO BE MODIFIED
-
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true)
     // let newDisplayData
@@ -472,6 +468,7 @@ export default function Dashboard() {
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
+
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
