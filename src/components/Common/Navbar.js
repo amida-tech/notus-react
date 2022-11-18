@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles';
 
 const logout = () => {
   localStorage.removeItem('token');
+  console.log('local storage', localStorage)
 }
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -51,7 +52,7 @@ export default function Navbar() {
               sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
               component={RouterLink}
               className="navbar__text"
-              to={{ pathname: '/auth/login' }}
+              to={{ pathname: '/welcome' }}
               onClick={logout}
             >
               Sign Out

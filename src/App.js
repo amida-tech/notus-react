@@ -66,8 +66,8 @@ export default function App() {
 
     // WE GOT TOKEN
     if (accessToken) {
-      setShowWelcome(true);
       localStorage.setItem('token', accessToken);
+      setShowWelcome(true);
       setAuthenticated(true);
 
       // NO TOKEN IN URL? CHECK LOCALLY
@@ -75,13 +75,6 @@ export default function App() {
       const { hash } = window.location;
       const urlParams = new URLSearchParams(hash);
       accessToken = urlParams.get('access_token')
-
-      // if (accessToken) { // Check if redirect
-      //   setShowWelcome(true);
-      //   localStorage.setItem('token', accessToken);
-      //   setAuthenticated(true);
-      //   return;
-      // }
     }
   }, []);
 

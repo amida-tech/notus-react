@@ -2,9 +2,8 @@ import tinycolor from 'tinycolor2'
 
 const ColorMapping = (allResults, displayData) => {
   const chartColorArray = [
-    '#88CCEE',
+    '#0a88c7',
     '#CC6677',
-    '#DDCC77',
     '#117733',
     '#332288',
     '#AA4499',
@@ -12,7 +11,7 @@ const ColorMapping = (allResults, displayData) => {
     '#999933',
     '#555555',
     '#661100',
-    '#6699CC',
+    '#A69ACC',
   ];
 
   const baseColors = []
