@@ -43,7 +43,7 @@ export default function Navbar() {
               sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
               component={RouterLink}
               className="navbar__text"
-              to={{ pathname: '/reports/' }}
+              to={{ pathname: '/reports' }}
             >
               Reports
             </Link>

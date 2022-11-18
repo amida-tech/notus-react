@@ -11,8 +11,6 @@ import env from '../env';
 
 import axios from 'axios'
 
-console.log('DATASTOREPROVIDER>', 'env', env)
-
 const useLegacyResults = env.REACT_APP_LEGACY_RESULTS;
 const searchUrl = useLegacyResults === 'true'
   ? new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/searchResults`)
@@ -23,8 +21,6 @@ const payorsUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}payors`);
 const healthcareProvidersUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}healthcareproviders`);
 const healthcareCoveragesUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}healthcarecoverages`);
 const practitionersUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}practitioners`);
-
-console.log(infoUrl)
 
 const devData = `${env.REACT_APP_DEV_DATA}`;
 

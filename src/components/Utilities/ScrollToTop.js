@@ -1,30 +1,27 @@
-import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
+import { useContext } from 'react';
+import { DatastoreContext } from '../../context/DatastoreProvider'
 
-function ScrollToTop({ history }) {
-  const navigate = useNavigate();
+export default function ScrollToTop() {
+  const { pathname } = useLocation();
+  const parmesan = useParams()['*'].split('/').at(-1)
+  const { datastore } = useContext(DatastoreContext);
+  const measures = Object.values(datastore.currentResults).map((obj) => obj.measure)
 
   useEffect(() => {
-    const unlisten = history.listen(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    return () => {
-      unlisten();
+
+    if (parmesan === 'members' || parmesan === measures.find(measure => measure === parmesan)) {
+      return;
     }
-  }, [history]);
 
-  return navigate(null);
+    document.documentElement.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+
+  }, [pathname]);
+
+  return null;
 }
-
-ScrollToTop.propTypes = {
-  history: PropTypes.shape({
-    listen: PropTypes.func,
-  }),
-}
-
-ScrollToTop.defaultProps = {
-  history: () => undefined,
-}
-
-export default ScrollToTop;

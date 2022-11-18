@@ -14,6 +14,7 @@ import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
 import MeasureTable from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
+import { scrollNavigate, scrollTop } from '../components/Utilities/ScrollNavigate'
 
 import {
   calcMemberResults,
@@ -64,6 +65,7 @@ export default function Dashboard() {
   const { measure } = useParams();
 
   const handleResetData = (router) => {
+    scrollTop()
     if (router === undefined) {
       setIsLoading(true)
       setCurrentTimeline(datastore.defaultTimelineState);
@@ -130,17 +132,20 @@ export default function Dashboard() {
         setRowEntries([]);
         setColorMap(ColorMapping(filterInfo.currentResults))
         setHeaderInfo(MeasureTable.headerData(true));
-        navigate('/');
+        console.log('scrolly')
+        scrollNavigate(navigate, '/');
       } else {
         const isEmpty = (filter) => Object.keys(filter).length === 0
         if (isEmpty(filterInfo.filters)) {
           setCurrentTimeline(datastore.defaultTimelineState);
           setCurrentFilters(datastore.defaultFilterState);
-          navigate('/');
+          console.log('scrolly')
+          scrollNavigate(navigate, '/');
         } else {
           setIsLoading(true)
           handleFilteredDataUpdate(currentFilters, filterInfo.timeline, 'GO BACK')
-          navigate('/');
+          console.log('scrolly')
+          scrollNavigate(navigate, '/');
         }
       }
     }

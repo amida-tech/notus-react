@@ -50,7 +50,6 @@ export default function App() {
     if (accessToken) {
       validateAccessToken(accessToken)
         .then((loggedIn) => {
-          setShowWelcome(true);
           setAuthenticated(loggedIn);
         })
       return;
@@ -69,7 +68,6 @@ export default function App() {
     if (accessToken) {
       setShowWelcome(true);
       localStorage.setItem('token', accessToken);
-      setShowWelcome(true);
       setAuthenticated(true);
 
       // NO TOKEN IN URL? CHECK LOCALLY
