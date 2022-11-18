@@ -44,7 +44,7 @@ export default function Dashboard() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [displayData, setDisplayData] = useState(
     datastore.results.map((result) => ({ ...result })),
   );
@@ -130,17 +130,17 @@ export default function Dashboard() {
         setRowEntries([]);
         setColorMap(ColorMapping(filterInfo.currentResults))
         setHeaderInfo(MeasureTable.headerData(true));
-        history.push('/');
+        navigate('/');
       } else {
         const isEmpty = (filter) => Object.keys(filter).length === 0
         if (isEmpty(filterInfo.filters)) {
           setCurrentTimeline(datastore.defaultTimelineState);
           setCurrentFilters(datastore.defaultFilterState);
-          history.push('/');
+          navigate('/');
         } else {
           setIsLoading(true)
           handleFilteredDataUpdate(currentFilters, filterInfo.timeline, 'GO BACK')
-          history.push('/');
+          navigate('/');
         }
       }
     }
@@ -217,7 +217,7 @@ export default function Dashboard() {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setTableFilter, history, activeMeasure, isComposite, filterActivated])
+  }, [setTableFilter, activeMeasure, isComposite, filterActivated])
 
   useEffect(() => {
     if (tabValue === 'members') {
@@ -270,7 +270,6 @@ export default function Dashboard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     setTableFilter,
-    history,
     activeMeasure,
     isComposite,
     filterActivated,
@@ -336,7 +335,6 @@ export default function Dashboard() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    history,
     activeMeasure.measure,
     selectedMeasures,
     datastore.info,
@@ -437,7 +435,7 @@ export default function Dashboard() {
     }
     const MeasureSelectorCheck = event.target.name === 'Select Measure';
     if (MeasureSelectorCheck) {
-      history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`)
+      navigate(`/${event.target.value === 'composite' ? '' : event.target.value}`)
     }
   };
 
@@ -459,7 +457,7 @@ export default function Dashboard() {
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
     if (newValue === 'members') {
-      history.push(`/${activeMeasure.measure}/members`)
+      navigate(`/${activeMeasure.measure}/members`)
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
       setRowEntries(MemberTable.formatData(
         filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
@@ -468,7 +466,7 @@ export default function Dashboard() {
         tableFilter,
       ))
     } else {
-      history.push(`/${activeMeasure.measure}`)
+      navigate(`/${activeMeasure.measure}`)
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
@@ -525,7 +523,6 @@ export default function Dashboard() {
                     isComposite={isComposite}
                     setComposite={setComposite}
                     setTableFilter={setTableFilter}
-                    history={history}
                     isLoading={isLoading}
                     currentResults={currentResults}
                     setTabValue={setTabValue}

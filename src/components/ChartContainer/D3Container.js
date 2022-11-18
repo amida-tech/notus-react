@@ -22,7 +22,6 @@ import {
   isCompositeProps,
   setCompositeProps,
   setTableFilterProps,
-  historyProps,
   currentResultsProps,
   filterDisabledProps,
   displayDataProps,
@@ -64,7 +63,6 @@ function D3Container({
   isComposite,
   setComposite,
   setTableFilter,
-  history,
   isLoading,
   currentResults,
   activeMeasure,
@@ -110,7 +108,6 @@ function D3Container({
         setComposite={setComposite}
         setTabValue={setTabValue}
         setTableFilter={setTableFilter}
-        history={history}
         isLoading={isLoading}
         handleResetData={handleResetData}
         labelGenerator={labelGenerator}
@@ -155,7 +152,6 @@ D3Container.propTypes = {
   isComposite: isCompositeProps,
   setComposite: setCompositeProps,
   setTableFilter: setTableFilterProps,
-  history: historyProps,
   currentResults: currentResultsProps,
   filterDisabled: filterDisabledProps,
   displayData: displayDataProps,
@@ -185,7 +181,6 @@ D3Container.defaultProps = {
   isComposite: true,
   setComposite: () => undefined,
   setTableFilter: () => undefined,
-  history: {},
   currentResults: [],
   filterDisabled: true,
   displayData: [],
