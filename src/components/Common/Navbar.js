@@ -44,7 +44,7 @@ export default function Navbar() {
               sx={{ color: theme.palette?.bluegray.L4 }}
               component={RouterLink}
               className="navbar__text"
-              to={{ pathname: '/reports/' }}
+              to={{ pathname: '/reports' }}
             >
               Reports
             </Link>
@@ -52,7 +52,7 @@ export default function Navbar() {
               sx={{ color: theme.palette?.bluegray.L4 }}
               component={RouterLink}
               className="navbar__text"
-              to={{ pathname: '/auth/login' }}
+              to={{ pathname: '/welcome' }}
               onClick={logout}
             >
               Sign Out

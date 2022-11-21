@@ -46,10 +46,6 @@ function ChartHeader({
 ChartHeader.propTypes = {
   isComposite: PropTypes.bool,
   handleResetData: PropTypes.func,
-  history: PropTypes.shape({
-    push: PropTypes.func,
-    any: PropTypes.func,
-  }),
   isLoading: PropTypes.bool,
   labelGenerator: PropTypes.func,
   currentResults: PropTypes.arrayOf(PropTypes.shape({})),
@@ -64,7 +60,6 @@ ChartHeader.propTypes = {
 
 ChartHeader.defaultProps = {
   isComposite: true,
-  history: {},
   isLoading: true,
   labelGenerator: () => undefined,
   currentResults: [],

@@ -109,7 +109,7 @@ const theme = createTheme({
 
   },
   shape: {
-    borderRadius: '3px',
+    borderRadius: 3,
     borderColor: '#455A64',
   },
 });

@@ -1,98 +1,98 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
   BrowserRouter,
-  Switch,
+  Routes,
   Route,
-  Redirect,
 } from 'react-router-dom';
 
 import { ThemeProvider } from '@emotion/react';
 
 import {
-  Snackbar, IconButton,
+  Snackbar,
 } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import theme from './assets/styles/AppTheme';
-import { validateAccessToken } from './components/Common/Controller'
-import Auth from './layouts/Auth';
-import ProtectedRoutes from './ProtectedRoutes';
-import env from './env';
 
-const action = (setShowWelcome) => (
-  <IconButton
-    className="dashboard__snackbar-close"
-    size="small"
-    aria-label="close"
-    color="inherit"
-    disableFocusRipple
-    disableRipple
-    onClick={() => setShowWelcome(false)}
-  >
-    <CloseIcon fontSize="small" />
-  </IconButton>
-);
+import { validateAccessToken } from './components/Common/Controller'
+import theme from './assets/styles/AppTheme';
+import ProtectedRoutes from './ProtectedRoutes';
+import Login from './views/auth/Login'
+import Register from './views/auth/Register'
+
+import LoadingPage from './components/Utilities/LoadingPage'
+
+function ProtectedRoute({ loggedIn }) {
+  return loggedIn
+    ? <ProtectedRoutes authenticated={loggedIn} />
+    : <Login />
+}
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
-  const [isLoaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(true)
 
-  useEffect(() => { // Check for .env first.
-    if (`${env.REACT_APP_AUTH}` === 'false') {
-      setAuthenticated(true);
-      setLoaded(true);
-      return;
-    }
+  useEffect(() => {
+    // TRY TO GRAB TOKEN FROM BROWSER
+    let accessToken;
+    accessToken = localStorage.getItem('token')
 
-    const { hash } = window.location;
-    const urlParams = new URLSearchParams(hash);
-    let accessToken = urlParams.get('access_token');
-    if (accessToken) { // Check if redirect.
-      setShowWelcome(true);
-      localStorage.setItem('token', accessToken);
-      setAuthenticated(true);
-      setLoaded(true);
-      window.history.replaceState({}, document.title, '/');
-      return;
-    }
-
-    accessToken = localStorage.getItem('token');
-    if (accessToken) { // Otherwise check existing token.
+    // CHECK TOKEN IF VALID OR NOT
+    if (accessToken) {
       validateAccessToken(accessToken)
         .then((loggedIn) => {
           setAuthenticated(loggedIn);
-          setLoaded(true);
+          setLoading(false)
         })
-    } else {
-      setLoaded(true);
+      return;
     }
-  }, [setShowWelcome, setAuthenticated, setLoaded]);
+
+    // NO TOKEN IN STORAGE, CHECK URL
+    const { hash } = window.location;
+    const urlParams = new URLSearchParams(hash);
+    accessToken = urlParams.get('access_token')
+
+    // STORE NEW TOKEN FROM URL
+    if (accessToken) {
+      localStorage.setItem('token', accessToken);
+      setShowWelcome(true);
+      setAuthenticated(true);
+      setLoading(false)
+    } else {
+      setLoading(false)
+    }
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <Snackbar
         open={showWelcome}
-        autoHideDuration={6000}
+        autoHideDuration={2000}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         onClose={() => setShowWelcome(false)}
         message="Welcome to Saraswati, where knowledge is power."
-        action={action(setShowWelcome)}
         sx={{
           '& .MuiSnackbarContent-root': { backgroundColor: theme.palette?.primary.light, color: theme.palette?.text.primary },
         }}
       />
       <BrowserRouter>
-        <Switch>
-          <Route path="/auth">
-            <Auth />
-          </Route>
-          {isLoaded
-            && (authenticated ? (
-              <ProtectedRoutes loggedIn={authenticated} />
-            ) : <Redirect to="/auth" />
-            )}
-        </Switch>
+        { loading
+          ? <LoadingPage />
+          : (
+            <Routes>
+              <Route exact path="*" element={<ProtectedRoute loggedIn={authenticated} />} />
+              <Route path="/welcome" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Routes>
+          )}
       </BrowserRouter>
     </ThemeProvider>
   )
 }
+
+ProtectedRoute.propTypes = {
+  loggedIn: PropTypes.bool,
+};
+
+ProtectedRoute.defaultProps = {
+  loggedIn: false,
+};

@@ -23,7 +23,7 @@ describe('Links render as expected', () => {
       render(<BrowserRouter><Login /></BrowserRouter>)
       const linksOnPage = document.getElementsByTagName('a')
       const signUpLink = linksOnPage[0]
-      expect(signUpLink.href.includes('/auth/register')).toBeTruthy()
+      expect(signUpLink.href.includes('/welcome')).toBeTruthy()
       expect(signUpLink.innerHTML).toBe('Sign Up')
     });
     it('"Forgot Password" link renders to page with correct text and href', () => {
@@ -113,10 +113,10 @@ describe('Button renders as expected', () => {
 })
 if (env.REACT_APP_MVP_SETTING === false) {
   describe('Sign up link renders and navigates as expected', () => {
-    it("Sign up link navigates to '/auth/register'", () => {
+    it("Sign up link navigates to '/register'", () => {
       render(<BrowserRouter><Login /></BrowserRouter>)
       const registerLink = screen.getByRole('link', { name: 'Sign Up' })
-      expect(registerLink.hasAttribute('href', '/auth/register')).toBe(true)
+      expect(registerLink.hasAttribute('href', '/register')).toBe(true)
     })
   })
 }
