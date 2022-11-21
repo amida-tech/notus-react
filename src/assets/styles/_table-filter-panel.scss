@@ -1,5 +1,5 @@
 $block-class: 'table-filter-panel';
-@import 'colors';
+ 
 
 @at-root {
     .#{$block-class} {
@@ -7,7 +7,6 @@ $block-class: 'table-filter-panel';
         grid-template-columns: 1fr 3fr;
 
         & &__member-search { // TODO //placeholder styles
-            color: $blue-grey-darken-4;
             display: flex;
             width: auto;
             align-items: center;
@@ -20,7 +19,6 @@ $block-class: 'table-filter-panel';
             flex-flow: row;
             gap: 1rem;
             padding: 1rem 0 0.5rem 0;
-            color:$blue-grey-darken-1;
         }
 
         & &__label {
@@ -32,7 +30,6 @@ $block-class: 'table-filter-panel';
 
         & &__divider {
             width: 100%;
-            background-color: $blue-grey-lighten-3;
             height: 1px;
         }
     }

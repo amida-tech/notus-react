@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import {
   Box, Grid, Typography,
 } from '@mui/material';
+import theme from '../../assets/styles/AppTheme'
 import { storeProps } from '../ChartContainer/D3Props';
 import MeasureSelector from '../Common/MeasureSelector';
 import env from '../../env';
@@ -20,7 +21,7 @@ function ReportBuilder({ store }) {
   }
 
   return (
-    <Box className="report-builder">
+    <Box sx={{ color: theme.palette?.bluegray.D1 }} className="report-builder">
       <Typography variant="h2" className="report-builder__h2-header">Build A Report</Typography>
       <Typography className="report-builder__text">
         Generate a comprehensive report of specific HEDIS measure data.

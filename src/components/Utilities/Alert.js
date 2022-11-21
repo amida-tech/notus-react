@@ -61,7 +61,7 @@ export default function Alert({
         <Button onClick={() => handleAlert()}>Go Back</Button>
         <Button variant="contained" onClick={() => handleAlert()}>
           <Link
-            color="secondary"
+            color="primary.light"
             target={options.target}
             rel={options.rel}
             href={options.pathto}

@@ -12,8 +12,8 @@ import {
   Snackbar, IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import { validateAccessToken } from './components/Common/Controller'
 import theme from './assets/styles/AppTheme';
+import { validateAccessToken } from './components/Common/Controller'
 import Auth from './layouts/Auth';
 import ProtectedRoutes from './ProtectedRoutes';
 import env from './env';
@@ -78,7 +78,7 @@ export default function App() {
         message="Welcome to Saraswati, where knowledge is power."
         action={action(setShowWelcome)}
         sx={{
-          '& .MuiSnackbarContent-root': { backgroundColor: '#DFF4FC', color: '#263238' },
+          '& .MuiSnackbarContent-root': { backgroundColor: theme.palette?.primary.light, color: theme.palette?.text.primary },
         }}
       />
       <BrowserRouter>

@@ -4,6 +4,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import {
   Box, Button, Container, Grid, Link, Paper, TextField, Typography,
 } from '@mui/material';
+import theme from '../../assets/styles/AppTheme'
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import env from '../../env';
 
@@ -19,7 +20,7 @@ export default function Login() {
         SARASWATI
       </Typography>
 
-      <Paper className="login__header-section">
+      <Paper sx={{ backgroundColor: theme.palette?.primary.transparent }} className="login__header-section">
 
         <Grid container spacing={2}>
           <Grid item xs={6} md={9}>
@@ -29,7 +30,7 @@ export default function Login() {
                 component="span"
                 variant="h5"
                 display="inline"
-                sx={{ color: (theme) => theme.palette.bluegray?.main, fontWeight: 700 }}
+                sx={{ color: theme.palette?.bluegray.D2, fontWeight: 700 }}
               >
                 {' '}
                 SARASWATI
@@ -84,7 +85,7 @@ export default function Login() {
               }}
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: (theme) => theme.palette.bluegray?.L5,
+                  backgroundColor: theme.palette?.bluegray.L4,
                 },
               }}
               placeholder="Username or email address"
@@ -104,7 +105,7 @@ export default function Login() {
               margin="dense"
               sx={{
                 '& .MuiInputBase-root': {
-                  backgroundColor: (theme) => theme.palette.bluegray?.L5,
+                  backgroundColor: theme.palette?.bluegray.L4,
                 },
               }}
               InputProps={{
@@ -139,6 +140,7 @@ export default function Login() {
               color="primary"
               startIcon={<GoogleSvg />}
               onClick={() => oauthSignIn()}
+              // These are Google colors
               sx={{
                 backgroundColor: '#E9F1FF',
                 color: '#498AF5',

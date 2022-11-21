@@ -1,7 +1,6 @@
 @use 'rating-trends';
 
 $block-class: 'trend-display';
-@import 'colors';
 
 @at-root {
     .#{$block-class} {
@@ -26,15 +25,6 @@ $block-class: 'trend-display';
             margin-top: 1rem;
             font-size: 2.5rem;
             font-weight: 500;
-            color: $blue-grey-darken-4;
-
-            &--positive {
-                color: $green-text;
-            }
-
-            &--negative {
-                color: $default-red;
-            }
 
             &--hide {
                 display: none;

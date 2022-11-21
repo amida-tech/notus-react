@@ -6,6 +6,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import CancelIcon from '@mui/icons-material/Cancel';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
 
 function TextRowGenerator(text) {
   return (
@@ -18,14 +19,14 @@ function TextRowGenerator(text) {
 function IconRowGenerator(result, extraInfo) {
   if (result === true) {
     return (
-      <Grid className="report-table-row__icon-cell report-table-row__icon-cell--matched">
+      <Grid color={theme.palette?.success} className="report-table-row__icon-cell">
         <CheckBoxIcon className="report-table-row__compliance-icon" />
         {extraInfo && 'Compliant'}
       </Grid>
     )
   }
   return (
-    <Grid className="report-table-row__icon-cell report-table-row__icon-cell--unmatched">
+    <Grid color={theme.palette?.error} className="report-table-row__icon-cell">
       <DisabledByDefaultRoundedIcon className="report-table-row__compliance-icon" />
       {extraInfo && 'Not Compliant'}
     </Grid>
@@ -35,7 +36,7 @@ function IconRowGenerator(result, extraInfo) {
 function ArrayRowGenerator(info, extraInfo) {
   return (
     <Grid className="report-table-row__array-cell">
-      {extraInfo && <CheckCircleIcon className="report-table-row__condition-icon report-table-row__condition-icon--good" />}
+      {extraInfo && <CheckCircleIcon color={theme.palette?.success} />}
       {info}
     </Grid>
   )
@@ -63,7 +64,7 @@ function ReportTableRow({
             className={`report-table-row__data-align report-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
-            <Typography variant="caption" className="report-table-row__data">
+            <Typography variant="caption" color={theme.palette?.bluegray.D4} className="report-table-row__data">
               {rowSelector(rowDataItem, fieldInfo)}
             </Typography>
           </Grid>

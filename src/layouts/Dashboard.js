@@ -6,6 +6,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 
+import theme from '../assets/styles/AppTheme';
+
 import Banner from '../components/Common/Banner';
 import Alert from '../components/Utilities/Alert'
 import D3Container from '../components/ChartContainer';
@@ -486,7 +488,10 @@ export default function Dashboard() {
               anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
               message="Filters are active. To reset, click on 'RESET FILTERS' in the filter panel."
               sx={{
-                '& .MuiSnackbarContent-root': { backgroundColor: '#DFF4FC', color: '#263238' },
+                '& .MuiSnackbarContent-root': {
+                  backgroundColor: theme.palette?.background.main,
+                  color: theme.palette?.text.primary,
+                },
               }}
             />
             )}

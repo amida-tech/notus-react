@@ -94,10 +94,14 @@ function MemberReportTable({ rowData }) {
                 <TableCell align="center">{row.type}</TableCell>
                 <TableCell align="center">
                   {row.status
-                    ? <CheckCircleIcon sx={{ color: theme.palette.success.main }} />
-                    : <CancelIcon sx={{ color: theme.palette.error.main }} /> }
+                    ? <CheckCircleIcon sx={{ color: theme.palette?.success.main, '&:hover': { fill: theme.palette?.success.main } }} />
+                    : <CancelIcon sx={{ color: theme.palette?.error.main, '&:hover': { fill: theme.palette?.error.main } }} /> }
                 </TableCell>
-                <TableCell align="center">{row.exclusions?.length > 0 ? row.exclusions : <CancelIcon sx={{ color: theme.palette.error.main }} />}</TableCell>
+                <TableCell align="center">
+                  {row.exclusions?.length > 0
+                    ? row.exclusions
+                    : <CancelIcon sx={{ color: theme.palette.error.main, '&:hover': { fill: theme.palette?.error.main } }} />}
+                </TableCell>
                 <TableCell align="center">{row.practitioner}</TableCell>
                 <TableCell align="center">{row.dates}</TableCell>
                 <TableCell

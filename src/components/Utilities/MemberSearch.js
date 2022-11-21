@@ -18,21 +18,21 @@ export default function MemberSearch() {
     if (event.key === 'Enter') {
       event.preventDefault();
       const memberInfo = await memberInfoSearch(query)
-      datastoreActions.setMemberResults(memberInfo)
+      datastoreActions?.setMemberResults(memberInfo)
     }
   }
 
   const handleCancel = async () => {
     setQuery('')
     const memberInfo = await memberInfoSearch('')
-    datastoreActions.setMemberResults(memberInfo)
+    datastoreActions?.setMemberResults(memberInfo)
   }
 
   useEffect(() => {
-    if (datastore.memberResults.length === 0) {
+    if (datastore?.memberResults.length === 0) {
       setQuery('')
     }
-  }, [datastore.memberResults])
+  }, [datastore?.memberResults])
 
   return (
     <TextField

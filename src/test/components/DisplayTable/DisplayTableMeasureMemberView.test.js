@@ -7,7 +7,7 @@ import DisplayTable from '../../../components/DisplayTable/DisplayTable';
 import {
   resultList, aabHeaderInfo, selectedMeasures, colorMap, currentResults, rowEntries,
 } from '../../data/DemoData';
-import { default as datastore } from '../../data/datastore'
+import { datastore } from '../../data/datastore'
 
 describe('Dashboard: DisplayTable: AAB Member View', () => {
   // Display Table Container
@@ -75,7 +75,7 @@ describe('Dashboard: DisplayTable: AAB Member View', () => {
 
   it('buttons render', () => {
     const buttons = screen.getAllByRole('button')
-    expect(buttons.length).toBe(3)
+    expect(buttons.length).toBe(4)
   })
 
   it('checkboxes render', () => {

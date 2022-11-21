@@ -7,6 +7,7 @@ import {
 } from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import moment from 'moment';
+import theme from '../../assets/styles/AppTheme'
 
 function MemberReportInsurance({ memberInfo }) {
   const coverageObjArr = memberInfo.coverage
@@ -26,7 +27,7 @@ function MemberReportInsurance({ memberInfo }) {
       value={insurance.type.coding[i].display.value}
     >
       <List key={`insurance-card-${insurance.id.value}`}>
-        <ListItem disablePadding className="member-report__info-field">
+        <ListItem color={theme.palette?.bluegray.D4} disablePadding className="member-report__info-field">
           <ListItemText
             sx={{ m: 0, display: 'flex', gap: '.5rem' }}
             primaryTypographyProps={{ fontWeight: '700' }}
