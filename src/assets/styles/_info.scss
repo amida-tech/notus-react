@@ -1,5 +1,5 @@
 $block-class: 'info';
-@import 'colors';
+ 
 
 @at-root {
     .#{$block-class} {
@@ -18,13 +18,11 @@ $block-class: 'info';
       }
 
       &__info-icon {
-        color: $primary-blue;
         font-size: 1.25rem;
         z-index: 1;
       }
 
       &__info-box {
-        background-color: $secondary-blue;
         display: flex;
         border-radius: 3px;
         padding: .9rem;
@@ -37,16 +35,10 @@ $block-class: 'info';
       }
 
       & &__button {
-        background-color: transparent;
         height: 1rem;
-        color: $blue-grey-darken-4;
         font-weight: 600;
         margin: auto 0;
         cursor: pointer;
-
-        &:hover {
-          background-color: transparent;
-        }
 
         &:focus {
           outline: none;

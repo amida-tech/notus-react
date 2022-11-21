@@ -9,24 +9,25 @@ const filters = {
   stars: [],
   percentRange: [0, 100],
   sum: 0,
+  payors: [],
+  healthcareProviders: [],
   healthcareCoverages: [],
   healthcarePractitioners: [],
-  healthcareProviders: [],
-  payors: [],
-};
+}
 
 const mockHandleFilterChange = jest.fn(() => false);
 const mockToggleFilterDrawer = jest.fn(() => false);
 const mockHandleResetData = jest.fn(() => false);
+const emptyFunction = jest.fn(() => false);
 
-const clickNCheck = (boxes, values) => Object.entries(values).map(([key, value]) => {
+const clickNCheck = (boxes, values) => Object.entries(values).forEach(([key, value]) => {
   if (value) {
     fireEvent.click(boxes.find((box) => box.value === key))
   }
   expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
 })
 
-const simpleCheck = (boxes, values) => Object.values(values).map((value) => {
+const simpleCheck = (boxes, values) => Object.values(values).forEach((value) => {
   expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
 })
 
@@ -35,6 +36,14 @@ const closeOpenDrawerTest = (rerender) => {
     filterDrawerOpen={false}
     currentFilters={filters}
     additionalFilterOptions={additionalFilterOptions}
+    handleFilterChange={mockHandleFilterChange}
+    toggleFilterDrawer={mockToggleFilterDrawer}
+    setFilterActivated={emptyFunction}
+    setIsLoading={emptyFunction}
+    setComposite={emptyFunction}
+    setTableFilter={emptyFunction}
+    setRowEntries={emptyFunction}
+    handleResetData={emptyFunction}
   />);
   const refineByText = screen.queryByText('Refine by');
   expect(refineByText).toBe(null);
@@ -54,6 +63,12 @@ describe('FilterDrawer', () => {
         handleFilterChange={mockHandleFilterChange}
         currentFilters={filters}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        setFilterActivated={emptyFunction}
+        setIsLoading={emptyFunction}
+        setComposite={emptyFunction}
+        setTableFilter={emptyFunction}
+        setRowEntries={emptyFunction}
+        handleResetData={emptyFunction}
       />,
     )
 
@@ -63,9 +78,10 @@ describe('FilterDrawer', () => {
     const startPoint = sliderPoints[0]
     const endPoint = sliderPoints[1]
 
-    // values of slider points -- aria-valuetext OR aria-valuenow -- to match given filter percentageRange value
-    expect(startPoint.getAttribute('aria-valuenow')).toBe('5')
-    expect(endPoint.getAttribute('aria-valuenow')).toBe('95')
+    // values of slider points -- aria-valuetext OR aria-valuenow --
+    // to match given filter percentageRange value
+    expect(startPoint.getAttribute('aria-valuenow')).toBe('0')
+    expect(endPoint.getAttribute('aria-valuenow')).toBe('100')
 
     expect(startPoint.getAttribute('max')).toBe('100')
     expect(startPoint.getAttribute('min')).toBe('0')
@@ -89,6 +105,12 @@ describe('FilterDrawer', () => {
         additionalFilterOptions={additionalFilterOptions}
         handleFilterChange={mockHandleFilterChange}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        setFilterActivated={emptyFunction}
+        setIsLoading={emptyFunction}
+        setComposite={emptyFunction}
+        setTableFilter={emptyFunction}
+        setRowEntries={emptyFunction}
+        handleResetData={emptyFunction}
       />,
     );
 
@@ -128,6 +150,12 @@ describe('FilterDrawer', () => {
       additionalFilterOptions={additionalFilterOptions}
       handleFilterChange={mockHandleFilterChange}
       toggleFilterDrawer={mockToggleFilterDrawer}
+      setFilterActivated={emptyFunction}
+      setIsLoading={emptyFunction}
+      setComposite={emptyFunction}
+      setTableFilter={emptyFunction}
+      setRowEntries={emptyFunction}
+      handleResetData={emptyFunction}
     />);
     const refineByText = screen.queryByText('Refine by');
     expect(refineByText).toBe(null);
@@ -138,6 +166,12 @@ describe('FilterDrawer', () => {
       additionalFilterOptions={additionalFilterOptions}
       handleFilterChange={mockHandleFilterChange}
       toggleFilterDrawer={mockToggleFilterDrawer}
+      setFilterActivated={emptyFunction}
+      setIsLoading={emptyFunction}
+      setComposite={emptyFunction}
+      setTableFilter={emptyFunction}
+      setRowEntries={emptyFunction}
+      handleResetData={emptyFunction}
     />);
 
     simpleCheck(checkboxes, expectedValues)
@@ -152,6 +186,11 @@ describe('FilterDrawer', () => {
         additionalFilterOptions={additionalFilterOptions}
         toggleFilterDrawer={mockToggleFilterDrawer}
         handleResetData={mockHandleResetData}
+        setFilterActivated={emptyFunction}
+        setIsLoading={emptyFunction}
+        setComposite={emptyFunction}
+        setTableFilter={emptyFunction}
+        setRowEntries={emptyFunction}
       />,
     );
 
@@ -182,6 +221,12 @@ describe('FilterDrawer', () => {
         additionalFilterOptions={additionalFilterOptions}
         handleFilterChange={mockHandleFilterChange}
         toggleFilterDrawer={mockToggleFilterDrawer}
+        setFilterActivated={emptyFunction}
+        setIsLoading={emptyFunction}
+        setComposite={emptyFunction}
+        setTableFilter={emptyFunction}
+        setRowEntries={emptyFunction}
+        handleResetData={emptyFunction}
       />,
     );
 

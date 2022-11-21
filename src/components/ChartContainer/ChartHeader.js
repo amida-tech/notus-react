@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
 import { Grid, Typography } from '@mui/material';
-
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import theme from '../../assets/styles/AppTheme'
 
 function ChartHeader({
   isComposite,
@@ -14,7 +14,7 @@ function ChartHeader({
 }) {
   const allMeasureText = (
     <Grid className="d3-container__return-title-display">
-      <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
+      <Typography color={theme.palette?.bluegray.D2} className="d3-container__title">All Measures</Typography>
     </Grid>
   )
   const allMeasureTextWithLinks = (

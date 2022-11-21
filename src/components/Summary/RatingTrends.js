@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
-import ToolTip from '@mui/material/Tooltip';
-import { Box } from '@mui/system';
 import {
-  Grid, Typography, Rating,
+  Grid, Typography, Rating, Box,
 } from '@mui/material';
+import ToolTip from '@mui/material/Tooltip';
+import theme from '../../assets/styles/AppTheme'
 import TrendDisplay from './TrendDisplay';
 import Info from '../Common/Info';
 import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils'
@@ -54,7 +54,7 @@ function RatingTrends({
 }
 
 const renderUI = (activeMeasure, mainTrend, renderOptions) => (
-  <Box className="rating-trends">
+  <Box sx={{ color: theme.palette?.bluegray.D1 }} className="rating-trends">
 
     <Box className="rating-trends__main-header-align">
       <Typography variant="h2" className="rating-trends__h2-header">
@@ -65,7 +65,9 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
 
     <Box className="rating-trends__display-box">
       <Box className="rating-trends__panel-box">
-        <Grid className={`rating-trends__panel 
+        <Grid
+          sx={{ border: `1px solid ${theme.palette?.bluegray.L3}` }}
+          className={`rating-trends__panel 
           rating-trends__panel${renderOptions.displayAll ? '--width-25' : '--width-50'}`}
         >
           <Grid className="rating-trends__header-align">
@@ -73,7 +75,7 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
               Star Rating
             </Typography>
             <ToolTip title={starsTip}>
-              <HelpIcon className="rating-trends__help-icon" fontSize="small" />
+              <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
             </ToolTip>
           </Grid>
           {showStars(activeMeasure) ? (
@@ -86,7 +88,7 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
             />
           )
             : (
-              <Typography className="rating-trends__not-available">
+              <Typography color={theme.palette?.bluegray.D4} className="rating-trends__not-available">
                 N/A
               </Typography>
             )}

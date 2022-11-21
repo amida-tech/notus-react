@@ -5,14 +5,13 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Tooltip from '@mui/material/Tooltip';
-import { useTheme } from '@mui/material/styles';
+import theme from '../../assets/styles/AppTheme'
 import CheckBoxCell from './CheckBoxCell';
 import Alert from '../Utilities/Alert'
 
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
-  const theme = useTheme()
   const compositeCheck = headerInfo[0].header === 'Measure'
   const alertTitle = 'Leaving Saraswati'
   const alertPath = (info) => {
@@ -112,6 +111,7 @@ function MeasureTableRow({
                     <Typography
                       style={{ color: theme.palette.primary.main }}
                       variant="caption"
+                      color={theme.palette?.bluegray.D4}
                       className="measure-table-row__data"
                       onClick={() => setOpenAlert(true)}
                     >

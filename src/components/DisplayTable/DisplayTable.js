@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import TablePagination from '@mui/material/TablePagination';
+import theme from '../../assets/styles/AppTheme'
 
 import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
@@ -66,6 +67,11 @@ function DisplayTable({
               container
               item
               className="cise-table__header-section"
+              sx={{
+                backgroundColor: theme.palette?.background.main,
+                color: theme.palette?.bluegray.D1,
+                padding: '.5rem 0',
+              }}
             >
               {useCheckBox && (
               <CheckBoxCell
@@ -132,6 +138,10 @@ function DisplayTable({
             page={currentPage}
             onPageChange={handleChangePage}
             className="display-table__pagination"
+            sx={{
+              color: theme.palette?.bluegray.D4,
+              marginLeft: 'auto',
+            }}
             rowsPerPage={rowsPerPage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
@@ -142,8 +152,19 @@ function DisplayTable({
   }
   return (
     <>
-      <Grid container className="display-table" sx={{ flexDirection: nonCiseOverviewCheck }}>
-        <Grid container item className="display-table__header-section">
+      <Grid
+        container
+        className="display-table"
+        sx={{ flexDirection: nonCiseOverviewCheck, color: theme.palette?.bluegray.D1 }}
+      >
+        <Grid
+          sx={{
+            backgroundColor: theme.palette?.background.main,
+          }}
+          container
+          item
+          className="display-table__header-section"
+        >
           {useCheckBox && (
             <CheckBoxCell
               handleCheckBoxEvent={handleCheckBoxChange}
@@ -187,6 +208,16 @@ function DisplayTable({
         <StyledEngineProvider injectFirst>
           <TablePagination
             component="div"
+            sx={{
+              '.MuiTablePagination-toolbar': {
+                color: theme.palette?.bluegray.L1,
+                fontWeight: 700,
+              },
+              '.MuiPaginationItem-root': {
+                color: theme.palette?.bluegray.D1,
+                border: `.1rem solid ${theme.palette?.bluegray.L3}`,
+              },
+            }}
             rowsPerPageOptions={[10, 25, 50]}
             count={children.length}
             page={currentPage}

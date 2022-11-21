@@ -14,10 +14,9 @@ import {
 
 import { validateAccessToken } from './components/Common/Controller'
 import theme from './assets/styles/AppTheme';
-
+import ProtectedRoutes from './ProtectedRoutes';
 import Login from './views/auth/Login'
 import Register from './views/auth/Register'
-import ProtectedRoutes from './ProtectedRoutes';
 
 import LoadingPage from './components/Utilities/LoadingPage'
 
@@ -72,7 +71,7 @@ export default function App() {
         onClose={() => setShowWelcome(false)}
         message="Welcome to Saraswati, where knowledge is power."
         sx={{
-          '& .MuiSnackbarContent-root': { backgroundColor: '#DFF4FC', color: '#263238' },
+          '& .MuiSnackbarContent-root': { backgroundColor: theme.palette?.primary.light, color: theme.palette?.text.primary },
         }}
       />
       <BrowserRouter>

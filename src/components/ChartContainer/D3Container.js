@@ -1,6 +1,8 @@
 import { Grid, Typography } from '@mui/material';
 import { createContext } from 'react';
 
+import theme from '../../assets/styles/AppTheme'
+
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ChartBar from './ChartBar';
 import ChartHeader from './ChartHeader';
@@ -44,7 +46,7 @@ function labelGenerator(measure) {
   }
   const { label } = measure;
   return (
-    <Grid className="d3-container__return-measure-labels">
+    <Grid sx={{ color: theme.palette?.bluegray.D4 }} className="d3-container__return-measure-labels">
       <Typography className="d3-container__return-measure-title">{label.substring(0, label.indexOf(' '))}</Typography>
       <Typography className="d3-container__return-measure-description">{label.substring(label.indexOf('- ') + 1)}</Typography>
     </Grid>

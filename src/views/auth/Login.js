@@ -73,7 +73,7 @@ export default function Login() {
         <Paper
           sx={{
             backdropFilter: 'blur(1px)',
-            backgroundColor: theme.palette?.secondary.transparent,
+            backgroundColor: theme.palette?.primary.transparent,
             borderRadius: 10,
             padding: '2rem',
             float: 'right',
@@ -89,7 +89,7 @@ export default function Login() {
                   component="span"
                   variant="h5"
                   display="inline"
-                  sx={{ color: theme.palette.bluegray?.main, fontWeight: 700 }}
+                  sx={{ color: theme.palette.bluegray?.D2, fontWeight: 700 }}
                 >
                   {' '}
                   SARASWATI
@@ -192,7 +192,7 @@ export default function Login() {
             </Link>
           </Grid>
 
-          <Grid container spacing={0} sx={{ mb: '.5rem' }}>
+          <Grid container spacing={2} direction="column" sx={{ my: '.5rem' }}>
             <Grid item>
               <Button
                 variant="contained"

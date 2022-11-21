@@ -1,4 +1,4 @@
-@import 'colors';
+ 
 
 $block-class: 'd3-container';
 
@@ -10,41 +10,6 @@ $block-class: 'd3-container';
 
         main-chart {
             width: 100;
-        }
-
-        & &__table-tab-bar {
-            height: 4rem;
-            outline: $outline-blue solid 1px;
-            border-radius: 3px;
-            background-color: $primary-blue;
-        }
-
-        & &__table-selection-button {
-            color: $secondary-blue;
-            max-height: 2.2rem;
-            font-weight: light;
-            padding: 0 2rem;
-            border: unset;
-            text-transform: capitalize;
-            font-size: 1.3rem;
-            margin: 1rem .5rem;
-        }
-
-        & &__table-selection-button:hover,
-        
-        & &__table-selection-button:focus {
-            color: $secondary-blue;
-            border-radius: 0.5rem;
-            background-color: $secondary-blue-transparent;
-            transition: 200ms;
-        }
-
-        & &__table-selection-button.Mui-selected {
-            color: $primary-blue;
-            background-color: $secondary-blue;
-            border-radius: 0.5rem;
-            height: 1.5rem;
-            place-self: center;
         }
 
         & &__chart-bar {
@@ -72,7 +37,6 @@ $block-class: 'd3-container';
             }          
         }
         & &__loading-skeleton{
-            background-color: $blue-grey-lighten-3;
 
             &--d3-chart {
                 margin: 3rem auto;
@@ -108,16 +72,9 @@ $block-class: 'd3-container';
             margin: .75rem 0;
         }
 
-        & &__cancel-icon {
-            color: $primary-blue;
-            font-size: 2rem;
-            margin: .5rem;
-        }
-
         & &__return-measure-labels {
             display: flex;
             flex-direction: column;
-            color: $blue-grey-darken-4;
             font-size: 1.2rem;
             margin-left: 1rem;
         }
@@ -128,18 +85,12 @@ $block-class: 'd3-container';
         }
 
         & &__title {
-            color: $blue-grey-darken-2;
             font-size: 1.1rem;
             text-transform: uppercase;
             font-weight: bold;
-
-            &--inactive {
-                color: $blue-grey-lighten-1;
-            }
         }
 
         & &__selector-title {
-            color: $blue-grey-darken-4;
             font-size: 1.1rem;
             margin: .85rem 1rem 0 0;
         }
@@ -152,7 +103,6 @@ $block-class: 'd3-container';
         }
 
         & &__entries-display {
-            color: $blue-grey-darken-1;
             font-weight: 600;
             margin-top: 1.5rem;
             margin-left: 1.5rem;
@@ -165,9 +115,7 @@ $block-class: 'd3-container';
         }
 
         & &__bottom-display {
-            border-radius: 3px;
             padding: 0 1rem;
-            border: $outline-blue solid 1px;
         }
     }
 }

@@ -6,20 +6,21 @@ import {
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import theme from '../../assets/styles/AppTheme';
 
 const logout = () => {
   localStorage.removeItem('token');
 }
-const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+const Offset = styled('div')(theme.mixins.toolbar);
 
 export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ backgroundColor: (theme) => theme.palette.bluegray?.D4 }}>
+      <AppBar sx={{ backgroundColor: theme.palette?.bluegray.D4 }}>
         <Toolbar position="fixed">
           <Box sx={{ pl: '.7rem' }}>
             <Link
-              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              sx={{ color: theme.palette?.bluegray.L4 }}
               component={RouterLink}
               className="navbar__text"
               to="/"
@@ -32,7 +33,7 @@ export default function Navbar() {
           }}
           >
             <Link
-              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              sx={{ color: theme.palette?.bluegray.L4 }}
               component={RouterLink}
               className="navbar__text"
               to={{ pathname: '/' }}
@@ -40,7 +41,7 @@ export default function Navbar() {
               Dashboard
             </Link>
             <Link
-              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              sx={{ color: theme.palette?.bluegray.L4 }}
               component={RouterLink}
               className="navbar__text"
               to={{ pathname: '/reports' }}
@@ -48,7 +49,7 @@ export default function Navbar() {
               Reports
             </Link>
             <Link
-              sx={{ color: (theme) => theme.palette.bluegray?.L5 }}
+              sx={{ color: theme.palette?.bluegray.L4 }}
               component={RouterLink}
               className="navbar__text"
               to={{ pathname: '/welcome' }}
