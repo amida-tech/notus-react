@@ -25,24 +25,23 @@ function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
         </Grid>
       </Grid>
       <FormGroup className="filter-drawer-item__options">
-        {filterItem.options ?
-        (filterItem.options.map((option, index) => (
-          <FormControlLabel
-            key={`filter-drawer-item-option-${option}`}
-            componentsProps={{ typography: { className: 'filter-drawer-item__option-label' } }}
-            control={(
-              <Checkbox
-                value={filterItem.values[index]}
-                defaultChecked={defaultCheck.includes(filterItem.values[index])}
-                className="filter-drawer-item__option-checkbox"
-                onChange={filterAction}
-              />
+        {filterItem.options
+          ? (filterItem.options.map((option, index) => (
+            <FormControlLabel
+              key={`filter-drawer-item-option-${option}`}
+              componentsProps={{ typography: { className: 'filter-drawer-item__option-label' } }}
+              control={(
+                <Checkbox
+                  value={filterItem.values[index]}
+                  defaultChecked={defaultCheck.includes(filterItem.values[index])}
+                  className="filter-drawer-item__option-checkbox"
+                  onChange={filterAction}
+                />
             )}
-            label={option}
-          />
-        ))) :
-        null
-      }
+              label={option}
+            />
+          )))
+          : null}
       </FormGroup>
     </Grid>
   )

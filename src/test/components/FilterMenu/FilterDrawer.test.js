@@ -5,14 +5,14 @@ import FilterDrawer from '../../../components/FilterMenu/FilterDrawer';
 import { additionalFilterOptions } from '../../data/DemoData';
 
 const filters = {
-  "domainsOfCare": [],
-  "stars": [],
-  "percentRange": [ 0, 100 ],
-  "sum": 0,
-  "payors": [],
-  "healthcareProviders": [],
-  "healthcareCoverages": [],
-  "healthcarePractitioners": []
+  domainsOfCare: [],
+  stars: [],
+  percentRange: [0, 100],
+  sum: 0,
+  payors: [],
+  healthcareProviders: [],
+  healthcareCoverages: [],
+  healthcarePractitioners: [],
 }
 
 const mockHandleFilterChange = jest.fn(() => false);

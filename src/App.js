@@ -78,7 +78,7 @@ export default function App() {
         message="Welcome to Saraswati, where knowledge is power."
         action={action(setShowWelcome)}
         sx={{
-          '& .MuiSnackbarContent-root': { backgroundColor: theme.palette.primary.light, color: theme.palette.text },
+          '& .MuiSnackbarContent-root': { backgroundColor: theme.palette?.primary.light, color: theme.palette?.text.primary },
         }}
       />
       <BrowserRouter>
