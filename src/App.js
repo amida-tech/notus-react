@@ -91,9 +91,9 @@ export default function App() {
 }
 
 ProtectedRoute.propTypes = {
-  loggedIn: PropTypes.string,
+  loggedIn: PropTypes.bool,
 };
 
 ProtectedRoute.defaultProps = {
-  loggedIn: '',
+  loggedIn: false,
 };
