@@ -37,6 +37,7 @@ import {
   additionalFilterOptionsProps,
   setFilterInfoProps,
 } from './D3Props';
+import LineChart from './LineChart';
 
 export const firstRenderContext = createContext(true);
 
@@ -89,6 +90,19 @@ function D3Container({
     setCurrentTimeline(timelineUpdate);
     handleFilteredDataUpdate(currentFilters, timelineUpdate);
   }
+  const chartStuff = []
+  for (let i = 0; i < currentResults.length; i += 1) {
+    const MEASURES = currentResults[i].measure
+    chartStuff.push({
+      name: MEASURES,
+      data: displayData.filter((entry) => {
+        if (MEASURES === entry.measure) {
+          return entry.value
+        }
+      }),
+    })
+  }
+  console.log(chartStuff)
   return (
     <div className="d3-container">
       <FilterDrawer
@@ -127,9 +141,17 @@ function D3Container({
         />
       </Grid>
       <Grid className="d3-container__main-chart">
-        <D3Chart
+        {/* <D3Chart
           displayData={displayData.filter((result) => selectedMeasures.includes(result.measure))}
           colorMapping={colorMap}
+          measureInfo={store.info}
+          graphWidth={graphWidth}
+          currentTimeline={currentTimeline}
+        /> */}
+        <LineChart
+          chartStuff={chartStuff}
+          displayData={displayData}
+          colorMap={colorMap}
           measureInfo={store.info}
           graphWidth={graphWidth}
           currentTimeline={currentTimeline}
