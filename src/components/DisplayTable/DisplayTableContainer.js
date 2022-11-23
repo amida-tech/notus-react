@@ -30,6 +30,8 @@ import TableFilterPanel from './TableFilterPanel';
 import DisplayTable from './DisplayTable';
 import MeasureSelector from '../Common/MeasureSelector';
 import MeasureTableRow from './MeasureTableRow';
+import EntriesFound from './EntriesFound'
+import NewMemberTable from './NewMemberTable'
 
 function DisplayTableContainer({
   activeMeasure,
@@ -137,20 +139,21 @@ function DisplayTableContainer({
           </TabPanel>
 
           <TabPanel value="members">
+
             <TableFilterPanel
               tableFilter={tableFilter}
               handleTableFilterChange={handleTableFilterChange}
             />
-            <Box sx={{ color: theme.palette?.bluegray.D1 }} className="d3-container__entries-display">
-              Results:&nbsp;
-              <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
-                &nbsp;Entries Found
-            </Box>
+            <EntriesFound total={rowEntries.length} />
+
+            <NewMemberTable />
+
             <DisplayTable
               headerInfo={headerInfo}
               pageSize={MemberTable.pageSize}
               useCheckBox={false}
             >
+              {/* NO ENTRIES? */}
               {rowEntries.length === 0
                 ? (
                   <Box className="d3-container__no-entries">
@@ -168,6 +171,7 @@ function DisplayTableContainer({
                     </Button>
                   </Box>
                 )
+                // ENTRIES FOUND
                 : (rowEntries.map((item) => (
                   <MemberTableRow
                     key={`member-table-row-${item.value}`}
