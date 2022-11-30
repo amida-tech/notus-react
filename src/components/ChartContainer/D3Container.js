@@ -148,14 +148,14 @@ function D3Container({
           graphWidth={graphWidth}
           currentTimeline={currentTimeline}
         /> */}
-        <LineChart
+        {/* <LineChart
           chartStuff={chartStuff}
           displayData={displayData}
           colorMap={colorMap}
           measureInfo={store.info}
           graphWidth={graphWidth}
           currentTimeline={currentTimeline}
-        />
+        /> */}
       </Grid>
     </div>
   );
