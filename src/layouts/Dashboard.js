@@ -350,7 +350,6 @@ export default function Dashboard() {
   ]);
 
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
-    console.log(filters)
     setIsLoading(true)
     // let newDisplayData
     let cloneDailyMeasureResults = {}
