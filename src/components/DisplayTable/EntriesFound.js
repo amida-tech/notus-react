@@ -11,9 +11,10 @@ export default function EntriesFound ({total}) {
   return (
     <Box
     sx={{
-      color: theme.palette?.bluegray.D1,
+      color: theme.palette?.bluegray.main,
       fontWeight: '600',
-      margin: '1.5rem 0 0 1.5rem',
+      fontStyle: 'italic',
+      margin: '1rem 0 .5rem .5rem',
     }}
   >
     Results:&nbsp;

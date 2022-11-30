@@ -91,6 +91,7 @@ export default function newMemberTable() {
                     fontSize: 'medium',
                     color: theme.palette?.bluegray.D1,
                     minWidth: idx === 0 ? '18rem' : '8rem',
+                    backgroundColor: theme.palette?.background.main
                 }}
                   align={column.align}
                 >

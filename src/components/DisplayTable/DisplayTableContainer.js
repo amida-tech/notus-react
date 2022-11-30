@@ -31,6 +31,7 @@ import DisplayTable from './DisplayTable';
 import MeasureSelector from '../Common/MeasureSelector';
 import MeasureTableRow from './MeasureTableRow';
 import EntriesFound from './EntriesFound'
+import NewOverviewTable from './NewOverviewTable'
 import NewMemberTable from './NewMemberTable'
 
 function DisplayTableContainer({
@@ -96,6 +97,7 @@ function DisplayTableContainer({
           </Box>
 
           <TabPanel value="overview">
+
             {headerInfo[0].header !== 'Sub-Measure'
               ? (
                 <Grid className="d3-container__measure-selector">
@@ -112,7 +114,9 @@ function DisplayTableContainer({
                   />
                 </Grid>
               ) : null}
-
+            {/* NEW TABLE */}
+            <NewOverviewTable />
+            {/* OLD TABLE */}
             <DisplayTable
               headerInfo={headerInfo}
               pageSize={MeasureTable.pageSize}
@@ -136,6 +140,7 @@ function DisplayTableContainer({
                 />
               ))}
             </DisplayTable>
+
           </TabPanel>
 
           <TabPanel value="members">
