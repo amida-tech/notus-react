@@ -1,7 +1,6 @@
 import tinycolor from 'tinycolor2'
 
 const ColorMapping = (allResults, displayData) => {
-  console.log(allResults, displayData)
 
   const chartColorArray = [
     '#88CCEE',

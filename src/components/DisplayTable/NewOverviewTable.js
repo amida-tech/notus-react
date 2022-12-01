@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import theme from '../../assets/styles/AppTheme'
-import MeasureTable from '../Utilities/MeasureTable';
+import { formatData } from '../Utilities/MeasureTable';
 
 // research onCellClick features for boxes
 // onPageChange for page change, update store?
@@ -18,7 +18,6 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
   const [rows, setRows] = useState([])
 
   useEffect(() => {
-    console.log(currentResults)
 
     const columnData = Object.values(headerInfo)
       .map((info, idx) => {
@@ -32,7 +31,7 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
           // add color here ?
         })
     })
-    const rowData = MeasureTable.formatData(currentResults)
+    const rowData = formatData(currentResults)
 
     setColumns(columnData)
     setRows(rowData)
@@ -40,11 +39,16 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
   }, [currentResults])
 
   const handleSelectionModelChange = (event) => {
+    console.log('event', event, currentResults)
+
     const newSelections = event
       .map(label => currentResults
-        .find(measure => measure.title == label)
+        .find(measure => measure.label == label)
         .measure
       )
+      
+    console.log('new selections', newSelections)
+
     handleSelectedMeasureChange(newSelections)
   }
 
@@ -70,6 +74,7 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
         showCellRightBorder={false}
         showColumnRightBorder={false}
         onSelectionModelChange={(event) => handleSelectionModelChange(event)}
+        onRowClick={() => console.log('go to')}
         disableColumnMenu
         // filterMode='server'
         pagination='client'

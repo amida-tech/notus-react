@@ -14,7 +14,7 @@ import D3Container from '../components/ChartContainer';
 import DisplayTableContainer from '../components/DisplayTable/DisplayTableContainer';
 import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
-import MeasureTable from '../components/Utilities/MeasureTable';
+import { headerData } from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
 
 // scrolly is a navigate function wrapped with scrollToTop
@@ -92,7 +92,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(true));
+        setHeaderInfo(headerData(true));
       } else {
         setFilterInfo({
           members: [],
@@ -115,7 +115,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(false));
+        setHeaderInfo(headerData(false));
       }
       setFilterActivated(false)
       setNoResultsFound(false)
@@ -135,7 +135,7 @@ export default function Dashboard() {
         setTableFilter([]);
         setRowEntries([]);
         setColorMap(ColorMapping(filterInfo.currentResults))
-        setHeaderInfo(MeasureTable.headerData(true));
+        setHeaderInfo(headerData(true));
         scrolly(navigate, '/');
       } else {
         const isEmpty = (filter) => Object.keys(filter).length === 0
@@ -197,7 +197,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(true));
+        setHeaderInfo(headerData(true));
       } else {
         setFilterInfo({
           members: [],
@@ -220,7 +220,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(false));
+        setHeaderInfo(headerData(false));
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -256,7 +256,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(isComposite))
+        setHeaderInfo(headerData(isComposite))
       } else {
         setComposite(false);
         const subMeasureCurrentResults = getSubMeasureCurrentResults(
@@ -271,7 +271,7 @@ export default function Dashboard() {
         );
         setFilterDisabled(false);
         setTableFilter([]);
-        setHeaderInfo(MeasureTable.headerData(false));
+        setHeaderInfo(headerData(false));
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -338,7 +338,7 @@ export default function Dashboard() {
       setTabValue('members')
     } else {
       setTabValue('overview')
-      setHeaderInfo(MeasureTable.headerData(isComposite))
+      setHeaderInfo(headerData(isComposite))
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -458,7 +458,7 @@ export default function Dashboard() {
       ))
     } else {
       navigate(`/${activeMeasure.measure}`)
-      setHeaderInfo(MeasureTable.headerData(isComposite));
+      setHeaderInfo(headerData(isComposite));
     }
   };
 

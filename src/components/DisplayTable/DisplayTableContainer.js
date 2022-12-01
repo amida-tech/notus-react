@@ -52,7 +52,6 @@ function DisplayTableContainer({
   handleResetData,
 }) {
   const { datastore } = useContext(DatastoreContext);
-  console.log(currentResults)
 
   return (
     <Grid
