@@ -85,9 +85,11 @@ const subHeaderInfo = [
 ]
 
 const formatData = (currentResults) => {
+  // console.log('currentResults in MeasureTable:', currentResults)
   const formattedData = [];
   currentResults.forEach((measureResult) => {
     formattedData.push({
+      id: measureResult.title,
       value: measureResult.measure,
       label: measureResult.label,
       type: 'measure',
@@ -97,7 +99,7 @@ const formatData = (currentResults) => {
       denominator: measureResult.denominator,
       exclusions: measureResult.exclusions,
     });
-  });
+  })
 
   return formattedData;
 };

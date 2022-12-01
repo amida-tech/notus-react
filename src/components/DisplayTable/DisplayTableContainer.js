@@ -1,3 +1,4 @@
+import { useContext } from 'react'
 import {
   Grid, Typography, Box, Button,
 } from '@mui/material';
@@ -7,10 +8,10 @@ import theme from '../../assets/styles/AppTheme'
 
 import { TableTab } from '../Utilities/TableTab'
 import MemberTable from '../Utilities/MemberTable';
-import MeasureTable from '../Utilities/MeasureTable';
+
+import { DatastoreContext } from '../../context/DatastoreProvider';
 
 import {
-  storeProps,
   activeMeasureProps,
   defaultActiveMeasure,
   tabValueProps,
@@ -29,14 +30,12 @@ import MemberTableRow from './MemberTableRow';
 import TableFilterPanel from './TableFilterPanel';
 import DisplayTable from './DisplayTable';
 import MeasureSelector from '../Common/MeasureSelector';
-import MeasureTableRow from './MeasureTableRow';
 import EntriesFound from './EntriesFound'
-import NewOverviewTable from './NewOverviewTable'
+import OverviewTable from './NewOverviewTable'
 import NewMemberTable from './NewMemberTable'
 
 function DisplayTableContainer({
   activeMeasure,
-  store,
   tabValue,
   isComposite,
   headerInfo,
@@ -50,6 +49,8 @@ function DisplayTableContainer({
   handleTabChange,
   handleResetData,
 }) {
+  const { datastore } = useContext(DatastoreContext);
+
   return (
     <Grid
       sx={{ outline: `${theme.palette?.primary.dark} solid 1px` }}
@@ -109,15 +110,19 @@ function DisplayTableContainer({
                   </Typography>
                   <MeasureSelector
                     measure={activeMeasure.measure}
-                    currentResults={store.currentResults}
+                    currentResults={datastore.currentResults}
                     handleMeasureChange={handleSelectedMeasureChange}
                   />
                 </Grid>
               ) : null}
             {/* NEW TABLE */}
-            <NewOverviewTable />
+            <OverviewTable
+              headerInfo={headerInfo}
+              currentResults={datastore.currentResults}
+              handleSelectedMeasureChange={handleSelectedMeasureChange}
+            />
             {/* OLD TABLE */}
-            <DisplayTable
+            {/* <DisplayTable
               headerInfo={headerInfo}
               pageSize={MeasureTable.pageSize}
               useCheckBox
@@ -136,10 +141,10 @@ function DisplayTableContainer({
                     colorMap.find((mapping) => mapping.value === item.value)?.color
                     || theme.palette?.primary.main
                   }
-                  measureInfo={store.info}
+                  measureInfo={datastore.info}
                 />
               ))}
-            </DisplayTable>
+            </DisplayTable> */}
 
           </TabPanel>
 
@@ -196,7 +201,6 @@ function DisplayTableContainer({
 
 DisplayTableContainer.propTypes = {
   activeMeasure: activeMeasureProps,
-  store: storeProps,
   tabValue: tabValueProps,
   isComposite: isCompositeProps,
   handleSelectedMeasureChange: handleSelectedMeasureChangeProps,
@@ -212,7 +216,6 @@ DisplayTableContainer.propTypes = {
 };
 
 DisplayTableContainer.defaultProps = {
-  store: {},
   activeMeasure: defaultActiveMeasure,
   tabValue: 'overview',
   isComposite: true,

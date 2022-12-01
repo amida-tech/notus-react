@@ -3,48 +3,43 @@ import {
   } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import theme from '../../assets/styles/AppTheme'
-
-const columns = [
-  { field: 'headerName', headerName: 'Measure', description: 'This is a description', headerAlign: 'left', align: 'left', width: 250 },
-  { field: 'inclusions', headerName: 'Remaining Inclusions', type: 'number', description: 'This is a description', headerAlign: 'center', align: 'center', width: 200 },
-  { field: 'population', headerName: 'Eligible Population', type: 'number', description: 'This is a description', headerAlign: 'center', align: 'center', width: 200 },
-  { field: 'numerator', headerName: 'Numerator', type: 'number', description: 'This is a description', headerAlign: 'center', align: 'center', width: 200 },
-  { field: 'denominator', headerName: 'Denominator', type: 'number', description: 'This is a description', headerAlign: 'center', align: 'center', width: 200 },
-  { field: 'exclusions', headerName: 'Available Exclusions', type: 'number', description: 'This is a description', headerAlign: 'center', align: 'center', width: 200 },
-  // {
-  //   field: 'fullName',
-  //   headerName: 'Full name',
-  //   description: 'This column has a value getter and is not sortable.',
-  //   sortable: false,
-  //   width: 160,
-  //   valueGetter: (params) =>
-  //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  // },
-];
+import MeasureTable from '../Utilities/MeasureTable';
 
 // research onCellClick features for boxes
 // onPageChange for page change, update store?
 // disable sort or get it to work
 // page prop can be stored alongside pageSize, we should reset this on navigation
 
-const title = 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis'
 
-const rows = [
-  { id: 'AAB', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'ABB', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'CDA', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'FFA', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'GHA', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'KAE', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'NWQ', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'PIP', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'QOP', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'RTY', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'WWB', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-  { id: 'ZIZ', headerName: title, inclusions: '123', population: '110', numerator: '56', denominator: '42', exclusions: '77' },
-];
+// headerInfo = columns
+// selectedMeasures = rows
 
-export default function NewTable() {
+export default function OverviewTable({ headerInfo, currentResults, handleSelectedMeasureChange }) {
+
+  const columns = Object.values(headerInfo).map((info, idx) => {
+    return ({
+      field: info.key,
+      headerName: info.header,
+      description: info.tooltip,
+      headerAlign: idx == 0 ? 'left' : 'center',
+      align: idx == 0 ? 'left' : 'center',
+      width: idx == 0 ? 250 : 200
+      // add color here ?
+    })
+  })
+
+  const rows = MeasureTable.formatData(currentResults)
+
+  const handleSelectionModelChange = (event) => {
+    const newSelections = event
+      .map(label => currentResults
+        .find(measure => measure.title == label)
+        .measure
+      )
+
+    handleSelectedMeasureChange(newSelections)
+  }
+
   return (
     <Box
       sx={{
@@ -61,15 +56,16 @@ export default function NewTable() {
         columns={columns}
         density='comfortable'
         rowHeight={75}
-        pageSize={10}
-        rowsPerPageOptions={[10]}
+        pageSize={50}
+        rowsPerPageOptions={[50]}
         checkboxSelection
         showCellRightBorder={false}
         showColumnRightBorder={false}
+        onSelectionModelChange={(event) => handleSelectionModelChange(event)}
         disableColumnMenu
-        filterMode='server'
-        pagination='server'
-        sortingMode='server'
+        // filterMode='server'
+        pagination='client'
+        // sortingMode='server'
         sx={{
           // CHECKBOX DIVS
           '& .MuiDataGrid-cellCheckbox, & .MuiDataGrid-columnHeaderCheckbox': {
@@ -89,7 +85,7 @@ export default function NewTable() {
           '& .MuiDataGrid-cell': {
             whiteSpace: 'normal !important',
           },
-          // WE DON'T NEED THESE BELOW ¯\_(ツ)_/¯
+          // WE DON'T NEED THESE BELOW SO WE HIDE ¯\_(ツ)_/¯
           '& .MuiDataGrid-sortIcon': {
             display: 'none'
           },

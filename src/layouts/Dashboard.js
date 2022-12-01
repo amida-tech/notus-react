@@ -56,7 +56,7 @@ export default function Dashboard() {
   const [isComposite, setComposite] = useState(true);
   const [currentResults, setCurrentResults] = useState([]);
   const [colorMap, setColorMap] = useState([]);
-  const [selectedMeasures, setSelectedMeasures] = useState([]);
+  const [selectedMeasures, setSelectedMeasures] = useState(Object.keys(datastore.info));
   const [currentFilters, setCurrentFilters] = useState([]);
   const [additionalFilterOptions, setAdditionalFilterOptions] = useState([])
   const [currentTimeline, setCurrentTimeline] = useState(datastore.defaultTimelineState);
@@ -422,23 +422,12 @@ export default function Dashboard() {
     setIsLoading(false)
   };
 
-  const handleSelectedMeasureChange = (event) => {
+  const handleSelectedMeasureChange = (selections) => {
     setTableFilter([])
-    let newSelectedMeasures;
-    if (event.target.checked) {
-      newSelectedMeasures = event.target.value === 'all'
-        ? currentResults.map((result) => result.measure)
-        : selectedMeasures.concat(event.target.value);
-      setSelectedMeasures(newSelectedMeasures);
-    } else {
-      newSelectedMeasures = event.target.value === 'all'
-        ? [] : selectedMeasures.filter((result) => result !== event.target.value);
-      setSelectedMeasures(newSelectedMeasures);
-    }
-    const MeasureSelectorCheck = event.target.name === 'Select Measure';
-    if (MeasureSelectorCheck) {
-      navigate(`/${event.target.value === 'composite' ? '' : event.target.value}`)
-    }
+    selections.target?.name ?
+      navigate(`/${selections.target.name === 'composite' ? '' : selections.target.value}`)
+      :
+      setSelectedMeasures(selections)
   };
 
   const handleTableFilterChange = (event) => {
