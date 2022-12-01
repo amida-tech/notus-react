@@ -1,6 +1,5 @@
-import {
-    Box,
-  } from '@mui/material';
+import { useState, useEffect } from 'react'
+import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import theme from '../../assets/styles/AppTheme'
 import MeasureTable from '../Utilities/MeasureTable';
@@ -14,21 +13,31 @@ import MeasureTable from '../Utilities/MeasureTable';
 // headerInfo = columns
 // selectedMeasures = rows
 
-export default function OverviewTable({ headerInfo, currentResults, handleSelectedMeasureChange }) {
+export default function OverviewTable({ activeMeasure, headerInfo, currentResults, handleSelectedMeasureChange }) {
+  const [columns, setColumns] = useState([])
+  const [rows, setRows] = useState([])
 
-  const columns = Object.values(headerInfo).map((info, idx) => {
-    return ({
-      field: info.key,
-      headerName: info.header,
-      description: info.tooltip,
-      headerAlign: idx == 0 ? 'left' : 'center',
-      align: idx == 0 ? 'left' : 'center',
-      width: idx == 0 ? 250 : 200
-      // add color here ?
+  useEffect(() => {
+    console.log(currentResults)
+
+    const columnData = Object.values(headerInfo)
+      .map((info, idx) => {
+        return ({
+          field: info.key,
+          headerName: info.header,
+          description: info.tooltip,
+          headerAlign: idx == 0 ? 'left' : 'center',
+          align: idx == 0 ? 'left' : 'center',
+          width: idx == 0 ? 250 : 200
+          // add color here ?
+        })
     })
-  })
+    const rowData = MeasureTable.formatData(currentResults)
 
-  const rows = MeasureTable.formatData(currentResults)
+    setColumns(columnData)
+    setRows(rowData)
+    
+  }, [currentResults])
 
   const handleSelectionModelChange = (event) => {
     const newSelections = event
@@ -36,7 +45,6 @@ export default function OverviewTable({ headerInfo, currentResults, handleSelect
         .find(measure => measure.title == label)
         .measure
       )
-
     handleSelectedMeasureChange(newSelections)
   }
 

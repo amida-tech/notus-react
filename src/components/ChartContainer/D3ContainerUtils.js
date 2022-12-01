@@ -61,8 +61,11 @@ export function getSubMeasureCurrentResults(activeMeasure, currentResults) {
   } else {
     subMeasureCurrentResults = [subMeasurePrime];
   }
+  subMeasureCurrentResults.forEach((res) => res['id'] = res.measure)
+  console.log(subMeasureCurrentResults)
   return subMeasureCurrentResults;
 }
+
 export function getSubMeasureCurrentResultsPerMeasure(givenMeasure, currentResults) {
   let subMeasureCurrentResults = [];
   const subMeasurePrime = currentResults.find(
@@ -75,6 +78,7 @@ export function getSubMeasureCurrentResultsPerMeasure(givenMeasure, currentResul
   }
   return subMeasureCurrentResults;
 }
+
 export const createLabel = (measure, info) => {
   if (info[measure]) {
     return `${info[measure].displayLabel} - ${info[measure].title}`

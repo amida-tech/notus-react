@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import theme from '../../assets/styles/AppTheme'
 
 import { TableTab } from '../Utilities/TableTab'
+import MeasureTable from '../Utilities/MeasureTable'
 import MemberTable from '../Utilities/MemberTable';
 
 import { DatastoreContext } from '../../context/DatastoreProvider';
@@ -26,6 +27,7 @@ import {
   rowEntriesProps,
   handleTabChangeProps,
 } from '../ChartContainer/D3Props';
+import MeasureTableRow from './MeasureTableRow';
 import MemberTableRow from './MemberTableRow';
 import TableFilterPanel from './TableFilterPanel';
 import DisplayTable from './DisplayTable';
@@ -50,6 +52,7 @@ function DisplayTableContainer({
   handleResetData,
 }) {
   const { datastore } = useContext(DatastoreContext);
+  console.log(currentResults)
 
   return (
     <Grid
@@ -115,12 +118,17 @@ function DisplayTableContainer({
                   />
                 </Grid>
               ) : null}
+
+
             {/* NEW TABLE */}
             <OverviewTable
+              activeMeasure={activeMeasure}
               headerInfo={headerInfo}
-              currentResults={datastore.currentResults}
+              currentResults={currentResults}
               handleSelectedMeasureChange={handleSelectedMeasureChange}
             />
+
+
             {/* OLD TABLE */}
             {/* <DisplayTable
               headerInfo={headerInfo}
@@ -145,6 +153,7 @@ function DisplayTableContainer({
                 />
               ))}
             </DisplayTable> */}
+
 
           </TabPanel>
 
