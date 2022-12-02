@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import theme from '../../assets/styles/AppTheme'
@@ -13,12 +14,13 @@ import { formatData } from '../Utilities/MeasureTable';
 // headerInfo = columns
 // selectedMeasures = rows
 
-export default function OverviewTable({ activeMeasure, headerInfo, currentResults, handleSelectedMeasureChange }) {
+export default function OverviewTable({ activeMeasure, headerInfo, currentResults, colorMap, handleSelectedMeasureChange }) {
   const [columns, setColumns] = useState([])
   const [rows, setRows] = useState([])
+  const [checkboxColors, setCheckboxColors] =useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
-
     const columnData = Object.values(headerInfo)
       .map((info, idx) => {
         return ({
@@ -33,23 +35,37 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
     })
     const rowData = formatData(currentResults)
 
+    const mapping = rowData.map(measure => colorMap
+      .find((mapping) => (mapping.value === measure.value))?.color || theme.palette?.primary.main)
+    let colorObj = {}
+
+    const colorMaps = mapping?.reduce((colorObj, mapColor, idx) => {
+      const colorClass = `& .MuiDataGrid-virtualScrollerRenderZone > div:nth-of-type(${idx + 1}) > div > span`
+      colorObj[colorClass] = {color: mapColor}
+      return colorObj
+    }, colorObj)
+
+    setCheckboxColors(colorMaps)
     setColumns(columnData)
     setRows(rowData)
     
   }, [currentResults])
 
   const handleSelectionModelChange = (event) => {
-    console.log('event', event, currentResults)
 
     const newSelections = event
       .map(label => currentResults
         .find(measure => measure.label == label)
         .measure
       )
-      
-    console.log('new selections', newSelections)
 
     handleSelectedMeasureChange(newSelections)
+  }
+
+  const handleRowDoubleCLick = (event) => {
+    if (activeMeasure.measure === 'composite') {
+      navigate((`/${event.row.value}`))
+    }
   }
 
   return (
@@ -74,7 +90,7 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
         showCellRightBorder={false}
         showColumnRightBorder={false}
         onSelectionModelChange={(event) => handleSelectionModelChange(event)}
-        onRowClick={() => console.log('go to')}
+        onRowDoubleClick={(event) => handleRowDoubleCLick(event)}
         disableColumnMenu
         // filterMode='server'
         pagination='client'
@@ -85,10 +101,11 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
             width: '100px !important',
             maxWidth: 'unset !important',
           },
-          // CHECKBOX ICONS
-          '& .Mui-checked': {
-            color: theme.palette?.bluegray.main
+          // CHECKBOX ICONS,
+          '& .MuiDataGrid-virtualScrollerRenderZone > div:nth-of-type(1) > div > span': {
+            color: 'red'
           },
+          ...checkboxColors,
           '& .MuiDataGrid-columnHeaderTitleContainerContent': {
             fontSize: '1rem',
           },

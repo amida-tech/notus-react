@@ -87,7 +87,7 @@ export default function Dashboard() {
         setComposite(true);
         setDisplayData(datastore.results.map((result) => ({ ...result })));
         setCurrentResults(datastore.currentResults);
-        setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
+        setSelectedMeasures(Object.keys(datastore.info));
         setColorMap(ColorMapping(datastore.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);

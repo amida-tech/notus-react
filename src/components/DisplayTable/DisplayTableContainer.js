@@ -124,11 +124,13 @@ function DisplayTableContainer({
               activeMeasure={activeMeasure}
               headerInfo={headerInfo}
               currentResults={currentResults}
+              colorMap={colorMap}
               handleSelectedMeasureChange={handleSelectedMeasureChange}
             />
 
 
             {/* OLD TABLE */}
+            
             {/* <DisplayTable
               headerInfo={headerInfo}
               pageSize={MeasureTable.pageSize}
