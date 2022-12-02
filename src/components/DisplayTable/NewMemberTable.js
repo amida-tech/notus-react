@@ -29,39 +29,41 @@ const columns = [
 ];
 
 function createData(memberId, aab, aab2, aab3, aab4, aab5, aab6, aab7, aab8, aab9, aab10, aab11, aab12, aab13, aab14) {
-  return { memberId, aab, aab2, aab3, aab4, aab5, aab6, aab7, aab8, aab9, aab10, aab11, aab12, aab13, aab14 };
+  return {
+    memberId, aab, aab2, aab3, aab4, aab5, aab6, aab7, aab8, aab9, aab10, aab11, aab12, aab13, aab14,
+  };
 }
 
 const rows = [
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51644382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51123382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646482-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-23446382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-12646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-78946382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-86546382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646432-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-31643482-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-21632382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched'),
-    createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51644382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51123382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646482-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-23446382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-12646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-78946382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-86546382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646432-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-31643482-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-21632382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'unmatched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'unmatched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched'),
+  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'unmatched'),
 ];
 
 export default function newMemberTable() {
@@ -91,8 +93,8 @@ export default function newMemberTable() {
                     fontSize: 'medium',
                     color: theme.palette?.bluegray.D1,
                     minWidth: idx === 0 ? '18rem' : '8rem',
-                    backgroundColor: theme.palette?.background.main
-                }}
+                    backgroundColor: theme.palette?.background.main,
+                  }}
                   align={column.align}
                 >
                   {column.label}
@@ -103,22 +105,20 @@ export default function newMemberTable() {
           <TableBody>
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.memberId}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
+              .map((row) => (
+                <TableRow hover role="checkbox" tabIndex={-1} key={row.memberId}>
+                  {columns.map((column) => {
+                    const value = row[column.id];
+                    return (
+                      <TableCell key={column.id} align={column.align}>
+                        {column.format && typeof value === 'number'
+                          ? column.format(value)
+                          : value}
+                      </TableCell>
+                    );
+                  })}
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

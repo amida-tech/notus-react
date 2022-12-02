@@ -12,7 +12,6 @@ import Alert from '../Utilities/Alert'
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
-
   const compositeCheck = headerInfo[0].header === 'Measure'
   const alertTitle = 'Leaving Saraswati'
   const alertPath = (info) => {

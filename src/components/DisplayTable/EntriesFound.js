@@ -7,22 +7,22 @@ import theme from '../../assets/styles/AppTheme'
 
 // this total will have to come from HERA as soon as backend pagination is created
 
-export default function EntriesFound ({total}) {
+export default function EntriesFound({ total }) {
   return (
     <Box
-    sx={{
-      color: theme.palette?.bluegray.main,
-      fontWeight: '600',
-      fontStyle: 'italic',
-      margin: '1rem 0 .5rem .5rem',
-    }}
-  >
-    Results:&nbsp;
+      sx={{
+        color: theme.palette?.bluegray.main,
+        fontWeight: '600',
+        fontStyle: 'italic',
+        margin: '1rem 0 .5rem .5rem',
+      }}
+    >
+      Results:&nbsp;
       <Typography display="inline" sx={{ fontWeight: 800 }}>
         {total}
       </Typography>
     &nbsp;Entries Found
-  </Box>
+    </Box>
   )
 }
 

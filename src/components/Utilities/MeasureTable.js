@@ -1,5 +1,4 @@
-import { Link } from 'react-router-dom'
-import { Link as RouterLink } from 'react-router-dom';
+import { Link, Link as RouterLink } from 'react-router-dom'
 
 import theme from '../../assets/styles/AppTheme'
 

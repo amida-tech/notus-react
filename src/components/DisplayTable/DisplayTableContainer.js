@@ -118,7 +118,6 @@ function DisplayTableContainer({
                 </Grid>
               ) : null}
 
-
             {/* NEW TABLE */}
             <OverviewTable
               activeMeasure={activeMeasure}
@@ -128,9 +127,8 @@ function DisplayTableContainer({
               handleSelectedMeasureChange={handleSelectedMeasureChange}
             />
 
-
             {/* OLD TABLE */}
-            
+
             {/* <DisplayTable
               headerInfo={headerInfo}
               pageSize={MeasureTable.pageSize}
@@ -154,7 +152,6 @@ function DisplayTableContainer({
                 />
               ))}
             </DisplayTable> */}
-
 
           </TabPanel>
 

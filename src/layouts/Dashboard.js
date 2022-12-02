@@ -424,10 +424,9 @@ export default function Dashboard() {
 
   const handleSelectedMeasureChange = (selections) => {
     setTableFilter([])
-    selections.target?.name ?
-      navigate(`/${selections.target.name === 'composite' ? '' : selections.target.value}`)
-      :
-      setSelectedMeasures(selections)
+    selections.target?.name
+      ? navigate(`/${selections.target.name === 'composite' ? '' : selections.target.value}`)
+      : setSelectedMeasures(selections)
   };
 
   const handleTableFilterChange = (event) => {
