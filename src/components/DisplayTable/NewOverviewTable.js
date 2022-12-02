@@ -92,6 +92,7 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
         onSelectionModelChange={(event) => handleSelectionModelChange(event)}
         onRowDoubleClick={(event) => handleRowDoubleCLick(event)}
         disableColumnMenu
+        disableSelectionOnClick
         // filterMode='server'
         pagination='client'
         // sortingMode='server'
@@ -101,10 +102,7 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
             width: '100px !important',
             maxWidth: 'unset !important',
           },
-          // CHECKBOX ICONS,
-          '& .MuiDataGrid-virtualScrollerRenderZone > div:nth-of-type(1) > div > span': {
-            color: 'red'
-          },
+          // CHECKBOX ICONS
           ...checkboxColors,
           '& .MuiDataGrid-columnHeaderTitleContainerContent': {
             fontSize: '1rem',
@@ -114,6 +112,27 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
           },
           '& .MuiDataGrid-cell': {
             whiteSpace: 'normal !important',
+          },
+          '& .MuiDataGrid-cellContent': {
+            transition: '100ms',
+          },
+          '& .MuiDataGrid-cellContent:hover': {
+            color: theme.palette?.primary.main,
+            cursor: 'pointer'
+          },
+          '& .MuiDataGrid-cell:focus': {
+            outline: 'unset'
+          },
+          '& .MuiDataGrid-cell:focus-within': {
+            outline: 'unset',
+            transition: '100ms'
+          },
+          '& .MuiDataGrid-cell:focus-within:hover': {
+            fontWeight: 'bold',
+            color: theme.palette?.primary.main,
+          },
+          '& .MuiDataGrid-cellContent': {
+            userSelect: 'none'
           },
           // WE DON'T NEED THESE BELOW SO WE HIDE ¯\_(ツ)_/¯
           '& .MuiDataGrid-sortIcon': {
