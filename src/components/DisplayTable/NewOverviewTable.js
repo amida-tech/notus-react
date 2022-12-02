@@ -29,7 +29,7 @@ export default function OverviewTable({
         field: info.key,
         headerName: info.header,
         description: info.tooltip,
-        headerAlign: idx == 0 ? 'left' : 'left',
+        headerAlign: idx == 0 ? 'left' : 'center',
         align: idx == 0 ? 'left' : 'center',
         width: idx == 0 ? 250 : 200,
         // add color here ?
@@ -94,19 +94,33 @@ export default function OverviewTable({
         pagination="client"
         // sortingMode='server'
         sx={{
-          // CHECKBOX DIVS
-          '& .MuiDataGrid-cellCheckbox, & .MuiDataGrid-columnHeaderCheckbox': {
-            width: '100px !important',
-            maxWidth: 'unset !important',
-          },
           // CHECKBOX ICONS
           ...checkboxColors,
           '& .MuiDataGrid-columnHeaderTitleContainerContent': {
             fontSize: '1rem',
           },
+          // HEADERS
           '& .MuiDataGrid-columnHeaders': {
             backgroundColor: theme.palette?.background.main,
           },
+          '& .MuiDataGrid-columnHeaderTitleContainerContent': {
+            width: '-webkit-fill-available',
+            display: 'flex',
+            placeContent: 'center'
+          },
+          '& .MuiDataGrid-columnHeaderTitleContainerContent:nth-child(1)': {
+            display: 'flex',
+            placeContent: 'inherit'
+          },
+          '& .MuiDataGrid-columnHeaderDraggableContainer': {
+            width: '-webkit-fill-available'
+          },
+          // CHECKBOXES
+          '& .MuiDataGrid-cellCheckbox, & .MuiDataGrid-columnHeaderCheckbox': {
+            width: '100px !important',
+            maxWidth: 'unset !important',
+          },
+          // CELL CONTENT
           '& .MuiDataGrid-cell': {
             whiteSpace: 'normal !important',
           },
@@ -131,6 +145,21 @@ export default function OverviewTable({
           '& .MuiDataGrid-cellContent': {
             userSelect: 'none',
           },
+          // MENU
+          '& 	.MuiDataGrid-menuIconButton': {
+            transition: '200ms !important',
+            width: '2rem',
+            // margin: '-1rem -1rem 1.5rem'
+          },
+          '& .MuiDataGrid-menuIcon': {
+            visibility: 'visible',
+            width: '2rem',
+            transform: 'rotate(270deg)',
+          },
+          '& .MuiDataGrid-columnHeader:hover .MuiDataGrid-menuIcon': {
+            width: '2rem'
+          },
+          
           // WE DON'T NEED THESE BELOW SO WE HIDE ¯\_(ツ)_/¯
           '& .MuiDataGrid-sortIcon': {
             display: 'none',
