@@ -4,7 +4,6 @@ const ColorMapping = (allResults, displayData) => {
   const chartColorArray = [
     '#88CCEE',
     '#CC6677',
-    '#DDCC77',
     '#117733',
     '#332288',
     '#AA4499',

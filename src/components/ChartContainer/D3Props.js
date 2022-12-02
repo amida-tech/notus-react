@@ -161,10 +161,7 @@ export const handleTabChangeProps = PropTypes.func;
 export const rowEntriesProps = PropTypes.arrayOf(
   PropTypes.shape({}),
 )
-export const historyProps = PropTypes.shape({
-  push: PropTypes.func,
-  any: PropTypes.func,
-})
+
 export const graphWidthProps = PropTypes.number;
 export const currentResultsProps = PropTypes.arrayOf(
   PropTypes.shape({

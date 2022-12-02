@@ -2,9 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import {
   Box, Grid, Paper, Snackbar, Skeleton,
 } from '@mui/material';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
+
+import theme from '../assets/styles/AppTheme';
 
 import Banner from '../components/Common/Banner';
 import Alert from '../components/Utilities/Alert'
@@ -14,6 +16,9 @@ import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
 import MeasureTable from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
+
+// scrolly is a navigate function wrapped with scrollToTop
+import { scrolly, scrollTop } from '../components/Utilities/ScrollNavigate'
 
 import {
   calcMemberResults,
@@ -44,7 +49,7 @@ export default function Dashboard() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
-  const history = useHistory();
+  const navigate = useNavigate();
   const [displayData, setDisplayData] = useState(
     datastore.results.map((result) => ({ ...result })),
   );
@@ -64,6 +69,7 @@ export default function Dashboard() {
   const { measure } = useParams();
 
   const handleResetData = (router) => {
+    scrollTop()
     if (router === undefined) {
       setIsLoading(true)
       setCurrentTimeline(datastore.defaultTimelineState);
@@ -130,21 +136,22 @@ export default function Dashboard() {
         setRowEntries([]);
         setColorMap(ColorMapping(filterInfo.currentResults))
         setHeaderInfo(MeasureTable.headerData(true));
-        history.push('/');
+        scrolly(navigate, '/');
       } else {
         const isEmpty = (filter) => Object.keys(filter).length === 0
         if (isEmpty(filterInfo.filters)) {
           setCurrentTimeline(datastore.defaultTimelineState);
           setCurrentFilters(datastore.defaultFilterState);
-          history.push('/');
+          scrolly(navigate, '/');
         } else {
           setIsLoading(true)
           handleFilteredDataUpdate(currentFilters, filterInfo.timeline, 'GO BACK')
-          history.push('/');
+          scrolly(navigate, '/');
         }
       }
     }
   }
+
   useEffect(() => {
     // CURRENT RESULTS EXIST
     if (datastore.currentResults) {
@@ -217,7 +224,7 @@ export default function Dashboard() {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setTableFilter, history, activeMeasure, isComposite, filterActivated])
+  }, [setTableFilter, activeMeasure, isComposite, filterActivated])
 
   useEffect(() => {
     if (tabValue === 'members') {
@@ -270,7 +277,6 @@ export default function Dashboard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     setTableFilter,
-    history,
     activeMeasure,
     isComposite,
     filterActivated,
@@ -336,18 +342,12 @@ export default function Dashboard() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    history,
     activeMeasure.measure,
     selectedMeasures,
     datastore.info,
     tabValue,
     tableFilter,
   ]);
-
-  // If control needs to be shared across multiple components,
-  // add them through useState above and append them to these.
-
-  // THIS NEEDS ROWENTRIES TO BE MODIFIED
 
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true)
@@ -437,7 +437,7 @@ export default function Dashboard() {
     }
     const MeasureSelectorCheck = event.target.name === 'Select Measure';
     if (MeasureSelectorCheck) {
-      history.push(`/${event.target.value === 'composite' ? '' : event.target.value}`)
+      navigate(`/${event.target.value === 'composite' ? '' : event.target.value}`)
     }
   };
 
@@ -459,7 +459,7 @@ export default function Dashboard() {
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
     if (newValue === 'members') {
-      history.push(`/${activeMeasure.measure}/members`)
+      navigate(`/${activeMeasure.measure}/members`)
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
       setRowEntries(MemberTable.formatData(
         filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
@@ -468,10 +468,11 @@ export default function Dashboard() {
         tableFilter,
       ))
     } else {
-      history.push(`/${activeMeasure.measure}`)
+      navigate(`/${activeMeasure.measure}`)
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
+
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -486,7 +487,10 @@ export default function Dashboard() {
               anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
               message="Filters are active. To reset, click on 'RESET FILTERS' in the filter panel."
               sx={{
-                '& .MuiSnackbarContent-root': { backgroundColor: '#DFF4FC', color: '#263238' },
+                '& .MuiSnackbarContent-root': {
+                  backgroundColor: theme.palette?.background.main,
+                  color: theme.palette?.text.primary,
+                },
               }}
             />
             )}
@@ -525,7 +529,6 @@ export default function Dashboard() {
                     isComposite={isComposite}
                     setComposite={setComposite}
                     setTableFilter={setTableFilter}
-                    history={history}
                     isLoading={isLoading}
                     currentResults={currentResults}
                     setTabValue={setTabValue}

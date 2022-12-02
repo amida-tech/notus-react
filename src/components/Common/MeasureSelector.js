@@ -2,6 +2,7 @@ import {
   FormControl, InputLabel, MenuItem, Select,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
 
 function MeasureSelector({
   currentResults, measure, handleMeasureChange,
@@ -15,11 +16,10 @@ function MeasureSelector({
         label="Select Measure"
         name="Select Measure"
         onChange={handleMeasureChange}
-        sx={{ color: 'black.light' }}
       >
         {currentResults.map((result) => (
           <MenuItem
-            sx={{ color: 'black.light' }}
+            sx={{ color: theme.palette?.bluegray.D4 }}
             key={`by-line-menu-item-selector-${result.measure}`}
             value={result.measure}
             name="Select Measure"

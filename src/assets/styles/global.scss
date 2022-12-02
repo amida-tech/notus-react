@@ -1,6 +1,7 @@
-@import 'colors';
+ 
 
 * {
+  animation-timing-function: ease-out;
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -8,7 +9,7 @@
 }
 
 body {
-  background-color: $default-white;
+  background-color: white;
 }
 
 a {

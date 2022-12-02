@@ -1,4 +1,4 @@
-@import 'colors';
+ 
 
 $block-class: 'cise-table-row';
 
@@ -60,7 +60,6 @@ $block-class: 'cise-table-row';
         }
 
         & &__data {
-            color: $blue-grey-darken-4;
             font-size: .9rem;
         }
 
@@ -73,14 +72,6 @@ $block-class: 'cise-table-row';
             display: flex;
             flex-direction: column;
             align-items: center;
-
-            &--matched {
-                color: $green-icon;
-            }
-    
-            &--unmatched {
-                color: $default-red;
-            }
         }
     }
 }

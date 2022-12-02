@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
 
 function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
   const [defaultCheck] = useState(Array.from(currentFilter));
@@ -19,26 +20,28 @@ function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
         </Grid>
         <Grid item className="filter-drawer-item__row">
           <Tooltip title={filterItem.tip}>
-            <HelpIcon className="filter-drawer-item__help-icon" />
+            <HelpIcon sx={{ fill: theme.palette?.bluegray.L3 }} className="filter-drawer-item__help-icon" />
           </Tooltip>
         </Grid>
       </Grid>
       <FormGroup className="filter-drawer-item__options">
-        {filterItem.options.map((option, index) => (
-          <FormControlLabel
-            key={`filter-drawer-item-option-${option}`}
-            componentsProps={{ typography: { className: 'filter-drawer-item__option-label' } }}
-            control={(
-              <Checkbox
-                value={filterItem.values[index]}
-                defaultChecked={defaultCheck.includes(filterItem.values[index])}
-                className="filter-drawer-item__option-checkbox"
-                onChange={filterAction}
-              />
+        {filterItem.options
+          ? (filterItem.options.map((option, index) => (
+            <FormControlLabel
+              key={`filter-drawer-item-option-${option}`}
+              componentsProps={{ typography: { className: 'filter-drawer-item__option-label' } }}
+              control={(
+                <Checkbox
+                  value={filterItem.values[index]}
+                  defaultChecked={defaultCheck.includes(filterItem.values[index])}
+                  className="filter-drawer-item__option-checkbox"
+                  onChange={filterAction}
+                />
             )}
-            label={option}
-          />
-        ))}
+              label={option}
+            />
+          )))
+          : null}
       </FormGroup>
     </Grid>
   )

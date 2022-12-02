@@ -7,18 +7,12 @@ const theme = createTheme({
       main: '#1976D2',
       light: '#DFF4FC',
       dark: '#162F8A',
-    },
-    secondary: {
-      main: '#DFF4FC',
-      light: '##E7F6FD',
-      dark: '#1976D2',
       transparent: '#DFF4FC40',
     },
-    neutral: {
+    secondary: {
       main: '#546E7A',
       light: '#B0BEC5',
       dark: '#455A64',
-      contrastText: '#FFFFFF',
     },
     background: {
       main: '#F7F8FC',
@@ -60,7 +54,16 @@ const theme = createTheme({
   typography: {
     color: '#263238',
   },
+
   components: {
+
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: '#546E7A',
+        },
+      },
+    },
 
     MuiLink: {
       styleOverrides: {
@@ -70,9 +73,43 @@ const theme = createTheme({
       },
     },
 
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          transition: '400ms !important',
+          '&:hover': {
+            cursor: 'pointer',
+            animationTimingFunction: 'ease-in-out',
+          },
+        },
+      },
+    },
+
+    MuiButtonBase: {
+      styleOverrides: {
+        root: {
+          transition: '400ms !important',
+          '&:hover': {
+            cursor: 'pointer',
+            animationTimingFunction: 'ease-in-out',
+          },
+        },
+      },
+    },
+
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          '&:hover': {
+            fill: '#1976D2',
+          },
+        },
+      },
+    },
+
   },
   shape: {
-    borderRadius: '3px',
+    borderRadius: 3,
     borderColor: '#455A64',
   },
 });

@@ -5,11 +5,10 @@ import {
   useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
+import axios from 'axios'
 import { resultList, trendList, infoObject } from '../test/data/DemoData';
 import { DatastoreReducer, initialState } from './DatastoreReducer';
 import env from '../env';
-
-const axios = require('axios').default;
 
 const useLegacyResults = env.REACT_APP_LEGACY_RESULTS;
 const searchUrl = useLegacyResults === 'true'

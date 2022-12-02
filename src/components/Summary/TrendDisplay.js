@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import {
   Grid, Typography,
 } from '@mui/material';
+import theme from '../../assets/styles/AppTheme'
 
 function TrendDisplay({ trend, percentWidth }) {
   let panelClass = 'trend-display--hide';
@@ -11,24 +12,24 @@ function TrendDisplay({ trend, percentWidth }) {
     panelClass = 'trend-display--width-50';
   }
 
-  let trendClass = '';
+  let trendClass = theme.palette?.bluegray.D4;
   let trendValue = 'N/A';
   if (trend.percentChange !== undefined) {
     if (trend.percentChange >= 0) {
-      trendClass = 'trend-display__percent-change--positive';
+      trendClass = theme.palette?.success;
       trendValue = `+${trend.percentChange} %`
     } else {
-      trendClass = 'trend-display__percent-change--negative';
+      trendClass = theme.palette?.error;
       trendValue = `-${Math.abs(trend.percentChange)} %`
     }
   }
 
   return (
-    <Grid className={`trend-display ${panelClass}`}>
+    <Grid sx={{ border: `1px solid ${theme.palette?.bluegray.L3}` }} className={`trend-display ${panelClass}`}>
       <Typography variant="h3" className="trend-display__h3-header">
         {`${trend.measure} Score % Change`}
       </Typography>
-      <Typography className={`trend-display__percent-change ${trendClass}`}>
+      <Typography color={trendClass} className="trend-display__percent-change">
         { trendValue }
       </Typography>
       <Typography>

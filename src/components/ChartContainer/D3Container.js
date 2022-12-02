@@ -1,6 +1,8 @@
 import { Grid, Typography } from '@mui/material';
 import { createContext } from 'react';
 
+import theme from '../../assets/styles/AppTheme'
+
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ChartBar from './ChartBar';
 import ChartHeader from './ChartHeader';
@@ -22,7 +24,6 @@ import {
   isCompositeProps,
   setCompositeProps,
   setTableFilterProps,
-  historyProps,
   currentResultsProps,
   filterDisabledProps,
   displayDataProps,
@@ -45,7 +46,7 @@ function labelGenerator(measure) {
   }
   const { label } = measure;
   return (
-    <Grid className="d3-container__return-measure-labels">
+    <Grid sx={{ color: theme.palette?.bluegray.D4 }} className="d3-container__return-measure-labels">
       <Typography className="d3-container__return-measure-title">{label.substring(0, label.indexOf(' '))}</Typography>
       <Typography className="d3-container__return-measure-description">{label.substring(label.indexOf('- ') + 1)}</Typography>
     </Grid>
@@ -64,7 +65,6 @@ function D3Container({
   isComposite,
   setComposite,
   setTableFilter,
-  history,
   isLoading,
   currentResults,
   activeMeasure,
@@ -110,7 +110,6 @@ function D3Container({
         setComposite={setComposite}
         setTabValue={setTabValue}
         setTableFilter={setTableFilter}
-        history={history}
         isLoading={isLoading}
         handleResetData={handleResetData}
         labelGenerator={labelGenerator}
@@ -155,7 +154,6 @@ D3Container.propTypes = {
   isComposite: isCompositeProps,
   setComposite: setCompositeProps,
   setTableFilter: setTableFilterProps,
-  history: historyProps,
   currentResults: currentResultsProps,
   filterDisabled: filterDisabledProps,
   displayData: displayDataProps,
@@ -185,7 +183,6 @@ D3Container.defaultProps = {
   isComposite: true,
   setComposite: () => undefined,
   setTableFilter: () => undefined,
-  history: {},
   currentResults: [],
   filterDisabled: true,
   displayData: [],

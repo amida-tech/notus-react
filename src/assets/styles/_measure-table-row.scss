@@ -1,4 +1,4 @@
-@import 'colors';
+ 
 
 $block-class: 'measure-table-row';
 
@@ -33,17 +33,7 @@ $block-class: 'measure-table-row';
         }
 
         & &__data {
-            color: $blue-grey-darken-4;
             font-size: .9rem;
-        }
-
-        &__tooltips {
-            background-color: $default-red;
-        }
-
-        & &__submeasure{
-            background-color: none;
-
         }
         
         &__alert-link{

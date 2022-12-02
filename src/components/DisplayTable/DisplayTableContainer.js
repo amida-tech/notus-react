@@ -1,8 +1,11 @@
 import {
-  Grid, Typography, Box, Tab, Button,
+  Grid, Typography, Box, Button,
 } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
+
+import { TableTab } from '../Utilities/TableTab'
 import MemberTable from '../Utilities/MemberTable';
 import MeasureTable from '../Utilities/MeasureTable';
 
@@ -45,18 +48,47 @@ function DisplayTableContainer({
   handleResetData,
 }) {
   return (
-    <Grid className="d3-container__bottom-display">
+    <Grid
+      sx={{ outline: `${theme.palette?.primary.dark} solid 1px` }}
+      className="d3-container__bottom-display"
+    >
       <Box className="d3-container__overview-member-chart">
         <TabContext value={tabValue}>
-          <Box className="d3-container__table-tab-bar">
+          <Box
+            sx={{
+              height: '4rem',
+              outline: `${theme.palette?.primary.dark} solid 1px`,
+              backgroundColor: theme.palette?.primary.main,
+            }}
+          >
             {isComposite ? (
-              <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
+              <TabList
+                TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }}
+                sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }}
+                onChange={handleTabChange}
+                aria-label="overview and members tabs"
+              >
+                <TableTab
+                  className="d3-container__table-selection-button"
+                  sx={{
+                    color: theme.palette?.primary.light,
+                  }}
+                  label="Overview"
+                  value="overview"
+                />
               </TabList>
             ) : (
               <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
-                <Tab className="d3-container__table-selection-button" label="Overview" value="overview" />
-                <Tab className="d3-container__table-selection-button" label="Members" value="members" />
+                <TableTab
+                  className="d3-container__table-selection-button"
+                  label="Overview"
+                  value="overview"
+                />
+                <TableTab
+                  className="d3-container__table-selection-button"
+                  label="Members"
+                  value="members"
+                />
               </TabList>
             )}
           </Box>
@@ -65,7 +97,12 @@ function DisplayTableContainer({
             {headerInfo[0].header !== 'Sub-Measure'
               ? (
                 <Grid className="d3-container__measure-selector">
-                  <Typography className="d3-container__selector-title">Detailed View:</Typography>
+                  <Typography
+                    color={theme.palette?.bluegray.D4}
+                    className="d3-container__selector-title"
+                  >
+                    Detailed View:
+                  </Typography>
                   <MeasureSelector
                     measure={activeMeasure.measure}
                     currentResults={store.currentResults}
@@ -89,7 +126,10 @@ function DisplayTableContainer({
                   useCheckBox
                   handleCheckBoxEvent={handleSelectedMeasureChange}
                   rowSelected={selectedMeasures.includes(item.value)}
-                  color={colorMap.find((mapping) => mapping.value === item.value)?.color || '#000'}
+                  color={
+                    colorMap.find((mapping) => mapping.value === item.value)?.color
+                    || theme.palette?.primary.main
+                  }
                   measureInfo={store.info}
                 />
               ))}
@@ -101,7 +141,7 @@ function DisplayTableContainer({
               tableFilter={tableFilter}
               handleTableFilterChange={handleTableFilterChange}
             />
-            <Box className="d3-container__entries-display">
+            <Box sx={{ color: theme.palette?.bluegray.D1 }} className="d3-container__entries-display">
               Results:&nbsp;
               <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
                 &nbsp;Entries Found

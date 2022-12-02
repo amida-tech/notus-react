@@ -2,6 +2,7 @@ import {
   Box, Checkbox, Divider, FormControlLabel, FormGroup, Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
+import theme from '../../assets/styles/AppTheme'
 import MemberSearch from '../Utilities/MemberSearch';
 
 const memberComplianceItems = [
@@ -16,10 +17,10 @@ function TableFilterPanel({
   return (
     <>
       <Box className="table-filter-panel">
-        <Box className="table-filter-panel__member-search">
+        <Box sx={{ color: theme.palette?.bluegray.D4 }} className="table-filter-panel__member-search">
           <MemberSearch />
         </Box>
-        <FormGroup className="table-filter-panel__button-panel">
+        <FormGroup sx={{ color: theme.palette?.bluegray.D1 }} className="table-filter-panel__button-panel">
           <Typography className="table-filter-panel__label">
             Member Compliance:
           </Typography>
@@ -40,7 +41,7 @@ function TableFilterPanel({
           ))}
         </FormGroup>
       </Box>
-      <Divider className="table-filter-panel__divider" />
+      <Divider sx={{ backgroundColor: theme.palette?.bluegray.L3 }} className="table-filter-panel__divider" />
     </>
   )
 }

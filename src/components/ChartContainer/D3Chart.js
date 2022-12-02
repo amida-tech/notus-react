@@ -2,6 +2,8 @@
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
+import theme from '../../assets/styles/AppTheme'
+
 import { TickChange, TimelineOptions } from '../Utilities/ChartUtil';
 import { colorMappingProps } from './D3Props';
 
@@ -144,7 +146,8 @@ function D3Chart({
     const tooltip = d3
       .select('body')
       .append('div')
-      .attr('class', 'd3-chart__tooltip');
+      .attr('class', 'd3-chart__tooltip')
+      .style('border', theme.palette?.bluegray.D4);
     const toolTipGenerator = (event) => {
       const normalizeTicks = dataCount - event.srcElement.__data__.length;
       const tickWidth = (width / (dataCount - 1));
@@ -164,11 +167,13 @@ function D3Chart({
       tooltip.text(`${measureDisplay} \n ${valueDisplay} \n ${dateDisplay}`);
       const { color } = colorMapping.find(
         (mapping) => mapping.value === event.target.__data__[0].measure,
-      ) || '#000';
+      ) || theme.palette.primary;
       const leftPosition = (event.pageX > width) ? event.pageX - 176 : event.pageX + 10
       return tooltip
         .attr('data-html', 'true')
         .style('background-color', color)
+        .style('color', theme.palette?.primary.light)
+        .style('text-shadow', `1px 1px ${theme.palette?.primary.main}`)
         .style('visibility', 'visible')
         .style('width', '168px')
         .style('top', `${event.pageY - 10}px`)
@@ -184,7 +189,8 @@ function D3Chart({
           .attr('fill', 'none')
           .attr(
             'stroke',
-            colorMapping.find((mapping) => mapping.value === measure)?.color || '#000',
+            colorMapping.find((mapping) => mapping.value === measure)?.color
+              || theme.palette?.bluegray.D1,
           )
           .attr('opacity', '.50')
           .attr('stroke-width', 5)
@@ -207,11 +213,17 @@ function D3Chart({
       .attr('x2', width)
       .attr('y2', height - margin.bottom)
       .style('stroke-width', 1)
-      .style('stroke', '#CFD8DC')
+      .style('stroke', theme.palette?.bluegray.L3)
       .style('fill', 'none');
   });
   return (
-    <div className="d3-chart">
+    <div
+      className="d3-chart"
+      style={{
+        fill: theme.palette?.secondary.main,
+        color: theme.palette?.secondary.main,
+      }}
+    >
       <svg ref={D3LineChart} />
     </div>
   );
