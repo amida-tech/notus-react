@@ -18,7 +18,7 @@ const ColorMapping = (allResults, displayData) => {
   const baseColors = []
   const byMeasureColorMap = [];
 
-  const colorBySeed = ((seed, idx) => chartColorArray[idx % 11])
+  const colorBySeed = ((seed, idx) => chartColorArray[idx % 10])
 
   const distortColor = (color, idx) => {
     let newColor = ''
@@ -68,6 +68,8 @@ const ColorMapping = (allResults, displayData) => {
       color: distortColor(baseMeasureColor, idx),
     })
   })
+
+  console.log('colormap', byMeasureColorMap)
 
   return byMeasureColorMap;
 };

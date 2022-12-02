@@ -20,6 +20,8 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
   const [checkboxColors, setCheckboxColors] =useState('')
   const navigate = useNavigate()
 
+  console.log(colorMap)
+
   useEffect(() => {
     const columnData = Object.values(headerInfo)
       .map((info, idx) => {
@@ -27,7 +29,7 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
           field: info.key,
           headerName: info.header,
           description: info.tooltip,
-          headerAlign: idx == 0 ? 'left' : 'center',
+          headerAlign: idx == 0 ? 'left' : 'left',
           align: idx == 0 ? 'left' : 'center',
           width: idx == 0 ? 250 : 200
           // add color here ?
@@ -91,7 +93,6 @@ export default function OverviewTable({ activeMeasure, headerInfo, currentResult
         showColumnRightBorder={false}
         onSelectionModelChange={(event) => handleSelectionModelChange(event)}
         onRowDoubleClick={(event) => handleRowDoubleCLick(event)}
-        disableColumnMenu
         disableSelectionOnClick
         // filterMode='server'
         pagination='client'
