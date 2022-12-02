@@ -106,14 +106,14 @@ export default function OverviewTable({
           '& .MuiDataGrid-columnHeaderTitleContainerContent': {
             width: '-webkit-fill-available',
             display: 'flex',
-            placeContent: 'center'
+            placeContent: 'center',
           },
           '& .MuiDataGrid-columnHeaderTitleContainerContent:nth-child(1)': {
             display: 'flex',
-            placeContent: 'inherit'
+            placeContent: 'inherit',
           },
           '& .MuiDataGrid-columnHeaderDraggableContainer': {
-            width: '-webkit-fill-available'
+            width: '-webkit-fill-available',
           },
           // CHECKBOXES
           '& .MuiDataGrid-cellCheckbox, & .MuiDataGrid-columnHeaderCheckbox': {
@@ -157,9 +157,9 @@ export default function OverviewTable({
             transform: 'rotate(270deg)',
           },
           '& .MuiDataGrid-columnHeader:hover .MuiDataGrid-menuIcon': {
-            width: '2rem'
+            width: '2rem',
           },
-          
+
           // WE DON'T NEED THESE BELOW SO WE HIDE ¯\_(ツ)_/¯
           '& .MuiDataGrid-sortIcon': {
             display: 'none',
