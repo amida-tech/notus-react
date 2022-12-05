@@ -10,41 +10,27 @@ import TableRow from '@mui/material/TableRow';
 
 import theme from '../../assets/styles/AppTheme'
 
-const columns = [
-  { id: 'memberId', label: 'MemberID', align: 'left' },
-  { id: 'aab', label: 'AAB', align: 'left' },
-  { id: 'aab2', label: 'AAB-2', align: 'left' },
-  { id: 'aab3', label: 'AAB-3', align: 'left' },
-  { id: 'aab4', label: 'AAB-4', align: 'left' },
-  { id: 'aab5', label: 'AAB-5', align: 'left' },
-  { id: 'aab6', label: 'AAB-6', align: 'left' },
-  { id: 'aab7', label: 'AAB-7', align: 'left' },
-  { id: 'aab8', label: 'AAB-8', align: 'left' },
-  { id: 'aab9', label: 'AAB-9', align: 'left' },
-  { id: 'aab10', label: 'AAB-10', align: 'left' },
-  { id: 'aab11', label: 'AAB-11', align: 'left' },
-  { id: 'aab12', label: 'AAB-12', align: 'left' },
-  { id: 'aab13', label: 'AAB-13', align: 'left' },
-  { id: 'aab14', label: 'AAB-14', align: 'left' },
-];
+// const columns = [
+//   { id: 'memberId', label: 'MemberID', align: 'left' },
+//   { id: 'aab', label: 'AAB', align: 'left' },
+//   { id: 'aab2', label: 'AAB-2', align: 'left' },
+//   { id: 'aab3', label: 'AAB-3', align: 'left' },
+//   { id: 'aab4', label: 'AAB-4', align: 'left' },
+//   { id: 'aab5', label: 'AAB-5', align: 'left' },
+//   { id: 'aab6', label: 'AAB-6', align: 'left' },
+//   { id: 'aab7', label: 'AAB-7', align: 'left' },
+//   { id: 'aab8', label: 'AAB-8', align: 'left' },
+//   { id: 'aab9', label: 'AAB-9', align: 'left' },
+//   { id: 'aab10', label: 'AAB-10', align: 'left' },
+//   { id: 'aab11', label: 'AAB-11', align: 'left' },
+//   { id: 'aab12', label: 'AAB-12', align: 'left' },
+//   { id: 'aab13', label: 'AAB-13', align: 'left' },
+//   { id: 'aab14', label: 'AAB-14', align: 'left' },
+// ];
 
-function createData(row) {
-  const memberObj = []
-  delete row.value;
-  delete row.type;
-  memberObj.push(row.label);
-  Object.values(row).forEach((val) => {
-    if (val !== memberObj[0]) {
-      memberObj.push(val)
-    }
-  })
-  
-  return { ...memberObj }
-}
-
-const rows = [
-  createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
-];
+// const rows = [
+//   createData('aab-51646382-3037-4e40-a1e0-054433bfcd7b', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched', 'matched'),
+// ];
 
 const mockCurrentResults = [{
     "value": "aise-1ed190b4-544d-4d70-a236-daed10a03f5e",
@@ -103,28 +89,40 @@ export default function newMemberTable({activeMeasure, headerInfo, currentResult
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
 
-  console.log(headerInfo)
+  function createData(row, columnVals) {
+    const memberObj = {}
+    delete row.value;
+    delete row.type;
+    memberObj.id = row.label;
+    Object.values(row).forEach((val, i) => {
+      if (val !== memberObj[0]) {
+        memberObj[columnVals[i].id] = val
+      }
+    })
+    return { ...memberObj }
+  }
 
   useEffect(() => {
-    console.log('START')
+    const columnData = []
+    let rowData = []
+
     if (headerInfo.length > 1) {
-      const columnData = []
       headerInfo.forEach((column) => {
         const headerObj = {}
         headerObj.id = column.key;
         headerObj.label = column.header;
         headerObj.align = column.flexBasis === 'larger' ? 'left' : 'center'
         columnData.push(headerObj)
-        console.log('columnData', columnData)
         setColumns(columnData)
       })
     }
 
     if (mockCurrentResults) {
-    const rowData = mockCurrentResults.map((row) => {
-      return createData(row)
+    rowData = mockCurrentResults.map((row, i) => {
+      return createData(row, columnData)
     })
-    // setRows(rowData)
+    console.log('the rowData', rowData)
+    setRows(rowData)
     }
   }, [currentResults])
 
