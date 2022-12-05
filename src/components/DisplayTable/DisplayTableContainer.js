@@ -127,32 +127,6 @@ function DisplayTableContainer({
               handleSelectedMeasureChange={handleSelectedMeasureChange}
             />
 
-            {/* OLD TABLE */}
-
-            {/* <DisplayTable
-              headerInfo={headerInfo}
-              pageSize={MeasureTable.pageSize}
-              useCheckBox
-              selectedRows={selectedMeasures}
-              handleCheckBoxChange={handleSelectedMeasureChange}
-            >
-              {MeasureTable.formatData(currentResults).map((item) => (
-                <MeasureTableRow
-                  key={`measure-table-row-${item.value}`}
-                  rowDataItem={item}
-                  headerInfo={headerInfo}
-                  useCheckBox
-                  handleCheckBoxEvent={handleSelectedMeasureChange}
-                  rowSelected={selectedMeasures.includes(item.value)}
-                  color={
-                    colorMap.find((mapping) => mapping.value === item.value)?.color
-                    || theme.palette?.primary.main
-                  }
-                  measureInfo={datastore.info}
-                />
-              ))}
-            </DisplayTable> */}
-
           </TabPanel>
 
           <TabPanel value="members">
@@ -168,39 +142,7 @@ function DisplayTableContainer({
               headerInfo={headerInfo}
               currentResults={rowEntries}
             />
-
-            <DisplayTable
-              headerInfo={headerInfo}
-              pageSize={MemberTable.pageSize}
-              useCheckBox={false}
-            >
-              {/* NO ENTRIES? */}
-              {rowEntries.length === 0
-                ? (
-                  <Box className="d3-container__no-entries">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      sx={{ fontWeight: 600 }}
-                      className="d3-container__no-entries-button"
-                      aria-label="clear"
-                      onClick={() => {
-                        handleResetData()
-                      }}
-                    >
-                      Reset Table Filters
-                    </Button>
-                  </Box>
-                )
-                // ENTRIES FOUND
-                : (rowEntries.map((item) => (
-                  <MemberTableRow
-                    key={`member-table-row-${item.value}`}
-                    rowDataItem={item}
-                    headerInfo={headerInfo}
-                  />
-                )))}
-            </DisplayTable>
+            
           </TabPanel>
 
         </TabContext>
