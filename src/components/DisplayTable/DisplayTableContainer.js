@@ -163,7 +163,11 @@ function DisplayTableContainer({
             />
             <EntriesFound total={rowEntries.length} />
 
-            <NewMemberTable />
+            <NewMemberTable
+              activeMeasure={activeMeasure}
+              headerInfo={headerInfo}
+              currentResults={rowEntries}
+            />
 
             <DisplayTable
               headerInfo={headerInfo}
