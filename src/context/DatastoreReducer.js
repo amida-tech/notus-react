@@ -63,9 +63,11 @@ export const DatastoreReducer = (state, action) => {
       }
     }
     case 'SET_MEMBER_RESULTS': {
+      console.log(action.payload)
+      const { Members, totalCount } = action.payload
       return {
         ...state,
-        memberResults: action.payload,
+        memberResults: Members,
       }
     }
     case 'SET_TRENDS':
