@@ -7,8 +7,6 @@ import PropTypes from 'prop-types';
 import theme from '../../assets/styles/AppTheme'
 
 import { TableTab } from '../Utilities/TableTab'
-import MeasureTable from '../Utilities/MeasureTable'
-import MemberTable from '../Utilities/MemberTable';
 
 import { DatastoreContext } from '../../context/DatastoreProvider';
 
@@ -27,29 +25,24 @@ import {
   rowEntriesProps,
   handleTabChangeProps,
 } from '../ChartContainer/D3Props';
-import MeasureTableRow from './MeasureTableRow';
-import MemberTableRow from './MemberTableRow';
 import TableFilterPanel from './TableFilterPanel';
-import DisplayTable from './DisplayTable';
 import MeasureSelector from '../Common/MeasureSelector';
 import EntriesFound from './EntriesFound'
-import OverviewTable from './NewOverviewTable'
-import NewMemberTable from './NewMemberTable'
+import OverviewTable from './OverviewTable'
+import MemberTable from './MemberTable'
 
 function DisplayTableContainer({
   activeMeasure,
   tabValue,
   isComposite,
   headerInfo,
-  handleSelectedMeasureChange,
-  selectedMeasures,
   currentResults,
   colorMap,
   tableFilter,
   handleTableFilterChange,
+  handleSelectedMeasureChange,
   rowEntries,
   handleTabChange,
-  handleResetData,
 }) {
   const { datastore } = useContext(DatastoreContext);
 
@@ -137,12 +130,12 @@ function DisplayTableContainer({
             />
             <EntriesFound total={rowEntries.length} />
 
-            <NewMemberTable
+            <MemberTable
               activeMeasure={activeMeasure}
               headerInfo={headerInfo}
-              currentResults={rowEntries}
+              rowEntries={rowEntries}
             />
-            
+
           </TabPanel>
 
         </TabContext>

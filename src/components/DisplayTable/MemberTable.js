@@ -8,14 +8,16 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Grid
+  Grid,
+  Link
 } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 
 import theme from '../../assets/styles/AppTheme'
 
-export default function newMemberTable({activeMeasure, headerInfo, currentResults}) {
+export default function newMemberTable({activeMeasure, headerInfo, rowEntries}) {
   const [rows, setRows] = useState([])
   const [columns, setColumns] = useState([])
   const [page, setPage] = useState(0);
@@ -64,7 +66,15 @@ export default function newMemberTable({activeMeasure, headerInfo, currentResult
         </Grid>
       )
     } else {
-      return labelValue
+      return (
+        <Link
+          style={{ color: theme.palette?.primary.main }}
+          component={RouterLink}
+          to={{ pathname: `/member/${labelValue}` }}
+        >
+          {labelValue}
+        </Link>
+      )
     }
   }
 
@@ -83,13 +93,13 @@ export default function newMemberTable({activeMeasure, headerInfo, currentResult
       })
     }
 
-    if (currentResults) {
-    rowData = currentResults.map((row, i) => {
+    if (rowEntries) {
+    rowData = rowEntries.map((row, i) => {
       return createData(row, columnData)
     })
     setRows(rowData)
     }
-  }, [currentResults])
+  }, [rowEntries])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
