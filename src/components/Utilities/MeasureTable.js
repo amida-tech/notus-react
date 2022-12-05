@@ -1,7 +1,3 @@
-import { Link, Link as RouterLink } from 'react-router-dom'
-
-import theme from '../../assets/styles/AppTheme'
-
 export const measureTip = 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)';
 export const subMeasureTip = 'Hover over sub-measures to view description, for more information click sub-measure to go to NCQA to receive further information.';
 export const remainingInclusionsTip = 'The population remaining after exclusions are removed.';

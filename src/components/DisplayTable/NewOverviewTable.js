@@ -19,6 +19,7 @@ export default function OverviewTable({
   const [columns, setColumns] = useState([])
   const [rows, setRows] = useState([])
   const [checkboxColors, setCheckboxColors] = useState('')
+  const [selectionModel, setSelectionModel] = useState([]);
   const navigate = useNavigate()
 
   console.log(colorMap)
@@ -29,9 +30,9 @@ export default function OverviewTable({
         field: info.key,
         headerName: info.header,
         description: info.tooltip,
-        headerAlign: idx == 0 ? 'left' : 'center',
-        align: idx == 0 ? 'left' : 'center',
-        width: idx == 0 ? 250 : 200,
+        headerAlign: idx === 0 ? 'left' : 'center',
+        align: idx === 0 ? 'left' : 'center',
+        width: idx === 0 ? 250 : 200,
         // add color here ?
       }))
     const rowData = formatData(currentResults)
@@ -49,12 +50,15 @@ export default function OverviewTable({
     setCheckboxColors(colorMaps)
     setColumns(columnData)
     setRows(rowData)
+    setSelectionModel(() => rowData.map((r) => r.id))
   }, [currentResults])
 
   const handleSelectionModelChange = (event) => {
+    setSelectionModel(event)
+
     const newSelections = event
       .map((label) => currentResults
-        .find((measure) => measure.label == label)
+        .find((measure) => measure.label === label)
         .measure)
 
     handleSelectedMeasureChange(newSelections)
@@ -89,6 +93,7 @@ export default function OverviewTable({
         showColumnRightBorder={false}
         onSelectionModelChange={(event) => handleSelectionModelChange(event)}
         onRowDoubleClick={(event) => handleRowDoubleCLick(event)}
+        selectionModel={selectionModel}
         disableSelectionOnClick
         // filterMode='server'
         pagination="client"
@@ -108,7 +113,7 @@ export default function OverviewTable({
             display: 'flex',
             placeContent: 'center',
           },
-          '& .MuiDataGrid-columnHeaderTitleContainerContent:nth-child(1)': {
+          '& .MuiDataGrid-columnHeaderTitleContainerContent:nth-of-type(1)': {
             display: 'flex',
             placeContent: 'inherit',
           },
@@ -139,14 +144,13 @@ export default function OverviewTable({
             transition: '100ms',
           },
           '& .MuiDataGrid-cell:focus-within:hover': {
-            fontWeight: 'bold',
             color: theme.palette?.primary.main,
           },
           '& .MuiDataGrid-cellContent': {
             userSelect: 'none',
           },
           // MENU
-          '& 	.MuiDataGrid-menuIconButton': {
+          '& .MuiDataGrid-menuIconButton': {
             transition: '200ms !important',
             width: '2rem',
             // margin: '-1rem -1rem 1.5rem'

@@ -61,7 +61,7 @@ export function getSubMeasureCurrentResults(activeMeasure, currentResults) {
   } else {
     subMeasureCurrentResults = [subMeasurePrime];
   }
-  subMeasureCurrentResults.forEach((res) => res.id = res.measure)
+  subMeasureCurrentResults.forEach((res) => { res.id = res.measure })
   return subMeasureCurrentResults;
 }
 

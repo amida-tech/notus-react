@@ -68,7 +68,7 @@ const ColorMapping = (allResults, displayData) => {
     })
   })
 
-  console.log('colormap', byMeasureColorMap)
+  console.log(byMeasureColorMap)
 
   return byMeasureColorMap;
 };
