@@ -1,3 +1,5 @@
+import { selectedMeasures } from "test/data/DemoData";
+
 export function filterByStars(displayData, filters, currentResults) {
   return (displayData.filter((result) => filters.stars.includes(
     Math.floor( // Floor for the .5 stars.
@@ -134,6 +136,23 @@ export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
     currentResults,
   }
 }
+export const DisplayDataFormatter = (currentResults, selectedMeasures, displayData) => {
+  const newChartDisplay = []
+  for (let i = 0; i < currentResults.length; i += 1) {
+    const MEASURES = currentResults[i].measure
+    newChartDisplay.push({
+      name: MEASURES,
+      data: displayData
+        .filter((entry) => {
+          if (MEASURES === entry.measure) {
+            return entry.value
+          }
+        }),
+    })
+  }
+  return newChartDisplay
+}
+
 export const lineChartOptions = (
   displayData,
   colorMap,
@@ -142,35 +161,114 @@ export const lineChartOptions = (
   currentTimeline,
   chartStuff,
 ) => {
+  const xaxisTitle = () => {
+    const { choice } = currentTimeline
+    if (choice === 'all') {
+      return 'All Available'
+    }
+    if (choice === '30') {
+      return 'Last 30 Days'
+    }
+    if (choice === '60') {
+      return 'Last 60 Days'
+    }
+    if (choice === '90') {
+      return 'Last 90 Days'
+    }
+    if (choice === 'YTD') {
+      return 'Year to Date'
+    }
+    return 'All Available'
+  }
   const chart = {
-    height: 350,
+    height: 100,
     type: 'line',
+    redrawOnParentResize: true,
     zoom: {
       enabled: true,
+    },
+  }
+  const legend = {
+    show: false,
+    showForSingleSeries: false,
+    showForNullSeries: true,
+    showForZeroSeries: true,
+    position: 'bottom',
+    horizontalAlign: 'center',
+    floating: false,
+    fontSize: '15px',
+    fontFamily: 'Helvetica, Arial',
+    fontWeight: 400,
+    formatter(value) {
+      return `${value.toUpperCase()}`;
+    },
+    inverseOrder: false,
+    width: undefined,
+    height: undefined,
+    tooltipHoverFormatter: undefined,
+    customLegendItems: [],
+    offsetX: 0,
+    offsetY: 0,
+    labels: {
+      // colors: colorMap.map((color) => {
+      //   if (color.color) {
+      //     return color.color
+      //   }
+      //   return '#263238'
+      // }),
+      useSeriesColors: false,
+    },
+    markers: {
+      width: 12,
+      height: 12,
+      strokeWidth: 0,
+      strokeColor: '#fff',
+      fillColors: colorMap.map((color) => {
+        if (color.color) {
+          return color.color
+        }
+        return '#263238'
+      }),
+      radius: 12,
+      customHTML: undefined,
+      onClick: undefined,
+      offsetX: 0,
+      offsetY: 0,
+    },
+    itemMargin: {
+      horizontal: 5,
+      vertical: 0,
+    },
+    onItemClick: {
+      toggleDataSeries: true,
+    },
+    onItemHover: {
+      highlightDataSeries: true,
     },
   }
   const dataLabels = {
     enabled: false,
   }
   const stroke = {
+    show: true,
     curve: 'smooth',
-  }
-  const title = {
-    text: 'Measure By Line',
-    align: 'left',
-  }
-  const grid = {
-    row: {
-      colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
-      opacity: 0.5,
-    },
+    lineCap: 'round',
+    colors: colorMap.map((color) => {
+      if (color.color) {
+        return color.color
+      }
+      return '#263238'
+    }),
+    width: 4.5,
+    dashArray: 0,
   }
   const xaxis = {
+    show: true,
+    showAlways: true,
     type: 'category',
-    // categories: ['2022-10-16T00:00:00.000Z','2022-10-16T00:00:00.000Z','2022-10-16T00:00:00.000Z','2022-10-16T00:00:00.000Z','2022-10-16T00:00:00.000Z','2022-10-16T00:00:00.000Z','2022-10-16T00:00:00.000Z','2022-10-16T00:00:00.000Z'],
     categories: chartStuff[0].data.map((entry) => entry.date),
-    tickAmount: undefined,
-    tickPlacement: 'between',
+    tickAmount: 20,
+    tickPlacement: 'on',
     min: undefined,
     max: undefined,
     range: undefined,
@@ -188,19 +286,21 @@ export const lineChartOptions = (
       minHeight: undefined,
       maxHeight: 120,
       style: {
-        colors: [],
-        fontSize: '8px',
+        colors: '#78909C',
+        fontSize: '18px',
         fontFamily: 'Helvetica, Arial, sans-serif',
         fontWeight: 400,
         // cssClass: 'apexcharts-xaxis-label',
       },
       offsetX: 0,
-      offsetY: 0,
+      offsetY: 10,
       format: undefined,
       formatter(value) {
-        return new Date(value);
+        if (value) {
+          return value.split('T')[0]
+        }
+        return value
       },
-      datetimeUTC: true,
       datetimeFormatter: {
         year: 'yyyy',
         month: "MMM 'yy",
@@ -209,10 +309,59 @@ export const lineChartOptions = (
       },
     },
     axisBorder: {
-      show: true,
+      show: false,
       color: '#78909C',
-      height: 1,
-      width: '100%',
+      offsetX: 0,
+      offsetY: 0,
+    },
+    axisTicks: {
+      show: true,
+      borderType: 'solid',
+      color: ['#78909C'],
+      offsetX: 0,
+      offsetY: 0,
+    },
+    title: {
+      text: xaxisTitle(),
+      offsetX: 0,
+      offsetY: 210,
+      style: {
+        color: '#78909C',
+        fontSize: '25px',
+        fontFamily: 'Helvetica, Arial, sans-serif',
+        fontWeight: 600,
+        cssClass: 'apexcharts-xaxis-title',
+      },
+    },
+    tooltip: {
+      enabled: false,
+    },
+  }
+  const yaxis = {
+    show: true,
+    showAlways: true,
+    labels: {
+      show: true,
+      align: 'right',
+      minWidth: 0,
+      maxWidth: 160,
+      style: {
+        colors: ['#78909C'],
+        fontSize: '20px',
+        fontFamily: 'Helvetica, Arial, sans-serif',
+        fontWeight: 600,
+        cssClass: 'apexcharts-yaxis-label',
+      },
+      offsetX: 0,
+      offsetY: 0,
+      rotate: 0,
+      formatter(value) {
+        return `${value.toFixed(0)}%`;
+      },
+    },
+    axisBorder: {
+      show: false,
+      color: '#78909C',
       offsetX: 0,
       offsetY: 0,
     },
@@ -220,56 +369,85 @@ export const lineChartOptions = (
       show: true,
       borderType: 'solid',
       color: '#78909C',
-      height: 6,
+      width: 6,
       offsetX: 0,
       offsetY: 0,
+    },
+    title: {
+      text: 'Percent',
+      rotate: -90,
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        color: '#78909C',
+        fontSize: '25px',
+        fontFamily: 'Helvetica, Arial, sans-serif',
+        fontWeight: 600,
+        cssClass: 'apexcharts-yaxis-title',
+      },
     },
 
-    title: {
-      text: undefined,
+  }
+  const tooltip = {
+    enabled: true,
+    enabledOnSeries: undefined,
+    shared: true,
+    followCursor: false,
+    intersect: false,
+    inverseOrder: false,
+    custom({
+      series, seriesIndex, dataPointIndex, w,
+    }) {
+      const foundDate = w.globals.categoryLabels[dataPointIndex + 1]
+      const foundColor = w.config.markers.colors[seriesIndex]
+      return `<div class="d3-chart__tester" style="background-color:${foundColor}; color:white;">`
+        + `<span> Measure: ${w.config.series[seriesIndex].name.toUpperCase()}</span>`
+        + '<br/>'
+        + `<span> Value: ${series[seriesIndex][dataPointIndex].toFixed(2)}%</span>`
+        + '<br/>'
+        + `<span> Date: ${new Date(foundDate).toDateString()}</span>`
+        + '</div>'
+    },
+    fillSeriesColor: true,
+    style: {
+      fontSize: '18px',
+      fontFamily: 'Helvetica, Arial, sans-serif',
+      fontWeight: 400,
+    },
+    onDatasetHover: {
+      highlightDataSeries: false,
+    },
+    marker: {
+      show: true,
+    },
+    items: {
+      // display: flex,
+    },
+    fixed: {
+      enabled: false,
+      position: 'topRight',
       offsetX: 0,
       offsetY: 0,
-      style: {
-        color: undefined,
-        fontSize: '12px',
-        fontFamily: 'Helvetica, Arial, sans-serif',
-        fontWeight: 600,
-      },
-    },
-    crosshairs: {
-      show: true,
-      width: 1,
-      position: 'back',
-      opacity: 0.9,
-      stroke: {
-        color: '#b6b6b6',
-        width: 0,
-        dashArray: 0,
-      },
     },
   }
-  const yaxis = {
-    labels: {
-      formatter(value) {
-        return `${value.toFixed(2)}%`;
-      },
-      style: {
-        color: undefined,
-        fontSize: '15px',
-        fontFamily: 'Helvetica, Arial, sans-serif',
-        fontWeight: 600,
-        cssClass: 'apexcharts-xaxis-title',
-      },
-    },
+  const markers = {
+    colors: colorMap.map((color) => {
+      if (color.color) {
+        return color.color
+      }
+      return '#263238'
+    }),
   }
+
   return {
     chart,
     dataLabels,
     stroke,
-    title,
-    // grid,
     xaxis,
     yaxis,
+    legend,
+    markers,
+    tooltip,
   }
 }
 

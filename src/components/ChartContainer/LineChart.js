@@ -20,7 +20,6 @@ class LineChart extends React.Component {
       measureInfo: props.measureInfo,
       graphWidth: props.graphWidth,
       currentTimeline: props.currentTimeline,
-      chartStuff: props.chartStuff,
     };
   }
 
@@ -31,7 +30,6 @@ class LineChart extends React.Component {
       measureInfo,
       graphWidth,
       currentTimeline,
-      chartStuff,
     } = this.state
 
     this.setState({
@@ -39,10 +37,6 @@ class LineChart extends React.Component {
         name: chart.name,
         data: chart.data.map((entry) => entry.value),
       })),
-    //   chartData: [{
-    //     name: 'HIGH',
-    //     data: [1, 2, 4, 5, 6, 7, 8],
-    //   }],
       chartOptions: lineChartOptions(
         displayData,
         colorMap,
@@ -62,7 +56,7 @@ class LineChart extends React.Component {
         series={chartData}
         type="line"
         width="100%"
-        height="400%"
+        height="100%"
       />
     );
   }

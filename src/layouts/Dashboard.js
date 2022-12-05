@@ -22,6 +22,7 @@ import { scrolly, scrollTop } from '../components/Utilities/ScrollNavigate'
 
 import {
   calcMemberResults,
+  DisplayDataFormatter,
   expandSubMeasureResults, filterByDOC,
   filterByPercentage,
   filterByStars,
@@ -66,6 +67,7 @@ export default function Dashboard() {
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
   const [tabValue, setTabValue] = useState('overview');
+  const [chartData, setChatData] = useState([]);
   const { measure } = useParams();
 
   const handleResetData = (router) => {
@@ -348,7 +350,9 @@ export default function Dashboard() {
     tabValue,
     tableFilter,
   ]);
-
+  useEffect(() => {
+    const ChartData = DisplayDataFormatter(currentResults, selectedMeasures, displayData)
+  }, [currentResults, selectedMeasures, displayData])
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true)
     // let newDisplayData
@@ -472,7 +476,7 @@ export default function Dashboard() {
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
-
+console.log(currentFilters)
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -513,7 +517,7 @@ export default function Dashboard() {
               </div>
             </Alert>
             <Grid item xs={12}>
-              { isLoading || noResultsFound
+              { isLoading || noResultsFound || currentResults.length === 0
                 ? <Skeleton variant="rectangular" height={300} />
                 : (
                   <D3Container
@@ -534,7 +538,7 @@ export default function Dashboard() {
                     setTabValue={setTabValue}
                     activeMeasure={activeMeasure}
                     filterDisabled={filterDisabled}
-                    displayData={displayData}
+                    displayData={chartData}
                     colorMap={colorMap}
                     store={datastore}
                     graphWidth={graphWidth}

@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material';
-import { createContext } from 'react';
+import { createContext, useEffect } from 'react';
 
 import theme from '../../assets/styles/AppTheme'
 
@@ -7,6 +7,7 @@ import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ChartBar from './ChartBar';
 import ChartHeader from './ChartHeader';
 import D3Chart from './D3Chart';
+import { DisplayDataFormatter } from './D3ContainerUtils';
 
 import {
   activeMeasureProps,
@@ -90,19 +91,9 @@ function D3Container({
     setCurrentTimeline(timelineUpdate);
     handleFilteredDataUpdate(currentFilters, timelineUpdate);
   }
-  const chartStuff = []
-  for (let i = 0; i < currentResults.length; i += 1) {
-    const MEASURES = currentResults[i].measure
-    chartStuff.push({
-      name: MEASURES,
-      data: displayData.filter((entry) => {
-        if (MEASURES === entry.measure) {
-          return entry.value
-        }
-      }),
-    })
-  }
-  console.log(chartStuff)
+  // VVVVVVVV MOVE ME TO A UTILS FOLDER !!!!!!!!VVVVVVVVV
+  // .filter((result) => selectedMeasures.includes(MEASURES))
+
   return (
     <div className="d3-container">
       <FilterDrawer
@@ -148,14 +139,13 @@ function D3Container({
           graphWidth={graphWidth}
           currentTimeline={currentTimeline}
         /> */}
-        {/* <LineChart
-          chartStuff={chartStuff}
+        <LineChart
           displayData={displayData}
           colorMap={colorMap}
           measureInfo={store.info}
           graphWidth={graphWidth}
           currentTimeline={currentTimeline}
-        /> */}
+        />
       </Grid>
     </div>
   );

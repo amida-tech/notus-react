@@ -5,7 +5,11 @@ $block-class: 'd3-chart';
 @at-root {
   .#{$block-class} {
     width: inherit;
-
+    &__tester {
+      padding: 15px 10px;
+      font-weight: bold;
+      font-size: 15px;
+    }
     &__line-chart {
       height: 37.5rem;
       width: -webkit-fill-available;
