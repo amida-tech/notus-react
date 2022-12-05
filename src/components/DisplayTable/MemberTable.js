@@ -9,7 +9,7 @@ import {
   TablePagination,
   TableRow,
   Grid,
-  Link
+  Link,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -17,7 +17,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 import theme from '../../assets/styles/AppTheme'
 
-export default function newMemberTable({activeMeasure, headerInfo, rowEntries}) {
+export default function newMemberTable({ activeMeasure, headerInfo, rowEntries }) {
   const [rows, setRows] = useState([])
   const [columns, setColumns] = useState([])
   const [page, setPage] = useState(0);
@@ -43,39 +43,40 @@ export default function newMemberTable({activeMeasure, headerInfo, rowEntries}) 
           color: theme.palette?.success.main,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center'
-        }}>
-        <CheckCircleIcon
-          sx={{ fontSize: 'xx-large', '&:hover': { fill: theme.palette?.success.main } }}
-        />
-        Matched
-      </Grid>
+          alignItems: 'center',
+        }}
+        >
+          <CheckCircleIcon
+            sx={{ fontSize: 'xx-large', '&:hover': { fill: theme.palette?.success.main } }}
+          />
+          Matched
+        </Grid>
       )
-    } else if (labelValue === 'false') {
+    } if (labelValue === 'false') {
       return (
         <Grid sx={{
           color: theme.palette?.error.main,
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center'
-        }}>
+          alignItems: 'center',
+        }}
+        >
           <CancelIcon
             sx={{ fontSize: 'xx-large', '&:hover': { fill: theme.palette?.error.main } }}
           />
           Unmatched
         </Grid>
       )
-    } else {
-      return (
-        <Link
-          style={{ color: theme.palette?.primary.main }}
-          component={RouterLink}
-          to={{ pathname: `/member/${labelValue}` }}
-        >
-          {labelValue}
-        </Link>
-      )
     }
+    return (
+      <Link
+        style={{ color: theme.palette?.primary.main }}
+        component={RouterLink}
+        to={{ pathname: `/member/${labelValue}` }}
+      >
+        {labelValue}
+      </Link>
+    )
   }
 
   useEffect(() => {
@@ -94,10 +95,8 @@ export default function newMemberTable({activeMeasure, headerInfo, rowEntries}) 
     }
 
     if (rowEntries) {
-    rowData = rowEntries.map((row, i) => {
-      return createData(row, columnData)
-    })
-    setRows(rowData)
+      rowData = rowEntries.map((row, i) => createData(row, columnData))
+      setRows(rowData)
     }
   }, [rowEntries])
 
