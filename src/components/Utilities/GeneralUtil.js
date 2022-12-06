@@ -24,7 +24,7 @@ const getNumDenValue = (memberValue) => {
 }
 
 const getMeasureCompliance = (memberResult) => {
-  const memberDetails = memberResult.result;
+  const memberDetails = memberResult[memberResult.memberId]
   const detailKeys = Object.keys(memberDetails);
   const numeratorsFound = [];
   const complianceResult = [];
