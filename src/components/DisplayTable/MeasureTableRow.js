@@ -129,6 +129,8 @@ function MeasureTableRow({
                     You are now leaving Saraswati and entering a site hosted by
                     a different Federal agency or company. If you are not
                     automatically forwarded, please proceed to:
+                    {' '}
+                    {alertPath(rowDataItem.value).pathto}
                   </Alert>
 
                 </>

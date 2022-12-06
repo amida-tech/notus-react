@@ -32,15 +32,6 @@ export default function Alert({
           <DialogContentText sx={{ lineHeight: '2rem', marginBottom: '1rem' }} id="alert-dialog-description">
             {children}
           </DialogContentText>
-          <DialogContentText sx={{
-            fontSize: '2rem',
-            width: '100%',
-            textAlign: 'center',
-            marginTop: '1rem',
-          }}
-          >
-            (^-^)
-          </DialogContentText>
         </DialogContent>
 
         <DialogActions>
@@ -63,8 +54,6 @@ export default function Alert({
       <DialogContent>
         <DialogContentText sx={{ lineHeight: '2rem', marginBottom: '1rem' }} id="alert-dialog-description">
           {children}
-          {' '}
-          {options.pathto}
         </DialogContentText>
       </DialogContent>
 
@@ -94,7 +83,9 @@ Alert.propTypes = {
     rel: PropTypes.string,
     pathto: PropTypes.string,
   }),
-  children: PropTypes.string,
+  children: PropTypes.arrayOf(
+    PropTypes.node,
+  ),
   noResultsALERT: PropTypes.bool,
   handleResetData: PropTypes.func,
 };
