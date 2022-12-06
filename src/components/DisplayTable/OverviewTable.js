@@ -46,7 +46,7 @@ export default function OverviewTable({
       .find((map) => (map.value === measure.value))?.color || theme.palette?.primary.main)
     const newColorObj = {}
 
-    const colorMaps = mapping?.reduce((newColorObj, mapColor, idx) => {
+    const colorMaps = mapping?.reduce((colorObj, mapColor, idx) => {
       const colorClass = `& .MuiDataGrid-virtualScrollerRenderZone > div:nth-of-type(${idx + 1}) > div > span`
       newColorObj[colorClass] = { color: mapColor }
       return newColorObj
@@ -108,15 +108,13 @@ export default function OverviewTable({
           ...checkboxColors,
           '& .MuiDataGrid-columnHeaderTitleContainerContent': {
             fontSize: '1rem',
+            width: '-webkit-fill-available',
+            display: 'flex',
+            placeContent: 'center',
           },
           // HEADERS
           '& .MuiDataGrid-columnHeaders': {
             backgroundColor: theme.palette?.background.main,
-          },
-          '& .MuiDataGrid-columnHeaderTitleContainerContent': {
-            width: '-webkit-fill-available',
-            display: 'flex',
-            placeContent: 'center',
           },
           '& .MuiDataGrid-columnHeaderTitleContainerContent:nth-of-type(1)': {
             display: 'flex',
@@ -135,6 +133,7 @@ export default function OverviewTable({
             whiteSpace: 'normal !important',
           },
           '& .MuiDataGrid-cellContent': {
+            userSelect: 'none',
             transition: '100ms',
           },
           '& .MuiDataGrid-cellContent:hover': {
@@ -150,9 +149,6 @@ export default function OverviewTable({
           },
           '& .MuiDataGrid-cell:focus-within:hover': {
             color: theme.palette?.primary.main,
-          },
-          '& .MuiDataGrid-cellContent': {
-            userSelect: 'none',
           },
           // MENU
           '& .MuiDataGrid-menuIconButton': {
