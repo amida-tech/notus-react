@@ -1,9 +1,8 @@
 import { useContext } from 'react'
 import {
-  Grid, Typography, Box, Button,
+  Grid, Typography, Box,
 } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import PropTypes from 'prop-types';
 import theme from '../../assets/styles/AppTheme'
 
 import { TableTab } from '../Utilities/TableTab'
@@ -17,7 +16,6 @@ import {
   isCompositeProps,
   handleSelectedMeasureChangeProps,
   headerInfoProps,
-  selectedMeasuresProps,
   currentResultsProps,
   colorMapProps,
   tableFilterProps,
@@ -151,14 +149,12 @@ DisplayTableContainer.propTypes = {
   isComposite: isCompositeProps,
   handleSelectedMeasureChange: handleSelectedMeasureChangeProps,
   headerInfo: headerInfoProps,
-  selectedMeasures: selectedMeasuresProps,
   currentResults: currentResultsProps,
   colorMap: colorMapProps,
   tableFilter: tableFilterProps,
   handleTableFilterChange: handleTableFilterChangeProps,
   rowEntries: rowEntriesProps,
   handleTabChange: handleTabChangeProps,
-  handleResetData: PropTypes.func,
 };
 
 DisplayTableContainer.defaultProps = {
@@ -167,14 +163,12 @@ DisplayTableContainer.defaultProps = {
   isComposite: true,
   handleSelectedMeasureChange: () => undefined,
   headerInfo: [],
-  selectedMeasures: [],
   currentResults: [],
   colorMap: [],
   tableFilter: [],
   handleTableFilterChange: () => undefined,
   rowEntries: [],
   handleTabChange: () => undefined,
-  handleResetData: () => undefined,
 };
 
 export default DisplayTableContainer

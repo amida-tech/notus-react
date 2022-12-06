@@ -4,6 +4,13 @@ import { Box } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import theme from '../../assets/styles/AppTheme'
 import { formatData } from '../Utilities/MeasureTable';
+import {
+  activeMeasureProps,
+  colorMapProps,
+  currentResultsProps,
+  handleSelectedMeasureChangeProps,
+  headerInfoProps,
+} from '../ChartContainer/D3Props';
 
 // research onCellClick features for boxes
 // onPageChange for page change, update store?
@@ -25,6 +32,7 @@ export default function OverviewTable({
   useEffect(() => {
     const columnData = Object.values(headerInfo)
       .map((info, idx) => ({
+        key: info.key,
         field: info.key,
         headerName: info.header,
         description: info.tooltip,
@@ -35,20 +43,20 @@ export default function OverviewTable({
     const rowData = formatData(currentResults)
 
     const mapping = rowData.map((measure) => colorMap
-      .find((mapping) => (mapping.value === measure.value))?.color || theme.palette?.primary.main)
-    const colorObj = {}
+      .find((map) => (map.value === measure.value))?.color || theme.palette?.primary.main)
+    const newColorObj = {}
 
-    const colorMaps = mapping?.reduce((colorObj, mapColor, idx) => {
+    const colorMaps = mapping?.reduce((newColorObj, mapColor, idx) => {
       const colorClass = `& .MuiDataGrid-virtualScrollerRenderZone > div:nth-of-type(${idx + 1}) > div > span`
-      colorObj[colorClass] = { color: mapColor }
-      return colorObj
-    }, colorObj)
+      newColorObj[colorClass] = { color: mapColor }
+      return newColorObj
+    }, newColorObj)
 
     setCheckboxColors(colorMaps)
     setColumns(columnData)
     setRows(rowData)
     setSelectionModel(() => rowData.map((r) => r.id))
-  }, [currentResults])
+  }, [currentResults, colorMap, headerInfo])
 
   const handleSelectionModelChange = (event) => {
     setSelectionModel(event)
@@ -70,7 +78,7 @@ export default function OverviewTable({
   return (
     <Box
       sx={{
-        height: 600,
+        height: 750,
         width: '100%',
         padding: '1rem .5rem',
         fontWeight: 'bold',
@@ -82,9 +90,9 @@ export default function OverviewTable({
         rows={rows}
         columns={columns}
         density="comfortable"
-        rowHeight={75}
-        pageSize={50}
-        rowsPerPageOptions={[50]}
+        rowHeight={65}
+        pageSize={10}
+        rowsPerPageOptions={[10]}
         checkboxSelection
         showCellRightBorder={false}
         showColumnRightBorder={false}
@@ -168,11 +176,35 @@ export default function OverviewTable({
           '& .MuiDataGrid-columnSeparator': {
             display: 'none',
           },
-          '&	.MuiDataGrid-iconButtonContainer': {
+          '& .MuiDataGrid-iconButtonContainer': {
             display: 'none',
           },
         }}
       />
     </Box>
   );
+}
+
+// activeMeasure, headerInfo, currentResults, colorMap, handleSelectedMeasureChange,
+
+OverviewTable.propTypes = {
+  activeMeasure: activeMeasureProps,
+  headerInfo: headerInfoProps,
+  currentResults: currentResultsProps,
+  colorMap: colorMapProps,
+  handleSelectedMeasureChange: handleSelectedMeasureChangeProps,
+}
+
+OverviewTable.defaultProps = {
+  activeMeasure: {
+    measure: '',
+    denominator: 0,
+    shortlabel: '',
+    starRating: '',
+    title: '',
+  },
+  headerInfo: [],
+  currentResults: [],
+  colorMap: [],
+  handleSelectedMeasureChange: () => undefined,
 }

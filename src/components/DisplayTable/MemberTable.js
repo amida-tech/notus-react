@@ -14,23 +14,26 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import {
+  activeMeasureProps, headerInfoProps, rowEntriesProps,
+} from '../ChartContainer/D3Props';
 
 import theme from '../../assets/styles/AppTheme'
 
-export default function newMemberTable({ activeMeasure, headerInfo, rowEntries }) {
+export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
   const [rows, setRows] = useState([])
   const [columns, setColumns] = useState([])
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
 
-  function createData(row, columns) {
+  function createData(row, columnDataSet) {
     const memberObj = {}
     delete row.value;
     delete row.type;
     memberObj.key = row.label;
     Object.values(row).forEach((val, i) => {
       if (val !== memberObj[0]) {
-        memberObj[columns[i]?.id] = val
+        memberObj[columnDataSet[i]?.id] = val
       }
     })
     return { ...memberObj }
@@ -95,10 +98,10 @@ export default function newMemberTable({ activeMeasure, headerInfo, rowEntries }
     }
 
     if (rowEntries) {
-      rowData = rowEntries.map((row, i) => createData(row, columnData))
+      rowData = rowEntries.map((row) => createData(row, columnData))
       setRows(rowData)
     }
-  }, [rowEntries])
+  }, [rowEntries, headerInfo])
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -140,7 +143,7 @@ export default function newMemberTable({ activeMeasure, headerInfo, rowEntries }
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell key={`${activeMeasure.measure}${column.id}`} align={column.align}>
                         {complianceIcons(value)}
                       </TableCell>
                     );
@@ -162,4 +165,22 @@ export default function newMemberTable({ activeMeasure, headerInfo, rowEntries }
       />
     </Paper>
   );
+}
+
+MemberTable.propTypes = {
+  activeMeasure: activeMeasureProps,
+  headerInfo: headerInfoProps,
+  rowEntries: rowEntriesProps,
+}
+
+MemberTable.defaultProps = {
+  activeMeasure: {
+    measure: '',
+    denominator: 0,
+    shortlabel: '',
+    starRating: '',
+    title: '',
+  },
+  headerInfo: [],
+  rowEntries: [],
 }
