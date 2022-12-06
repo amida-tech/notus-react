@@ -28,11 +28,12 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
 
   function createData(row, columnDataSet) {
     const memberObj = {}
-    delete row.value;
-    delete row.type;
-    memberObj.key = row.label;
-    Object.values(row).forEach((val, i) => {
-      if (val !== memberObj[0]) {
+    const tempRow = structuredClone(row)
+    delete tempRow.value;
+    delete tempRow.type;
+    memberObj.key = tempRow.label;
+    Object.entries(tempRow).forEach(([key, val], i) => {
+      if (val !== memberObj[0] && key !== 'type' && key !== 'value') {
         memberObj[columnDataSet[i]?.id] = val
       }
     })
