@@ -34,9 +34,9 @@ export default function DatastoreProvider({ children }) {
       payload: { results, info },
     }),
 
-    setMemberResults: (memberResults) => dispatch({
+    setMemberResults: (memberResults, initialLoad) => dispatch({
       type: 'SET_MEMBER_RESULTS',
-      payload: memberResults,
+      payload: {memberResults, initialLoad},
     }),
 
     setTrends: (trends) => dispatch({

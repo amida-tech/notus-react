@@ -34,6 +34,8 @@ export const initialState = {
   datastoreLoading: true,
   results: [], // All results for the last several days, per measure.
   memberResults: [],
+  memberResultsCount: 0,
+  memberResultsTotalCount: 0,
   trends: [],
   currentResults: [], // Results for the most recent day for each measure.
   info: {},
@@ -63,12 +65,41 @@ export const DatastoreReducer = (state, action) => {
       }
     }
     case 'SET_MEMBER_RESULTS': {
-      console.log(action.payload)
-      const { Members, totalCount } = action.payload
-      return {
-        ...state,
-        memberResults: Members,
+      const { Members, totalCount } = action.payload.memberResults
+      const initialLoad = action.payload.initialLoad
+      if (initialLoad) {
+        return {
+          ...state,
+          memberResults: Members,
+          memberResultsCount: Members.length,
+          memberResultsTotalCount: totalCount,
+        }
+      } else {
+        let  MembersArray = [];
+
+        MembersArray =[...state.memberResults];
+
+        Members.forEach((member) => {
+          if (MembersArray.length > 0){
+            const memberFilter = MembersArray.filter((mem) => {
+              if (mem.memberId === member.memberId){
+                return mem
+              }
+            })
+            if (memberFilter.length === 0){
+              MembersArray.push(member)
+            }
+          }
+          // let difference = Members.filter(x => state.memberResults.indexOf(x) === -1);
+        })
+        return {
+          ...state,
+          memberResults: MembersArray,
+          memberResultsCount: MembersArray.length,
+          memberResultsTotalCount: totalCount,
+        }
       }
+     
     }
     case 'SET_TRENDS':
       return {

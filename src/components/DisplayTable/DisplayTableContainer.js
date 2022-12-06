@@ -46,6 +46,8 @@ function DisplayTableContainer({
   rowEntries,
   handleTabChange,
   handleResetData,
+  totalCountMember,
+  handlePagination,
 }) {
   return (
     <Grid
@@ -117,6 +119,7 @@ function DisplayTableContainer({
               useCheckBox
               selectedRows={selectedMeasures}
               handleCheckBoxChange={handleSelectedMeasureChange}
+              handlePagination={handlePagination}
             >
               {MeasureTable.formatData(currentResults).map((item) => (
                 <MeasureTableRow
@@ -142,14 +145,17 @@ function DisplayTableContainer({
               handleTableFilterChange={handleTableFilterChange}
             />
             <Box sx={{ color: theme.palette?.bluegray.D1 }} className="d3-container__entries-display">
-              Results:&nbsp;
+              Results: Showing&nbsp; 
               <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
-                &nbsp;Entries Found
+              &nbsp;Entries Found of {totalCountMember}
             </Box>
             <DisplayTable
               headerInfo={headerInfo}
               pageSize={MemberTable.pageSize}
               useCheckBox={false}
+              currentMemberCount={rowEntries.length}
+              totalCountMember={totalCountMember}
+              handlePagination={handlePagination}
             >
               {rowEntries.length === 0
                 ? (
@@ -200,6 +206,8 @@ DisplayTableContainer.propTypes = {
   rowEntries: rowEntriesProps,
   handleTabChange: handleTabChangeProps,
   handleResetData: PropTypes.func,
+  handlePagination: PropTypes.func,
+  totalCountMember: PropTypes.number,
 };
 
 DisplayTableContainer.defaultProps = {
@@ -217,6 +225,8 @@ DisplayTableContainer.defaultProps = {
   rowEntries: [],
   handleTabChange: () => undefined,
   handleResetData: () => undefined,
+  totalCountMember: 0,
+  handlePagination: () => undefined,
 };
 
 export default DisplayTableContainer

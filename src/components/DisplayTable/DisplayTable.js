@@ -11,6 +11,7 @@ import theme from '../../assets/styles/AppTheme'
 
 import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
+import { measureDataFetch } from 'components/Common/Controller';
 
 function DisplayTable({
   headerInfo,
@@ -19,6 +20,9 @@ function DisplayTable({
   selectedRows,
   handleCheckBoxChange,
   children,
+  currentMemberCount,
+  totalCountMember,
+  handlePagination,
 }) {
   const [currentPage, setCurrentPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(pageSize);
@@ -43,6 +47,13 @@ function DisplayTable({
   }
 
   const handleChangePage = (_event, newPage) => {
+    console.log({ newPage, currentPage, rowsPerPage, currentMemberCount, totalCountMember})
+    const EntriesBeforeCall = currentMemberCount / rowsPerPage
+    const EntriesLeftBeforeCall = rowsPerPage * newPage
+    if (EntriesBeforeCall - newPage === 1){
+      console.log(headerInfo[1].key)
+      handlePagination( newPage, rowsPerPage)
+    }
     setCurrentPage(newPage);
   };
 
@@ -248,15 +259,21 @@ DisplayTable.propTypes = {
   selectedRows: PropTypes.arrayOf(
     PropTypes.string,
   ),
+  handlePagination: PropTypes.func,
   handleCheckBoxChange: PropTypes.func,
+  currentMemberCount: PropTypes.number,
+  totalCountMember: PropTypes.number,
 };
 
 DisplayTable.defaultProps = {
   children: [],
   headerInfo: [],
   pageSize: 0,
+  currentMemberCount: 0,
+  totalCountMember: 0,
   useCheckBox: false,
   selectedRows: [],
+  handlePagination: () => undefined,
   handleCheckBoxChange: () => undefined,
 }
 

@@ -65,6 +65,7 @@ export default function Dashboard() {
   const [tableFilter, setTableFilter] = useState([]);
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
+  const [totalCountMember, setTotalCountMember] = useState(0)
   const [tabValue, setTabValue] = useState('overview');
   const { measure } = useParams();
 
@@ -92,6 +93,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
+        setTotalCountMember(0)
         setHeaderInfo(MeasureTable.headerData(true));
       } else {
         setFilterInfo({
@@ -115,6 +117,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
+        setTotalCountMember(0)
         setHeaderInfo(MeasureTable.headerData(false));
       }
       setFilterActivated(false)
@@ -134,6 +137,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([]);
+        setTotalCountMember(0)
         setColorMap(ColorMapping(filterInfo.currentResults))
         setHeaderInfo(MeasureTable.headerData(true));
         scrolly(navigate, '/');
@@ -235,6 +239,7 @@ export default function Dashboard() {
         datastore.info,
         tableFilter,
       ))
+      setTotalCountMember(datastore.memberResultsTotalCount)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [datastore.memberResults])
@@ -299,7 +304,9 @@ export default function Dashboard() {
         datastoreActions.setMemberResults(selectMemberResults)
       } else {
         // FILTERS DO NOT EXIST
-        fetchData()
+        if(activeMeasure.measure !== ''){
+          fetchData()
+        }
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -316,6 +323,7 @@ export default function Dashboard() {
       datastore.info,
       tableFilter,
     ))
+    setTotalCountMember(datastore.memberResultsTotalCount)
   }, [tableFilter, filterInfo, datastore.memberResults, activeMeasure.measure, datastore.info])
 
   useEffect(() => {
@@ -334,6 +342,7 @@ export default function Dashboard() {
         datastore.info,
         tableFilter,
       ))
+      setTotalCountMember(datastore.memberResultsTotalCount)
       setComposite(false)
       setTabValue('members')
     } else {
@@ -467,12 +476,18 @@ export default function Dashboard() {
         datastore.info,
         tableFilter,
       ))
+      setTotalCountMember( filterInfo.members.length > 0 ? filterInfo.memberResultsTotalCount: datastore.memberResultsTotalCount)
+
     } else {
       navigate(`/${activeMeasure.measure}`)
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
 
+  const handlePagination = async (newPage, rowsPerPage) => {
+    const results = await measureDataFetch(activeMeasure.measure, newPage, rowsPerPage)
+    console.log(results)
+  }
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -544,6 +559,7 @@ export default function Dashboard() {
                     handleResetData={handleResetData}
                     setFilterInfo={setFilterInfo}
                     filterCurrentResultsLength={filterInfo.currentResults.length}
+
                   />
                 )}
             </Grid>
@@ -576,8 +592,10 @@ export default function Dashboard() {
                       tableFilter={tableFilter}
                       handleTableFilterChange={handleTableFilterChange}
                       rowEntries={rowEntries}
+                      totalCountMember={totalCountMember}
                       handleTabChange={handleTabChange}
                       handleResetData={handleResetData}
+                      handlePagination={handlePagination}
                     />
                   </div>
                 )}
