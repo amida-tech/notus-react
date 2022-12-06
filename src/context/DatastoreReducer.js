@@ -66,40 +66,41 @@ export const DatastoreReducer = (state, action) => {
     }
     case 'SET_MEMBER_RESULTS': {
       const { Members, totalCount } = action.payload.memberResults
-      const initialLoad = action.payload.initialLoad
-      if (initialLoad) {
-        return {
-          ...state,
-          memberResults: Members,
-          memberResultsCount: Members.length,
-          memberResultsTotalCount: totalCount,
-        }
-      } else {
-        let  MembersArray = [];
-
-        MembersArray =[...state.memberResults];
-
-        Members.forEach((member) => {
-          if (MembersArray.length > 0){
-            const memberFilter = MembersArray.filter((mem) => {
-              if (mem.memberId === member.memberId){
-                return mem
-              }
-            })
-            if (memberFilter.length === 0){
-              MembersArray.push(member)
-            }
-          }
-          // let difference = Members.filter(x => state.memberResults.indexOf(x) === -1);
-        })
-        return {
-          ...state,
-          memberResults: MembersArray,
-          memberResultsCount: MembersArray.length,
-          memberResultsTotalCount: totalCount,
-        }
+      const { initialLoad } = action.payload
+      // if (initialLoad) {
+      return {
+        ...state,
+        memberResults: Members,
+        memberResultsCount: Members.length,
+        memberResultsTotalCount: totalCount,
       }
-     
+      // }
+      // console.log("Members------------->", Members)
+      // let MembersArray = [];
+
+      // MembersArray = [...state.memberResults];
+      //   console.log("MembersArray------------->", MembersArray)
+
+      // Members.forEach((member) => {
+      //   if (MembersArray.length > 0) {
+      //     const memberFilter = MembersArray.filter((mem) => {
+      //       if (mem.memberId === member.memberId) {
+      //         return mem
+      //       }
+      //     })
+      //     if (memberFilter.length === 0) {
+      //       MembersArray.push(member)
+      //     }
+      //   }
+      // console.log("MembersArray------------->", MembersArray)
+      // let difference = Members.filter(x => state.memberResults.indexOf(x) === -1);
+      // })
+      // return {
+      //   ...state,
+      //   memberResults: MembersArray,
+      //   memberResultsCount: MembersArray.length,
+      //   memberResultsTotalCount: totalCount,
+      // }
     }
     case 'SET_TRENDS':
       return {

@@ -7,11 +7,11 @@ import PropTypes from 'prop-types';
 
 import StyledEngineProvider from '@mui/material/StyledEngineProvider';
 import TablePagination from '@mui/material/TablePagination';
+import { measureDataFetch } from 'components/Common/Controller';
 import theme from '../../assets/styles/AppTheme'
 
 import CheckBoxCell from './CheckBoxCell';
 import HeaderCell from './HeaderCell';
-import { measureDataFetch } from 'components/Common/Controller';
 
 function DisplayTable({
   headerInfo,
@@ -47,12 +47,13 @@ function DisplayTable({
   }
 
   const handleChangePage = (_event, newPage) => {
-    console.log({ newPage, currentPage, rowsPerPage, currentMemberCount, totalCountMember})
+    console.log({
+      newPage, currentPage, rowsPerPage, currentMemberCount, totalCountMember,
+    })
     const EntriesBeforeCall = currentMemberCount / rowsPerPage
-    const EntriesLeftBeforeCall = rowsPerPage * newPage
-    if (EntriesBeforeCall - newPage === 1){
-      console.log(headerInfo[1].key)
-      handlePagination( newPage, rowsPerPage)
+    // const EntriesLeftBeforeCall = rowsPerPage * newPage
+    if (EntriesBeforeCall - newPage === 1) {
+      handlePagination(newPage, rowsPerPage)
     }
     setCurrentPage(newPage);
   };

@@ -304,7 +304,7 @@ export default function Dashboard() {
         datastoreActions.setMemberResults(selectMemberResults)
       } else {
         // FILTERS DO NOT EXIST
-        if(activeMeasure.measure !== ''){
+        if (activeMeasure.measure !== '') {
           fetchData()
         }
       }
@@ -476,8 +476,7 @@ export default function Dashboard() {
         datastore.info,
         tableFilter,
       ))
-      setTotalCountMember( filterInfo.members.length > 0 ? filterInfo.memberResultsTotalCount: datastore.memberResultsTotalCount)
-
+      setTotalCountMember(filterInfo.members.length > 0 ? filterInfo.memberResultsTotalCount : datastore.memberResultsTotalCount)
     } else {
       navigate(`/${activeMeasure.measure}`)
       setHeaderInfo(MeasureTable.headerData(isComposite));

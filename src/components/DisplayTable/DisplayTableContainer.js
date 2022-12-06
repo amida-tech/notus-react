@@ -145,9 +145,10 @@ function DisplayTableContainer({
               handleTableFilterChange={handleTableFilterChange}
             />
             <Box sx={{ color: theme.palette?.bluegray.D1 }} className="d3-container__entries-display">
-              Results: Showing&nbsp; 
+              Results: Showing&nbsp;
               <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
-              &nbsp;Entries Found of {totalCountMember}
+              &nbsp;Entries Found of
+              {totalCountMember}
             </Box>
             <DisplayTable
               headerInfo={headerInfo}
