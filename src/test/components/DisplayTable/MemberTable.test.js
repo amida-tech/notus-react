@@ -88,22 +88,10 @@ describe('MemberTable: AAB', () => {
 
       // GRABBING THE ACTUAL ROW
       const currentRow = screen.getByLabelText(row.value)
-      // console.log(currentRow)
 
       // FOR EACH COLUMN, LET US CHECK THE RENDERED VALUE VERSUS EXPECTED
       Object.entries(columnValues).forEach(([key, value]) => {
-
-        // GRAB THE COLUMN
-        console.log('Key and Value:', key, value)
-        // console.log('currentrow:', currentRow)
-        
-        // const columnHeader = within(currentRow).getBy(key)
-        // console.log('>>>columnHeader:', columnHeader)
-
         const newValue = stringToBool(value)
-
-        // console.log('columnHeader:', columnHeader)
-        console.log('>>newValue:', newValue)
 
         if (typeof newValue === 'string') {
           expect(

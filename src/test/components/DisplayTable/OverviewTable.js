@@ -3,7 +3,7 @@ import {
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import DisplayTableContainer from '../../../components/DisplayTable/DisplayTableContainer'
-import DisplayTable from '../../../components/DisplayTable/DisplayTable';
+import OverviewTable from 'components/DisplayTable/OverviewTable';
 import {
   resultList, headerInfo, selectedMeasures, colorMap, currentResults,
 } from '../../data/DemoData';
@@ -44,17 +44,17 @@ describe('Dashboard: DisplayTable: Composite Overview', () => {
           setTableFilter={mockSetTableFilter}
           handleTabChange={mockHandleTabChange}
         >
-          <DisplayTable
+          <OverviewTable
+            activeMeasure={activeMeasure}
             headerInfo={headerInfo}
-            pageSize={5}
-            useCheckBox
-            selectedRows={selectedRows}
-            handleCheckBoxChange={mockHandleCheckBoxChange}
+            currentResults={currentResults}
+            colorMap={colorMap}
+            handleSelectedMeasureChange={handleSelectedMeasureChange}
           />
         </DisplayTableContainer>
-      </BrowserRouter>,
+      </BrowserRouter>
     )
-    // The below code assists in loading states that aren't obviously controlled with a loading prop
+    // The below code assists in loading states that aren't obviously controlled with a loading prop if needed
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
   })
