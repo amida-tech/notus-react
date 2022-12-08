@@ -37,7 +37,6 @@ export default function OverviewTable({
     const mapping = rowData.map((measure) => colorMap
       .find((map) => (map.value === measure.value))?.color || theme.palette?.primary.main)
     const newColorObj = {}
-
     const colorMaps = mapping?.reduce((colorObj, mapColor, idx) => {
       const colorClass = `& .MuiDataGrid-virtualScrollerRenderZone > div:nth-of-type(${idx + 1}) > div > span`
       newColorObj[colorClass] = { color: mapColor }
