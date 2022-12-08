@@ -140,11 +140,11 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
             {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.key}>
+                <TableRow hover role="checkbox" tabIndex={-1} aria-label={row.label} key={row.key}>
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={`${activeMeasure.measure}${column.id}`} align={column.align}>
+                      <TableCell key={`${activeMeasure.measure}${column.id}`} aria-label={`${column.id}`} align={column.align}>
                         {complianceIcons(value)}
                       </TableCell>
                     );
