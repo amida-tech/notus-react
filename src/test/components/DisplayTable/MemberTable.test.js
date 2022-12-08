@@ -1,11 +1,10 @@
 import {
-  render, screen, within, fireEvent,
+  render, screen, within
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import {
   resultList, aabHeaderInfo, rowEntries,
 } from '../../data/DemoData';
-import { datastore } from '../../data/datastore'
 import MemberTable from 'components/DisplayTable/MemberTable';
 
 global.structuredClone = (val) => JSON.parse(JSON.stringify(val))
