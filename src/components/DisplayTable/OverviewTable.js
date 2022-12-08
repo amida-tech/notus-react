@@ -12,14 +12,6 @@ import {
   headerInfoProps,
 } from '../ChartContainer/D3Props';
 
-// research onCellClick features for boxes
-// onPageChange for page change, update store?
-// disable sort or get it to work
-// page prop can be stored alongside pageSize, we should reset this on navigation
-
-// headerInfo = columns
-// selectedMeasures = rows
-
 export default function OverviewTable({
   activeMeasure, headerInfo, currentResults, colorMap, handleSelectedMeasureChange,
 }) {
@@ -100,6 +92,7 @@ export default function OverviewTable({
         onRowDoubleClick={(event) => handleRowDoubleCLick(event)}
         selectionModel={selectionModel}
         disableSelectionOnClick
+        disableVirtualization
         // filterMode='server'
         pagination="client"
         // sortingMode='server'
@@ -180,8 +173,6 @@ export default function OverviewTable({
     </Box>
   );
 }
-
-// activeMeasure, headerInfo, currentResults, colorMap, handleSelectedMeasureChange,
 
 OverviewTable.propTypes = {
   activeMeasure: activeMeasureProps,

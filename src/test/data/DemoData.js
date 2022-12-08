@@ -3189,47 +3189,47 @@ export const rowData = [
 
 export const headerInfo = [
   {
-    key: 'label',
-    link: true,
-    header: 'Measure',
-    tooltip: 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)',
-    flexBasis: 'large',
+      "key": "label",
+      "link": true,
+      "header": "Measure",
+      "tooltip": "The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)",
+      "flexBasis": "large"
   },
   {
-    key: 'included',
-    header: 'Remaining Inclusions',
-    tooltip: 'The population remaining after exclusions are removed.',
-    flexBasis: 'standard',
-    alignContent: 'center',
+      "key": "included",
+      "header": "Remaining Inclusions",
+      "tooltip": "The population remaining after exclusions are removed.",
+      "flexBasis": "standard",
+      "alignContent": "center"
   },
   {
-    key: 'eligible',
-    header: 'Eligible Population',
-    tooltip: 'The population of members who are eligible for this measure.',
-    flexBasis: 'standard',
-    alignContent: 'center',
+      "key": "eligible",
+      "header": "Eligible Population",
+      "tooltip": "The population of members who are eligible for this measure.",
+      "flexBasis": "standard",
+      "alignContent": "center"
   },
   {
-    key: 'numerator',
-    header: 'Numerator',
-    tooltip: 'The number of members who have satisfied the criteria for this measure.',
-    flexBasis: 'standard',
-    alignContent: 'center',
+      "key": "numerator",
+      "header": "Numerator",
+      "tooltip": "The number of members who have satisfied the criteria for this measure.",
+      "flexBasis": "standard",
+      "alignContent": "center"
   },
   {
-    key: 'denominator',
-    header: 'Denominator',
-    tooltip: 'The population of members who are eligible for this measure. Currently the same as Eligible Population.',
-    flexBasis: 'standard',
-    alignContent: 'center',
+      "key": "denominator",
+      "header": "Denominator",
+      "tooltip": "The population of members who are eligible for this measure. Currently the same as Eligible Population.",
+      "flexBasis": "standard",
+      "alignContent": "center"
   },
   {
-    key: 'exclusions',
-    header: 'Available Exclusions',
-    tooltip: 'The population that can be excluded based on criteria.',
-    flexBasis: 'standard',
-    alignContent: 'center',
-  },
+      "key": "exclusions",
+      "header": "Available Exclusions",
+      "tooltip": "The population that can be excluded based on criteria.",
+      "flexBasis": "standard",
+      "alignContent": "center"
+  }
 ]
 
 export const aabHeaderInfo = [
