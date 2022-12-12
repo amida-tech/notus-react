@@ -132,22 +132,20 @@ export const DisplayDataFormatter = (currentResults, selectedMeasures, displayDa
   currentResults.forEach((cr) => {
     const Measure = cr.measure
     if (selectedMeasures.includes(Measure)) {
-      newChartDisplay.push({
-        name: Measure,
-        data: displayData.filter((entry) => {
-          if (Measure === entry.measure) {
-            return entry
-          }
-        }).map((item) => Number(item.value.toFixed(2))),
-        date: displayData.filter((entry) => {
-          if (Measure === entry.measure) {
-            return entry
-          }
-        }).map((entry) => entry.date),
-      })
+      const selectMeasureFilter = displayData.filter((entry) => Measure === entry.measure)
+      if (selectMeasureFilter.length > 0) {
+        newChartDisplay.push({
+          name: Measure,
+          data: selectMeasureFilter.map((item) => Number(item.value.toFixed(2))),
+          date: selectMeasureFilter.map((entry) => entry.date),
+        })
+      }
     }
   })
-  return newChartDisplay
+  if (newChartDisplay.length > 0) {
+    return newChartDisplay
+  }
+  return [{ name: 'N/A', date: [], data: [] }]
 }
 export const lineChartOptions = (
   {
@@ -275,7 +273,7 @@ export const lineChartOptions = (
     show: true,
     showAlways: true,
     type: 'category',
-    categories: chartData[0].date,
+    categories: chartData.length > 0 ? chartData[0].date : [],
     tickAmount: 20,
     tickPlacement: 'on',
     min: undefined,
@@ -305,10 +303,16 @@ export const lineChartOptions = (
       offsetY: 10,
       format: undefined,
       formatter(value) {
-        if (value) {
-          return value.split('T')[0]
+        if (value !== undefined) {
+          if (typeof value === 'string') {
+            return value.split('T')[0]
+          }
+          return null
+
+        // eslint-disable-next-line no-else-return
+        } else {
+          return Date.now()
         }
-        return value
       },
       datetimeFormatter: {
         year: 'yyyy',
@@ -349,6 +353,8 @@ export const lineChartOptions = (
   const yaxis = {
     show: true,
     showAlways: true,
+    max: chartData[0].data.length > 0 ? 100 : undefined,
+    tickAmount: 5,
     labels: {
       show: true,
       align: 'right',
@@ -457,6 +463,18 @@ export const lineChartOptions = (
     legend,
     markers,
     tooltip,
+    noData: {
+      text: 'No measures selected, please use the checkboxes next to the measures below to view results.',
+      align: 'center',
+      verticalAlign: 'middle',
+      offsetX: 0,
+      offsetY: 0,
+      style: {
+        color: undefined,
+        fontSize: '25px',
+        fontFamily: undefined,
+      },
+    },
   }
 }
 

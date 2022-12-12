@@ -95,7 +95,7 @@ Alert.defaultProps = {
   setOpenAlert: () => undefined,
   title: '',
   options: {},
-  children: '',
+  children: [],
   noResultsALERT: false,
   handleResetData: () => undefined,
 }

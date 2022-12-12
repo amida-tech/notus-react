@@ -1,4 +1,6 @@
-import { useContext, useEffect, useState } from 'react';
+import {
+  useContext, useEffect, useState, useCallback,
+} from 'react';
 import {
   Box, Grid, Paper, Snackbar, Skeleton,
 } from '@mui/material';
@@ -10,7 +12,7 @@ import theme from '../assets/styles/AppTheme';
 
 import Banner from '../components/Common/Banner';
 import Alert from '../components/Utilities/Alert'
-import D3Container from '../components/Chart';
+import ChartContainer from '../components/Chart';
 import DisplayTableContainer from '../components/DisplayTable/DisplayTableContainer';
 import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
@@ -350,14 +352,20 @@ export default function Dashboard() {
     tabValue,
     tableFilter,
   ]);
-  useEffect(() => {
+  const ChartDataGeneator = useCallback(() => {
     setIsLoading(true)
     const ChartData = DisplayDataFormatter(currentResults, selectedMeasures, displayData)
     if (ChartData.length > 0) {
       setChartData(ChartData)
-      setIsLoading(false)
     }
-  }, [currentResults, selectedMeasures, displayData])
+    setIsLoading(false)
+  }, [currentResults, displayData, selectedMeasures])
+
+  useEffect(() => {
+    if (datastore.datastoreLoading === false) {
+      ChartDataGeneator()
+    }
+  }, [currentResults, selectedMeasures, datastore, displayData, ChartDataGeneator])
 
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true)
@@ -482,7 +490,6 @@ export default function Dashboard() {
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
-
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -512,21 +519,12 @@ export default function Dashboard() {
               handleResetData={handleResetData}
             >
               No results found. Please click button to reset the data to the initial results.
-              <div style={{
-                fontSize: '2rem',
-                width: '100%',
-                textAlign: 'center',
-                marginTop: '1rem',
-              }}
-              >
-                (^-^)
-              </div>
             </Alert>
             <Grid item xs={12}>
               { isLoading || noResultsFound || chartData.length === 0
                 ? <Skeleton variant="rectangular" height={300} />
                 : (
-                  <D3Container
+                  <ChartContainer
                     additionalFilterOptions={additionalFilterOptions}
                     setCurrentFilters={setCurrentFilters}
                     selectedMeasures={selectedMeasures}
