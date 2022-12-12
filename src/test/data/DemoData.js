@@ -3189,47 +3189,47 @@ export const rowData = [
 
 export const headerInfo = [
   {
-    key: 'label',
-    link: true,
-    header: 'Measure',
-    tooltip: 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)',
-    flexBasis: 'large',
+      "key": "label",
+      "link": true,
+      "header": "Measure",
+      "tooltip": "The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)",
+      "flexBasis": "large"
   },
   {
-    key: 'included',
-    header: 'Remaining Inclusions',
-    tooltip: 'The population remaining after exclusions are removed.',
-    flexBasis: 'standard',
-    alignContent: 'center',
+      "key": "included",
+      "header": "Remaining Inclusions",
+      "tooltip": "The population remaining after exclusions are removed.",
+      "flexBasis": "standard",
+      "alignContent": "center"
   },
   {
-    key: 'eligible',
-    header: 'Eligible Population',
-    tooltip: 'The population of members who are eligible for this measure.',
-    flexBasis: 'standard',
-    alignContent: 'center',
+      "key": "eligible",
+      "header": "Eligible Population",
+      "tooltip": "The population of members who are eligible for this measure.",
+      "flexBasis": "standard",
+      "alignContent": "center"
   },
   {
-    key: 'numerator',
-    header: 'Numerator',
-    tooltip: 'The number of members who have satisfied the criteria for this measure.',
-    flexBasis: 'standard',
-    alignContent: 'center',
+      "key": "numerator",
+      "header": "Numerator",
+      "tooltip": "The number of members who have satisfied the criteria for this measure.",
+      "flexBasis": "standard",
+      "alignContent": "center"
   },
   {
-    key: 'denominator',
-    header: 'Denominator',
-    tooltip: 'The population of members who are eligible for this measure. Currently the same as Eligible Population.',
-    flexBasis: 'standard',
-    alignContent: 'center',
+      "key": "denominator",
+      "header": "Denominator",
+      "tooltip": "The population of members who are eligible for this measure. Currently the same as Eligible Population.",
+      "flexBasis": "standard",
+      "alignContent": "center"
   },
   {
-    key: 'exclusions',
-    header: 'Available Exclusions',
-    tooltip: 'The population that can be excluded based on criteria.',
-    flexBasis: 'standard',
-    alignContent: 'center',
-  },
+      "key": "exclusions",
+      "header": "Available Exclusions",
+      "tooltip": "The population that can be excluded based on criteria.",
+      "flexBasis": "standard",
+      "alignContent": "center"
+  }
 ]
 
 export const aabHeaderInfo = [
@@ -4274,138 +4274,6 @@ export const rowEntries = [
     label: 'aab-64b9c4ac-199a-4796-880b-af0a19bb0b27',
     type: 'member',
     aab: 'true',
-  },
-  {
-    value: 'aab-90ccc2a6-5e28-4170-beb2-81a7e88b81fb',
-    label: 'aab-90ccc2a6-5e28-4170-beb2-81a7e88b81fb',
-    type: 'member',
-    aab: 'true',
-  },
-  {
-    value: 'aab-39380539-6dcc-4397-b30d-fecdd92ba3ef',
-    label: 'aab-39380539-6dcc-4397-b30d-fecdd92ba3ef',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-04acc3f7-f250-4421-af80-5b0096db2403',
-    label: 'aab-04acc3f7-f250-4421-af80-5b0096db2403',
-    type: 'member',
-    aab: 'true',
-  },
-  {
-    value: 'aab-41c0abfe-3064-4f50-bfa1-7bbf8245b1d3',
-    label: 'aab-41c0abfe-3064-4f50-bfa1-7bbf8245b1d3',
-    type: 'member',
-    aab: 'true',
-  },
-  {
-    value: 'aab-6fb976e7-4045-4976-b9c9-3344239e5e89',
-    label: 'aab-6fb976e7-4045-4976-b9c9-3344239e5e89',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-e6c98e74-89fd-42a6-a061-8620e2c9081a',
-    label: 'aab-e6c98e74-89fd-42a6-a061-8620e2c9081a',
-    type: 'member',
-    aab: 'true',
-  },
-  {
-    value: 'aab-f9247bb4-7f2d-4716-a404-a37544208ba2',
-    label: 'aab-f9247bb4-7f2d-4716-a404-a37544208ba2',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-092c98bd-3e90-47b0-9e32-a401c7f7d5e0',
-    label: 'aab-092c98bd-3e90-47b0-9e32-a401c7f7d5e0',
-    type: 'member',
-    aab: 'true',
-  },
-  {
-    value: 'aab-82bca0c8-80ce-45e1-90a3-031b233740e3',
-    label: 'aab-82bca0c8-80ce-45e1-90a3-031b233740e3',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-4964b1ad-c55d-4fd5-8616-afa2a220cb28',
-    label: 'aab-4964b1ad-c55d-4fd5-8616-afa2a220cb28',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-9ecc43eb-698e-4c26-9d87-7ee53d4f3494',
-    label: 'aab-9ecc43eb-698e-4c26-9d87-7ee53d4f3494',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-2eb30051-6e43-4637-b0d1-06482d91b17c',
-    label: 'aab-2eb30051-6e43-4637-b0d1-06482d91b17c',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-7b963613-ab4a-49d8-9e99-0d59132311a5',
-    label: 'aab-7b963613-ab4a-49d8-9e99-0d59132311a5',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-c21c77f9-b1af-4772-84bf-38d8d8b8dc8d',
-    label: 'aab-c21c77f9-b1af-4772-84bf-38d8d8b8dc8d',
-    type: 'member',
-    aab: 'true',
-  },
-  {
-    value: 'aab-905d7e75-3945-433a-9ba4-86b306b1c90a',
-    label: 'aab-905d7e75-3945-433a-9ba4-86b306b1c90a',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-e194322f-d02b-410a-8ce5-4f1e69e35c5c',
-    label: 'aab-e194322f-d02b-410a-8ce5-4f1e69e35c5c',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-a11a13e1-9fbe-476c-b9cb-21b283164845',
-    label: 'aab-a11a13e1-9fbe-476c-b9cb-21b283164845',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-6a95644e-f3b2-43d8-badb-f1ae851422d5',
-    label: 'aab-6a95644e-f3b2-43d8-badb-f1ae851422d5',
-    type: 'member',
-    aab: 'true',
-  },
-  {
-    value: 'aab-f99548cb-6217-4293-a5cf-7159b3d1d136',
-    label: 'aab-f99548cb-6217-4293-a5cf-7159b3d1d136',
-    type: 'member',
-    aab: 'true',
-  },
-  {
-    value: 'aab-b9b18798-747d-4a64-8839-4a0db56591a7',
-    label: 'aab-b9b18798-747d-4a64-8839-4a0db56591a7',
-    type: 'member',
-    aab: 'true',
-  },
-  {
-    value: 'aab-f5c1b44b-e70c-4ee6-82fa-15b7db2defb4',
-    label: 'aab-f5c1b44b-e70c-4ee6-82fa-15b7db2defb4',
-    type: 'member',
-    aab: 'false',
-  },
-  {
-    value: 'aab-d880c97c-3716-43fe-92b1-2fa191afa75a',
-    label: 'aab-d880c97c-3716-43fe-92b1-2fa191afa75a',
-    type: 'member',
-    aab: 'false',
   },
 ]
 export const additionalFilterOptions = {

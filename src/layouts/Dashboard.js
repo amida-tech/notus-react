@@ -14,7 +14,7 @@ import D3Container from '../components/ChartContainer';
 import DisplayTableContainer from '../components/DisplayTable/DisplayTableContainer';
 import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
-import MeasureTable from '../components/Utilities/MeasureTable';
+import { headerData } from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
 
 // scrolly is a navigate function wrapped with scrollToTop
@@ -56,7 +56,7 @@ export default function Dashboard() {
   const [isComposite, setComposite] = useState(true);
   const [currentResults, setCurrentResults] = useState([]);
   const [colorMap, setColorMap] = useState([]);
-  const [selectedMeasures, setSelectedMeasures] = useState([]);
+  const [selectedMeasures, setSelectedMeasures] = useState(Object.keys(datastore.info));
   const [currentFilters, setCurrentFilters] = useState([]);
   const [additionalFilterOptions, setAdditionalFilterOptions] = useState([])
   const [currentTimeline, setCurrentTimeline] = useState(datastore.defaultTimelineState);
@@ -87,12 +87,12 @@ export default function Dashboard() {
         setComposite(true);
         setDisplayData(datastore.results.map((result) => ({ ...result })));
         setCurrentResults(datastore.currentResults);
-        setSelectedMeasures(datastore.currentResults.map((result) => result.measure));
+        setSelectedMeasures(Object.keys(datastore.info));
         setColorMap(ColorMapping(datastore.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(true));
+        setHeaderInfo(headerData(true));
       } else {
         setFilterInfo({
           members: [],
@@ -115,7 +115,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(false));
+        setHeaderInfo(headerData(false));
       }
       setFilterActivated(false)
       setNoResultsFound(false)
@@ -135,7 +135,7 @@ export default function Dashboard() {
         setTableFilter([]);
         setRowEntries([]);
         setColorMap(ColorMapping(filterInfo.currentResults))
-        setHeaderInfo(MeasureTable.headerData(true));
+        setHeaderInfo(headerData(true));
         scrolly(navigate, '/');
       } else {
         const isEmpty = (filter) => Object.keys(filter).length === 0
@@ -197,7 +197,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(true));
+        setHeaderInfo(headerData(true));
       } else {
         setFilterInfo({
           members: [],
@@ -220,7 +220,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(false));
+        setHeaderInfo(headerData(false));
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -256,7 +256,7 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([])
-        setHeaderInfo(MeasureTable.headerData(isComposite))
+        setHeaderInfo(headerData(isComposite))
       } else {
         setComposite(false);
         const subMeasureCurrentResults = getSubMeasureCurrentResults(
@@ -271,7 +271,7 @@ export default function Dashboard() {
         );
         setFilterDisabled(false);
         setTableFilter([]);
-        setHeaderInfo(MeasureTable.headerData(false));
+        setHeaderInfo(headerData(false));
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -338,7 +338,7 @@ export default function Dashboard() {
       setTabValue('members')
     } else {
       setTabValue('overview')
-      setHeaderInfo(MeasureTable.headerData(isComposite))
+      setHeaderInfo(headerData(isComposite))
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -422,23 +422,11 @@ export default function Dashboard() {
     setIsLoading(false)
   };
 
-  const handleSelectedMeasureChange = (event) => {
+  const handleSelectedMeasureChange = (selections) => {
     setTableFilter([])
-    let newSelectedMeasures;
-    if (event.target.checked) {
-      newSelectedMeasures = event.target.value === 'all'
-        ? currentResults.map((result) => result.measure)
-        : selectedMeasures.concat(event.target.value);
-      setSelectedMeasures(newSelectedMeasures);
-    } else {
-      newSelectedMeasures = event.target.value === 'all'
-        ? [] : selectedMeasures.filter((result) => result !== event.target.value);
-      setSelectedMeasures(newSelectedMeasures);
-    }
-    const MeasureSelectorCheck = event.target.name === 'Select Measure';
-    if (MeasureSelectorCheck) {
-      navigate(`/${event.target.value === 'composite' ? '' : event.target.value}`)
-    }
+    return selections.target?.name
+      ? navigate(`/${selections.target.name === 'composite' ? '' : selections.target.value}`)
+      : setSelectedMeasures(selections);
   };
 
   const handleTableFilterChange = (event) => {
@@ -469,7 +457,7 @@ export default function Dashboard() {
       ))
     } else {
       navigate(`/${activeMeasure.measure}`)
-      setHeaderInfo(MeasureTable.headerData(isComposite));
+      setHeaderInfo(headerData(isComposite));
     }
   };
 
