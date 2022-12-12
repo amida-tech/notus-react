@@ -24,7 +24,7 @@ import {
   handleTableFilterChangeProps,
   rowEntriesProps,
   handleTabChangeProps,
-} from '../ChartContainer/D3Props';
+} from '../Utilities/PropTypes';
 import MemberTableRow from './MemberTableRow';
 import TableFilterPanel from './TableFilterPanel';
 import DisplayTable from './DisplayTable';
@@ -50,9 +50,9 @@ function DisplayTableContainer({
   return (
     <Grid
       sx={{ outline: `${theme.palette?.primary.dark} solid 1px` }}
-      className="d3-container__bottom-display"
+      className="chart-container__bottom-display"
     >
-      <Box className="d3-container__overview-member-chart">
+      <Box className="chart-container__overview-member-chart">
         <TabContext value={tabValue}>
           <Box
             sx={{
@@ -69,7 +69,7 @@ function DisplayTableContainer({
                 aria-label="overview and members tabs"
               >
                 <TableTab
-                  className="d3-container__table-selection-button"
+                  className="chart-container__table-selection-button"
                   sx={{
                     color: theme.palette?.primary.light,
                   }}
@@ -80,12 +80,12 @@ function DisplayTableContainer({
             ) : (
               <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
                 <TableTab
-                  className="d3-container__table-selection-button"
+                  className="chart-container__table-selection-button"
                   label="Overview"
                   value="overview"
                 />
                 <TableTab
-                  className="d3-container__table-selection-button"
+                  className="chart-container__table-selection-button"
                   label="Members"
                   value="members"
                 />
@@ -96,10 +96,10 @@ function DisplayTableContainer({
           <TabPanel value="overview">
             {headerInfo[0].header !== 'Sub-Measure'
               ? (
-                <Grid className="d3-container__measure-selector">
+                <Grid className="chart-container__measure-selector">
                   <Typography
                     color={theme.palette?.bluegray.D4}
-                    className="d3-container__selector-title"
+                    className="chart-container__selector-title"
                   >
                     Detailed View:
                   </Typography>
@@ -141,7 +141,7 @@ function DisplayTableContainer({
               tableFilter={tableFilter}
               handleTableFilterChange={handleTableFilterChange}
             />
-            <Box sx={{ color: theme.palette?.bluegray.D1 }} className="d3-container__entries-display">
+            <Box sx={{ color: theme.palette?.bluegray.D1 }} className="chart-container__entries-display">
               Results:&nbsp;
               <Typography display="inline" sx={{ fontWeight: 800 }}>{rowEntries.length}</Typography>
                 &nbsp;Entries Found
@@ -153,12 +153,12 @@ function DisplayTableContainer({
             >
               {rowEntries.length === 0
                 ? (
-                  <Box className="d3-container__no-entries">
+                  <Box className="chart-container__no-entries">
                     <Button
                       variant="contained"
                       color="primary"
                       sx={{ fontWeight: 600 }}
-                      className="d3-container__no-entries-button"
+                      className="chart-container__no-entries-button"
                       aria-label="clear"
                       onClick={() => {
                         handleResetData()

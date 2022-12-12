@@ -7,7 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import theme from '../../assets/styles/AppTheme';
-import { TimelineOptions } from '../Utilities/ChartUtil';
+import { TimelineOptions } from '../Utilities/ChartUtils';
 
 const timelineLabel = (choice) => {
   switch (choice) {
@@ -60,7 +60,7 @@ function ChartBar({
   const timelineCaption = `Timeline: ${timelineLabel(currentTimeline.choice)}`
 
   return (
-    <Box className="chart-bar">
+    <Box className="chart-container__chart-bar">
       <Grid container direction="row" justifyContent="flex-end" spacing={0.1}>
         <Grid item sx={buttonStyling}>
           <Button
@@ -92,7 +92,7 @@ function ChartBar({
                 <FormControlLabel
                   key={`chart-bar-timeline-${option.value}`}
                   color={theme.palette?.bluegray.D4}
-                  className="chart-bar__radio-label"
+                  className="chart-container__chart-bar__radio-label"
                   value={option.value}
                   control={<Radio onClick={handleDateChange} />}
                   label={option.label}
@@ -103,9 +103,9 @@ function ChartBar({
         </Grid>
 
         <Grid item sx={buttonStyling}>
-          <Badge badgeContent={filterSum} className={`chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
+          <Badge badgeContent={filterSum} className={`chart-container__chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
             <Button
-              className="chart-bar__filter-button"
+              className="chart-container__chart-bar__filter-button"
               sx={{ width: '7 rem', justifyContent: 'left' }}
               color="secondary"
               variant="text"

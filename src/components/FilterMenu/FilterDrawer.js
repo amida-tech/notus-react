@@ -13,7 +13,7 @@ import {
   handleFilterChangeProps, handleResetDataProps, setCompositeProps,
   setFilterActivatedProps, setIsLoadingProps, setRowEntriesProps,
   setTableFilterProps, toggleFilterDrawerProps,
-} from '../ChartContainer/D3Props';
+} from '../Utilities/PropTypes';
 import FilterDrawerItem from './FilterDrawerItem';
 import filterDrawerItemData from './FilterDrawerItemData';
 

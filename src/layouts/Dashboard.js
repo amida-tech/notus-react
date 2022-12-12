@@ -4,13 +4,13 @@ import {
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
-import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
+import { defaultActiveMeasure } from '../components/Utilities/PropTypes';
 
 import theme from '../assets/styles/AppTheme';
 
 import Banner from '../components/Common/Banner';
 import Alert from '../components/Utilities/Alert'
-import D3Container from '../components/ChartContainer';
+import D3Container from '../components/Chart';
 import DisplayTableContainer from '../components/DisplayTable/DisplayTableContainer';
 import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
@@ -28,7 +28,7 @@ import {
   filterByStars,
   filterByTimeline,
   getSubMeasureCurrentResults,
-} from '../components/ChartContainer/D3ContainerUtils';
+} from '../components/Utilities/ChartUtils';
 
 import {
   measureDataFetch,
@@ -67,7 +67,7 @@ export default function Dashboard() {
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
   const [tabValue, setTabValue] = useState('overview');
-  const [chartData, setChatData] = useState([]);
+  const [chartData, setChartData] = useState([]);
   const { measure } = useParams();
 
   const handleResetData = (router) => {
@@ -351,8 +351,14 @@ export default function Dashboard() {
     tableFilter,
   ]);
   useEffect(() => {
+    setIsLoading(true)
     const ChartData = DisplayDataFormatter(currentResults, selectedMeasures, displayData)
+    if (ChartData.length > 0) {
+      setChartData(ChartData)
+      setIsLoading(false)
+    }
   }, [currentResults, selectedMeasures, displayData])
+
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true)
     // let newDisplayData
@@ -476,7 +482,7 @@ export default function Dashboard() {
       setHeaderInfo(MeasureTable.headerData(isComposite));
     }
   };
-console.log(currentFilters)
+
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -517,7 +523,7 @@ console.log(currentFilters)
               </div>
             </Alert>
             <Grid item xs={12}>
-              { isLoading || noResultsFound || currentResults.length === 0
+              { isLoading || noResultsFound || chartData.length === 0
                 ? <Skeleton variant="rectangular" height={300} />
                 : (
                   <D3Container
@@ -538,7 +544,7 @@ console.log(currentFilters)
                     setTabValue={setTabValue}
                     activeMeasure={activeMeasure}
                     filterDisabled={filterDisabled}
-                    displayData={chartData}
+                    displayData={displayData}
                     colorMap={colorMap}
                     store={datastore}
                     graphWidth={graphWidth}
@@ -548,6 +554,7 @@ console.log(currentFilters)
                     handleResetData={handleResetData}
                     setFilterInfo={setFilterInfo}
                     filterCurrentResultsLength={filterInfo.currentResults.length}
+                    chartData={chartData}
                   />
                 )}
             </Grid>
@@ -566,7 +573,7 @@ console.log(currentFilters)
               { isLoading
                 ? <Skeleton variant="rectangular" height={500} />
                 : (
-                  <div className="d3-container">
+                  <div className="chart-container">
                     <DisplayTableContainer
                       activeMeasure={activeMeasure}
                       store={datastore}

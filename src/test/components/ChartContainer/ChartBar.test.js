@@ -5,7 +5,7 @@ import { ThemeProvider } from '@emotion/react';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterMoment from '@mui/lab/AdapterMoment'
 import theme from '../../../assets/styles/AppTheme'
-import ChartBar from '../../../components/ChartContainer/ChartBar';
+import ChartBar from '../../../components/Chart/ChartBar';
 
 describe('D3 Container: Chart bar', () => {
   const filterDrawerOpen = false

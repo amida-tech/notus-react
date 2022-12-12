@@ -1,5 +1,3 @@
-import { selectedMeasures } from "test/data/DemoData";
-
 export function filterByStars(displayData, filters, currentResults) {
   return (displayData.filter((result) => filters.stars.includes(
     Math.floor( // Floor for the .5 stars.
@@ -9,7 +7,6 @@ export function filterByStars(displayData, filters, currentResults) {
     ),
   )));
 }
-
 export function filterByPercentage(displayData, filters, currentResults) {
   return (displayData.filter((result) => {
     const { value } = currentResults.find(
@@ -20,13 +17,11 @@ export function filterByPercentage(displayData, filters, currentResults) {
     );
   }));
 }
-
 export function filterByDOC(displayData, filters, storeInfo) {
   return displayData.filter(
     (result) => filters.domainsOfCare.includes(storeInfo[result.measure].domainOfCare),
   );
 }
-
 export function filterByTimeline(timelineDisplayData, timeline) {
   if (timeline.choice !== 'all') {
     let dayLimit = 0;
@@ -39,7 +34,6 @@ export function filterByTimeline(timelineDisplayData, timeline) {
   }
   return timelineDisplayData;
 }
-
 export function expandSubMeasureResults(selectedMeasure, results) {
   const expandedResults = [];
   results.filter(
@@ -52,7 +46,6 @@ export function expandSubMeasureResults(selectedMeasure, results) {
   });
   return expandedResults;
 }
-
 export function getSubMeasureCurrentResults(activeMeasure, currentResults) {
   let subMeasureCurrentResults = [];
   const subMeasurePrime = currentResults.find(
@@ -89,7 +82,6 @@ export const createLabel = (measure, info) => {
   }
   return measure.toUpperCase();
 }
-
 export const createSubMeasureLabel = (subMeasure, info) => {
   let displayLabel = '';
   if (subMeasure.length > 3 && subMeasure.charAt(3) === 'e') {
@@ -104,7 +96,6 @@ export const createSubMeasureLabel = (subMeasure, info) => {
 
   return displayLabel;
 }
-
 export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
   const workingList = {};
   dailyMeasureResults.forEach((item) => {
@@ -138,28 +129,32 @@ export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
 }
 export const DisplayDataFormatter = (currentResults, selectedMeasures, displayData) => {
   const newChartDisplay = []
-  for (let i = 0; i < currentResults.length; i += 1) {
-    const MEASURES = currentResults[i].measure
-    newChartDisplay.push({
-      name: MEASURES,
-      data: displayData
-        .filter((entry) => {
-          if (MEASURES === entry.measure) {
-            return entry.value
+  currentResults.forEach((cr) => {
+    const Measure = cr.measure
+    if (selectedMeasures.includes(Measure)) {
+      newChartDisplay.push({
+        name: Measure,
+        data: displayData.filter((entry) => {
+          if (Measure === entry.measure) {
+            return entry
           }
-        }),
-    })
-  }
+        }).map((item) => Number(item.value.toFixed(2))),
+        date: displayData.filter((entry) => {
+          if (Measure === entry.measure) {
+            return entry
+          }
+        }).map((entry) => entry.date),
+      })
+    }
+  })
   return newChartDisplay
 }
-
 export const lineChartOptions = (
-  displayData,
-  colorMap,
-  measureInfo,
-  graphWidth,
-  currentTimeline,
-  chartStuff,
+  {
+    colorMap,
+    currentTimeline,
+    chartData,
+  },
 ) => {
   const xaxisTitle = () => {
     const { choice } = currentTimeline
@@ -180,12 +175,26 @@ export const lineChartOptions = (
     }
     return 'All Available'
   }
+
   const chart = {
     height: 100,
     type: 'line',
     redrawOnParentResize: true,
     zoom: {
       enabled: true,
+    },
+    animations: {
+      enabled: true,
+      easing: 'easein',
+      speed: 1,
+      animateGradually: {
+        enabled: false,
+        delay: 50,
+      },
+      dynamicAnimation: {
+        enabled: true,
+        speed: 600,
+      },
     },
   }
   const legend = {
@@ -210,12 +219,12 @@ export const lineChartOptions = (
     offsetX: 0,
     offsetY: 0,
     labels: {
-      // colors: colorMap.map((color) => {
-      //   if (color.color) {
-      //     return color.color
-      //   }
-      //   return '#263238'
-      // }),
+      colors: colorMap.map((color) => {
+        if (color.color) {
+          return color.color
+        }
+        return '#263238'
+      }),
       useSeriesColors: false,
     },
     markers: {
@@ -266,7 +275,7 @@ export const lineChartOptions = (
     show: true,
     showAlways: true,
     type: 'category',
-    categories: chartStuff[0].data.map((entry) => entry.date),
+    categories: chartData[0].date,
     tickAmount: 20,
     tickPlacement: 'on',
     min: undefined,
@@ -324,7 +333,7 @@ export const lineChartOptions = (
     title: {
       text: xaxisTitle(),
       offsetX: 0,
-      offsetY: 210,
+      offsetY: 200,
       style: {
         color: '#78909C',
         fontSize: '25px',
@@ -344,7 +353,7 @@ export const lineChartOptions = (
       show: true,
       align: 'right',
       minWidth: 0,
-      maxWidth: 160,
+      maxWidth: 100,
       style: {
         colors: ['#78909C'],
         fontSize: '20px',
@@ -390,9 +399,9 @@ export const lineChartOptions = (
   }
   const tooltip = {
     enabled: true,
-    enabledOnSeries: undefined,
-    shared: true,
-    followCursor: false,
+    enabledOnSeries: true,
+    shared: false,
+    followCursor: true,
     intersect: false,
     inverseOrder: false,
     custom({
@@ -400,7 +409,7 @@ export const lineChartOptions = (
     }) {
       const foundDate = w.globals.categoryLabels[dataPointIndex + 1]
       const foundColor = w.config.markers.colors[seriesIndex]
-      return `<div class="d3-chart__tester" style="background-color:${foundColor}; color:white;">`
+      return `<div class="chart-container__tooltip" style="background-color:${foundColor}; color:white;">`
         + `<span> Measure: ${w.config.series[seriesIndex].name.toUpperCase()}</span>`
         + '<br/>'
         + `<span> Value: ${series[seriesIndex][dataPointIndex].toFixed(2)}%</span>`
@@ -451,229 +460,10 @@ export const lineChartOptions = (
   }
 }
 
-// export const lineChartOptions = (
-
-//   dataType,
-//   chartDataLegend,
-//   chartDataTriumph,
-//   chartDataGrizzly,
-//   chartDataBigWave
-//   displayData,
-//   colorMap,
-//   measureInfo,
-//   graphWidth,
-//   currentTimeline,
-// ) => {
-//   const chart = {
-//     toolbar: {
-//       show: true,
-//       offsetX: 0,
-//       offsetY: 0,
-//       tools: {
-//         download: false,
-//         selection: true,
-//         // customIcons: [
-//         //   {
-//         //     icon: "10",
-//         //     index: 6,
-//         //     title: "10 Min Chart",
-//         //     class: "custom-icon",
-//         //     click: function (chart, options, e) {
-//         //       console.log("10 Min Chart");
-//         //     },
-//         //   },
-//         //   {
-//         //     icon: "5",
-//         //     index: 5,
-//         //     title: "5 Min Chart",
-//         //     class: "custom-icon",
-//         //     click: function (chart, options, e) {
-//         //       console.log("5 Min Chart");
-//         //     },
-//         //   },
-//         //   {
-//         //     icon: "3",
-//         //     index: 4,
-//         //     title: "3 Min Chart",
-//         //     class: "custom-icon",
-//         //     click: function (chart, options, e) {
-//         //       console.log("3 Min Chart");
-//         //     },
-//         //   },
-//         //   {
-//         //     icon: "1",
-//         //     index: 3,
-//         //     title: "1 Min Chart",
-//         //     class: "custom-icon",
-//         //     click: function (chart, options, e) {
-//         //       console.log("1 Min Chart");
-//         //     },
-//         //   },
-//         // ],
-//         zoom: true,
-//         zoomin: true,
-//         zoomout: true,
-//         pan: false,
-//         reset: true | '<img src="/static/icons/reset.png" width="20">',
-//       },
-//       export: {
-//         csv: {
-//           filename: undefined,
-//           columnDelimiter: ",",
-//           headerCategory: "category",
-//           headerValue: "value",
-//           dateFormatter(timestamp) {
-//             return new Date(timestamp).toDateString();
-//           },
-//         },
-//         svg: {
-//           filename: undefined,
-//         },
-//         png: {
-//           filename: undefined,
-//         },
-//       },
-//       autoSelected: "zoom",
-//     },
-//   };
-//   const tooltip = {
-//     theme: "dark",
-//   };
-//   const dataLabels = {
-//     enabled: false,
-//   };
-//   const stroke = {
-//     curve: "smooth",
-//   };
-//   const xaxis = {
-//     type: "datetime",
-//     categories:
-//       dataType === "OVERALL"
-//         ? populatedData(chartDataLegend)
-//         : dataType === "BIGWAVE"
-//         ? populatedData(chartDataBigWave)
-//         : dataType === "LEGEND"
-//         ? populatedData(chartDataLegend)
-//         : dataType === "GRIZZLY"
-//         ? populatedData(chartDataGrizzly)
-//         : dataType === "TRIUMPH"
-//         ? populatedData(chartDataTriumph)
-//         : null,
-//     labels: {
-//       style: {
-//         colors: "#c8cfca",
-//         fontSize: "12px",
-//       },
-//     },
-//   };
-//   const yaxis = {
-//     labels: {
-//       style: {
-//         colors: "#c8cfca",
-//         fontSize: "12px",
-//       },
-//     },
-//   };
-//   //   const legend = {
-//   //     show: true,
-//   //   };
-//   const legend = {
-//     show: true,
-//     showForSingleSeries: false,
-//     showForNullSeries: true,
-//     showForZeroSeries: true,
-//     position: "bottom",
-//     horizontalAlign: "center",
-//     floating: false,
-//     fontSize: "14px",
-//     fontFamily: "Helvetica, Arial",
-//     fontWeight: 400,
-//     formatter: undefined,
-//     inverseOrder: false,
-//     width: undefined,
-//     height: undefined,
-//     tooltipHoverFormatter: undefined,
-//     customLegendItems: [],
-//     offsetX: 0,
-//     offsetY: 0,
-//     labels: {
-//       colors: undefined,
-//       useSeriesColors: false,
-//     },
-//     markers: {
-//       width: 12,
-//       height: 12,
-//       strokeWidth: 0,
-//       strokeColor: "#fff",
-//       fillColors: undefined,
-//       radius: 12,
-//       customHTML: undefined,
-//       onClick: undefined,
-//       offsetX: 0,
-//       offsetY: 0,
-//     },
-//     itemMargin: {
-//       horizontal: 5,
-//       vertical: 0,
-//     },
-//     onItemClick: {
-//       toggleDataSeries: true,
-//     },
-//     onItemHover: {
-//       highlightDataSeries: true,
-//     },
-//   };
-//   const grid = {
-//     strokeDashArray: 13,
-//   };
-//   const fill = {
-//     type: "gradient",
-//     gradient: {
-//       shade: "light",
-//       type: "vertical",
-//       shadeIntensity: 0.5,
-//       gradientToColors: undefined, // optional, if not defined - uses the shades of same color in series
-//       inverseColors: true,
-//       opacityFrom: 0.8,
-//       opacityTo: 0,
-//       stops: [],
-//     },
-//     colors:
-//       dataType === "OVERALL"
-//         ? ["#4FD1C5", "#493398", "#2374AB", "#FFCB77", "#4FD1C5"]
-//         : dataType === "BIGWAVE"
-//         ? ["#4FD1C5"]
-//         : dataType === "LEGEND"
-//         ? ["#493398"]
-//         : dataType === "GRIZZLY"
-//         ? ["#2374AB"]
-//         : dataType === "TRIUMPH"
-//         ? ["#FFCB77"]
-//         : ["grey"],
-//   };
-//   const colors =
-//     dataType === "OVERALL"
-//       ? ["#4FD1C5", "#493398", "#2374AB", "#FFCB77", "#4FD1C5"]
-//       : dataType === "BIGWAVE"
-//       ? ["#4FD1C5"]
-//       : dataType === "LEGEND"
-//       ? ["#493398"]
-//       : dataType === "GRIZZLY"
-//       ? ["#2374AB"]
-//       : dataType === "TRIUMPH"
-//       ? ["#FFCB77"]
-//       : ["grey"];
-
-//   return {
-//     chart,
-//     tooltip,
-//     dataLabels,
-//     stroke,
-//     xaxis,
-//     yaxis,
-//     legend,
-//     grid,
-//     fill,
-//     colors,
-//   };
-// };
+export const TimelineOptions = [
+  { value: 'all', label: 'All Available' },
+  { value: '30', label: 'Last 30 Days' },
+  { value: '60', label: 'Last 60 Days' },
+  { value: '90', label: 'Last 90 Days' },
+  { value: 'YTD', label: 'Year to Date' },
+];
