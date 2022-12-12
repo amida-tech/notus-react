@@ -90,6 +90,7 @@ export default function OverviewTable({
         onSelectionModelChange={(event) => handleSelectionModelChange(event)}
         onRowDoubleClick={(event) => handleRowDoubleCLick(event)}
         selectionModel={selectionModel}
+        disableColumnMenu
         disableSelectionOnClick
         disableVirtualization
         // filterMode='server'
