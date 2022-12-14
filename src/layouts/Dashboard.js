@@ -295,6 +295,7 @@ export default function Dashboard() {
             activeMeasure.measure,
             datastore.paginationInfo.page,
             datastore.paginationInfo.initialLoad,
+            currentFilters,
           );
           datastoreActions.setMemberResults(records, true)
         } else {
@@ -482,6 +483,7 @@ export default function Dashboard() {
       setHeaderInfo(headerData(isComposite));
     }
   };
+
   const handleChangePage = async (event, newPage) => {
     const {
       initialLoad, rowsPerPage, page, totalCount,
@@ -503,7 +505,9 @@ export default function Dashboard() {
       TotalPages = membersInDBCount / rowsPerPage
       PagesLeft = TotalPages - PageWeAreGoingToSetTo;
     }
-    console.log({ TotalPages, PagesLeft, PageWeAreOn: page + 2, PageWeAreGoingToSetTo})
+    console.log({
+      TotalPages, PagesLeft, PageWeAreOn: page + 2, PageWeAreGoingToSetTo,
+    })
 
     if (PagesLeft === 1) {
       const membersInDBCountPlusNew = membersInDBCount + rowsPerPage
@@ -522,12 +526,14 @@ export default function Dashboard() {
           activeMeasure.measure,
           PageWeAreGoingToSetTo,
           rowsPerPage,
+          currentFilters,
         );
         datastoreActions.setMemberResults(records, false)
       }
     }
     datastoreActions.setPage(newPage);
   };
+
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">

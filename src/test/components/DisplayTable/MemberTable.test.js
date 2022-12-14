@@ -1,11 +1,11 @@
 import {
-  render, screen, within
+  render, screen, within,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import MemberTable from 'components/DisplayTable/MemberTable';
 import {
   resultList, aabHeaderInfo, rowEntries,
 } from '../../data/DemoData';
-import MemberTable from 'components/DisplayTable/MemberTable';
 
 global.structuredClone = (val) => JSON.parse(JSON.stringify(val))
 
@@ -18,7 +18,7 @@ describe('MemberTable: AAB', () => {
           headerInfo={aabHeaderInfo}
           rowEntries={rowEntries}
         />
-      </BrowserRouter>
+      </BrowserRouter>,
     )
   })
 

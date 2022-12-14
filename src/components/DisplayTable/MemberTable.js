@@ -112,7 +112,6 @@ export default function MemberTable({
     }
   }, [rowEntries, headerInfo])
 
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);

@@ -8,7 +8,6 @@ import {
 } from '../../data/DemoData';
 
 describe('Dashboard: DisplayTable: Overview', () => {
-
   // Display Table
   const mockHandleSelectedMeasureChange = jest.fn(() => false);
   const activeMeasure = resultList[0]
@@ -23,7 +22,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
           colorMap={colorMap}
           handleSelectedMeasureChange={mockHandleSelectedMeasureChange}
         />
-      </BrowserRouter>
+      </BrowserRouter>,
     )
     // The below code assists in loading states that aren't obviously controlled with a loading prop if needed
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
@@ -62,7 +61,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
         'Available Exclusions': row.exclusions,
       }
       Object.entries(columnValues).forEach(([key, value], i) => {
-        const columnHeader = within(currentRow).getAllByRole('cell')[i+2]
+        const columnHeader = within(currentRow).getAllByRole('cell')[i + 2]
         expect(
           within(columnHeader).getByText(value),
         ).toBeTruthy()

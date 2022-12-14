@@ -51,8 +51,10 @@ export const memberFormatData = (memberResults, activeMeasure, storeInfo, tableF
   if (activeMeasure !== 'composite' && activeMeasure !== '') {
     // loop through member results for active measure
     memberResults.forEach((res) => {
-      if (res.measurementType === activeMeasure) {
-        workingData.push(res)
+      if (res !== undefined) {
+        if (res.measurementType === activeMeasure) {
+          workingData.push(res)
+        }
       }
     })
     // workingData = memberResults
