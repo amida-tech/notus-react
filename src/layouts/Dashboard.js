@@ -196,9 +196,9 @@ export default function Dashboard() {
         setColorMap(ColorMapping(datastore.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);
-        datastore.memberResults = []
         setRowEntries([])
         setHeaderInfo(headerData(true));
+        datastore.memberResults = []
       } else {
         setHeaderInfo(headerData(false));
         setFilterInfo({
