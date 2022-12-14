@@ -145,7 +145,7 @@ export const DisplayDataFormatter = (currentResults, selectedMeasures, displayDa
   if (newChartDisplay.length > 0) {
     return newChartDisplay
   }
-  return [{ name: 'N/A', date: [], data: [] }]
+  return [{ name: undefined, date: [], data: [] }]
 }
 export const lineChartOptions = (
   {
@@ -269,11 +269,26 @@ export const lineChartOptions = (
     width: 4.5,
     dashArray: 0,
   }
+  function getDatesInRange(startDate, endDate) {
+    const date = new Date(startDate.getTime());
+    const dates = [];
+
+    while (date <= endDate) {
+      dates.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+
+    return dates;
+  }
+
+  const d1 = new Date(chartData[0].date[0]);
+  const d2 = new Date(Date.now());
+
   const xaxis = {
     show: true,
     showAlways: true,
     type: 'category',
-    categories: chartData.length > 0 ? chartData[0].date : [],
+    categories: chartData[0].date.length > 0 ? chartData[0].date : getDatesInRange(d1, d2),
     tickAmount: 20,
     tickPlacement: 'on',
     min: undefined,
@@ -303,15 +318,19 @@ export const lineChartOptions = (
       offsetY: 10,
       format: undefined,
       formatter(value) {
-        if (value !== undefined) {
-          if (typeof value === 'string') {
-            return value.split('T')[0]
+        if (chartData[0].date.length > 0) {
+          if (value !== undefined) {
+            if (typeof value === 'string') {
+              return value.split('T')[0]
+            }
+            return value
+          // eslint-disable-next-line no-else-return
+          } else {
+            return Date.now()
           }
-          return null
-
-        // eslint-disable-next-line no-else-return
+          // eslint-disable-next-line no-else-return
         } else {
-          return Date.now()
+          return []
         }
       },
       datetimeFormatter: {
