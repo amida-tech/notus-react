@@ -22,6 +22,7 @@ import {
   handleTableFilterChangeProps,
   rowEntriesProps,
   handleTabChangeProps,
+  handleChangePageProps,
 } from '../ChartContainer/D3Props';
 import TableFilterPanel from './TableFilterPanel';
 import MeasureSelector from '../Common/MeasureSelector';
@@ -41,8 +42,9 @@ function DisplayTableContainer({
   handleSelectedMeasureChange,
   rowEntries,
   handleTabChange,
+  handleChangePage,
 }) {
-  const { datastore } = useContext(DatastoreContext);
+  const { datastore, datastoreActions } = useContext(DatastoreContext);
 
   return (
     <Grid
@@ -126,12 +128,20 @@ function DisplayTableContainer({
               tableFilter={tableFilter}
               handleTableFilterChange={handleTableFilterChange}
             />
-            <EntriesFound total={rowEntries.length} />
+            <EntriesFound
+              currentCount={rowEntries.length}
+              total={datastore.paginationInfo.totalCount}
+            />
 
             <MemberTable
               activeMeasure={activeMeasure}
               headerInfo={headerInfo}
               rowEntries={rowEntries}
+              handleChangePage={handleChangePage}
+              page={datastore.paginationInfo.page}
+              setPage={datastoreActions.setPage}
+              rowsPerPage={datastore.paginationInfo.rowsPerPage}
+              setRowsPerPage={datastoreActions.setRowsPerPage}
             />
 
           </TabPanel>
@@ -155,6 +165,7 @@ DisplayTableContainer.propTypes = {
   handleTableFilterChange: handleTableFilterChangeProps,
   rowEntries: rowEntriesProps,
   handleTabChange: handleTabChangeProps,
+  handleChangePage: handleChangePageProps,
 };
 
 DisplayTableContainer.defaultProps = {
@@ -169,6 +180,7 @@ DisplayTableContainer.defaultProps = {
   handleTableFilterChange: () => undefined,
   rowEntries: [],
   handleTabChange: () => undefined,
+  handleChangePage: () => undefined,
 };
 
 export default DisplayTableContainer

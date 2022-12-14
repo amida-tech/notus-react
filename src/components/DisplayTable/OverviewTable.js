@@ -88,7 +88,7 @@ export default function OverviewTable({
         showCellRightBorder={false}
         showColumnRightBorder={false}
         onSelectionModelChange={(event) => handleSelectionModelChange(event)}
-        onRowDoubleClick={(event) => handleRowDoubleCLick(event)}
+        onRowClick={(event) => handleRowDoubleCLick(event)}
         selectionModel={selectionModel}
         disableSelectionOnClick
         disableVirtualization

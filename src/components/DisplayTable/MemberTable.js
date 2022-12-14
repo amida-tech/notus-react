@@ -14,17 +14,24 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import PropTypes from 'prop-types';
 import {
   activeMeasureProps, headerInfoProps, rowEntriesProps,
 } from '../ChartContainer/D3Props';
-
 import theme from '../../assets/styles/AppTheme'
 
-export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
+export default function MemberTable({
+  activeMeasure,
+  headerInfo,
+  rowEntries,
+  page,
+  setPage,
+  rowsPerPage,
+  setRowsPerPage,
+  handleChangePage,
+}) {
   const [rows, setRows] = useState([])
   const [columns, setColumns] = useState([])
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(50);
 
   function createData(row, columnDataSet) {
     const memberObj = {}
@@ -56,6 +63,7 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
           Matched
         </Grid>
       )
+    // eslint-disable-next-line no-else-return
     } else if (labelValue === 'false') {
       return (
         <Grid sx={{
@@ -104,9 +112,6 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
     }
   }, [rowEntries, headerInfo])
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
@@ -163,6 +168,17 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
+        // component="div"
+        // rowsPerPageOptions={[10, 25, 50]}
+        // count={children.length}
+        // page={currentPage}
+        // className="display-table__pagination"
+        // sx={{
+        //   color: theme.palette?.bluegray.D4,
+        //   marginLeft: 'auto',
+        // }}
+        // rowsPerPage={rowsPerPage}
+        // onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
   );
@@ -172,6 +188,11 @@ MemberTable.propTypes = {
   activeMeasure: activeMeasureProps,
   headerInfo: headerInfoProps,
   rowEntries: rowEntriesProps,
+  page: PropTypes.number,
+  setPage: PropTypes.func,
+  rowsPerPage: PropTypes.number,
+  setRowsPerPage: PropTypes.func,
+  handleChangePage: PropTypes.func,
 }
 
 MemberTable.defaultProps = {
@@ -184,4 +205,9 @@ MemberTable.defaultProps = {
   },
   headerInfo: [],
   rowEntries: [],
+  page: 0,
+  setPage: () => undefined,
+  rowsPerPage: 0,
+  setRowsPerPage: () => undefined,
+  handleChangePage: () => undefined,
 }

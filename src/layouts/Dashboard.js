@@ -15,7 +15,10 @@ import DisplayTableContainer from '../components/DisplayTable/DisplayTableContai
 import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
 import { headerData } from '../components/Utilities/MeasureTable';
-import MemberTable from '../components/Utilities/MemberTable';
+import {
+  memberHeaderData,
+  memberFormatData,
+} from '../components/Utilities/MemberTable';
 
 // scrolly is a navigate function wrapped with scrollToTop
 import { scrolly, scrollTop } from '../components/Utilities/ScrollNavigate'
@@ -30,9 +33,9 @@ import {
 } from '../components/ChartContainer/D3ContainerUtils';
 
 import {
-  measureDataFetch,
   filterSearch,
   infoDataFetch,
+  measureDataFetch,
 } from '../components/Common/Controller'
 
 export default function Dashboard() {
@@ -58,7 +61,6 @@ export default function Dashboard() {
   const [colorMap, setColorMap] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState(Object.keys(datastore.info));
   const [currentFilters, setCurrentFilters] = useState([]);
-  const [additionalFilterOptions, setAdditionalFilterOptions] = useState([])
   const [currentTimeline, setCurrentTimeline] = useState(datastore.defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
@@ -74,7 +76,6 @@ export default function Dashboard() {
       setIsLoading(true)
       setCurrentTimeline(datastore.defaultTimelineState);
       setCurrentFilters(datastore.defaultFilterState);
-      setAdditionalFilterOptions(datastore.filterOptions);
       const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
       if (ActiveMeasureTest) {
         setFilterInfo({
@@ -179,7 +180,6 @@ export default function Dashboard() {
     if (!filterActivated) {
       setCurrentTimeline(datastore.defaultTimelineState);
       setCurrentFilters(datastore.defaultFilterState);
-      setAdditionalFilterOptions(datastore.filterOptions);
       const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
       if (ActiveMeasureTest) {
         setFilterInfo({
@@ -196,9 +196,11 @@ export default function Dashboard() {
         setColorMap(ColorMapping(datastore.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);
+        datastore.memberResults = []
         setRowEntries([])
         setHeaderInfo(headerData(true));
       } else {
+        setHeaderInfo(headerData(false));
         setFilterInfo({
           members: [],
           currentResults: [],
@@ -228,8 +230,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (tabValue === 'members') {
-      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-      setRowEntries(MemberTable.formatData(
+      setHeaderInfo(memberHeaderData(selectedMeasures, datastore.info));
+      setRowEntries(memberFormatData(
         datastore.memberResults,
         activeMeasure.measure,
         datastore.info,
@@ -243,7 +245,6 @@ export default function Dashboard() {
     if (filterActivated) {
       setCurrentTimeline(filterInfo.timeline);
       setCurrentFilters(filterInfo.filters);
-      setAdditionalFilterOptions(datastore.filterOptions);
       const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
       if (ActiveMeasureTest) {
         if (filterInfo.members.length !== datastore.memberResults.length) {
@@ -285,8 +286,26 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function fetchData() {
-      const records = await measureDataFetch(activeMeasure.measure)
-      datastoreActions.setMemberResults(records)
+      const inActiveMeasureCheck = activeMeasure.measure !== 'composite'
+        && activeMeasure.measure !== undefined
+        && activeMeasure.measure !== ''
+      if (inActiveMeasureCheck) {
+        if (datastore.memberResults.length === 0) {
+          const records = await measureDataFetch(
+            activeMeasure.measure,
+            datastore.paginationInfo.page,
+            datastore.paginationInfo.initialLoad,
+          );
+          datastoreActions.setMemberResults(records, true)
+        } else {
+          // const records = await measureDataFetch(
+          //   activeMeasure.measure,
+          //   datastore.paginationInfo.page,
+          //   datastore.paginationInfo.rowsPerPage,
+          // );
+          // datastoreActions.setMemberResults(records, false)
+        }
+      }
     }
     // HANDLE COMPOSITE
     if (!isComposite) {
@@ -297,7 +316,8 @@ export default function Dashboard() {
           .filter((result) => activeMeasure.measure.includes(result.measurementType))
 
         datastoreActions.setMemberResults(selectMemberResults)
-      } else {
+      }
+      if (rowEntries.length === 0) {
         // FILTERS DO NOT EXIST
         fetchData()
       }
@@ -308,9 +328,12 @@ export default function Dashboard() {
     filterInfo,
     activeMeasure.measure,
   ])
+  // console.log(
+  // {page: datastore.paginationInfo.page}
 
+  // )
   useEffect(() => {
-    setRowEntries(MemberTable.formatData(
+    setRowEntries(memberFormatData(
       datastore.memberResults,
       activeMeasure.measure,
       datastore.info,
@@ -323,17 +346,15 @@ export default function Dashboard() {
     if (filterInfo.members.length > 0) {
       datastoreActions.setMemberResults(filterInfo.members)
     }
-
     if (path.includes('members')) {
-      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-      const wantedMembers = datastore.memberResults
-
-      setRowEntries(MemberTable.formatData(
-        wantedMembers,
+      setHeaderInfo(memberHeaderData(selectedMeasures, datastore.info));
+      setRowEntries(memberFormatData(
+        datastore.memberResults,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
       ))
+      datastoreActions.setPage(0);
       setComposite(false)
       setTabValue('members')
     } else {
@@ -448,8 +469,9 @@ export default function Dashboard() {
     setTabValue(newValue);
     if (newValue === 'members') {
       navigate(`/${activeMeasure.measure}/members`)
-      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-      setRowEntries(MemberTable.formatData(
+      setHeaderInfo(memberHeaderData(selectedMeasures, datastore.info));
+      headerData(true)
+      setRowEntries(memberFormatData(
         filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
         activeMeasure.measure,
         datastore.info,
@@ -460,7 +482,52 @@ export default function Dashboard() {
       setHeaderInfo(headerData(isComposite));
     }
   };
+  const handleChangePage = async (event, newPage) => {
+    const {
+      initialLoad, rowsPerPage, page, totalCount,
+    } = datastore.paginationInfo
+    const membersInDBCount = rowEntries.length
+    let TotalPages = 0
+    let PagesLeft = 0
+    const PageWeAreGoingToSetTo = newPage + 1
 
+    if (membersInDBCount === initialLoad) {
+    //   // how many pages we have in initial Load
+      TotalPages = initialLoad / rowsPerPage
+      //   // how many before we get to our last load
+      PagesLeft = TotalPages - PageWeAreGoingToSetTo
+    } else if (membersInDBCount === totalCount) {
+      datastoreActions.setPage(newPage);
+    } else {
+    //   // how many pages we have with initial Load new members
+      TotalPages = membersInDBCount / rowsPerPage
+      PagesLeft = TotalPages - PageWeAreGoingToSetTo;
+    }
+    console.log({ TotalPages, PagesLeft, PageWeAreOn: page + 2, PageWeAreGoingToSetTo})
+
+    if (PagesLeft === 1) {
+      const membersInDBCountPlusNew = membersInDBCount + rowsPerPage
+      const totalLeft = totalCount - membersInDBCountPlusNew
+      const remainderTest = totalLeft < rowsPerPage
+      console.log({
+        membersInDBCount,
+        membersInDBCountPlusNew,
+        totalCount,
+        numberStartInDB: PageWeAreGoingToSetTo * rowsPerPage,
+        totalLeft,
+        remainderTest,
+      })
+      if (totalLeft + rowsPerPage >= 0) {
+        const records = await measureDataFetch(
+          activeMeasure.measure,
+          PageWeAreGoingToSetTo,
+          rowsPerPage,
+        );
+        datastoreActions.setMemberResults(records, false)
+      }
+    }
+    datastoreActions.setPage(newPage);
+  };
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -505,7 +572,6 @@ export default function Dashboard() {
                 ? <Skeleton variant="rectangular" height={300} />
                 : (
                   <D3Container
-                    additionalFilterOptions={additionalFilterOptions}
                     setCurrentFilters={setCurrentFilters}
                     selectedMeasures={selectedMeasures}
                     currentTimeline={currentTimeline}
@@ -553,7 +619,6 @@ export default function Dashboard() {
                   <div className="d3-container">
                     <DisplayTableContainer
                       activeMeasure={activeMeasure}
-                      store={datastore}
                       tabValue={tabValue}
                       isComposite={isComposite}
                       headerInfo={headerInfo}
@@ -566,6 +631,7 @@ export default function Dashboard() {
                       rowEntries={rowEntries}
                       handleTabChange={handleTabChange}
                       handleResetData={handleResetData}
+                      handleChangePage={handleChangePage}
                     />
                   </div>
                 )}

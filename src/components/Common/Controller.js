@@ -13,10 +13,12 @@ export async function memberInfoFetch(url, id) {
 }
 
 // D3Container.js
-export async function measureDataFetch(measure) {
+export async function measureDataFetch(measure, page, size) {
+  // pssst ToDo --->FILTERS
   try {
-    const memberUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${measure}`)
-    const defaultVal = await axios.get(memberUrl).then((values) => values.data)
+    const memberUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/paginate?measurementType=${measure}${page ? `&page=${page}` : '&page=0'}${size ? `&size=${size}` : '&size=200'}`)
+    // const memberUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members?measurementType=${measure}&page=${page}&size=${size}`)
+    const defaultVal = await axios.get(memberUrl, {}).then((values) => values.data)
     return defaultVal
   } catch (error) {
     return error

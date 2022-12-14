@@ -1,10 +1,10 @@
 const { getMeasureCompliance } = require('./GeneralUtil');
 
 const memberIdTip = 'The member\'s member ID.';
-const pageSize = 10;
+export const pageSize = 10;
 
 // These will change based on the measurement.
-const headerData = (selectedMeasures, storeInfo) => {
+export const memberHeaderData = (selectedMeasures, storeInfo) => {
   let standardFlexBasis = 'medium';
   if (selectedMeasures.length > 4) {
     standardFlexBasis = selectedMeasures.length >= 6 ? 'smaller' : 'small';
@@ -32,7 +32,7 @@ const headerData = (selectedMeasures, storeInfo) => {
   return headerInfo;
 };
 
-const allValuesEqual = (valueArray) => {
+export const allValuesEqual = (valueArray) => {
   const compareValue = valueArray[0].value;
   for (let k = 1; k < valueArray.length; k += 1) {
     if (compareValue !== valueArray[k].value) {
@@ -42,7 +42,7 @@ const allValuesEqual = (valueArray) => {
   return true;
 }
 
-const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
+export const memberFormatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   const formattedData = [];
   let workingData = []
 
@@ -104,13 +104,13 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   return filterByNonCompliance(formattedData, tableFilter);
 };
 
-const nomCompRange = {
+export const nomCompRange = {
   one: 1,
   two: 2,
   many: 3,
 }
 
-const filterByNonCompliance = (formattedData, tableFilter) => {
+export const filterByNonCompliance = (formattedData, tableFilter) => {
   if (tableFilter.length === 0) {
     return formattedData;
   }
@@ -145,7 +145,3 @@ const filterByNonCompliance = (formattedData, tableFilter) => {
 
   return filteredData
 }
-
-module.exports = {
-  headerData, pageSize, formatData,
-};

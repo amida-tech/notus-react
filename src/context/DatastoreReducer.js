@@ -34,6 +34,11 @@ export const initialState = {
   datastoreLoading: true,
   results: [], // All results for the last several days, per measure.
   memberResults: [],
+  paginationInfo: {
+    page: 0,
+    rowsPerPage: 50,
+    initialLoad: 200,
+  },
   trends: [],
   currentResults: [], // Results for the most recent day for each measure.
   info: {},
@@ -63,9 +68,34 @@ export const DatastoreReducer = (state, action) => {
       }
     }
     case 'SET_MEMBER_RESULTS': {
+      const { initialLoad, memberResults } = action.payload
+      const {
+        AllMember,
+        Members,
+        rowCount,
+        totalCount,
+      } = memberResults
+      if (initialLoad) {
+        return {
+          ...state,
+          memberResults: Members,
+          paginationInfo: {
+            ...state.paginationInfo,
+            rowCount,
+            totalCount,
+            allMembers: AllMember,
+          },
+        }
+      }
       return {
         ...state,
-        memberResults: action.payload,
+        memberResults: state.memberResults.concat(Members),
+        paginationInfo: {
+          ...state.paginationInfo,
+          rowCount,
+          totalCount,
+          allMembers: AllMember,
+        },
       }
     }
     case 'SET_TRENDS':
@@ -73,6 +103,22 @@ export const DatastoreReducer = (state, action) => {
         ...state,
         trends: action.payload,
         lastUpdated: updateTimestamp(new Date()),
+      }
+    case 'SET_PAGE':
+      return {
+        ...state,
+        paginationInfo: {
+          ...state.paginationInfo,
+          page: action.payload,
+        },
+      }
+    case 'SET_ROWSPERPAGE':
+      return {
+        ...state,
+        paginationInfo: {
+          ...state.paginationInfo,
+          rowsPerPage: action.payload,
+        },
       }
     case 'SET_FILTER_OPTIONS':
       return {

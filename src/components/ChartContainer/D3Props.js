@@ -19,6 +19,7 @@ export const activeMeasureProps = PropTypes.shape({
   starRating: PropTypes.number,
   title: PropTypes.string,
 });
+export const handleChangePageProps = PropTypes.func;
 export const hardResetProps = PropTypes.bool;
 export const setHardResetProps = PropTypes.func;
 export const defaultActiveMeasure = {
@@ -28,6 +29,7 @@ export const defaultActiveMeasure = {
   starRating: 0,
   title: '',
 };
+export const totalCountProps = PropTypes.number;
 export const handleResetProps = PropTypes.func;
 export const setFilterInfoProps = PropTypes.func;
 export const handleResetDataProps = PropTypes.func;

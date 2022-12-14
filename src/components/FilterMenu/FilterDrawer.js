@@ -9,7 +9,7 @@ import { useContext, useState } from 'react';
 import theme from '../../assets/styles/AppTheme';
 import { DatastoreContext } from '../../context/DatastoreProvider';
 import {
-  additionalFilterOptionsProps, currentFiltersProps, filterDrawerOpenProps,
+  currentFiltersProps, filterDrawerOpenProps,
   handleFilterChangeProps, handleResetDataProps, setCompositeProps,
   setFilterActivatedProps, setIsLoadingProps, setRowEntriesProps,
   setTableFilterProps, toggleFilterDrawerProps,
@@ -25,14 +25,13 @@ function FilterDrawer({
   filterDrawerOpen,
   toggleFilterDrawer,
   setFilterActivated,
-  additionalFilterOptions,
   setIsLoading,
   setComposite,
   setTableFilter,
   setRowEntries,
   handleResetData,
 }) {
-  const { datastoreActions } = useContext(DatastoreContext);
+  const { datastore, datastoreActions } = useContext(DatastoreContext);
   const [percentSliderValue, setPercentSliderValue] = useState(
     Array.from(currentFilters.percentRange),
   );
@@ -150,7 +149,7 @@ function FilterDrawer({
       healthcareCoverages: healthcareCoverageChoices,
       healthcarePractitioners: healthcarePractitionersChoices,
     };
-    filterOptions.sum = filterDrawerItemData.sumCalculator(filterOptions, additionalFilterOptions);
+    filterOptions.sum = filterDrawerItemData.sumCalculator(filterOptions, datastore.filterOptions);
     handleFilterChange(filterOptions);
     toggleFilterDrawer(false);
     setComposite(true)
@@ -259,25 +258,25 @@ function FilterDrawer({
           />
           <FilterDrawerItem
             filterItem={filterDrawerItemData
-              .payors(additionalFilterOptions.payors)}
+              .payors(datastore.filterOptions.payors)}
             filterAction={handlePayorChange}
             currentFilter={payorChoices}
           />
           <FilterDrawerItem
             filterItem={filterDrawerItemData
-              .healthcareProviders(additionalFilterOptions.healthcareProviders)}
+              .healthcareProviders(datastore.filterOptions.healthcareProviders)}
             filterAction={handleHealthcareProviderChange}
             currentFilter={healthcareProviderChoices}
           />
           <FilterDrawerItem
             filterItem={filterDrawerItemData
-              .healthcareCoverages(additionalFilterOptions.healthcareCoverages)}
+              .healthcareCoverages(datastore.filterOptions.healthcareCoverages)}
             filterAction={handleHealthcareCoverageChange}
             currentFilter={healthcareCoverageChoices}
           />
           <FilterDrawerItem
             filterItem={filterDrawerItemData
-              .healthcarePractitioners(additionalFilterOptions.healthcarePractitioners)}
+              .healthcarePractitioners(datastore.filterOptions.healthcarePractitioners)}
             filterAction={handlePractitionerChange}
             currentFilter={healthcarePractitionersChoices}
           />
@@ -313,7 +312,6 @@ FilterDrawer.propTypes = {
   toggleFilterDrawer: toggleFilterDrawerProps,
   handleFilterChange: handleFilterChangeProps,
   setFilterActivated: setFilterActivatedProps,
-  additionalFilterOptions: additionalFilterOptionsProps,
   setIsLoading: setIsLoadingProps,
   setComposite: setCompositeProps,
   setTableFilter: setTableFilterProps,
@@ -336,7 +334,6 @@ FilterDrawer.defaultProps = {
   toggleFilterDrawer: undefined,
   handleFilterChange: undefined,
   setFilterActivated: () => undefined,
-  additionalFilterOptions: {},
   setIsLoading: () => undefined,
   setComposite: () => undefined,
   setTableFilter: () => undefined,

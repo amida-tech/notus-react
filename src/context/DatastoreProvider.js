@@ -34,16 +34,23 @@ export default function DatastoreProvider({ children }) {
       payload: { results, info },
     }),
 
-    setMemberResults: (memberResults) => dispatch({
+    setMemberResults: (memberResults, initialLoad) => dispatch({
       type: 'SET_MEMBER_RESULTS',
-      payload: memberResults,
+      payload: { memberResults, initialLoad },
     }),
 
     setTrends: (trends) => dispatch({
       type: 'SET_TRENDS',
       payload: trends,
     }),
-
+    setPage: (setPage) => dispatch({
+      type: 'SET_PAGE',
+      payload: setPage,
+    }),
+    setRowsPerPage: (setRowsPerPage) => dispatch({
+      type: 'SET_ROWSPERPAGE',
+      payload: setRowsPerPage,
+    }),
     setHealthcareFilterOptions:
       (payors, healthcareProviders, healthcareCoverages, practitioners) => dispatch({
         type: 'SET_FILTER_OPTIONS',
