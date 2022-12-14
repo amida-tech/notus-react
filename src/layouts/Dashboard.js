@@ -354,7 +354,7 @@ export default function Dashboard() {
   ]);
   const ChartDataGeneator = useCallback(() => {
     setIsLoading(true)
-    const ChartData = DisplayDataFormatter(currentResults, selectedMeasures, displayData)
+    const ChartData = DisplayDataFormatter(currentResults, selectedMeasures, displayData, colorMap)
     if (ChartData.length > 0) {
       setChartData(ChartData)
     }

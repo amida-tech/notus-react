@@ -62,7 +62,7 @@ function ChartBar({
   return (
     <Box className="chart-container__chart-bar">
       <Grid container direction="row" justifyContent="flex-end" spacing={0.1}>
-        <Grid item sx={buttonStyling}>
+        <Grid item sx={buttonStyling} className="chart-container__chart-bar--timeline">
           <Button
             key="d3-YTD"
             color="secondary"
@@ -102,7 +102,7 @@ function ChartBar({
           </Menu>
         </Grid>
 
-        <Grid item sx={buttonStyling}>
+        <Grid item sx={buttonStyling} className="chart-container__chart-bar--filter">
           <Badge badgeContent={filterSum} className={`chart-container__chart-bar__badge${filterDisabled ? '--hidden' : ''}`}>
             <Button
               className="chart-container__chart-bar__filter-button"

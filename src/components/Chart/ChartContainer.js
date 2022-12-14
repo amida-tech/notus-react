@@ -112,17 +112,17 @@ function ChartContainer({
         currentResults={currentResults}
         activeMeasure={activeMeasure}
       />
-      <Grid item className="chart-container__chart-bar">
-        <ChartBar
-          filterDrawerOpen={filterDrawerOpen}
-          toggleFilterDrawer={toggleFilterDrawer}
-          currentTimeline={currentTimeline}
-          handleTimelineChange={handleTimelineChange}
-          filterSum={currentFilters.sum}
-          filterDisabled={filterDisabled}
-        />
-      </Grid>
       <Grid className="chart-container__main-chart">
+        <Grid item className="chart-container__chart-bar">
+          <ChartBar
+            filterDrawerOpen={filterDrawerOpen}
+            toggleFilterDrawer={toggleFilterDrawer}
+            currentTimeline={currentTimeline}
+            handleTimelineChange={handleTimelineChange}
+            filterSum={currentFilters.sum}
+            filterDisabled={filterDisabled}
+          />
+        </Grid>
         <ReactApexChart
           options={lineChartOptions(
             {

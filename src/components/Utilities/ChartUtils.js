@@ -1,3 +1,6 @@
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+
 export function filterByStars(displayData, filters, currentResults) {
   return (displayData.filter((result) => filters.stars.includes(
     Math.floor( // Floor for the .5 stars.
@@ -127,14 +130,17 @@ export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
     currentResults,
   }
 }
-export const DisplayDataFormatter = (currentResults, selectedMeasures, displayData) => {
+export const DisplayDataFormatter = (currentResults, selectedMeasures, displayData, colorMap) => {
   const newChartDisplay = []
+console.log(colorMap)
   currentResults.forEach((cr) => {
     const Measure = cr.measure
+
     if (selectedMeasures.includes(Measure)) {
       const selectMeasureFilter = displayData.filter((entry) => Measure === entry.measure)
       if (selectMeasureFilter.length > 0) {
         newChartDisplay.push({
+          color: colorMap.find((color) => color.value === Measure).color ? colorMap.find((color) => color.value === Measure).color : 'red',
           name: Measure,
           data: selectMeasureFilter.map((item) => Number(item.value.toFixed(2))),
           date: selectMeasureFilter.map((entry) => entry.date),
@@ -174,7 +180,7 @@ export const lineChartOptions = (
     return 'All Available'
   }
 
-  const chart = {
+  const chartOptions = {
     height: 100,
     type: 'line',
     redrawOnParentResize: true,
@@ -193,6 +199,58 @@ export const lineChartOptions = (
         enabled: true,
         speed: 600,
       },
+    },
+    toolbar: {
+      show: true,
+      offsetX: 0,
+      offsetY: 0,
+      tools: {
+        download: true,
+        selection: true,
+        zoom: true,
+        zoomin: true,
+        zoomout: true,
+        pan: true,
+        reset: false,
+        customIcons: [
+          // {
+          //   icon: '<img src="https://cdn4.iconfinder.com/data/icons/complete-common-version-1-5/1024/date_range2-512.png"/>',
+          //   index: -7,
+          //   title: 'tooltip of the icon',
+          //   class: 'chart-container__custom-icon',
+          //   click(chart, options, e) {
+          //     console.log('clicked custom-icon', {chart, options, e})
+          //   },
+          // },
+          // {
+          //   icon: 'F',
+          //   index: -8,
+          //   title: 'tooltip of the icon',
+          //   class: 'custom-icon',
+          //   click(chart, options, e) {
+          //     console.log('clicked custom-icon', {chart, options, e})
+          //   },
+          // },
+        ],
+      },
+      export: {
+        csv: {
+          filename: undefined,
+          columnDelimiter: ',',
+          headerCategory: 'category',
+          headerValue: 'value',
+          dateFormatter(timestamp) {
+            return new Date(timestamp).toDateString()
+          },
+        },
+        svg: {
+          filename: undefined,
+        },
+        png: {
+          filename: undefined,
+        },
+      },
+      autoSelected: 'zoom',
     },
   }
   const legend = {
@@ -237,7 +295,9 @@ export const lineChartOptions = (
         return '#263238'
       }),
       radius: 12,
-      customHTML: undefined,
+      customHTML() {
+        return '<span class="custom-marker">*****</i></span>'
+      },
       onClick: undefined,
       offsetX: 0,
       offsetY: 0,
@@ -260,12 +320,32 @@ export const lineChartOptions = (
     show: true,
     curve: 'smooth',
     lineCap: 'round',
-    colors: colorMap.map((color) => {
-      if (color.color) {
-        return color.color
-      }
-      return '#263238'
-    }),
+    // colors: colorMap.map((color) => {
+    //   if (color.color) {
+    //     return color.color
+    //   }
+    //   return '#263238'
+    // }),
+    // colors: [function ({ value, seriesIndex, w }) {
+    //   console.log({ value, seriesIndex, w })
+    //   console.log({ colors: w.globals.colors })
+    //   console.log({ idviDetails: w.globals.initialSeries[seriesIndex] })
+    //   if (value < 55) {
+    //     return '#7E36AF'
+    //   }
+    //   return '#D9534F'
+    // }],
+    // colors(chart, options, e) {
+    //   console.log('clicked custom-icon', { chart, options, e })
+    //   const dog = colorMap.map((color) => {
+    //     if (color.color) {
+    //       return color.color
+    //     }
+    //     return '#263238'
+    //   })
+    //   console.log(dog)
+    //   return dog
+    // },
     width: 4.5,
     dashArray: 0,
   }
@@ -474,7 +554,7 @@ export const lineChartOptions = (
   }
 
   return {
-    chart,
+    chart: chartOptions,
     dataLabels,
     stroke,
     xaxis,
