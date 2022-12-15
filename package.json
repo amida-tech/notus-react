@@ -10,7 +10,7 @@
     "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.10.14",
     "@mui/lab": "^5.0.0-alpha.108",
-    "@mui/material": "^5.10.14",
+    "@mui/material": "^5.10.15",
     "@mui/system": "^5.10.14",
     "@mui/x-data-grid": "^5.17.12",
     "@popperjs/core": "2.11.6",
