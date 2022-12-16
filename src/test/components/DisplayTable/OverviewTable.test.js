@@ -2,7 +2,7 @@ import {
   render, screen, within, fireEvent,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import OverviewTable from 'components/DisplayTable/OverviewTable';
+import OverviewTable from '../../../components/DisplayTable/OverviewTable';
 import {
   resultList, headerInfo, colorMap, currentResults,
 } from '../../data/DemoData';
@@ -24,7 +24,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
         />
       </BrowserRouter>,
     )
-    // The below code assists in loading states that aren't obviously controlled with a loading prop if needed
+    // Below code assists with MUI loading states
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
   })
@@ -60,8 +60,8 @@ describe('Dashboard: DisplayTable: Overview', () => {
         Denominator: row.denominator,
         'Available Exclusions': row.exclusions,
       }
-      Object.entries(columnValues).forEach(([key, value], i) => {
-        const columnHeader = within(currentRow).getAllByRole('cell')[i + 2]
+      Object.entries(columnValues).forEach(([key, value], idx) => {
+        const columnHeader = within(currentRow).getAllByRole('cell')[idx + 2]
         expect(
           within(columnHeader).getByText(value),
         ).toBeTruthy()
