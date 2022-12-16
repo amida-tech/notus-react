@@ -1,6 +1,8 @@
 import tinycolor from 'tinycolor2'
 
 const ColorMapping = (allResults, displayData) => {
+
+  
   const chartColorArray = [
     '#88CCEE',
     '#CC6677',
@@ -21,20 +23,9 @@ const ColorMapping = (allResults, displayData) => {
 
   const distortColor = (color, idx) => {
     let newColor = ''
-    if (idx <= 3) {
-      newColor = tinycolor(color).brighten(idx * 15).spin(idx * 10).toString()
-    } else if (idx <= 6) {
-      newColor = tinycolor(color).darken((idx % 3) * 15).spin((idx % 3) * 15).toString()
-    } else if (idx <= 9) {
-      newColor = tinycolor(color).brighten((idx % 3) * 15).spin((idx % 3) * -15).toString()
-    } else if (idx <= 12) {
-      newColor = tinycolor(color).darken((idx % 3) * 15)
-        .saturate((idx % 3) * 10).spin((idx % 3) * -15)
-        .toString()
-    } else if (idx <= 15) {
-      newColor = tinycolor(color).lighten((idx % 3) * 15).spin((idx % 3) * -25).toString()
-    } else {
-      newColor = color
+    newColor = tinycolor(color).spin(idx * 10).toString()
+    if (idx > 10) {
+      newColor = tinycolor(color).spin((idx - 10) * 10).toString()
     }
     return newColor
   }
@@ -64,7 +55,8 @@ const ColorMapping = (allResults, displayData) => {
   displayData.forEach((category, idx) => {
     byMeasureColorMap.push({
       value: category.measure,
-      color: distortColor(baseMeasureColor, idx),
+      // color: distortColor(baseMeasureColor, idx),
+      color: baseMeasureColor
     })
   })
 
