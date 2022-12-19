@@ -352,7 +352,7 @@ export default function Dashboard() {
     tabValue,
     tableFilter,
   ]);
-  const ChartDataGeneator = useCallback(() => {
+  const ChartDataGenerator = useCallback(() => {
     setIsLoading(true)
     const ChartData = DisplayDataFormatter(
       currentResults,
@@ -369,9 +369,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (datastore.datastoreLoading === false) {
-      ChartDataGeneator()
+      ChartDataGenerator()
     }
-  }, [currentResults, selectedMeasures, datastore, displayData, ChartDataGeneator])
+  }, [currentResults, selectedMeasures, datastore, displayData, ChartDataGenerator])
 
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true)
