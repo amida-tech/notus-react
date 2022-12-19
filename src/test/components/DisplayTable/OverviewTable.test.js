@@ -24,7 +24,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
         />
       </BrowserRouter>,
     )
-    // The below code assists in loading states that aren't obviously controlled with a loading prop if needed
+    // Below code assists with MUI loading states
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
   })
