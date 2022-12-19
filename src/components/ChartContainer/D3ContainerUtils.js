@@ -131,7 +131,6 @@ export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
       if (b.measure === 'composite') return 1;
       return a.measure > b.measure ? 1 : -1;
     });
-
   return {
     results: dailyMeasureResults,
     currentResults,

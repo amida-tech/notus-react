@@ -272,7 +272,7 @@ export default function Dashboard() {
         );
         setFilterDisabled(false);
         setTableFilter([]);
-        setHeaderInfo(headerData(false));
+        setHeaderInfo(headerData(false))
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -286,6 +286,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function fetchData() {
+      // filterActivated
       const inActiveMeasureCheck = activeMeasure.measure !== 'composite'
         && activeMeasure.measure !== undefined
         && activeMeasure.measure !== ''
@@ -298,13 +299,6 @@ export default function Dashboard() {
             currentFilters,
           );
           datastoreActions.setMemberResults(records, true)
-        } else {
-          // const records = await measureDataFetch(
-          //   activeMeasure.measure,
-          //   datastore.paginationInfo.page,
-          //   datastore.paginationInfo.rowsPerPage,
-          // );
-          // datastoreActions.setMemberResults(records, false)
         }
       }
     }
@@ -329,13 +323,10 @@ export default function Dashboard() {
     filterInfo,
     activeMeasure.measure,
   ])
-  // console.log(
-  // {page: datastore.paginationInfo.page}
 
-  // )
   useEffect(() => {
     setRowEntries(memberFormatData(
-      datastore.memberResults,
+      filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
       activeMeasure.measure,
       datastore.info,
       tableFilter,
@@ -350,7 +341,7 @@ export default function Dashboard() {
     if (path.includes('members')) {
       setHeaderInfo(memberHeaderData(selectedMeasures, datastore.info));
       setRowEntries(memberFormatData(
-        datastore.memberResults,
+        filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
