@@ -56,6 +56,7 @@ export function getSubMeasureCurrentResults(activeMeasure, currentResults) {
   } else {
     subMeasureCurrentResults = [subMeasurePrime];
   }
+  subMeasureCurrentResults.forEach((res) => { res.id = res.measure })
   return subMeasureCurrentResults;
 }
 export function getSubMeasureCurrentResultsPerMeasure(givenMeasure, currentResults) {
@@ -332,7 +333,7 @@ export const lineChartOptions = (
     show: true,
     showAlways: true,
     type: 'category',
-    categories: chartData[0].date.length > 0 ? chartData[0].date : chartData[1].date,
+    categories: chartData[0].date.length > 0 ? chartData[0].date : [],
     tickAmount: 20,
     tickPlacement: 'on',
     min: undefined,

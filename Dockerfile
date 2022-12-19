@@ -29,19 +29,15 @@ COPY ./public/index.html /app/public
 
 RUN yarn build
 
-
 # Production Installer image
-FROM node:lts-alpine3.15
+FROM nginx:stable
 
 WORKDIR /app
 
 # Copy only necessary files to install prod deps
-COPY --from=builder /app/ /app/
-RUN yarn install --frozen-lockfile && yarn cache clean
-# Up til this point should get cached and only re-run if dependencies change
+COPY --from=builder /app/build /usr/share/nginx/html
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d
 
-# USER 50000:50000
-
-EXPOSE 3000
-
-CMD [ "yarn", "start" ]
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
