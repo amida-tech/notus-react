@@ -1,5 +1,3 @@
-// import tinycolor from 'tinycolor2'
-
 const ColorMapping = (allResults, displayData) => {
   const chartColorArray = [
     '#88CCEE',
@@ -18,15 +16,6 @@ const ColorMapping = (allResults, displayData) => {
   const byMeasureColorMap = [];
 
   const colorBySeed = ((seed, idx) => chartColorArray[idx % 10])
-
-  // const distortColor = (color, idx) => {
-  //   let newColor = ''
-  //   newColor = tinycolor(color).spin(idx * 10).toString()
-  //   if (idx > 10) {
-  //     newColor = tinycolor(color).spin((idx - 10) * 10).toString()
-  //   }
-  //   return newColor
-  // }
 
   // CREATES COLOR MAP FOR ALL CURRENT MEASURES
   allResults.forEach((category, idx) => {
@@ -53,7 +42,6 @@ const ColorMapping = (allResults, displayData) => {
   displayData.forEach((category) => {
     byMeasureColorMap.push({
       value: category.measure,
-      // color: distortColor(baseMeasureColor, idx),
       color: baseMeasureColor,
     })
   })
