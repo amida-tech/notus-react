@@ -50,14 +50,12 @@ export default function Login() {
   return (
     <main
       style={{
-        backgroundImage:
-        `url(${image})`,
-        height:
-        '100vh',
-        padding:
-        '2rem',
-        marginBottom:
-        '-1rem',
+        backgroundImage: `url(${image})`,
+        height: '100vh',
+        padding: '2rem',
+        marginBottom: '-1rem',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
       }}
     >
       <Container maxWidth={false} sx={{ padding: '1rem' }}>

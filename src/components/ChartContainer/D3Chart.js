@@ -172,8 +172,7 @@ function D3Chart({
       return tooltip
         .attr('data-html', 'true')
         .style('background-color', color)
-        .style('color', theme.palette?.primary.light)
-        .style('text-shadow', `1px 1px ${theme.palette?.primary.main}`)
+        .style('color', 'white')
         .style('visibility', 'visible')
         .style('width', '168px')
         .style('top', `${event.pageY - 10}px`)

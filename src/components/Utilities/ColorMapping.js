@@ -8,9 +8,9 @@ const ColorMapping = (allResults, displayData) => {
     '#332288',
     '#AA4499',
     '#44AA99',
-    '#999933',
     '#555555',
     '#661100',
+    '#999933',
     '#6699CC',
   ];
 
@@ -22,17 +22,17 @@ const ColorMapping = (allResults, displayData) => {
   const distortColor = (color, idx) => {
     let newColor = ''
     if (idx <= 3) {
-      newColor = tinycolor(color).brighten(idx * 15).spin(idx * 10).toString()
+      newColor = tinycolor(color).brighten(idx * 15).toString()
     } else if (idx <= 6) {
-      newColor = tinycolor(color).darken((idx % 3) * 15).spin((idx % 3) * 15).toString()
+      newColor = tinycolor(color).darken((idx % 3) * 5).toString()
     } else if (idx <= 9) {
-      newColor = tinycolor(color).brighten((idx % 3) * 15).spin((idx % 3) * -15).toString()
+      newColor = tinycolor(color).brighten((idx % 3) * 15).toString()
     } else if (idx <= 12) {
       newColor = tinycolor(color).darken((idx % 3) * 15)
-        .saturate((idx % 3) * 10).spin((idx % 3) * -15)
+        .saturate((idx % 3) * 10)
         .toString()
     } else if (idx <= 15) {
-      newColor = tinycolor(color).lighten((idx % 3) * 15).spin((idx % 3) * -25).toString()
+      newColor = tinycolor(color).lighten((idx % 3) * 15).toString()
     } else {
       newColor = color
     }
