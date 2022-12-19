@@ -83,9 +83,7 @@ Alert.propTypes = {
     rel: PropTypes.string,
     pathto: PropTypes.string,
   }),
-  children: PropTypes.arrayOf(
-    PropTypes.node,
-  ),
+  children: PropTypes.string,
   noResultsALERT: PropTypes.bool,
   handleResetData: PropTypes.func,
 };

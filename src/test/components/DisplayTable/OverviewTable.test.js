@@ -60,7 +60,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
         Denominator: row.denominator,
         'Available Exclusions': row.exclusions,
       }
-      Object.entries(columnValues).forEach(([key, value], idx) => {
+      Object.values(columnValues).forEach((value, idx) => {
         const columnHeader = within(currentRow).getAllByRole('cell')[idx + 2]
         expect(
           within(columnHeader).getByText(value),
