@@ -2,7 +2,7 @@ import {
   render, screen, within, fireEvent,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import OverviewTable from 'components/DisplayTable/OverviewTable';
+import OverviewTable from '../../../components/DisplayTable/OverviewTable';
 import {
   resultList, headerInfo, colorMap, currentResults,
 } from '../../data/DemoData';

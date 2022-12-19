@@ -2,7 +2,7 @@ import {
   render, screen, within,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import MemberTable from 'components/DisplayTable/MemberTable';
+import MemberTable from '../../../components/DisplayTable/MemberTable';
 import {
   resultList, aabHeaderInfo, rowEntries,
 } from '../../data/DemoData';
