@@ -1,6 +1,3 @@
-import DateRangeIcon from '@mui/icons-material/DateRange';
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-
 export function filterByStars(displayData, filters, currentResults) {
   return (displayData.filter((result) => filters.stars.includes(
     Math.floor( // Floor for the .5 stars.
@@ -130,9 +127,14 @@ export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
     currentResults,
   }
 }
-export const DisplayDataFormatter = (currentResults, selectedMeasures, displayData, colorMap) => {
+export const DisplayDataFormatter = (
+  currentResults,
+  selectedMeasures,
+  displayData,
+  colorMap,
+  theme,
+) => {
   const newChartDisplay = []
-console.log(colorMap)
   currentResults.forEach((cr) => {
     const Measure = cr.measure
 
@@ -140,7 +142,8 @@ console.log(colorMap)
       const selectMeasureFilter = displayData.filter((entry) => Measure === entry.measure)
       if (selectMeasureFilter.length > 0) {
         newChartDisplay.push({
-          color: colorMap.find((color) => color.value === Measure).color ? colorMap.find((color) => color.value === Measure).color : 'red',
+          color: colorMap
+            .find((color) => color.value === Measure)?.color || theme.palette?.primary.main,
           name: Measure,
           data: selectMeasureFilter.map((item) => Number(item.value.toFixed(2))),
           date: selectMeasureFilter.map((entry) => entry.date),
@@ -158,6 +161,7 @@ export const lineChartOptions = (
     colorMap,
     currentTimeline,
     chartData,
+    theme,
   },
 ) => {
   const xaxisTitle = () => {
@@ -436,10 +440,10 @@ export const lineChartOptions = (
     title: {
       text: xaxisTitle(),
       offsetX: 0,
-      offsetY: 200,
+      offsetY: 205,
       style: {
         color: '#78909C',
-        fontSize: '25px',
+        fontSize: '20px',
         fontFamily: 'Helvetica, Arial, sans-serif',
         fontWeight: 600,
         cssClass: 'apexcharts-xaxis-title',
@@ -494,7 +498,7 @@ export const lineChartOptions = (
       offsetY: 0,
       style: {
         color: '#78909C',
-        fontSize: '25px',
+        fontSize: '20px',
         fontFamily: 'Helvetica, Arial, sans-serif',
         fontWeight: 600,
         cssClass: 'apexcharts-yaxis-title',
@@ -513,7 +517,7 @@ export const lineChartOptions = (
       series, seriesIndex, dataPointIndex, w,
     }) {
       const foundDate = w.globals.categoryLabels[dataPointIndex + 1]
-      const foundColor = w.config.markers.colors[seriesIndex]
+      const foundColor = w.globals.initialSeries[seriesIndex]?.color
       return `<div class="chart-container__tooltip" style="background-color:${foundColor}; color:white;">`
         + `<span> Measure: ${w.config.series[seriesIndex].name.toUpperCase()}</span>`
         + '<br/>'
@@ -545,12 +549,7 @@ export const lineChartOptions = (
     },
   }
   const markers = {
-    colors: colorMap.map((color) => {
-      if (color.color) {
-        return color.color
-      }
-      return '#263238'
-    }),
+    colors: [...theme.palette.bluegray.D1],
   }
 
   return {

@@ -12,9 +12,15 @@ $block-class: 'chart-container';
             margin-top:4rem;
         }
 
+        & &__chart {
+            width: 95%;
+            height: 100%;
+            margin: auto;
+        }
+
         & &__chart-bar {
             float: right;
-            margin-right: 3.5rem;
+            margin-right: 4.7rem;
             margin-top: -.10rem;
             &--timeline{
                 z-index: 12;

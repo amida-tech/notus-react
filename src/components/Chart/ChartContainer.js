@@ -123,19 +123,24 @@ function ChartContainer({
             filterDisabled={filterDisabled}
           />
         </Grid>
-        <ReactApexChart
-          options={lineChartOptions(
-            {
-              colorMap,
-              currentTimeline,
-              chartData,
-            },
-          )}
-          series={chartData}
-          type="line"
-          width="100%"
-          height="100%"
-        />
+        <Grid item className="chart-container__chart">
+          <ReactApexChart
+            options={lineChartOptions(
+              {
+                colorMap,
+                currentTimeline,
+                chartData,
+                theme,
+              },
+            )}
+            series={chartData}
+            type="line"
+            width="100%"
+            height="100%"
+          />
+
+        </Grid>
+
       </Grid>
     </div>
   );

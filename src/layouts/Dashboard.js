@@ -354,12 +354,18 @@ export default function Dashboard() {
   ]);
   const ChartDataGeneator = useCallback(() => {
     setIsLoading(true)
-    const ChartData = DisplayDataFormatter(currentResults, selectedMeasures, displayData, colorMap)
+    const ChartData = DisplayDataFormatter(
+      currentResults,
+      selectedMeasures,
+      displayData,
+      colorMap,
+      theme,
+    )
     if (ChartData.length > 0) {
       setChartData(ChartData)
     }
     setIsLoading(false)
-  }, [currentResults, displayData, selectedMeasures])
+  }, [currentResults, displayData, selectedMeasures, colorMap])
 
   useEffect(() => {
     if (datastore.datastoreLoading === false) {
@@ -556,7 +562,7 @@ export default function Dashboard() {
                   />
                 )}
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className="rating-trends__container">
               { isLoading
                 ? <Skeleton variant="rectangular" height={200} />
                 : (
