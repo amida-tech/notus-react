@@ -1,14 +1,14 @@
-const measureTip = 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)';
-const subMeasureTip = 'Hover over sub-measures to view description, for more information click sub-measure to go to NCQA to receive further information.';
-const remainingInclusionsTip = 'The population remaining after exclusions are removed.';
-const eligiblePopulationTip = 'The population of members who are eligible for this measure.';
-const numeratorTip = 'The number of members who have satisfied the criteria for this measure.';
-const denominatorTip = 'The population of members who are eligible for this measure. Currently the same as Eligible Population.';
-const availableExclusionsTip = 'The population that can be excluded based on criteria.';
+export const measureTip = 'The actual measure. At the moment, these are always HEDIS measures. (Hover over measures and table headers to view description)';
+export const subMeasureTip = 'Hover over sub-measures to view description, for more information click sub-measure to go to NCQA to receive further information.';
+export const remainingInclusionsTip = 'The population remaining after exclusions are removed.';
+export const eligiblePopulationTip = 'The population of members who are eligible for this measure.';
+export const numeratorTip = 'The number of members who have satisfied the criteria for this measure.';
+export const denominatorTip = 'The population of members who are eligible for this measure. Currently the same as Eligible Population.';
+export const availableExclusionsTip = 'The population that can be excluded based on criteria.';
 
-const pageSize = 10;
+export const pageSize = 10;
 
-const inclusions = {
+export const inclusions = {
   key: 'included',
   header: 'Remaining Inclusions',
   tooltip: remainingInclusionsTip,
@@ -16,7 +16,7 @@ const inclusions = {
   alignContent: 'center',
 };
 
-const eligiblePopulation = {
+export const eligiblePopulation = {
   key: 'eligible',
   header: 'Eligible Population',
   tooltip: eligiblePopulationTip,
@@ -24,7 +24,7 @@ const eligiblePopulation = {
   alignContent: 'center',
 };
 
-const numerator = {
+export const numerator = {
   key: 'numerator',
   header: 'Numerator',
   tooltip: numeratorTip,
@@ -32,7 +32,7 @@ const numerator = {
   alignContent: 'center',
 };
 
-const denominator = {
+export const denominator = {
   key: 'denominator',
   header: 'Denominator',
   tooltip: denominatorTip,
@@ -40,7 +40,7 @@ const denominator = {
   alignContent: 'center',
 };
 
-const exclusions = {
+export const exclusions = {
   key: 'exclusions',
   header: 'Available Exclusions',
   tooltip: availableExclusionsTip,
@@ -48,14 +48,14 @@ const exclusions = {
   alignContent: 'center',
 };
 
-const headerData = (isComposite) => {
+export const headerData = (isComposite) => {
   if (isComposite) {
     return headerInfo;
   }
   return subHeaderInfo;
 }
 
-const headerInfo = [
+export const headerInfo = [
   {
     key: 'label',
     link: true,
@@ -70,7 +70,7 @@ const headerInfo = [
   exclusions,
 ]
 
-const subHeaderInfo = [
+export const subHeaderInfo = [
   {
     key: 'label',
     header: 'Sub-Measure',
@@ -84,10 +84,11 @@ const subHeaderInfo = [
   exclusions,
 ]
 
-const formatData = (currentResults) => {
+export const formatData = (currentResults) => {
   const formattedData = [];
   currentResults.forEach((measureResult) => {
     formattedData.push({
+      id: measureResult.label,
       value: measureResult.measure,
       label: measureResult.label,
       type: 'measure',
@@ -97,11 +98,6 @@ const formatData = (currentResults) => {
       denominator: measureResult.denominator,
       exclusions: measureResult.exclusions,
     });
-  });
-
+  })
   return formattedData;
-};
-
-module.exports = {
-  headerData, pageSize, formatData,
 };

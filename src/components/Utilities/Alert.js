@@ -31,15 +31,6 @@ export default function Alert({
           <DialogContentText sx={{ lineHeight: '2rem', marginBottom: '1rem' }} id="alert-dialog-description">
             {children}
           </DialogContentText>
-          <DialogContentText sx={{
-            fontSize: '2rem',
-            width: '100%',
-            textAlign: 'center',
-            marginTop: '1rem',
-          }}
-          >
-            (^-^)
-          </DialogContentText>
         </DialogContent>
 
         <DialogActions>
