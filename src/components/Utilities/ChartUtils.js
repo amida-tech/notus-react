@@ -324,55 +324,15 @@ export const lineChartOptions = (
     show: true,
     curve: 'smooth',
     lineCap: 'round',
-    // colors: colorMap.map((color) => {
-    //   if (color.color) {
-    //     return color.color
-    //   }
-    //   return '#263238'
-    // }),
-    // colors: [function ({ value, seriesIndex, w }) {
-    //   console.log({ value, seriesIndex, w })
-    //   console.log({ colors: w.globals.colors })
-    //   console.log({ idviDetails: w.globals.initialSeries[seriesIndex] })
-    //   if (value < 55) {
-    //     return '#7E36AF'
-    //   }
-    //   return '#D9534F'
-    // }],
-    // colors(chart, options, e) {
-    //   console.log('clicked custom-icon', { chart, options, e })
-    //   const dog = colorMap.map((color) => {
-    //     if (color.color) {
-    //       return color.color
-    //     }
-    //     return '#263238'
-    //   })
-    //   console.log(dog)
-    //   return dog
-    // },
     width: 4.5,
     dashArray: 0,
   }
-  function getDatesInRange(startDate, endDate) {
-    const date = new Date(startDate.getTime());
-    const dates = [];
-
-    while (date <= endDate) {
-      dates.push(new Date(date));
-      date.setDate(date.getDate() + 1);
-    }
-
-    return dates;
-  }
-
-  const d1 = new Date(chartData[0].date[0]);
-  const d2 = new Date(Date.now());
 
   const xaxis = {
     show: true,
     showAlways: true,
     type: 'category',
-    categories: chartData[0].date.length > 0 ? chartData[0].date : getDatesInRange(d1, d2),
+    categories: chartData[0].date.length > 0 ? chartData[0].date : chartData[1].date,
     tickAmount: 20,
     tickPlacement: 'on',
     min: undefined,
