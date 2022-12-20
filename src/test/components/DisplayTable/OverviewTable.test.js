@@ -24,8 +24,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
         />
       </BrowserRouter>,
     )
-    // eslint-disable-next-line max-len
-    // The below code assists in loading states that aren't obviously controlled with a loading prop if needed
+    // Below code assists with MUI loading states
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
   })
@@ -61,8 +60,8 @@ describe('Dashboard: DisplayTable: Overview', () => {
         Denominator: row.denominator,
         'Available Exclusions': row.exclusions,
       }
-      Object.entries(columnValues).forEach(([key, value], i) => {
-        const columnHeader = within(currentRow).getAllByRole('cell')[i + 2]
+      Object.values(columnValues).forEach((value, idx) => {
+        const columnHeader = within(currentRow).getAllByRole('cell')[idx + 2]
         expect(
           within(columnHeader).getByText(value),
         ).toBeTruthy()

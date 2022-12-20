@@ -56,8 +56,8 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
           Matched
         </Grid>
       )
-    // eslint-disable-next-line no-else-return
-    } else if (labelValue === 'false') {
+    }
+    if (labelValue === 'false') {
       return (
         <Grid sx={{
           color: theme.palette?.error.main,

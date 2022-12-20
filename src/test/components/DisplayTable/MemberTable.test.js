@@ -89,7 +89,7 @@ describe('MemberTable: AAB', () => {
       const currentRow = screen.getByLabelText(row.value)
 
       // FOR EACH COLUMN, LET US CHECK THE RENDERED VALUE VERSUS EXPECTED
-      Object.entries(columnValues).forEach(([key, value]) => {
+      Object.values(columnValues).forEach((value) => {
         const newValue = stringToBool(value)
 
         if (typeof newValue === 'string') {
