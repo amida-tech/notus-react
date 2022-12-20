@@ -1,4 +1,4 @@
-import { filterByStars, filterByPercentage, filterByDOC } from '../../../components/ChartContainer/D3ContainerUtils';
+import { filterByStars, filterByPercentage, filterByDOC } from '../../../components/Utilities/ChartUtils';
 import { DatastoreReducer } from '../../../context/DatastoreReducer';
 import { resultList, infoObject } from '../../data/DemoData';
 

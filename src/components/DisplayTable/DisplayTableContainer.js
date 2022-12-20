@@ -22,7 +22,7 @@ import {
   handleTableFilterChangeProps,
   rowEntriesProps,
   handleTabChangeProps,
-} from '../ChartContainer/D3Props';
+} from '../Utilities/PropTypes';
 import TableFilterPanel from './TableFilterPanel';
 import MeasureSelector from '../Common/MeasureSelector';
 import EntriesFound from './EntriesFound'
@@ -47,9 +47,9 @@ function DisplayTableContainer({
   return (
     <Grid
       sx={{ outline: `${theme.palette?.primary.dark} solid 1px` }}
-      className="d3-container__bottom-display"
+      className="chart-container__bottom-display"
     >
-      <Box className="d3-container__overview-member-chart">
+      <Box className="chart-container__overview-member-chart">
         <TabContext value={tabValue}>
           <Box
             sx={{
@@ -66,7 +66,7 @@ function DisplayTableContainer({
                 aria-label="overview and members tabs"
               >
                 <TableTab
-                  className="d3-container__table-selection-button"
+                  className="chart-container__table-selection-button"
                   sx={{
                     color: theme.palette?.primary.light,
                   }}
@@ -77,12 +77,12 @@ function DisplayTableContainer({
             ) : (
               <TabList TabIndicatorProps={{ style: { backgroundColor: 'transparent', gap: '1rem' } }} sx={{ marginLeft: '8rem', height: '4rem', alignItems: 'center' }} onChange={handleTabChange} aria-label="overview and members tabs">
                 <TableTab
-                  className="d3-container__table-selection-button"
+                  className="chart-container__table-selection-button"
                   label="Overview"
                   value="overview"
                 />
                 <TableTab
-                  className="d3-container__table-selection-button"
+                  className="chart-container__table-selection-button"
                   label="Members"
                   value="members"
                 />
@@ -94,10 +94,10 @@ function DisplayTableContainer({
 
             {headerInfo[0].header !== 'Sub-Measure'
               ? (
-                <Grid className="d3-container__measure-selector">
+                <Grid className="chart-container__measure-selector">
                   <Typography
                     color={theme.palette?.bluegray.D4}
-                    className="d3-container__selector-title"
+                    className="chart-container__selector-title"
                   >
                     Detailed View:
                   </Typography>

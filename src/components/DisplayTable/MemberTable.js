@@ -16,7 +16,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {
   activeMeasureProps, headerInfoProps, rowEntriesProps,
-} from '../ChartContainer/D3Props';
+} from '../Utilities/PropTypes';
 
 import theme from '../../assets/styles/AppTheme'
 
@@ -56,7 +56,8 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
           Matched
         </Grid>
       )
-    } if (labelValue === 'false') {
+    }
+    if (labelValue === 'false') {
       return (
         <Grid sx={{
           color: theme.palette?.error.main,
@@ -71,17 +72,16 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
           Unmatched
         </Grid>
       )
-    } else {
-      return (
-        <Link
-          style={{ color: theme.palette?.primary.main }}
-          component={RouterLink}
-          to={{ pathname: `/member/${labelValue}` }}
-        >
-          {labelValue}
-        </Link>
-      )
     }
+    return (
+      <Link
+        style={{ color: theme.palette?.primary.main }}
+        component={RouterLink}
+        to={{ pathname: `/member/${labelValue}` }}
+      >
+        {labelValue}
+      </Link>
+    )
   }
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { updateTimestamp } from '../components/Utilities/GeneralUtil';
-import { calcMemberResults } from '../components/ChartContainer/D3ContainerUtils';
+import { calcMemberResults } from '../components/Utilities/ChartUtils';
 
 const chartColorArray = [
   '#88CCEE',
