@@ -284,7 +284,7 @@ export const lineChartOptions = (
         if (color.color) {
           return color.color
         }
-        return '#263238'
+        return theme.palette.text.primary
       }),
       useSeriesColors: false,
     },
@@ -297,12 +297,9 @@ export const lineChartOptions = (
         if (color.color) {
           return color.color
         }
-        return '#263238'
+        return theme.palette.text.primary
       }),
       radius: 12,
-      customHTML() {
-        return '<span class="custom-marker">*****</i></span>'
-      },
       onClick: undefined,
       offsetX: 0,
       offsetY: 0,
@@ -353,7 +350,7 @@ export const lineChartOptions = (
       minHeight: undefined,
       maxHeight: 120,
       style: {
-        colors: '#78909C',
+        colors: theme.palette?.bluegray.L1,
         fontSize: '18px',
         fontFamily: 'Helvetica, Arial, sans-serif',
         fontWeight: 400,
@@ -387,14 +384,14 @@ export const lineChartOptions = (
     },
     axisBorder: {
       show: false,
-      color: '#78909C',
+      color: theme.palette?.bluegray.L1,
       offsetX: 0,
       offsetY: 0,
     },
     axisTicks: {
       show: true,
       borderType: 'solid',
-      color: ['#78909C'],
+      color: theme.palette?.bluegray.L1,
       offsetX: 0,
       offsetY: 0,
     },
@@ -403,7 +400,7 @@ export const lineChartOptions = (
       offsetX: 0,
       offsetY: 205,
       style: {
-        color: '#78909C',
+        color: theme.palette?.bluegray.L1,
         fontSize: '20px',
         fontFamily: 'Helvetica, Arial, sans-serif',
         fontWeight: 600,
@@ -425,7 +422,7 @@ export const lineChartOptions = (
       minWidth: 0,
       maxWidth: 100,
       style: {
-        colors: ['#78909C'],
+        colors: theme.palette?.bluegray.L1,
         fontSize: '20px',
         fontFamily: 'Helvetica, Arial, sans-serif',
         fontWeight: 600,
@@ -440,14 +437,14 @@ export const lineChartOptions = (
     },
     axisBorder: {
       show: false,
-      color: '#78909C',
+      color: theme.palette?.bluegray.L1,
       offsetX: 0,
       offsetY: 0,
     },
     axisTicks: {
       show: true,
       borderType: 'solid',
-      color: '#78909C',
+      color: theme.palette?.bluegray.L1,
       width: 6,
       offsetX: 0,
       offsetY: 0,
@@ -458,7 +455,7 @@ export const lineChartOptions = (
       offsetX: 0,
       offsetY: 0,
       style: {
-        color: '#78909C',
+        color: theme.palette?.bluegray.L1,
         fontSize: '20px',
         fontFamily: 'Helvetica, Arial, sans-serif',
         fontWeight: 600,
@@ -510,9 +507,20 @@ export const lineChartOptions = (
     },
   }
   const markers = {
-    colors: [...theme.palette.bluegray.D1],
+    colors: [theme.palette?.bluegray.D1],
   }
-
+  const noData = {
+    text: 'No measures selected, please use the checkboxes next to the measures below to view results.',
+    align: 'center',
+    verticalAlign: 'middle',
+    offsetX: 0,
+    offsetY: 0,
+    style: {
+      color: undefined,
+      fontSize: '25px',
+      fontFamily: undefined,
+    },
+  }
   return {
     chart: chartOptions,
     dataLabels,
@@ -522,18 +530,7 @@ export const lineChartOptions = (
     legend,
     markers,
     tooltip,
-    noData: {
-      text: 'No measures selected, please use the checkboxes next to the measures below to view results.',
-      align: 'center',
-      verticalAlign: 'middle',
-      offsetX: 0,
-      offsetY: 0,
-      style: {
-        color: undefined,
-        fontSize: '25px',
-        fontFamily: undefined,
-      },
-    },
+    noData,
   }
 }
 
