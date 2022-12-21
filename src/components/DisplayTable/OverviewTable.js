@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import ColumnMenu from '../Utilities/ColumnMenu'
 import theme from '../../assets/styles/AppTheme'
 import { formatData } from '../Utilities/MeasureTable';
 import {
