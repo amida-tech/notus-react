@@ -13,23 +13,23 @@ function ChartHeader({
   activeMeasure,
 }) {
   const allMeasureText = (
-    <Grid className="d3-container__return-title-display">
-      <Typography color={theme.palette?.bluegray.D2} className="d3-container__title">All Measures</Typography>
+    <Grid className="chart-container__return-title-display">
+      <Typography color={theme.palette?.bluegray.D2} className="chart-container__title">All Measures</Typography>
     </Grid>
   )
   const allMeasureTextWithLinks = (
     <Grid
-      className="d3-container__return-link-display"
+      className="chart-container__return-link-display"
       onClick={() => {
         handleResetData('ALL MEASURES');
       }}
     >
-      <Typography className="d3-container__title">
-        <ArrowBackIosIcon className="d3-container__return-icon" />
+      <Typography className="chart-container__title">
+        <ArrowBackIosIcon className="chart-container__return-icon" />
         All Measures
       </Typography>
       {!isLoading && (
-      <Grid className="d3-container__return-measure-display">
+      <Grid className="chart-container__return-measure-display">
         {labelGenerator(
           currentResults.find((result) => result.measure === activeMeasure.measure),
         )}

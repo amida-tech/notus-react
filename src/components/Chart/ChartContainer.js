@@ -1,23 +1,22 @@
 import { Grid, Typography } from '@mui/material';
 import { createContext } from 'react';
+import ReactApexChart from 'react-apexcharts';
 
 import theme from '../../assets/styles/AppTheme'
 
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ChartBar from './ChartBar';
 import ChartHeader from './ChartHeader';
-import D3Chart from './D3Chart';
+import { lineChartOptions } from '../Utilities/ChartUtils';
 
 import {
   activeMeasureProps,
   defaultActiveMeasure,
-  storeProps,
   filterDrawerOpenProps,
   toggleFilterDrawerProps,
   isLoadingProps,
   handleFilteredDataUpdateProps,
   setCurrentFiltersProps,
-  selectedMeasuresProps,
   currentTimelineProps,
   currentFiltersProps,
   setCurrentTimelineProps,
@@ -26,9 +25,7 @@ import {
   setTableFilterProps,
   currentResultsProps,
   filterDisabledProps,
-  displayDataProps,
   colorMapProps,
-  graphWidthProps,
   handleResetDataProps,
   setRowEntriesProps,
   setTabValueProps,
@@ -36,7 +33,8 @@ import {
   setIsLoadingProps,
   additionalFilterOptionsProps,
   setFilterInfoProps,
-} from './D3Props';
+  chartDataProps,
+} from '../Utilities/PropTypes';
 
 export const firstRenderContext = createContext(true);
 
@@ -46,16 +44,15 @@ function labelGenerator(measure) {
   }
   const { label } = measure;
   return (
-    <Grid sx={{ color: theme.palette?.bluegray.D4 }} className="d3-container__return-measure-labels">
-      <Typography className="d3-container__return-measure-title">{label.substring(0, label.indexOf(' '))}</Typography>
-      <Typography className="d3-container__return-measure-description">{label.substring(label.indexOf('- ') + 1)}</Typography>
+    <Grid sx={{ color: theme.palette?.bluegray.D4 }} className="chart-container__return-measure-labels">
+      <Typography className="chart-container__return-measure-title">{label.substring(0, label.indexOf(' '))}</Typography>
+      <Typography className="chart-container__return-measure-description">{label.substring(label.indexOf('- ') + 1)}</Typography>
     </Grid>
   )
 }
 
-function D3Container({
+function ChartContainer({
   setCurrentFilters,
-  selectedMeasures,
   currentTimeline,
   currentFilters,
   handleFilteredDataUpdate,
@@ -69,10 +66,7 @@ function D3Container({
   currentResults,
   activeMeasure,
   filterDisabled,
-  displayData,
   colorMap,
-  store,
-  graphWidth,
   setFilterActivated,
   setIsLoading,
   additionalFilterOptions,
@@ -80,6 +74,7 @@ function D3Container({
   setRowEntries,
   handleResetData,
   setFilterInfo,
+  chartData,
 }) {
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
@@ -89,8 +84,9 @@ function D3Container({
     setCurrentTimeline(timelineUpdate);
     handleFilteredDataUpdate(currentFilters, timelineUpdate);
   }
+
   return (
-    <div className="d3-container">
+    <div className="chart-container">
       <FilterDrawer
         filterDrawerOpen={filterDrawerOpen}
         toggleFilterDrawer={toggleFilterDrawer}
@@ -116,38 +112,47 @@ function D3Container({
         currentResults={currentResults}
         activeMeasure={activeMeasure}
       />
-      <Grid item className="d3-container__chart-bar">
-        <ChartBar
-          filterDrawerOpen={filterDrawerOpen}
-          toggleFilterDrawer={toggleFilterDrawer}
-          currentTimeline={currentTimeline}
-          handleTimelineChange={handleTimelineChange}
-          filterSum={currentFilters.sum}
-          filterDisabled={filterDisabled}
-        />
-      </Grid>
-      <Grid className="d3-container__main-chart">
-        <D3Chart
-          displayData={displayData.filter((result) => selectedMeasures.includes(result.measure))}
-          colorMapping={colorMap}
-          measureInfo={store.info}
-          graphWidth={graphWidth}
-          currentTimeline={currentTimeline}
-        />
+      <Grid className="chart-container__main-chart">
+        <Grid item className="chart-container__chart-bar">
+          <ChartBar
+            filterDrawerOpen={filterDrawerOpen}
+            toggleFilterDrawer={toggleFilterDrawer}
+            currentTimeline={currentTimeline}
+            handleTimelineChange={handleTimelineChange}
+            filterSum={currentFilters.sum}
+            filterDisabled={filterDisabled}
+          />
+        </Grid>
+        <Grid item className="chart-container__chart">
+          <ReactApexChart
+            options={lineChartOptions(
+              {
+                colorMap,
+                currentTimeline,
+                chartData,
+                theme,
+              },
+            )}
+            series={chartData}
+            type="line"
+            width="100%"
+            height="100%"
+          />
+
+        </Grid>
+
       </Grid>
     </div>
   );
 }
 
-D3Container.propTypes = {
-  store: storeProps,
+ChartContainer.propTypes = {
   activeMeasure: activeMeasureProps,
   filterDrawerOpen: filterDrawerOpenProps,
   isLoading: isLoadingProps,
   toggleFilterDrawer: toggleFilterDrawerProps,
   handleFilteredDataUpdate: handleFilteredDataUpdateProps,
   setCurrentFilters: setCurrentFiltersProps,
-  selectedMeasures: selectedMeasuresProps,
   currentTimeline: currentTimelineProps,
   currentFilters: currentFiltersProps,
   setCurrentTimeline: setCurrentTimelineProps,
@@ -156,9 +161,7 @@ D3Container.propTypes = {
   setTableFilter: setTableFilterProps,
   currentResults: currentResultsProps,
   filterDisabled: filterDisabledProps,
-  displayData: displayDataProps,
   colorMap: colorMapProps,
-  graphWidth: graphWidthProps,
   setFilterActivated: setFilterActivatedProps,
   setIsLoading: setIsLoadingProps,
   additionalFilterOptions: additionalFilterOptionsProps,
@@ -166,17 +169,16 @@ D3Container.propTypes = {
   handleResetData: handleResetDataProps,
   setTabValue: setTabValueProps,
   setFilterInfo: setFilterInfoProps,
+  chartData: chartDataProps,
 };
 
-D3Container.defaultProps = {
-  store: [],
+ChartContainer.defaultProps = {
   activeMeasure: defaultActiveMeasure,
   filterDrawerOpen: false,
   isLoading: true,
   toggleFilterDrawer: false,
   handleFilteredDataUpdate: () => undefined,
   setCurrentFilters: () => undefined,
-  selectedMeasures: [],
   currentTimeline: [],
   currentFilters: [],
   setCurrentTimeline: () => undefined,
@@ -185,9 +187,7 @@ D3Container.defaultProps = {
   setTableFilter: () => undefined,
   currentResults: [],
   filterDisabled: true,
-  displayData: [],
   colorMap: [],
-  graphWidth: 500,
   setFilterActivated: () => undefined,
   setIsLoading: () => undefined,
   additionalFilterOptions: {},
@@ -195,6 +195,7 @@ D3Container.defaultProps = {
   handleResetData: () => undefined,
   setFilterInfo: () => undefined,
   setTabValue: () => undefined,
+  chartData: [],
 };
 
-export default D3Container;
+export default ChartContainer;

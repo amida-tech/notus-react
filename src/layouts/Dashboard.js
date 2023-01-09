@@ -1,16 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
+import {
+  useContext, useEffect, useState, useCallback,
+} from 'react';
 import {
   Box, Grid, Paper, Snackbar, Skeleton,
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { DatastoreContext } from '../context/DatastoreProvider';
-import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
+import { defaultActiveMeasure } from '../components/Utilities/PropTypes';
 
 import theme from '../assets/styles/AppTheme';
 
 import Banner from '../components/Common/Banner';
 import Alert from '../components/Utilities/Alert'
-import D3Container from '../components/ChartContainer';
+import ChartContainer from '../components/Chart';
 import DisplayTableContainer from '../components/DisplayTable/DisplayTableContainer';
 import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
@@ -22,12 +24,13 @@ import { scrolly, scrollTop } from '../components/Utilities/ScrollNavigate'
 
 import {
   calcMemberResults,
+  DisplayDataFormatter,
   expandSubMeasureResults, filterByDOC,
   filterByPercentage,
   filterByStars,
   filterByTimeline,
   getSubMeasureCurrentResults,
-} from '../components/ChartContainer/D3ContainerUtils';
+} from '../components/Utilities/ChartUtils';
 
 import {
   measureDataFetch,
@@ -66,6 +69,7 @@ export default function Dashboard() {
   const [headerInfo, setHeaderInfo] = useState([])
   const [rowEntries, setRowEntries] = useState([])
   const [tabValue, setTabValue] = useState('overview');
+  const [chartData, setChartData] = useState([]);
   const { measure } = useParams();
 
   const handleResetData = (router) => {
@@ -348,6 +352,26 @@ export default function Dashboard() {
     tabValue,
     tableFilter,
   ]);
+  const ChartDataGenerator = useCallback(() => {
+    setIsLoading(true)
+    const ChartData = DisplayDataFormatter(
+      currentResults,
+      selectedMeasures,
+      displayData,
+      colorMap,
+      theme,
+    )
+    if (ChartData.length > 0) {
+      setChartData(ChartData)
+    }
+    setIsLoading(false)
+  }, [currentResults, displayData, selectedMeasures, colorMap])
+
+  useEffect(() => {
+    if (datastore.datastoreLoading === false) {
+      ChartDataGenerator()
+    }
+  }, [currentResults, selectedMeasures, datastore, displayData, ChartDataGenerator])
 
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true)
@@ -460,7 +484,6 @@ export default function Dashboard() {
       setHeaderInfo(headerData(isComposite));
     }
   };
-
   return (
     <Box className="dashboard">
       <Paper elevation={0} className="dashboard__paper">
@@ -490,21 +513,12 @@ export default function Dashboard() {
               handleResetData={handleResetData}
             >
               No results found. Please click button to reset the data to the initial results.
-              <div style={{
-                fontSize: '2rem',
-                width: '100%',
-                textAlign: 'center',
-                marginTop: '1rem',
-              }}
-              >
-                (^-^)
-              </div>
             </Alert>
             <Grid item xs={12}>
-              { isLoading || noResultsFound
+              { isLoading || noResultsFound || chartData.length === 0
                 ? <Skeleton variant="rectangular" height={300} />
                 : (
-                  <D3Container
+                  <ChartContainer
                     additionalFilterOptions={additionalFilterOptions}
                     setCurrentFilters={setCurrentFilters}
                     selectedMeasures={selectedMeasures}
@@ -532,10 +546,11 @@ export default function Dashboard() {
                     handleResetData={handleResetData}
                     setFilterInfo={setFilterInfo}
                     filterCurrentResultsLength={filterInfo.currentResults.length}
+                    chartData={chartData}
                   />
                 )}
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} className="rating-trends__container">
               { isLoading
                 ? <Skeleton variant="rectangular" height={200} />
                 : (
@@ -550,7 +565,7 @@ export default function Dashboard() {
               { isLoading
                 ? <Skeleton variant="rectangular" height={500} />
                 : (
-                  <div className="d3-container">
+                  <div className="chart-container">
                     <DisplayTableContainer
                       activeMeasure={activeMeasure}
                       store={datastore}

@@ -1,6 +1,4 @@
- 
-
-$block-class: 'd3-container';
+$block-class: 'chart-container';
 
 @at-root {
     .#{$block-class} {
@@ -8,13 +6,30 @@ $block-class: 'd3-container';
             margin: 0 -1rem;
         }
 
-        main-chart {
+        &__main-chart {
             width: 100;
+            height: 80vh;
+            margin-top:4rem;
+        }
+
+        & &__chart {
+            width: 95%;
+            height: 100%;
+            margin: auto;
         }
 
         & &__chart-bar {
             float: right;
-            margin-top: 0.625rem;
+            margin-right: 4.7rem;
+            margin-top: -.10rem;
+            &--timeline{
+                z-index: 12;
+                position: relative;
+            }
+            &--filter{
+                z-index: 12;
+                position: relative;
+            }
         }
         & &__chart-container{
             width: 100%;
@@ -22,6 +37,10 @@ $block-class: 'd3-container';
             margin: 3.5rem auto;
         }
 
+        & &__tooltip {
+            padding: 5px 10px;
+            font-Weight: bold;
+        }
         & &__loading-container{
 
             &--d3-chart {
@@ -30,7 +49,7 @@ $block-class: 'd3-container';
             }
 
             &--measure-selector {
-                @extend .d3-container__measure-selector;
+                @extend .chart-container__measure-selector;
             }
             &--chart-header {
                 width: 100%;

@@ -3,7 +3,7 @@ import {
   Box, Grid, Typography,
 } from '@mui/material';
 import theme from '../../assets/styles/AppTheme'
-import { storeProps } from '../ChartContainer/D3Props';
+import { storeProps } from '../Utilities/PropTypes';
 import MeasureSelector from '../Common/MeasureSelector';
 import env from '../../env';
 

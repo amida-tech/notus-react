@@ -16,7 +16,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import {
   activeMeasureProps, headerInfoProps, rowEntriesProps,
-} from '../ChartContainer/D3Props';
+} from '../Utilities/PropTypes';
 
 import theme from '../../assets/styles/AppTheme'
 

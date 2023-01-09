@@ -10,7 +10,9 @@ $block-class: 'rating-trends';
         &__main-header-align {
             display: flex;
         }
-
+        & &__container {
+            margin-top: 3rem;
+        }
         & &__h2-header {
             font-weight: 600;
             text-align: left;

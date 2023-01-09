@@ -34,7 +34,12 @@ export const handleResetDataProps = PropTypes.func;
 export const filterDrawerOpenProps = PropTypes.bool;
 export const dashboardStateProps = PropTypes.shape({
 });
-
+export const chartDataProps = PropTypes.arrayOf(
+  PropTypes.shape({
+    name: PropTypes.string,
+    data: PropTypes.arrayOf(PropTypes.number),
+  }),
+)
 export const toggleFilterDrawerProps = PropTypes.func;
 export const setActiveMeasureProps = PropTypes.func;
 

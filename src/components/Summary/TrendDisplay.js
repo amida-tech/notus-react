@@ -16,10 +16,10 @@ function TrendDisplay({ trend, percentWidth }) {
   let trendValue = 'N/A';
   if (trend.percentChange !== undefined) {
     if (trend.percentChange >= 0) {
-      trendClass = theme.palette?.success;
+      trendClass = theme.palette?.success.main;
       trendValue = `+${trend.percentChange} %`
     } else {
-      trendClass = theme.palette?.error;
+      trendClass = theme.palette?.error.main;
       trendValue = `-${Math.abs(trend.percentChange)} %`
     }
   }

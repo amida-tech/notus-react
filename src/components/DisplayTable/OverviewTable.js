@@ -10,7 +10,7 @@ import {
   currentResultsProps,
   handleSelectedMeasureChangeProps,
   headerInfoProps,
-} from '../ChartContainer/D3Props';
+} from '../Utilities/PropTypes';
 
 export default function OverviewTable({
   activeMeasure, headerInfo, currentResults, colorMap, handleSelectedMeasureChange,
