@@ -60,9 +60,11 @@ export default function OverviewTable({
     handleSelectedMeasureChange(newSelections)
   }
 
-  const handleRowDoubleCLick = (event) => {
+  const handleRowClick = (event) => {
     if (activeMeasure.measure === 'composite') {
       navigate((`/${event.row.value}`))
+    } else  {
+      // alert action here -- see MTR
     }
   }
 
@@ -88,7 +90,7 @@ export default function OverviewTable({
         showCellRightBorder={false}
         showColumnRightBorder={false}
         onSelectionModelChange={(event) => handleSelectionModelChange(event)}
-        onRowDoubleClick={(event) => handleRowDoubleCLick(event)}
+        onRowClick={(event) => handleRowClick(event)}
         selectionModel={selectionModel}
         components={{
           Toolbar: GridToolbar
