@@ -63,7 +63,7 @@ export default function OverviewTable({
   const handleRowClick = (event) => {
     if (activeMeasure.measure === 'composite') {
       navigate((`/${event.row.value}`))
-    } else  {
+    } else {
       // alert action here -- see MTR
     }
   }
@@ -93,7 +93,7 @@ export default function OverviewTable({
         onRowClick={(event) => handleRowClick(event)}
         selectionModel={selectionModel}
         components={{
-          Toolbar: GridToolbar
+          Toolbar: GridToolbar,
         }}
         disableColumnMenu
         disableSelectionOnClick
@@ -154,8 +154,8 @@ export default function OverviewTable({
             width: '2rem',
             // margin: '-1rem -1rem 1.5rem'
           },
-          '& 	.MuiDataGrid-toolbarContainer': {
-            margin: '.2rem 0 .2rem 2rem'
+          '& .MuiDataGrid-toolbarContainer': {
+            margin: '.2rem 0 .2rem 2rem',
           },
           '& .MuiDataGrid-menuIcon': {
             visibility: 'visible',
