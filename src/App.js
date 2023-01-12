@@ -37,21 +37,20 @@ export default function App() {
   }
   useEffect(() => {
     // TRY TO GRAB TOKEN FROM BROWSER
-    const accessToken = localStorage.getItem('token')
-
+    const accessToken = localStorage.getItem('token');
     if (accessToken) {
-      const userLoggedIn = fetchData(accessToken)
+      const userLoggedIn = fetchData(accessToken);
       if (userLoggedIn) {
         setShowWelcome(true);
         setAuthenticated(true);
-        setLoading(false)
+        setLoading(false);
       } else {
         setShowWelcome(false);
         setAuthenticated(false);
-        setLoading(true)
+        setLoading(true);
       }
     } else {
-      setLoading(false)
+      setLoading(false);
     }
   }, []);
 
