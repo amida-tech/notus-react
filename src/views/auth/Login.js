@@ -1,51 +1,45 @@
 import LockIcon from '@mui/icons-material/Lock';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Box, Button, Container, Grid, Link, Paper, TextField, Typography,
 } from '@mui/material';
+import { useEffect, useCallback } from 'react'
 import theme from '../../assets/styles/AppTheme'
-import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import image from '../../assets/img/loginbg.jpg'
 import env from '../../env';
 
 export default function Login() {
-  /*
-  * Create form to request access token from Google's OAuth 2.0 server.
-  */
-  function oauthSignIn() {
-    // Google's OAuth 2.0 endpoint for requesting an access token
-    const oauth2Endpoint = env.REACT_APP_GOOGLE_OAUTH_URL;
-    const clientId = env.REACT_APP_GOOGLE_CLIENT_ID;
-    const dashboardUrl = env.REACT_APP_DASHBOARD_URL;
+  const clientId = env.REACT_APP_GOOGLE_CLIENT_ID;
+  const navigate = useNavigate()
 
-    // Create <form> element to submit parameters to OAuth 2.0 endpoint.
-    const form = document.createElement('form');
-    form.setAttribute('method', 'GET'); // Send as a GET request.
-    form.setAttribute('action', oauth2Endpoint);
+  const handleCallbackResponse = useCallback((response) => {
+    console.log(response)
+    // localStorage.setItem('token', response.credential);
+    // navigate('/', { replace: true });
+    // navigate(0);
+  }, [navigate])
 
-    // Parameters to pass to OAuth 2.0 endpoint.
-    const params = {
-      client_id: clientId,
-      redirect_uri: dashboardUrl,
-      response_type: 'token',
-      scope: 'openid profile email',
-      include_granted_scopes: 'true',
-      state: 'pass-through-value',
-    };
+  useEffect(() => {
+    // global google
+    const GOOGLE_INIT = window.google.accounts.id;
+    GOOGLE_INIT.renderButton(
+      document.getElementById('signInButton'),
+      { theme: ' outline', size: 'large' },
+    )
+    // GOOGLE_INIT.initialize({
+    //   client_id: clientId,
+    //   scope: 'https://www.googleapis.com/auth/analytics',
+    //   callback: (data) => handleCallbackResponse(data),
+    // })
 
-    Object.keys(params).forEach((key) => {
-      const input = document.createElement('input');
-      input.setAttribute('type', 'hidden');
-      input.setAttribute('name', key);
-      input.setAttribute('value', params[key]);
-      form.appendChild(input);
-    });
-
-    // Add form to page and submit it to open the OAuth 2.0 endpoint.
-    document.body.appendChild(form);
-    form.submit();
-  }
+    // google.accounts.oauth2.initTokenClient({
+    //   client_id: clientId,
+    //   redirect_uri: env.REACT_APP_DASHBOARD_URL,
+    //   scope: 'openid',
+    //   callback: (data) => handleCallbackResponse(data),
+    // });
+  }, [clientId, handleCallbackResponse])
 
   return (
     <main
@@ -192,22 +186,7 @@ export default function Login() {
 
           <Grid container spacing={2} direction="column" sx={{ my: '.5rem' }}>
             <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<GoogleSvg />}
-                onClick={() => oauthSignIn()}
-                sx={{
-                  backgroundColor: '#E9F1FF',
-                  color: '#498AF5',
-
-                  '&:hover': {
-                    backgroundColor: '#d0e2fb',
-                  },
-                }}
-              >
-                Sign in with Google
-              </Button>
+              <Button id="signInButton" />
             </Grid>
           </Grid>
 

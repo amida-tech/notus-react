@@ -88,3 +88,16 @@ export async function infoDataFetch() {
     return error
   }
 }
+
+// Hera Token Sender
+export async function HERATokenSender(token) {
+  try {
+    const res = await axios.post(`${env.REACT_APP_HEDIS_MEASURE_API_URL}user/login`, token);
+    if (res.status === 200) {
+      return true;
+    }
+  } catch (error) {
+    localStorage.removeItem('token')
+    return false
+  }
+}

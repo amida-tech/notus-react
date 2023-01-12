@@ -12,7 +12,7 @@ import {
   Snackbar,
 } from '@mui/material';
 
-import { validateAccessToken } from './components/Common/Controller'
+import { HERATokenSender } from './components/Common/Controller'
 import theme from './assets/styles/AppTheme';
 import ProtectedRoutes from './ProtectedRoutes';
 import Login from './views/auth/Login'
@@ -29,34 +29,27 @@ function ProtectedRoute({ loggedIn }) {
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
+  const fetchData = async (token) => {
+    const userLoggedIn = await HERATokenSender({ token });
+    return userLoggedIn;
+  }
   useEffect(() => {
     // TRY TO GRAB TOKEN FROM BROWSER
-    let accessToken;
-    accessToken = localStorage.getItem('token')
+    const accessToken = localStorage.getItem('token')
 
-    // CHECK TOKEN IF VALID OR NOT
     if (accessToken) {
-      validateAccessToken(accessToken)
-        .then((loggedIn) => {
-          setAuthenticated(loggedIn);
-          setLoading(false)
-        })
-      return;
-    }
-
-    // NO TOKEN IN STORAGE, CHECK URL
-    const { hash } = window.location;
-    const urlParams = new URLSearchParams(hash);
-    accessToken = urlParams.get('access_token')
-
-    // STORE NEW TOKEN FROM URL
-    if (accessToken) {
-      localStorage.setItem('token', accessToken);
-      setShowWelcome(true);
-      setAuthenticated(true);
-      setLoading(false)
+      const userLoggedIn = fetchData(accessToken)
+      if (userLoggedIn) {
+        setShowWelcome(true);
+        setAuthenticated(true);
+        setLoading(false)
+      } else {
+        setShowWelcome(false);
+        setAuthenticated(false);
+        setLoading(true)
+      }
     } else {
       setLoading(false)
     }
