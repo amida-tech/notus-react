@@ -56,8 +56,7 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
           Matched
         </Grid>
       )
-    }
-    if (labelValue === 'false') {
+    } else if (labelValue === 'false') {
       return (
         <Grid sx={{
           color: theme.palette?.error.main,
@@ -72,16 +71,18 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
           Unmatched
         </Grid>
       )
+    } else {
+      return (
+        <Link
+          style={{ color: theme.palette?.primary.main }}
+          component={RouterLink}
+          to={{ pathname: `/member/${labelValue}` }}
+        >
+          {labelValue}
+        </Link>
+      )
     }
-    return (
-      <Link
-        style={{ color: theme.palette?.primary.main }}
-        component={RouterLink}
-        to={{ pathname: `/member/${labelValue}` }}
-      >
-        {labelValue}
-      </Link>
-    )
+    
   }
 
   useEffect(() => {

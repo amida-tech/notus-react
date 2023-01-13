@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box } from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import theme from '../../assets/styles/AppTheme'
 import { formatData } from '../Utilities/MeasureTable';
 import {
@@ -60,9 +60,11 @@ export default function OverviewTable({
     handleSelectedMeasureChange(newSelections)
   }
 
-  const handleRowDoubleCLick = (event) => {
+  const handleRowClick = (event) => {
     if (activeMeasure.measure === 'composite') {
       navigate((`/${event.row.value}`))
+    } else {
+      // alert action here -- see MTR
     }
   }
 
@@ -88,8 +90,12 @@ export default function OverviewTable({
         showCellRightBorder={false}
         showColumnRightBorder={false}
         onSelectionModelChange={(event) => handleSelectionModelChange(event)}
-        onRowDoubleClick={(event) => handleRowDoubleCLick(event)}
+        onRowClick={(event) => handleRowClick(event)}
         selectionModel={selectionModel}
+        components={{
+          Toolbar: GridToolbar,
+        }}
+        disableColumnMenu
         disableSelectionOnClick
         disableVirtualization
         // filterMode='server'
@@ -147,6 +153,9 @@ export default function OverviewTable({
             transition: '200ms !important',
             width: '2rem',
             // margin: '-1rem -1rem 1.5rem'
+          },
+          '& .MuiDataGrid-toolbarContainer': {
+            margin: '.2rem 0 .2rem 2rem',
           },
           '& .MuiDataGrid-menuIcon': {
             visibility: 'visible',
