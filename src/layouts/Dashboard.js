@@ -159,6 +159,7 @@ export default function Dashboard() {
   useEffect(() => {
     // CURRENT RESULTS EXIST
     if (datastore.currentResults) {
+      console.log('DATASTORE:', datastore)
       const currentMeasure = measure || 'composite';
       setActiveMeasure(datastore.currentResults.find(
         (result) => result.measure === currentMeasure,
@@ -535,7 +536,7 @@ export default function Dashboard() {
                     currentResults={currentResults}
                     setTabValue={setTabValue}
                     activeMeasure={activeMeasure}
-                    filterDisabled={filterDisabled}
+                    filterDisabled={filterDisabled}RatingT
                     displayData={displayData}
                     colorMap={colorMap}
                     store={datastore}
@@ -558,6 +559,7 @@ export default function Dashboard() {
                     activeMeasure={activeMeasure}
                     trends={datastore.trends}
                     info={datastore.info}
+                    widgetPrefs={datastore.preferences.ratingTrendsWidget}
                   />
                 )}
             </Grid>

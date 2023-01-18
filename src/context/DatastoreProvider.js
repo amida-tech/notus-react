@@ -44,6 +44,11 @@ export default function DatastoreProvider({ children }) {
       payload: trends,
     }),
 
+    setPreferences: (preferences) => dispatch({
+      type: 'SET_PREFERENCES',
+      payload: preferences,
+    }),
+
     setHealthcareFilterOptions:
       (payors, healthcareProviders, healthcareCoverages, practitioners) => dispatch({
         type: 'SET_FILTER_OPTIONS',
@@ -66,6 +71,7 @@ export default function DatastoreProvider({ children }) {
     if (devData === 'true') {
       datastoreActions.setResults(resultList, infoObject);
       datastoreActions.setTrends(trendList);
+      datastoreActions.setPreferences(userPreferences);
       datastoreActions.setIsLoading(false);
     } else {
       const trendPromise = axios.get(trendUrl)
@@ -75,6 +81,28 @@ export default function DatastoreProvider({ children }) {
       const healthcareProvidersPromise = axios.get(healthcareProvidersUrl);
       const healthcareCoveragesPromise = axios.get(healthcareCoveragesUrl);
       const practitionersPromise = axios.get(practitionersUrl);
+      // this is placeholder preferences
+      const userPreferences = {
+        ratingTrendsWidget: {
+          0: {
+            type: 'star',
+            measure: 'aab'
+          },
+          1: {
+            type: 'percentage',
+            measure: 'asfe'
+          },
+          2: {
+            type: 'star',
+            measure: 'uri',
+          },
+          3: {
+            type: 'percentage',
+            measure: 'composite'
+          },
+        },
+        theme: 'light'
+      }
 
       Promise.all([
         searchPromise,
@@ -93,6 +121,7 @@ export default function DatastoreProvider({ children }) {
         );
         datastoreActions.setResults(values[0].data, values[1].data);
         datastoreActions.setTrends(values[6].data);
+        datastoreActions.setPreferences(userPreferences); // we need to get user preferences from HERA
         datastoreActions.setIsLoading(false);
       });
     }
