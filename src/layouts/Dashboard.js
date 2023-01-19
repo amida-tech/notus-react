@@ -159,7 +159,6 @@ export default function Dashboard() {
   useEffect(() => {
     // CURRENT RESULTS EXIST
     if (datastore.currentResults) {
-      console.log('DATASTORE:', datastore)
       const currentMeasure = measure || 'composite';
       setActiveMeasure(datastore.currentResults.find(
         (result) => result.measure === currentMeasure,
