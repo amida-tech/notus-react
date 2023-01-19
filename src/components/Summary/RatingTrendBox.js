@@ -10,11 +10,11 @@ function RatingTrendBox({value, widgetPrefs, info}) {
   const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
   const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
-  const titleValue = (widgetPrefs, value, info) => {
+  const titleValue = (preferences, value, info) => {
     // props: measure, rating type
     console.log('info', value)
 
-    if (widgetPrefs?.type === 'star') {
+    if (preferences?.type === 'star') {
       return (
         <Typography
             variant="h6"
@@ -23,13 +23,13 @@ function RatingTrendBox({value, widgetPrefs, info}) {
               fontWeight: 700
             }}
           >
-            {widgetPrefs.measure.toUpperCase()} Star Rating
+            {preferences.measure.toUpperCase()} Star Rating
             <ToolTip title={starsTip} sx={{ alignSelf: 'center' }}>
               <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
             </ToolTip>
         </Typography>
       )
-    } else if (widgetPrefs?.type === 'percentage') {
+    } else if (preferences?.type === 'percentage') {
       return (
         <Typography
           variant="h6"
@@ -38,7 +38,7 @@ function RatingTrendBox({value, widgetPrefs, info}) {
             fontWeight: 700
           }}
         >
-          {widgetPrefs.measure.toUpperCase()} Score % Change
+          {preferences.measure.toUpperCase()} Score % Change
           <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
             <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
           </ToolTip>
@@ -67,17 +67,17 @@ function RatingTrendBox({value, widgetPrefs, info}) {
     )
   }
 
-  const detailValue = () => {
+  const detailValue = (preferences) => {
     // props: measure, time period?
     // either "over the past week" or measure title
-    return (
-      <Typography>
-        (Composite)
-      </Typography>
-    )
+    if (preferences.type === 'percentage') {
+      return `(${preferences.measure.toUpperCase()})`
+    } else if (preferences.type === 'star') {
+      return '(over the past week)'
+    }
+    return undefined;
   }
 
-  console.log(`BOX ${value} > widgetPrefs:`, widgetPrefs[value])
   return (
     <Box
       sx={{
@@ -93,8 +93,10 @@ function RatingTrendBox({value, widgetPrefs, info}) {
       }}
     >
       {titleValue(widgetPrefs[value], value, info)}
-      {boxValue(widgetPrefs[value])}
-      {detailValue(widgetPrefs[value])}
+      {boxValue(widgetPrefs[value], info)}
+      <Typography>
+        {detailValue(widgetPrefs[value])}
+      </Typography>
 
     </Box>
   )
