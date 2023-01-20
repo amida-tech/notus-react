@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import {
@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import Info from '../Common/Info';
 import RatingTrendBox from './RatingTrendBox';
+import { DatastoreContext } from '../../context/DatastoreProvider';
 // TrendDisplay
 
 function RatingTrends({
@@ -13,6 +14,8 @@ function RatingTrends({
 }) {
   const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
   const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs))
+  const { datastore, datastoreActions } = useContext(DatastoreContext);
+  console.log('DATASTORE:', datastore)
 
   // todo THIS NEEDS TO BE UPDATED WITH TRUE VALUE
   const widgetSpacing = () => {
@@ -28,7 +31,12 @@ function RatingTrends({
     const items = boxItems;
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
+
+    console.log('items:', items)
     setBoxOrder(items);
+    delete datastore.preferences.ratingTrendsWidget;
+    datastoreActions?.setPreferences({ratingTrendsWidget: items, ...datastore.preferences})
+    console.log('NEW DATASTORE:', datastore)
   }
 
   return (

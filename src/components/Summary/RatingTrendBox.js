@@ -107,7 +107,8 @@ function RatingTrendBox({widgetPrefs, info, trends}) {
             variant="h6"
             sx={{
               padding: '1rem',
-              fontWeight: 700
+              fontWeight: 700,
+              whiteSpace: 'nowrap'
             }}
       >
         {titleValue(widgetPrefs)}
