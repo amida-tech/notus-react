@@ -536,7 +536,6 @@ export default function Dashboard() {
                     setTabValue={setTabValue}
                     activeMeasure={activeMeasure}
                     filterDisabled={filterDisabled}
-                    RatingT
                     displayData={displayData}
                     colorMap={colorMap}
                     store={datastore}
