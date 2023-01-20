@@ -6,43 +6,30 @@ import {
 import ToolTip from '@mui/material/Tooltip';
 import theme from '../../assets/styles/AppTheme';
 
-function RatingTrendBox({value, widgetPrefs, info}) {
+function RatingTrendBox({value, widgetPrefs, info, trends}) {
   const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
   const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
-  const titleValue = (preferences, value, info) => {
+  const titleValue = (preferences) => {
     // props: measure, rating type
-    console.log('info', value)
 
     if (preferences?.type === 'star') {
       return (
-        <Typography
-            variant="h6"
-            sx={{
-              padding: '1rem',
-              fontWeight: 700
-            }}
-          >
-            {preferences.measure.toUpperCase()} Star Rating
-            <ToolTip title={starsTip} sx={{ alignSelf: 'center' }}>
-              <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
-            </ToolTip>
-        </Typography>
+        <>
+          {preferences.measure.toUpperCase()} Star Rating
+          <ToolTip title={starsTip} sx={{ alignSelf: 'center' }}>
+            <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
+          </ToolTip>
+        </>
       )
     } else if (preferences?.type === 'percentage') {
       return (
-        <Typography
-          variant="h6"
-          sx={{
-            padding: '1rem',
-            fontWeight: 700
-          }}
-        >
+        <>
           {preferences.measure.toUpperCase()} Score % Change
           <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
             <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
           </ToolTip>
-        </Typography>
+        </>
       )
     }
     return (
@@ -58,13 +45,25 @@ function RatingTrendBox({value, widgetPrefs, info}) {
     )
   }
 
-  const boxValue = () => {
+  const boxValue = (preferences, info) => {
     // props: display value of rating
-    return (
-      <Typography>
-        + 0 %
-      </Typography>
-    )
+    console.log('BOX VALUE > prefs/trends:', {preferences, trends})
+    if (preferences.type === 'percentage') {
+      const percentValue = trends.find(trend => trend.measure === preferences.measure.toLowerCase()).percentChange
+      let percentColor = 'theme.palette?.text.disabled'
+      if (percentValue > 0) {
+        percentColor = 'theme.palette?.success.main'
+      } else if (percentValue < 0) {
+        percentColor = 'theme.palette?.error.main'
+      }
+
+      return (
+        <Typography color={percentColor} variant="h4">
+          {percentValue < 0 ? '- ' + percentValue : '+ ' + percentValue} %
+        </Typography>
+      )
+    }
+    
   }
 
   const detailValue = (preferences) => {
@@ -92,8 +91,18 @@ function RatingTrendBox({value, widgetPrefs, info}) {
         }
       }}
     >
-      {titleValue(widgetPrefs[value], value, info)}
+      <Typography
+            variant="h6"
+            sx={{
+              padding: '1rem',
+              fontWeight: 700
+            }}
+      >
+        {titleValue(widgetPrefs[value], value, info)}
+      </Typography>
+
       {boxValue(widgetPrefs[value], info)}
+
       <Typography>
         {detailValue(widgetPrefs[value])}
       </Typography>

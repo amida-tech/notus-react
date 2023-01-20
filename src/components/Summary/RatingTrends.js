@@ -80,10 +80,10 @@ function RatingTrends({
           gridTemplateColumns: widgetCount
         }}
       >
-        <RatingTrendBox value={0} widgetPrefs={widgetPrefs} info={info} />
-        <RatingTrendBox value={1} widgetPrefs={widgetPrefs} info={info} />
-        <RatingTrendBox value={2} widgetPrefs={widgetPrefs} info={info} />
-        <RatingTrendBox value={3} widgetPrefs={widgetPrefs} info={info} />
+        <RatingTrendBox value={0} widgetPrefs={widgetPrefs} info={info} trends={trends} />
+        <RatingTrendBox value={1} widgetPrefs={widgetPrefs} info={info} trends={trends} />
+        <RatingTrendBox value={2} widgetPrefs={widgetPrefs} info={info} trends={trends} />
+        <RatingTrendBox value={3} widgetPrefs={widgetPrefs} info={info} trends={trends} />
       </Box>
     </Box>
   )
