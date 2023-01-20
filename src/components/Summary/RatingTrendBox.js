@@ -50,16 +50,18 @@ function RatingTrendBox({value, widgetPrefs, info, trends}) {
     console.log('BOX VALUE > prefs/trends:', {preferences, trends})
     if (preferences.type === 'percentage') {
       const percentValue = trends.find(trend => trend.measure === preferences.measure.toLowerCase()).percentChange
-      let percentColor = 'theme.palette?.text.disabled'
+      let percentColor = theme.palette?.text.disabled
+      console.log('percent value:', typeof percentValue, percentValue)
       if (percentValue > 0) {
-        percentColor = 'theme.palette?.success.main'
+        percentColor = theme.palette?.success.main
       } else if (percentValue < 0) {
-        percentColor = 'theme.palette?.error.main'
+        percentColor = theme.palette?.error.main
       }
+      console.log('percent color:', percentColor)
 
       return (
         <Typography color={percentColor} variant="h4">
-          {percentValue < 0 ? '- ' + percentValue : '+ ' + percentValue} %
+          {percentValue < 0 ? percentValue : '+' + percentValue} %
         </Typography>
       )
     }
