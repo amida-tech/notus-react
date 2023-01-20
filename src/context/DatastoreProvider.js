@@ -6,7 +6,9 @@ import {
 } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios'
-import { resultList, trendList, infoObject } from '../test/data/DemoData';
+import {
+  resultList, trendList, infoObject, userPreferences,
+} from '../test/data/DemoData';
 import { DatastoreReducer, initialState } from './DatastoreReducer';
 import env from '../env';
 
@@ -82,15 +84,15 @@ export default function DatastoreProvider({ children }) {
       const healthcareCoveragesPromise = axios.get(healthcareCoveragesUrl);
       const practitionersPromise = axios.get(practitionersUrl);
       // this is placeholder preferences
-      const userPreferences = {
+      const newUserPreferences = {
         ratingTrendsWidget: {
           0: {
             type: 'star',
-            measure: 'aab'
+            measure: 'aab',
           },
           1: {
             type: 'percentage',
-            measure: 'asfe'
+            measure: 'asfe',
           },
           2: {
             type: 'star',
@@ -98,10 +100,10 @@ export default function DatastoreProvider({ children }) {
           },
           3: {
             type: 'percentage',
-            measure: 'composite'
+            measure: 'composite',
           },
         },
-        theme: 'light'
+        theme: 'light',
       }
 
       Promise.all([
@@ -121,7 +123,8 @@ export default function DatastoreProvider({ children }) {
         );
         datastoreActions.setResults(values[0].data, values[1].data);
         datastoreActions.setTrends(values[6].data);
-        datastoreActions.setPreferences(userPreferences); // we need to get user preferences from HERA
+        // currently only front end default preferences
+        datastoreActions.setPreferences(newUserPreferences);
         datastoreActions.setIsLoading(false);
       });
     }

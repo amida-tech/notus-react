@@ -2837,6 +2837,20 @@ export const resultList = [
   },
 ]
 
+export const userPreferences = {
+  ratingTrendsWidget: {
+    0: {
+      type: 'star',
+      measure: 'composite',
+    },
+    1: {
+      type: 'percentage',
+      measure: 'composite',
+    },
+  },
+  theme: 'light',
+}
+
 export const trendList = [
   {
     measure: 'aab',

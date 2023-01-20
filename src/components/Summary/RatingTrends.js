@@ -1,3 +1,8 @@
+// These lint ignores relate to a library which specifies to be used this way
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-shadow */
+/* eslint-disable no-plusplus */
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
@@ -10,12 +15,11 @@ import { DatastoreContext } from '../../context/DatastoreProvider';
 // TrendDisplay
 
 function RatingTrends({
-  trends, info, widgetPrefs
+  trends, widgetPrefs,
 }) {
   const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
   const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs))
   const { datastore, datastoreActions } = useContext(DatastoreContext);
-  console.log('DATASTORE:', datastore)
 
   // todo THIS NEEDS TO BE UPDATED WITH TRUE VALUE
   const widgetSpacing = () => {
@@ -31,12 +35,9 @@ function RatingTrends({
     const items = boxItems;
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
-    console.log('items:', items)
     setBoxOrder(items);
     delete datastore.preferences.ratingTrendsWidget;
-    datastoreActions?.setPreferences({ratingTrendsWidget: items, ...datastore.preferences})
-    console.log('NEW DATASTORE:', datastore)
+    datastoreActions?.setPreferences({ ratingTrendsWidget: items, ...datastore.preferences })
   }
 
   return (
@@ -48,73 +49,63 @@ function RatingTrends({
         <Info infoText={ratingTrendsTip} />
       </Box>
 
-          <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="ratings" direction="horizontal">
-            {(provided) => (
-              <Box
-                sx={{
-                  display: 'grid',
-                  gap: '2rem',
-                  width: 'inherit',
-                  gridTemplateColumns: widgetSpacing,
-                }}
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                {boxItems.map((widget, idx) => {
-                  return (
-                    <Draggable key={widget.measure} draggableId={widget.measure} index={idx}>
-                      {(provided) => (
-                        <div
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          ref={provided.innerRef}
-                        >
-                          <RatingTrendBox
-                            widgetPrefs={widget}
-                            info={info}
-                            trends={trends}
-                          />
-                        </div>
-                      )}
-                    </Draggable>
-                  );
-                })}
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="ratings" direction="horizontal">
+          {(provided) => (
+            <Box
+              sx={{
+                display: 'grid',
+                gap: '2rem',
+                width: 'inherit',
+                gridTemplateColumns: widgetSpacing,
+              }}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {boxItems.map((widget, idx) => (
+                <Draggable key={widget.measure} draggableId={widget.measure} index={idx}>
+                  {(provided) => (
+                    <div
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                    >
+                      <RatingTrendBox
+                        widgetPrefs={widget}
+                        trends={trends}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
 
-                {provided.placeholder}
-              </Box>
-            )}
-          </Droppable>
-        </DragDropContext>
+              {provided.placeholder}
+            </Box>
+          )}
+        </Droppable>
+      </DragDropContext>
 
     </Box>
   )
 }
 
 RatingTrends.propTypes = {
-  activeMeasure: PropTypes.shape({
+  trends: PropTypes.arrayOf(PropTypes.shape({
     measure: PropTypes.string,
-    denominator: PropTypes.number,
-    shortLabel: PropTypes.string,
-    starRating: PropTypes.number,
-    title: PropTypes.string,
-  }),
-  trends: PropTypes.arrayOf(
-    PropTypes.shape({
+    precentChange: PropTypes.number,
+    subScoreTrends: PropTypes.arrayOf(PropTypes.shape({
       measure: PropTypes.string,
-    }),
-  ),
+      percentChange: PropTypes.number,
+    })),
+  })),
+  widgetPrefs: PropTypes.shape({
+    0: { type: PropTypes.string, measure: PropTypes.string },
+  }),
 }
 
 RatingTrends.defaultProps = {
-  activeMeasure: {
-    measure: '',
-    denominator: 0,
-    shortLabel: '',
-    starRating: 0,
-    title: '',
-  },
-  trends: [],
+  trends: {},
+  widgetPrefs: {},
 }
 
 export default RatingTrends;

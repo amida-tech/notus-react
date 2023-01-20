@@ -39,14 +39,14 @@ export const initialState = {
     ratingTrendsWidget: {
       0: {
         type: 'star',
-        measure: 'composite'
+        measure: 'composite',
       },
       1: {
         type: 'percentage',
-        measure: 'composite'
-      }
+        measure: 'composite',
+      },
     },
-    theme: 'light'
+    theme: 'light',
   },
   currentResults: [], // Results for the most recent day for each measure.
   info: {},
