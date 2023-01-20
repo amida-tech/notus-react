@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import HelpIcon from '@mui/icons-material/Help';
 import {
-  Grid, Typography, Rating, Box,
+  Typography, Rating, Box,
 } from '@mui/material';
 import ToolTip from '@mui/material/Tooltip';
 import theme from '../../assets/styles/AppTheme';
@@ -54,7 +54,9 @@ function RatingTrendBox({ widgetPrefs, trends }) {
 
   const boxValue = (preferences) => {
     if (preferences.type === 'percentage') {
-      const percentValue = trends.find((trend) => trend.measure === preferences.measure.toLowerCase()).percentChange
+      const percentValue = trends.find(
+        (trend) => trend.measure === preferences.measure.toLowerCase(),
+      ).percentChange
       let percentColor = theme.palette?.text.disabled
       if (percentValue > 0) {
         percentColor = theme.palette?.success.main
@@ -69,7 +71,9 @@ function RatingTrendBox({ widgetPrefs, trends }) {
         </Typography>
       )
     } if (preferences.type === 'star') {
-      const starValue = datastore.currentResults.find((trend) => trend.measure === preferences.measure.toLowerCase()).starRating
+      const starValue = datastore.currentResults.find(
+        (trend) => trend.measure === preferences.measure.toLowerCase(),
+      ).starRating
       return (
         <Rating
           name="read-only"
@@ -80,6 +84,11 @@ function RatingTrendBox({ widgetPrefs, trends }) {
         />
       )
     }
+    return (
+      <Typography>
+        Undefined component
+      </Typography>
+    )
   }
 
   const detailValue = (preferences) => {
@@ -130,9 +139,22 @@ function RatingTrendBox({ widgetPrefs, trends }) {
 }
 
 RatingTrendBox.propTypes = {
+  trends: PropTypes.arrayOf(PropTypes.shape({
+    measure: PropTypes.string,
+    precentChange: PropTypes.number,
+    subScoreTrends: PropTypes.arrayOf(PropTypes.shape({
+      measure: PropTypes.string,
+      percentChange: PropTypes.number,
+    })),
+  })),
+  widgetPrefs: PropTypes.shape({
+    0: { type: PropTypes.string, measure: PropTypes.string },
+  }),
 }
 
 RatingTrendBox.defaultProps = {
+  trends: {},
+  widgetPrefs: {},
 }
 
 export default RatingTrendBox;
