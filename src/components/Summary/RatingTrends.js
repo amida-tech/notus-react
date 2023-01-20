@@ -13,10 +13,8 @@ import theme from 'assets/styles/AppTheme';
 function RatingTrends({
   trends, info, widgetPrefs
 }) {
-  const [ratingBoxes, setRatingBoxes] = useState(Object.keys(widgetPrefs))
   const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
-
-  console.log('prefs', widgetPrefs)
+  const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs))
 
   // todo THIS NEEDS TO BE UPDATED WITH TRUE VALUE
   const widgetSpacing = () => {
@@ -29,12 +27,10 @@ function RatingTrends({
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
-
-    const items = Array.from(Object.keys(widgetPrefs));
+    const items = boxItems;
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-
-    updateCharacters(items);
+    setBoxOrder(items);
   }
 
   return (
@@ -59,9 +55,9 @@ function RatingTrends({
                 {...provided.droppableProps}
                 ref={provided.innerRef}
               >
-                {Object.keys(widgetPrefs).map((widget, idx) => {
+                {boxItems.map((widget, idx) => {
                   return (
-                    <Draggable key={widget} draggableId={widget} index={idx}>
+                    <Draggable key={widget.measure} draggableId={widget.measure} index={idx}>
                       {(provided) => (
                         <div
                           {...provided.draggableProps}
@@ -69,8 +65,7 @@ function RatingTrends({
                           ref={provided.innerRef}
                         >
                           <RatingTrendBox
-                            value={idx}
-                            widgetPrefs={widgetPrefs}
+                            widgetPrefs={widget}
                             info={info}
                             trends={trends}
                           />
@@ -79,6 +74,7 @@ function RatingTrends({
                     </Draggable>
                   );
                 })}
+
                 {provided.placeholder}
               </Box>
             )}

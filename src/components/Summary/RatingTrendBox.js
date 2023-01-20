@@ -8,7 +8,7 @@ import ToolTip from '@mui/material/Tooltip';
 import theme from '../../assets/styles/AppTheme';
 import { DatastoreContext } from '../../context/DatastoreProvider';
 
-function RatingTrendBox({value, widgetPrefs, info, trends}) {
+function RatingTrendBox({widgetPrefs, info, trends}) {
   const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
   const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
   const { datastore } = useContext(DatastoreContext);
@@ -110,13 +110,13 @@ function RatingTrendBox({value, widgetPrefs, info, trends}) {
               fontWeight: 700
             }}
       >
-        {titleValue(widgetPrefs[value], value, info)}
+        {titleValue(widgetPrefs)}
       </Typography>
 
-      {boxValue(widgetPrefs[value], info)}
+      {boxValue(widgetPrefs)}
 
       <Typography>
-        {detailValue(widgetPrefs[value])}
+        {detailValue(widgetPrefs)}
       </Typography>
 
     </Box>
