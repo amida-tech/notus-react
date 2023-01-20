@@ -21,7 +21,6 @@ function RatingTrends({
   const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs))
   const { datastore, datastoreActions } = useContext(DatastoreContext);
 
-  // todo THIS NEEDS TO BE UPDATED WITH TRUE VALUE
   const widgetSpacing = () => {
     let widgetCount = ''
     for (let i = 0; i < Object.keys(widgetPrefs).length; i++) {
