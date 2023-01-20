@@ -49,8 +49,6 @@ function RatingTrendBox({value, widgetPrefs, info, trends}) {
   }
 
   const boxValue = (preferences) => {
-    // props: display value of rating
-    console.log('BOX VALUE > prefs/trends:', {preferences, trends})
     if (preferences.type === 'percentage') {
       const percentValue = trends.find(trend => trend.measure === preferences.measure.toLowerCase()).percentChange
       let percentColor = theme.palette?.text.disabled
@@ -66,7 +64,6 @@ function RatingTrendBox({value, widgetPrefs, info, trends}) {
       )
     } else if (preferences.type === 'star') {
       const starValue = datastore.currentResults.find(trend => trend.measure === preferences.measure.toLowerCase()).starRating
-      console.log('STAR VALUE:', starValue)
       return (
         <Rating
           name="read-only"
