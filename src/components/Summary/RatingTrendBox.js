@@ -92,6 +92,7 @@ function RatingTrendBox({value, widgetPrefs, info, trends}) {
     <Box
       sx={{
         outline: `1px solid ${theme.palette?.secondary.light}`,
+        backgroundColor: theme.palette?.background.main,
         borderRadius: '1px',
         height: '10rem',
         display: 'grid',
