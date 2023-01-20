@@ -98,8 +98,9 @@ RatingTrends.propTypes = {
     })),
   })),
   widgetPrefs: PropTypes.shape({
-    0: { type: PropTypes.string, measure: PropTypes.string },
-  }),
+    type: PropTypes.string,
+    measure: PropTypes.string,
+  })
 }
 
 RatingTrends.defaultProps = {
