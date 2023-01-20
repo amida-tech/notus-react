@@ -5,9 +5,7 @@ import {
   Typography, Box,
 } from '@mui/material';
 import Info from '../Common/Info';
-import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils'
 import RatingTrendBox from './RatingTrendBox';
-import theme from 'assets/styles/AppTheme';
 // TrendDisplay
 
 function RatingTrends({
@@ -43,7 +41,7 @@ function RatingTrends({
       </Box>
 
           <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="ratings">
+          <Droppable droppableId="ratings" direction="horizontal">
             {(provided) => (
               <Box
                 sx={{
