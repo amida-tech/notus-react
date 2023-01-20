@@ -27,7 +27,7 @@ function RatingTrendBox({ widgetPrefs, trends }) {
           </ToolTip>
         </>
       )
-    } if (preferences?.type === 'percentage') {
+    } else if (preferences?.type === 'percentage') {
       return (
         <>
           {preferences.measure.toUpperCase()}
@@ -70,7 +70,7 @@ function RatingTrendBox({ widgetPrefs, trends }) {
           %
         </Typography>
       )
-    } if (preferences.type === 'star') {
+    } else if (preferences.type === 'star') {
       const starValue = datastore.currentResults.find(
         (trend) => trend.measure === preferences.measure.toLowerCase(),
       ).starRating
@@ -96,7 +96,7 @@ function RatingTrendBox({ widgetPrefs, trends }) {
     // either "over the past week" or measure title
     if (preferences.type === 'percentage') {
       return `(${preferences.measure.toUpperCase()})`
-    } if (preferences.type === 'star') {
+    } else if (preferences.type === 'star') {
       return '(over the past week)'
     }
     return undefined;

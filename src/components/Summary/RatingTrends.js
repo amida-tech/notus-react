@@ -23,7 +23,7 @@ function RatingTrends({
 
   const widgetSpacing = () => {
     let widgetCount = ''
-    for (let i = 0; i < Object.keys(widgetPrefs).length; i++) {
+    for (let value of Object.keys(widgetPrefs)) {
       widgetCount += '1fr ';
     }
     return widgetCount.trimEnd()
