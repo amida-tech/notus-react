@@ -1,14 +1,17 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
 import HelpIcon from '@mui/icons-material/Help';
 import {
   Grid, Typography, Rating, Box,
 } from '@mui/material';
 import ToolTip from '@mui/material/Tooltip';
 import theme from '../../assets/styles/AppTheme';
+import { DatastoreContext } from '../../context/DatastoreProvider';
 
 function RatingTrendBox({value, widgetPrefs, info, trends}) {
   const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
   const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
+  const { datastore } = useContext(DatastoreContext);
 
   const titleValue = (preferences) => {
     // props: measure, rating type
@@ -45,24 +48,33 @@ function RatingTrendBox({value, widgetPrefs, info, trends}) {
     )
   }
 
-  const boxValue = (preferences, info) => {
+  const boxValue = (preferences) => {
     // props: display value of rating
     console.log('BOX VALUE > prefs/trends:', {preferences, trends})
     if (preferences.type === 'percentage') {
       const percentValue = trends.find(trend => trend.measure === preferences.measure.toLowerCase()).percentChange
       let percentColor = theme.palette?.text.disabled
-      console.log('percent value:', typeof percentValue, percentValue)
       if (percentValue > 0) {
         percentColor = theme.palette?.success.main
       } else if (percentValue < 0) {
         percentColor = theme.palette?.error.main
       }
-      console.log('percent color:', percentColor)
-
       return (
         <Typography color={percentColor} variant="h4">
           {percentValue < 0 ? percentValue : '+' + percentValue} %
         </Typography>
+      )
+    } else if (preferences.type === 'star') {
+      const starValue = datastore.currentResults.find(trend => trend.measure === preferences.measure.toLowerCase()).starRating
+      console.log('STAR VALUE:', starValue)
+      return (
+        <Rating
+          name="read-only"
+          value={starValue}
+          precision={0.5}
+          sx={{ fontSize: 'xxx-large' }}
+          readOnly
+        />
       )
     }
     

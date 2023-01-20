@@ -50,6 +50,8 @@ function RatingTrends({
   const mainTrend = mainTrendCreator(activeMeasure, info, measureTrend);
   const sortedTrends = sortedTrendsCreator(activeMeasure, trends, measureTrend);
 
+  console.log('activeMeasure', activeMeasure)
+
   // if (sortedTrends.length > 1) {
   //   let { measure } = sortedTrends[0];
   //   biggestGain.measure = info[measure] !== undefined ? info[measure].displayLabel : measure;
