@@ -2838,14 +2838,14 @@ export const resultList = [
 ]
 
 export const userPreferences = {
-  ratingTrendsWidget: {
+  ratingTrends: {
     0: {
       type: 'star',
       measure: 'composite',
     },
     1: {
       type: 'percentage',
-      measure: 'composite',
+      measure: 'aab',
     },
   },
   theme: 'light',

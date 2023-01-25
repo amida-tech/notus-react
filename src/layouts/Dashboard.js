@@ -558,7 +558,7 @@ export default function Dashboard() {
                     activeMeasure={activeMeasure}
                     trends={datastore.trends}
                     info={datastore.info}
-                    widgetPrefs={datastore.preferences.ratingTrendsWidget}
+                    widgetPrefs={datastore.preferences.ratingTrends}
                   />
                 )}
             </Grid>

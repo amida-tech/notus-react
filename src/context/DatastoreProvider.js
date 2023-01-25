@@ -85,7 +85,7 @@ export default function DatastoreProvider({ children }) {
       const practitionersPromise = axios.get(practitionersUrl);
       // this is placeholder preferences
       const newUserPreferences = {
-        ratingTrendsWidget: {
+        ratingTrends: {
           0: {
             type: 'star',
             measure: 'aab',

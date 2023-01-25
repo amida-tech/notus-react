@@ -36,7 +36,7 @@ export const initialState = {
   memberResults: [],
   trends: [],
   preferences: {
-    ratingTrendsWidget: {
+    ratingTrends: {
       0: {
         type: 'star',
         measure: 'composite',

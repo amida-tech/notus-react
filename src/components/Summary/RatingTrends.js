@@ -12,14 +12,18 @@ import {
 import Info from '../Common/Info';
 import RatingTrendBox from './RatingTrendBox';
 import { DatastoreContext } from '../../context/DatastoreProvider';
+// import { submeasureResults } from '../Utilities/RatingTrendsValues';
 // TrendDisplay
 
 function RatingTrends({
-  trends, widgetPrefs,
+  activeMeasure, trends, widgetPrefs,
 }) {
   const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
   const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs))
   const { datastore, datastoreActions } = useContext(DatastoreContext);
+
+  // import submeasureResults and conditionally render for individual measures
+  // console.log('submeasureResults:', submeasureResults(activeMeasure, trends, widgetPrefs))
 
   const widgetSpacing = () => {
     let widgetCount = ''
@@ -35,57 +39,92 @@ function RatingTrends({
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setBoxOrder(items);
-    delete datastore.preferences.ratingTrendsWidget;
-    datastoreActions?.setPreferences({ ratingTrendsWidget: items, ...datastore.preferences })
+    delete datastore.preferences.ratingTrends;
+    datastoreActions?.setPreferences({ ratingTrends: items, ...datastore.preferences })
   }
 
-  return (
-    <Box sx={{ m: '0 1rem' }}>
-      <Box sx={{ display: 'flex', mb: '1rem' }}>
-        <Typography variant="h4" sx={{ fontWeight: '600' }}>
-          Ratings & Trends
-        </Typography>
-        <Info infoText={ratingTrendsTip} />
+  if (activeMeasure.measure !== 'composite') {
+    return (
+      <Box sx={{ m: '0 1rem' }}>
+        <Box sx={{ display: 'flex', mb: '1rem' }}>
+          <Typography variant="h4" sx={{ fontWeight: '600' }}>
+            Ratings & Trends
+          </Typography>
+          <Info infoText={ratingTrendsTip} />
+        </Box>
+
+        <Box
+          sx={{
+            display: 'grid',
+            gap: '2rem',
+            width: 'inherit',
+            gridTemplateColumns: widgetSpacing,
+          }}
+        >
+          {boxItems.map((widgetPrefs, idx) => (
+            <RatingTrendBox
+              activeMeasure={activeMeasure}
+              widgetPrefs={submeasureResults(activeMeasure, trends, widgetPrefs)}
+              trends={trends}
+              currentResults={datastore.currentResults}
+            />
+          ))}
+
+        </Box>
+
       </Box>
-
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="ratings" direction="horizontal">
-          {(provided) => (
-            <Box
-              sx={{
-                display: 'grid',
-                gap: '2rem',
-                width: 'inherit',
-                gridTemplateColumns: widgetSpacing,
-              }}
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {boxItems.map((widget, idx) => (
-                <Draggable key={widget.measure} draggableId={widget.measure} index={idx}>
-                  {(provided) => (
-                    <div
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                    >
-                      <RatingTrendBox
-                        widgetPrefs={widget}
-                        trends={trends}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-
-              {provided.placeholder}
-            </Box>
-          )}
-        </Droppable>
-      </DragDropContext>
-
-    </Box>
-  )
+    )
+  } else {
+    return (
+      <Box sx={{ m: '0 1rem' }}>
+        <Box sx={{ display: 'flex', mb: '1rem' }}>
+          <Typography variant="h4" sx={{ fontWeight: '600' }}>
+            Ratings & Trends
+          </Typography>
+          <Info infoText={ratingTrendsTip} />
+        </Box>
+  
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <Droppable droppableId="ratings" direction="horizontal">
+            {(provided) => (
+              <Box
+                sx={{
+                  display: 'grid',
+                  gap: '2rem',
+                  width: 'inherit',
+                  gridTemplateColumns: widgetSpacing,
+                }}
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                
+                {boxItems.map((widget, idx) => (
+                  <Draggable key={widget.measure} draggableId={widget.measure} index={idx}>
+                    {(provided) => (
+                      <div
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                        ref={provided.innerRef}
+                      >
+                        <RatingTrendBox
+                          widgetPrefs={widget}
+                          trends={trends}
+                          currentResults={datastore.currentResults}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+  
+                {provided.placeholder}
+              </Box>
+            )}
+          </Droppable>
+        </DragDropContext>
+  
+      </Box>
+    )
+  }
 }
 
 RatingTrends.propTypes = {
