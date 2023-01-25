@@ -5,7 +5,9 @@ import {
 } from '@mui/material';
 import ToolTip from '@mui/material/Tooltip';
 import theme from '../../assets/styles/AppTheme';
-import { activeMeasureProps } from './PropTypes';
+import {
+  activeMeasureProps, currentResultsProps, trendsProps, widgetPrefsProps,
+} from './PropTypes';
 
 export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
@@ -225,7 +227,7 @@ export const submeasureResults = (activeMeasure, trends) => {
 
 Title.propTypes = {
   activeMeasure: activeMeasureProps,
-  trend: PropTypes.shape({
+  trends: PropTypes.shape({
     measure: PropTypes.string,
     precentChange: PropTypes.number,
     subScoretrend: PropTypes.arrayOf(PropTypes.shape({
@@ -233,43 +235,31 @@ Title.propTypes = {
       percentChange: PropTypes.number,
     })),
   }),
-  preferences: PropTypes.shape({
-    type: PropTypes.string,
-    measure: PropTypes.string,
-  }),
+  preferences: widgetPrefsProps,
   currentResults: PropTypes.arrayOf(PropTypes.shape({})),
 }
-
 WidgetValue.propTypes = {
-  preferences: PropTypes.shape({
-    type: PropTypes.string,
-    measure: PropTypes.string,
-  }),
-}
-
-Details.propTypes = {
   activeMeasure: activeMeasureProps,
-  trends: PropTypes.arrayOf(PropTypes.shape({
-    measure: PropTypes.string,
-    precentChange: PropTypes.number,
-    subScoreTrends: PropTypes.arrayOf(PropTypes.shape({
-      measure: PropTypes.string,
-      percentChange: PropTypes.number,
-    })),
-  })),
+  currentResults: currentResultsProps,
+  trends: trendsProps,
+  preferences: widgetPrefsProps,
+}
+Details.propTypes = {
+  preferences: widgetPrefsProps,
 }
 
 Title.defaultProps = {
   activeMeasure: {},
-  trend: {},
+  trends: {},
   preferences: {},
   currentResults: {},
 }
-
-WidgetValue.propTypes = {
+WidgetValue.defaultProps = {
+  activeMeasure: {},
+  currentResults: {},
+  trends: {},
   preferences: {},
 }
-Details.propTypes = {
-  activeMeasure: {},
-  trends: [],
+Details.defaultProps = {
+  preferences: {},
 }

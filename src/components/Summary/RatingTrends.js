@@ -3,12 +3,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-shadow */
 import { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import {
   Typography, Box,
 } from '@mui/material';
-import { activeMeasureProps } from '../Utilities/PropTypes';
+import { activeMeasureProps, trendsProps, widgetPrefsProps } from '../Utilities/PropTypes';
 import Info from '../Common/Info';
 import RatingTrendBox from './RatingTrendBox';
 import { DatastoreContext } from '../../context/DatastoreProvider';
@@ -139,18 +138,8 @@ function RatingTrends({
 
 RatingTrends.propTypes = {
   activeMeasure: activeMeasureProps,
-  trends: PropTypes.arrayOf(PropTypes.shape({
-    measure: PropTypes.string,
-    precentChange: PropTypes.number,
-    subScoreTrends: PropTypes.arrayOf(PropTypes.shape({
-      measure: PropTypes.string,
-      percentChange: PropTypes.number,
-    })),
-  })),
-  widgetPrefs: PropTypes.shape({
-    type: PropTypes.string,
-    measure: PropTypes.string,
-  }),
+  trends: trendsProps,
+  widgetPrefs: widgetPrefsProps,
 }
 
 RatingTrends.defaultProps = {
