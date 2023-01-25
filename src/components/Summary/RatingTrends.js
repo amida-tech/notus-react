@@ -12,7 +12,7 @@ import {
 import Info from '../Common/Info';
 import RatingTrendBox from './RatingTrendBox';
 import { DatastoreContext } from '../../context/DatastoreProvider';
-// import { submeasureResults } from '../Utilities/RatingTrendsValues';
+import { submeasureResults } from '../Utilities/RatingTrendsValues';
 // TrendDisplay
 
 function RatingTrends({
@@ -22,15 +22,16 @@ function RatingTrends({
   const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs))
   const { datastore, datastoreActions } = useContext(DatastoreContext);
 
-  // import submeasureResults and conditionally render for individual measures
-  // console.log('submeasureResults:', submeasureResults(activeMeasure, trends, widgetPrefs))
-
   const widgetSpacing = () => {
-    let widgetCount = ''
-    for (let i = 0; i < Object.keys(widgetPrefs).length; i++) {
-      widgetCount += '1fr ';
+    if (activeMeasure.measure === 'composite') {
+      return `repeat(${Object.keys(widgetPrefs).length + 1}, 1fr)`
     }
-    return widgetCount.trimEnd()
+
+    const subscoresLength = trends.find(
+      (trend) => activeMeasure.measure === trend.measure
+    ).subScoreTrends.length
+
+    return `repeat(${subscoresLength + 1}, 1fr)`
   }
 
   function handleOnDragEnd(result) {
@@ -44,6 +45,7 @@ function RatingTrends({
   }
 
   if (activeMeasure.measure !== 'composite') {
+    const measurePreferences = submeasureResults(activeMeasure, trends)
     return (
       <Box sx={{ m: '0 1rem' }}>
         <Box sx={{ display: 'flex', mb: '1rem' }}>
@@ -56,19 +58,26 @@ function RatingTrends({
         <Box
           sx={{
             display: 'grid',
-            gap: '2rem',
+            gap: '1rem',
             width: 'inherit',
             gridTemplateColumns: widgetSpacing,
+            height: '14rem',
+            overflowX: 'scroll',
+            overflowY: 'unset',
+            padding: '1rem'
           }}
         >
-          {boxItems.map((widgetPrefs, idx) => (
-            <RatingTrendBox
-              activeMeasure={activeMeasure}
-              widgetPrefs={submeasureResults(activeMeasure, trends, widgetPrefs)}
-              trends={trends}
-              currentResults={datastore.currentResults}
-            />
-          ))}
+          {Object.values(measurePreferences).map((pref, idx) => {
+            return (
+              <RatingTrendBox
+                key={pref.measure}
+                activeMeasure={activeMeasure}
+                widgetPrefs={measurePreferences[idx]}
+                trends={trends}
+                currentResults={datastore.currentResults}
+              />
+            )
+          })}
 
         </Box>
 
@@ -90,9 +99,13 @@ function RatingTrends({
               <Box
                 sx={{
                   display: 'grid',
-                  gap: '2rem',
+                  gap: '1rem',
                   width: 'inherit',
                   gridTemplateColumns: widgetSpacing,
+                  height: '14rem',
+                  overflowX: 'scroll',
+                  overflowY: 'unset',
+                  padding: '1rem'
                 }}
                 {...provided.droppableProps}
                 ref={provided.innerRef}
@@ -107,6 +120,7 @@ function RatingTrends({
                         ref={provided.innerRef}
                       >
                         <RatingTrendBox
+                          activeMeasure={activeMeasure}
                           widgetPrefs={widget}
                           trends={trends}
                           currentResults={datastore.currentResults}

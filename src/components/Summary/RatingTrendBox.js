@@ -23,10 +23,18 @@ function RatingTrendBox({ activeMeasure, widgetPrefs, trends, currentResults }) 
           display: 'flex',
           placeContent: 'center',
         },
+        '& > span': {
+          padding: '0 2rem'
+        }
       }}
     >
       <Title preferences={widgetPrefs} />
-      <WidgetValue preferences={widgetPrefs} currentResults={currentResults} trends={trends} />
+      <WidgetValue
+        activeMeasure={activeMeasure}
+        preferences={widgetPrefs}
+        currentResults={currentResults}
+        trends={trends}
+      />
       <Details preferences={widgetPrefs} />
 
     </Box>

@@ -62,8 +62,8 @@ export const Title = ({preferences}) => {
     
 }
 
-export const WidgetValue = ({preferences, currentResults, trends}) => {
-  if (preferences.type === 'percentage') {
+export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}) => {
+  if (activeMeasure.measure === 'composite' && preferences.type === 'percentage') {
     const percentValue = trends.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).percentChange
@@ -80,7 +80,7 @@ export const WidgetValue = ({preferences, currentResults, trends}) => {
         %
       </Typography>
     )
-  } else if (preferences.type === 'star') {
+  } else if (preferences.type === 'star' || activeMeasure.measure === 'composite' && preferences.type === 'star') {
     const starValue = currentResults.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).starRating
@@ -93,7 +93,27 @@ export const WidgetValue = ({preferences, currentResults, trends}) => {
         readOnly
       />
     )
+  } else if (activeMeasure.measure !== 'composite' && activeMeasure.measure !== preferences.measure) {
+    const percentValue = trends.find(
+      (trend) => activeMeasure.measure === trend.measure
+    ).subScoreTrends.find(
+      (trend) => trend.measure === preferences.measure
+    ).percentChange
+    let percentColor = theme.palette?.text.disabled
+    if (percentValue > 0) {
+      percentColor = theme.palette?.success.main
+    } else if (percentValue < 0) {
+      percentColor = theme.palette?.error.main
+    }
+    return (
+      <Typography color={percentColor} variant="h4">
+        {percentValue < 0 ? percentValue : `+${percentValue}`}
+        {' '}
+        %
+      </Typography>
+    )
   }
+  
   return (
     <Typography>
       Undefined component
@@ -121,22 +141,25 @@ export const Details = ({preferences}) => {
   return undefined;
 }
 
-// export const submeasureResults = (activeMeasure, trends) => {
-//   console.log('props:', {activeMeasure, trends, preferences})
-//   const startingValues = {
-//     0: {
-//       type: 'star',
-//       measure: activeMeasure.measure
-//     },
-//     // main measure
-//     1: {
-//       type: 'percent',
-//       measure: trends.find(
-//         (trend) => trend.measure === activeMeasure.measure.toLowerCase(),
-//       ).percentChange
-//     }
-//   }
-//   // add submeasures
+export const submeasureResults = (activeMeasure, trends) => {
+  const values = {
+    0: {
+      type: 'star',
+      measure: activeMeasure.measure
+    },
+  }
+  // add submeasures
 
-//   return startingValues
-// }
+  const subScoreTrends = trends.find(
+      (trend) => trend.measure === activeMeasure.measure
+    ).subScoreTrends
+
+  subScoreTrends.forEach((trend, idx) => {
+    Object.assign(values, {
+      [idx + 1] :
+        {type: 'percentage', measure: trend.measure}
+    })
+  })
+
+  return values
+}
