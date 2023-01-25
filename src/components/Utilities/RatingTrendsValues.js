@@ -8,7 +8,8 @@ import ToolTip from '@mui/material/Tooltip';
 export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
-export const Title = ({preferences}) => {
+export const Title = ({activeMeasure, preferences, currentResults}) => {
+  // handles stars
   if (preferences?.type === 'star') {
     return (
         <Typography
@@ -27,7 +28,10 @@ export const Title = ({preferences}) => {
         </ToolTip>
       </Typography>
     )
-  } else if (preferences?.type === 'percentage') {
+  }
+  // handles percentages
+  // composite percentages
+  else if (activeMeasure.measure === 'composite' && preferences?.type === 'percentage') {
     return (
       <Typography
         variant="h6"
@@ -38,6 +42,56 @@ export const Title = ({preferences}) => {
         }}
       >
         {preferences.measure.toUpperCase()}
+        {' '}
+        Score % Change
+        <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
+          <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
+        </ToolTip>
+      </Typography>
+    )
+  }
+  // measure percentages
+  else if (activeMeasure.measure === preferences.measure && preferences?.type === 'percentage') {
+    console.log('CIS-E SUCKS', activeMeasure.measure, preferences.measure)
+    return (
+      <Typography
+        variant="h6"
+        sx={{
+          padding: '1rem',
+          fontWeight: 700,
+          whiteSpace: 'nowrap'
+        }}
+      >
+        {preferences.measure.toUpperCase()}
+        {' '}
+        Score % Change
+        <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
+          <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
+        </ToolTip>
+      </Typography>
+    )
+  }
+  // sub-measure percentages submeasures
+  else if (activeMeasure.measure !== preferences.measure && preferences?.type === 'percentage') {
+    const subMeasures = currentResults.find(
+      (trend) => trend.measure === activeMeasure.measure,
+    ).subScores
+
+    let label = subMeasures?.find((sub) => preferences.measure === sub.measure).label
+    label = label.split('').slice(activeMeasure.measure.length + 4).join('')
+
+    console.log('label:', label)
+
+    return (
+      <Typography
+        variant="h6"
+        sx={{
+          padding: '1rem',
+          fontWeight: 700,
+          width: '20rem'
+        }}
+      >
+        {label.toUpperCase()}
         {' '}
         Score % Change
         <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
@@ -63,6 +117,7 @@ export const Title = ({preferences}) => {
 }
 
 export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}) => {
+  console.log('prefs:', {trends, currentResults} )
   if (activeMeasure.measure === 'composite' && preferences.type === 'percentage') {
     const percentValue = trends.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),

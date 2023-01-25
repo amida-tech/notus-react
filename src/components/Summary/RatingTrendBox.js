@@ -28,7 +28,11 @@ function RatingTrendBox({ activeMeasure, widgetPrefs, trends, currentResults }) 
         }
       }}
     >
-      <Title preferences={widgetPrefs} />
+      <Title
+        activeMeasure={activeMeasure}
+        preferences={widgetPrefs}
+        currentResults={currentResults}
+      />
       <WidgetValue
         activeMeasure={activeMeasure}
         preferences={widgetPrefs}
