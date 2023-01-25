@@ -16,12 +16,13 @@ function RatingTrendBox({ activeMeasure, widgetPrefs, trends, currentResults }) 
         outline: `1px solid ${theme.palette?.secondary.light}`,
         backgroundColor: theme.palette?.background.main,
         borderRadius: '1px',
-        height: '10rem',
+        height: '12rem',
         display: 'grid',
         gridTemplateRows: '1fr 2fr 1fr',
         '& > *': {
           display: 'flex',
           placeContent: 'center',
+          alignSelf: 'center'
         },
         '& > span': {
           padding: '0 2rem'

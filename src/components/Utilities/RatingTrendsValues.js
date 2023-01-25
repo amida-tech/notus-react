@@ -77,20 +77,26 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
     ).subScores
 
     let label = subMeasures?.find((sub) => preferences.measure === sub.measure).label
-    label = label.split('').slice(activeMeasure.measure.length + 4).join('')
+    label = label.split('').slice(activeMeasure.measure.length + 4).join('') + ' Score % Change'
+
+    const charCount = label.split('').length > 45
+    console.log('charCount for', label, ':', charCount)
+    
 
     return (
       <Typography
         variant="h6"
         sx={{
-          padding: '1rem',
+          padding: '.5rem',
           fontWeight: 700,
-          width: '20rem'
+          width: '85%',
+          height: 'fit-content',
+          textAlign: 'center',
+          justifySelf: 'center',
+          fontSize: charCount ? '1rem' : '1.2rem'
         }}
       >
-        {label.toUpperCase()}
-        {' '}
-        Score % Change
+        {label}
         <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
           <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
         </ToolTip>
@@ -103,7 +109,8 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
         sx={{
           padding: '1rem',
           fontWeight: 700,
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
+          height: 'fit-content'
         }}
       >
         Undefined trend
@@ -125,7 +132,7 @@ export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}
       percentColor = theme.palette?.error.main
     }
     return (
-      <Typography color={percentColor} variant="h4">
+      <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
         {percentValue < 0 ? percentValue : `+${percentValue}`}
         {' '}
         %
@@ -157,7 +164,7 @@ export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}
       percentColor = theme.palette?.error.main
     }
     return (
-      <Typography color={percentColor} variant="h4">
+      <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
         {percentValue < 0 ? percentValue : `+${percentValue}`}
         {' '}
         %
@@ -177,13 +184,13 @@ export const Details = ({preferences}) => {
   // either "over the past week" or measure title
   if (preferences.type === 'percentage') {
     return (
-      <Typography>
+      <Typography sx={{ height: 'fit-content' }}>
         {preferences.measure.toUpperCase()}
       </Typography>
     )
   } else if (preferences.type === 'star') {
     return (
-      <Typography>
+      <Typography sx={{ height: '3rem'}}>
         (over the past week)
       </Typography>
     )

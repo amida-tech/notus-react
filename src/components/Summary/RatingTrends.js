@@ -2,7 +2,6 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-shadow */
-/* eslint-disable no-plusplus */
 import { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
@@ -24,7 +23,7 @@ function RatingTrends({
 
   const widgetSpacing = () => {
     if (activeMeasure.measure === 'composite') {
-      return `repeat(${Object.keys(widgetPrefs).length + 1}, 1fr)`
+      return `repeat(${Object.keys(widgetPrefs).length}, 1fr)`
     }
 
     const subscoresLength = trends.find(
@@ -61,10 +60,9 @@ function RatingTrends({
             gap: '1rem',
             width: 'inherit',
             gridTemplateColumns: widgetSpacing,
-            height: '14rem',
             overflowX: 'scroll',
             overflowY: 'unset',
-            padding: '1rem'
+            padding: '.5rem'
           }}
         >
           {Object.values(measurePreferences).map((pref, idx) => {
