@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import theme from '../../assets/styles/AppTheme'
 
-import { TickChange, TimelineOptions } from '../Utilities/ChartUtils';
-import { colorMappingProps } from './D3Props';
+import { TickChange, TimelineOptions } from '../Utilities/ChartUtils.js';
+import { colorMappingProps } from './D3Props.js';
 
 function D3Chart({
   displayData, colorMapping, measureInfo, graphWidth, currentTimeline,

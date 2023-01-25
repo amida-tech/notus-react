@@ -8,6 +8,7 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import {
   Typography, Box,
 } from '@mui/material';
+import { activeMeasureProps } from '../Utilities/PropTypes';
 import Info from '../Common/Info';
 import RatingTrendBox from './RatingTrendBox';
 import { DatastoreContext } from '../../context/DatastoreProvider';
@@ -27,7 +28,7 @@ function RatingTrends({
     }
 
     const subscoresLength = trends.find(
-      (trend) => activeMeasure.measure === trend.measure
+      (trend) => activeMeasure.measure === trend.measure,
     ).subScoreTrends.length
 
     return `repeat(${subscoresLength + 1}, 1fr)`
@@ -62,84 +63,82 @@ function RatingTrends({
             gridTemplateColumns: widgetSpacing,
             overflowX: 'scroll',
             overflowY: 'unset',
-            padding: '.5rem'
+            padding: '.5rem',
           }}
         >
-          {Object.values(measurePreferences).map((pref, idx) => {
-            return (
-              <RatingTrendBox
-                key={pref.measure}
-                activeMeasure={activeMeasure}
-                widgetPrefs={measurePreferences[idx]}
-                trends={trends}
-                currentResults={datastore.currentResults}
-              />
-            )
-          })}
+          {Object.values(measurePreferences).map((pref, idx) => (
+            <RatingTrendBox
+              key={pref.measure}
+              activeMeasure={activeMeasure}
+              widgetPrefs={measurePreferences[idx]}
+              trends={trends}
+              currentResults={datastore.currentResults}
+            />
+          ))}
 
         </Box>
 
-      </Box>
-    )
-  } else {
-    return (
-      <Box sx={{ m: '0 1rem' }}>
-        <Box sx={{ display: 'flex', mb: '1rem' }}>
-          <Typography variant="h4" sx={{ fontWeight: '600' }}>
-            Ratings & Trends
-          </Typography>
-          <Info infoText={ratingTrendsTip} />
-        </Box>
-  
-        <DragDropContext onDragEnd={handleOnDragEnd}>
-          <Droppable droppableId="ratings" direction="horizontal">
-            {(provided) => (
-              <Box
-                sx={{
-                  display: 'grid',
-                  gap: '1rem',
-                  width: 'inherit',
-                  gridTemplateColumns: widgetSpacing,
-                  height: '14rem',
-                  overflowX: 'scroll',
-                  overflowY: 'unset',
-                  padding: '1rem'
-                }}
-                {...provided.droppableProps}
-                ref={provided.innerRef}
-              >
-                
-                {boxItems.map((widget, idx) => (
-                  <Draggable key={widget.measure} draggableId={widget.measure} index={idx}>
-                    {(provided) => (
-                      <div
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        ref={provided.innerRef}
-                      >
-                        <RatingTrendBox
-                          activeMeasure={activeMeasure}
-                          widgetPrefs={widget}
-                          trends={trends}
-                          currentResults={datastore.currentResults}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-  
-                {provided.placeholder}
-              </Box>
-            )}
-          </Droppable>
-        </DragDropContext>
-  
       </Box>
     )
   }
+  return (
+    <Box sx={{ m: '0 1rem' }}>
+      <Box sx={{ display: 'flex', mb: '1rem' }}>
+        <Typography variant="h4" sx={{ fontWeight: '600' }}>
+          Ratings & Trends
+        </Typography>
+        <Info infoText={ratingTrendsTip} />
+      </Box>
+
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="ratings" direction="horizontal">
+          {(provided) => (
+            <Box
+              sx={{
+                display: 'grid',
+                gap: '1rem',
+                width: 'inherit',
+                gridTemplateColumns: widgetSpacing,
+                height: '14rem',
+                overflowX: 'scroll',
+                overflowY: 'unset',
+                padding: '1rem',
+              }}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+
+              {boxItems.map((widget, idx) => (
+                <Draggable key={widget.measure} draggableId={widget.measure} index={idx}>
+                  {(provided) => (
+                    <div
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                    >
+                      <RatingTrendBox
+                        activeMeasure={activeMeasure}
+                        widgetPrefs={widget}
+                        trends={trends}
+                        currentResults={datastore.currentResults}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+
+              {provided.placeholder}
+            </Box>
+          )}
+        </Droppable>
+      </DragDropContext>
+
+    </Box>
+  )
 }
 
 RatingTrends.propTypes = {
+  activeMeasure: activeMeasureProps,
   trends: PropTypes.arrayOf(PropTypes.shape({
     measure: PropTypes.string,
     precentChange: PropTypes.number,
@@ -151,10 +150,11 @@ RatingTrends.propTypes = {
   widgetPrefs: PropTypes.shape({
     type: PropTypes.string,
     measure: PropTypes.string,
-  })
+  }),
 }
 
 RatingTrends.defaultProps = {
+  activeMeasure: {},
   trends: {},
   widgetPrefs: {},
 }

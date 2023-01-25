@@ -1,13 +1,13 @@
 import {
-  fireEvent, render, screen, within
+  fireEvent, render, screen, within,
 } from '@testing-library/react';
+import RatingTrendBox from 'components/Summary/RatingTrendBox';
 import Info from '../../../components/Common/Info';
 
 import RatingTrends from '../../../components/Summary/RatingTrends';
 import Banner from '../../../components/Common/Banner'
 import { DatastoreReducer } from '../../../context/DatastoreReducer';
 import { currentResults, trendList, userPreferences } from '../../data/DemoData';
-import RatingTrendBox from 'components/Summary/RatingTrendBox';
 
 describe('Banner', () => {
   test('checks that the timestamp rendered', () => {
@@ -18,21 +18,20 @@ describe('Banner', () => {
     expect(screen.queryByText(date)).not.toBeNull();
   })
 });
-  
-describe('RatingTrends', () => {
-beforeEach(() => {
-  render(
-    <RatingTrendBox
-      trends={trendList}
-      widgetPrefs={userPreferences.ratingTrends[0]}
-      currentResults={currentResults}
-    />
-  )
-})
 
-it('links render', () => {
+describe('RatingTrends', () => {
+  beforeEach(() => {
+    render(
+      <RatingTrendBox
+        trends={trendList}
+        widgetPrefs={userPreferences.ratingTrends[0]}
+        currentResults={currentResults}
+      />,
+    )
+  })
+
+  it('links render', () => {
     const links = screen.getAllByRole('link')
     expect(links.length).toBe(5)
+  })
 })
-})
-  

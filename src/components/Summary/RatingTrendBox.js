@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
 import {
-  Typography, Box,
+  Box,
 } from '@mui/material';
 import theme from '../../assets/styles/AppTheme';
 import {
   Title,
   WidgetValue,
-  Details
+  Details,
 } from '../Utilities/RatingTrendsValues';
+import { activeMeasureProps } from '../Utilities/PropTypes';
 
-function RatingTrendBox({ activeMeasure, widgetPrefs, trends, currentResults }) {
+function RatingTrendBox({
+  activeMeasure, widgetPrefs, trends, currentResults,
+}) {
   return (
     <Box
       sx={{
@@ -22,11 +25,11 @@ function RatingTrendBox({ activeMeasure, widgetPrefs, trends, currentResults }) 
         '& > *': {
           display: 'flex',
           placeContent: 'center',
-          alignSelf: 'center'
+          alignSelf: 'center',
         },
         '& > span': {
-          padding: '0 2rem'
-        }
+          padding: '0 2rem',
+        },
       }}
     >
       <Title
@@ -47,6 +50,7 @@ function RatingTrendBox({ activeMeasure, widgetPrefs, trends, currentResults }) 
 }
 
 RatingTrendBox.propTypes = {
+  activeMeasure: activeMeasureProps,
   trends: PropTypes.arrayOf(PropTypes.shape({
     measure: PropTypes.string,
     precentChange: PropTypes.number,
@@ -59,13 +63,14 @@ RatingTrendBox.propTypes = {
     type: PropTypes.string,
     measure: PropTypes.string,
   }),
-  currentResults: PropTypes.arrayOf(PropTypes.shape({}))
+  currentResults: PropTypes.arrayOf(PropTypes.shape({})),
 }
 
 RatingTrendBox.defaultProps = {
+  activeMeasure: {},
   trends: {},
   widgetPrefs: {},
-  currentResults: {}
+  currentResults: {},
 }
 
 export default RatingTrendBox;

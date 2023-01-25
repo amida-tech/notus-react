@@ -1,18 +1,20 @@
+import PropTypes from 'prop-types';
 import HelpIcon from '@mui/icons-material/Help';
 import {
-  Typography, Rating
+  Typography, Rating,
 } from '@mui/material';
-import theme from '../../assets/styles/AppTheme';
 import ToolTip from '@mui/material/Tooltip';
+import theme from '../../assets/styles/AppTheme';
+import { activeMeasureProps } from './PropTypes';
 
 export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
-export const Title = ({activeMeasure, preferences, currentResults}) => {
+export function Title({ activeMeasure, preferences, currentResults }) {
   // handles stars
   if (preferences?.type === 'star') {
     return (
-        <Typography
+      <Typography
         variant="h6"
         sx={{
           padding: '1rem',
@@ -31,14 +33,14 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
   }
   // handles percentages
   // composite percentages
-  else if (activeMeasure.measure === 'composite' && preferences?.type === 'percentage') {
+  if (activeMeasure.measure === 'composite' && preferences?.type === 'percentage') {
     return (
       <Typography
         variant="h6"
         sx={{
           padding: '1rem',
           fontWeight: 700,
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
         }}
       >
         {preferences.measure.toUpperCase()}
@@ -51,14 +53,14 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
     )
   }
   // measure percentages
-  else if (activeMeasure.measure === preferences.measure && preferences?.type === 'percentage') {
+  if (activeMeasure.measure === preferences.measure && preferences?.type === 'percentage') {
     return (
       <Typography
         variant="h6"
         sx={{
           padding: '1rem',
           fontWeight: 700,
-          whiteSpace: 'nowrap'
+          whiteSpace: 'nowrap',
         }}
       >
         {preferences.measure.toUpperCase()}
@@ -71,17 +73,17 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
     )
   }
   // sub-measure percentages submeasures
-  else if (activeMeasure.measure !== preferences.measure && preferences?.type === 'percentage') {
+  if (activeMeasure.measure !== preferences.measure && preferences?.type === 'percentage') {
     const subMeasures = currentResults.find(
       (trend) => trend.measure === activeMeasure.measure,
     ).subScores
 
     let label = subMeasures?.find((sub) => preferences.measure === sub.measure).label
-    label = label.split('').slice(activeMeasure.measure.length + 4).join('') + ' Score % Change'
+    label = `${label.split('').slice(activeMeasure.measure.length + 4).join('')} Score % Change`
 
+    // submeasure titles can be super long so we're making the font size
+    // slightly smaller for massive ones
     const charCount = label.split('').length > 45
-    console.log('charCount for', label, ':', charCount)
-    
 
     return (
       <Typography
@@ -93,7 +95,7 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
           height: 'fit-content',
           textAlign: 'center',
           justifySelf: 'center',
-          fontSize: charCount ? '1rem' : '1.2rem'
+          fontSize: charCount ? '1rem' : '1.2rem',
         }}
       >
         {label}
@@ -102,25 +104,25 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
         </ToolTip>
       </Typography>
     )
-  } else {
-    return (
-      <Typography
-        variant="h6"
-        sx={{
-          padding: '1rem',
-          fontWeight: 700,
-          whiteSpace: 'nowrap',
-          height: 'fit-content'
-        }}
-      >
-        Undefined trend
-      </Typography>
-    )
   }
-    
+  return (
+    <Typography
+      variant="h6"
+      sx={{
+        padding: '1rem',
+        fontWeight: 700,
+        whiteSpace: 'nowrap',
+        height: 'fit-content',
+      }}
+    >
+      Undefined trend
+    </Typography>
+  )
 }
 
-export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}) => {
+export function WidgetValue({
+  activeMeasure, preferences, currentResults, trends,
+}) {
   if (activeMeasure.measure === 'composite' && preferences.type === 'percentage') {
     const percentValue = trends.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
@@ -138,7 +140,7 @@ export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}
         %
       </Typography>
     )
-  } else if (preferences.type === 'star' || activeMeasure.measure === 'composite' && preferences.type === 'star') {
+  } if (preferences.type === 'star' || (activeMeasure.measure === 'composite' && preferences.type === 'star')) {
     const starValue = currentResults.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).starRating
@@ -151,11 +153,11 @@ export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}
         readOnly
       />
     )
-  } else if (activeMeasure.measure !== 'composite' && activeMeasure.measure !== preferences.measure) {
+  } if (activeMeasure.measure !== 'composite' && activeMeasure.measure !== preferences.measure) {
     const percentValue = trends.find(
-      (trend) => activeMeasure.measure === trend.measure
+      (trend) => activeMeasure.measure === trend.measure,
     ).subScoreTrends.find(
-      (trend) => trend.measure === preferences.measure
+      (trend) => trend.measure === preferences.measure,
     ).percentChange
     let percentColor = theme.palette?.text.disabled
     if (percentValue > 0) {
@@ -171,7 +173,7 @@ export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}
       </Typography>
     )
   }
-  
+
   return (
     <Typography>
       Undefined component
@@ -179,7 +181,7 @@ export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}
   )
 }
 
-export const Details = ({preferences}) => {
+export function Details({ preferences }) {
   // props: measure, time period?
   // either "over the past week" or measure title
   if (preferences.type === 'percentage') {
@@ -188,13 +190,12 @@ export const Details = ({preferences}) => {
         {preferences.measure.toUpperCase()}
       </Typography>
     )
-  } else if (preferences.type === 'star') {
+  } if (preferences.type === 'star') {
     return (
-      <Typography sx={{ height: '3rem'}}>
+      <Typography sx={{ height: '3rem' }}>
         (over the past week)
       </Typography>
     )
-    
   }
   return undefined;
 }
@@ -203,21 +204,72 @@ export const submeasureResults = (activeMeasure, trends) => {
   const values = {
     0: {
       type: 'star',
-      measure: activeMeasure.measure
+      measure: activeMeasure.measure,
     },
   }
   // add submeasures
 
-  const subScoreTrends = trends.find(
-      (trend) => trend.measure === activeMeasure.measure
-    ).subScoreTrends
+  const { subScoreTrends } = trends.find(
+    (trend) => trend.measure === activeMeasure.measure,
+  )
 
   subScoreTrends.forEach((trend, idx) => {
     Object.assign(values, {
-      [idx + 1] :
-        {type: 'percentage', measure: trend.measure}
+      [idx + 1]:
+        { type: 'percentage', measure: trend.measure },
     })
   })
 
   return values
+}
+
+Title.propTypes = {
+  activeMeasure: activeMeasureProps,
+  trend: PropTypes.shape({
+    measure: PropTypes.string,
+    precentChange: PropTypes.number,
+    subScoretrend: PropTypes.arrayOf(PropTypes.shape({
+      measure: PropTypes.string,
+      percentChange: PropTypes.number,
+    })),
+  }),
+  preferences: PropTypes.shape({
+    type: PropTypes.string,
+    measure: PropTypes.string,
+  }),
+  currentResults: PropTypes.arrayOf(PropTypes.shape({})),
+}
+
+WidgetValue.propTypes = {
+  preferences: PropTypes.shape({
+    type: PropTypes.string,
+    measure: PropTypes.string,
+  }),
+}
+
+Details.propTypes = {
+  activeMeasure: activeMeasureProps,
+  trends: PropTypes.arrayOf(PropTypes.shape({
+    measure: PropTypes.string,
+    precentChange: PropTypes.number,
+    subScoreTrends: PropTypes.arrayOf(PropTypes.shape({
+      measure: PropTypes.string,
+      percentChange: PropTypes.number,
+    })),
+  })),
+}
+
+Title.defaultProps = {
+  activeMeasure: {},
+  trend: {},
+  preferences: {},
+  currentResults: {},
+}
+
+WidgetValue.propTypes = {
+  preferences: {},
+}
+Details.propTypes = {
+  activeMeasure: {},
+  trends: [],
 }
