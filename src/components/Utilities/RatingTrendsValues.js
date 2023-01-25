@@ -52,7 +52,6 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
   }
   // measure percentages
   else if (activeMeasure.measure === preferences.measure && preferences?.type === 'percentage') {
-    console.log('CIS-E SUCKS', activeMeasure.measure, preferences.measure)
     return (
       <Typography
         variant="h6"
@@ -79,8 +78,6 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
 
     let label = subMeasures?.find((sub) => preferences.measure === sub.measure).label
     label = label.split('').slice(activeMeasure.measure.length + 4).join('')
-
-    console.log('label:', label)
 
     return (
       <Typography
@@ -117,7 +114,6 @@ export const Title = ({activeMeasure, preferences, currentResults}) => {
 }
 
 export const WidgetValue = ({activeMeasure, preferences, currentResults, trends}) => {
-  console.log('prefs:', {trends, currentResults} )
   if (activeMeasure.measure === 'composite' && preferences.type === 'percentage') {
     const percentValue = trends.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
