@@ -63,6 +63,21 @@ function RatingTrends({
             overflowX: 'scroll',
             overflowY: 'unset',
             padding: '.5rem',
+            '& > div': {
+              width: '20rem',
+              justifyContent: 'center',
+              '& > h4': {
+                alignSelf: 'end'
+              },
+              '& > p': {
+                margin: '1rem 0',
+                height: 'unset',
+                alignItems: 'self-end'
+              },
+              '& > span': {
+                marginBottom: '-2rem'
+              }
+            }
           }}
         >
           {Object.values(measurePreferences).map((pref, idx) => (
@@ -98,9 +113,6 @@ function RatingTrends({
                 gap: '1rem',
                 width: 'inherit',
                 gridTemplateColumns: widgetSpacing,
-                height: '14rem',
-                overflowX: 'scroll',
-                overflowY: 'unset',
                 padding: '1rem',
               }}
               {...provided.droppableProps}
