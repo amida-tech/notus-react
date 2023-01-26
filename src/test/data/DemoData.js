@@ -2854,103 +2854,339 @@ export const userPreferences = {
 export const trendList = [
   {
     measure: 'aab',
-    percentChange: 9,
-    subScoreTrends: [
-      {
-        measure: 'aab-1',
-        percentChange: 9,
-      },
-    ],
-    futurePrediction: {
-      '2022-02-20': 85.58591329086472,
-      '2022-02-21': 86.04889652344241,
-      '2022-02-22': 86.5118797560201,
-    },
+    percentChange: 0,
+    subScoreTrends: [],
   },
   {
     measure: 'aise',
-    percentChange: -16,
+    percentChange: 0,
     subScoreTrends: [
       {
         measure: 'aise-1',
-        percentChange: -20,
+        percentChange: 0,
       },
       {
         measure: 'aise-2',
-        percentChange: -10,
+        percentChange: 0,
       },
       {
         measure: 'aise-3',
-        percentChange: 6,
+        percentChange: 0,
       },
       {
         measure: 'aise-4',
-        percentChange: -50,
+        percentChange: 0,
       },
     ],
-    futurePrediction: {},
+  },
+  {
+    measure: 'apme',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'apme-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'apme-2',
+        percentChange: 0,
+      },
+      {
+        measure: 'apme-3',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'asfe',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'asfe-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'asfe-2',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'bcse',
+    percentChange: 0,
+    subScoreTrends: [],
+  },
+  {
+    measure: 'ccs',
+    percentChange: 0,
+    subScoreTrends: [],
+  },
+  {
+    measure: 'cise',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'cise-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-2',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-3',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-4',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-5',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-6',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-7',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-8',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-9',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-10',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-11',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-12',
+        percentChange: 0,
+      },
+      {
+        measure: 'cise-13',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'cole',
+    percentChange: 0,
+    subScoreTrends: [],
+  },
+  {
+    measure: 'cou',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'cou-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'cou-2',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'cwp',
+    percentChange: 0,
+    subScoreTrends: [],
+  },
+  {
+    measure: 'dmse',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'dmse-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'dmse-2',
+        percentChange: 0,
+      },
+      {
+        measure: 'dmse-3',
+        percentChange: 0,
+      },
+    ],
   },
   {
     measure: 'drre',
-    percentChange: 34,
+    percentChange: 0,
     subScoreTrends: [
       {
         measure: 'drre-1',
-        percentChange: 63,
+        percentChange: 0,
       },
       {
         measure: 'drre-2',
-        percentChange: 27,
+        percentChange: 0,
       },
       {
         measure: 'drre-3',
-        percentChange: 19,
+        percentChange: 0,
       },
     ],
-    futurePrediction: {
-      '2022-02-20': 68.23699713014412,
-      '2022-02-21': 68.17193548082246,
-      '2022-02-22': 68.10687383150078,
-    },
+  },
+  {
+    measure: 'dsfe',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'dsfe-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'dsfe-2',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'fum',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'fum-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'fum-2',
+        percentChange: 0,
+      },
+    ],
   },
   {
     measure: 'imae',
-    percentChange: -52,
+    percentChange: 0,
     subScoreTrends: [
       {
         measure: 'imae-1',
-        percentChange: -54,
+        percentChange: 0,
       },
       {
         measure: 'imae-2',
-        percentChange: -36,
+        percentChange: 0,
       },
       {
         measure: 'imae-3',
-        percentChange: -46,
+        percentChange: 0,
       },
       {
         measure: 'imae-4',
-        percentChange: -60,
+        percentChange: 0,
       },
       {
         measure: 'imae-5',
-        percentChange: -72,
+        percentChange: 0,
       },
     ],
-    futurePrediction: {
-      '2022-02-20': 50.402090735134756,
-      '2022-02-21': 51.03935987194361,
-      '2022-02-22': 51.67662900875246,
-    },
+  },
+  {
+    measure: 'pdse',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'pdse-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'pdse-2',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'pnde',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'pnde-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'pnde-2',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'prse',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'prse-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'prse-2',
+        percentChange: 0,
+      },
+      {
+        measure: 'prse-3',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'psa',
+    percentChange: 0,
+    subScoreTrends: [],
+  },
+  {
+    measure: 'uop',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'uop-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'uop-2',
+        percentChange: 0,
+      },
+      {
+        measure: 'uop-3',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'adde',
+    percentChange: 0,
+    subScoreTrends: [
+      {
+        measure: 'adde-1',
+        percentChange: 0,
+      },
+      {
+        measure: 'adde-2',
+        percentChange: 0,
+      },
+    ],
+  },
+  {
+    measure: 'uri',
+    percentChange: 0,
+    subScoreTrends: [],
   },
   {
     measure: 'composite',
-    percentChange: -9,
+    percentChange: 0,
     subScoreTrends: [],
-    futurePrediction: {},
   },
-];
+]
 
 export const infoObject = {
   composite: {
@@ -4401,4 +4637,37 @@ export const additionalFilterOptions = {
       timestamp: '2022-10-25T20:14:40.104Z',
     },
   ],
+}
+
+export const activeMeasure = {
+  measure: 'composite',
+  date: '2023-01-25T00:00:00.000Z',
+  value: 39.04150237324107,
+  starRating: 2,
+  numerator: 6791,
+  denominator: 18640,
+  initialPopulation: 19634,
+  exclusions: 8909,
+  label: 'Composite - Composite Score',
+  shortLabel: 'Composite',
+  title: 'Composite Score',
+}
+
+export const widgetPrefs = {
+  0: {
+    type: 'star',
+    measure: 'aab',
+  },
+  1: {
+    type: 'percentage',
+    measure: 'asfe',
+  },
+  2: {
+    type: 'star',
+    measure: 'uri',
+  },
+  3: {
+    type: 'percentage',
+    measure: 'composite',
+  },
 }

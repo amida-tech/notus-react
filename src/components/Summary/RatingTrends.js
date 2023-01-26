@@ -15,7 +15,7 @@ import { submeasureResults } from '../Utilities/RatingTrendsValues';
 // TrendDisplay
 
 function RatingTrends({
-  activeMeasure, trends, widgetPrefs,
+  currentResults, activeMeasure, trends, widgetPrefs,
 }) {
   const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
   const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs))
@@ -71,7 +71,7 @@ function RatingTrends({
               activeMeasure={activeMeasure}
               widgetPrefs={measurePreferences[idx]}
               trends={trends}
-              currentResults={datastore.currentResults}
+              currentResults={currentResults}
             />
           ))}
 
@@ -119,7 +119,7 @@ function RatingTrends({
                         activeMeasure={activeMeasure}
                         widgetPrefs={widget}
                         trends={trends}
-                        currentResults={datastore.currentResults}
+                        currentResults={currentResults}
                       />
                     </div>
                   )}
