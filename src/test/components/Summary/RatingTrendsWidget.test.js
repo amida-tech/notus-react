@@ -82,7 +82,6 @@ describe('RatingTrends', () => {
 
     Object.entries(defaultStoreHeaders).forEach(([header, type], idx) => {
       if (type === 'star') {
-        // screen.debug()
         const starDetails = screen.getAllByTestId('StarBorderIcon')
         expect(within(starDetails[idx])).toBeTruthy()
       } else if (type === 'percent') {
@@ -115,17 +114,5 @@ describe('RatingTrends', () => {
     })
   })
 })
-
-// check for headers specifically
-// it('widget headers for measures render', () => {
-//   expect(screen.getByText('Ratings & Trends')).toBeTruthy()
-//   Object.values(headers).forEach((value) => {
-//     expect(screen.getByText(value.header)).toBeTruthy()
-//   })
-// })
-
-// check for footer details
-
-// check for true measure data output
 
 // screen.debug()
