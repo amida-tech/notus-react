@@ -1,9 +1,7 @@
 import {
-  fireEvent,
   render, screen, within,
 } from '@testing-library/react';
 import RatingTrends from '../../../components/Summary/RatingTrends';
-import RatingTrendBox from '../../../components/Summary/RatingTrendBox';
 import {
   activeMeasure, trendList, widgetPrefs, currentResults,
 } from '../../data/DemoData';

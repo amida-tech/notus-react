@@ -56,7 +56,7 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
           Matched
         </Grid>
       )
-    } if (labelValue === 'false') {
+    } else if (labelValue === 'false') {
       return (
         <Grid sx={{
           color: theme.palette?.error.main,

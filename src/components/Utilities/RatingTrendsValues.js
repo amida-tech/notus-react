@@ -121,7 +121,14 @@ export function Title({ activeMeasure, preferences, currentResults }) {
 export function WidgetValue({
   activeMeasure, preferences, currentResults, trends,
 }) {
-  if (activeMeasure.measure === 'composite' && preferences.type === 'percentage') {
+  const compositePercentageCheck = activeMeasure.measure === 'composite'
+    && preferences.type === 'percentage'
+  const starCheck = preferences.type === 'star'
+    || (activeMeasure.measure === 'composite' && preferences.type === 'star')
+  const submeasureCheck = activeMeasure.measure !== 'composite'
+    && activeMeasure.measure !== preferences.measure
+
+  if (compositePercentageCheck) {
     const percentValue = trends.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).percentChange
@@ -138,7 +145,7 @@ export function WidgetValue({
         %
       </Typography>
     )
-  } if (preferences.type === 'star' || (activeMeasure.measure === 'composite' && preferences.type === 'star')) {
+  } else if (starCheck) {
     const starValue = currentResults.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).starRating
@@ -151,7 +158,7 @@ export function WidgetValue({
         readOnly
       />
     )
-  } if (activeMeasure.measure !== 'composite' && activeMeasure.measure !== preferences.measure) {
+  } else if (submeasureCheck) {
     const percentValue = trends.find(
       (trend) => activeMeasure.measure === trend.measure,
     ).subScoreTrends.find(
@@ -171,7 +178,6 @@ export function WidgetValue({
       </Typography>
     )
   }
-
   return (
     <Typography>
       Undefined component
