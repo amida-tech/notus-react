@@ -24,9 +24,7 @@ export function Title({ activeMeasure, preferences, currentResults }) {
           whiteSpace: 'nowrap',
         }}
       >
-        {preferences.measure.toUpperCase()}
-        {' '}
-        Star Rating
+        {`${preferences.measure.toUpperCase()} Star Rating`}
         <ToolTip title={starsTip} sx={{ alignSelf: 'center' }}>
           <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
         </ToolTip>
@@ -45,9 +43,7 @@ export function Title({ activeMeasure, preferences, currentResults }) {
           whiteSpace: 'nowrap',
         }}
       >
-        {preferences.measure.toUpperCase()}
-        {' '}
-        Score % Change
+        {`${preferences.measure.toUpperCase()} Score % Change`}
         <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
           <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
         </ToolTip>

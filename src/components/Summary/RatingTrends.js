@@ -7,7 +7,9 @@ import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import {
   Typography, Box,
 } from '@mui/material';
-import { activeMeasureProps, trendsProps, widgetPrefsProps } from '../Utilities/PropTypes';
+import {
+  activeMeasureProps, currentResultsProps, trendsProps, widgetPrefsProps,
+} from '../Utilities/PropTypes';
 import Info from '../Common/Info';
 import RatingTrendBox from './RatingTrendBox';
 import { DatastoreContext } from '../../context/DatastoreProvider';
@@ -60,24 +62,24 @@ function RatingTrends({
             gap: '1rem',
             width: 'inherit',
             gridTemplateColumns: widgetSpacing,
-            overflowX: 'scroll',
+            overflowX: 'auto',
             overflowY: 'unset',
             padding: '.5rem',
             '& > div': {
               width: '20rem',
               justifyContent: 'center',
               '& > h4': {
-                alignSelf: 'end'
+                alignSelf: 'end',
               },
               '& > p': {
                 margin: '1rem 0',
                 height: 'unset',
-                alignItems: 'self-end'
+                alignItems: 'self-end',
               },
               '& > span': {
-                marginBottom: '-2rem'
-              }
-            }
+                marginBottom: '-2rem',
+              },
+            },
           }}
         >
           {Object.values(measurePreferences).map((pref, idx) => (
@@ -152,12 +154,14 @@ RatingTrends.propTypes = {
   activeMeasure: activeMeasureProps,
   trends: trendsProps,
   widgetPrefs: widgetPrefsProps,
+  currentResults: currentResultsProps,
 }
 
 RatingTrends.defaultProps = {
   activeMeasure: {},
   trends: {},
   widgetPrefs: {},
+  currentResults: {},
 }
 
 export default RatingTrends;

@@ -2839,14 +2839,14 @@ export const resultList = [
 
 export const userPreferences = {
   ratingTrends: {
-    0: {
-      type: 'star',
-      measure: 'composite',
-    },
-    1: {
-      type: 'percentage',
-      measure: 'aab',
-    },
+    // 0: {
+    //   type: 'star',
+    //   measure: 'composite',
+    // },
+    // 1: {
+    //   type: 'percentage',
+    //   measure: 'aab',
+    // },
   },
   theme: 'light',
 }
