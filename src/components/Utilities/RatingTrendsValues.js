@@ -133,7 +133,7 @@ export function WidgetValue({
     }
     return (
       <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
-        {percentValue < 0 ? percentValue : `+${percentValue}`}
+        {percentValue < 0 ? percentValue : `+ ${percentValue}`}
         {' '}
         %
       </Typography>
@@ -190,7 +190,7 @@ export function Details({ preferences }) {
     )
   } if (preferences.type === 'star') {
     return (
-      <Typography sx={{ height: '3rem' }}>
+      <Typography sx={{ height: '3rem', alignItems: 'center' }}>
         (over the past week)
       </Typography>
     )
