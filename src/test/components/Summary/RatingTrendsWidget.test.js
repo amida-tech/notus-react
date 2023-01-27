@@ -82,7 +82,7 @@ describe('RatingTrends', () => {
 
     Object.entries(defaultStoreHeaders).forEach(([header, type], idx) => {
       if (type === 'star') {
-        screen.debug()
+        // screen.debug()
         const starDetails = screen.getAllByTestId('StarBorderIcon')
         expect(within(starDetails[idx])).toBeTruthy()
       } else if (type === 'percent') {
@@ -95,13 +95,20 @@ describe('RatingTrends', () => {
   })
 
   it('widget footer have correct information', () => {
-    Object.entries(defaultStoreHeaders).forEach(([header, type]) => {
+    const defaultStoreHeaders = {
+      'aab': 'star',
+      'asfe': 0,
+      'uri': 'star',
+      'Composite': 0,
+    }
+
+    Object.entries(defaultStoreHeaders).forEach(([header, type], idx) => {
       if (type === 'star') {
-        const starFooter = screen.getByText('(over the past week)')
-        expect(starFooter).toBeTruthy()
+        const starFooter = screen.getAllByText('(over the past week)')
+        expect(within(starFooter[idx])).toBeTruthy()
       } else if (type === 'percent') {
-        const percentFooter = screen.getByText(header.toUpperCase())
-        expect(percentFooter).toBeTruthy()
+        const percentFooter = screen.getAllByText(header.toUpperCase())
+        expect(within(percentFooter[idx])).toBeTruthy()
       } else {
         return false;
       }
