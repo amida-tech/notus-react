@@ -127,6 +127,12 @@ export function WidgetValue({
     || (activeMeasure.measure === 'composite' && preferences.type === 'star')
   const submeasureCheck = activeMeasure.measure !== 'composite'
     && activeMeasure.measure !== preferences.measure
+  let percentColor = theme.palette?.success.main
+  if (percentValue > 0) {
+    percentColor = theme.palette?.success.main
+  } else if (percentValue < 0) {
+    percentColor = theme.palette?.error.main
+  }
 
   if (percentageCheck) {
     const percentValue = trends.find(
@@ -164,12 +170,7 @@ export function WidgetValue({
     ).subScoreTrends.find(
       (trend) => trend.measure === preferences.measure,
     ).percentChange
-    let percentColor = theme.palette?.text.disabled
-    if (percentValue > 0) {
-      percentColor = theme.palette?.success.main
-    } else if (percentValue < 0) {
-      percentColor = theme.palette?.error.main
-    }
+    
     return (
       <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
         {percentValue < 0 ? percentValue : `+${percentValue}`}
