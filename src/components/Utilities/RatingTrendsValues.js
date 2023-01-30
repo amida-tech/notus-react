@@ -118,23 +118,28 @@ export function Title({ activeMeasure, preferences, currentResults }) {
   )
 }
 
-export function WidgetValue({
-  activeMeasure, preferences, currentResults, trends,
-}) {
-  const percentageCheck = activeMeasure.measure === 'composite'
-    && preferences.type === 'percentage'
-  const starCheck = preferences.type === 'star'
-    || (activeMeasure.measure === 'composite' && preferences.type === 'star')
-  const submeasureCheck = activeMeasure.measure !== 'composite'
-    && activeMeasure.measure !== preferences.measure
-  let percentColor = theme.palette?.success.main
-  if (percentValue > 0) {
-    percentColor = theme.palette?.success.main
-  } else if (percentValue < 0) {
-    percentColor = theme.palette?.error.main
-  }
+export function measureCheck( activeMeasure, preferences ) {
+  const measureCheck = {}
 
-  if (percentageCheck) {
+  measureCheck.percentCheck = activeMeasure.measure === 'composite'
+    && preferences.type === 'percentage'
+  
+  measureCheck.starCheck = preferences.type === 'star'
+    || (activeMeasure.measure === 'composite' && preferences.type === 'star')
+
+  measureCheck.submeasureCheck = activeMeasure.measure !== 'composite'
+    && activeMeasure.measure !== preferences.measure
+
+  return measureCheck
+}
+
+export function WidgetValue({
+  activeMeasure, preferences, currentResults, trends, measureCheck
+}) {
+
+  const {percentCheck, starCheck, submeasureCheck} = measureCheck
+
+  if (percentCheck) {
     const percentValue = trends.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).percentChange
@@ -170,7 +175,12 @@ export function WidgetValue({
     ).subScoreTrends.find(
       (trend) => trend.measure === preferences.measure,
     ).percentChange
-    
+    let percentColor = theme.palette?.text.disabled
+    if (percentValue > 0) {
+      percentColor = theme.palette?.success.main
+    } else if (percentValue < 0) {
+      percentColor = theme.palette?.error.main
+    }
     return (
       <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
         {percentValue < 0 ? percentValue : `+${percentValue}`}
@@ -179,7 +189,6 @@ export function WidgetValue({
       </Typography>
     )
   }
-
   return (
     <Typography>
       Undefined component
@@ -196,7 +205,7 @@ export function Details({ preferences }) {
         {preferences.measure.toUpperCase()}
       </Typography>
     )
-  } else if (preferences.type === 'star') {
+  } if (preferences.type === 'star') {
     return (
       <Typography sx={{ height: '3rem', alignItems: 'center' }}>
         (over the past week)
