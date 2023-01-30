@@ -211,3 +211,9 @@ export const widgetPrefsProps = PropTypes.shape({
   type: PropTypes.string,
   measure: PropTypes.string,
 })
+
+export const measureCheckerProps = PropTypes.shape({
+  percentCheck: PropTypes.bool,
+  starCheck: PropTypes.bool,
+  submeasureCheck: PropTypes.bool,
+})

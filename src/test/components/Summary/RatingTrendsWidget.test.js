@@ -14,7 +14,7 @@ describe('RatingTrends', () => {
         activeMeasure={activeMeasure}
         trends={trendList}
         widgetPrefs={widgetPrefs}
-      />
+      />,
     )
   })
 
@@ -44,10 +44,10 @@ describe('RatingTrends', () => {
 
     // default props in store for dev mode
     const defaultStoreHeaders = {
-      'aab': 'star',
-      'asfe': 'percent',
-      'uri': 'star',
-      'Composite': 'percent',
+      aab: 'star',
+      asfe: 'percent',
+      uri: 'star',
+      Composite: 'percent',
     }
     // help pop up
     const starLabel = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.'
@@ -64,39 +64,37 @@ describe('RatingTrends', () => {
         expect(percentEl).toBeTruthy()
         const percentSvg = within(percentEl).getByLabelText(percentLabel)
         expect(percentSvg).toBeTruthy()
-      } else {
-        return false;
       }
+      return false;
     })
   })
 
   it('widget details have correct information', () => {
     const defaultStoreHeaders = {
-      'aab': 'star',
-      'asfe': 0,
-      'uri': 'star',
-      'Composite': 0,
+      aab: 'star',
+      asfe: 0,
+      uri: 'star',
+      Composite: 0,
     }
 
-    Object.values(defaultStoreHeaders).forEach((type, idx) => {
+    Object.entries(defaultStoreHeaders).forEach(([type, value], idx) => {
       if (type === 'star') {
         const starDetails = screen.getAllByTestId('StarBorderIcon')
         expect(within(starDetails[idx])).toBeTruthy()
       } else if (type === 'percent') {
-        const percentDetails = screen.getAllByText(`+ ${percentValue}`)
+        const percentDetails = screen.getAllByText(`+ ${value}`)
         expect(within(percentDetails[idx])).toBeTruthy()
-      } else {
-        return false;
       }
+      return false;
     })
   })
 
   it('widget footer have correct information', () => {
     const defaultStoreHeaders = {
-      'aab': 'star',
-      'asfe': 0,
-      'uri': 'star',
-      'Composite': 0,
+      aab: 'star',
+      asfe: 0,
+      uri: 'star',
+      Composite: 0,
     }
 
     Object.entries(defaultStoreHeaders).forEach(([header, type], idx) => {
@@ -106,9 +104,8 @@ describe('RatingTrends', () => {
       } else if (type === 'percent') {
         const percentFooter = screen.getAllByText(header.toUpperCase())
         expect(within(percentFooter[idx])).toBeTruthy()
-      } else {
-        return false;
       }
+      return false;
     })
   })
 })

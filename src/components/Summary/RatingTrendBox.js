@@ -7,7 +7,7 @@ import {
   Title,
   WidgetValue,
   Details,
-  measureCheck
+  measureChecker,
 } from '../Utilities/RatingTrendsValues';
 import { activeMeasureProps } from '../Utilities/PropTypes';
 
@@ -43,7 +43,7 @@ function RatingTrendBox({
         preferences={widgetPrefs}
         currentResults={currentResults}
         trends={trends}
-        measureCheck={measureCheck(activeMeasure, widgetPrefs)}
+        measureCheck={measureChecker(activeMeasure, widgetPrefs)}
       />
       <Details preferences={widgetPrefs} />
 

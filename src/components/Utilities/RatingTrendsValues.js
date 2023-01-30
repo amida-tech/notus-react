@@ -6,7 +6,7 @@ import {
 import ToolTip from '@mui/material/Tooltip';
 import theme from '../../assets/styles/AppTheme';
 import {
-  activeMeasureProps, currentResultsProps, trendsProps, widgetPrefsProps,
+  activeMeasureProps, currentResultsProps, trendsProps, widgetPrefsProps, measureCheckerProps,
 } from './PropTypes';
 
 export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
@@ -118,12 +118,12 @@ export function Title({ activeMeasure, preferences, currentResults }) {
   )
 }
 
-export function measureCheck( activeMeasure, preferences ) {
+export function measureChecker(activeMeasure, preferences) {
   const measureCheck = {}
 
   measureCheck.percentCheck = activeMeasure.measure === 'composite'
     && preferences.type === 'percentage'
-  
+
   measureCheck.starCheck = preferences.type === 'star'
     || (activeMeasure.measure === 'composite' && preferences.type === 'star')
 
@@ -134,10 +134,9 @@ export function measureCheck( activeMeasure, preferences ) {
 }
 
 export function WidgetValue({
-  activeMeasure, preferences, currentResults, trends, measureCheck
+  activeMeasure, preferences, currentResults, trends, measureCheck,
 }) {
-
-  const {percentCheck, starCheck, submeasureCheck} = measureCheck
+  const { percentCheck, starCheck, submeasureCheck } = measureCheck
 
   if (percentCheck) {
     const percentValue = trends.find(
@@ -156,7 +155,7 @@ export function WidgetValue({
         %
       </Typography>
     )
-  } else if (starCheck) {
+  } if (starCheck) {
     const starValue = currentResults.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).starRating
@@ -169,7 +168,7 @@ export function WidgetValue({
         readOnly
       />
     )
-  } else if (submeasureCheck) {
+  } if (submeasureCheck) {
     const percentValue = trends.find(
       (trend) => activeMeasure.measure === trend.measure,
     ).subScoreTrends.find(
@@ -205,7 +204,7 @@ export function Details({ preferences }) {
         {preferences.measure.toUpperCase()}
       </Typography>
     )
-  } else if (preferences.type === 'star') {
+  } if (preferences.type === 'star') {
     return (
       <Typography sx={{ height: '3rem', alignItems: 'center' }}>
         (over the past week)
@@ -238,6 +237,8 @@ export const submeasureResults = (activeMeasure, trends) => {
   return values
 }
 
+measureChecker.propTypes = measureCheckerProps
+
 Title.propTypes = {
   activeMeasure: activeMeasureProps,
   trends: PropTypes.shape({
@@ -256,6 +257,7 @@ WidgetValue.propTypes = {
   currentResults: currentResultsProps,
   trends: trendsProps,
   preferences: widgetPrefsProps,
+  measureCheck: measureCheckerProps,
 }
 Details.propTypes = {
   preferences: widgetPrefsProps,
@@ -272,7 +274,13 @@ WidgetValue.defaultProps = {
   currentResults: {},
   trends: {},
   preferences: {},
+  measureCheck: {},
 }
 Details.defaultProps = {
   preferences: {},
+}
+measureChecker.defaultProps = {
+  percentCheck: false,
+  starCheck: false,
+  submeasureCheck: false,
 }
