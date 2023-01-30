@@ -155,7 +155,7 @@ export function WidgetValue({
         %
       </Typography>
     )
-  } if (starCheck) {
+  } else if (starCheck) {
     const starValue = currentResults.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).starRating
@@ -168,7 +168,7 @@ export function WidgetValue({
         readOnly
       />
     )
-  } if (submeasureCheck) {
+  } else if (submeasureCheck) {
     const percentValue = trends.find(
       (trend) => activeMeasure.measure === trend.measure,
     ).subScoreTrends.find(
@@ -204,7 +204,7 @@ export function Details({ preferences }) {
         {preferences.measure.toUpperCase()}
       </Typography>
     )
-  } if (preferences.type === 'star') {
+  } else if (preferences.type === 'star') {
     return (
       <Typography sx={{ height: '3rem', alignItems: 'center' }}>
         (over the past week)
