@@ -121,14 +121,14 @@ export function Title({ activeMeasure, preferences, currentResults }) {
 export function WidgetValue({
   activeMeasure, preferences, currentResults, trends,
 }) {
-  const compositePercentageCheck = activeMeasure.measure === 'composite'
+  const percentageCheck = activeMeasure.measure === 'composite'
     && preferences.type === 'percentage'
   const starCheck = preferences.type === 'star'
     || (activeMeasure.measure === 'composite' && preferences.type === 'star')
   const submeasureCheck = activeMeasure.measure !== 'composite'
     && activeMeasure.measure !== preferences.measure
 
-  if (compositePercentageCheck) {
+  if (percentageCheck) {
     const percentValue = trends.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).percentChange
@@ -178,6 +178,7 @@ export function WidgetValue({
       </Typography>
     )
   }
+
   return (
     <Typography>
       Undefined component
@@ -194,7 +195,7 @@ export function Details({ preferences }) {
         {preferences.measure.toUpperCase()}
       </Typography>
     )
-  } if (preferences.type === 'star') {
+  } else if (preferences.type === 'star') {
     return (
       <Typography sx={{ height: '3rem', alignItems: 'center' }}>
         (over the past week)

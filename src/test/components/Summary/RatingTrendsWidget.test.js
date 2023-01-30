@@ -78,7 +78,7 @@ describe('RatingTrends', () => {
       'Composite': 0,
     }
 
-    Object.entries(defaultStoreHeaders).forEach(([header, type], idx) => {
+    Object.values(defaultStoreHeaders).forEach((type, idx) => {
       if (type === 'star') {
         const starDetails = screen.getAllByTestId('StarBorderIcon')
         expect(within(starDetails[idx])).toBeTruthy()
@@ -112,5 +112,3 @@ describe('RatingTrends', () => {
     })
   })
 })
-
-// screen.debug()
