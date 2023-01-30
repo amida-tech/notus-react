@@ -205,7 +205,7 @@ export function Details({ preferences }) {
         {preferences.measure.toUpperCase()}
       </Typography>
     )
-  } if (preferences.type === 'star') {
+  } else if (preferences.type === 'star') {
     return (
       <Typography sx={{ height: '3rem', alignItems: 'center' }}>
         (over the past week)
