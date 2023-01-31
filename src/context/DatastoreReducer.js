@@ -35,6 +35,19 @@ export const initialState = {
   results: [], // All results for the last several days, per measure.
   memberResults: [],
   trends: [],
+  preferences: {
+    ratingTrends: {
+      0: {
+        type: 'star',
+        measure: 'composite',
+      },
+      1: {
+        type: 'percentage',
+        measure: 'composite',
+      },
+    },
+    theme: 'light',
+  },
   currentResults: [], // Results for the most recent day for each measure.
   info: {},
   lastUpdated: 'Updating now...',
@@ -73,6 +86,11 @@ export const DatastoreReducer = (state, action) => {
         ...state,
         trends: action.payload,
         lastUpdated: updateTimestamp(new Date()),
+      }
+    case 'SET_PREFERENCES':
+      return {
+        ...state,
+        preferences: action.payload,
       }
     case 'SET_FILTER_OPTIONS':
       return {
