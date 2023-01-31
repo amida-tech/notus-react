@@ -555,9 +555,11 @@ export default function Dashboard() {
                 ? <Skeleton variant="rectangular" height={200} />
                 : (
                   <RatingTrends
+                    currentResults={datastore.currentResults}
                     activeMeasure={activeMeasure}
                     trends={datastore.trends}
                     info={datastore.info}
+                    widgetPrefs={datastore.preferences.ratingTrends}
                   />
                 )}
             </Grid>

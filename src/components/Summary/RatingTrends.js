@@ -1,144 +1,167 @@
-import PropTypes from 'prop-types';
-import HelpIcon from '@mui/icons-material/Help';
+// These lint ignores relate to a library which specifies to be used this way
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-shadow */
+import { useState, useContext } from 'react';
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
 import {
-  Grid, Typography, Rating, Box,
+  Typography, Box,
 } from '@mui/material';
-import ToolTip from '@mui/material/Tooltip';
-import theme from '../../assets/styles/AppTheme'
-import TrendDisplay from './TrendDisplay';
+import {
+  activeMeasureProps, currentResultsProps, trendsProps, widgetPrefsProps,
+} from '../Utilities/PropTypes';
 import Info from '../Common/Info';
-import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils'
-
-const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
-const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
-
-function showStars(activeMeasure) {
-  let returnBool = false;
-
-  // Additional stars rules can be added here
-  if (activeMeasure.denominator > 30 && activeMeasure.starRating >= 0) {
-    returnBool = true;
-  }
-
-  return returnBool;
-}
+import RatingTrendBox from './RatingTrendBox';
+import { DatastoreContext } from '../../context/DatastoreProvider';
+import { submeasureResults } from '../Utilities/RatingTrendsValues';
+// TrendDisplay
 
 function RatingTrends({
-  activeMeasure, trends, info,
+  currentResults, activeMeasure, trends, widgetPrefs,
 }) {
-  const biggestGain = { measure: '', percentChange: undefined };
-  const biggestLoss = { measure: '', percentChange: undefined };
+  const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
+  const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs))
+  const { datastore, datastoreActions } = useContext(DatastoreContext);
 
-  const measureTrend = trends
-    .find((trend) => trend.measure === activeMeasure.measure);
-  const mainTrend = mainTrendCreator(activeMeasure, info, measureTrend);
-  const sortedTrends = sortedTrendsCreator(activeMeasure, trends, measureTrend);
+  const widgetSpacing = () => {
+    if (activeMeasure.measure === 'composite') {
+      return `repeat(${Object.keys(widgetPrefs).length}, 1fr)`
+    }
 
-  if (sortedTrends.length > 1) {
-    let { measure } = sortedTrends[0];
-    biggestGain.measure = info[measure] !== undefined ? info[measure].displayLabel : measure;
-    biggestGain.percentChange = sortedTrends[0].percentChange;
+    const subscoresLength = trends.find(
+      (trend) => activeMeasure.measure === trend.measure,
+    ).subScoreTrends.length
 
-    measure = sortedTrends[sortedTrends.length - 1].measure;
-    biggestLoss.measure = info[measure]?.displayLabel;
-    biggestLoss.percentChange = sortedTrends[sortedTrends.length - 1].percentChange;
-
-    return renderUI(activeMeasure, mainTrend, {
-      displayAll: true, biggestGain, biggestLoss,
-    });
+    return `repeat(${subscoresLength + 1}, 1fr)`
   }
 
-  return renderUI(activeMeasure, mainTrend, {
-    displayAll: false, biggestGain, biggestLoss,
-  });
+  function handleOnDragEnd(result) {
+    if (!result.destination) return;
+    const items = boxItems;
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    setBoxOrder(items);
+    delete datastore.preferences.ratingTrends;
+    datastoreActions?.setPreferences({ ratingTrends: items, ...datastore.preferences })
+  }
+
+  if (activeMeasure.measure !== 'composite') {
+    const measurePreferences = submeasureResults(activeMeasure, trends)
+    return (
+      <Box sx={{ m: '0 1rem' }}>
+        <Box sx={{ display: 'flex', mb: '1rem' }}>
+          <Typography variant="h4" sx={{ fontWeight: '600' }}>
+            Ratings & Trends
+          </Typography>
+          <Info infoText={ratingTrendsTip} />
+        </Box>
+
+        <Box
+          sx={{
+            display: 'grid',
+            gap: '1rem',
+            width: 'inherit',
+            gridTemplateColumns: widgetSpacing,
+            overflowX: 'auto',
+            overflowY: 'unset',
+            padding: '.5rem',
+            '& > div': {
+              width: '20rem',
+              justifyContent: 'center',
+              '& > h4': {
+                alignSelf: 'end',
+              },
+              '& > p': {
+                margin: '1rem 0',
+                height: 'unset',
+                alignItems: 'self-end',
+              },
+              '& > span': {
+                marginBottom: '-2rem',
+              },
+            },
+          }}
+        >
+          {Object.values(measurePreferences).map((pref, idx) => (
+            <RatingTrendBox
+              key={pref.measure}
+              activeMeasure={activeMeasure}
+              widgetPrefs={measurePreferences[idx]}
+              trends={trends}
+              currentResults={currentResults}
+            />
+          ))}
+
+        </Box>
+
+      </Box>
+    )
+  }
+  return (
+    <Box sx={{ m: '0 1rem' }}>
+      <Box sx={{ display: 'flex', mb: '1rem' }}>
+        <Typography variant="h4" sx={{ fontWeight: '600' }}>
+          Ratings & Trends
+        </Typography>
+        <Info infoText={ratingTrendsTip} />
+      </Box>
+
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId="ratings" direction="horizontal">
+          {(provided) => (
+            <Box
+              sx={{
+                display: 'grid',
+                gap: '1rem',
+                width: 'inherit',
+                gridTemplateColumns: widgetSpacing,
+                padding: '1rem',
+              }}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+
+              {boxItems.map((widget, idx) => (
+                <Draggable key={widget.measure} draggableId={widget.measure} index={idx}>
+                  {(provided) => (
+                    <div
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      ref={provided.innerRef}
+                    >
+                      <RatingTrendBox
+                        activeMeasure={activeMeasure}
+                        widgetPrefs={widget}
+                        trends={trends}
+                        currentResults={currentResults}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+
+              {provided.placeholder}
+            </Box>
+          )}
+        </Droppable>
+      </DragDropContext>
+
+    </Box>
+  )
 }
 
-const renderUI = (activeMeasure, mainTrend, renderOptions) => (
-  <Box sx={{ color: theme.palette?.bluegray.D1 }} className="rating-trends">
-
-    <Box className="rating-trends__main-header-align">
-      <Typography variant="h2" className="rating-trends__h2-header">
-        Ratings & Trends
-      </Typography>
-      <Info infoText={ratingTrendsTip} />
-    </Box>
-
-    <Box className="rating-trends__display-box">
-      <Box className="rating-trends__panel-box">
-        <Grid
-          sx={{ border: `1px solid ${theme.palette?.bluegray.L3}` }}
-          className={`rating-trends__panel 
-          rating-trends__panel${renderOptions.displayAll ? '--width-25' : '--width-50'}`}
-        >
-          <Grid className="rating-trends__header-align">
-            <Typography variant="h3" className="rating-trends__h3-header">
-              Star Rating
-            </Typography>
-            <ToolTip title={starsTip}>
-              <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
-            </ToolTip>
-          </Grid>
-          {showStars(activeMeasure) ? (
-            <Rating
-              className="rating-trends__star-rating"
-              name="read-only"
-              value={activeMeasure.starRating}
-              precision={0.5}
-              readOnly
-            />
-          )
-            : (
-              <Typography color={theme.palette?.bluegray.D4} className="rating-trends__not-available">
-                N/A
-              </Typography>
-            )}
-          <ToolTip title={activeMeasure.title} arrow>
-            <Typography className="rating-trends__star-rating-label">
-              {activeMeasure.shortLabel && `(${activeMeasure.shortLabel})`}
-            </Typography>
-          </ToolTip>
-        </Grid>
-        <TrendDisplay
-          trend={mainTrend}
-          percentWidth={renderOptions.displayAll ? 25 : 50}
-        />
-        <TrendDisplay
-          trend={renderOptions.biggestGain}
-          percentWidth={renderOptions.displayAll ? 25 : 0}
-        />
-        <TrendDisplay
-          trend={renderOptions.biggestLoss}
-          percentWidth={renderOptions.displayAll ? 25 : 0}
-        />
-      </Box>
-    </Box>
-  </Box>
-);
-
 RatingTrends.propTypes = {
-  activeMeasure: PropTypes.shape({
-    measure: PropTypes.string,
-    denominator: PropTypes.number,
-    shortLabel: PropTypes.string,
-    starRating: PropTypes.number,
-    title: PropTypes.string,
-  }),
-  trends: PropTypes.arrayOf(
-    PropTypes.shape({
-      measure: PropTypes.string,
-    }),
-  ),
+  activeMeasure: activeMeasureProps,
+  trends: trendsProps,
+  widgetPrefs: widgetPrefsProps,
+  currentResults: currentResultsProps,
 }
 
 RatingTrends.defaultProps = {
-  activeMeasure: {
-    measure: '',
-    denominator: 0,
-    shortLabel: '',
-    starRating: 0,
-    title: '',
-  },
-  trends: [],
+  activeMeasure: {},
+  trends: {},
+  widgetPrefs: {},
+  currentResults: {},
 }
 
 export default RatingTrends;

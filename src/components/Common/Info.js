@@ -10,9 +10,8 @@ function Info({ infoText }) {
   const [displayInfo, setDisplayInfo] = useState(false);
 
   return (
-    <Box className="info">
+    <Box sx={{ ml: '1rem' }}>
       <IconButton
-        className="info__info-button"
         disableFocusRipple
         disableRipple
         aria-label="info-button"

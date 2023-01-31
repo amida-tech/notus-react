@@ -6,7 +6,9 @@ import {
 } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios'
-import { resultList, trendList, infoObject } from '../test/data/DemoData';
+import {
+  resultList, trendList, infoObject, userPreferences,
+} from '../test/data/DemoData';
 import { DatastoreReducer, initialState } from './DatastoreReducer';
 import env from '../env';
 
@@ -44,6 +46,11 @@ export default function DatastoreProvider({ children }) {
       payload: trends,
     }),
 
+    setPreferences: (preferences) => dispatch({
+      type: 'SET_PREFERENCES',
+      payload: preferences,
+    }),
+
     setHealthcareFilterOptions:
       (payors, healthcareProviders, healthcareCoverages, practitioners) => dispatch({
         type: 'SET_FILTER_OPTIONS',
@@ -66,6 +73,7 @@ export default function DatastoreProvider({ children }) {
     if (devData === 'true') {
       datastoreActions.setResults(resultList, infoObject);
       datastoreActions.setTrends(trendList);
+      datastoreActions.setPreferences(userPreferences);
       datastoreActions.setIsLoading(false);
     } else {
       const trendPromise = axios.get(trendUrl)
@@ -75,6 +83,28 @@ export default function DatastoreProvider({ children }) {
       const healthcareProvidersPromise = axios.get(healthcareProvidersUrl);
       const healthcareCoveragesPromise = axios.get(healthcareCoveragesUrl);
       const practitionersPromise = axios.get(practitionersUrl);
+      // this is placeholder preferences
+      const newUserPreferences = {
+        ratingTrends: {
+          0: {
+            type: 'star',
+            measure: 'aab',
+          },
+          1: {
+            type: 'percentage',
+            measure: 'asfe',
+          },
+          2: {
+            type: 'star',
+            measure: 'uri',
+          },
+          3: {
+            type: 'percentage',
+            measure: 'composite',
+          },
+        },
+        theme: 'light',
+      }
 
       Promise.all([
         searchPromise,
@@ -93,6 +123,8 @@ export default function DatastoreProvider({ children }) {
         );
         datastoreActions.setResults(values[0].data, values[1].data);
         datastoreActions.setTrends(values[6].data);
+        // currently only front end default preferences
+        datastoreActions.setPreferences(newUserPreferences);
         datastoreActions.setIsLoading(false);
       });
     }

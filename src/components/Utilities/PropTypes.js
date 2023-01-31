@@ -197,3 +197,23 @@ export const headerInfoProps = PropTypes.arrayOf(
 )
 export const setFilterActivatedProps = PropTypes.func;
 export const setIsLoadingProps = PropTypes.func;
+
+export const trendsProps = PropTypes.arrayOf(PropTypes.shape({
+  measure: PropTypes.string,
+  precentChange: PropTypes.number,
+  subScoreTrends: PropTypes.arrayOf(PropTypes.shape({
+    measure: PropTypes.string,
+    percentChange: PropTypes.number,
+  })),
+}))
+
+export const widgetPrefsProps = PropTypes.shape({
+  type: PropTypes.string,
+  measure: PropTypes.string,
+})
+
+export const measureCheckerProps = PropTypes.shape({
+  percentCheck: PropTypes.bool,
+  starCheck: PropTypes.bool,
+  submeasureCheck: PropTypes.bool,
+})
