@@ -41,6 +41,7 @@ export default function App() {
       validateAccessToken(accessToken)
         .then((loggedIn) => {
           setAuthenticated(loggedIn);
+          setShowWelcome(true);
           setLoading(false)
         })
       return;
@@ -50,12 +51,11 @@ export default function App() {
     const { hash } = window.location;
     const urlParams = new URLSearchParams(hash);
     accessToken = urlParams.get('access_token')
-
     // STORE NEW TOKEN FROM URL
     if (accessToken) {
       localStorage.setItem('token', accessToken);
-      setShowWelcome(true);
       setAuthenticated(true);
+      setShowWelcome(true);
       setLoading(false)
     } else {
       setLoading(false)

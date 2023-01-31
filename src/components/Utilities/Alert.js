@@ -35,7 +35,7 @@ export default function Alert({
         </DialogContent>
 
         <DialogActions>
-          <Button variant="contained" onClick={() => handleResetData()}>Reset Data</Button>
+          <Button variant="contained" onClick={() => handleResetData()}>Reset</Button>
         </DialogActions>
       </Dialog>
     )
