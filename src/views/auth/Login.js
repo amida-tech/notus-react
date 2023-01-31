@@ -1,52 +1,60 @@
 import LockIcon from '@mui/icons-material/Lock';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
 import {
   Box, Button, Container, Grid, Link, Paper, TextField, Typography,
 } from '@mui/material';
+
+import { useEffect, useState } from 'react';
+import { gapi } from 'gapi-script';
+import axios from 'axios';
+import Alert from '../../components/Utilities/Alert';
 import theme from '../../assets/styles/AppTheme'
-import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import image from '../../assets/img/loginbg.jpg'
 import env from '../../env';
 
 export default function Login() {
+  const [logginError, setLogginError] = useState(false)
+  const navigate = useNavigate()
+  const clientId = env.REACT_APP_GOOGLE_CLIENT_ID;
   /*
   * Create form to request access token from Google's OAuth 2.0 server.
   */
-  function oauthSignIn() {
-    // Google's OAuth 2.0 endpoint for requesting an access token
-    const oauth2Endpoint = env.REACT_APP_GOOGLE_OAUTH_URL;
-    const clientId = env.REACT_APP_GOOGLE_CLIENT_ID;
-    const dashboardUrl = env.REACT_APP_DASHBOARD_URL;
-
-    // Create <form> element to submit parameters to OAuth 2.0 endpoint.
-    const form = document.createElement('form');
-    form.setAttribute('method', 'GET'); // Send as a GET request.
-    form.setAttribute('action', oauth2Endpoint);
-
-    // Parameters to pass to OAuth 2.0 endpoint.
-    const params = {
-      client_id: clientId,
-      redirect_uri: dashboardUrl,
-      response_type: 'token',
-      scope: 'openid profile email',
-      include_granted_scopes: 'true',
-      state: 'pass-through-value',
-    };
-
-    Object.keys(params).forEach((key) => {
-      const input = document.createElement('input');
-      input.setAttribute('type', 'hidden');
-      input.setAttribute('name', key);
-      input.setAttribute('value', params[key]);
-      form.appendChild(input);
-    });
-
-    // Add form to page and submit it to open the OAuth 2.0 endpoint.
-    document.body.appendChild(form);
-    form.submit();
+  const responseGoogle = async (response) => {
+    if (response.accessToken) {
+      try {
+        const loginUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}user/login`);
+        const loginPromise = await axios.post(loginUrl, {
+          token: response.tokenId,
+          allItems: response,
+        })
+        if (loginPromise.data.status === 'Success') {
+          localStorage.setItem('token', response.accessToken);
+          setLogginError(false)
+          navigate('/')
+          window.location.reload();
+        }
+      } catch (error) {
+        navigate('/welcome')
+        setLogginError(true)
+      }
+    } else {
+      setLogginError(true)
+    }
   }
-
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId,
+        scope: 'openid profile email',
+      })
+    }
+    gapi.load('client:auth2', start)
+  })
+  const handleReset = () => {
+    setLogginError(false);
+  };
   return (
     <main
       style={{
@@ -58,6 +66,18 @@ export default function Login() {
         backgroundSize: 'cover',
       }}
     >
+      {logginError && (
+        <Alert
+          openAlert={logginError}
+          setOpenAlert={setLogginError}
+          title="Failed to Login"
+          noResultsALERT
+          handleResetData={handleReset}
+        >
+          Please press Reset to try again
+        </Alert>
+      )}
+
       <Container maxWidth={false} sx={{ padding: '1rem' }}>
         <Typography
           variant="h5"
@@ -192,22 +212,14 @@ export default function Login() {
 
           <Grid container spacing={2} direction="column" sx={{ my: '.5rem' }}>
             <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<GoogleSvg />}
-                onClick={() => oauthSignIn()}
-                sx={{
-                  backgroundColor: '#E9F1FF',
-                  color: '#498AF5',
-
-                  '&:hover': {
-                    backgroundColor: '#d0e2fb',
-                  },
-                }}
-              >
-                Sign in with Google
-              </Button>
+              <GoogleLogin
+                clientId={clientId}
+                buttonText="Sign in with Google"
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
+                cookiePolicy="single_host_origin"
+                isSignedIn={false}
+              />
             </Grid>
           </Grid>
 
