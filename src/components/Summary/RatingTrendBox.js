@@ -5,8 +5,8 @@ import {
 import theme from '../../assets/styles/AppTheme';
 import {
   Title,
-  WidgetValue,
-  Details,
+  DisplayValue,
+  Footer,
   measureChecker,
 } from '../Utilities/RatingTrendsValues';
 import { activeMeasureProps } from '../Utilities/PropTypes';
@@ -38,14 +38,14 @@ function RatingTrendBox({
         preferences={widgetPrefs}
         currentResults={currentResults}
       />
-      <WidgetValue
+      <DisplayValue
         activeMeasure={activeMeasure}
         preferences={widgetPrefs}
         currentResults={currentResults}
         trends={trends}
         measureCheck={measureChecker(activeMeasure, widgetPrefs)}
       />
-      <Details preferences={widgetPrefs} />
+      <Footer preferences={widgetPrefs} />
 
     </Box>
   )
