@@ -6,8 +6,8 @@ export const scrolly = (action, location) => {
       behavior: 'smooth',
     });
   }
-  action(location)
-}
+  action(location);
+};
 
 // If you don't want to navigate with scrolly
 export function scrollTop() {

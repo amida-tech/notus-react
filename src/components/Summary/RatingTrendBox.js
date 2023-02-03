@@ -8,7 +8,7 @@ import {
   Footer,
   measureChecker,
 } from '../Utilities/RatingTrendsValues';
-import { ratingTrendsBox } from '../../assets/styles/RatingTrends.style'
+import { ratingTrendsBox } from '../../assets/styles/RatingTrends.style';
 import { activeMeasureProps } from '../Utilities/PropTypes';
 
 function RatingTrendBox({
@@ -33,7 +33,7 @@ function RatingTrendBox({
       <Footer preferences={widgetPrefs} />
 
     </Box>
-  )
+  );
 }
 
 RatingTrendBox.propTypes = {
@@ -51,13 +51,13 @@ RatingTrendBox.propTypes = {
     measure: PropTypes.string,
   }),
   currentResults: PropTypes.arrayOf(PropTypes.shape({})),
-}
+};
 
 RatingTrendBox.defaultProps = {
   activeMeasure: {},
   trends: {},
   widgetPrefs: {},
   currentResults: {},
-}
+};
 
 export default RatingTrendBox;

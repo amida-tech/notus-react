@@ -10,13 +10,13 @@ import { useEffect, useState } from 'react';
 import { gapi } from 'gapi-script';
 import axios from 'axios';
 import Alert from '../../components/Utilities/Alert';
-import theme from '../../assets/styles/AppTheme'
-import image from '../../assets/img/loginbg.jpg'
+import theme from '../../assets/styles/AppTheme';
+import image from '../../assets/img/loginbg.jpg';
 import env from '../../env';
 
 export default function Login() {
-  const [logginError, setLogginError] = useState(false)
-  const navigate = useNavigate()
+  const [logginError, setLogginError] = useState(false);
+  const navigate = useNavigate();
   const clientId = env.REACT_APP_GOOGLE_CLIENT_ID;
   /*
   * Create form to request access token from Google's OAuth 2.0 server.
@@ -28,30 +28,30 @@ export default function Login() {
         const loginPromise = await axios.post(loginUrl, {
           token: response.tokenId,
           allItems: response,
-        })
+        });
         if (loginPromise.data.status === 'Success') {
           localStorage.setItem('token', response.accessToken);
-          setLogginError(false)
-          navigate('/')
+          setLogginError(false);
+          navigate('/');
           window.location.reload();
         }
       } catch (error) {
-        navigate('/welcome')
-        setLogginError(true)
+        navigate('/welcome');
+        setLogginError(true);
       }
     } else {
-      setLogginError(true)
+      setLogginError(true);
     }
-  }
+  };
   useEffect(() => {
     function start() {
       gapi.client.init({
         clientId,
         scope: 'openid profile email',
-      })
+      });
     }
-    gapi.load('client:auth2', start)
-  })
+    gapi.load('client:auth2', start);
+  });
   const handleReset = () => {
     setLogginError(false);
   };

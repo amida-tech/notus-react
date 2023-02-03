@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import { createContext } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 import FilterDrawer from '../FilterMenu/FilterDrawer';
 import ChartBar from './ChartBar';
@@ -48,7 +48,7 @@ function labelGenerator(measure) {
       <Typography className="chart-container__return-measure-title">{label.substring(0, label.indexOf(' '))}</Typography>
       <Typography className="chart-container__return-measure-description">{label.substring(label.indexOf('- ') + 1)}</Typography>
     </Grid>
-  )
+  );
 }
 
 function ChartContainer({
@@ -79,11 +79,11 @@ function ChartContainer({
   const handleFilterChange = (filterOptions) => {
     setCurrentFilters(filterOptions);
     handleFilteredDataUpdate(filterOptions, currentTimeline);
-  }
+  };
   const handleTimelineChange = (timelineUpdate) => {
     setCurrentTimeline(timelineUpdate);
     handleFilteredDataUpdate(currentFilters, timelineUpdate);
-  }
+  };
 
   return (
     <div className="chart-container">

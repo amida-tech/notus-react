@@ -21,4 +21,4 @@ export const ratingTrendsBox = {
   '& > span': {
     padding: '0 2rem',
   },
-}
+};

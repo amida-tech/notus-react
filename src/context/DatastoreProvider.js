@@ -5,7 +5,7 @@ import {
   useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios'
+import axios from 'axios';
 import {
   resultList, trendList, infoObject, userPreferences,
 } from '../test/data/DemoData';
@@ -76,9 +76,9 @@ export default function DatastoreProvider({ children }) {
       datastoreActions.setPreferences(userPreferences);
       datastoreActions.setIsLoading(false);
     } else {
-      const trendPromise = axios.get(trendUrl)
-      const searchPromise = axios.get(searchUrl)
-      const infoPromise = axios.get(infoUrl)
+      const trendPromise = axios.get(trendUrl);
+      const searchPromise = axios.get(searchUrl);
+      const infoPromise = axios.get(infoUrl);
       const payorsPromise = axios.get(payorsUrl);
       const healthcareProvidersPromise = axios.get(healthcareProvidersUrl);
       const healthcareCoveragesPromise = axios.get(healthcareCoveragesUrl);
@@ -104,7 +104,7 @@ export default function DatastoreProvider({ children }) {
           },
         },
         theme: 'light',
-      }
+      };
 
       Promise.all([
         searchPromise,
@@ -138,7 +138,7 @@ export default function DatastoreProvider({ children }) {
     <DatastoreContext.Provider value={reducerValue}>
       {children}
     </DatastoreContext.Provider>
-  )
+  );
 }
 
 DatastoreProvider.propTypes = {
@@ -146,4 +146,4 @@ DatastoreProvider.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-}
+};

@@ -11,28 +11,28 @@ import {
   starDisplayValue,
   submeasurePercentDisplayValue,
   percentageFooter,
-  starFooter
-} from './RatingTrendValuesUtil'
+  starFooter,
+} from './RatingTrendValuesUtil';
 import {
   activeMeasureProps, currentResultsProps, trendsProps, widgetPrefsProps, measureCheckerProps,
 } from './PropTypes';
 
-export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
+export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
 export function Title({ activeMeasure, preferences, currentResults }) {
   if (preferences?.type === 'star') {
-    return starTitle(preferences)
+    return starTitle(preferences);
   }
   if (activeMeasure.measure === 'composite' && preferences?.type === 'percentage') {
-    return compositePercentTitle(preferences)
+    return compositePercentTitle(preferences);
   }
   if (activeMeasure.measure === preferences.measure && preferences?.type === 'percentage') {
-    return measurePercentTitle(preferences)
+    return measurePercentTitle(preferences);
   }
   // sub-measure percentages submeasures
   if (activeMeasure.measure !== preferences.measure && preferences?.type === 'percentage') {
-    return submeasurePercentTitle(activeMeasure, preferences, currentResults)
+    return submeasurePercentTitle(activeMeasure, preferences, currentResults);
   }
 
   return (
@@ -47,48 +47,48 @@ export function Title({ activeMeasure, preferences, currentResults }) {
     >
       Undefined trend
     </Typography>
-  )
+  );
 }
 
 export function measureChecker(activeMeasure, preferences) {
-  const measureCheck = {}
+  const measureCheck = {};
 
   measureCheck.percentCheck = activeMeasure.measure === 'composite'
-    && preferences.type === 'percentage'
+    && preferences.type === 'percentage';
 
   measureCheck.starCheck = preferences.type === 'star'
-    || (activeMeasure.measure === 'composite' && preferences.type === 'star')
+    || (activeMeasure.measure === 'composite' && preferences.type === 'star');
 
   measureCheck.submeasureCheck = activeMeasure.measure !== 'composite'
-    && activeMeasure.measure !== preferences.measure
+    && activeMeasure.measure !== preferences.measure;
 
-  return measureCheck
+  return measureCheck;
 }
 
 export function DisplayValue({
   activeMeasure, preferences, currentResults, trends, measureCheck,
 }) {
-  const { percentCheck, starCheck, submeasureCheck } = measureCheck
+  const { percentCheck, starCheck, submeasureCheck } = measureCheck;
 
   if (percentCheck) {
-    return percentDisplayValue(trends, preferences)
-  } else if (starCheck) {
-    return starDisplayValue(currentResults, preferences)
-  } else if (submeasureCheck) {
-    return submeasurePercentDisplayValue(trends, activeMeasure, preferences)
+    return percentDisplayValue(trends, preferences);
+  } if (starCheck) {
+    return starDisplayValue(currentResults, preferences);
+  } if (submeasureCheck) {
+    return submeasurePercentDisplayValue(trends, activeMeasure, preferences);
   }
   return (
     <Typography>
       Undefined value
     </Typography>
-  )
+  );
 }
 
 export function Footer({ preferences }) {
   if (preferences.type === 'percentage') {
-    return percentageFooter(preferences)
-  } else if (preferences.type === 'star') {
-    return starFooter()
+    return percentageFooter(preferences);
+  } if (preferences.type === 'star') {
+    return starFooter();
   }
   return '';
 }
@@ -99,24 +99,24 @@ export const submeasureResults = (activeMeasure, trends) => {
       type: 'star',
       measure: activeMeasure.measure,
     },
-  }
+  };
   // add submeasures
 
   const { subScoreTrends } = trends.find(
     (trend) => trend.measure === activeMeasure.measure,
-  )
+  );
 
   subScoreTrends.forEach((trend, idx) => {
     Object.assign(values, {
       [idx + 1]:
         { type: 'percentage', measure: trend.measure },
-    })
-  })
+    });
+  });
 
-  return values
-}
+  return values;
+};
 
-measureChecker.propTypes = measureCheckerProps
+measureChecker.propTypes = measureCheckerProps;
 
 Title.propTypes = {
   activeMeasure: activeMeasureProps,
@@ -130,36 +130,36 @@ Title.propTypes = {
   }),
   preferences: widgetPrefsProps,
   currentResults: PropTypes.arrayOf(PropTypes.shape({})),
-}
+};
 DisplayValue.propTypes = {
   activeMeasure: activeMeasureProps,
   currentResults: currentResultsProps,
   trends: trendsProps,
   preferences: widgetPrefsProps,
   measureCheck: measureCheckerProps,
-}
+};
 Footer.propTypes = {
   preferences: widgetPrefsProps,
-}
+};
 
 Title.defaultProps = {
   activeMeasure: {},
   trends: {},
   preferences: {},
   currentResults: {},
-}
+};
 DisplayValue.defaultProps = {
   activeMeasure: {},
   currentResults: {},
   trends: {},
   preferences: {},
   measureCheck: {},
-}
+};
 Footer.defaultProps = {
   preferences: {},
-}
+};
 measureChecker.defaultProps = {
   percentCheck: false,
   starCheck: false,
   submeasureCheck: false,
-}
+};

@@ -12,29 +12,29 @@ import {
   Snackbar,
 } from '@mui/material';
 
-import { validateAccessToken } from './components/Common/Controller'
+import { validateAccessToken } from './components/Common/Controller';
 import theme from './assets/styles/AppTheme';
 import ProtectedRoutes from './ProtectedRoutes';
-import Login from './views/auth/Login'
-import Register from './views/auth/Register'
+import Login from './views/auth/Login';
+import Register from './views/auth/Register';
 
-import LoadingPage from './components/Utilities/LoadingPage'
+import LoadingPage from './components/Utilities/LoadingPage';
 
 function ProtectedRoute({ loggedIn }) {
   return loggedIn
     ? <ProtectedRoutes authenticated={loggedIn} />
-    : <Login />
+    : <Login />;
 }
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // TRY TO GRAB TOKEN FROM BROWSER
     let accessToken;
-    accessToken = localStorage.getItem('token')
+    accessToken = localStorage.getItem('token');
 
     // CHECK TOKEN IF VALID OR NOT
     if (accessToken) {
@@ -42,23 +42,23 @@ export default function App() {
         .then((loggedIn) => {
           setAuthenticated(loggedIn);
           setShowWelcome(true);
-          setLoading(false)
-        })
+          setLoading(false);
+        });
       return;
     }
 
     // NO TOKEN IN STORAGE, CHECK URL
     const { hash } = window.location;
     const urlParams = new URLSearchParams(hash);
-    accessToken = urlParams.get('access_token')
+    accessToken = urlParams.get('access_token');
     // STORE NEW TOKEN FROM URL
     if (accessToken) {
       localStorage.setItem('token', accessToken);
       setAuthenticated(true);
       setShowWelcome(true);
-      setLoading(false)
+      setLoading(false);
     } else {
-      setLoading(false)
+      setLoading(false);
     }
   }, []);
 
@@ -86,7 +86,7 @@ export default function App() {
           )}
       </BrowserRouter>
     </ThemeProvider>
-  )
+  );
 }
 
 ProtectedRoute.propTypes = {

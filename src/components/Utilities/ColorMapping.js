@@ -1,4 +1,4 @@
-import tinycolor from 'tinycolor2'
+import tinycolor from 'tinycolor2';
 
 const ColorMapping = (allResults, displayData) => {
   const chartColorArray = [
@@ -14,59 +14,59 @@ const ColorMapping = (allResults, displayData) => {
     '#6699CC',
   ];
 
-  const baseColors = []
+  const baseColors = [];
   const byMeasureColorMap = [];
 
-  const colorBySeed = ((seed, idx) => chartColorArray[idx % 10])
+  const colorBySeed = ((seed, idx) => chartColorArray[idx % 10]);
 
   const distortColor = (color, idx) => {
-    let newColor = ''
+    let newColor = '';
     if (idx <= 3) {
-      newColor = tinycolor(color).brighten(idx * 15).toString()
+      newColor = tinycolor(color).brighten(idx * 15).toString();
     } else if (idx <= 6) {
-      newColor = tinycolor(color).darken((idx % 3) * 5).toString()
+      newColor = tinycolor(color).darken((idx % 3) * 5).toString();
     } else if (idx <= 9) {
-      newColor = tinycolor(color).brighten((idx % 3) * 15).toString()
+      newColor = tinycolor(color).brighten((idx % 3) * 15).toString();
     } else if (idx <= 12) {
       newColor = tinycolor(color).darken((idx % 3) * 15)
         .saturate((idx % 3) * 10)
-        .toString()
+        .toString();
     } else if (idx <= 15) {
-      newColor = tinycolor(color).lighten((idx % 3) * 15).toString()
+      newColor = tinycolor(color).lighten((idx % 3) * 15).toString();
     } else {
-      newColor = color
+      newColor = color;
     }
-    return newColor
-  }
+    return newColor;
+  };
 
   // CREATES COLOR MAP FOR ALL CURRENT MEASURES
   allResults.forEach((category, idx) => {
     baseColors.push({
       value: category.measure,
       color: colorBySeed(category.measure, idx),
-    })
-  })
+    });
+  });
 
   // HANDLES COMPOSITE VIEW
   if (!displayData || displayData.length === 0) {
-    return baseColors
+    return baseColors;
   }
   // HANDLES MEASURE VIEW
-  const baseMeasure = displayData[0].measure
-  const baseMeasureColor = baseColors.find((mapping) => mapping.value === baseMeasure).color
+  const baseMeasure = displayData[0].measure;
+  const baseMeasureColor = baseColors.find((mapping) => mapping.value === baseMeasure).color;
   byMeasureColorMap.push({
     value: baseMeasure,
     color: baseMeasureColor,
-  })
-  displayData.slice(0, 1)
+  });
+  displayData.slice(0, 1);
 
   // ADD SUBMEASURES WITH MODIFIED COLOURS
   displayData.forEach((category, idx) => {
     byMeasureColorMap.push({
       value: category.measure,
       color: distortColor(baseMeasureColor, idx),
-    })
-  })
+    });
+  });
 
   return byMeasureColorMap;
 };

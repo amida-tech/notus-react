@@ -1,11 +1,11 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 import {
   Grid, Typography, Box,
 } from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
-import { TableTab } from '../Utilities/TableTab'
+import { TableTab } from '../Utilities/TableTab';
 
 import { DatastoreContext } from '../../context/DatastoreProvider';
 
@@ -25,9 +25,9 @@ import {
 } from '../Utilities/PropTypes';
 import TableFilterPanel from './TableFilterPanel';
 import MeasureSelector from '../Common/MeasureSelector';
-import EntriesFound from './EntriesFound'
-import OverviewTable from './OverviewTable'
-import MemberTable from './MemberTable'
+import EntriesFound from './EntriesFound';
+import OverviewTable from './OverviewTable';
+import MemberTable from './MemberTable';
 
 function DisplayTableContainer({
   activeMeasure,
@@ -140,7 +140,7 @@ function DisplayTableContainer({
       </Box>
     </Grid>
 
-  )
+  );
 }
 
 DisplayTableContainer.propTypes = {
@@ -171,4 +171,4 @@ DisplayTableContainer.defaultProps = {
   handleTabChange: () => undefined,
 };
 
-export default DisplayTableContainer
+export default DisplayTableContainer;

@@ -56,7 +56,7 @@ export function getSubMeasureCurrentResults(activeMeasure, currentResults) {
   } else {
     subMeasureCurrentResults = [subMeasurePrime];
   }
-  subMeasureCurrentResults.forEach((res) => { res.id = res.measure })
+  subMeasureCurrentResults.forEach((res) => { res.id = res.measure; });
   return subMeasureCurrentResults;
 }
 export function getSubMeasureCurrentResultsPerMeasure(givenMeasure, currentResults) {
@@ -73,7 +73,7 @@ export function getSubMeasureCurrentResultsPerMeasure(givenMeasure, currentResul
 }
 export const createLabel = (measure, info) => {
   if (info[measure]) {
-    return `${info[measure].displayLabel} - ${info[measure].title}`
+    return `${info[measure].displayLabel} - ${info[measure].title}`;
   }
   if (measure === 'composite') {
     return 'Composite';
@@ -82,7 +82,7 @@ export const createLabel = (measure, info) => {
     return `${measure.slice(0, 3).toUpperCase()}-E`;
   }
   return measure.toUpperCase();
-}
+};
 export const createSubMeasureLabel = (subMeasure, info) => {
   let displayLabel = '';
   if (subMeasure.length > 3 && subMeasure.charAt(3) === 'e') {
@@ -92,11 +92,11 @@ export const createSubMeasureLabel = (subMeasure, info) => {
   }
 
   if (info[subMeasure]) {
-    return `${displayLabel} - ${info[subMeasure].title}`
+    return `${displayLabel} - ${info[subMeasure].title}`;
   }
 
   return displayLabel;
-}
+};
 export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
   const workingList = {};
   dailyMeasureResults.forEach((item) => {
@@ -126,8 +126,8 @@ export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
   return {
     results: dailyMeasureResults,
     currentResults,
-  }
-}
+  };
+};
 export const DisplayDataFormatter = (
   currentResults,
   selectedMeasures,
@@ -135,12 +135,12 @@ export const DisplayDataFormatter = (
   colorMap,
   theme,
 ) => {
-  const newChartDisplay = []
+  const newChartDisplay = [];
   currentResults.forEach((cr) => {
-    const Measure = cr.measure
+    const Measure = cr.measure;
 
     if (selectedMeasures.includes(Measure)) {
-      const selectMeasureFilter = displayData.filter((entry) => Measure === entry.measure)
+      const selectMeasureFilter = displayData.filter((entry) => Measure === entry.measure);
       if (selectMeasureFilter.length > 0) {
         newChartDisplay.push({
           color: colorMap
@@ -148,15 +148,15 @@ export const DisplayDataFormatter = (
           name: Measure,
           data: selectMeasureFilter.map((item) => Number(item.value.toFixed(2))),
           date: selectMeasureFilter.map((entry) => entry.date),
-        })
+        });
       }
     }
-  })
+  });
   if (newChartDisplay.length > 0) {
-    return newChartDisplay
+    return newChartDisplay;
   }
-  return [{ name: undefined, date: [], data: [] }]
-}
+  return [{ name: undefined, date: [], data: [] }];
+};
 export const lineChartOptions = (
   {
     colorMap,
@@ -166,24 +166,24 @@ export const lineChartOptions = (
   },
 ) => {
   const xaxisTitle = () => {
-    const { choice } = currentTimeline
+    const { choice } = currentTimeline;
     if (choice === 'all') {
-      return 'All Available'
+      return 'All Available';
     }
     if (choice === '30') {
-      return 'Last 30 Days'
+      return 'Last 30 Days';
     }
     if (choice === '60') {
-      return 'Last 60 Days'
+      return 'Last 60 Days';
     }
     if (choice === '90') {
-      return 'Last 90 Days'
+      return 'Last 90 Days';
     }
     if (choice === 'YTD') {
-      return 'Year to Date'
+      return 'Year to Date';
     }
-    return 'All Available'
-  }
+    return 'All Available';
+  };
 
   const chartOptions = {
     height: 100,
@@ -245,7 +245,7 @@ export const lineChartOptions = (
           headerCategory: 'category',
           headerValue: 'value',
           dateFormatter(timestamp) {
-            return new Date(timestamp).toDateString()
+            return new Date(timestamp).toDateString();
           },
         },
         svg: {
@@ -257,7 +257,7 @@ export const lineChartOptions = (
       },
       autoSelected: 'zoom',
     },
-  }
+  };
   const legend = {
     show: false,
     showForSingleSeries: false,
@@ -282,9 +282,9 @@ export const lineChartOptions = (
     labels: {
       colors: colorMap.map((color) => {
         if (color.color) {
-          return color.color
+          return color.color;
         }
-        return theme.palette.text.primary
+        return theme.palette.text.primary;
       }),
       useSeriesColors: false,
     },
@@ -295,9 +295,9 @@ export const lineChartOptions = (
       strokeColor: '#fff',
       fillColors: colorMap.map((color) => {
         if (color.color) {
-          return color.color
+          return color.color;
         }
-        return theme.palette.text.primary
+        return theme.palette.text.primary;
       }),
       radius: 12,
       onClick: undefined,
@@ -314,17 +314,17 @@ export const lineChartOptions = (
     onItemHover: {
       highlightDataSeries: true,
     },
-  }
+  };
   const dataLabels = {
     enabled: false,
-  }
+  };
   const stroke = {
     show: true,
     curve: 'smooth',
     lineCap: 'round',
     width: 4.5,
     dashArray: 0,
-  }
+  };
 
   const xaxis = {
     show: true,
@@ -363,16 +363,16 @@ export const lineChartOptions = (
         if (chartData[0].date.length > 0) {
           if (value !== undefined) {
             if (typeof value === 'string') {
-              return value.split('T')[0]
+              return value.split('T')[0];
             }
-            return value
+            return value;
           // eslint-disable-next-line no-else-return
           } else {
-            return Date.now()
+            return Date.now();
           }
           // eslint-disable-next-line no-else-return
         } else {
-          return []
+          return [];
         }
       },
       datetimeFormatter: {
@@ -410,7 +410,7 @@ export const lineChartOptions = (
     tooltip: {
       enabled: false,
     },
-  }
+  };
   const yaxis = {
     show: true,
     showAlways: true,
@@ -463,7 +463,7 @@ export const lineChartOptions = (
       },
     },
 
-  }
+  };
   const tooltip = {
     enabled: true,
     enabledOnSeries: true,
@@ -474,15 +474,15 @@ export const lineChartOptions = (
     custom({
       series, seriesIndex, dataPointIndex, w,
     }) {
-      const foundDate = w.globals.categoryLabels[dataPointIndex + 1]
-      const foundColor = w.globals.initialSeries[seriesIndex]?.color
+      const foundDate = w.globals.categoryLabels[dataPointIndex + 1];
+      const foundColor = w.globals.initialSeries[seriesIndex]?.color;
       return `<div class="chart-container__tooltip" style="background-color:${foundColor}; text-shadow: 1px 1px ${theme.palette?.bluegray.main}; color:${theme.palette?.background.main};">`
         + `<span> Measure: ${w.config.series[seriesIndex].name.toUpperCase()}</span>`
         + '<br/>'
         + `<span> Value: ${series[seriesIndex][dataPointIndex].toFixed(2)}%</span>`
         + '<br/>'
         + `<span> Date: ${new Date(foundDate).toDateString()}</span>`
-        + '</div>'
+        + '</div>';
     },
     fillSeriesColor: true,
     style: {
@@ -505,10 +505,10 @@ export const lineChartOptions = (
       offsetX: 0,
       offsetY: 0,
     },
-  }
+  };
   const markers = {
     colors: [theme.palette?.bluegray.D1],
-  }
+  };
   const noData = {
     text: 'No measures selected, please use the checkboxes next to the measures below to view results.',
     align: 'center',
@@ -520,7 +520,7 @@ export const lineChartOptions = (
       fontSize: '25px',
       fontFamily: undefined,
     },
-  }
+  };
   return {
     chart: chartOptions,
     dataLabels,
@@ -531,8 +531,8 @@ export const lineChartOptions = (
     markers,
     tooltip,
     noData,
-  }
-}
+  };
+};
 
 export const TimelineOptions = [
   { value: 'all', label: 'All Available' },

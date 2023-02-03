@@ -14,7 +14,7 @@ export default function Alert({
   handleResetData,
 }) {
   function handleAlert() {
-    return openAlert ? setOpenAlert(false) : setOpenAlert(true)
+    return openAlert ? setOpenAlert(false) : setOpenAlert(true);
   }
   if (noResultsALERT) {
     return (
@@ -38,7 +38,7 @@ export default function Alert({
           <Button variant="contained" onClick={() => handleResetData()}>Reset</Button>
         </DialogActions>
       </Dialog>
-    )
+    );
   }
   return (
     <Dialog
@@ -74,7 +74,7 @@ export default function Alert({
         </Button>
       </DialogActions>
     </Dialog>
-  )
+  );
 }
 
 Alert.propTypes = {
@@ -99,4 +99,4 @@ Alert.defaultProps = {
   children: '',
   noResultsALERT: false,
   handleResetData: () => undefined,
-}
+};

@@ -14,14 +14,14 @@ const msInAYear = 1000 * 60 * 60 * 24 * 365;
 const getAge = (date) => {
   const ageInMilliseconds = new Date() - new Date(date);
   return Math.floor(ageInMilliseconds / msInAYear);
-}
+};
 
 const getNumDenValue = (memberValue) => {
   if (Array.isArray(memberValue)) {
     return memberValue.length;
   }
   return memberValue === true ? 1 : 0;
-}
+};
 
 const getMeasureCompliance = (memberResult) => {
   const memberDetails = memberResult.result;
@@ -46,7 +46,7 @@ const getMeasureCompliance = (memberResult) => {
     complianceResult.push(numValue === denValue);
   });
   return complianceResult;
-}
+};
 
 module.exports = {
   updateTimestamp, getDatestamp, getAge, getMeasureCompliance,

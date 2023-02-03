@@ -4,13 +4,13 @@ import {
 import PropTypes from 'prop-types';
 import {
   Tab, Box, List, ListItem, ListItemText,
-} from '@mui/material'
+} from '@mui/material';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import moment from 'moment';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 function MemberReportInsurance({ memberInfo }) {
-  const coverageObjArr = memberInfo.coverage
+  const coverageObjArr = memberInfo.coverage;
   const [tabValue, setTabValue] = useState(coverageObjArr[0].type.coding[0].display.value);
 
   const insuranceTabList = coverageObjArr.map((insurance, i) => (
@@ -19,7 +19,7 @@ function MemberReportInsurance({ memberInfo }) {
       label={insurance.type.coding[i].display.value}
       value={insurance.type.coding[i].display.value}
     />
-  ))
+  ));
 
   const insuranceTabPanels = coverageObjArr.map((insurance, i) => (
     <TabPanel
@@ -94,7 +94,7 @@ function MemberReportInsurance({ memberInfo }) {
         </ListItem>
       </List>
     </TabPanel>
-  ))
+  ));
 
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
@@ -120,7 +120,7 @@ function MemberReportInsurance({ memberInfo }) {
         </TabList>
       </Box>
     </TabContext>
-  )
+  );
 }
 
 MemberReportInsurance.propTypes = {
@@ -143,10 +143,10 @@ MemberReportInsurance.propTypes = {
     ),
     measurementType: PropTypes.string,
   }),
-}
+};
 
 MemberReportInsurance.defaultProps = {
   memberInfo: {},
-}
+};
 
 export default MemberReportInsurance;

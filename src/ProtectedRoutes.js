@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Route, Routes, useParams } from 'react-router-dom';
-import { memberInfoFetch } from './components/Common/Controller'
+import { memberInfoFetch } from './components/Common/Controller';
 import Footer from './components/Common/Footer';
 import Navbar from './components/Common/Navbar';
 import DatastoreProvider from './context/DatastoreProvider';
@@ -8,11 +8,11 @@ import Dashboard from './layouts/Dashboard';
 import MemberReport from './layouts/MemberReport';
 import Reports from './layouts/Reports';
 import NotFound from './notFound';
-import ScrollToTop from './components/Utilities/ScrollToTop'
+import ScrollToTop from './components/Utilities/ScrollToTop';
 
 export default function ProtectedRoute({ authenticated }) {
-  const lastParameter = useParams()['*'].split('/').at(-1)
-  const memberId = lastParameter || '/'
+  const lastParameter = useParams()['*'].split('/').at(-1);
+  const memberId = lastParameter || '/';
 
   return (
     <DatastoreProvider>
@@ -37,7 +37,7 @@ export default function ProtectedRoute({ authenticated }) {
       </Routes>
       <Footer />
     </DatastoreProvider>
-  )
+  );
 }
 ProtectedRoute.propTypes = {
   authenticated: PropTypes.bool,

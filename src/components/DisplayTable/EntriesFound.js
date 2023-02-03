@@ -3,7 +3,7 @@ import {
   Box,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 // this total will have to come from HERA as soon as backend pagination is created
 
@@ -23,7 +23,7 @@ export default function EntriesFound({ total }) {
       </Typography>
     &nbsp;Entries Found
     </Box>
-  )
+  );
 }
 
 EntriesFound.propTypes = {
@@ -32,4 +32,4 @@ EntriesFound.propTypes = {
 
 EntriesFound.defaultProps = {
   total: 0,
-}
+};

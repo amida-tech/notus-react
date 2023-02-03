@@ -2,7 +2,7 @@
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 import { TickChange, TimelineOptions } from '../Utilities/ChartUtils';
 import { colorMappingProps } from '../Utilities/PropTypes';
@@ -26,7 +26,7 @@ function D3Chart({
       dataCounts[item.measure] = 1;
     }
 
-    workingList.push(item.measure)
+    workingList.push(item.measure);
   });
   const measureList = Array.from(new Set(workingList));
   let dataCount = 0;
@@ -123,7 +123,7 @@ function D3Chart({
       .attr('x', width / 2)
       .attr('y', height)
       .attr('class', 'd3-chart__label')
-      .text(TimelineOptions.find((option) => option.value === currentTimeline.choice).label)
+      .text(TimelineOptions.find((option) => option.value === currentTimeline.choice).label);
 
     // Y axis label:
     svg
@@ -158,7 +158,7 @@ function D3Chart({
 
       const MeasureValue = measureInfo[
         event.srcElement.__data__[index].measure
-      ].displayLabel
+      ].displayLabel;
       const measureDisplay = MeasureValue === 'Composite' ? `${MeasureValue} Score` : `Measure: ${MeasureValue}`;
       const valueDisplay = `Value: ${
         Math.floor(event.srcElement.__data__[index].value * 100) / 100
@@ -168,7 +168,7 @@ function D3Chart({
       const { color } = colorMapping.find(
         (mapping) => mapping.value === event.target.__data__[0].measure,
       ) || theme.palette.primary;
-      const leftPosition = (event.pageX > width) ? event.pageX - 176 : event.pageX + 10
+      const leftPosition = (event.pageX > width) ? event.pageX - 176 : event.pageX + 10;
       return tooltip
         .attr('data-html', 'true')
         .style('background-color', color)

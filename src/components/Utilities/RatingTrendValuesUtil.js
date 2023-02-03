@@ -1,10 +1,10 @@
 import HelpIcon from '@mui/icons-material/Help';
-import ToolTip from '@mui/material/Tooltip';import {
+import ToolTip from '@mui/material/Tooltip'; import {
   Typography, Rating,
 } from '@mui/material';
 import theme from '../../assets/styles/AppTheme';
 
-export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
+export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
 export function starTitle(preferences) {
@@ -22,7 +22,7 @@ export function starTitle(preferences) {
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
-  )
+  );
 }
 
 export function compositePercentTitle(preferences) {
@@ -40,7 +40,7 @@ export function compositePercentTitle(preferences) {
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
-  )
+  );
 }
 
 export function measurePercentTitle(preferences) {
@@ -60,20 +60,20 @@ export function measurePercentTitle(preferences) {
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
-  )
+  );
 }
 
 export function submeasurePercentTitle(activeMeasure, preferences, currentResults) {
   const subMeasures = currentResults.find(
     (trend) => trend.measure === activeMeasure.measure,
-  ).subScores
+  ).subScores;
 
-  let label = subMeasures?.find((sub) => preferences.measure === sub.measure).label
-  label = `${label.split('').slice(activeMeasure.measure.length + 4).join('')} Score % Change`
+  let label = subMeasures?.find((sub) => preferences.measure === sub.measure).label;
+  label = `${label.split('').slice(activeMeasure.measure.length + 4).join('')} Score % Change`;
 
   // submeasure titles can be super long so we're making the font size
   // slightly smaller for massive ones
-  const charCount = label.split('').length > 45
+  const charCount = label.split('').length > 45;
 
   return (
     <Typography
@@ -93,18 +93,18 @@ export function submeasurePercentTitle(activeMeasure, preferences, currentResult
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
-  )
+  );
 }
 
 export function percentDisplayValue(trends, preferences) {
   const percentValue = trends.find(
     (trend) => trend.measure === preferences.measure.toLowerCase(),
-  ).percentChange
-  let percentColor = theme.palette?.text.disabled
+  ).percentChange;
+  let percentColor = theme.palette?.text.disabled;
   if (percentValue > 0) {
-    percentColor = theme.palette?.success.main
+    percentColor = theme.palette?.success.main;
   } else if (percentValue < 0) {
-    percentColor = theme.palette?.error.main
+    percentColor = theme.palette?.error.main;
   }
   return (
     <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
@@ -112,13 +112,13 @@ export function percentDisplayValue(trends, preferences) {
       {' '}
       %
     </Typography>
-  )
+  );
 }
 
 export function starDisplayValue(currentResults, preferences) {
   const starValue = currentResults.find(
     (trend) => trend.measure === preferences.measure.toLowerCase(),
-  ).starRating
+  ).starRating;
   return (
     <Rating
       name="read-only"
@@ -127,7 +127,7 @@ export function starDisplayValue(currentResults, preferences) {
       sx={{ fontSize: 'xxx-large' }}
       readOnly
     />
-  )
+  );
 }
 
 export function submeasurePercentDisplayValue(trends, activeMeasure, preferences) {
@@ -135,12 +135,12 @@ export function submeasurePercentDisplayValue(trends, activeMeasure, preferences
     (trend) => activeMeasure.measure === trend.measure,
   ).subScoreTrends.find(
     (trend) => trend.measure === preferences.measure,
-  ).percentChange
-  let percentColor = theme.palette?.text.disabled
+  ).percentChange;
+  let percentColor = theme.palette?.text.disabled;
   if (percentValue > 0) {
-    percentColor = theme.palette?.success.main
+    percentColor = theme.palette?.success.main;
   } else if (percentValue < 0) {
-    percentColor = theme.palette?.error.main
+    percentColor = theme.palette?.error.main;
   }
   return (
     <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
@@ -148,7 +148,7 @@ export function submeasurePercentDisplayValue(trends, activeMeasure, preferences
       {' '}
       %
     </Typography>
-  )
+  );
 }
 
 export function percentageFooter(preferences) {
@@ -156,7 +156,7 @@ export function percentageFooter(preferences) {
     <Typography sx={{ height: 'fit-content' }}>
       {preferences.measure.toUpperCase()}
     </Typography>
-  )
+  );
 }
 
 export function starFooter() {
@@ -164,5 +164,5 @@ export function starFooter() {
     <Typography sx={{ height: '3rem', alignItems: 'center' }}>
       (over the past week)
     </Typography>
-  )
+  );
 }

@@ -2835,7 +2835,7 @@ export const resultList = [
     initialPopulation: 183,
     exclusions: 129,
   },
-]
+];
 
 export const userPreferences = {
   ratingTrends: {
@@ -2849,7 +2849,7 @@ export const userPreferences = {
     // },
   },
   theme: 'light',
-}
+};
 
 export const trendList = [
   {
@@ -3186,7 +3186,7 @@ export const trendList = [
     percentChange: 0,
     subScoreTrends: [],
   },
-]
+];
 
 export const infoObject = {
   composite: {
@@ -3330,9 +3330,9 @@ export const infoObject = {
     weight: 3,
     hasSubMeasures: false,
   },
-}
+};
 
-export const memberId = 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad'
+export const memberId = 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad';
 
 export const memberInfo = {
   _id: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad-aab-0',
@@ -3421,9 +3421,9 @@ export const memberInfo = {
     Numerator: [],
     id: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
   },
-}
+};
 
-export const exportUrl = 'this.is.a.valid.url/wow'
+export const exportUrl = 'this.is.a.valid.url/wow';
 
 export const rowData = [
   {
@@ -3435,7 +3435,7 @@ export const rowData = [
     dates: '01/01/1992 - 03/14/2001',
     recommendations: ['remove bones'],
   },
-]
+];
 
 export const headerInfo = [
   {
@@ -3480,7 +3480,7 @@ export const headerInfo = [
     flexBasis: 'standard',
     alignContent: 'center',
   },
-]
+];
 
 export const aabHeaderInfo = [
   {
@@ -3497,7 +3497,7 @@ export const aabHeaderInfo = [
     tooltip: 'Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
     flexBasis: 'medium',
   },
-]
+];
 
 export const selectedMeasures = [
   'composite',
@@ -3523,7 +3523,7 @@ export const selectedMeasures = [
   'psa',
   'uop',
   'uri',
-]
+];
 
 export const colorMap = [
   {
@@ -3617,7 +3617,7 @@ export const colorMap = [
     value: 'uri',
     color: '#88CCEE',
   },
-]
+];
 
 export const formattedData = [
   {
@@ -3650,7 +3650,7 @@ export const formattedData = [
     denominator: 167,
     exclusions: 41,
   },
-]
+];
 
 export const currentResults = [
   {
@@ -4492,7 +4492,7 @@ export const currentResults = [
     shortLabel: 'URI',
     title: 'Appropriate Treatment for Children With Upper Respiratory Infection',
   },
-]
+];
 
 export const rowEntries = [
   {
@@ -4525,7 +4525,7 @@ export const rowEntries = [
     type: 'member',
     aab: 'true',
   },
-]
+];
 export const additionalFilterOptions = {
   payors: [
     {
@@ -4637,7 +4637,7 @@ export const additionalFilterOptions = {
       timestamp: '2022-10-25T20:14:40.104Z',
     },
   ],
-}
+};
 
 export const activeMeasure = {
   measure: 'composite',
@@ -4651,7 +4651,7 @@ export const activeMeasure = {
   label: 'Composite - Composite Score',
   shortLabel: 'Composite',
   title: 'Composite Score',
-}
+};
 
 export const widgetPrefs = {
   0: {
@@ -4670,4 +4670,4 @@ export const widgetPrefs = {
     type: 'percentage',
     measure: 'composite',
   },
-}
+};

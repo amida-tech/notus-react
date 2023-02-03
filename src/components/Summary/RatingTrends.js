@@ -3,7 +3,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-shadow */
 import { useState, useContext } from 'react';
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import {
   Typography, Box,
 } from '@mui/material';
@@ -19,21 +19,21 @@ import { submeasureResults } from '../Utilities/RatingTrendsValues';
 function RatingTrends({
   currentResults, activeMeasure, trends, widgetPrefs,
 }) {
-  const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.'
-  const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs))
+  const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
+  const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs));
   const { datastore, datastoreActions } = useContext(DatastoreContext);
 
   const widgetSpacing = () => {
     if (activeMeasure.measure === 'composite') {
-      return `repeat(${Object.keys(widgetPrefs).length}, 1fr)`
+      return `repeat(${Object.keys(widgetPrefs).length}, 1fr)`;
     }
 
     const subscoresLength = trends.find(
       (trend) => activeMeasure.measure === trend.measure,
-    ).subScoreTrends.length
+    ).subScoreTrends.length;
 
-    return `repeat(${subscoresLength + 1}, 1fr)`
-  }
+    return `repeat(${subscoresLength + 1}, 1fr)`;
+  };
 
   function handleOnDragEnd(result) {
     if (!result.destination) return;
@@ -42,11 +42,11 @@ function RatingTrends({
     items.splice(result.destination.index, 0, reorderedItem);
     setBoxOrder(items);
     delete datastore.preferences.ratingTrends;
-    datastoreActions?.setPreferences({ ratingTrends: items, ...datastore.preferences })
+    datastoreActions?.setPreferences({ ratingTrends: items, ...datastore.preferences });
   }
 
   if (activeMeasure.measure !== 'composite') {
-    const measurePreferences = submeasureResults(activeMeasure, trends)
+    const measurePreferences = submeasureResults(activeMeasure, trends);
     return (
       <Box sx={{ m: '0 1rem' }}>
         <Box sx={{ display: 'flex', mb: '1rem' }}>
@@ -95,7 +95,7 @@ function RatingTrends({
         </Box>
 
       </Box>
-    )
+    );
   }
   return (
     <Box sx={{ m: '0 1rem' }}>
@@ -147,7 +147,7 @@ function RatingTrends({
       </DragDropContext>
 
     </Box>
-  )
+  );
 }
 
 RatingTrends.propTypes = {
@@ -155,13 +155,13 @@ RatingTrends.propTypes = {
   trends: trendsProps,
   widgetPrefs: widgetPrefsProps,
   currentResults: currentResultsProps,
-}
+};
 
 RatingTrends.defaultProps = {
   activeMeasure: {},
   trends: {},
   widgetPrefs: {},
   currentResults: {},
-}
+};
 
 export default RatingTrends;

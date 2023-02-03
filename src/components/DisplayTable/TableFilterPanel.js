@@ -2,7 +2,7 @@ import {
   Box, Checkbox, Divider, FormControlLabel, FormGroup, Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 import MemberSearch from '../Utilities/MemberSearch';
 
 const memberComplianceItems = [
@@ -43,7 +43,7 @@ function TableFilterPanel({
       </Box>
       <Divider sx={{ backgroundColor: theme.palette?.bluegray.L3 }} className="table-filter-panel__divider" />
     </>
-  )
+  );
 }
 
 TableFilterPanel.propTypes = {
@@ -56,6 +56,6 @@ TableFilterPanel.defaultProps = {
   memberResult: {},
   tableFilter: [],
   handleTableFilterChange: () => undefined,
-}
+};
 
 export default TableFilterPanel;

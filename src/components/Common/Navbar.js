@@ -10,7 +10,7 @@ import theme from '../../assets/styles/AppTheme';
 
 const logout = () => {
   localStorage.removeItem('token');
-}
+};
 const Offset = styled('div')(theme.mixins.toolbar);
 
 export default function Navbar() {
@@ -62,5 +62,5 @@ export default function Navbar() {
       </AppBar>
       <Offset />
     </Box>
-  )
+  );
 }

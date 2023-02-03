@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box } from '@mui/material';
 import { keyframes } from '@mui/system';
 
 export default function LoadingPage() {
@@ -6,7 +6,7 @@ export default function LoadingPage() {
     0%{background-position:0% 4%}
     50%{background-position:100% 97%}
     100%{background-position:0% 4%}
-  `
+  `;
   return (
     <Box
       sx={{
@@ -21,5 +21,5 @@ export default function LoadingPage() {
         animation: `${wave} 30s ease infinite`,
       }}
     />
-  )
+  );
 }

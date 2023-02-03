@@ -6,12 +6,12 @@ import {
 } from '@mui/material';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 import Banner from '../Common/Banner';
 import Info from '../Common/Info';
 import { getAge, updateTimestamp } from '../Utilities/GeneralUtil';
 import MemberReportTable from './MemberReportTable';
-import MemberReportInsurance from './MemberReportInsurance'
+import MemberReportInsurance from './MemberReportInsurance';
 
 const generalInfoTip = 'The basic information about this member, including provider and payor information.';
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
@@ -26,17 +26,17 @@ function MemberReportDisplay({
   rowData,
   description,
 }) {
-  const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main
+  const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main;
   const descriptionCreator = (descriptionArr) => {
-    let descrip = ''
+    let descrip = '';
     // IF DESCRIPTION ARRAY IS GREATER THAN 0 USE DESCRIPTION
     if (descriptionArr.length > 0) {
-      let additionalDescriptions = ''
+      let additionalDescriptions = '';
       if (description.length === 1) {
         // IF DESCRIPTION ARRAY EQUALS 1 USE FIRST DESCRIPTION
         additionalDescriptions = (
           <p style={{ margin: '0.5rem 0' }}>{descriptionArr[0]}</p>
-        )
+        );
       } else {
         // IF DESCRIPTION ARRAY IS GREATER THAN 1
         additionalDescriptions = descriptionArr.map((des, idx) => (
@@ -44,20 +44,20 @@ function MemberReportDisplay({
           // SEND BACK P TAG DESCRIPTION
             ? <p key={des} style={{ marginTop: '0.5rem' }}>{des}</p>
           // SEND BACK BOLD P TAG DESCRIPTION
-            : <p key={des} style={{ fontWeight: 'bold' }}>{des}</p>))
+            : <p key={des} style={{ fontWeight: 'bold' }}>{des}</p>));
       }
-      descrip = additionalDescriptions
+      descrip = additionalDescriptions;
     } else {
     // IF DESCRIPTION ARRAY EQUALS 0 USE DESCRIPTION
-      descrip = 'No description found for current measure'
+      descrip = 'No description found for current measure';
     }
-    return descrip
-  }
+    return descrip;
+  };
 
   const participationPeriod = `${moment(coverage[0].period.start.value)
     .format('MM/DD/YYYY')}
     - ${moment(coverage[0].period.end.value)
-    .format('MM/DD/YYYY')}`
+    .format('MM/DD/YYYY')}`;
 
   return (
     <Box className="member-report" sx={{ background: 'white' }}>
@@ -194,7 +194,7 @@ function MemberReportDisplay({
         </AccordionDetails>
       </Accordion>
     </Box>
-  )
+  );
 }
 
 MemberReportDisplay.propTypes = {
@@ -290,7 +290,7 @@ MemberReportDisplay.propTypes = {
   description: PropTypes.arrayOf(
     PropTypes.string,
   ),
-}
+};
 
 MemberReportDisplay.defaultProps = {
   id: '',
@@ -301,6 +301,6 @@ MemberReportDisplay.defaultProps = {
   coverageStatus: '',
   rowData: [],
   description: [],
-}
+};
 
 export default MemberReportDisplay;

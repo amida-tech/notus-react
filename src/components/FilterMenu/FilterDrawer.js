@@ -60,7 +60,7 @@ function FilterDrawer({
     toggleFilterDrawer(open);
   };
   const handleResetFilter = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     setStarChoices([]);
     setDomainOfCareChoices([]);
     setPercentSliderValue([0, 100]);
@@ -69,16 +69,16 @@ function FilterDrawer({
     setHealthcareCoverageChoices([]);
     setHealthcarePractitionersChoices([]);
     toggleFilterDrawer(false);
-    setFilterActivated(false)
-    handleResetData()
-  }
+    setFilterActivated(false);
+    handleResetData();
+  };
   const handlePayorChange = (event) => {
     if (event.target.checked) {
       setPayorChoices(payorChoices.concat(event.target.value));
     } else {
       setPayorChoices(payorChoices.filter((payer) => payer !== event.target.value));
     }
-  }
+  };
   const handleHealthcareProviderChange = (event) => {
     if (event.target.checked) {
       setHealthcareProviderChoices(healthcareProviderChoices.concat(event.target.value));
@@ -86,7 +86,7 @@ function FilterDrawer({
       setHealthcareProviderChoices(healthcareProviderChoices
         .filter((provider) => provider !== event.target.value));
     }
-  }
+  };
   const handleHealthcareCoverageChange = (event) => {
     if (event.target.checked) {
       setHealthcareCoverageChoices(healthcareCoverageChoices.concat(event.target.value));
@@ -94,7 +94,7 @@ function FilterDrawer({
       setHealthcareCoverageChoices(healthcareCoverageChoices
         .filter((coverage) => coverage !== event.target.value));
     }
-  }
+  };
   const handlePractitionerChange = (event) => {
     if (event.target.checked) {
       setHealthcarePractitionersChoices(healthcarePractitionersChoices.concat(event.target.value));
@@ -102,27 +102,27 @@ function FilterDrawer({
       setHealthcarePractitionersChoices(healthcarePractitionersChoices
         .filter((practitioner) => practitioner !== event.target.value));
     }
-  }
+  };
   const handleStarChange = (event) => {
     if (event.target.checked) {
       setStarChoices(starChoices.concat(parseInt(event.target.value, 10)));
     } else {
       setStarChoices(starChoices.filter((star) => (star !== parseInt(event.target.value, 10))));
     }
-  }
+  };
   const handleDomainOfCareChange = (event) => {
     if (event.target.checked) {
       setDomainOfCareChoices(domainOfCareChoices.concat(event.target.value));
     } else {
       setDomainOfCareChoices(domainOfCareChoices.filter((doc) => doc !== event.target.value));
     }
-  }
+  };
   // https://mui.com/components/slider/#minimum-distance
   const handleSliderChange = (event, newValue) => {
     setPercentSliderValue(newValue);
   };
   const handleCancel = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     setPercentSliderValue(Array.from(currentFilters.percentRange));
     setStarChoices(Array.from(currentFilters.stars));
     setDomainOfCareChoices(Array.from(currentFilters.domainsOfCare));
@@ -132,15 +132,15 @@ function FilterDrawer({
     setHealthcarePractitionersChoices(Array.from(currentFilters.healthcarePractitioners));
     toggleFilterDrawer(false);
     setFilterActivated(false);
-    datastoreActions?.setMemberResults([])
-    setTableFilter([])
-    setRowEntries([])
-    setComposite(true)
-    setIsLoading(false)
-  }
+    datastoreActions?.setMemberResults([]);
+    setTableFilter([]);
+    setRowEntries([]);
+    setComposite(true);
+    setIsLoading(false);
+  };
 
   const handleApplyFilter = () => {
-    setIsLoading(true)
+    setIsLoading(true);
     const filterOptions = {
       domainsOfCare: domainOfCareChoices,
       stars: starChoices,
@@ -153,8 +153,8 @@ function FilterDrawer({
     filterOptions.sum = filterDrawerItemData.sumCalculator(filterOptions, additionalFilterOptions);
     handleFilterChange(filterOptions);
     toggleFilterDrawer(false);
-    setComposite(true)
-  }
+    setComposite(true);
+  };
 
   const sliderValueText = (value) => `${value}%`;
 
@@ -342,6 +342,6 @@ FilterDrawer.defaultProps = {
   setTableFilter: () => undefined,
   setRowEntries: () => undefined,
   handleResetData: () => undefined,
-}
+};
 
 export default FilterDrawer;

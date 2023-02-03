@@ -13,7 +13,7 @@ const filters = {
   healthcareProviders: [],
   healthcareCoverages: [],
   healthcarePractitioners: [],
-}
+};
 
 const mockHandleFilterChange = jest.fn(() => false);
 const mockToggleFilterDrawer = jest.fn(() => false);
@@ -22,14 +22,14 @@ const emptyFunction = jest.fn(() => false);
 
 const clickNCheck = (boxes, values) => Object.entries(values).forEach(([key, value]) => {
   if (value) {
-    fireEvent.click(boxes.find((box) => box.value === key))
+    fireEvent.click(boxes.find((box) => box.value === key));
   }
-  expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
-})
+  expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked));
+});
 
 const simpleCheck = (boxes, values) => Object.values(values).forEach((value) => {
-  expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked))
-})
+  expect(value ? boxes.find((box) => box.checked) : boxes.find((box) => !box.checked));
+});
 
 const closeOpenDrawerTest = (rerender) => {
   rerender(<FilterDrawer
@@ -52,7 +52,7 @@ const closeOpenDrawerTest = (rerender) => {
     currentFilters={filters}
     additionalFilterOptions={additionalFilterOptions}
   />);
-}
+};
 
 // TO DO: Write test for the slider. https://stackoverflow.com/questions/58856094/testing-a-material-ui-slider-with-testing-library-react
 describe('FilterDrawer', () => {
@@ -70,32 +70,32 @@ describe('FilterDrawer', () => {
         setRowEntries={emptyFunction}
         handleResetData={emptyFunction}
       />,
-    )
+    );
 
     // grab the slider points
-    const sliderPoints = screen.getAllByLabelText('Measurement percentage range')
-    expect(sliderPoints.length).toBe(2)
-    const startPoint = sliderPoints[0]
-    const endPoint = sliderPoints[1]
+    const sliderPoints = screen.getAllByLabelText('Measurement percentage range');
+    expect(sliderPoints.length).toBe(2);
+    const startPoint = sliderPoints[0];
+    const endPoint = sliderPoints[1];
 
     // values of slider points -- aria-valuetext OR aria-valuenow --
     // to match given filter percentageRange value
-    expect(startPoint.getAttribute('aria-valuenow')).toBe('0')
-    expect(endPoint.getAttribute('aria-valuenow')).toBe('100')
+    expect(startPoint.getAttribute('aria-valuenow')).toBe('0');
+    expect(endPoint.getAttribute('aria-valuenow')).toBe('100');
 
-    expect(startPoint.getAttribute('max')).toBe('100')
-    expect(startPoint.getAttribute('min')).toBe('0')
+    expect(startPoint.getAttribute('max')).toBe('100');
+    expect(startPoint.getAttribute('min')).toBe('0');
 
-    expect(endPoint.getAttribute('max')).toBe('100')
-    expect(endPoint.getAttribute('min')).toBe('0')
+    expect(endPoint.getAttribute('max')).toBe('100');
+    expect(endPoint.getAttribute('min')).toBe('0');
 
     // move pointers to new values
     fireEvent.change(startPoint, { target: { value: 25 } });
     fireEvent.change(endPoint, { target: { value: 75 } });
 
-    expect(startPoint.getAttribute('aria-valuenow')).toBe('25')
-    expect(endPoint.getAttribute('aria-valuenow')).toBe('75')
-  })
+    expect(startPoint.getAttribute('aria-valuenow')).toBe('25');
+    expect(endPoint.getAttribute('aria-valuenow')).toBe('75');
+  });
 
   test('checks that the filter is applied', () => {
     const { getByText, rerender } = render(
@@ -128,7 +128,7 @@ describe('FilterDrawer', () => {
 
     // for each of values to be tested, we will click or not
     // expect box to be sucessefully checked or not
-    clickNCheck(checkboxes, expectedValues)
+    clickNCheck(checkboxes, expectedValues);
     fireEvent.click(getByText('Apply Filters'));
 
     // we expect our handleFilterChange function to be called with appropriate filters
@@ -174,8 +174,8 @@ describe('FilterDrawer', () => {
       handleResetData={emptyFunction}
     />);
 
-    simpleCheck(checkboxes, expectedValues)
-  })
+    simpleCheck(checkboxes, expectedValues);
+  });
 
   test('resets to the default filter state', () => {
     render(
@@ -206,9 +206,9 @@ describe('FilterDrawer', () => {
       5: false,
     };
 
-    clickNCheck(checkboxes, expectedValues)
+    clickNCheck(checkboxes, expectedValues);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Reset Filters' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Reset Filters' }));
     expect(mockHandleResetData).toHaveBeenCalled();
     expect(mockToggleFilterDrawer).toHaveBeenCalled();
   });
@@ -244,11 +244,11 @@ describe('FilterDrawer', () => {
 
     // for each of values to be tested, we will click or not
     // expect box to be sucessefully checked or not
-    clickNCheck(checkboxes, expectedValues)
+    clickNCheck(checkboxes, expectedValues);
 
-    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
     expect(mockToggleFilterDrawer).toHaveBeenCalled();
 
     closeOpenDrawerTest(rerender);
   });
-})
+});
