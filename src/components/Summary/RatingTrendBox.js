@@ -2,13 +2,13 @@ import PropTypes from 'prop-types';
 import {
   Box,
 } from '@mui/material';
-import theme from '../../assets/styles/AppTheme';
 import {
   Title,
   DisplayValue,
   Footer,
   measureChecker,
 } from '../Utilities/RatingTrendsValues';
+import { ratingTrendsBox } from '../../assets/styles/RatingTrends.style'
 import { activeMeasureProps } from '../Utilities/PropTypes';
 
 function RatingTrendBox({
@@ -16,22 +16,7 @@ function RatingTrendBox({
 }) {
   return (
     <Box
-      sx={{
-        outline: `1px solid ${theme.palette?.secondary.light}`,
-        backgroundColor: theme.palette?.background.main,
-        borderRadius: '1px',
-        height: '12rem',
-        display: 'grid',
-        gridTemplateRows: '1fr 2fr 1fr',
-        '& > *': {
-          display: 'flex',
-          placeContent: 'center',
-          alignSelf: 'center',
-        },
-        '& > span': {
-          padding: '0 2rem',
-        },
-      }}
+      sx={ratingTrendsBox}
     >
       <Title
         activeMeasure={activeMeasure}
