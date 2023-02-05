@@ -30,7 +30,7 @@ COPY ./public/index.html /app/public
 RUN yarn build
 
 # Production Installer image
-FROM nginx:stable
+FROM nginx:1.22.1
 
 WORKDIR /app
 
