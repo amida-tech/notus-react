@@ -21,6 +21,7 @@ export const ratingTrendsTip = 'Rating and Trends displays the current projected
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
 export function Title({ activeMeasure, preferences, currentResults }) {
+  // console.log('IT IS TIME', preferences)
   if (preferences?.type === 'star') {
     return starTitle(preferences);
   }
@@ -53,11 +54,9 @@ export function Title({ activeMeasure, preferences, currentResults }) {
 export function measureChecker(activeMeasure, preferences) {
   const measureCheck = {};
 
-  measureCheck.percentCheck = activeMeasure.measure === 'composite'
-    && preferences.type === 'percentage';
+  measureCheck.percentCheck = preferences.type === 'percentage';
 
-  measureCheck.starCheck = preferences.type === 'star'
-    || (activeMeasure.measure === 'composite' && preferences.type === 'star');
+  measureCheck.starCheck = preferences.type === 'star';
 
   measureCheck.submeasureCheck = activeMeasure.measure !== 'composite'
     && activeMeasure.measure !== preferences.measure;
@@ -71,10 +70,11 @@ export function DisplayValue({
   const { percentCheck, starCheck, submeasureCheck } = measureCheck;
 
   if (percentCheck) {
-    return percentDisplayValue(trends, preferences);
+    return percentDisplayValue(trends, preferences, activeMeasure, measureCheck);
   } if (starCheck) {
     return starDisplayValue(currentResults, preferences);
   } if (submeasureCheck) {
+    console.log('SUBMEASURE')
     return submeasurePercentDisplayValue(trends, activeMeasure, preferences);
   }
   return (
@@ -93,25 +93,56 @@ export function Footer({ preferences }) {
   return '';
 }
 
+// we need to return star, percentage, high, low
 export const submeasureResults = (activeMeasure, trends) => {
+  // add submeasures
+  const { subScoreTrends } = trends
+    .slice()
+    .find((trend) =>
+      trend.measure === activeMeasure.measure,
+    )
+
   const values = {
     0: {
       type: 'star',
       measure: activeMeasure.measure,
     },
+    1: {
+      type: 'percentage',
+      measure: activeMeasure.measure
+    }
   };
-  // add submeasures
 
-  const { subScoreTrends } = trends.find(
-    (trend) => trend.measure === activeMeasure.measure,
-  );
+  console.log('props:', {activeMeasure, trends})
+  const manySubscores = trends.find(
+    (trend) => trend.measure === activeMeasure.measure
+  ).subScoreTrends.length > 1
 
-  subScoreTrends.forEach((trend, idx) => {
-    Object.assign(values, {
-      [idx + 1]:
-        { type: 'percentage', measure: trend.measure },
+  if (manySubscores) {
+    const sorted = subScoreTrends.sort((previous, current) => {
+      return previous.percentChange < current.percentChange
+    })
+    let highLows = [sorted[0], sorted.at(-1)]
+    highLows.forEach((trend, idx) => {
+      Object.assign(values, {
+        [idx + 2]:
+          { type: 'percentage', measure: trend.measure },
+      });
     });
-  });
+  }
+
+  // below returns ALL submeasure percentages
+  // maybe a feature later in settings?
+  // const { subScoreTrends } = trends.find(
+  //   (trend) => trend.measure === activeMeasure.measure,
+  // );
+
+  // subScoreTrends.forEach((trend, idx) => {
+  //   Object.assign(values, {
+  //     [idx + 1]:
+  //       { type: 'percentage', measure: trend.measure },
+  //   });
+  // });
 
   return values;
 };

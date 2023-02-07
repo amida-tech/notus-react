@@ -3,6 +3,7 @@ import ToolTip from '@mui/material/Tooltip'; import {
   Typography, Rating,
 } from '@mui/material';
 import theme from '../../assets/styles/AppTheme';
+import { ratingTrendsTitle } from 'assets/styles/RatingTrends.style';
 
 export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
@@ -47,11 +48,7 @@ export function measurePercentTitle(preferences) {
   return (
     <Typography
       variant="h6"
-      sx={{
-        padding: '1rem',
-        fontWeight: 700,
-        whiteSpace: 'nowrap',
-      }}
+      sx={ratingTrendsTitle(preferences.measure)}
     >
       {preferences.measure.toUpperCase()}
       {' '}
@@ -71,22 +68,10 @@ export function submeasurePercentTitle(activeMeasure, preferences, currentResult
   let label = subMeasures?.find((sub) => preferences.measure === sub.measure).label;
   label = `${label.split('').slice(activeMeasure.measure.length + 4).join('')} Score % Change`;
 
-  // submeasure titles can be super long so we're making the font size
-  // slightly smaller for massive ones
-  const charCount = label.split('').length > 45;
-
   return (
     <Typography
       variant="h6"
-      sx={{
-        padding: '.5rem',
-        fontWeight: 700,
-        width: '85%',
-        height: 'fit-content',
-        textAlign: 'center',
-        justifySelf: 'center',
-        fontSize: charCount ? '1rem' : '1.2rem',
-      }}
+      sx={ratingTrendsTitle(label)}
     >
       {label}
       <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
@@ -96,10 +81,22 @@ export function submeasurePercentTitle(activeMeasure, preferences, currentResult
   );
 }
 
-export function percentDisplayValue(trends, preferences) {
-  const percentValue = trends.find(
-    (trend) => trend.measure === preferences.measure.toLowerCase(),
-  ).percentChange;
+export function percentDisplayValue(trends, preferences, activeMeasure, measureCheck) {
+  console.log('props for submeasure:', {preferences, trends, measureCheck})
+  let percentValue
+  if (measureCheck.submeasureCheck) {
+    percentValue = trends.find(
+      (trend) => trend.measure === activeMeasure.measure.toLowerCase()
+    ).subScoreTrends.find(
+      (sub) => sub.measure === preferences.measure
+    ).percentChange
+  } else {
+    console.log('this is a measure check')
+    percentValue = trends.find(
+      (trend) => trend.measure === preferences.measure.toLowerCase(),
+    ).percentChange;
+  }
+
   let percentColor = theme.palette?.text.disabled;
   if (percentValue > 0) {
     percentColor = theme.palette?.success.main;

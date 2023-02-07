@@ -1,10 +1,10 @@
 import theme from './AppTheme';
 
-// I've floated an idea to 'clean up' extensive
+// I've floated an idea to clean up extensive
 // custom MUI styling by importing an object right
 // into the sx prop... It seems to be the best
-// way to integrate MUI theming with a scss-y structure.
-// So here is it is as an example:
+// way to integrate MUI theming with a scss-y structure
+// and still be flexible when needed. (m-ox)
 
 export const ratingTrendsBox = {
   outline: `1px solid ${theme.palette?.secondary.light}`,
@@ -22,3 +22,57 @@ export const ratingTrendsBox = {
     padding: '0 2rem',
   },
 };
+
+
+// In some rare scenarios we may want a functional approach to scaling
+// certain components as you can see here with 'repeat(4, 1fr)',
+// but I don't think it'd be good to lean too heavily into it.
+// The important part is we can directly target nested MUI components
+// (refer to MUI API docs for global class information). (m-ox)
+// EX: https://mui.com/material-ui/api/button/
+
+export const ratingTrendsMeasureContainer = {
+  display: 'grid',
+  gap: '1rem',
+  width: 'inherit',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  overflowX: 'auto',
+  overflowY: 'unset',
+  padding: '.5rem',
+  '& > div': {
+    width: '20rem',
+    justifyContent: 'center',
+    '& > h4': {
+      alignSelf: 'end',
+    },
+    '& > p': {
+      margin: '1rem 0',
+      height: 'unset',
+      alignItems: 'self-end',
+    },
+    '& > span': {
+      marginBottom: '-2rem',
+    },
+  },
+}
+
+export const ratingTrendsCompositeContainer = {
+  display: 'grid',
+  gap: '1rem',
+  width: 'inherit',
+  gridTemplateColumns: 'repeat(4, 1fr)',
+  padding: '1rem',
+}
+
+export const ratingTrendsTitle = (label) => {
+  const charCount = label.length > 45;
+  return {
+    padding: '.5rem',
+    fontWeight: 700,
+    maxWidth: '90%',
+    height: 'fit-content',
+    textAlign: 'center',
+    justifySelf: 'center',
+    fontSize: charCount ? '1rem' : '1.2rem',
+  }
+}
