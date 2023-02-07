@@ -2,8 +2,8 @@ import HelpIcon from '@mui/icons-material/Help';
 import ToolTip from '@mui/material/Tooltip'; import {
   Typography, Rating,
 } from '@mui/material';
+import { ratingTrendsTitle } from '../../assets/styles/RatingTrends.style';
 import theme from '../../assets/styles/AppTheme';
-import { ratingTrendsTitle } from 'assets/styles/RatingTrends.style';
 
 export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
@@ -83,9 +83,9 @@ export function percentDisplayValue(trends, preferences, activeMeasure, measureC
   let percentValue
   if (measureCheck.submeasureCheck) {
     percentValue = trends.find(
-      (trend) => trend.measure === activeMeasure.measure.toLowerCase()
+      (trend) => trend.measure === activeMeasure.measure.toLowerCase(),
     ).subScoreTrends.find(
-      (sub) => sub.measure === preferences.measure
+      (sub) => sub.measure === preferences.measure,
     ).percentChange
   } else {
     percentValue = trends.find(

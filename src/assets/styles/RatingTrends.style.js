@@ -23,7 +23,6 @@ export const ratingTrendsBox = {
   },
 };
 
-
 // In some rare scenarios we may want a functional approach to scaling
 // certain components as you can see here with 'repeat(4, 1fr)',
 // but I don't think it'd be good to lean too heavily into it.

@@ -45,7 +45,7 @@ function RatingTrends({
           <Info infoText={ratingTrendsTip} />
         </Box>
 
-        <Box sx={ratingTrendsMeasureContainer} >
+        <Box sx={ratingTrendsMeasureContainer}>
           {Object.values(measurePreferences).map((pref, idx) => (
             <RatingTrendBox
               key={pref.measure}

@@ -70,9 +70,9 @@ export function DisplayValue({
 
   if (percentCheck) {
     return percentDisplayValue(trends, preferences, activeMeasure, measureCheck);
-  } if (starCheck) {
+  } else if (starCheck) {
     return starDisplayValue(currentResults, preferences);
-  } if (submeasureCheck) {
+  } else if (submeasureCheck) {
     return submeasurePercentDisplayValue(trends, activeMeasure, preferences);
   }
   return (
@@ -85,7 +85,7 @@ export function DisplayValue({
 export function Footer({ preferences }) {
   if (preferences.type === 'percentage') {
     return percentageFooter(preferences);
-  } if (preferences.type === 'star') {
+  } else if (preferences.type === 'star') {
     return starFooter();
   }
   return '';
@@ -96,9 +96,7 @@ export const submeasureResults = (activeMeasure, trends) => {
   // add submeasures
   const { subScoreTrends } = trends
     .slice()
-    .find((trend) =>
-      trend.measure === activeMeasure.measure,
-    )
+    .find((trend) => trend.measure === activeMeasure.measure)
 
   const values = {
     0: {
@@ -107,19 +105,18 @@ export const submeasureResults = (activeMeasure, trends) => {
     },
     1: {
       type: 'percentage',
-      measure: activeMeasure.measure
-    }
+      measure: activeMeasure.measure,
+    },
   };
 
   const manySubscores = trends.find(
-    (trend) => trend.measure === activeMeasure.measure
+    (trend) => trend.measure === activeMeasure.measure,
   ).subScoreTrends.length > 1
 
   if (manySubscores) {
-    const sorted = subScoreTrends.sort((previous, current) => {
-      return previous.percentChange < current.percentChange
-    })
-    let highLows = [sorted[0], sorted.at(-1)]
+    const sorted = subScoreTrends
+      .sort((prev, curr) => prev.percentChange < curr.percentChange)
+    const highLows = [sorted[0], sorted.at(-1)]
     highLows.forEach((trend, idx) => {
       Object.assign(values, {
         [idx + 2]:
@@ -127,19 +124,6 @@ export const submeasureResults = (activeMeasure, trends) => {
       });
     });
   }
-
-  // below returns ALL submeasure percentages
-  // maybe a feature later in settings?
-  // const { subScoreTrends } = trends.find(
-  //   (trend) => trend.measure === activeMeasure.measure,
-  // );
-
-  // subScoreTrends.forEach((trend, idx) => {
-  //   Object.assign(values, {
-  //     [idx + 1]:
-  //       { type: 'percentage', measure: trend.measure },
-  //   });
-  // });
 
   return values;
 };
