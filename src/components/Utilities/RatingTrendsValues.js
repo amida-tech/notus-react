@@ -21,7 +21,6 @@ export const ratingTrendsTip = 'Rating and Trends displays the current projected
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
 export function Title({ activeMeasure, preferences, currentResults }) {
-  // console.log('IT IS TIME', preferences)
   if (preferences?.type === 'star') {
     return starTitle(preferences);
   }
@@ -74,7 +73,6 @@ export function DisplayValue({
   } if (starCheck) {
     return starDisplayValue(currentResults, preferences);
   } if (submeasureCheck) {
-    console.log('SUBMEASURE')
     return submeasurePercentDisplayValue(trends, activeMeasure, preferences);
   }
   return (
@@ -113,7 +111,6 @@ export const submeasureResults = (activeMeasure, trends) => {
     }
   };
 
-  console.log('props:', {activeMeasure, trends})
   const manySubscores = trends.find(
     (trend) => trend.measure === activeMeasure.measure
   ).subScoreTrends.length > 1

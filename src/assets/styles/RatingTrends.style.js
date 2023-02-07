@@ -36,11 +36,12 @@ export const ratingTrendsMeasureContainer = {
   gap: '1rem',
   width: 'inherit',
   gridTemplateColumns: 'repeat(4, 1fr)',
-  overflowX: 'auto',
+  // overflowX: 'auto',
+  overflowX: 'unset',
   overflowY: 'unset',
   padding: '.5rem',
   '& > div': {
-    width: '20rem',
+    width: '21rem',
     justifyContent: 'center',
     '& > h4': {
       alignSelf: 'end',
@@ -67,9 +68,9 @@ export const ratingTrendsCompositeContainer = {
 export const ratingTrendsTitle = (label) => {
   const charCount = label.length > 45;
   return {
-    padding: '.5rem',
+    padding: charCount ? '.5rem' : '1rem',
     fontWeight: 700,
-    maxWidth: '90%',
+    maxWidth: charCount ? '90%' : 'unset',
     height: 'fit-content',
     textAlign: 'center',
     justifySelf: 'center',

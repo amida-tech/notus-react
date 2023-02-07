@@ -50,10 +50,8 @@ export function measurePercentTitle(preferences) {
       variant="h6"
       sx={ratingTrendsTitle(preferences.measure)}
     >
-      {preferences.measure.toUpperCase()}
-      {' '}
-      Score % Change
-      <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
+      {` ${preferences.measure.toUpperCase()} Score % Change `}
+      <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center', margin: '.2rem' }}>
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
@@ -82,7 +80,6 @@ export function submeasurePercentTitle(activeMeasure, preferences, currentResult
 }
 
 export function percentDisplayValue(trends, preferences, activeMeasure, measureCheck) {
-  console.log('props for submeasure:', {preferences, trends, measureCheck})
   let percentValue
   if (measureCheck.submeasureCheck) {
     percentValue = trends.find(
@@ -91,7 +88,6 @@ export function percentDisplayValue(trends, preferences, activeMeasure, measureC
       (sub) => sub.measure === preferences.measure
     ).percentChange
   } else {
-    console.log('this is a measure check')
     percentValue = trends.find(
       (trend) => trend.measure === preferences.measure.toLowerCase(),
     ).percentChange;

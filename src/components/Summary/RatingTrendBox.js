@@ -14,7 +14,6 @@ import { activeMeasureProps } from '../Utilities/PropTypes';
 function RatingTrendBox({
   activeMeasure, widgetPrefs, trends, currentResults,
 }) {
-  console.log('SUBM BOX:', widgetPrefs, {activeMeasure, trends, currentResults})
   return (
     <Box
       sx={ratingTrendsBox}
