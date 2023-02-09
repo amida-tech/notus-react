@@ -7,7 +7,7 @@ import {
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import {
-  resultList, trendList, infoObject, userPreferences, widgetPrefs
+  resultList, trendList, infoObject, userPreferences, widgetPrefs,
 } from '../test/data/DemoData';
 import { DatastoreReducer, initialState } from './DatastoreReducer';
 import env from '../env';

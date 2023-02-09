@@ -70,9 +70,9 @@ export function DisplayValue({
 
   if (percentCheck) {
     return percentDisplayValue(trends, preferences, activeMeasure, measureCheck);
-  } else if (starCheck) {
+  } if (starCheck) {
     return starDisplayValue(currentResults, preferences);
-  } else if (submeasureCheck) {
+  } if (submeasureCheck) {
     return submeasurePercentDisplayValue(trends, activeMeasure, preferences);
   }
   return (
@@ -85,7 +85,7 @@ export function DisplayValue({
 export function Footer({ preferences }) {
   if (preferences.type === 'percentage') {
     return percentageFooter(preferences);
-  } else if (preferences.type === 'star') {
+  } if (preferences.type === 'star') {
     return starFooter(preferences);
   }
   return '';

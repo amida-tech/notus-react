@@ -120,7 +120,7 @@ export function starDisplayValue(currentResults, preferences) {
         value={starValue}
         precision={0.5}
         sx={{ fontSize: 'xxx-large' }}
-        getLabelText={(prefs => prefs.measure)}
+        getLabelText={((prefs) => prefs.measure)}
         readOnly
       />
     </div>

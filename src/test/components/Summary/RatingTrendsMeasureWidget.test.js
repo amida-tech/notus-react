@@ -1,11 +1,11 @@
 import {
   render, screen, within,
 } from '@testing-library/react';
+import { submeasureResults } from '../../../components/Utilities/RatingTrendsValues';
 import RatingTrends from '../../../components/Summary/RatingTrends';
 import {
   activeSubmeasure, trendList, currentResults,
 } from '../../data/DemoData';
-import { submeasureResults } from 'components/Utilities/RatingTrendsValues';
 
 describe('RatingTrends', () => {
   beforeEach(() => {
@@ -70,9 +70,9 @@ describe('RatingTrends', () => {
   it('widget details have correct information', () => {
     const submOrderedArr = submeasureResults(activeSubmeasure, trendList)
 
-    let allLabels = {}
+    const allLabels = {}
     Object.values(submOrderedArr).forEach((rating) => {
-      if (allLabels[rating.measure] === undefined) {  
+      if (allLabels[rating.measure] === undefined) {
         allLabels[rating.measure] = 0
       }
       allLabels[rating.measure] += 1
@@ -82,7 +82,7 @@ describe('RatingTrends', () => {
       if (rating.type === 'star') {
         const starDetails = screen.getAllByLabelText(rating.measure);
         expect(starDetails[idx % allLabels[rating.measure]].ariaLabel === rating.measure)
-      } else if (rating.type === 'percentage') { 
+      } else if (rating.type === 'percentage') {
         const percentDetails = screen.getAllByLabelText(rating.measure);
         expect(percentDetails[idx % allLabels[rating.measure]].ariaLabel === rating.measure)
       }

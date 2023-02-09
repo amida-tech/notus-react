@@ -64,9 +64,9 @@ describe('RatingTrends', () => {
   });
 
   it('widget details have correct information', () => {
-    let allLabels = {}
+    const allLabels = {}
     Object.values(widgetPrefs).forEach((rating) => {
-      if (allLabels[rating.measure] === undefined) {  
+      if (allLabels[rating.measure] === undefined) {
         allLabels[rating.measure] = 0
       }
       allLabels[rating.measure] += 1
@@ -76,7 +76,7 @@ describe('RatingTrends', () => {
       if (rating.type === 'star') {
         const starDetails = screen.getAllByLabelText(rating.measure);
         expect(starDetails[idx % allLabels[rating.measure]].ariaLabel === rating.measure)
-      } else if (rating.type === 'percentage') { 
+      } else if (rating.type === 'percentage') {
         const percentDetails = screen.getAllByLabelText(rating.measure);
         expect(percentDetails[idx % allLabels[rating.measure]].ariaLabel === rating.measure)
       }
@@ -85,7 +85,7 @@ describe('RatingTrends', () => {
   });
 
   it('widget footers have correct information', () => {
-    Object.values(widgetPrefs).forEach(rating => {
+    Object.values(widgetPrefs).forEach((rating) => {
       const starFooters = screen
         .getAllByText(`(${rating.measure.toUpperCase()} over the past week)`);
       expect(starFooters).toBeTruthy()
