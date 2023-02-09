@@ -153,7 +153,7 @@ export function submeasurePercentDisplayValue(trends, activeMeasure, preferences
 export function percentageFooter(preferences) {
   return (
     <Typography sx={{ height: 'fit-content' }}>
-      ({preferences.measure.toUpperCase()} over the past week)
+      {`(${preferences.measure.toUpperCase()} over the past week)`}
     </Typography>
   );
 }
@@ -161,7 +161,7 @@ export function percentageFooter(preferences) {
 export function starFooter(preferences) {
   return (
     <Typography sx={{ height: '3rem', alignItems: 'center' }}>
-      ({preferences.measure.toUpperCase()} over the past week)
+      {`(${preferences.measure.toUpperCase()} over the past week)`}
     </Typography>
   );
 }

@@ -4653,6 +4653,67 @@ export const activeMeasure = {
   title: 'Composite Score',
 };
 
+export const activeSubmeasure = {
+  measure: "aise",
+  date: "2023-02-09T00:00:00.000Z",
+  value: 16.666666666666664,
+  starRating: 1,
+  denominator: 1398,
+  numerator: 233,
+  initialPopulation: 1398,
+  exclusions: 968,
+  subScores: [
+      {
+          measure: "aise-1",
+          date: "2023-02-09T00:00:00.000Z",
+          value: 18.253968253968253,
+          denominator: 504,
+          numerator: 92,
+          initialPopulation: 504,
+          exclusions: 242,
+          label: "AIS-E - Adult Immunization Status: Influenza",
+          id: "aise-1"
+      },
+      {
+          measure: "aise-2",
+          date: "2023-02-09T00:00:00.000Z",
+          value: 14.484126984126986,
+          denominator: 504,
+          numerator: 73,
+          initialPopulation: 504,
+          exclusions: 242,
+          label: "AIS-E - Adult Immunization Status: Td/Tdap",
+          id: "aise-2"
+      },
+      {
+          measure: "aise-3",
+          date: "2023-02-09T00:00:00.000Z",
+          value: 18.181818181818183,
+          denominator: 264,
+          numerator: 48,
+          initialPopulation: 264,
+          exclusions: 242,
+          label: "AIS-E - Adult Immunization Status: Zoster",
+          id: "aise-3"
+      },
+      {
+          measure: "aise-4",
+          date: "2023-02-09T00:00:00.000Z",
+          value: 15.873015873015872,
+          denominator: 126,
+          numerator: 20,
+          initialPopulation: 126,
+          exclusions: 242,
+          label: "AIS-E - Adult Immunization Status: Pneumococcal",
+          id: "aise-4"
+      }
+  ],
+  label: "AIS-E - Adult Immunization Status",
+  shortLabel: "AIS-E",
+  title: "Adult Immunization Status",
+  id: "aise"
+}
+
 export const widgetPrefs = {
   0: {
     type: 'star',

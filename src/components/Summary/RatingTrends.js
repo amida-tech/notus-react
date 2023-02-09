@@ -48,7 +48,7 @@ function RatingTrends({
         <Box sx={ratingTrendsMeasureContainer}>
           {Object.values(measurePreferences).map((pref, idx) => (
             <RatingTrendBox
-              key={pref.measure}
+              key={`${pref.measure}'s ${pref.type}`}
               activeMeasure={activeMeasure}
               widgetPrefs={measurePreferences[idx]}
               trends={trends}
@@ -80,7 +80,11 @@ function RatingTrends({
             >
 
               {boxItems.map((widget, idx) => (
-                <Draggable key={widget.measure} draggableId={widget.measure} index={idx}>
+                <Draggable
+                  key={`${widget.measure}'s ${widget.type}`}
+                  draggableId={widget.measure}
+                  index={idx}
+                >
                   {(provided) => (
                     <div
                       {...provided.draggableProps}
