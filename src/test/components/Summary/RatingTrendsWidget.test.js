@@ -43,24 +43,18 @@ describe('RatingTrends', () => {
     expect(screen.getByText('Ratings & Trends')).toBeTruthy();
 
     // default props in store for dev mode
-    const defaultStoreHeaders = {
-      aab: 'star',
-      asfe: 'percent',
-      uri: 'star',
-      Composite: 'percent',
-    };
     // help pop up
     const starLabel = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
     const percentLabel = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
 
-    Object.entries(defaultStoreHeaders).forEach(([header, type]) => {
-      if (type === 'star') {
-        const starEl = screen.getByText(`${header.toUpperCase()} Star Rating`);
+    Object.values(widgetPrefs).forEach((rating) => {
+      if (rating.type === 'star') {
+        const starEl = screen.getByText(`${rating.measure.toUpperCase()} Star Rating`);
         expect(starEl).toBeTruthy();
         const starSvg = within(starEl).getByLabelText(starLabel);
         expect(starSvg).toBeTruthy();
-      } else if (type === 'percent') {
-        const percentEl = screen.getByText(`${header.toUpperCase()} Score % Change`);
+      } else if (rating.type === 'percent') {
+        const percentEl = screen.getByText(`${rating.measure.toUpperCase()} Score % Change`);
         expect(percentEl).toBeTruthy();
         const percentSvg = within(percentEl).getByLabelText(percentLabel);
         expect(percentSvg).toBeTruthy();
@@ -70,42 +64,31 @@ describe('RatingTrends', () => {
   });
 
   it('widget details have correct information', () => {
-    const defaultStoreHeaders = {
-      aab: 'star',
-      asfe: 0,
-      uri: 'star',
-      Composite: 0,
-    };
+    let allLabels = {}
+    Object.values(widgetPrefs).forEach((rating) => {
+      if (allLabels[rating.measure] === undefined) {  
+        allLabels[rating.measure] = 0
+      }
+      allLabels[rating.measure] += 1
+    });
 
-    Object.entries(defaultStoreHeaders).forEach(([type, value], idx) => {
-      if (type === 'star') {
-        const starDetails = screen.getAllByTestId('StarBorderIcon');
-        expect(within(starDetails[idx])).toBeTruthy();
-      } else if (type === 'percent') {
-        const percentDetails = screen.getAllByText(`+ ${value}`);
-        expect(within(percentDetails[idx])).toBeTruthy();
+    Object.values(widgetPrefs).forEach((rating, idx) => {
+      if (rating.type === 'star') {
+        const starDetails = screen.getAllByLabelText(rating.measure);
+        expect(starDetails[idx % allLabels[rating.measure]].ariaLabel === rating.measure)
+      } else if (rating.type === 'percentage') { 
+        const percentDetails = screen.getAllByLabelText(rating.measure);
+        expect(percentDetails[idx % allLabels[rating.measure]].ariaLabel === rating.measure)
       }
       return false;
     });
   });
 
-  it('widget footer have correct information', () => {
-    const defaultStoreHeaders = {
-      aab: 'star',
-      asfe: 0,
-      uri: 'star',
-      Composite: 0,
-    };
-
-    Object.entries(defaultStoreHeaders).forEach(([header, type], idx) => {
-      if (type === 'star') {
-        const starFooter = screen.getAllByText('(over the past week)');
-        expect(within(starFooter[idx])).toBeTruthy();
-      } else if (type === 'percent') {
-        const percentFooter = screen.getAllByText(header.toUpperCase());
-        expect(within(percentFooter[idx])).toBeTruthy();
-      }
-      return false;
-    });
+  it('widget footers have correct information', () => {
+    Object.values(widgetPrefs).forEach(rating => {
+      const starFooters = screen
+        .getAllByText(`(${rating.measure.toUpperCase()} over the past week)`);
+      expect(starFooters).toBeTruthy()
+    })
   });
 });

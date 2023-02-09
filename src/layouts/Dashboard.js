@@ -558,7 +558,6 @@ export default function Dashboard() {
                     currentResults={datastore.currentResults}
                     activeMeasure={activeMeasure}
                     trends={datastore.trends}
-                    info={datastore.info}
                     widgetPrefs={datastore.preferences.ratingTrends}
                   />
                 )}

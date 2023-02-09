@@ -100,11 +100,13 @@ export function percentDisplayValue(trends, preferences, activeMeasure, measureC
     percentColor = theme.palette?.error.main;
   }
   return (
-    <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
-      {percentValue < 0 ? percentValue : `+ ${percentValue}`}
-      {' '}
-      %
-    </Typography>
+    <div aria-label={preferences.measure}>
+      <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
+        {percentValue < 0 ? percentValue : `+ ${percentValue}`}
+        {' '}
+        %
+      </Typography>
+    </div>
   );
 }
 
@@ -113,13 +115,15 @@ export function starDisplayValue(currentResults, preferences) {
     (trend) => trend.measure === preferences.measure.toLowerCase(),
   ).starRating;
   return (
-    <Rating
-      name="read-only"
-      value={starValue}
-      precision={0.5}
-      sx={{ fontSize: 'xxx-large' }}
-      readOnly
-    />
+    <div aria-label={preferences.measure}>
+      <Rating
+        value={starValue}
+        precision={0.5}
+        sx={{ fontSize: 'xxx-large' }}
+        getLabelText={(prefs => prefs.measure)}
+        readOnly
+      />
+    </div>
   );
 }
 
@@ -136,26 +140,28 @@ export function submeasurePercentDisplayValue(trends, activeMeasure, preferences
     percentColor = theme.palette?.error.main;
   }
   return (
-    <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
-      {percentValue < 0 ? percentValue : `+${percentValue}`}
-      {' '}
-      %
-    </Typography>
+    <div aria-label={preferences.measure}>
+      <Typography color={percentColor} variant="h4" sx={{ height: 'fit-content', padding: '0' }}>
+        {percentValue < 0 ? percentValue : `+${percentValue}`}
+        {' '}
+        %
+      </Typography>
+    </div>
   );
 }
 
 export function percentageFooter(preferences) {
   return (
     <Typography sx={{ height: 'fit-content' }}>
-      {preferences.measure.toUpperCase()}
+      ({preferences.measure.toUpperCase()} over the past week)
     </Typography>
   );
 }
 
-export function starFooter() {
+export function starFooter(preferences) {
   return (
     <Typography sx={{ height: '3rem', alignItems: 'center' }}>
-      (over the past week)
+      ({preferences.measure.toUpperCase()} over the past week)
     </Typography>
   );
 }

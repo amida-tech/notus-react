@@ -86,7 +86,7 @@ export function Footer({ preferences }) {
   if (preferences.type === 'percentage') {
     return percentageFooter(preferences);
   } else if (preferences.type === 'star') {
-    return starFooter();
+    return starFooter(preferences);
   }
   return '';
 }

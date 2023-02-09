@@ -2853,340 +2853,340 @@ export const userPreferences = {
 
 export const trendList = [
   {
-    measure: 'aab',
-    percentChange: 0,
-    subScoreTrends: [],
+      measure: "aab",
+      percentChange: 20,
+      subScoreTrends: []
   },
   {
-    measure: 'aise',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'aise-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'aise-2',
-        percentChange: 0,
-      },
-      {
-        measure: 'aise-3',
-        percentChange: 0,
-      },
-      {
-        measure: 'aise-4',
-        percentChange: 0,
-      },
-    ],
+      measure: "adde",
+      percentChange: 11,
+      subScoreTrends: [
+          {
+              measure: "adde-1",
+              percentChange: 10
+          },
+          {
+              measure: "adde-2",
+              percentChange: 11
+          }
+      ]
   },
   {
-    measure: 'apme',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'apme-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'apme-2',
-        percentChange: 0,
-      },
-      {
-        measure: 'apme-3',
-        percentChange: 0,
-      },
-    ],
+      measure: "aise",
+      percentChange: 2,
+      subScoreTrends: [
+          {
+              measure: "aise-1",
+              percentChange: 2
+          },
+          {
+              measure: "aise-2",
+              percentChange: 1
+          },
+          {
+              measure: "aise-3",
+              percentChange: 4
+          },
+          {
+              measure: "aise-4",
+              percentChange: 5
+          }
+      ]
   },
   {
-    measure: 'asfe',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'asfe-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'asfe-2',
-        percentChange: 0,
-      },
-    ],
+      measure: "apme",
+      percentChange: -4,
+      subScoreTrends: [
+          {
+              measure: "apme-1",
+              percentChange: -3
+          },
+          {
+              measure: "apme-2",
+              percentChange: -5
+          },
+          {
+              measure: "apme-3",
+              percentChange: -2
+          }
+      ]
   },
   {
-    measure: 'bcse',
-    percentChange: 0,
-    subScoreTrends: [],
+      measure: "asfe",
+      percentChange: 2,
+      subScoreTrends: [
+          {
+              measure: "asfe-1",
+              percentChange: 1
+          },
+          {
+              measure: "asfe-2",
+              percentChange: 5
+          }
+      ]
   },
   {
-    measure: 'ccs',
-    percentChange: 0,
-    subScoreTrends: [],
+      measure: "bcse",
+      percentChange: 4,
+      subScoreTrends: []
   },
   {
-    measure: 'cise',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'cise-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-2',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-3',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-4',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-5',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-6',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-7',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-8',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-9',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-10',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-11',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-12',
-        percentChange: 0,
-      },
-      {
-        measure: 'cise-13',
-        percentChange: 0,
-      },
-    ],
+      measure: "ccs",
+      percentChange: -11,
+      subScoreTrends: []
   },
   {
-    measure: 'cole',
-    percentChange: 0,
-    subScoreTrends: [],
+      measure: "cise",
+      percentChange: -2,
+      subScoreTrends: [
+          {
+              measure: "cise-1",
+              percentChange: -2
+          },
+          {
+              measure: "cise-2",
+              percentChange: 0
+          },
+          {
+              measure: "cise-3",
+              percentChange: -8
+          },
+          {
+              measure: "cise-4",
+              percentChange: 0
+          },
+          {
+              measure: "cise-5",
+              percentChange: -2
+          },
+          {
+              measure: "cise-6",
+              percentChange: -1
+          },
+          {
+              measure: "cise-7",
+              percentChange: -1
+          },
+          {
+              measure: "cise-8",
+              percentChange: -2
+          },
+          {
+              measure: "cise-9",
+              percentChange: -4
+          },
+          {
+              measure: "cise-10",
+              percentChange: -3
+          },
+          {
+              measure: "cise-11",
+              percentChange: 0
+          },
+          {
+              measure: "cise-12",
+              percentChange: 0
+          },
+          {
+              measure: "cise-13",
+              percentChange: 0
+          }
+      ]
   },
   {
-    measure: 'cou',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'cou-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'cou-2',
-        percentChange: 0,
-      },
-    ],
+      measure: "cole",
+      percentChange: -2,
+      subScoreTrends: []
   },
   {
-    measure: 'cwp',
-    percentChange: 0,
-    subScoreTrends: [],
+      measure: "cou",
+      percentChange: -2,
+      subScoreTrends: [
+          {
+              measure: "cou-1",
+              percentChange: -1
+          },
+          {
+              measure: "cou-2",
+              percentChange: -2
+          }
+      ]
   },
   {
-    measure: 'dmse',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'dmse-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'dmse-2',
-        percentChange: 0,
-      },
-      {
-        measure: 'dmse-3',
-        percentChange: 0,
-      },
-    ],
+      measure: "cwp",
+      percentChange: 20,
+      subScoreTrends: []
   },
   {
-    measure: 'drre',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'drre-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'drre-2',
-        percentChange: 0,
-      },
-      {
-        measure: 'drre-3',
-        percentChange: 0,
-      },
-    ],
+      measure: "dmse",
+      percentChange: 2,
+      subScoreTrends: [
+          {
+              measure: "dmse-1",
+              percentChange: 0
+          },
+          {
+              measure: "dmse-2",
+              percentChange: 2
+          },
+          {
+              measure: "dmse-3",
+              percentChange: 2
+          }
+      ]
   },
   {
-    measure: 'dsfe',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'dsfe-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'dsfe-2',
-        percentChange: 0,
-      },
-    ],
+      measure: "drre",
+      percentChange: -4,
+      subScoreTrends: [
+          {
+              measure: "drre-1",
+              percentChange: 0
+          },
+          {
+              measure: "drre-2",
+              percentChange: -2
+          },
+          {
+              measure: "drre-3",
+              percentChange: -9
+          }
+      ]
   },
   {
-    measure: 'fum',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'fum-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'fum-2',
-        percentChange: 0,
-      },
-    ],
+      measure: "dsfe",
+      percentChange: 0,
+      subScoreTrends: [
+          {
+              measure: "dsfe-1",
+              percentChange: 0
+          },
+          {
+              measure: "dsfe-2",
+              percentChange: 0
+          }
+      ]
   },
   {
-    measure: 'imae',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'imae-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'imae-2',
-        percentChange: 0,
-      },
-      {
-        measure: 'imae-3',
-        percentChange: 0,
-      },
-      {
-        measure: 'imae-4',
-        percentChange: 0,
-      },
-      {
-        measure: 'imae-5',
-        percentChange: 0,
-      },
-    ],
+      measure: "fum",
+      percentChange: -3,
+      subScoreTrends: [
+          {
+              measure: "fum-1",
+              percentChange: -2
+          },
+          {
+              measure: "fum-2",
+              percentChange: -4
+          }
+      ]
   },
   {
-    measure: 'pdse',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'pdse-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'pdse-2',
-        percentChange: 0,
-      },
-    ],
+      measure: "imae",
+      percentChange: -22,
+      subScoreTrends: [
+          {
+              measure: "imae-1",
+              percentChange: -19
+          },
+          {
+              measure: "imae-2",
+              percentChange: -13
+          },
+          {
+              measure: "imae-3",
+              percentChange: -24
+          },
+          {
+              measure: "imae-4",
+              percentChange: -24
+          },
+          {
+              measure: "imae-5",
+              percentChange: -28
+          }
+      ]
   },
   {
-    measure: 'pnde',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'pnde-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'pnde-2',
-        percentChange: 0,
-      },
-    ],
+      measure: "pdse",
+      percentChange: -1,
+      subScoreTrends: [
+          {
+              measure: "pdse-1",
+              percentChange: -1
+          },
+          {
+              measure: "pdse-2",
+              percentChange: -1
+          }
+      ]
   },
   {
-    measure: 'prse',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'prse-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'prse-2',
-        percentChange: 0,
-      },
-      {
-        measure: 'prse-3',
-        percentChange: 0,
-      },
-    ],
+      measure: "pnde",
+      percentChange: -1,
+      subScoreTrends: [
+          {
+              measure: "pnde-1",
+              percentChange: -1
+          },
+          {
+              measure: "pnde-2",
+              percentChange: -2
+          }
+      ]
   },
   {
-    measure: 'psa',
-    percentChange: 0,
-    subScoreTrends: [],
+      measure: "prse",
+      percentChange: -2,
+      subScoreTrends: [
+          {
+              measure: "prse-1",
+              percentChange: -2
+          },
+          {
+              measure: "prse-2",
+              percentChange: 3
+          },
+          {
+              measure: "prse-3",
+              percentChange: -5
+          }
+      ]
   },
   {
-    measure: 'uop',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'uop-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'uop-2',
-        percentChange: 0,
-      },
-      {
-        measure: 'uop-3',
-        percentChange: 0,
-      },
-    ],
+      measure: "psa",
+      percentChange: -12,
+      subScoreTrends: []
   },
   {
-    measure: 'adde',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'adde-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'adde-2',
-        percentChange: 0,
-      },
-    ],
+      measure: "uop",
+      percentChange: 14,
+      subScoreTrends: [
+          {
+              measure: "uop-1",
+              percentChange: 15
+          },
+          {
+              measure: "uop-2",
+              percentChange: 16
+          },
+          {
+              measure: "uop-3",
+              percentChange: 12
+          }
+      ]
   },
   {
-    measure: 'uri',
-    percentChange: 0,
-    subScoreTrends: [],
+      measure: "uri",
+      percentChange: 5,
+      subScoreTrends: []
   },
   {
-    measure: 'composite',
-    percentChange: 0,
-    subScoreTrends: [],
-  },
-];
+      measure: "composite",
+      percentChange: -1,
+      subScoreTrends: []
+  }
+]
 
 export const infoObject = {
   composite: {
