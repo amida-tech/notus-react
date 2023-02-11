@@ -3,23 +3,23 @@ import {
 } from '@testing-library/react';
 import { ThemeProvider } from '@emotion/react';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import AdapterMoment from '@mui/lab/AdapterMoment'
-import theme from '../../../assets/styles/AppTheme'
+import AdapterMoment from '@mui/lab/AdapterMoment';
+import theme from '../../../assets/styles/AppTheme';
 import ChartBar from '../../../components/Chart/ChartBar';
 
 describe('D3 Container: Chart bar', () => {
-  const filterDrawerOpen = false
-  const mockToggleFilterDrawer = jest.fn(() => false)
-  const filterSum = 0
+  const filterDrawerOpen = false;
+  const mockToggleFilterDrawer = jest.fn(() => false);
+  const filterSum = 0;
   const currentTimeline = {
     choice: 'all',
     range: [
       null,
       null,
     ],
-  }
-  const mockHandleTimelineChange = jest.fn(() => false)
-  const filterDisabled = false
+  };
+  const mockHandleTimelineChange = jest.fn(() => false);
+  const filterDisabled = false;
 
   beforeEach(() => {
     render(
@@ -37,17 +37,17 @@ describe('D3 Container: Chart bar', () => {
           />
         </ChartBar>
       </ThemeProvider>,
-    )
-  })
+    );
+  });
 
   it('Composite: Timeline and filter buttons render', () => {
-    const buttonLabels = ['Timeline: All', 'Filter']
+    const buttonLabels = ['Timeline: All', 'Filter'];
 
     buttonLabels.forEach((label, i) => {
-      const button = screen.getAllByRole('button')[i]
-      expect(button.textContent).toBe(label)
-    })
-  })
+      const button = screen.getAllByRole('button')[i];
+      expect(button.textContent).toBe(label);
+    });
+  });
 
   it('Timeline button shows timeline options and updates', () => {
     const timelineOptions = {
@@ -56,20 +56,20 @@ describe('D3 Container: Chart bar', () => {
       'Last 60 Days': '60 Days',
       'Last 90 Days': '90 Days',
       'Year to Date': 'YTD Days',
-    }
+    };
 
     Object.keys(timelineOptions).forEach((key) => {
-      const timelineBtn = screen.getByRole('button', { name: 'Timeline: All' })
-      fireEvent.click(timelineBtn)
-      const dropdownMenu = screen.getByRole('menu')
-      expect(within(dropdownMenu).getByText(key)).toBeTruthy()
-      fireEvent.click(within(dropdownMenu).getByText(key))
-      expect(mockHandleTimelineChange).toHaveBeenCalled()
-    })
-  })
+      const timelineBtn = screen.getByRole('button', { name: 'Timeline: All' });
+      fireEvent.click(timelineBtn);
+      const dropdownMenu = screen.getByRole('menu');
+      expect(within(dropdownMenu).getByText(key)).toBeTruthy();
+      fireEvent.click(within(dropdownMenu).getByText(key));
+      expect(mockHandleTimelineChange).toHaveBeenCalled();
+    });
+  });
 
   it('Filter button shows proper options', () => {
-    fireEvent.click(screen.getByRole('button', { name: 'Filter' }))
-    expect(mockToggleFilterDrawer).toHaveBeenCalled()
-  })
-})
+    fireEvent.click(screen.getByRole('button', { name: 'Filter' }));
+    expect(mockToggleFilterDrawer).toHaveBeenCalled();
+  });
+});

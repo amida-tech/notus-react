@@ -1,6 +1,6 @@
 import { Box, Typography, Link } from '@mui/material';
-import theme from '../../assets/styles/AppTheme'
-import amidaLogo from '../../assets/img/amida_logo.png'
+import theme from '../../assets/styles/AppTheme';
+import amidaLogo from '../../assets/img/amida_logo.png';
 
 export default function Footer() {
   return (

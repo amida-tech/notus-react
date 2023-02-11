@@ -20,14 +20,14 @@ const headerData = (selectedMeasures, storeInfo) => {
     },
   ];
   selectedMeasures.forEach((measureName) => {
-    const labelFound = storeInfo[measureName].displayLabel
+    const labelFound = storeInfo[measureName].displayLabel;
     headerInfo.push({
       key: measureName,
       link: false,
       header: labelFound,
       tooltip: storeInfo[measureName].title,
       flexBasis: standardFlexBasis,
-    })
+    });
   });
   return headerInfo;
 };
@@ -40,11 +40,11 @@ const allValuesEqual = (valueArray) => {
     }
   }
   return true;
-}
+};
 
 const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   const formattedData = [];
-  let workingData = []
+  let workingData = [];
 
   const subMeasures = Object.keys(storeInfo).filter((item) => item.includes(activeMeasure));
 
@@ -52,13 +52,13 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
     // loop through member results for active measure
     memberResults.forEach((res) => {
       if (res.measurementType === activeMeasure) {
-        workingData.push(res)
+        workingData.push(res);
       }
-    })
+    });
     // workingData = memberResults
     //   .filter((result) => activeMeasure.measure.includes(result.measurementType))
   } else {
-    workingData = memberResults
+    workingData = memberResults;
   }
   if (workingData && activeMeasure) {
     workingData.forEach((memberResult) => {
@@ -86,10 +86,10 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
         value: memberResult.memberId,
         label: memberResult.memberId,
         type: 'member',
-      }
+      };
 
       if (memberResultArray.length === 1) {
-        formattedResult[subMeasures[0]] = memberResultArray[0].value.toString()
+        formattedResult[subMeasures[0]] = memberResultArray[0].value.toString();
       } else {
         formattedResult[subMeasures[0]] = allValuesEqual(memberResultArray).toString();
         for (let k = 1; k < subMeasures.length; k += 1) {
@@ -108,7 +108,7 @@ const nomCompRange = {
   one: 1,
   two: 2,
   many: 3,
-}
+};
 
 const filterByNonCompliance = (formattedData, tableFilter) => {
   if (tableFilter.length === 0) {
@@ -118,33 +118,33 @@ const filterByNonCompliance = (formattedData, tableFilter) => {
 
   const counting = (data, filterVal) => {
     data.forEach((measure) => {
-      const resultList = Object.values(measure).filter((submeasure) => submeasure === 'false')
+      const resultList = Object.values(measure).filter((submeasure) => submeasure === 'false');
       if (resultList.length === nomCompRange[filterVal] && nomCompRange[filterVal] <= 2) {
-        filteredData.push(measure)
+        filteredData.push(measure);
       }
       if (resultList.length >= nomCompRange[filterVal] && nomCompRange[filterVal] > 2) {
-        filteredData.push(measure)
+        filteredData.push(measure);
       }
-    })
-  }
+    });
+  };
 
   if (tableFilter.length === 1) {
-    const filterVal = tableFilter[0]
-    const ns = structuredClone(formattedData)
+    const filterVal = tableFilter[0];
+    const ns = structuredClone(formattedData);
     if (Object.keys(nomCompRange).includes(filterVal)) {
-      counting(ns, filterVal)
+      counting(ns, filterVal);
     }
   }
 
   if (tableFilter.length > 1) {
-    const ns = structuredClone(formattedData)
+    const ns = structuredClone(formattedData);
     tableFilter.forEach((filterVal) => {
-      counting(ns, filterVal)
-    })
+      counting(ns, filterVal);
+    });
   }
 
-  return filteredData
-}
+  return filteredData;
+};
 
 module.exports = {
   headerData, pageSize, formatData,

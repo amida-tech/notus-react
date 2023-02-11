@@ -2835,7 +2835,7 @@ export const resultList = [
     initialPopulation: 183,
     exclusions: 129,
   },
-]
+];
 
 export const userPreferences = {
   ratingTrends: {
@@ -2849,85 +2849,99 @@ export const userPreferences = {
     // },
   },
   theme: 'light',
-}
+};
 
 export const trendList = [
   {
     measure: 'aab',
-    percentChange: 0,
+    percentChange: 20,
     subScoreTrends: [],
   },
   {
+    measure: 'adde',
+    percentChange: 11,
+    subScoreTrends: [
+      {
+        measure: 'adde-1',
+        percentChange: 10,
+      },
+      {
+        measure: 'adde-2',
+        percentChange: 11,
+      },
+    ],
+  },
+  {
     measure: 'aise',
-    percentChange: 0,
+    percentChange: 2,
     subScoreTrends: [
       {
         measure: 'aise-1',
-        percentChange: 0,
+        percentChange: 2,
       },
       {
         measure: 'aise-2',
-        percentChange: 0,
+        percentChange: 1,
       },
       {
         measure: 'aise-3',
-        percentChange: 0,
+        percentChange: 4,
       },
       {
         measure: 'aise-4',
-        percentChange: 0,
+        percentChange: 5,
       },
     ],
   },
   {
     measure: 'apme',
-    percentChange: 0,
+    percentChange: -4,
     subScoreTrends: [
       {
         measure: 'apme-1',
-        percentChange: 0,
+        percentChange: -3,
       },
       {
         measure: 'apme-2',
-        percentChange: 0,
+        percentChange: -5,
       },
       {
         measure: 'apme-3',
-        percentChange: 0,
+        percentChange: -2,
       },
     ],
   },
   {
     measure: 'asfe',
-    percentChange: 0,
+    percentChange: 2,
     subScoreTrends: [
       {
         measure: 'asfe-1',
-        percentChange: 0,
+        percentChange: 1,
       },
       {
         measure: 'asfe-2',
-        percentChange: 0,
+        percentChange: 5,
       },
     ],
   },
   {
     measure: 'bcse',
-    percentChange: 0,
+    percentChange: 4,
     subScoreTrends: [],
   },
   {
     measure: 'ccs',
-    percentChange: 0,
+    percentChange: -11,
     subScoreTrends: [],
   },
   {
     measure: 'cise',
-    percentChange: 0,
+    percentChange: -2,
     subScoreTrends: [
       {
         measure: 'cise-1',
-        percentChange: 0,
+        percentChange: -2,
       },
       {
         measure: 'cise-2',
@@ -2935,7 +2949,7 @@ export const trendList = [
       },
       {
         measure: 'cise-3',
-        percentChange: 0,
+        percentChange: -8,
       },
       {
         measure: 'cise-4',
@@ -2943,27 +2957,27 @@ export const trendList = [
       },
       {
         measure: 'cise-5',
-        percentChange: 0,
+        percentChange: -2,
       },
       {
         measure: 'cise-6',
-        percentChange: 0,
+        percentChange: -1,
       },
       {
         measure: 'cise-7',
-        percentChange: 0,
+        percentChange: -1,
       },
       {
         measure: 'cise-8',
-        percentChange: 0,
+        percentChange: -2,
       },
       {
         measure: 'cise-9',
-        percentChange: 0,
+        percentChange: -4,
       },
       {
         measure: 'cise-10',
-        percentChange: 0,
+        percentChange: -3,
       },
       {
         measure: 'cise-11',
@@ -2981,31 +2995,31 @@ export const trendList = [
   },
   {
     measure: 'cole',
-    percentChange: 0,
+    percentChange: -2,
     subScoreTrends: [],
   },
   {
     measure: 'cou',
-    percentChange: 0,
+    percentChange: -2,
     subScoreTrends: [
       {
         measure: 'cou-1',
-        percentChange: 0,
+        percentChange: -1,
       },
       {
         measure: 'cou-2',
-        percentChange: 0,
+        percentChange: -2,
       },
     ],
   },
   {
     measure: 'cwp',
-    percentChange: 0,
+    percentChange: 20,
     subScoreTrends: [],
   },
   {
     measure: 'dmse',
-    percentChange: 0,
+    percentChange: 2,
     subScoreTrends: [
       {
         measure: 'dmse-1',
@@ -3013,17 +3027,17 @@ export const trendList = [
       },
       {
         measure: 'dmse-2',
-        percentChange: 0,
+        percentChange: 2,
       },
       {
         measure: 'dmse-3',
-        percentChange: 0,
+        percentChange: 2,
       },
     ],
   },
   {
     measure: 'drre',
-    percentChange: 0,
+    percentChange: -4,
     subScoreTrends: [
       {
         measure: 'drre-1',
@@ -3031,11 +3045,11 @@ export const trendList = [
       },
       {
         measure: 'drre-2',
-        percentChange: 0,
+        percentChange: -2,
       },
       {
         measure: 'drre-3',
-        percentChange: 0,
+        percentChange: -9,
       },
     ],
   },
@@ -3055,135 +3069,121 @@ export const trendList = [
   },
   {
     measure: 'fum',
-    percentChange: 0,
+    percentChange: -3,
     subScoreTrends: [
       {
         measure: 'fum-1',
-        percentChange: 0,
+        percentChange: -2,
       },
       {
         measure: 'fum-2',
-        percentChange: 0,
+        percentChange: -4,
       },
     ],
   },
   {
     measure: 'imae',
-    percentChange: 0,
+    percentChange: -22,
     subScoreTrends: [
       {
         measure: 'imae-1',
-        percentChange: 0,
+        percentChange: -19,
       },
       {
         measure: 'imae-2',
-        percentChange: 0,
+        percentChange: -13,
       },
       {
         measure: 'imae-3',
-        percentChange: 0,
+        percentChange: -24,
       },
       {
         measure: 'imae-4',
-        percentChange: 0,
+        percentChange: -24,
       },
       {
         measure: 'imae-5',
-        percentChange: 0,
+        percentChange: -28,
       },
     ],
   },
   {
     measure: 'pdse',
-    percentChange: 0,
+    percentChange: -1,
     subScoreTrends: [
       {
         measure: 'pdse-1',
-        percentChange: 0,
+        percentChange: -1,
       },
       {
         measure: 'pdse-2',
-        percentChange: 0,
+        percentChange: -1,
       },
     ],
   },
   {
     measure: 'pnde',
-    percentChange: 0,
+    percentChange: -1,
     subScoreTrends: [
       {
         measure: 'pnde-1',
-        percentChange: 0,
+        percentChange: -1,
       },
       {
         measure: 'pnde-2',
-        percentChange: 0,
+        percentChange: -2,
       },
     ],
   },
   {
     measure: 'prse',
-    percentChange: 0,
+    percentChange: -2,
     subScoreTrends: [
       {
         measure: 'prse-1',
-        percentChange: 0,
+        percentChange: -2,
       },
       {
         measure: 'prse-2',
-        percentChange: 0,
+        percentChange: 3,
       },
       {
         measure: 'prse-3',
-        percentChange: 0,
+        percentChange: -5,
       },
     ],
   },
   {
     measure: 'psa',
-    percentChange: 0,
+    percentChange: -12,
     subScoreTrends: [],
   },
   {
     measure: 'uop',
-    percentChange: 0,
+    percentChange: 14,
     subScoreTrends: [
       {
         measure: 'uop-1',
-        percentChange: 0,
+        percentChange: 15,
       },
       {
         measure: 'uop-2',
-        percentChange: 0,
+        percentChange: 16,
       },
       {
         measure: 'uop-3',
-        percentChange: 0,
-      },
-    ],
-  },
-  {
-    measure: 'adde',
-    percentChange: 0,
-    subScoreTrends: [
-      {
-        measure: 'adde-1',
-        percentChange: 0,
-      },
-      {
-        measure: 'adde-2',
-        percentChange: 0,
+        percentChange: 12,
       },
     ],
   },
   {
     measure: 'uri',
-    percentChange: 0,
+    percentChange: 5,
     subScoreTrends: [],
   },
   {
     measure: 'composite',
-    percentChange: 0,
+    percentChange: -1,
     subScoreTrends: [],
   },
 ]
@@ -3330,9 +3330,9 @@ export const infoObject = {
     weight: 3,
     hasSubMeasures: false,
   },
-}
+};
 
-export const memberId = 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad'
+export const memberId = 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad';
 
 export const memberInfo = {
   _id: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad-aab-0',
@@ -3421,9 +3421,9 @@ export const memberInfo = {
     Numerator: [],
     id: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
   },
-}
+};
 
-export const exportUrl = 'this.is.a.valid.url/wow'
+export const exportUrl = 'this.is.a.valid.url/wow';
 
 export const rowData = [
   {
@@ -3435,7 +3435,7 @@ export const rowData = [
     dates: '01/01/1992 - 03/14/2001',
     recommendations: ['remove bones'],
   },
-]
+];
 
 export const headerInfo = [
   {
@@ -3480,7 +3480,7 @@ export const headerInfo = [
     flexBasis: 'standard',
     alignContent: 'center',
   },
-]
+];
 
 export const aabHeaderInfo = [
   {
@@ -3497,7 +3497,7 @@ export const aabHeaderInfo = [
     tooltip: 'Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
     flexBasis: 'medium',
   },
-]
+];
 
 export const selectedMeasures = [
   'composite',
@@ -3523,7 +3523,7 @@ export const selectedMeasures = [
   'psa',
   'uop',
   'uri',
-]
+];
 
 export const colorMap = [
   {
@@ -3617,7 +3617,7 @@ export const colorMap = [
     value: 'uri',
     color: '#88CCEE',
   },
-]
+];
 
 export const formattedData = [
   {
@@ -3650,7 +3650,7 @@ export const formattedData = [
     denominator: 167,
     exclusions: 41,
   },
-]
+];
 
 export const currentResults = [
   {
@@ -4492,7 +4492,7 @@ export const currentResults = [
     shortLabel: 'URI',
     title: 'Appropriate Treatment for Children With Upper Respiratory Infection',
   },
-]
+];
 
 export const rowEntries = [
   {
@@ -4525,7 +4525,7 @@ export const rowEntries = [
     type: 'member',
     aab: 'true',
   },
-]
+];
 export const additionalFilterOptions = {
   payors: [
     {
@@ -4637,7 +4637,7 @@ export const additionalFilterOptions = {
       timestamp: '2022-10-25T20:14:40.104Z',
     },
   ],
-}
+};
 
 export const activeMeasure = {
   measure: 'composite',
@@ -4651,6 +4651,67 @@ export const activeMeasure = {
   label: 'Composite - Composite Score',
   shortLabel: 'Composite',
   title: 'Composite Score',
+};
+
+export const activeSubmeasure = {
+  measure: 'aise',
+  date: '2023-02-09T00:00:00.000Z',
+  value: 16.666666666666664,
+  starRating: 1,
+  denominator: 1398,
+  numerator: 233,
+  initialPopulation: 1398,
+  exclusions: 968,
+  subScores: [
+    {
+      measure: 'aise-1',
+      date: '2023-02-09T00:00:00.000Z',
+      value: 18.253968253968253,
+      denominator: 504,
+      numerator: 92,
+      initialPopulation: 504,
+      exclusions: 242,
+      label: 'AIS-E - Adult Immunization Status: Influenza',
+      id: 'aise-1',
+    },
+    {
+      measure: 'aise-2',
+      date: '2023-02-09T00:00:00.000Z',
+      value: 14.484126984126986,
+      denominator: 504,
+      numerator: 73,
+      initialPopulation: 504,
+      exclusions: 242,
+      label: 'AIS-E - Adult Immunization Status: Td/Tdap',
+      id: 'aise-2',
+    },
+    {
+      measure: 'aise-3',
+      date: '2023-02-09T00:00:00.000Z',
+      value: 18.181818181818183,
+      denominator: 264,
+      numerator: 48,
+      initialPopulation: 264,
+      exclusions: 242,
+      label: 'AIS-E - Adult Immunization Status: Zoster',
+      id: 'aise-3',
+    },
+    {
+      measure: 'aise-4',
+      date: '2023-02-09T00:00:00.000Z',
+      value: 15.873015873015872,
+      denominator: 126,
+      numerator: 20,
+      initialPopulation: 126,
+      exclusions: 242,
+      label: 'AIS-E - Adult Immunization Status: Pneumococcal',
+      id: 'aise-4',
+    },
+  ],
+  label: 'AIS-E - Adult Immunization Status',
+  shortLabel: 'AIS-E',
+  title: 'Adult Immunization Status',
+  id: 'aise',
 }
 
 export const widgetPrefs = {
@@ -4670,4 +4731,4 @@ export const widgetPrefs = {
     type: 'percentage',
     measure: 'composite',
   },
-}
+};

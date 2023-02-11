@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
   const [defaultCheck] = useState(Array.from(currentFilter));
@@ -44,7 +44,7 @@ function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
           : null}
       </FormGroup>
     </Grid>
-  )
+  );
 }
 
 FilterDrawerItem.propTypes = {
@@ -66,7 +66,7 @@ FilterDrawerItem.propTypes = {
     ]),
   ),
   filterAction: PropTypes.func,
-}
+};
 
 FilterDrawerItem.defaultProps = {
   filterItem: {
@@ -77,6 +77,6 @@ FilterDrawerItem.defaultProps = {
   },
   currentFilter: [],
   filterAction: undefined,
-}
+};
 
 export default FilterDrawerItem;

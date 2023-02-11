@@ -6,14 +6,14 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 // import CancelIcon from '@mui/icons-material/Cancel';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import PropTypes from 'prop-types';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 function TextRowGenerator(text) {
   return (
     <Grid className="report-table-row__text-cell">
       {text}
     </Grid>
-  )
+  );
 }
 
 function IconRowGenerator(result, extraInfo) {
@@ -23,14 +23,14 @@ function IconRowGenerator(result, extraInfo) {
         <CheckBoxIcon className="report-table-row__compliance-icon" />
         {extraInfo && 'Compliant'}
       </Grid>
-    )
+    );
   }
   return (
     <Grid color={theme.palette?.error} className="report-table-row__icon-cell">
       <DisabledByDefaultRoundedIcon className="report-table-row__compliance-icon" />
       {extraInfo && 'Not Compliant'}
     </Grid>
-  )
+  );
 }
 
 function ArrayRowGenerator(info, extraInfo) {
@@ -39,7 +39,7 @@ function ArrayRowGenerator(info, extraInfo) {
       {extraInfo && <CheckCircleIcon color={theme.palette?.success} />}
       {info}
     </Grid>
-  )
+  );
 }
 
 function rowSelector(rowDataItem, fieldInfo) {
@@ -71,7 +71,7 @@ function ReportTableRow({
         ))}
       </Grid>
     </Box>
-  )
+  );
 }
 
 ReportTableRow.propTypes = {
@@ -90,6 +90,6 @@ ReportTableRow.propTypes = {
 ReportTableRow.defaultProps = {
   rowDataItem: {},
   headerInfo: [],
-}
+};
 
 export default ReportTableRow;

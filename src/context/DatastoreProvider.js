@@ -5,9 +5,9 @@ import {
   useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios'
+import axios from 'axios';
 import {
-  resultList, trendList, infoObject, userPreferences,
+  resultList, trendList, infoObject, userPreferences, widgetPrefs,
 } from '../test/data/DemoData';
 import { DatastoreReducer, initialState } from './DatastoreReducer';
 import env from '../env';
@@ -76,35 +76,18 @@ export default function DatastoreProvider({ children }) {
       datastoreActions.setPreferences(userPreferences);
       datastoreActions.setIsLoading(false);
     } else {
-      const trendPromise = axios.get(trendUrl)
-      const searchPromise = axios.get(searchUrl)
-      const infoPromise = axios.get(infoUrl)
+      const trendPromise = axios.get(trendUrl);
+      const searchPromise = axios.get(searchUrl);
+      const infoPromise = axios.get(infoUrl);
       const payorsPromise = axios.get(payorsUrl);
       const healthcareProvidersPromise = axios.get(healthcareProvidersUrl);
       const healthcareCoveragesPromise = axios.get(healthcareCoveragesUrl);
       const practitionersPromise = axios.get(practitionersUrl);
       // this is placeholder preferences
       const newUserPreferences = {
-        ratingTrends: {
-          0: {
-            type: 'star',
-            measure: 'aab',
-          },
-          1: {
-            type: 'percentage',
-            measure: 'asfe',
-          },
-          2: {
-            type: 'star',
-            measure: 'uri',
-          },
-          3: {
-            type: 'percentage',
-            measure: 'composite',
-          },
-        },
+        ratingTrends: widgetPrefs,
         theme: 'light',
-      }
+      };
 
       Promise.all([
         searchPromise,
@@ -138,7 +121,7 @@ export default function DatastoreProvider({ children }) {
     <DatastoreContext.Provider value={reducerValue}>
       {children}
     </DatastoreContext.Provider>
-  )
+  );
 }
 
 DatastoreProvider.propTypes = {
@@ -146,4 +129,4 @@ DatastoreProvider.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-}
+};

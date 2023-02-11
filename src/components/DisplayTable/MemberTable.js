@@ -18,26 +18,26 @@ import {
   activeMeasureProps, headerInfoProps, rowEntriesProps,
 } from '../Utilities/PropTypes';
 
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
-  const [rows, setRows] = useState([])
-  const [columns, setColumns] = useState([])
+  const [rows, setRows] = useState([]);
+  const [columns, setColumns] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
 
   function createData(row, columnDataSet) {
-    const memberObj = {}
-    const tempRow = structuredClone(row)
+    const memberObj = {};
+    const tempRow = structuredClone(row);
     delete tempRow.value;
     delete tempRow.type;
     memberObj.key = tempRow.label;
     Object.entries(tempRow).forEach(([key, val], i) => {
       if (val !== memberObj[0] && key !== 'type' && key !== 'value') {
-        memberObj[columnDataSet[i]?.id] = val
+        memberObj[columnDataSet[i]?.id] = val;
       }
-    })
-    return { ...memberObj }
+    });
+    return { ...memberObj };
   }
 
   const complianceIcons = (labelValue) => {
@@ -55,7 +55,7 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
           />
           Matched
         </Grid>
-      )
+      );
     } else if (labelValue === 'false') {
       return (
         <Grid sx={{
@@ -70,7 +70,7 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
           />
           Unmatched
         </Grid>
-      )
+      );
     }
     return (
       <Link
@@ -80,29 +80,29 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
       >
         {labelValue}
       </Link>
-    )
-  }
+    );
+  };
 
   useEffect(() => {
-    const columnData = []
-    let rowData = []
+    const columnData = [];
+    let rowData = [];
 
     if (headerInfo.length > 1) {
       headerInfo.forEach((column) => {
-        const headerObj = {}
+        const headerObj = {};
         headerObj.id = column.key;
         headerObj.label = column.header;
-        headerObj.align = column.flexBasis === 'larger' ? 'left' : 'center'
-        columnData.push(headerObj)
-        setColumns(columnData)
-      })
+        headerObj.align = column.flexBasis === 'larger' ? 'left' : 'center';
+        columnData.push(headerObj);
+        setColumns(columnData);
+      });
     }
 
     if (rowEntries) {
-      rowData = rowEntries.map((row) => createData(row, columnData))
-      setRows(rowData)
+      rowData = rowEntries.map((row) => createData(row, columnData));
+      setRows(rowData);
     }
-  }, [rowEntries, headerInfo])
+  }, [rowEntries, headerInfo]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -172,7 +172,7 @@ MemberTable.propTypes = {
   activeMeasure: activeMeasureProps,
   headerInfo: headerInfoProps,
   rowEntries: rowEntriesProps,
-}
+};
 
 MemberTable.defaultProps = {
   activeMeasure: {
@@ -184,4 +184,4 @@ MemberTable.defaultProps = {
   },
   headerInfo: [],
   rowEntries: [],
-}
+};

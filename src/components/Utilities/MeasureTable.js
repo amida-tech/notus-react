@@ -53,7 +53,7 @@ export const headerData = (isComposite) => {
     return headerInfo;
   }
   return subHeaderInfo;
-}
+};
 
 export const headerInfo = [
   {
@@ -68,7 +68,7 @@ export const headerInfo = [
   numerator,
   denominator,
   exclusions,
-]
+];
 
 export const subHeaderInfo = [
   {
@@ -82,7 +82,7 @@ export const subHeaderInfo = [
   numerator,
   denominator,
   exclusions,
-]
+];
 
 export const formatData = (currentResults) => {
   const formattedData = [];
@@ -98,6 +98,6 @@ export const formatData = (currentResults) => {
       denominator: measureResult.denominator,
       exclusions: measureResult.exclusions,
     });
-  })
+  });
   return formattedData;
 };

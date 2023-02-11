@@ -1,6 +1,6 @@
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import { ReactComponent as GithubSvg } from '../../assets/img/github.svg';
-import image from '../../assets/img/loginbg.jpg'
+import image from '../../assets/img/loginbg.jpg';
 
 export default function Register() {
   return (

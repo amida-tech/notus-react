@@ -7,8 +7,8 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import PropTypes from 'prop-types';
 
 function MemberReportTable({ rowData }) {
-  const formattedData = []
-  const theme = useTheme()
+  const formattedData = [];
+  const theme = useTheme();
   function createTableRows(rowDataObj) {
     return {
       measure: rowDataObj.measure || 'N/A',
@@ -19,15 +19,15 @@ function MemberReportTable({ rowData }) {
       dates: rowDataObj.dates || 'N/A',
       conditions: rowDataObj.conditions || 'N/A',
       recommendations: recommendationsGenerator(rowDataObj.recommendations, rowDataObj.measure) || 'N/A',
-    }
+    };
   }
   function recommendationsGenerator(recommendationArray, rowDataMeasure) {
-    let recommendation = ''
-    let baseRecommendation = ''
+    let recommendation = '';
+    let baseRecommendation = '';
     // IF recommendationArray IS GREATER THAN 1
     if (recommendationArray.length > 0) {
     // BASE RECOMMENDATIONS ARE BOLDED.
-      baseRecommendation = <strong>{recommendationArray[0]}</strong>
+      baseRecommendation = <strong>{recommendationArray[0]}</strong>;
       // ADDITIONAL RECOMMENDATIONS FORMATTED WITH SPACING
       const additionalRecommendations = recommendationArray.map((item, idx) => {
         if (idx !== 0) {
@@ -36,12 +36,12 @@ function MemberReportTable({ rowData }) {
           if (item.includes(': ') || item === 'OR') {
             return (
               <li key={item} style={{ fontWeight: 'bold', marginBottom: '0.5rem' }}>{item}</li>
-            )
+            );
           }
-          return (<li key={item} style={{ marginBottom: '0.5rem' }}>{item}</li>)
+          return (<li key={item} style={{ marginBottom: '0.5rem' }}>{item}</li>);
         }
-        return ''
-      })
+        return '';
+      });
       // WHAT WE RETURN IF recommendationArray IS GREATER THAN 1
       recommendation = (
         <div>
@@ -50,7 +50,7 @@ function MemberReportTable({ rowData }) {
             {additionalRecommendations}
           </ul>
         </div>
-      )
+      );
     } else {
     // IF recommendationArray IS EQUALS 0 RETURN NOT COMPLIANT.
     // ALL SUBMEASURES SHOULD HAVE A RECOMMENDATION.
@@ -61,12 +61,12 @@ function MemberReportTable({ rowData }) {
           {' with '}
           {rowDataMeasure.toUpperCase()}
         </strong>
-      )
+      );
     }
-    return recommendation
+    return recommendation;
   }
 
-  rowData.forEach((row) => { formattedData.push(createTableRows(row)) })
+  rowData.forEach((row) => { formattedData.push(createTableRows(row)); });
 
   return (
     <TableContainer component={Paper}>
@@ -84,7 +84,7 @@ function MemberReportTable({ rowData }) {
         </TableHead>
         <TableBody>
           {formattedData.map((row, idx) => {
-            Object.assign(row, { key: idx })
+            Object.assign(row, { key: idx });
             return (
               <TableRow
                 key={row.key}
@@ -123,7 +123,7 @@ function MemberReportTable({ rowData }) {
                   ) : row.recommendations}
                 </TableCell>
               </TableRow>
-            )
+            );
           })}
         </TableBody>
       </Table>
@@ -148,10 +148,10 @@ MemberReportTable.propTypes = {
       ),
     }),
   ),
-}
+};
 
 MemberReportTable.defaultProps = {
   rowData: {},
-}
+};
 
 export default MemberReportTable;

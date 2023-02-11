@@ -4,7 +4,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import {
   Typography, Box, IconButton, Button,
 } from '@mui/material';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 function Info({ infoText }) {
   const [displayInfo, setDisplayInfo] = useState(false);
@@ -49,10 +49,10 @@ function Info({ infoText }) {
 
 Info.propTypes = {
   infoText: PropTypes.string,
-}
+};
 
 Info.defaultProps = {
   infoText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-}
+};
 
 export default Info;

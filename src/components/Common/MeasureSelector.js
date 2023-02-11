@@ -2,7 +2,7 @@ import {
   FormControl, InputLabel, MenuItem, Select,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 function MeasureSelector({
   currentResults, measure, handleMeasureChange,
@@ -29,7 +29,7 @@ function MeasureSelector({
         ))}
       </Select>
     </FormControl>
-  )
+  );
 }
 
 MeasureSelector.propTypes = {
@@ -46,6 +46,6 @@ MeasureSelector.defaultProps = {
   currentResults: [],
   measure: '',
   handleMeasureChange: () => undefined,
-}
+};
 
 export default MeasureSelector;

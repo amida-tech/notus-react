@@ -39,7 +39,7 @@ export const chartDataProps = PropTypes.arrayOf(
     name: PropTypes.string,
     data: PropTypes.arrayOf(PropTypes.number),
   }),
-)
+);
 export const toggleFilterDrawerProps = PropTypes.func;
 export const setActiveMeasureProps = PropTypes.func;
 
@@ -70,7 +70,7 @@ export const measureInfoProps = PropTypes.shape({
     title: PropTypes.string,
     weight: PropTypes.number,
   }),
-})
+});
 export const filterDrawerFailProps = PropTypes.bool;
 export const currentFiltersProps = PropTypes.shape({
   domainsOfCare: PropTypes.arrayOf(PropTypes.string),
@@ -81,20 +81,20 @@ export const currentFiltersProps = PropTypes.shape({
   healthcareProviders: PropTypes.arrayOf(PropTypes.string),
   healthcareCoverages: PropTypes.arrayOf(PropTypes.string),
   practitioners: PropTypes.arrayOf(PropTypes.string),
-})
+});
 
 export const currentTimelineProps = PropTypes.shape({
   choice: PropTypes.string,
   range: PropTypes.arrayOf(PropTypes.number),
-})
-export const selectedMeasuresProps = PropTypes.arrayOf(PropTypes.string)
-export const isLoadingProps = PropTypes.bool
-export const isCompositeProps = PropTypes.bool
-export const filterDisabledProps = PropTypes.bool
+});
+export const selectedMeasuresProps = PropTypes.arrayOf(PropTypes.string);
+export const isLoadingProps = PropTypes.bool;
+export const isCompositeProps = PropTypes.bool;
+export const filterDisabledProps = PropTypes.bool;
 export const dashboardActionsProps = PropTypes.shape({
   toggleFilterDrawer: PropTypes.func,
   setActiveMeasure: PropTypes.func,
-})
+});
 
 export const displayDataProps = PropTypes.arrayOf(
   PropTypes.shape({
@@ -107,7 +107,7 @@ export const displayDataProps = PropTypes.arrayOf(
     starRating: PropTypes.number,
     value: PropTypes.number,
   }),
-)
+);
 
 export const additionalFilterOptionsProps = PropTypes.shape({
   payors: PropTypes.arrayOf(
@@ -142,7 +142,7 @@ export const additionalFilterOptionsProps = PropTypes.shape({
       timestamp: PropTypes.string,
     }),
   ),
-})
+});
 
 export const setCompositeProps = PropTypes.func;
 
@@ -160,12 +160,12 @@ export const setDisplayDataProps = PropTypes.func;
 
 export const tableFilterProps = PropTypes.arrayOf(
   PropTypes.shape({}),
-)
+);
 export const handleTabChangeProps = PropTypes.func;
 
 export const rowEntriesProps = PropTypes.arrayOf(
   PropTypes.shape({}),
-)
+);
 
 export const graphWidthProps = PropTypes.number;
 export const currentResultsProps = PropTypes.arrayOf(
@@ -182,7 +182,7 @@ export const currentResultsProps = PropTypes.arrayOf(
     title: PropTypes.string,
     value: PropTypes.number,
   }),
-)
+);
 export const setRowEntriesProps = PropTypes.func;
 export const setSelectedMeasuresProps = PropTypes.func;
 export const handleFilteredDataUpdateProps = PropTypes.func;
@@ -194,7 +194,7 @@ export const headerInfoProps = PropTypes.arrayOf(
     tooltip: PropTypes.string,
     flexBasis: PropTypes.string,
   }),
-)
+);
 export const setFilterActivatedProps = PropTypes.func;
 export const setIsLoadingProps = PropTypes.func;
 
@@ -205,15 +205,15 @@ export const trendsProps = PropTypes.arrayOf(PropTypes.shape({
     measure: PropTypes.string,
     percentChange: PropTypes.number,
   })),
-}))
+}));
 
 export const widgetPrefsProps = PropTypes.shape({
   type: PropTypes.string,
   measure: PropTypes.string,
-})
+});
 
 export const measureCheckerProps = PropTypes.shape({
   percentCheck: PropTypes.bool,
   starCheck: PropTypes.bool,
   submeasureCheck: PropTypes.bool,
-})
+});

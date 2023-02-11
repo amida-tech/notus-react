@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 import { formatData } from '../Utilities/MeasureTable';
 import {
   activeMeasureProps,
@@ -15,11 +15,11 @@ import {
 export default function OverviewTable({
   activeMeasure, headerInfo, currentResults, colorMap, handleSelectedMeasureChange,
 }) {
-  const [columns, setColumns] = useState([])
-  const [rows, setRows] = useState([])
-  const [checkboxColors, setCheckboxColors] = useState('')
+  const [columns, setColumns] = useState([]);
+  const [rows, setRows] = useState([]);
+  const [checkboxColors, setCheckboxColors] = useState('');
   const [selectionModel, setSelectionModel] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const columnData = Object.values(headerInfo)
@@ -31,42 +31,42 @@ export default function OverviewTable({
         headerAlign: idx === 0 ? 'left' : 'center',
         align: idx === 0 ? 'left' : 'center',
         width: idx === 0 ? 250 : 200,
-      }))
-    const rowData = formatData(currentResults)
+      }));
+    const rowData = formatData(currentResults);
 
     const mapping = rowData.map((measure) => colorMap
-      .find((map) => (map.value === measure.value))?.color || theme.palette?.primary.main)
-    const newColorObj = {}
+      .find((map) => (map.value === measure.value))?.color || theme.palette?.primary.main);
+    const newColorObj = {};
     const colorMaps = mapping?.reduce((colorObj, mapColor, idx) => {
-      const colorClass = `& .MuiDataGrid-virtualScrollerRenderZone > div:nth-of-type(${idx + 1}) > div > span`
-      newColorObj[colorClass] = { color: mapColor }
-      return newColorObj
-    }, newColorObj)
+      const colorClass = `& .MuiDataGrid-virtualScrollerRenderZone > div:nth-of-type(${idx + 1}) > div > span`;
+      newColorObj[colorClass] = { color: mapColor };
+      return newColorObj;
+    }, newColorObj);
 
-    setCheckboxColors(colorMaps)
-    setColumns(columnData)
-    setRows(rowData)
-    setSelectionModel(() => rowData.map((r) => r.id))
-  }, [currentResults, colorMap, headerInfo])
+    setCheckboxColors(colorMaps);
+    setColumns(columnData);
+    setRows(rowData);
+    setSelectionModel(() => rowData.map((r) => r.id));
+  }, [currentResults, colorMap, headerInfo]);
 
   const handleSelectionModelChange = (event) => {
-    setSelectionModel(event)
+    setSelectionModel(event);
 
     const newSelections = event
       .map((label) => currentResults
         .find((measure) => measure.label === label)
-        .measure)
+        .measure);
 
-    handleSelectedMeasureChange(newSelections)
-  }
+    handleSelectedMeasureChange(newSelections);
+  };
 
   const handleRowClick = (event) => {
     if (activeMeasure.measure === 'composite') {
-      navigate((`/${event.row.value}`))
+      navigate((`/${event.row.value}`));
     } else {
       // alert action here -- see MTR
     }
-  }
+  };
 
   return (
     <Box
@@ -188,7 +188,7 @@ OverviewTable.propTypes = {
   currentResults: currentResultsProps,
   colorMap: colorMapProps,
   handleSelectedMeasureChange: handleSelectedMeasureChangeProps,
-}
+};
 
 OverviewTable.defaultProps = {
   activeMeasure: {
@@ -202,4 +202,4 @@ OverviewTable.defaultProps = {
   currentResults: [],
   colorMap: [],
   handleSelectedMeasureChange: () => undefined,
-}
+};

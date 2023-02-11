@@ -1,33 +1,33 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import {
   Grid, Box, Typography, Link,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Tooltip from '@mui/material/Tooltip';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 import CheckBoxCell from './CheckBoxCell';
-import Alert from '../Utilities/Alert'
+import Alert from '../Utilities/Alert';
 
 function MeasureTableRow({
   rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
 }) {
-  const compositeCheck = headerInfo[0].header === 'Measure'
-  const alertTitle = 'Leaving Saraswati'
+  const compositeCheck = headerInfo[0].header === 'Measure';
+  const alertTitle = 'Leaving Saraswati';
   const alertPath = (info) => {
     if (measureInfo[info].link) {
       return {
         target: '_blank',
         rel: 'noopener noreferrer',
         pathto: measureInfo[info].link,
-      }
+      };
     }
     return {
       target: '_blank',
       rel: 'noopener noreferrer',
       pathto: null,
-    }
-  }
+    };
+  };
   const [openAlert, setOpenAlert] = useState(false);
   if (compositeCheck) {
     return (
@@ -77,7 +77,7 @@ function MeasureTableRow({
           ))}
         </Grid>
       </Box>
-    )
+    );
   }
 
   // NON-COMPOSITE ROW DATA
@@ -138,7 +138,7 @@ function MeasureTableRow({
         ))}
       </Grid>
     </Box>
-  )
+  );
 }
 
 MeasureTableRow.propTypes = {
@@ -170,6 +170,6 @@ MeasureTableRow.defaultProps = {
   rowSelected: false,
   color: '',
   measureInfo: {},
-}
+};
 
 export default MeasureTableRow;

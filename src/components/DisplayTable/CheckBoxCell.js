@@ -19,7 +19,7 @@ function CheckBoxCell({
         />
       </FormGroup>
     </Grid>
-  )
+  );
 }
 
 CheckBoxCell.propTypes = {
@@ -34,6 +34,6 @@ CheckBoxCell.defaultProps = {
   checked: false,
   value: '',
   color: '',
-}
+};
 
 export default CheckBoxCell;

@@ -11,7 +11,7 @@ import { defaultActiveMeasure } from '../components/Utilities/PropTypes';
 import theme from '../assets/styles/AppTheme';
 
 import Banner from '../components/Common/Banner';
-import Alert from '../components/Utilities/Alert'
+import Alert from '../components/Utilities/Alert';
 import ChartContainer from '../components/Chart';
 import DisplayTableContainer from '../components/DisplayTable/DisplayTableContainer';
 import RatingTrends from '../components/Summary/RatingTrends';
@@ -20,7 +20,7 @@ import { headerData } from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
 
 // scrolly is a navigate function wrapped with scrollToTop
-import { scrolly, scrollTop } from '../components/Utilities/ScrollNavigate'
+import { scrolly, scrollTop } from '../components/Utilities/ScrollNavigate';
 
 import {
   calcMemberResults,
@@ -36,7 +36,7 @@ import {
   measureDataFetch,
   filterSearch,
   infoDataFetch,
-} from '../components/Common/Controller'
+} from '../components/Common/Controller';
 
 export default function Dashboard() {
   const { datastore, datastoreActions } = useContext(DatastoreContext);
@@ -61,21 +61,21 @@ export default function Dashboard() {
   const [colorMap, setColorMap] = useState([]);
   const [selectedMeasures, setSelectedMeasures] = useState(Object.keys(datastore.info));
   const [currentFilters, setCurrentFilters] = useState([]);
-  const [additionalFilterOptions, setAdditionalFilterOptions] = useState([])
+  const [additionalFilterOptions, setAdditionalFilterOptions] = useState([]);
   const [currentTimeline, setCurrentTimeline] = useState(datastore.defaultTimelineState);
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
   const [tableFilter, setTableFilter] = useState([]);
-  const [headerInfo, setHeaderInfo] = useState([])
-  const [rowEntries, setRowEntries] = useState([])
+  const [headerInfo, setHeaderInfo] = useState([]);
+  const [rowEntries, setRowEntries] = useState([]);
   const [tabValue, setTabValue] = useState('overview');
   const [chartData, setChartData] = useState([]);
   const { measure } = useParams();
 
   const handleResetData = (router) => {
-    scrollTop()
+    scrollTop();
     if (router === undefined) {
-      setIsLoading(true)
+      setIsLoading(true);
       setCurrentTimeline(datastore.defaultTimelineState);
       setCurrentFilters(datastore.defaultFilterState);
       setAdditionalFilterOptions(datastore.filterOptions);
@@ -87,7 +87,7 @@ export default function Dashboard() {
           displayData: [],
           results: [],
           filters: {},
-        })
+        });
         setComposite(true);
         setDisplayData(datastore.results.map((result) => ({ ...result })));
         setCurrentResults(datastore.currentResults);
@@ -95,7 +95,7 @@ export default function Dashboard() {
         setColorMap(ColorMapping(datastore.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);
-        setRowEntries([])
+        setRowEntries([]);
         setHeaderInfo(headerData(true));
       } else {
         setFilterInfo({
@@ -104,7 +104,7 @@ export default function Dashboard() {
           displayData: [],
           results: [],
           filters: {},
-        })
+        });
         setComposite(false);
         const subMeasureCurrentResults = getSubMeasureCurrentResults(
           activeMeasure,
@@ -118,19 +118,19 @@ export default function Dashboard() {
         );
         setFilterDisabled(false);
         setTableFilter([]);
-        setRowEntries([])
+        setRowEntries([]);
         setHeaderInfo(headerData(false));
       }
-      setFilterActivated(false)
-      setNoResultsFound(false)
-      setIsLoading(false)
+      setFilterActivated(false);
+      setNoResultsFound(false);
+      setIsLoading(false);
     } else if (router === 'ALL MEASURES') {
       const otherMeasureFinder = filterInfo.results.filter(
         (res) => !res.measure.includes(measure),
       );
       if (otherMeasureFinder.length > 0) {
         if (filterInfo.members.length !== datastore.memberResults.length) {
-          setCurrentResults(filterInfo.currentResults)
+          setCurrentResults(filterInfo.currentResults);
           setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
         }
@@ -138,23 +138,23 @@ export default function Dashboard() {
         setFilterDisabled(false);
         setTableFilter([]);
         setRowEntries([]);
-        setColorMap(ColorMapping(filterInfo.currentResults))
+        setColorMap(ColorMapping(filterInfo.currentResults));
         setHeaderInfo(headerData(true));
         scrolly(navigate, '/');
       } else {
-        const isEmpty = (filter) => Object.keys(filter).length === 0
+        const isEmpty = (filter) => Object.keys(filter).length === 0;
         if (isEmpty(filterInfo.filters)) {
           setCurrentTimeline(datastore.defaultTimelineState);
           setCurrentFilters(datastore.defaultFilterState);
           scrolly(navigate, '/');
         } else {
-          setIsLoading(true)
-          handleFilteredDataUpdate(currentFilters, filterInfo.timeline, 'GO BACK')
+          setIsLoading(true);
+          handleFilteredDataUpdate(currentFilters, filterInfo.timeline, 'GO BACK');
           scrolly(navigate, '/');
         }
       }
     }
-  }
+  };
 
   useEffect(() => {
     // CURRENT RESULTS EXIST
@@ -171,13 +171,13 @@ export default function Dashboard() {
 
   useEffect(() => {
     function handleResize() {
-      setGraphWidth(window.innerWidth)
+      setGraphWidth(window.innerWidth);
     }
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  })
+      window.removeEventListener('resize', handleResize);
+    };
+  });
 
   useEffect(() => {
     if (!filterActivated) {
@@ -192,7 +192,7 @@ export default function Dashboard() {
           displayData: [],
           results: [],
           filters: {},
-        })
+        });
         setComposite(true);
         setDisplayData(datastore.results.map((result) => ({ ...result })));
         setCurrentResults(datastore.currentResults);
@@ -200,7 +200,7 @@ export default function Dashboard() {
         setColorMap(ColorMapping(datastore.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);
-        setRowEntries([])
+        setRowEntries([]);
         setHeaderInfo(headerData(true));
       } else {
         setFilterInfo({
@@ -209,7 +209,7 @@ export default function Dashboard() {
           displayData: [],
           results: [],
           filters: {},
-        })
+        });
         setComposite(false);
         const subMeasureCurrentResults = getSubMeasureCurrentResults(
           activeMeasure,
@@ -223,12 +223,12 @@ export default function Dashboard() {
         );
         setFilterDisabled(false);
         setTableFilter([]);
-        setRowEntries([])
+        setRowEntries([]);
         setHeaderInfo(headerData(false));
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setTableFilter, activeMeasure, isComposite, filterActivated])
+  }, [setTableFilter, activeMeasure, isComposite, filterActivated]);
 
   useEffect(() => {
     if (tabValue === 'members') {
@@ -238,10 +238,10 @@ export default function Dashboard() {
         activeMeasure.measure,
         datastore.info,
         tableFilter,
-      ))
+      ));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [datastore.memberResults])
+  }, [datastore.memberResults]);
 
   useEffect(() => {
     if (filterActivated) {
@@ -251,7 +251,7 @@ export default function Dashboard() {
       const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
       if (ActiveMeasureTest) {
         if (filterInfo.members.length !== datastore.memberResults.length) {
-          setCurrentResults(filterInfo.currentResults)
+          setCurrentResults(filterInfo.currentResults);
           setSelectedMeasures(filterInfo.currentResults.map((result) => result.measure));
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
         }
@@ -259,8 +259,8 @@ export default function Dashboard() {
         setColorMap(ColorMapping(filterInfo.currentResults));
         setFilterDisabled(false);
         setTableFilter([]);
-        setRowEntries([])
-        setHeaderInfo(headerData(isComposite))
+        setRowEntries([]);
+        setHeaderInfo(headerData(isComposite));
       } else {
         setComposite(false);
         const subMeasureCurrentResults = getSubMeasureCurrentResults(
@@ -285,12 +285,12 @@ export default function Dashboard() {
     isComposite,
     filterActivated,
     filterInfo,
-  ])
+  ]);
 
   useEffect(() => {
     async function fetchData() {
-      const records = await measureDataFetch(activeMeasure.measure)
-      datastoreActions.setMemberResults(records)
+      const records = await measureDataFetch(activeMeasure.measure);
+      datastoreActions.setMemberResults(records);
     }
     // HANDLE COMPOSITE
     if (!isComposite) {
@@ -298,12 +298,12 @@ export default function Dashboard() {
       if (filterInfo.members.length > 0) {
         // 120 IS THE TOTAL AND 15 IS THE EXPECTED AMOUNT
         const selectMemberResults = filterInfo.members
-          .filter((result) => activeMeasure.measure.includes(result.measurementType))
+          .filter((result) => activeMeasure.measure.includes(result.measurementType));
 
-        datastoreActions.setMemberResults(selectMemberResults)
+        datastoreActions.setMemberResults(selectMemberResults);
       } else {
         // FILTERS DO NOT EXIST
-        fetchData()
+        fetchData();
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -311,7 +311,7 @@ export default function Dashboard() {
     isComposite,
     filterInfo,
     activeMeasure.measure,
-  ])
+  ]);
 
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
@@ -319,30 +319,30 @@ export default function Dashboard() {
       activeMeasure.measure,
       datastore.info,
       tableFilter,
-    ))
-  }, [tableFilter, filterInfo, datastore.memberResults, activeMeasure.measure, datastore.info])
+    ));
+  }, [tableFilter, filterInfo, datastore.memberResults, activeMeasure.measure, datastore.info]);
 
   useEffect(() => {
-    const path = window.location.pathname
+    const path = window.location.pathname;
     if (filterInfo.members.length > 0) {
-      datastoreActions.setMemberResults(filterInfo.members)
+      datastoreActions.setMemberResults(filterInfo.members);
     }
 
     if (path.includes('members')) {
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-      const wantedMembers = datastore.memberResults
+      const wantedMembers = datastore.memberResults;
 
       setRowEntries(MemberTable.formatData(
         wantedMembers,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
-      ))
-      setComposite(false)
-      setTabValue('members')
+      ));
+      setComposite(false);
+      setTabValue('members');
     } else {
-      setTabValue('overview')
-      setHeaderInfo(headerData(isComposite))
+      setTabValue('overview');
+      setHeaderInfo(headerData(isComposite));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -353,47 +353,47 @@ export default function Dashboard() {
     tableFilter,
   ]);
   const ChartDataGenerator = useCallback(() => {
-    setIsLoading(true)
+    setIsLoading(true);
     const ChartData = DisplayDataFormatter(
       currentResults,
       selectedMeasures,
       displayData,
       colorMap,
       theme,
-    )
+    );
     if (ChartData.length > 0) {
-      setChartData(ChartData)
+      setChartData(ChartData);
     }
-    setIsLoading(false)
-  }, [currentResults, displayData, selectedMeasures, colorMap])
+    setIsLoading(false);
+  }, [currentResults, displayData, selectedMeasures, colorMap]);
 
   useEffect(() => {
     if (datastore.datastoreLoading === false) {
-      ChartDataGenerator()
+      ChartDataGenerator();
     }
-  }, [currentResults, selectedMeasures, datastore, displayData, ChartDataGenerator])
+  }, [currentResults, selectedMeasures, datastore, displayData, ChartDataGenerator]);
 
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
-    setIsLoading(true)
+    setIsLoading(true);
     // let newDisplayData
-    let cloneDailyMeasureResults = {}
-    let cloneMembers = []
-    let searchResults = []
+    let cloneDailyMeasureResults = {};
+    let cloneMembers = [];
+    let searchResults = [];
     const currentMeasureResolver = measure === undefined ? false : measure;
     const info = await infoDataFetch();
     if (direction === 'GO BACK') {
       searchResults = await filterSearch(
         false,
         filters,
-      )
+      );
     } else {
       searchResults = await filterSearch(
         currentMeasureResolver,
         filters,
-      )
+      );
     }
-    cloneDailyMeasureResults = structuredClone(searchResults.dailyMeasureResults)
-    cloneMembers = structuredClone(searchResults.members)
+    cloneDailyMeasureResults = structuredClone(searchResults.dailyMeasureResults);
+    cloneMembers = structuredClone(searchResults.members);
     if (filters.domainsOfCare.length > 0) {
       cloneDailyMeasureResults = filterByDOC(cloneDailyMeasureResults, filters, info);
     }
@@ -413,7 +413,7 @@ export default function Dashboard() {
     }
     cloneDailyMeasureResults = filterByTimeline(cloneDailyMeasureResults, timeline);
     if (cloneDailyMeasureResults.length > 0) {
-      const calcResults = calcMemberResults(cloneDailyMeasureResults, info)
+      const calcResults = calcMemberResults(cloneDailyMeasureResults, info);
       const resultsByState = isComposite || direction === 'GO BACK'
         ? calcResults.results
         : expandSubMeasureResults(activeMeasure, calcResults.results);
@@ -428,26 +428,26 @@ export default function Dashboard() {
         results: resultsByState,
         filters,
         timeline,
-      }
-      setCurrentResults(newFilterInfo.currentResults)
+      };
+      setCurrentResults(newFilterInfo.currentResults);
       setSelectedMeasures(newFilterInfo.currentResults.map((result) => result.measure));
       setDisplayData(newFilterInfo.results.map((result) => ({ ...result })));
-      setCurrentFilters(newFilterInfo.filters)
-      setCurrentTimeline(newFilterInfo.timeline)
-      setFilterInfo(newFilterInfo)
+      setCurrentFilters(newFilterInfo.filters);
+      setCurrentTimeline(newFilterInfo.timeline);
+      setFilterInfo(newFilterInfo);
       if (direction) {
-        setComposite(true)
+        setComposite(true);
       }
-      setFilterActivated(true)
+      setFilterActivated(true);
     } else {
-      setIsLoading(true)
-      setNoResultsFound(true)
+      setIsLoading(true);
+      setNoResultsFound(true);
     }
-    setIsLoading(false)
+    setIsLoading(false);
   };
 
   const handleSelectedMeasureChange = (selections) => {
-    setTableFilter([])
+    setTableFilter([]);
     return selections.target?.name
       ? navigate(`/${selections.target.name === 'composite' ? '' : selections.target.value}`)
       : setSelectedMeasures(selections);
@@ -455,32 +455,32 @@ export default function Dashboard() {
 
   const handleTableFilterChange = (event) => {
     if (event.target.value === undefined) {
-      setTableFilter([])
+      setTableFilter([]);
     } else if (tableFilter.includes(event.target.value)) {
-      const tableFilterIndex = tableFilter.indexOf(event.target.value)
+      const tableFilterIndex = tableFilter.indexOf(event.target.value);
       const newFiltering = tableFilter.filter((_, i) => i !== tableFilterIndex);
 
-      setTableFilter(newFiltering)
+      setTableFilter(newFiltering);
     } else {
-      const newFiltering = [...tableFilter, event.target.value]
+      const newFiltering = [...tableFilter, event.target.value];
 
       setTableFilter(newFiltering);
     }
-  }
+  };
 
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
     if (newValue === 'members') {
-      navigate(`/${activeMeasure.measure}/members`)
+      navigate(`/${activeMeasure.measure}/members`);
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
       setRowEntries(MemberTable.formatData(
         filterInfo.members.length > 0 ? filterInfo.members : datastore.memberResults,
         activeMeasure.measure,
         datastore.info,
         tableFilter,
-      ))
+      ));
     } else {
-      navigate(`/${activeMeasure.measure}`)
+      navigate(`/${activeMeasure.measure}`);
       setHeaderInfo(headerData(isComposite));
     }
   };
@@ -558,7 +558,6 @@ export default function Dashboard() {
                     currentResults={datastore.currentResults}
                     activeMeasure={activeMeasure}
                     trends={datastore.trends}
-                    info={datastore.info}
                     widgetPrefs={datastore.preferences.ratingTrends}
                   />
                 )}
@@ -591,5 +590,5 @@ export default function Dashboard() {
         </Box>
       </Paper>
     </Box>
-  )
+  );
 }

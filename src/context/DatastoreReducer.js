@@ -66,32 +66,32 @@ export const DatastoreReducer = (state, action) => {
   switch (action.type) {
     case 'SET_RESULTS': {
       const { results, info } = action.payload;
-      const { currentResults } = calcMemberResults(results, info)
+      const { currentResults } = calcMemberResults(results, info);
       return {
         ...state,
         results,
         currentResults,
         info,
         lastUpdated: updateTimestamp(new Date()),
-      }
+      };
     }
     case 'SET_MEMBER_RESULTS': {
       return {
         ...state,
         memberResults: action.payload,
-      }
+      };
     }
     case 'SET_TRENDS':
       return {
         ...state,
         trends: action.payload,
         lastUpdated: updateTimestamp(new Date()),
-      }
+      };
     case 'SET_PREFERENCES':
       return {
         ...state,
         preferences: action.payload,
-      }
+      };
     case 'SET_FILTER_OPTIONS':
       return {
         ...state,
@@ -104,14 +104,14 @@ export const DatastoreReducer = (state, action) => {
           healthcareCoverages: action.payload.healthcareCoverages,
           healthcarePractitioners: action.payload.practitioners,
         },
-      }
+      };
     case 'SET_ISLOADING':
       return {
         ...state,
         datastoreLoading: action.payload,
         lastUpdated: updateTimestamp(new Date()),
-      }
+      };
     default:
       return state;
   }
-}
+};

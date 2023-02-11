@@ -53,7 +53,7 @@ const headerData = [
     flexBasis: 'large',
     rowType: 'text',
   },
-]
+];
 
 const formatData = (memberData, selectedMeasure, storeInfo) => {
   const complianceResult = getMeasureCompliance(memberData);

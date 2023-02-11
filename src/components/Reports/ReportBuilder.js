@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import {
   Box, Grid, Typography,
 } from '@mui/material';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 import { storeProps } from '../Utilities/PropTypes';
 import MeasureSelector from '../Common/MeasureSelector';
 import env from '../../env';
@@ -17,8 +17,8 @@ function ReportBuilder({ store }) {
   }, [store]);
 
   const handleMeasureChange = (e) => {
-    setMeasure(e.target.value)
-  }
+    setMeasure(e.target.value);
+  };
 
   return (
     <Box sx={{ color: theme.palette?.bluegray.D1 }} className="report-builder">
@@ -52,7 +52,7 @@ function ReportBuilder({ store }) {
         )}
     </Box>
 
-  )
+  );
 }
 ReportBuilder.propTypes = {
   store: storeProps,

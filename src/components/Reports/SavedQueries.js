@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import theme from '../../assets/styles/AppTheme'
+import theme from '../../assets/styles/AppTheme';
 
 const Queries = [
   { name: 'Yearly Comparison' },
@@ -31,5 +31,5 @@ export default function SavedQueries() {
         ))}
       </ul>
     </Box>
-  )
+  );
 }

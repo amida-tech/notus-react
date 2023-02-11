@@ -20,7 +20,7 @@ const timelineLabel = (choice) => {
     default:
       return `${choice} Days`;
   }
-}
+};
 
 function ChartBar({
   filterDrawerOpen,
@@ -51,13 +51,13 @@ function ChartBar({
       range: [null, null],
     });
     handleDateClose();
-  }
+  };
 
   const onClickFilter = () => {
     toggleFilterDrawer(!filterDrawerOpen);
   };
 
-  const timelineCaption = `Timeline: ${timelineLabel(currentTimeline.choice)}`
+  const timelineCaption = `Timeline: ${timelineLabel(currentTimeline.choice)}`;
 
   return (
     <Box className="chart-container__chart-bar">
@@ -123,7 +123,7 @@ function ChartBar({
         </Grid>
       </Grid>
     </Box>
-  )
+  );
 }
 
 ChartBar.propTypes = {
@@ -149,6 +149,6 @@ ChartBar.defaultProps = {
   },
   handleTimelineChange: undefined,
   filterDisabled: false,
-}
+};
 
 export default ChartBar;
