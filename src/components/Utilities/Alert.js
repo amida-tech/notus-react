@@ -12,6 +12,7 @@ export default function Alert({
   children,
   noResultsALERT,
   handleResetData,
+  forwardBtn
 }) {
   function handleAlert() {
     return openAlert ? setOpenAlert(false) : setOpenAlert(true);
@@ -35,7 +36,9 @@ export default function Alert({
         </DialogContent>
 
         <DialogActions>
-          <Button variant="contained" onClick={() => handleResetData()}>Reset</Button>
+          <Button variant="contained" onClick={() => handleResetData()}>
+            {forwardBtn}
+          </Button>
         </DialogActions>
       </Dialog>
     );

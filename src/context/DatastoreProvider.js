@@ -110,6 +110,18 @@ export default function DatastoreProvider({ children }) {
         datastoreActions.setPreferences(newUserPreferences);
         datastoreActions.setIsLoading(false);
       });
+
+      const datastoreCheck = [
+        datastore.currentResults.length === 0,
+        datastore.info[0] === undefined,
+        datastore.result === undefined,
+        datastore.trends.length === 0
+      ].includes(true)
+
+      if (datastoreCheck) {
+        datastoreActions.setIsLoading('error')
+        console.log('oops', datastore)
+      }
     }
   }, [datastoreActions]);
 

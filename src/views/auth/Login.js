@@ -73,8 +73,9 @@ export default function Login() {
           title="Failed to Login"
           noResultsALERT
           handleResetData={handleReset}
+          forwardBtn='retry'
         >
-          Please press Reset to try again
+          There was an error logging in.
         </Alert>
       )}
 

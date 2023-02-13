@@ -71,7 +71,9 @@ export default function Dashboard() {
   const [tabValue, setTabValue] = useState('overview');
   const [chartData, setChartData] = useState([]);
   const { measure } = useParams();
+  const [openFTCAlert, setFTCAlert] = useState(false);
 
+  // CLEANS SLATE FUNCTION
   const handleResetData = (router) => {
     scrollTop();
     if (router === undefined) {
@@ -156,19 +158,21 @@ export default function Dashboard() {
     }
   };
 
+  // SETS ACTIVE MEASURE OBJECT
   useEffect(() => {
     // CURRENT RESULTS EXIST
-    if (datastore.currentResults) {
+    if (datastore.currentResults.length > 0) {
       const currentMeasure = measure || 'composite';
       setActiveMeasure(datastore.currentResults.find(
         (result) => result.measure === currentMeasure,
       ) || defaultActiveMeasure);
       setIsLoading(datastore.datastoreLoading);
     } else {
-      // NO CURRENT RESULTS
+      setFTCAlert(true)
     }
   }, [datastore.currentResults, datastore.datastoreLoading, measure]);
 
+  // CHART WINDOW RESIZING
   useEffect(() => {
     function handleResize() {
       setGraphWidth(window.innerWidth);
@@ -179,6 +183,7 @@ export default function Dashboard() {
     };
   });
 
+  // HANDLES FILTERING I THINK
   useEffect(() => {
     if (!filterActivated) {
       setCurrentTimeline(datastore.defaultTimelineState);
@@ -230,6 +235,7 @@ export default function Dashboard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setTableFilter, activeMeasure, isComposite, filterActivated]);
 
+  // HANDLES ROW ENTRIES FOR COMPOSITE OR MEASURE VIEW
   useEffect(() => {
     if (tabValue === 'members') {
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
@@ -243,6 +249,7 @@ export default function Dashboard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [datastore.memberResults]);
 
+  // HANDLES FILTERING ALSO I THINK
   useEffect(() => {
     if (filterActivated) {
       setCurrentTimeline(filterInfo.timeline);
@@ -287,6 +294,7 @@ export default function Dashboard() {
     filterInfo,
   ]);
 
+  // INITIAL FETCH DATA AND SET MEMBER RESULTS
   useEffect(() => {
     async function fetchData() {
       const records = await measureDataFetch(activeMeasure.measure);
@@ -313,6 +321,7 @@ export default function Dashboard() {
     activeMeasure.measure,
   ]);
 
+  // INITIAL SETTING OF ROW ENTRIES
   useEffect(() => {
     setRowEntries(MemberTable.formatData(
       datastore.memberResults,
@@ -322,6 +331,7 @@ export default function Dashboard() {
     ));
   }, [tableFilter, filterInfo, datastore.memberResults, activeMeasure.measure, datastore.info]);
 
+  // HANDLES FILTERING ALSO BUT AGAIN
   useEffect(() => {
     const path = window.location.pathname;
     if (filterInfo.members.length > 0) {
@@ -352,6 +362,8 @@ export default function Dashboard() {
     tabValue,
     tableFilter,
   ]);
+  
+  // FORMATS DATA FOR CHART COMPONENT
   const ChartDataGenerator = useCallback(() => {
     setIsLoading(true);
     const ChartData = DisplayDataFormatter(
@@ -367,12 +379,14 @@ export default function Dashboard() {
     setIsLoading(false);
   }, [currentResults, displayData, selectedMeasures, colorMap]);
 
+  // GENERATES CHART DATA AFTER PAGE LOAD
   useEffect(() => {
     if (datastore.datastoreLoading === false) {
       ChartDataGenerator();
     }
   }, [currentResults, selectedMeasures, datastore, displayData, ChartDataGenerator]);
 
+  // FILTERING HANDLING IS STARTING TO LOOK FAMILIAR 'ROUND THESE PARTS
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true);
     // let newDisplayData
@@ -446,6 +460,7 @@ export default function Dashboard() {
     setIsLoading(false);
   };
 
+  // MEASURE CHANGE FUNCTION
   const handleSelectedMeasureChange = (selections) => {
     setTableFilter([]);
     return selections.target?.name
@@ -453,6 +468,7 @@ export default function Dashboard() {
       : setSelectedMeasures(selections);
   };
 
+  // TABLE FILTER HANDLING'S COUSIN
   const handleTableFilterChange = (event) => {
     if (event.target.value === undefined) {
       setTableFilter([]);
@@ -468,6 +484,7 @@ export default function Dashboard() {
     }
   };
 
+  // TAB CHANGE HANDLER
   const handleTabChange = (_e, newValue) => {
     setTabValue(newValue);
     if (newValue === 'members') {
@@ -484,8 +501,25 @@ export default function Dashboard() {
       setHeaderInfo(headerData(isComposite));
     }
   };
+
   return (
     <Box className="dashboard">
+      <Alert
+        openAlert={openFTCAlert}
+        setOpenAlert={setFTCAlert}
+        title="Error Retrieving Network Data"
+        options={{
+          target: '_blank',
+          rel: 'noopener noreferrer',
+          pathto: '',
+        }}
+        noResultsALERT={true}
+        forwardBtn='retry'
+      >
+        It appears there was an issue receiving data from the server.
+        <br/>
+        Please contact someone very useful in these matters.
+      </Alert>
       <Paper elevation={0} className="dashboard__paper">
         <Box sx={{ flexGrow: 2 }}>
           <Grid container spacing={4}>
