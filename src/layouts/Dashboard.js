@@ -502,6 +502,10 @@ export default function Dashboard() {
     }
   };
 
+  const handleRefreshPage = () => {
+    window.location.reload();
+  }
+
   return (
     <Box className="dashboard">
       <Alert
@@ -514,11 +518,12 @@ export default function Dashboard() {
           pathto: '',
         }}
         noResultsALERT={true}
-        forwardBtn='retry'
+        forwardBtn='refresh'
+        handleResetData={() => handleRefreshPage()}
       >
         It appears there was an issue receiving data from the server.
         <br/>
-        Please contact someone very useful in these matters.
+        Please contact support desk.
       </Alert>
       <Paper elevation={0} className="dashboard__paper">
         <Box sx={{ flexGrow: 2 }}>
