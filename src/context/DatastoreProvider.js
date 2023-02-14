@@ -115,12 +115,13 @@ export default function DatastoreProvider({ children }) {
         datastore.currentResults.length === 0,
         datastore.info[0] === undefined,
         datastore.result === undefined,
-        datastore.trends.length === 0
-      ].includes(true)
+        datastore.trends.length === 0,
+      ]
+
+      console.log('checK:', datastoreCheck)
 
       if (datastoreCheck) {
         datastoreActions.setIsLoading('error')
-        console.log('oops', datastore)
       }
     }
   }, [datastoreActions]);

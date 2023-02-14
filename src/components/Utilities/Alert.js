@@ -12,7 +12,7 @@ export default function Alert({
   children,
   noResultsALERT,
   handleResetData,
-  forwardBtn
+  forwardBtn,
 }) {
   function handleAlert() {
     return openAlert ? setOpenAlert(false) : setOpenAlert(true);
@@ -81,6 +81,7 @@ export default function Alert({
 }
 
 Alert.propTypes = {
+  forwardBtn: PropTypes.string,
   openAlert: PropTypes.bool,
   setOpenAlert: PropTypes.func,
   title: PropTypes.string,
@@ -95,6 +96,7 @@ Alert.propTypes = {
 };
 
 Alert.defaultProps = {
+  forwardBtn: '',
   openAlert: false,
   setOpenAlert: () => undefined,
   title: '',

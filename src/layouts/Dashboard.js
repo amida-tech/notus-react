@@ -362,7 +362,7 @@ export default function Dashboard() {
     tabValue,
     tableFilter,
   ]);
-  
+
   // FORMATS DATA FOR CHART COMPONENT
   const ChartDataGenerator = useCallback(() => {
     setIsLoading(true);
@@ -517,12 +517,10 @@ export default function Dashboard() {
           rel: 'noopener noreferrer',
           pathto: '',
         }}
-        noResultsALERT={true}
-        forwardBtn='refresh'
+        noResultsALERT
+        forwardBtn="refresh"
         handleResetData={() => handleRefreshPage()}
       >
-        It appears there was an issue receiving data from the server.
-        <br/>
         Please contact support desk.
       </Alert>
       <Paper elevation={0} className="dashboard__paper">
