@@ -67,6 +67,11 @@ export default function DatastoreProvider({ children }) {
       payload: isLoading,
     }),
 
+    setStatus: (status) => dispatch({
+      type: 'SET_STATUS',
+      payload: status,
+    }),
+
   }), [dispatch]);
 
   useEffect(() => {
@@ -109,20 +114,13 @@ export default function DatastoreProvider({ children }) {
         // currently only front end default preferences
         datastoreActions.setPreferences(newUserPreferences);
         datastoreActions.setIsLoading(false);
+        console.log('connection success')
+        datastoreActions.setStatus(values[0].request.status)
+        console.log('new status:', datastore.status)
+      }).catch((error) => {
+        console.log('connection failed:', error.request.status)
+        datastoreActions.setStatus(error.request.status)
       });
-
-      const datastoreCheck = [
-        datastore.currentResults.length === 0,
-        datastore.info[0] === undefined,
-        datastore.result === undefined,
-        datastore.trends.length === 0,
-      ]
-
-      console.log('checK:', datastoreCheck)
-
-      if (datastoreCheck) {
-        datastoreActions.setIsLoading('error')
-      }
     }
   }, [datastoreActions]);
 

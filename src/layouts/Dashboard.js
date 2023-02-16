@@ -160,6 +160,8 @@ export default function Dashboard() {
 
   // SETS ACTIVE MEASURE OBJECT
   useEffect(() => {
+    console.log('code:', datastore.status)
+  
     // CURRENT RESULTS EXIST
     if (datastore.currentResults.length > 0) {
       const currentMeasure = measure || 'composite';
@@ -167,10 +169,10 @@ export default function Dashboard() {
         (result) => result.measure === currentMeasure,
       ) || defaultActiveMeasure);
       setIsLoading(datastore.datastoreLoading);
-    } else {
+    } else if (datastore.status !== 200 && datastore.status !== undefined) {
       setFTCAlert(true)
     }
-  }, [datastore.currentResults, datastore.datastoreLoading, measure]);
+  }, [datastore.currentResults, datastore.isLoading, datastore.status, measure]);
 
   // CHART WINDOW RESIZING
   useEffect(() => {
@@ -521,7 +523,7 @@ export default function Dashboard() {
         forwardBtn="refresh"
         handleResetData={() => handleRefreshPage()}
       >
-        Please contact support desk.
+        Please contact the support desk.
       </Alert>
       <Paper elevation={0} className="dashboard__paper">
         <Box sx={{ flexGrow: 2 }}>

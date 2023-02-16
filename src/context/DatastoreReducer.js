@@ -32,6 +32,7 @@ const defaultTimelineState = {
 
 export const initialState = {
   datastoreLoading: true,
+  status: undefined,
   results: [], // All results for the last several days, per measure.
   memberResults: [],
   trends: [],
@@ -110,6 +111,11 @@ export const DatastoreReducer = (state, action) => {
         ...state,
         datastoreLoading: action.payload,
         lastUpdated: updateTimestamp(new Date()),
+      };
+    case 'SET_STATUS':
+      return {
+        ...state,
+        status: action.payload,
       };
     default:
       return state;
