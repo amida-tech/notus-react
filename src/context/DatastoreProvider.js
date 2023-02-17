@@ -80,6 +80,7 @@ export default function DatastoreProvider({ children }) {
       datastoreActions.setTrends(trendList);
       datastoreActions.setPreferences(userPreferences);
       datastoreActions.setIsLoading(false);
+      datastoreActions.setStatus('200')
     } else {
       const trendPromise = axios.get(trendUrl);
       const searchPromise = axios.get(searchUrl);

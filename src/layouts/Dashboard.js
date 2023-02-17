@@ -18,6 +18,7 @@ import RatingTrends from '../components/Summary/RatingTrends';
 import ColorMapping from '../components/Utilities/ColorMapping';
 import { headerData } from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
+import Notification from '../components/Common/Notification'
 
 // scrolly is a navigate function wrapped with scrollToTop
 import { scrolly, scrollTop } from '../components/Utilities/ScrollNavigate';
@@ -169,8 +170,6 @@ export default function Dashboard() {
         (result) => result.measure === currentMeasure,
       ) || defaultActiveMeasure);
       setIsLoading(datastore.datastoreLoading);
-    } else if (datastore.status !== 200 && datastore.status !== undefined) {
-      setFTCAlert(true)
     }
   }, [datastore.currentResults, datastore.isLoading, datastore.status, measure]);
 
@@ -504,28 +503,11 @@ export default function Dashboard() {
     }
   };
 
-  // REFRESH PAGE FUNCTION
-  const handleRefreshPage = () => {
-    window.location.reload();
-  }
-
   return (
     <Box className="dashboard">
-      <Alert
-        openAlert={openFTCAlert}
-        setOpenAlert={setFTCAlert}
-        title="Error Retrieving Network Data"
-        options={{
-          target: '_blank',
-          rel: 'noopener noreferrer',
-          pathto: '',
-        }}
-        noResultsALERT
-        forwardBtn="refresh"
-        handleResetData={() => handleRefreshPage()}
-      >
-        Please contact the support desk.
-      </Alert>
+      <Notification
+        status={datastore.status}
+      />
       <Paper elevation={0} className="dashboard__paper">
         <Box sx={{ flexGrow: 2 }}>
           <Grid container spacing={4}>
