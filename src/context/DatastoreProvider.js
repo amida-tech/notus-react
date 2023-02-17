@@ -115,11 +115,8 @@ export default function DatastoreProvider({ children }) {
         // currently only front end default preferences
         datastoreActions.setPreferences(newUserPreferences);
         datastoreActions.setIsLoading(false);
-        console.log('connection success')
         datastoreActions.setStatus(values[0].request.status)
-        console.log('new status:', datastore.status)
       }).catch((error) => {
-        console.log('connection failed:', error.request.status)
         datastoreActions.setStatus(error.request.status)
       });
     }

@@ -161,8 +161,6 @@ export default function Dashboard() {
 
   // SETS ACTIVE MEASURE OBJECT
   useEffect(() => {
-    console.log('code:', datastore.status)
-  
     // CURRENT RESULTS EXIST
     if (datastore.currentResults.length > 0) {
       const currentMeasure = measure || 'composite';
