@@ -185,7 +185,7 @@ export default function Dashboard() {
     };
   });
 
-  // HANDLES FILTERING I THINK
+  // HANDLES FILTERING
   useEffect(() => {
     if (!filterActivated) {
       setCurrentTimeline(datastore.defaultTimelineState);
@@ -251,7 +251,7 @@ export default function Dashboard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [datastore.memberResults]);
 
-  // HANDLES FILTERING ALSO I THINK
+  // HANDLES FILTERING
   useEffect(() => {
     if (filterActivated) {
       setCurrentTimeline(filterInfo.timeline);
@@ -388,7 +388,7 @@ export default function Dashboard() {
     }
   }, [currentResults, selectedMeasures, datastore, displayData, ChartDataGenerator]);
 
-  // FILTERING HANDLING IS STARTING TO LOOK FAMILIAR 'ROUND THESE PARTS
+  // HANDLES FILTERING
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true);
     // let newDisplayData
@@ -470,7 +470,7 @@ export default function Dashboard() {
       : setSelectedMeasures(selections);
   };
 
-  // TABLE FILTER HANDLING'S COUSIN
+  // TABLE FILTERING
   const handleTableFilterChange = (event) => {
     if (event.target.value === undefined) {
       setTableFilter([]);
@@ -504,6 +504,7 @@ export default function Dashboard() {
     }
   };
 
+  // REFRESH PAGE FUNCTION
   const handleRefreshPage = () => {
     window.location.reload();
   }
