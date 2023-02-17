@@ -72,7 +72,6 @@ export default function Dashboard() {
   const [tabValue, setTabValue] = useState('overview');
   const [chartData, setChartData] = useState([]);
   const { measure } = useParams();
-  const [openFTCAlert, setFTCAlert] = useState(false);
 
   // CLEANS SLATE FUNCTION
   const handleResetData = (router) => {
