@@ -2837,6 +2837,9 @@ export const resultList = [
   },
 ];
 
+export const mockStatusSuccess = 200;
+export const mockStatusFailure = 404;
+
 export const userPreferences = {
   ratingTrends: {
     // 0: {

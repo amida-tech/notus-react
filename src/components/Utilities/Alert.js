@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 import {
   Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Link,
 } from '@mui/material';
@@ -12,6 +11,7 @@ export default function Alert({
   children,
   noResultsALERT,
   handleResetData,
+  forwardBtn,
 }) {
   function handleAlert() {
     return openAlert ? setOpenAlert(false) : setOpenAlert(true);
@@ -35,7 +35,9 @@ export default function Alert({
         </DialogContent>
 
         <DialogActions>
-          <Button variant="contained" onClick={() => handleResetData()}>Reset</Button>
+          <Button variant="contained" onClick={() => handleResetData()}>
+            {forwardBtn}
+          </Button>
         </DialogActions>
       </Dialog>
     );
@@ -78,6 +80,7 @@ export default function Alert({
 }
 
 Alert.propTypes = {
+  forwardBtn: PropTypes.string,
   openAlert: PropTypes.bool,
   setOpenAlert: PropTypes.func,
   title: PropTypes.string,
@@ -92,6 +95,7 @@ Alert.propTypes = {
 };
 
 Alert.defaultProps = {
+  forwardBtn: '',
   openAlert: false,
   setOpenAlert: () => undefined,
   title: '',

@@ -67,6 +67,11 @@ export default function DatastoreProvider({ children }) {
       payload: isLoading,
     }),
 
+    setStatus: (status) => dispatch({
+      type: 'SET_STATUS',
+      payload: status,
+    }),
+
   }), [dispatch]);
 
   useEffect(() => {
@@ -75,6 +80,7 @@ export default function DatastoreProvider({ children }) {
       datastoreActions.setTrends(trendList);
       datastoreActions.setPreferences(userPreferences);
       datastoreActions.setIsLoading(false);
+      datastoreActions.setStatus('200')
     } else {
       const trendPromise = axios.get(trendUrl);
       const searchPromise = axios.get(searchUrl);
@@ -109,6 +115,9 @@ export default function DatastoreProvider({ children }) {
         // currently only front end default preferences
         datastoreActions.setPreferences(newUserPreferences);
         datastoreActions.setIsLoading(false);
+        datastoreActions.setStatus(values[0].request.status)
+      }).catch((error) => {
+        datastoreActions.setStatus(error.request.status)
       });
     }
   }, [datastoreActions]);
