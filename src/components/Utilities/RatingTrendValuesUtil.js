@@ -10,7 +10,7 @@ export const starsTip = 'Star rating subject to change depending on measures and
 export const measurePercentTip = 'Trend information representing the changes of a tracked measure over a designated over the period of time.'
 export const submeasureHiTip = 'Trend data demonstrating the greatest positive change of a sub-measure over a designated over the period of time.'
 export const submeasureLoTip = 'Trend data demonstrating the greatest negative change of a sub-measure over a designated over the period of time.'
-const submeasureTips = [
+export const submeasureTips = [
   starsTip,
   measurePercentTip,
   submeasureLoTip,

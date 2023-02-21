@@ -1,7 +1,8 @@
 import {
-  render, screen, within,
+  render, screen, within, fireEvent
 } from '@testing-library/react';
 import { submeasureResults } from '../../../components/Utilities/RatingTrendsValues';
+import { ratingTrendsTip, submeasureTips } from '../../../components/Utilities/RatingTrendValuesUtil'
 import RatingTrends from '../../../components/Summary/RatingTrends';
 import {
   activeSubmeasure, trendList, currentResults,
@@ -24,8 +25,17 @@ describe('RatingTrends', () => {
   it('headers render', () => {
     const headers = screen.getAllByRole('heading');
     expect(headers.length).toBe(8);
+  });
+
+  // tooltips, we need specific ones for measure view
+  it('tooltips render', () => {
     const helpIcons = screen.getAllByTestId('HelpIcon');
     expect(helpIcons.length).toBe(4);
+    submeasureTips.forEach((tip) => {
+      expect(screen.getByLabelText(tip)).toBeTruthy()
+    })
+    fireEvent.click(screen.getByTestId('InfoIcon'));
+    expect(screen.getByText(ratingTrendsTip)).toBeTruthy();
   });
 
   // main header info pop out button
