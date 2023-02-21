@@ -71,9 +71,10 @@ export function submeasurePercentTitle(activeMeasure, preferences, currentResult
   const subMeasures = currentResults.find(
     (trend) => trend.measure === activeMeasure.measure,
   ).subScores;
+  console.log('subscore:', subMeasures)
 
-  let label = subMeasures?.find((sub) => preferences.measure === sub.measure).label;
-  label = `${label.split('').slice(activeMeasure.measure.length + 4).join('')} Score % Change`;
+  let label = subMeasures?.find((sub) => preferences.measure === sub.measure).measure;
+  label = `${label.toUpperCase()} Score % Change`;
 
   return (
     <Typography
