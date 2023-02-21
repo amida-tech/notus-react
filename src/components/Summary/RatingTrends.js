@@ -14,12 +14,12 @@ import Info from '../Common/Info';
 import RatingTrendBox from './RatingTrendBox';
 import { DatastoreContext } from '../../context/DatastoreProvider';
 import { submeasureResults } from '../Utilities/RatingTrendsValues';
+import { ratingTrendsTip, measureTipsArr } from '../Utilities/RatingTrendValuesUtil'
 import { ratingTrendsCompositeContainer, ratingTrendsMeasureContainer } from '../../assets/styles/RatingTrends.style';
 
 function RatingTrends({
   currentResults, activeMeasure, trends, widgetPrefs,
 }) {
-  const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
   const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs));
   const { datastore, datastoreActions } = useContext(DatastoreContext);
 
@@ -53,6 +53,7 @@ function RatingTrends({
               widgetPrefs={measurePreferences[idx]}
               trends={trends}
               currentResults={currentResults}
+              order={idx}
             />
           ))}
 

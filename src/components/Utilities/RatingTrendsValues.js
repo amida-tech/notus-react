@@ -20,7 +20,7 @@ import {
 export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
-export function Title({ activeMeasure, preferences, currentResults }) {
+export function Title({ activeMeasure, preferences, currentResults, order }) {
   if (preferences?.type === 'star') {
     return starTitle(preferences);
   }
@@ -28,11 +28,11 @@ export function Title({ activeMeasure, preferences, currentResults }) {
     return compositePercentTitle(preferences);
   }
   if (activeMeasure.measure === preferences.measure && preferences?.type === 'percentage') {
-    return measurePercentTitle(preferences);
+    return measurePercentTitle(preferences, order);
   }
   // sub-measure percentages submeasures
   if (activeMeasure.measure !== preferences.measure && preferences?.type === 'percentage') {
-    return submeasurePercentTitle(activeMeasure, preferences, currentResults);
+    return submeasurePercentTitle(activeMeasure, preferences, currentResults, order);
   }
 
   return (
@@ -116,7 +116,7 @@ export const submeasureResults = (activeMeasure, trends) => {
   if (manySubscores) {
     const sorted = subScoreTrends
       .sort((prev, curr) => prev.percentChange < curr.percentChange)
-    const highLows = [sorted[0], sorted.at(-1)]
+    const highLows = [sorted.at(-1), sorted[0]]
     highLows.forEach((trend, idx) => {
       Object.assign(values, {
         [idx + 2]:
