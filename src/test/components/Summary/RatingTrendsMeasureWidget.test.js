@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent
+  render, screen, within, fireEvent,
 } from '@testing-library/react';
 import { submeasureResults } from '../../../components/Utilities/RatingTrendsValues';
 import { ratingTrendsTip, submeasureTips } from '../../../components/Utilities/RatingTrendValuesUtil'

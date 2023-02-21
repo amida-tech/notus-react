@@ -20,7 +20,9 @@ import {
 export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
-export function Title({ activeMeasure, preferences, currentResults, order }) {
+export function Title({
+  activeMeasure, preferences, currentResults, order,
+}) {
   if (preferences?.type === 'star') {
     return starTitle(preferences);
   }
@@ -70,9 +72,9 @@ export function DisplayValue({
 
   if (percentCheck) {
     return percentDisplayValue(trends, preferences, activeMeasure, measureCheck);
-  } else if (starCheck) {
+  } if (starCheck) {
     return starDisplayValue(currentResults, preferences);
-  } else if (submeasureCheck) {
+  } if (submeasureCheck) {
     return submeasurePercentDisplayValue(trends, activeMeasure, preferences);
   }
   return (
@@ -85,7 +87,7 @@ export function DisplayValue({
 export function Footer({ preferences }) {
   if (preferences.type === 'percentage') {
     return percentageFooter(preferences);
-  } else if (preferences.type === 'star') {
+  } if (preferences.type === 'star') {
     return starFooter(preferences);
   }
   return '';
@@ -142,6 +144,7 @@ Title.propTypes = {
   }),
   preferences: widgetPrefsProps,
   currentResults: PropTypes.arrayOf(PropTypes.shape({})),
+  order: PropTypes.number,
 };
 DisplayValue.propTypes = {
   activeMeasure: activeMeasureProps,
@@ -159,6 +162,7 @@ Title.defaultProps = {
   trends: {},
   preferences: {},
   currentResults: {},
+  order: 0,
 };
 DisplayValue.defaultProps = {
   activeMeasure: {},

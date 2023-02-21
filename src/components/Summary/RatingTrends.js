@@ -14,7 +14,7 @@ import Info from '../Common/Info';
 import RatingTrendBox from './RatingTrendBox';
 import { DatastoreContext } from '../../context/DatastoreProvider';
 import { submeasureResults } from '../Utilities/RatingTrendsValues';
-import { ratingTrendsTip, measureTipsArr } from '../Utilities/RatingTrendValuesUtil'
+import { ratingTrendsTip } from '../Utilities/RatingTrendValuesUtil'
 import { ratingTrendsCompositeContainer, ratingTrendsMeasureContainer } from '../../assets/styles/RatingTrends.style';
 
 function RatingTrends({
