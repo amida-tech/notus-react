@@ -20,7 +20,7 @@ export default function Notification({status}) {
     <Alert
       openAlert={openFTCAlert}
       setOpenAlert={setFTCAlert}
-      title="Error Retrieving Network Data"
+      title="Error Retrieving Data"
       options={{
         target: '_blank',
         rel: 'noopener noreferrer',
@@ -30,7 +30,7 @@ export default function Notification({status}) {
       forwardBtn="refresh"
       handleResetData={() => handleRefreshPage()}
     >
-      Please contact the support desk.
+      An error occurred while fetching member data. If the error persists, please contact your system administrator.
     </Alert>
   );
 }
