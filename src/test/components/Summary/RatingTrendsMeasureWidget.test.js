@@ -28,6 +28,7 @@ describe('RatingTrends', () => {
   });
 
   // tooltips, we need specific ones for measure view
+  // star, percentage, lo, hi
   it('tooltips render', () => {
     const helpIcons = screen.getAllByTestId('HelpIcon');
     expect(helpIcons.length).toBe(4);
