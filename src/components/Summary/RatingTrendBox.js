@@ -12,7 +12,7 @@ import { ratingTrendsBox } from '../../assets/styles/RatingTrends.style';
 import { activeMeasureProps } from '../Utilities/PropTypes';
 
 function RatingTrendBox({
-  activeMeasure, widgetPrefs, trends, currentResults,
+  activeMeasure, widgetPrefs, trends, currentResults, order,
 }) {
   return (
     <Box
@@ -22,6 +22,7 @@ function RatingTrendBox({
         activeMeasure={activeMeasure}
         preferences={widgetPrefs}
         currentResults={currentResults}
+        order={order}
       />
       <DisplayValue
         activeMeasure={activeMeasure}
@@ -51,6 +52,7 @@ RatingTrendBox.propTypes = {
     measure: PropTypes.string,
   }),
   currentResults: PropTypes.arrayOf(PropTypes.shape({})),
+  order: PropTypes.number,
 };
 
 RatingTrendBox.defaultProps = {
@@ -58,6 +60,7 @@ RatingTrendBox.defaultProps = {
   trends: {},
   widgetPrefs: {},
   currentResults: {},
+  order: 0,
 };
 
 export default RatingTrendBox;

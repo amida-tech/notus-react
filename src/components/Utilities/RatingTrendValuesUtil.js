@@ -6,7 +6,16 @@ import { ratingTrendsTitle } from '../../assets/styles/RatingTrends.style';
 import theme from '../../assets/styles/AppTheme';
 
 export const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
-export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
+export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.'
+export const measurePercentTip = 'Trend information representing the changes of a tracked measure over a designated over the period of time.'
+export const submeasureHiTip = 'Trend data demonstrating the greatest positive change of a sub-measure over a designated over the period of time.'
+export const submeasureLoTip = 'Trend data demonstrating the greatest negative change of a sub-measure over a designated over the period of time.'
+export const submeasureTips = [
+  starsTip,
+  measurePercentTip,
+  submeasureLoTip,
+  submeasureHiTip,
+]
 
 export function starTitle(preferences) {
   return (
@@ -44,27 +53,27 @@ export function compositePercentTitle(preferences) {
   );
 }
 
-export function measurePercentTitle(preferences) {
+export function measurePercentTitle(preferences, order) {
   return (
     <Typography
       variant="h6"
       sx={ratingTrendsTitle(preferences.measure)}
     >
       {` ${preferences.measure.toUpperCase()} Score % Change `}
-      <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center', margin: '.2rem' }}>
+      <ToolTip title={submeasureTips[order]} sx={{ alignSelf: 'center', margin: '.2rem' }}>
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
   );
 }
 
-export function submeasurePercentTitle(activeMeasure, preferences, currentResults) {
+export function submeasurePercentTitle(activeMeasure, preferences, currentResults, order) {
   const subMeasures = currentResults.find(
     (trend) => trend.measure === activeMeasure.measure,
   ).subScores;
 
-  let label = subMeasures?.find((sub) => preferences.measure === sub.measure).label;
-  label = `${label.split('').slice(activeMeasure.measure.length + 4).join('')} Score % Change`;
+  let label = subMeasures?.find((sub) => preferences.measure === sub.measure).measure;
+  label = `${label.toUpperCase()} Score % Change`;
 
   return (
     <Typography
@@ -72,7 +81,7 @@ export function submeasurePercentTitle(activeMeasure, preferences, currentResult
       sx={ratingTrendsTitle(label)}
     >
       {label}
-      <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
+      <ToolTip title={submeasureTips[order]} sx={{ alignSelf: 'center' }}>
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
