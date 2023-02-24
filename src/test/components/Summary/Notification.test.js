@@ -17,7 +17,7 @@ describe('Notification', () => {
         />
       </div>
     )
-    const header = screen.getByRole('heading', { name: 'Error Retrieving Network Data' })
+    const header = screen.getByRole('dialog', { name: 'Error Retrieving Data' })
     expect(header).toBeTruthy()
   });
 

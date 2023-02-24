@@ -108,12 +108,6 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
     }
   }, [rowEntries, headerInfo]);
 
-  useEffect(async() => {
-    console.log('props:', {activeMeasure, headerInfo, rowEntries})
-    const records = await measureDataFetch(activeMeasure.measure);
-    console.log('records:', records)
-  }, [])
-
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

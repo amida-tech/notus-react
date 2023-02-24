@@ -35,7 +35,7 @@ describe('RatingTrends', () => {
     submeasureTips.forEach((tip) => {
       expect(screen.getByLabelText(tip)).toBeTruthy()
     })
-    fireEvent.click(screen.getByTestId('InfoIcon'));
+    fireEvent.pointerEnter(screen.getByRole('button', {name: 'info-button'}));
     expect(screen.getByText(ratingTrendsTip)).toBeTruthy();
   });
 
