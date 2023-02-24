@@ -17,9 +17,6 @@ import CancelIcon from '@mui/icons-material/Cancel';
 import {
   activeMeasureProps, headerInfoProps, rowEntriesProps,
 } from '../Utilities/PropTypes';
-import {
-  measureDataFetch
-} from '../Common/Controller';
 
 import theme from '../../assets/styles/AppTheme';
 
@@ -28,7 +25,6 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
   const [columns, setColumns] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(50);
-  const [data, setData] = useState()
 
   function createData(row, columnDataSet) {
     const memberObj = {};

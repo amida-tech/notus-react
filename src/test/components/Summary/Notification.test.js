@@ -1,5 +1,5 @@
 import {
-  render, screen
+  render, screen,
 } from '@testing-library/react';
 import {
   mockStatusSuccess, mockStatusFailure,
@@ -15,35 +15,37 @@ describe('Notification', () => {
         <Notification
           status={mockStatusFailure}
         />
-      </div>
+      </div>,
     )
     const header = screen.getByRole('dialog', { name: 'Error Retrieving Data' })
     expect(header).toBeTruthy()
   });
 
   // If anything but 200 is caught by store provider
-  it('failure to connect alert does not display', () => {render(
-    <div>
-      Dashboard Container
-      <Notification
-        status={mockStatusSuccess}
-      />
-    </div>
-  )
+  it('failure to connect alert does not display', () => {
+    render(
+      <div>
+        Dashboard Container
+        <Notification
+          status={mockStatusSuccess}
+        />
+      </div>,
+    )
     // expert alert to not display
     const header = screen.queryByText('Error Retrieving Network Data')
     expect(header).toBeNull()
   });
 
   // If status is undefined
-  it('failure to connect alert does not display if no response made', () => {render(
-    <div>
-      Dashboard Container
-      <Notification
-        status={undefined}
-      />
-    </div>
-  )
+  it('failure to connect alert does not display if no response made', () => {
+    render(
+      <div>
+        Dashboard Container
+        <Notification
+          status={undefined}
+        />
+      </div>,
+    )
     // expert alert to not display
     const header = screen.queryByText('Error Retrieving Network Data')
     expect(header).toBeNull()

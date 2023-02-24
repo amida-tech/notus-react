@@ -1,8 +1,11 @@
+/* eslint-disable max-len */
 import {
-  useState, useEffect
+  useState, useEffect,
 } from 'react';
+import PropTypes from 'prop-types';
 import Alert from '../Utilities/Alert'
-export default function Notification({status}) {
+
+export default function Notification({ status }) {
   const [openFTCAlert, setFTCAlert] = useState(false);
 
   useEffect(() => {
@@ -34,3 +37,11 @@ export default function Notification({status}) {
     </Alert>
   );
 }
+
+Notification.propTypes = {
+  status: PropTypes.string,
+};
+
+Notification.defaultProps = {
+  status: '',
+};
