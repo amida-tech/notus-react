@@ -112,7 +112,7 @@ export const displayDataProps = PropTypes.arrayOf(
 export const additionalFilterOptionsProps = PropTypes.shape({
   payors: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string,
+      measureId: PropTypes.string,
       payor: PropTypes.string,
       value: PropTypes.string,
       timestamp: PropTypes.string,
@@ -120,7 +120,7 @@ export const additionalFilterOptionsProps = PropTypes.shape({
   ),
   healthcareProviders: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string,
+      measureId: PropTypes.string,
       provider: PropTypes.string,
       value: PropTypes.string,
       timestamp: PropTypes.string,
@@ -128,7 +128,7 @@ export const additionalFilterOptionsProps = PropTypes.shape({
   ),
   healthcareCoverages: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string,
+      measureId: PropTypes.string,
       coverage: PropTypes.string,
       value: PropTypes.string,
       timestamp: PropTypes.string,
@@ -136,7 +136,7 @@ export const additionalFilterOptionsProps = PropTypes.shape({
   ),
   practitioners: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string,
+      measureId: PropTypes.string,
       practitioner: PropTypes.string,
       value: PropTypes.string,
       timestamp: PropTypes.string,

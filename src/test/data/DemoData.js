@@ -1,6 +1,6 @@
 export const resultList = [
   {
-    _id: 'composite-2022-02-12',
+    measureId: 'composite-2022-02-12',
     measure: 'composite',
     starRating: 3,
     value: 56.54450261780105,
@@ -11,7 +11,7 @@ export const resultList = [
     date: '2022-02-12T00:00:00.000Z',
   },
   {
-    _id: 'aab-2022-02-12',
+    measureId: 'aab-2022-02-12',
     measure: 'aab',
     date: '2022-02-12T00:00:00.000Z',
     value: 75,
@@ -32,7 +32,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-12',
+    measureId: 'drre-2022-02-12',
     measure: 'drre',
     date: '2022-02-12T00:00:00.000Z',
     value: 66.6666666666667,
@@ -71,7 +71,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-12',
+    measureId: 'aise-2022-02-12',
     measure: 'aise',
     date: '2022-02-12T00:00:00.000Z',
     value: 50,
@@ -119,7 +119,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-12',
+    measureId: 'imae-2022-02-12',
     measure: 'imae',
     date: '2022-02-12T00:00:00.000Z',
     value: 50,
@@ -176,7 +176,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-13',
+    measureId: 'drre-2022-02-13',
     measure: 'drre',
     date: '2022-02-13T00:00:00.000Z',
     value: 66.6666666666667,
@@ -215,7 +215,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-13',
+    measureId: 'aab-2022-02-13',
     measure: 'aab',
     date: '2022-02-13T00:00:00.000Z',
     value: 79.1666666666667,
@@ -236,7 +236,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-13',
+    measureId: 'aise-2022-02-13',
     measure: 'aise',
     date: '2022-02-13T00:00:00.000Z',
     value: 48.5294117647059,
@@ -284,7 +284,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-13',
+    measureId: 'imae-2022-02-13',
     measure: 'imae',
     date: '2022-02-13T00:00:00.000Z',
     value: 47.6190476190476,
@@ -341,7 +341,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-13',
+    measureId: 'composite-2022-02-13',
     measure: 'composite',
     starRating: 3,
     value: 55.026455026455025,
@@ -352,7 +352,7 @@ export const resultList = [
     date: '2022-02-13T00:00:00.000Z',
   },
   {
-    _id: 'drre-2022-02-14',
+    measureId: 'drre-2022-02-14',
     measure: 'drre',
     date: '2022-02-14T00:00:00.000Z',
     value: 64.2857142857143,
@@ -391,7 +391,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-14',
+    measureId: 'aab-2022-02-14',
     measure: 'aab',
     date: '2022-02-14T00:00:00.000Z',
     value: 83.3333333333333,
@@ -412,7 +412,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-14',
+    measureId: 'aise-2022-02-14',
     measure: 'aise',
     date: '2022-02-14T00:00:00.000Z',
     value: 49.2753623188406,
@@ -460,7 +460,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-14',
+    measureId: 'imae-2022-02-14',
     measure: 'imae',
     date: '2022-02-14T00:00:00.000Z',
     value: 44.1860465116279,
@@ -517,7 +517,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-14',
+    measureId: 'composite-2022-02-14',
     measure: 'composite',
     starRating: 2.5,
     value: 54.45026178010471,
@@ -528,7 +528,7 @@ export const resultList = [
     date: '2022-02-14T00:00:00.000Z',
   },
   {
-    _id: 'drre-2022-02-15',
+    measureId: 'drre-2022-02-15',
     measure: 'drre',
     date: '2022-02-15T00:00:00.000Z',
     value: 72.0930232558139,
@@ -567,7 +567,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-15',
+    measureId: 'aab-2022-02-15',
     measure: 'aab',
     date: '2022-02-15T00:00:00.000Z',
     value: 87.5,
@@ -588,7 +588,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-15',
+    measureId: 'aise-2022-02-15',
     measure: 'aise',
     date: '2022-02-15T00:00:00.000Z',
     value: 52.8571428571429,
@@ -636,7 +636,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-15',
+    measureId: 'composite-2022-02-15',
     measure: 'composite',
     starRating: 3,
     value: 58.673469387755105,
@@ -647,7 +647,7 @@ export const resultList = [
     date: '2022-02-15T00:00:00.000Z',
   },
   {
-    _id: 'imae-2022-02-15',
+    measureId: 'imae-2022-02-15',
     measure: 'imae',
     date: '2022-02-15T00:00:00.000Z',
     value: 45.8333333333333,
@@ -704,7 +704,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-16',
+    measureId: 'drre-2022-02-16',
     measure: 'drre',
     date: '2022-02-16T00:00:00.000Z',
     value: 72.0930232558139,
@@ -743,7 +743,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-16',
+    measureId: 'aab-2022-02-16',
     measure: 'aab',
     date: '2022-02-16T00:00:00.000Z',
     value: 91.304347826087,
@@ -764,7 +764,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-16',
+    measureId: 'imae-2022-02-16',
     measure: 'imae',
     date: '2022-02-16T00:00:00.000Z',
     value: 42,
@@ -821,7 +821,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-16',
+    measureId: 'composite-2022-02-16',
     measure: 'composite',
     starRating: 3,
     value: 57.57575757575758,
@@ -832,7 +832,7 @@ export const resultList = [
     date: '2022-02-16T00:00:00.000Z',
   },
   {
-    _id: 'aise-2022-02-16',
+    measureId: 'aise-2022-02-16',
     measure: 'aise',
     date: '2022-02-16T00:00:00.000Z',
     value: 50.7042253521127,
@@ -880,7 +880,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-17',
+    measureId: 'drre-2022-02-17',
     measure: 'drre',
     date: '2022-02-17T00:00:00.000Z',
     value: 77.2727272727273,
@@ -919,7 +919,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-17',
+    measureId: 'aise-2022-02-17',
     measure: 'aise',
     date: '2022-02-17T00:00:00.000Z',
     value: 58.9041095890411,
@@ -967,7 +967,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-17',
+    measureId: 'aab-2022-02-17',
     measure: 'aab',
     date: '2022-02-17T00:00:00.000Z',
     value: 95.4545454545455,
@@ -988,7 +988,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-17',
+    measureId: 'imae-2022-02-17',
     measure: 'imae',
     date: '2022-02-17T00:00:00.000Z',
     value: 46,
@@ -1045,7 +1045,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-17',
+    measureId: 'composite-2022-02-17',
     measure: 'composite',
     starRating: 3,
     value: 64.14141414141415,
@@ -1056,7 +1056,7 @@ export const resultList = [
     date: '2022-02-17T00:00:00.000Z',
   },
   {
-    _id: 'aise-2022-02-18',
+    measureId: 'aise-2022-02-18',
     measure: 'aise',
     date: '2022-02-18T00:00:00.000Z',
     value: 54.1666666666667,
@@ -1104,7 +1104,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-18',
+    measureId: 'imae-2022-02-18',
     measure: 'imae',
     date: '2022-02-18T00:00:00.000Z',
     value: 46,
@@ -1161,7 +1161,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-18',
+    measureId: 'drre-2022-02-18',
     measure: 'drre',
     date: '2022-02-18T00:00:00.000Z',
     value: 74.4186046511628,
@@ -1200,7 +1200,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-18',
+    measureId: 'aab-2022-02-18',
     measure: 'aab',
     date: '2022-02-18T00:00:00.000Z',
     value: 86.9565217391304,
@@ -1221,7 +1221,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-18',
+    measureId: 'composite-2022-02-18',
     measure: 'composite',
     starRating: 3,
     value: 60.1010101010101,
@@ -1232,7 +1232,7 @@ export const resultList = [
     date: '2022-02-18T00:00:00.000Z',
   },
   {
-    _id: 'drre-2022-02-19',
+    measureId: 'drre-2022-02-19',
     measure: 'drre',
     date: '2022-02-19T00:00:00.000Z',
     value: 54.7619047619048,
@@ -1271,7 +1271,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-19',
+    measureId: 'aab-2022-02-19',
     measure: 'aab',
     date: '2022-02-19T00:00:00.000Z',
     value: 69.2307692307692,
@@ -1292,7 +1292,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-19',
+    measureId: 'aise-2022-02-19',
     measure: 'aise',
     date: '2022-02-19T00:00:00.000Z',
     value: 56.9230769230769,
@@ -1340,7 +1340,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-19',
+    measureId: 'imae-2022-02-19',
     measure: 'imae',
     date: '2022-02-19T00:00:00.000Z',
     value: 58.5365853658537,
@@ -1397,7 +1397,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-19',
+    measureId: 'composite-2022-02-19',
     measure: 'composite',
     starRating: 3,
     value: 58.1151832460733,
@@ -1408,7 +1408,7 @@ export const resultList = [
     date: '2022-02-19T00:00:00.000Z',
   },
   {
-    _id: 'drre-2022-02-20',
+    measureId: 'drre-2022-02-20',
     measure: 'drre',
     date: '2022-02-20T00:00:00.000Z',
     value: 37.2093023255814,
@@ -1447,7 +1447,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-20',
+    measureId: 'aab-2022-02-20',
     measure: 'aab',
     date: '2022-02-20T00:00:00.000Z',
     value: 57.1428571428571,
@@ -1468,7 +1468,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-20',
+    measureId: 'aise-2022-02-20',
     measure: 'aise',
     date: '2022-02-20T00:00:00.000Z',
     value: 53.030303030303,
@@ -1516,7 +1516,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-20',
+    measureId: 'imae-2022-02-20',
     measure: 'imae',
     date: '2022-02-20T00:00:00.000Z',
     value: 55.8139534883721,
@@ -1573,7 +1573,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-20',
+    measureId: 'composite-2022-02-20',
     measure: 'composite',
     starRating: 2.5,
     value: 50.505050505050505,
@@ -1584,7 +1584,7 @@ export const resultList = [
     date: '2022-02-20T00:00:00.000Z',
   },
   {
-    _id: 'drre-2022-02-21',
+    measureId: 'drre-2022-02-21',
     measure: 'drre',
     date: '2022-02-21T00:00:00.000Z',
     value: 39.5348837209302,
@@ -1623,7 +1623,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-21',
+    measureId: 'aab-2022-02-21',
     measure: 'aab',
     date: '2022-02-21T00:00:00.000Z',
     value: 55.1724137931034,
@@ -1644,7 +1644,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-21',
+    measureId: 'aise-2022-02-21',
     measure: 'aise',
     date: '2022-02-21T00:00:00.000Z',
     value: 48.4848484848485,
@@ -1692,7 +1692,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-21',
+    measureId: 'imae-2022-02-21',
     measure: 'imae',
     date: '2022-02-21T00:00:00.000Z',
     value: 53.4883720930233,
@@ -1749,7 +1749,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-21',
+    measureId: 'composite-2022-02-21',
     measure: 'composite',
     starRating: 2.5,
     value: 49.74874371859296,
@@ -1760,7 +1760,7 @@ export const resultList = [
     date: '2022-02-21T00:00:00.000Z',
   },
   {
-    _id: 'drre-2022-02-22',
+    measureId: 'drre-2022-02-22',
     measure: 'drre',
     date: '2022-02-22T00:00:00.000Z',
     value: 43.9024390243902,
@@ -1799,7 +1799,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aab-2022-02-22',
+    measureId: 'aab-2022-02-22',
     measure: 'aab',
     date: '2022-02-22T00:00:00.000Z',
     value: 51.6129032258064,
@@ -1820,7 +1820,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-22',
+    measureId: 'aise-2022-02-22',
     measure: 'aise',
     date: '2022-02-22T00:00:00.000Z',
     value: 40.9090909090909,
@@ -1868,7 +1868,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-22',
+    measureId: 'imae-2022-02-22',
     measure: 'imae',
     date: '2022-02-22T00:00:00.000Z',
     value: 41.8604651162791,
@@ -1925,7 +1925,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-22',
+    measureId: 'composite-2022-02-22',
     measure: 'composite',
     starRating: 2,
     value: 44.221105527638194,
@@ -1936,7 +1936,7 @@ export const resultList = [
     date: '2022-02-22T00:00:00.000Z',
   },
   {
-    _id: 'aab-2022-02-23',
+    measureId: 'aab-2022-02-23',
     measure: 'aab',
     date: '2022-02-23T00:00:00.000Z',
     value: 91.30434782608695,
@@ -1958,7 +1958,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-23',
+    measureId: 'aise-2022-02-23',
     measure: 'aise',
     date: '2022-02-23T00:00:00.000Z',
     value: 57.14285714285714,
@@ -2007,7 +2007,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-23',
+    measureId: 'drre-2022-02-23',
     measure: 'drre',
     date: '2022-02-23T00:00:00.000Z',
     value: 75.86206896551724,
@@ -2047,7 +2047,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-23',
+    measureId: 'imae-2022-02-23',
     measure: 'imae',
     date: '2022-02-23T00:00:00.000Z',
     value: 47.91666666666667,
@@ -2105,7 +2105,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-23',
+    measureId: 'composite-2022-02-23',
     measure: 'composite',
     date: '2022-02-23T00:00:00.000Z',
     value: 68.056485150282,
@@ -2116,7 +2116,7 @@ export const resultList = [
     exclusions: 133,
   },
   {
-    _id: 'aab-2022-02-24',
+    measureId: 'aab-2022-02-24',
     measure: 'aab',
     date: '2022-02-24T00:00:00.000Z',
     value: 77.77777777777779,
@@ -2138,7 +2138,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-24',
+    measureId: 'aise-2022-02-24',
     measure: 'aise',
     date: '2022-02-24T00:00:00.000Z',
     value: 57.14285714285714,
@@ -2187,7 +2187,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-24',
+    measureId: 'drre-2022-02-24',
     measure: 'drre',
     date: '2022-02-24T00:00:00.000Z',
     value: 73.33333333333333,
@@ -2227,7 +2227,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-24',
+    measureId: 'imae-2022-02-24',
     measure: 'imae',
     date: '2022-02-24T00:00:00.000Z',
     value: 46.808510638297875,
@@ -2285,7 +2285,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-24',
+    measureId: 'composite-2022-02-24',
     measure: 'composite',
     date: '2022-02-24T00:00:00.000Z',
     value: 63.765619723066536,
@@ -2296,7 +2296,7 @@ export const resultList = [
     exclusions: 128,
   },
   {
-    _id: 'aab-2022-02-25',
+    measureId: 'aab-2022-02-25',
     measure: 'aab',
     date: '2022-02-25T00:00:00.000Z',
     value: 68.75,
@@ -2318,7 +2318,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-25',
+    measureId: 'aise-2022-02-25',
     measure: 'aise',
     date: '2022-02-25T00:00:00.000Z',
     value: 52.85714285714286,
@@ -2367,7 +2367,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-25',
+    measureId: 'drre-2022-02-25',
     measure: 'drre',
     date: '2022-02-25T00:00:00.000Z',
     value: 66.66666666666666,
@@ -2407,7 +2407,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-25',
+    measureId: 'imae-2022-02-25',
     measure: 'imae',
     date: '2022-02-25T00:00:00.000Z',
     value: 42.5531914893617,
@@ -2465,7 +2465,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-25',
+    measureId: 'composite-2022-02-25',
     measure: 'composite',
     date: '2022-02-25T00:00:00.000Z',
     value: 57.7067502532928,
@@ -2476,7 +2476,7 @@ export const resultList = [
     exclusions: 129,
   },
   {
-    _id: 'aab-2022-02-26',
+    measureId: 'aab-2022-02-26',
     measure: 'aab',
     date: '2022-02-26T00:00:00.000Z',
     value: 53.125,
@@ -2498,7 +2498,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-26',
+    measureId: 'aise-2022-02-26',
     measure: 'aise',
     date: '2022-02-26T00:00:00.000Z',
     value: 48.57142857142857,
@@ -2547,7 +2547,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-26',
+    measureId: 'drre-2022-02-26',
     measure: 'drre',
     date: '2022-02-26T00:00:00.000Z',
     value: 60,
@@ -2587,7 +2587,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-26',
+    measureId: 'imae-2022-02-26',
     measure: 'imae',
     date: '2022-02-26T00:00:00.000Z',
     value: 35.55555555555556,
@@ -2645,7 +2645,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-26',
+    measureId: 'composite-2022-02-26',
     measure: 'composite',
     date: '2022-02-26T00:00:00.000Z',
     value: 49.312996031746025,
@@ -2656,7 +2656,7 @@ export const resultList = [
     exclusions: 129,
   },
   {
-    _id: 'aab-2022-02-27',
+    measureId: 'aab-2022-02-27',
     measure: 'aab',
     date: '2022-02-27T00:00:00.000Z',
     value: 62.5,
@@ -2678,7 +2678,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'aise-2022-02-27',
+    measureId: 'aise-2022-02-27',
     measure: 'aise',
     date: '2022-02-27T00:00:00.000Z',
     value: 44.285714285714285,
@@ -2727,7 +2727,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'drre-2022-02-27',
+    measureId: 'drre-2022-02-27',
     measure: 'drre',
     date: '2022-02-27T00:00:00.000Z',
     value: 50,
@@ -2767,7 +2767,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'imae-2022-02-27',
+    measureId: 'imae-2022-02-27',
     measure: 'imae',
     date: '2022-02-27T00:00:00.000Z',
     value: 26.666666666666668,
@@ -2825,7 +2825,7 @@ export const resultList = [
     ],
   },
   {
-    _id: 'composite-2022-02-27',
+    measureId: 'composite-2022-02-27',
     measure: 'composite',
     date: '2022-02-27T00:00:00.000Z',
     value: 45.863095238095234,
@@ -3338,7 +3338,7 @@ export const infoObject = {
 export const memberId = 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad';
 
 export const memberInfo = {
-  _id: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad-aab-0',
+  measureId: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad-aab-0',
   measurementType: 'aab',
   memberId: 'aab-8856f155-7dc5-4666-8fe7-cc4638fe91ad',
   timeStamp: '2022-06-06T14:51:01.488Z',
@@ -4532,19 +4532,19 @@ export const rowEntries = [
 export const additionalFilterOptions = {
   payors: [
     {
-      _id: '635843b0c1fd507c9b81d57b',
+      measureId: '635843b0c1fd507c9b81d57b',
       payor: 'Organization/3',
       value: 'Organization/3',
       timestamp: '2022-10-25T20:14:40.103Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d57a',
+      measureId: '635843b0c1fd507c9b81d57a',
       payor: 'Organization/2',
       value: 'Organization/2',
       timestamp: '2022-10-25T20:14:40.103Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d579',
+      measureId: '635843b0c1fd507c9b81d579',
       payor: 'Organization/1',
       value: 'Organization/1',
       timestamp: '2022-10-25T20:14:40.101Z',
@@ -4552,31 +4552,31 @@ export const additionalFilterOptions = {
   ],
   healthcareProviders: [
     {
-      _id: '635843b0c1fd507c9b81d582',
+      measureId: '635843b0c1fd507c9b81d582',
       provider: 'Springfield Hospital',
       value: 'Organization?identifier=71533123',
       timestamp: '2022-10-25T20:14:40.105Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d583',
+      measureId: '635843b0c1fd507c9b81d583',
       provider: 'Cancer Treatment & Care',
       value: 'Organization?identifier=8554',
       timestamp: '2022-10-25T20:14:40.106Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d584',
+      measureId: '635843b0c1fd507c9b81d584',
       provider: "Anova Women's Birthing Service",
       value: 'Organization?identifier=9911',
       timestamp: '2022-10-25T20:14:40.106Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d588',
+      measureId: '635843b0c1fd507c9b81d588',
       provider: 'Norton Hill Carecenter',
       value: 'Organization?identifier=71533123',
       timestamp: '2022-10-25T20:14:40.105Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d581',
+      measureId: '635843b0c1fd507c9b81d581',
       provider: 'Hollifield Clinics',
       value: 'Organization?identifier=667531',
       timestamp: '2022-10-25T20:14:40.105Z',
@@ -4584,19 +4584,19 @@ export const additionalFilterOptions = {
   ],
   healthcareCoverages: [
     {
-      _id: '635843b0c1fd507c9b81d585',
+      measureId: '635843b0c1fd507c9b81d585',
       coverage: 'Health Maintenance Organization Policy',
       value: 'HMO',
       timestamp: '2022-10-25T20:14:40.106Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d586',
+      measureId: '635843b0c1fd507c9b81d586',
       coverage: 'Preferred Provider Organization Policy',
       value: 'PPO',
       timestamp: '2022-10-25T20:14:40.106Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d587',
+      measureId: '635843b0c1fd507c9b81d587',
       coverage: 'Managed Care Policy',
       value: 'MCPOL',
       timestamp: '2022-10-25T20:14:40.107Z',
@@ -4604,37 +4604,37 @@ export const additionalFilterOptions = {
   ],
   healthcarePractitioners: [
     {
-      _id: '635843b0c1fd507c9b81d57c',
+      measureId: '635843b0c1fd507c9b81d57c',
       practitioner: 'Nurse Practitioner Sharon Arthurs',
       value: 'Practitioner?identifier=7882499',
       timestamp: '2022-10-25T20:14:40.103Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d589',
+      measureId: '635843b0c1fd507c9b81d589',
       practitioner: 'Dr. Larry McDaniels',
       value: 'Practitioner?identifier=903321',
       timestamp: '2022-10-25T20:14:40.104Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d57e',
+      measureId: '635843b0c1fd507c9b81d57e',
       practitioner: 'Nurse Karen Patches',
       value: 'Practitioner?identifier=1221',
       timestamp: '2022-10-25T20:14:40.104Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d580',
+      measureId: '635843b0c1fd507c9b81d580',
       practitioner: 'Dr. Colette DeBarge',
       value: 'Practitioner?identifier=8123',
       timestamp: '2022-10-25T20:14:40.105Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d57f',
+      measureId: '635843b0c1fd507c9b81d57f',
       practitioner: 'Dr. Marc Weber, General Practitioner',
       value: 'Practitioner?identifier=1143',
       timestamp: '2022-10-25T20:14:40.104Z',
     },
     {
-      _id: '635843b0c1fd507c9b81d57d',
+      measureId: '635843b0c1fd507c9b81d57d',
       practitioner: 'Doctor Anne Guish',
       value: 'Practitioner?identifier=1143',
       timestamp: '2022-10-25T20:14:40.104Z',

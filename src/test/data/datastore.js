@@ -63884,19 +63884,19 @@ export const datastore = {
   filterOptions: {
     payors: [
       {
-        _id: '633c7d469fcc9ad0e8b0e5ec',
+        measureId: '633c7d469fcc9ad0e8b0e5ec',
         payor: 'Organization/3',
         value: 'Organization/3',
         timestamp: '2022-10-04T18:36:53.952Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5ee',
+        measureId: '633c7d469fcc9ad0e8b0e5ee',
         payor: 'Organization/2',
         value: 'Organization/2',
         timestamp: '2022-10-04T18:36:53.953Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5ed',
+        measureId: '633c7d469fcc9ad0e8b0e5ed',
         payor: 'Organization/1',
         value: 'Organization/1',
         timestamp: '2022-10-04T18:36:53.953Z',
@@ -63904,31 +63904,31 @@ export const datastore = {
     ],
     healthcareProviders: [
       {
-        _id: '633c7d469fcc9ad0e8b0e5f5',
+        measureId: '633c7d469fcc9ad0e8b0e5f5',
         provider: 'Hollifield Clinics',
         value: 'Organization?identifier=667531',
         timestamp: '2022-10-04T18:36:53.955Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5f6',
+        measureId: '633c7d469fcc9ad0e8b0e5f6',
         provider: 'Springfield Hospital',
         value: 'Organization?identifier=71533123',
         timestamp: '2022-10-04T18:36:53.956Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5f7',
+        measureId: '633c7d469fcc9ad0e8b0e5f7',
         provider: 'Cancer Treatment & Care',
         value: 'Organization?identifier=8554',
         timestamp: '2022-10-04T18:36:53.956Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5f8',
+        measureId: '633c7d469fcc9ad0e8b0e5f8',
         provider: "Anova Women's Birthing Service",
         value: 'Organization?identifier=9911',
         timestamp: '2022-10-04T18:36:53.957Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5fc',
+        measureId: '633c7d469fcc9ad0e8b0e5fc',
         provider: 'Norton Hill Carecenter',
         value: 'Organization?identifier=71533123',
         timestamp: '2022-10-04T18:36:53.956Z',
@@ -63936,19 +63936,19 @@ export const datastore = {
     ],
     healthcareCoverages: [
       {
-        _id: '633c7d469fcc9ad0e8b0e5f9',
+        measureId: '633c7d469fcc9ad0e8b0e5f9',
         coverage: 'Health Maintenance Organization Policy',
         value: 'HMO',
         timestamp: '2022-10-04T18:36:53.957Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5fa',
+        measureId: '633c7d469fcc9ad0e8b0e5fa',
         coverage: 'Managed Care Policy',
         value: 'MCPOL',
         timestamp: '2022-10-04T18:36:53.957Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5fb',
+        measureId: '633c7d469fcc9ad0e8b0e5fb',
         coverage: 'Preferred Provider Organization Policy',
         value: 'PPO',
         timestamp: '2022-10-04T18:36:53.957Z',
@@ -63956,37 +63956,37 @@ export const datastore = {
     ],
     healthcarePractitioners: [
       {
-        _id: '633c7d469fcc9ad0e8b0e5ef',
+        measureId: '633c7d469fcc9ad0e8b0e5ef',
         practitioner: 'Nurse Practitioner Sharon Arthurs',
         value: 'Practitioner?identifier=7882499',
         timestamp: '2022-10-04T18:36:53.954Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5f0',
+        measureId: '633c7d469fcc9ad0e8b0e5f0',
         practitioner: 'Dr. Marc Weber, General Practitioner',
         value: 'Practitioner?identifier=1143',
         timestamp: '2022-10-04T18:36:53.954Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5f2',
+        measureId: '633c7d469fcc9ad0e8b0e5f2',
         practitioner: 'Nurse Karen Patches',
         value: 'Practitioner?identifier=1221',
         timestamp: '2022-10-04T18:36:53.955Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5f3',
+        measureId: '633c7d469fcc9ad0e8b0e5f3',
         practitioner: 'Dr. Larry McDaniels',
         value: 'Practitioner?identifier=903321',
         timestamp: '2022-10-04T18:36:53.955Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5f1',
+        measureId: '633c7d469fcc9ad0e8b0e5f1',
         practitioner: 'Doctor Anne Guish',
         value: 'Practitioner?identifier=1143',
         timestamp: '2022-10-04T18:36:53.954Z',
       },
       {
-        _id: '633c7d469fcc9ad0e8b0e5f4',
+        measureId: '633c7d469fcc9ad0e8b0e5f4',
         practitioner: 'Dr. Colette DeBarge',
         value: 'Practitioner?identifier=8123',
         timestamp: '2022-10-04T18:36:53.955Z',
