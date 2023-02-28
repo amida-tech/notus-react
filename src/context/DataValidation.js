@@ -13,7 +13,7 @@ export const measureSubscore = PropTypes.shape({
 export const measureScore = PropTypes.shape({
   ...measureSubscore,
   subScores: PropTypes.arrayOf(PropTypes.shape(measureSubscore)),
-  measureId: PropTypes.string,
+  measureType: PropTypes.string,
 });
 
 export const measureScores = PropTypes.arrayOf(measureScore);
