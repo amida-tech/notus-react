@@ -63143,7 +63143,7 @@ export const datastore = {
       domainOfCare: 'ECDS',
       title: 'Follow-Up Care for Children Prescribed ADHD Medication',
       displayLabel: 'ADD-E',
-      description: ['ADD-E assesses follow-up care for children prescribed an ADHD medication in the Initiation and Continuation & Maintenance phases.'],
+      description: ['ADD-E assesses follow-up care for children prescribed an ADHD medication in the Initiation and Continuation & Maintenance measureTypes.'],
       phase: 'process',
       weight: 1,
       hasSubMeasures: true,
