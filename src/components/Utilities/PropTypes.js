@@ -66,7 +66,7 @@ export const measureInfoProps = PropTypes.shape({
     hasSubMeasures: PropTypes.bool,
     inverted: PropTypes.bool,
     link: PropTypes.string,
-    measureType: PropTypes.string,
+    phase: PropTypes.string,
     title: PropTypes.string,
     weight: PropTypes.number,
   }),

@@ -26,7 +26,7 @@ const ncqaBonus = {
   values: ['accredited', 'interim', 'inprocess', 'scheduled', 'none'],
 };
 
-const measureTypes = {
+const phases = {
   name: 'Measure Types',
   tip: 'Coming soon.',
   options: ['Process', 'Outcome', 'Member Experience (CPA,CPC)'],
@@ -146,7 +146,7 @@ const filterDrawerItemData = {
   domainsOfCare,
   starRating,
   ncqaBonus,
-  measureTypes,
+  phases,
   subMeasures,
   payors,
   healthcareProviders,

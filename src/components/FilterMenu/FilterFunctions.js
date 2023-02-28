@@ -7,7 +7,7 @@ export const setStarRating = (displayData) => displayData;
 export const setNCQAAccreditationBonus = (displayData) => displayData;
 
 // Coming soon.
-export const setMeasureTypes = (displayData) => displayData;
+export const setphases = (displayData) => displayData;
 
 // Coming soon.
 export const setSubMeasures = (displayData) => displayData;
