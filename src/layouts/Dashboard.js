@@ -384,7 +384,12 @@ export default function Dashboard() {
     }
   }, [currentResults, selectedMeasures, datastore, displayData, ChartDataGenerator]);
 
-  // HANDLES FILTERING
+  // FETCHES FILTERED DATA
+  // Controller:filterSearch >
+  // Dashboard:handleFilteredDataUpdate >
+  // ChartContainer:handleFilterChange >
+  // FilterDrawer:handleApplyFilter >
+  // apply filter button
   const handleFilteredDataUpdate = async (filters, timeline, direction) => {
     setIsLoading(true);
     // let newDisplayData
