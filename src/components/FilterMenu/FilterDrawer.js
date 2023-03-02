@@ -32,7 +32,8 @@ function FilterDrawer({
   setRowEntries,
   handleResetData,
 }) {
-  const { datastoreActions } = useContext(DatastoreContext);
+  const { datastoreActions, datastore } = useContext(DatastoreContext);
+  console.log('store:', datastore)
   const [percentSliderValue, setPercentSliderValue] = useState(
     Array.from(currentFilters.percentRange),
   );
@@ -139,6 +140,7 @@ function FilterDrawer({
     setIsLoading(false);
   };
 
+  // we need to somehow cram this object into hera differently
   const handleApplyFilter = () => {
     setIsLoading(true);
     const filterOptions = {
