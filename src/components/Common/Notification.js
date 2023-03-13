@@ -10,7 +10,6 @@ export default function Notification({status}) {
 
   useEffect(() => {
     if (status !== 200 && status !== undefined) {
-      console.log('hi', status)
       setFTCAlert(true)
     }
   }, [status]);
