@@ -15,7 +15,7 @@ describe('Notification', () => {
         <Notification
           status={mockStatusFailure}
         />
-      </div>
+      </div>,
     )
     const header = screen.getByRole('dialog', { name: 'Error Retrieving Data' })
     expect(header).toBeTruthy()

@@ -5,6 +5,7 @@ import Alert from '../Utilities/Alert'
 import PropTypes from 'prop-types';
 
 export default function Notification({status}) {
+
   const [openFTCAlert, setFTCAlert] = useState(false);
 
   useEffect(() => {
