@@ -2,11 +2,14 @@ import {
   useState, useEffect
 } from 'react';
 import Alert from '../Utilities/Alert'
+import PropTypes from 'prop-types';
+
 export default function Notification({status}) {
   const [openFTCAlert, setFTCAlert] = useState(false);
 
   useEffect(() => {
     if (status !== 200 && status !== undefined) {
+      console.log('hi', status)
       setFTCAlert(true)
     }
   }, [status]);
@@ -34,3 +37,11 @@ export default function Notification({status}) {
     </Alert>
   );
 }
+
+Notification.propTypes = {
+  status: PropTypes.number,
+};
+
+Notification.defaultProps = {
+  status: undefined,
+};

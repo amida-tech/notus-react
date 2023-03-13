@@ -17,7 +17,7 @@ describe('Notification', () => {
         />
       </div>
     )
-    const header = screen.findByRole('heading', { name: 'Error Retrieving Network Data' })
+    const header = screen.getByRole('dialog', { name: 'Error Retrieving Data' })
     expect(header).toBeTruthy()
   });
 
@@ -36,14 +36,15 @@ describe('Notification', () => {
   });
 
   // If status is undefined
-  it('failure to connect alert does not display if no response made', () => {render(
-    <div>
-      Dashboard Container
-      <Notification
-        status={undefined}
-      />
-    </div>
-  )
+  it('failure to connect alert does not display if no response made', () => {
+    render(
+      <div>
+        Dashboard Container
+        <Notification
+          status={undefined}
+        />
+      </div>,
+    )
     // expert alert to not display
     const header = screen.queryByText('Error Retrieving Network Data')
     expect(header).toBeNull()
