@@ -116,9 +116,9 @@ describe('Member view page', () => {
     const tooltipBtns = screen.getAllByLabelText('info-button');
 
     tooltipBtns.forEach((tip, i) => {
-      fireEvent.click(tip);
+      fireEvent.pointerEnter(tip);
       expect(screen.getByText(tooltips[i])).toBeTruthy();
-      fireEvent.click(screen.getByText('CLOSE'));
+      fireEvent.pointerEnter(screen.getByText('CLOSE'));
       expect(screen.queryByText(tooltips[i])).toBeNull();
     });
   });

@@ -3,14 +3,12 @@ $block-class: 'info';
 
 @at-root {
     .#{$block-class} {
-      margin-left: 1rem;
       display: flex;
 
       & &__info-button {
         width: 1rem;
         height: 1rem;
-        margin-top: 1.8rem; 
-        margin-left: 1rem;
+        margin-top: 1.8rem;
         
         &:focus {
           outline: none;
@@ -24,14 +22,10 @@ $block-class: 'info';
 
       &__info-box {
         display: flex;
-        border-radius: 3px;
         padding: .9rem;
         max-width: 600px;
         position: absolute;
-      }
-
-      & &__text {
-        margin-left: 2rem;
+        border-radius: 3px;
       }
 
       & &__button {

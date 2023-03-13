@@ -28,7 +28,7 @@ export function starTitle(preferences) {
       }}
     >
       {`${preferences.measure.toUpperCase()} Star Rating`}
-      <ToolTip title={starsTip} sx={{ alignSelf: 'center' }}>
+      <ToolTip title={starsTip} sx={{ alignSelf: 'center', ml: '.5rem' }}>
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
@@ -46,7 +46,7 @@ export function compositePercentTitle(preferences) {
       }}
     >
       {`${preferences.measure.toUpperCase()} Score % Change`}
-      <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center' }}>
+      <ToolTip title={ratingTrendsTip} sx={{ alignSelf: 'center', ml: '.5rem' }}>
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
@@ -81,7 +81,7 @@ export function submeasurePercentTitle(activeMeasure, preferences, currentResult
       sx={ratingTrendsTitle(label)}
     >
       {label}
-      <ToolTip title={submeasureTips[order]} sx={{ alignSelf: 'center' }}>
+      <ToolTip title={submeasureTips[order]} sx={{ alignSelf: 'center', ml: '.5rem' }}>
         <HelpIcon color="secondary" className="rating-trends__help-icon" fontSize="small" />
       </ToolTip>
     </Typography>
