@@ -3,6 +3,7 @@ import {
 } from 'react';
 import Alert from '../Utilities/Alert'
 export default function Notification({status}) {
+
   const [openFTCAlert, setFTCAlert] = useState(false);
 
   useEffect(() => {
@@ -34,3 +35,10 @@ export default function Notification({status}) {
     </Alert>
   );
 }
+Notification.propTypes = {
+  status: PropTypes.string,
+};
+
+Notification.defaultProps = {
+  status: '',
+};

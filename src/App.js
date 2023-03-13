@@ -44,7 +44,6 @@ export default function App() {
           setShowWelcome(true);
           setLoading(false);
         });
-      return;
     }
 
     // NO TOKEN IN STORAGE, CHECK URL

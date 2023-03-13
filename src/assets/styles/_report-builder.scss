@@ -27,9 +27,12 @@ $block-class: 'report-builder';
         }
 
         &__download-link {
-            margin-top: 2rem;
             display: flex;
             justify-content: center;
+            margin: 2rem !important;
+            width: 16rem;
+            padding: 0.8rem;
+            border-radius: 3px;
         }
     }
 }
