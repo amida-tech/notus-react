@@ -10,7 +10,7 @@
 # CMD [ "yarn", "start" ]
 
 # Builder image
-FROM node:lts-alpine3.15 as builder
+FROM node:16.20.0-alpine3.16 as builder
 
 WORKDIR /app
 
