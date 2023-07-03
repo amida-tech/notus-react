@@ -1,5 +1,5 @@
 import {
-  render, screen,
+  render, screen
 } from '@testing-library/react';
 import {
   mockStatusSuccess, mockStatusFailure,
@@ -22,15 +22,14 @@ describe('Notification', () => {
   });
 
   // If anything but 200 is caught by store provider
-  it('failure to connect alert does not display', () => {
-    render(
-      <div>
-        Dashboard Container
-        <Notification
-          status={mockStatusSuccess}
-        />
-      </div>,
-    )
+  it('failure to connect alert does not display', () => {render(
+    <div>
+      Dashboard Container
+      <Notification
+        status={mockStatusSuccess}
+      />
+    </div>
+  )
     // expert alert to not display
     const header = screen.queryByText('Error Retrieving Network Data')
     expect(header).toBeNull()

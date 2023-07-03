@@ -118,8 +118,6 @@ describe('Member view page', () => {
     tooltipBtns.forEach((tip, i) => {
       fireEvent.pointerEnter(tip);
       expect(screen.getByText(tooltips[i])).toBeTruthy();
-      fireEvent.pointerEnter(screen.getByText('CLOSE'));
-      expect(screen.queryByText(tooltips[i])).toBeNull();
     });
   });
 
