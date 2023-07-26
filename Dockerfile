@@ -10,7 +10,7 @@
 # CMD [ "yarn", "start" ]
 
 # Builder image
-FROM node:16.20.0-alpine3.16 as builder
+FROM node:18.17.0-alpine3.18 as builder
 
 WORKDIR /app
 
@@ -30,7 +30,7 @@ COPY ./public/index.html /app/public
 RUN yarn build
 
 # Production Installer image
-FROM nginx:stable
+FROM nginx:1.25.1-bookworm
 
 WORKDIR /app
 

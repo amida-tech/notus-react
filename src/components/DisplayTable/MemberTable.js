@@ -144,7 +144,7 @@ export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={`${activeMeasure.measure}${column.id}`} aria-label={`${column.id}`} align={column.align}>
+                      <TableCell key={`${activeMeasure.measure}${column.id}`} aria-label={column.id} align={column.align}>
                         {complianceIcons(value)}
                       </TableCell>
                     );

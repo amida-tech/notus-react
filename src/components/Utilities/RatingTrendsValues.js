@@ -117,7 +117,8 @@ export const submeasureResults = (activeMeasure, trends) => {
 
   if (manySubscores) {
     const sorted = subScoreTrends
-      .sort((prev, curr) => prev.percentChange < curr.percentChange)
+      // High Severity | WrongComparisonOperatorInSort (tldr. - instead of <)
+      .sort((prev, curr) => prev.percentChange - curr.percentChange)
     const highLows = [sorted.at(-1), sorted[0]]
     highLows.forEach((trend, idx) => {
       Object.assign(values, {

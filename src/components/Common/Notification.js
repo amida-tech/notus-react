@@ -39,9 +39,9 @@ export default function Notification({ status }) {
 }
 
 Notification.propTypes = {
-  status: PropTypes.string,
+  status: PropTypes.number, // status is of type number
 };
 
 Notification.defaultProps = {
-  status: '',
+  status: 400, // Defaulting to Bad Request client error for now
 };
