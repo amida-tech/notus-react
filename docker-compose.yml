@@ -10,8 +10,7 @@ services:
       - .env
     ports:
       - "3000:80"
-    networks:
-      - cpc_default
 networks:
-  cpc_default:
+  default:
+    external: true
     name: cp-all-in-one-community_default
