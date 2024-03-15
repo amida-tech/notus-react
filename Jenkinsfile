@@ -13,10 +13,16 @@ pipeline {
         sh 'yarn install'
       }
     }
-    stage('Jenkins Build') {
+    stage('Build') {
       steps {
         echo 'Building..'
         sh 'yarn build'
+      }
+    }
+    stage('Test') {
+      steps {
+        echo 'Testing..'
+        sh 'yarn test'
       }
     }
   }
