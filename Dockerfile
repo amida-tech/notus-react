@@ -1,16 +1,5 @@
-# FROM  node:16.14.2-alpine3.15
-
-# WORKDIR /app
-
-# COPY ./package.json .
-# COPY ./yarn.lock .
-# ADD . /app
-# RUN yarn install --frozen-lockfile && yarn cache clean
-# EXPOSE 3000
-# CMD [ "yarn", "start" ]
-
 # Builder image
-FROM node:18.18.2-alpine3.18 as builder
+FROM node:18.19.1-alpine3.19 as builder
 
 WORKDIR /app
 
@@ -30,7 +19,7 @@ COPY ./public/index.html /app/public
 RUN yarn build
 
 # Production Installer image
-FROM nginx:1.25.2-bookworm
+FROM nginx:1.25.4-bookworm
 
 WORKDIR /app
 
