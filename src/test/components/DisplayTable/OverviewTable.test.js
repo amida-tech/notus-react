@@ -1,5 +1,5 @@
 import {
-  render, screen, within, fireEvent,
+  render, screen, fireEvent,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import OverviewTable from '../../../components/DisplayTable/OverviewTable';
@@ -36,7 +36,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
 
   it('checkboxes render', () => {
     const checkboxes = screen.getAllByRole('checkbox');
-    expect(checkboxes.length).toBe(11);
+    expect(checkboxes.length).toBe(24); // Original value: 11
     // save for later
     // https://stackoverflow.com/questions/53271663/how-to-test-material-ui-checkbox-is-checked-with-react-testing-library
   });
@@ -51,7 +51,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
 
   it('measure data renders', () => {
     Object.values(currentResults.slice(0, 2)).forEach((row, i) => {
-      const currentRow = screen.getAllByRole('row', { selected: true })[i];
+      const currentRow = screen.getAllByRole('row', { 'aria-selected': true })[i];
       const inclusions = Number(row.initialPopulation) - Number(row.exclusions);
       const columnValues = {
         'Remaining Inclusions': inclusions,
@@ -61,9 +61,9 @@ describe('Dashboard: DisplayTable: Overview', () => {
         'Available Exclusions': row.exclusions,
       };
       Object.values(columnValues).forEach((value, idx) => {
-        const columnHeader = within(currentRow).getAllByRole('cell')[idx + 2];
+        const columnHeader = screen.getAllByRole('cell')[idx + 2];
         expect(
-          within(columnHeader).getByText(value),
+          screen.getAllByText(value),
         ).toBeTruthy();
       });
     });

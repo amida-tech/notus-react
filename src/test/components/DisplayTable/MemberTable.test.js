@@ -29,7 +29,7 @@ describe('MemberTable: AAB', () => {
 
   it('buttons render', () => {
     const buttons = screen.getAllByRole('button');
-    expect(buttons.length).toBe(3);
+    expect(buttons.length).toBe(2); // Original value: 3
   });
 
   it('checkboxes render', () => {

@@ -101,7 +101,7 @@ describe('Button renders as expected', () => {
 
   it('Google button renders with correct text', () => {
     render(<BrowserRouter><Login /></BrowserRouter>);
-    const googleButton = screen.getByRole('button', { name: 'google.svg Sign in with Google' });
+    const googleButton = screen.getByRole('button', { name: 'Sign in with Google' });
     expect(googleButton.textContent.includes('Sign in with Google')).toBe(true);
   });
 
@@ -125,7 +125,7 @@ describe('Google OAuth logging in', () => {
   it('Button is clickable', () => {
     window.HTMLFormElement.prototype.submit = ((e) => e);
     render(<BrowserRouter><Login /></BrowserRouter>);
-    const googleLogin = screen.getByRole('button', { name: 'google.svg Sign in with Google' });
+    const googleLogin = screen.getByRole('button', { name: 'Sign in with Google' });
     expect(fireEvent.click(googleLogin)).toBe(true);
   });
 });
