@@ -86,6 +86,9 @@
     "moduleNameMapper": {
       "axios": "axios/dist/node/axios.cjs",
       "gapi-script": "gapi-script/gapiScript.js"
-    }
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/gapi-script/*.js"
+    ]
   }
 }
