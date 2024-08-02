@@ -13,7 +13,17 @@ import {
 } from '../Utilities/PropTypes';
 
 export default function OverviewTable({
-  activeMeasure, headerInfo, currentResults, colorMap, handleSelectedMeasureChange,
+  activeMeasure = {
+    measure: '',
+    denominator: 0,
+    shortlabel: '',
+    starRating: '',
+    title: '',
+  },
+  headerInfo = [],
+  currentResults = [],
+  colorMap = [],
+  handleSelectedMeasureChange = () => undefined,
 }) {
   const [columns, setColumns] = useState([]);
   const [rows, setRows] = useState([]);
@@ -99,7 +109,7 @@ export default function OverviewTable({
         disableSelectionOnClick
         disableVirtualization
         // filterMode='server'
-        pagination="client"
+        paginationMode="client"
         // sortingMode='server'
         sx={{
           // CHECKBOX ICONS
@@ -190,16 +200,16 @@ OverviewTable.propTypes = {
   handleSelectedMeasureChange: handleSelectedMeasureChangeProps,
 };
 
-OverviewTable.defaultProps = {
-  activeMeasure: {
-    measure: '',
-    denominator: 0,
-    shortlabel: '',
-    starRating: '',
-    title: '',
-  },
-  headerInfo: [],
-  currentResults: [],
-  colorMap: [],
-  handleSelectedMeasureChange: () => undefined,
-};
+// OverviewTable.defaultProps = {
+//   activeMeasure: {
+//     measure: '',
+//     denominator: 0,
+//     shortlabel: '',
+//     starRating: '',
+//     title: '',
+//   },
+//   headerInfo: [],
+//   currentResults: [],
+//   colorMap: [],
+//   handleSelectedMeasureChange: () => undefined,
+// };

@@ -20,17 +20,26 @@ import filterDrawerItemData from './FilterDrawerItemData';
 const sliderTip = 'Selects the range of compliance.';
 
 function FilterDrawer({
-  currentFilters,
-  handleFilterChange,
-  filterDrawerOpen,
-  toggleFilterDrawer,
-  setFilterActivated,
-  additionalFilterOptions,
-  setIsLoading,
-  setComposite,
-  setTableFilter,
-  setRowEntries,
-  handleResetData,
+  currentFilters = {
+    domainsOfCare: [],
+    stars: [],
+    percentRange: [0, 100],
+    sum: 0,
+    payor: [],
+    healthcareProvider: [],
+    healthcareCoverage: [],
+    practitioner: [],
+  },
+  handleFilterChange = () => undefined,
+  filterDrawerOpen = false,
+  toggleFilterDrawer = () => undefined,
+  setFilterActivated = () => undefined,
+  additionalFilterOptions = {},
+  setIsLoading = () => undefined,
+  setComposite = () => undefined,
+  setTableFilter = () => undefined,
+  setRowEntries = () => undefined,
+  handleResetData = () => undefined,
 }) {
   const { datastoreActions } = useContext(DatastoreContext);
   const [percentSliderValue, setPercentSliderValue] = useState(
@@ -321,27 +330,27 @@ FilterDrawer.propTypes = {
   handleResetData: handleResetDataProps,
 };
 
-FilterDrawer.defaultProps = {
-  filterDrawerOpen: false,
-  currentFilters: {
-    domainsOfCare: [],
-    stars: [],
-    percentRange: [0, 100],
-    sum: 0,
-    payor: [],
-    healthcareProvider: [],
-    healthcareCoverage: [],
-    practitioner: [],
-  },
-  toggleFilterDrawer: undefined,
-  handleFilterChange: undefined,
-  setFilterActivated: () => undefined,
-  additionalFilterOptions: {},
-  setIsLoading: () => undefined,
-  setComposite: () => undefined,
-  setTableFilter: () => undefined,
-  setRowEntries: () => undefined,
-  handleResetData: () => undefined,
-};
+// FilterDrawer.defaultProps = {
+//   filterDrawerOpen: false,
+//   currentFilters: {
+//     domainsOfCare: [],
+//     stars: [],
+//     percentRange: [0, 100],
+//     sum: 0,
+//     payor: [],
+//     healthcareProvider: [],
+//     healthcareCoverage: [],
+//     practitioner: [],
+//   },
+//   toggleFilterDrawer: undefined,
+//   handleFilterChange: undefined,
+//   setFilterActivated: () => undefined,
+//   additionalFilterOptions: {},
+//   setIsLoading: () => undefined,
+//   setComposite: () => undefined,
+//   setTableFilter: () => undefined,
+//   setRowEntries: () => undefined,
+//   handleResetData: () => undefined,
+// };
 
 export default FilterDrawer;

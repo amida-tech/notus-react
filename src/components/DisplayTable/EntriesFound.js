@@ -7,7 +7,7 @@ import theme from '../../assets/styles/AppTheme';
 
 // this total will have to come from HERA as soon as backend pagination is created
 
-export default function EntriesFound({ total }) {
+export default function EntriesFound({ total = 0 }) {
   return (
     <Box
       sx={{
@@ -21,7 +21,7 @@ export default function EntriesFound({ total }) {
       <Typography display="inline" sx={{ fontWeight: 800 }}>
         {total}
       </Typography>
-    &nbsp;Entries Found
+      &nbsp;Entries Found
     </Box>
   );
 }
@@ -30,6 +30,6 @@ EntriesFound.propTypes = {
   total: PropTypes.number,
 };
 
-EntriesFound.defaultProps = {
-  total: 0,
-};
+// EntriesFound.defaultProps = {
+//   total: 0,
+// };

@@ -10,7 +10,7 @@ import CheckBoxCell from './CheckBoxCell';
 import Alert from '../Utilities/Alert';
 
 function MeasureTableRow({
-  rowDataItem, headerInfo, useCheckBox, handleCheckBoxEvent, rowSelected, color, measureInfo,
+  rowDataItem = {}, headerInfo = [], useCheckBox = false, handleCheckBoxEvent = () => undefined, rowSelected = false, color = '', measureInfo = {},
 }) {
   const compositeCheck = headerInfo[0].header === 'Measure';
   const alertTitle = 'Leaving Saraswati';
@@ -98,7 +98,7 @@ function MeasureTableRow({
             className={`measure-table-row__data-align measure-table-row__data-align--${fieldInfo.flexBasis}`}
             key={`${rowDataItem[fieldInfo.key]}-${fieldInfo.header}`}
           >
-            { fieldInfo.header === 'Sub-Measure'
+            {fieldInfo.header === 'Sub-Measure'
               ? (
                 <>
                   <Tooltip
@@ -162,14 +162,14 @@ MeasureTableRow.propTypes = {
   }),
 };
 
-MeasureTableRow.defaultProps = {
-  rowDataItem: {},
-  headerInfo: [],
-  useCheckBox: false,
-  handleCheckBoxEvent: () => undefined,
-  rowSelected: false,
-  color: '',
-  measureInfo: {},
-};
+// MeasureTableRow.defaultProps = {
+//   rowDataItem: {},
+//   headerInfo: [],
+//   useCheckBox: false,
+//   handleCheckBoxEvent: () => undefined,
+//   rowSelected: false,
+//   color: '',
+//   measureInfo: {},
+// };
 
 export default MeasureTableRow;

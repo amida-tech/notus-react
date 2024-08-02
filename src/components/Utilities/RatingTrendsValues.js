@@ -21,7 +21,10 @@ export const ratingTrendsTip = 'Rating and Trends displays the current projected
 export const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
 export function Title({
-  activeMeasure, preferences, currentResults, order,
+  activeMeasure = {},
+  preferences = {},
+  currentResults = {},
+  order = 0,
 }) {
   if (preferences?.type === 'star') {
     return starTitle(preferences);
@@ -52,7 +55,7 @@ export function Title({
   );
 }
 
-export function measureChecker(activeMeasure, preferences) {
+export function measureChecker(activeMeasure = {}, preferences = {}) {
   const measureCheck = {};
 
   measureCheck.percentCheck = preferences.type === 'percentage';
@@ -66,7 +69,11 @@ export function measureChecker(activeMeasure, preferences) {
 }
 
 export function DisplayValue({
-  activeMeasure, preferences, currentResults, trends, measureCheck,
+  activeMeasure = {},
+  preferences = {},
+  currentResults = {},
+  trends = {},
+  measureCheck = {},
 }) {
   const { percentCheck, starCheck, submeasureCheck } = measureCheck;
 
@@ -84,7 +91,7 @@ export function DisplayValue({
   );
 }
 
-export function Footer({ preferences }) {
+export function Footer(preferences = {}) {
   if (preferences.type === 'percentage') {
     return percentageFooter(preferences);
   } else if (preferences.type === 'star') {
@@ -158,25 +165,25 @@ Footer.propTypes = {
   preferences: widgetPrefsProps,
 };
 
-Title.defaultProps = {
-  activeMeasure: {},
-  trends: {},
-  preferences: {},
-  currentResults: {},
-  order: 0,
-};
-DisplayValue.defaultProps = {
-  activeMeasure: {},
-  currentResults: {},
-  trends: {},
-  preferences: {},
-  measureCheck: {},
-};
-Footer.defaultProps = {
-  preferences: {},
-};
-measureChecker.defaultProps = {
-  percentCheck: false,
-  starCheck: false,
-  submeasureCheck: false,
-};
+// Title.defaultProps = {
+//   activeMeasure: {},
+//   trends: {},
+//   preferences: {},
+//   currentResults: {},
+//   order: 0,
+// };
+// DisplayValue.defaultProps = {
+//   activeMeasure: {},
+//   currentResults: {},
+//   trends: {},
+//   preferences: {},
+//   measureCheck: {},
+// };
+// Footer.defaultProps = {
+//   preferences: {},
+// };
+// measureChecker.defaultProps = {
+//   percentCheck: false,
+//   starCheck: false,
+//   submeasureCheck: false,
+// };

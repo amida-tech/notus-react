@@ -6,7 +6,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 import PropTypes from 'prop-types';
 
-function MemberReportTable({ rowData }) {
+function MemberReportTable({ rowData = {} }) {
   const formattedData = [];
   const theme = useTheme();
   function createTableRows(rowDataObj) {
@@ -26,7 +26,7 @@ function MemberReportTable({ rowData }) {
     let baseRecommendation = '';
     // IF recommendationArray IS GREATER THAN 1
     if (recommendationArray.length > 0) {
-    // BASE RECOMMENDATIONS ARE BOLDED.
+      // BASE RECOMMENDATIONS ARE BOLDED.
       baseRecommendation = <strong>{recommendationArray[0]}</strong>;
       // ADDITIONAL RECOMMENDATIONS FORMATTED WITH SPACING
       const additionalRecommendations = recommendationArray.map((item, idx) => {
@@ -52,8 +52,8 @@ function MemberReportTable({ rowData }) {
         </div>
       );
     } else {
-    // IF recommendationArray IS EQUALS 0 RETURN NOT COMPLIANT.
-    // ALL SUBMEASURES SHOULD HAVE A RECOMMENDATION.
+      // IF recommendationArray IS EQUALS 0 RETURN NOT COMPLIANT.
+      // ALL SUBMEASURES SHOULD HAVE A RECOMMENDATION.
       recommendation = (
         <strong>
           {'Member is '}
@@ -95,7 +95,7 @@ function MemberReportTable({ rowData }) {
                 <TableCell align="center">
                   {row.status
                     ? <CheckCircleIcon sx={{ color: theme.palette?.success.main, '&:hover': { fill: theme.palette?.success.main } }} />
-                    : <CancelIcon sx={{ color: theme.palette?.error.main, '&:hover': { fill: theme.palette?.error.main } }} /> }
+                    : <CancelIcon sx={{ color: theme.palette?.error.main, '&:hover': { fill: theme.palette?.error.main } }} />}
                 </TableCell>
                 <TableCell align="center">
                   {row.exclusions?.length > 0
@@ -106,10 +106,10 @@ function MemberReportTable({ rowData }) {
                 <TableCell align="center">{row.dates}</TableCell>
                 <TableCell
                   align={
-                row.type === 'Measure' || row.type === 'Sub-Measure'
-                  ? 'left'
-                  : 'center'
-              }
+                    row.type === 'Measure' || row.type === 'Sub-Measure'
+                      ? 'left'
+                      : 'center'
+                  }
                 >
                   {/* IF STATUS IS TRUE WE RETURN COMPLAINT
                    RESULT IF NOT WE RETURN A RECOMENDATION */}
@@ -150,8 +150,8 @@ MemberReportTable.propTypes = {
   ),
 };
 
-MemberReportTable.defaultProps = {
-  rowData: {},
-};
+// MemberReportTable.defaultProps = {
+//   rowData: {},
+// };
 
 export default MemberReportTable;

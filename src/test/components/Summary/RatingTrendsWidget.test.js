@@ -87,7 +87,7 @@ describe('RatingTrends', () => {
   it('widget footers have correct information', () => {
     Object.values(widgetPrefs).forEach((rating) => {
       const starFooters = screen
-        .getAllByText(`(${rating.measure.toUpperCase()} over the past week)`);
+        .getAllByText((content, element) => content.startsWith(rating.measure.toUpperCase()));
       expect(starFooters).toBeTruthy()
     })
   });

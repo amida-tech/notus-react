@@ -14,7 +14,7 @@ import MemberReportDisplay from '../components/MemberReport/MemberReportDisplay'
 
 const memberInfoQueryUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}members/info/`);
 
-function MemberReport({ id, memberInfoFetch, loading }) {
+function MemberReport({ id = '', memberInfoFetch = () => undefined, loading = true }) {
   const { datastore } = useContext(DatastoreContext);
   const [isLoading, setIsLoading] = useState(loading);
   const [memberInfo, setMemberInfo] = useState();
@@ -69,8 +69,8 @@ function MemberReport({ id, memberInfoFetch, loading }) {
         />
       )
       : <Skeleton data-testid="loading" variant="rectangular" height="calc(100vh - 12rem - 14px)" animation="wave" />
-  // MUI anticipates loading skeletons alongside components,
-  // so this seems to be the MUI-inelegant loading solution but wtvr
+    // MUI anticipates loading skeletons alongside components,
+    // so this seems to be the MUI-inelegant loading solution but wtvr
   );
 }
 
@@ -80,10 +80,10 @@ MemberReport.propTypes = {
   loading: PropTypes.bool,
 };
 
-MemberReport.defaultProps = {
-  id: '',
-  memberInfoFetch: () => undefined,
-  loading: true,
-};
+// MemberReport.defaultProps = {
+//   id: '',
+//   memberInfoFetch: () => undefined,
+//   loading: true,
+// };
 
 export default MemberReport;

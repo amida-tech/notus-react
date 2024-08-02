@@ -5,7 +5,7 @@ import {
 import PropTypes from 'prop-types';
 import Alert from '../Utilities/Alert'
 
-export default function Notification({ status }) {
+export default function Notification({ status = 400 }) {
   const [openFTCAlert, setFTCAlert] = useState(false);
 
   useEffect(() => {
@@ -42,6 +42,6 @@ Notification.propTypes = {
   status: PropTypes.number, // status is of type number
 };
 
-Notification.defaultProps = {
-  status: 400, // Defaulting to Bad Request client error for now
-};
+// Notification.defaultProps = {
+//   status: 400, // Defaulting to Bad Request client error for now
+// };

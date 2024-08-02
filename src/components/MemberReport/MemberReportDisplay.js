@@ -17,14 +17,14 @@ const generalInfoTip = 'The basic information about this member, including provi
 const measureAnalysisTip = 'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.';
 
 function MemberReportDisplay({
-  id,
-  memberInfo,
-  datastoreInfo,
-  exportUrl,
-  coverage,
-  coverageStatus,
-  rowData,
-  description,
+  id = '',
+  memberInfo = {},
+  datastoreInfo = {},
+  exportUrl = '',
+  coverage = {},
+  coverageStatus = '',
+  rowData = [],
+  description = [],
 }) {
   const coverageStatusColor = coverageStatus === 'active' ? theme.palette.success.main : theme.palette.error.main;
   const descriptionCreator = (descriptionArr) => {
@@ -41,14 +41,14 @@ function MemberReportDisplay({
         // IF DESCRIPTION ARRAY IS GREATER THAN 1
         additionalDescriptions = descriptionArr.map((des, idx) => (
           idx !== 0
-          // SEND BACK P TAG DESCRIPTION
+            // SEND BACK P TAG DESCRIPTION
             ? <p key={des} style={{ marginTop: '0.5rem' }}>{des}</p>
-          // SEND BACK BOLD P TAG DESCRIPTION
+            // SEND BACK BOLD P TAG DESCRIPTION
             : <p key={des} style={{ fontWeight: 'bold' }}>{des}</p>));
       }
       descrip = additionalDescriptions;
     } else {
-    // IF DESCRIPTION ARRAY EQUALS 0 USE DESCRIPTION
+      // IF DESCRIPTION ARRAY EQUALS 0 USE DESCRIPTION
       descrip = 'No description found for current measure';
     }
     return descrip;
@@ -57,7 +57,7 @@ function MemberReportDisplay({
   const participationPeriod = `${moment(coverage[0].period.start.value)
     .format('MM/DD/YYYY')}
     - ${moment(coverage[0].period.end.value)
-    .format('MM/DD/YYYY')}`;
+      .format('MM/DD/YYYY')}`;
 
   return (
     <Box className="member-report" sx={{ background: 'white' }}>
@@ -292,15 +292,15 @@ MemberReportDisplay.propTypes = {
   ),
 };
 
-MemberReportDisplay.defaultProps = {
-  id: '',
-  memberInfo: {},
-  datastoreInfo: {},
-  exportUrl: '',
-  coverage: {},
-  coverageStatus: '',
-  rowData: [],
-  description: [],
-};
+// MemberReportDisplay.defaultProps = {
+//   id: '',
+//   memberInfo: {},
+//   datastoreInfo: {},
+//   exportUrl: '',
+//   coverage: {},
+//   coverageStatus: '',
+//   rowData: [],
+//   description: [],
+// };
 
 export default MemberReportDisplay;

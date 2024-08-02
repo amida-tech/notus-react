@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import theme from '../../assets/styles/AppTheme';
 
 function MeasureSelector({
-  currentResults, measure, handleMeasureChange,
+  currentResults = [], measure = '', handleMeasureChange = () => undefined,
 }) {
   return (
     <FormControl className="measure-selector">
@@ -42,10 +42,10 @@ MeasureSelector.propTypes = {
   handleMeasureChange: PropTypes.func,
 };
 
-MeasureSelector.defaultProps = {
-  currentResults: [],
-  measure: '',
-  handleMeasureChange: () => undefined,
-};
+// MeasureSelector.defaultProps = {
+//   currentResults: [],
+//   measure: '',
+//   handleMeasureChange: () => undefined,
+// };
 
 export default MeasureSelector;

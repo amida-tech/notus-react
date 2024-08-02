@@ -5,12 +5,18 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import theme from '../../assets/styles/AppTheme';
 
 function ChartHeader({
-  isComposite,
-  isLoading,
-  handleResetData,
-  labelGenerator,
-  currentResults,
-  activeMeasure,
+  isComposite = true,
+  isLoading = true,
+  handleResetData = () => undefined,
+  labelGenerator = () => undefined,
+  currentResults = [],
+  activeMeasure = {
+    measure: '',
+    denominator: 0,
+    shortLabel: '',
+    starRating: 0,
+    title: '',
+  },
 }) {
   const allMeasureText = (
     <Grid className="chart-container__return-title-display">
@@ -29,11 +35,11 @@ function ChartHeader({
         All Measures
       </Typography>
       {!isLoading && (
-      <Grid className="chart-container__return-measure-display">
-        {labelGenerator(
-          currentResults.find((result) => result.measure === activeMeasure.measure),
-        )}
-      </Grid>
+        <Grid className="chart-container__return-measure-display">
+          {labelGenerator(
+            currentResults.find((result) => result.measure === activeMeasure.measure),
+          )}
+        </Grid>
       )}
     </Grid>
   );
@@ -58,19 +64,19 @@ ChartHeader.propTypes = {
   }),
 };
 
-ChartHeader.defaultProps = {
-  isComposite: true,
-  isLoading: true,
-  labelGenerator: () => undefined,
-  currentResults: [],
-  activeMeasure: {
-    measure: '',
-    denominator: 0,
-    shortLabel: '',
-    starRating: 0,
-    title: '',
-  },
-  handleResetData: () => undefined,
-};
+// ChartHeader.defaultProps = {
+//   isComposite: true,
+//   isLoading: true,
+//   labelGenerator: () => undefined,
+//   currentResults: [],
+//   activeMeasure: {
+//     measure: '',
+//     denominator: 0,
+//     shortLabel: '',
+//     starRating: 0,
+//     title: '',
+//   },
+//   handleResetData: () => undefined,
+// };
 
 export default ChartHeader;

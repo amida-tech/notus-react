@@ -9,7 +9,7 @@ import { TabContext, TabList, TabPanel } from '@mui/lab';
 import moment from 'moment';
 import theme from '../../assets/styles/AppTheme';
 
-function MemberReportInsurance({ memberInfo }) {
+function MemberReportInsurance({ memberInfo = {} }) {
   const coverageObjArr = memberInfo.coverage;
   const [tabValue, setTabValue] = useState(coverageObjArr[0].type.coding[0].display.value);
 
@@ -89,7 +89,7 @@ function MemberReportInsurance({ memberInfo }) {
             primary="Participation Period:&nbsp;"
             secondary={insurance.period ? `${moment(insurance.period.start.value)
               .format('MM/DD/YYYY')} - ${moment(insurance.period.end.value)
-              .format('MM/DD/YYYY')}` : 'N/A'}
+                .format('MM/DD/YYYY')}` : 'N/A'}
           />
         </ListItem>
       </List>
@@ -145,8 +145,8 @@ MemberReportInsurance.propTypes = {
   }),
 };
 
-MemberReportInsurance.defaultProps = {
-  memberInfo: {},
-};
+// MemberReportInsurance.defaultProps = {
+//   memberInfo: {},
+// };
 
 export default MemberReportInsurance;

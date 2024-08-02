@@ -23,12 +23,15 @@ const timelineLabel = (choice) => {
 };
 
 function ChartBar({
-  filterDrawerOpen,
-  toggleFilterDrawer,
-  filterSum,
-  currentTimeline,
-  handleTimelineChange,
-  filterDisabled,
+  filterDrawerOpen = false,
+  toggleFilterDrawer = undefined,
+  filterSum = 0,
+  currentTimeline = {
+    choice: 'all',
+    range: [null, null]
+  },
+  handleTimelineChange = undefined,
+  filterDisabled = false,
 }) {
   const buttonStyling = {};
 
@@ -139,16 +142,16 @@ ChartBar.propTypes = {
   filterDisabled: PropTypes.bool,
 };
 
-ChartBar.defaultProps = {
-  filterDrawerOpen: false,
-  toggleFilterDrawer: undefined,
-  filterSum: 0,
-  currentTimeline: {
-    choice: 'all',
-    range: [null, null],
-  },
-  handleTimelineChange: undefined,
-  filterDisabled: false,
-};
+// ChartBar.defaultProps = {
+//   filterDrawerOpen: false,
+//   toggleFilterDrawer: undefined,
+//   filterSum: 0,
+//   currentTimeline: {
+//     choice: 'all',
+//     range: [null, null],
+//   },
+//   handleTimelineChange: undefined,
+//   filterDisabled: false,
+// };
 
 export default ChartBar;

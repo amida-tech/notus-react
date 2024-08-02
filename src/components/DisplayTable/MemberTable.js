@@ -20,7 +20,17 @@ import {
 
 import theme from '../../assets/styles/AppTheme';
 
-export default function MemberTable({ activeMeasure, headerInfo, rowEntries }) {
+export default function MemberTable({
+  activeMeasure = {
+    measure: '',
+    denominator: 0,
+    shortlabel: '',
+    starRating: '',
+    title: '',
+  },
+  headerInfo = [],
+  rowEntries = []
+}) {
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
   const [page, setPage] = useState(0);
@@ -174,14 +184,14 @@ MemberTable.propTypes = {
   rowEntries: rowEntriesProps,
 };
 
-MemberTable.defaultProps = {
-  activeMeasure: {
-    measure: '',
-    denominator: 0,
-    shortlabel: '',
-    starRating: '',
-    title: '',
-  },
-  headerInfo: [],
-  rowEntries: [],
-};
+// MemberTable.defaultProps = {
+//   activeMeasure: {
+//     measure: '',
+//     denominator: 0,
+//     shortlabel: '',
+//     starRating: '',
+//     title: '',
+//   },
+//   headerInfo: [],
+//   rowEntries: [],
+// };

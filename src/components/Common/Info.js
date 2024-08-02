@@ -6,7 +6,7 @@ import {
 } from '@mui/material';
 import theme from '../../assets/styles/AppTheme';
 
-function Info({ infoText }) {
+function Info({ infoText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit' }) {
   const [displayInfo, setDisplayInfo] = useState(false);
 
   return (
@@ -31,12 +31,12 @@ function Info({ infoText }) {
           fontSize="small"
         />
       </IconButton>
-      { displayInfo && (
-      <Box sx={{ backgroundColor: theme.palette?.primary.light, m: '-3rem 1rem 1rem 2.5rem' }} className="info__info-box">
-        <Typography className="info__text">
-          {infoText}
-        </Typography>
-      </Box>
+      {displayInfo && (
+        <Box sx={{ backgroundColor: theme.palette?.primary.light, m: '-3rem 1rem 1rem 2.5rem' }} className="info__info-box">
+          <Typography className="info__text">
+            {infoText}
+          </Typography>
+        </Box>
       )}
     </Box>
   );
@@ -46,8 +46,8 @@ Info.propTypes = {
   infoText: PropTypes.string,
 };
 
-Info.defaultProps = {
-  infoText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-};
+// Info.defaultProps = {
+//   infoText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
+// };
 
 export default Info;

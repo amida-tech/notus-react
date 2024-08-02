@@ -7,7 +7,11 @@ import { storeProps } from '../Utilities/PropTypes';
 import MeasureSelector from '../Common/MeasureSelector';
 import env from '../../env';
 
-function ReportBuilder({ store }) {
+function ReportBuilder({
+  store = {
+    currentResults: [],
+  }
+}) {
   const [measure, setMeasure] = useState('');
 
   useEffect(() => {
@@ -39,16 +43,16 @@ function ReportBuilder({ store }) {
           handleMeasureChange={handleMeasureChange}
         />
       </Grid>
-      { measure !== undefined
+      {measure !== undefined
         && (
-        <a
-          className="report-builder__download-link"
-          href={`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/exportCsv?measurementType=${measure}`}
-          target="_blank"
-          rel="noreferrer"
-        >
-          Get Report
-        </a>
+          <a
+            className="report-builder__download-link"
+            href={`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/exportCsv?measurementType=${measure}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Get Report
+          </a>
         )}
     </Box>
 
@@ -57,10 +61,10 @@ function ReportBuilder({ store }) {
 ReportBuilder.propTypes = {
   store: storeProps,
 };
-ReportBuilder.defaultProps = {
-  store: {
-    currentResults: [],
-  },
-};
+// ReportBuilder.defaultProps = {
+//   store: {
+//     currentResults: [],
+//   },
+// };
 
 export default ReportBuilder;

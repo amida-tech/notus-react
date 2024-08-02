@@ -18,7 +18,10 @@ import { ratingTrendsTip } from '../Utilities/RatingTrendValuesUtil'
 import { ratingTrendsCompositeContainer, ratingTrendsMeasureContainer } from '../../assets/styles/RatingTrends.style';
 
 function RatingTrends({
-  currentResults, activeMeasure, trends, widgetPrefs,
+  currentResults = {},
+  activeMeasure = {},
+  trends = {},
+  widgetPrefs = {},
 }) {
   const [boxItems, setBoxOrder] = useState(Object.values(widgetPrefs));
   const { datastore, datastoreActions } = useContext(DatastoreContext);
@@ -120,11 +123,11 @@ RatingTrends.propTypes = {
   currentResults: currentResultsProps,
 };
 
-RatingTrends.defaultProps = {
-  activeMeasure: {},
-  trends: {},
-  widgetPrefs: {},
-  currentResults: {},
-};
+// RatingTrends.defaultProps = {
+//   activeMeasure: {},
+//   trends: {},
+//   widgetPrefs: {},
+//   currentResults: {},
+// };
 
 export default RatingTrends;

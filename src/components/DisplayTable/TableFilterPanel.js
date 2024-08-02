@@ -12,7 +12,7 @@ const memberComplianceItems = [
 ];
 
 function TableFilterPanel({
-  tableFilter, handleTableFilterChange,
+  tableFilter = [], handleTableFilterChange = () => undefined,
 }) {
   return (
     <>
@@ -35,7 +35,7 @@ function TableFilterPanel({
                   className="table-filter-panel__filter-checkbox"
                   onChange={(e) => handleTableFilterChange(e)}
                 />
-                    )}
+              )}
               label={item.label}
             />
           ))}
@@ -47,15 +47,15 @@ function TableFilterPanel({
 }
 
 TableFilterPanel.propTypes = {
-  memberResult: PropTypes.shape({}),
+  // memberResult: PropTypes.shape({}),
   tableFilter: PropTypes.arrayOf(PropTypes.string),
   handleTableFilterChange: PropTypes.func,
 };
 
-TableFilterPanel.defaultProps = {
-  memberResult: {},
-  tableFilter: [],
-  handleTableFilterChange: () => undefined,
-};
+// TableFilterPanel.defaultProps = {
+//   memberResult: {},
+//   tableFilter: [],
+//   handleTableFilterChange: () => undefined,
+// };
 
 export default TableFilterPanel;

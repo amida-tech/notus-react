@@ -12,7 +12,11 @@ import { ratingTrendsBox } from '../../assets/styles/RatingTrends.style';
 import { activeMeasureProps } from '../Utilities/PropTypes';
 
 function RatingTrendBox({
-  activeMeasure, widgetPrefs, trends, currentResults, order,
+  activeMeasure = {},
+  widgetPrefs = {},
+  trends = {},
+  currentResults = {},
+  order = 0,
 }) {
   return (
     <Box
@@ -55,12 +59,12 @@ RatingTrendBox.propTypes = {
   order: PropTypes.number,
 };
 
-RatingTrendBox.defaultProps = {
-  activeMeasure: {},
-  trends: {},
-  widgetPrefs: {},
-  currentResults: {},
-  order: 0,
-};
+// RatingTrendBox.defaultProps = {
+//   activeMeasure: {},
+//   trends: {},
+//   widgetPrefs: {},
+//   currentResults: {},
+//   order: 0,
+// };
 
 export default RatingTrendBox;

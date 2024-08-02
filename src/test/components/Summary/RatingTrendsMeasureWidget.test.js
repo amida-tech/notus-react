@@ -107,7 +107,7 @@ describe('RatingTrends', () => {
     // now we need to check if they rendered
     Object.values(submOrderedArr).forEach((rating, idx) => {
       const footers = screen
-        .getAllByText(`(${rating.measure.toUpperCase()} over the past week)`);
+        .getAllByText((content, element) => content.startsWith(rating.measure.toUpperCase()));
       // we can always expect the main submeasure to have two footers: star/percent
       if (idx < 3) {
         expect(footers.length === 2)

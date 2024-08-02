@@ -4,14 +4,14 @@ import {
 } from '@mui/material';
 
 export default function Alert({
-  openAlert,
-  setOpenAlert,
-  title,
-  options,
-  children,
-  noResultsALERT,
-  handleResetData,
-  forwardBtn,
+  openAlert = false,
+  setOpenAlert = () => undefined,
+  title = '',
+  options = {},
+  children = '',
+  noResultsALERT = false,
+  handleResetData = () => undefined,
+  forwardBtn = '',
 }) {
   function handleAlert() {
     return openAlert ? setOpenAlert(false) : setOpenAlert(true);
@@ -94,13 +94,13 @@ Alert.propTypes = {
   handleResetData: PropTypes.func,
 };
 
-Alert.defaultProps = {
-  forwardBtn: '',
-  openAlert: false,
-  setOpenAlert: () => undefined,
-  title: '',
-  options: {},
-  children: '',
-  noResultsALERT: false,
-  handleResetData: () => undefined,
-};
+// Alert.defaultProps = {
+//   forwardBtn: '',
+//   openAlert: false,
+//   setOpenAlert: () => undefined,
+//   title: '',
+//   options: {},
+//   children: '',
+//   noResultsALERT: false,
+//   handleResetData: () => undefined,
+// };

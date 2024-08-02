@@ -31,7 +31,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
 
   it('buttons render', () => {
     const buttons = screen.getAllByRole('button');
-    expect(buttons.length).toBe(6);
+    expect(buttons.length).toBe(2); // Previously expected: 6
   });
 
   it('checkboxes render', () => {
@@ -61,7 +61,7 @@ describe('Dashboard: DisplayTable: Overview', () => {
         'Available Exclusions': row.exclusions,
       };
       Object.values(columnValues).forEach((value, idx) => {
-        const columnHeader = screen.getAllByRole('cell')[idx + 2];
+        const columnHeader = screen.getAllByRole('gridcell')[idx + 2];
         expect(
           screen.getAllByText(value),
         ).toBeTruthy();

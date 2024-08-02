@@ -10,7 +10,7 @@ import Reports from './layouts/Reports';
 import NotFound from './notFound';
 import ScrollToTop from './components/Utilities/ScrollToTop';
 
-export default function ProtectedRoute({ authenticated }) {
+export default function ProtectedRoute(authenticated = false) {
   const lastParameter = useParams()['*'].split('/').at(-1);
   const memberId = lastParameter || '/';
 
@@ -43,6 +43,6 @@ ProtectedRoute.propTypes = {
   authenticated: PropTypes.bool,
 };
 
-ProtectedRoute.defaultProps = {
-  authenticated: false,
-};
+// ProtectedRoute.defaultProps = {
+//   authenticated: false,
+// };

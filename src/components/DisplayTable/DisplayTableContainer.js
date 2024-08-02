@@ -28,19 +28,26 @@ import MeasureSelector from '../Common/MeasureSelector';
 import EntriesFound from './EntriesFound';
 import OverviewTable from './OverviewTable';
 import MemberTable from './MemberTable';
+import { denominator } from 'components/Utilities/MeasureTable';
 
 function DisplayTableContainer({
-  activeMeasure,
-  tabValue,
-  isComposite,
-  headerInfo,
-  currentResults,
-  colorMap,
-  tableFilter,
-  handleTableFilterChange,
-  handleSelectedMeasureChange,
-  rowEntries,
-  handleTabChange,
+  activeMeasure = {
+    measure: '',
+    denominator: 0,
+    shortLabel: '',
+    starRating: 0,
+    title: '',
+  },
+  tabValue = 'overview',
+  isComposite = true,
+  headerInfo = [],
+  currentResults = [],
+  colorMap = [],
+  tableFilter = [],
+  handleTableFilterChange = () => undefined,
+  handleSelectedMeasureChange = () => undefined,
+  rowEntries = [],
+  handleTabChange = () => undefined,
 }) {
   const { datastore } = useContext(DatastoreContext);
 
@@ -157,18 +164,18 @@ DisplayTableContainer.propTypes = {
   handleTabChange: handleTabChangeProps,
 };
 
-DisplayTableContainer.defaultProps = {
-  activeMeasure: defaultActiveMeasure,
-  tabValue: 'overview',
-  isComposite: true,
-  handleSelectedMeasureChange: () => undefined,
-  headerInfo: [],
-  currentResults: [],
-  colorMap: [],
-  tableFilter: [],
-  handleTableFilterChange: () => undefined,
-  rowEntries: [],
-  handleTabChange: () => undefined,
-};
+// DisplayTableContainer.defaultProps = {
+//   activeMeasure: defaultActiveMeasure,
+//   tabValue: 'overview',
+//   isComposite: true,
+//   handleSelectedMeasureChange: () => undefined,
+//   headerInfo: [],
+//   currentResults: [],
+//   colorMap: [],
+//   tableFilter: [],
+//   handleTableFilterChange: () => undefined,
+//   rowEntries: [],
+//   handleTabChange: () => undefined,
+// };
 
 export default DisplayTableContainer;

@@ -6,7 +6,16 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import theme from '../../assets/styles/AppTheme';
 
-function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
+function FilterDrawerItem({
+  filterItem = {
+    name: '',
+    tip: '',
+    options: [],
+    values: [],
+  },
+  currentFilter = [],
+  filterAction = undefined
+}) {
   const [defaultCheck] = useState(Array.from(currentFilter));
   return (
     <Grid container item className="filter-drawer-item">
@@ -37,7 +46,7 @@ function FilterDrawerItem({ filterItem, currentFilter, filterAction }) {
                   className="filter-drawer-item__option-checkbox"
                   onChange={filterAction}
                 />
-            )}
+              )}
               label={option}
             />
           )))
@@ -68,15 +77,15 @@ FilterDrawerItem.propTypes = {
   filterAction: PropTypes.func,
 };
 
-FilterDrawerItem.defaultProps = {
-  filterItem: {
-    name: '',
-    tip: '',
-    options: [],
-    values: [],
-  },
-  currentFilter: [],
-  filterAction: undefined,
-};
+// FilterDrawerItem.defaultProps = {
+//   filterItem: {
+//     name: '',
+//     tip: '',
+//     options: [],
+//     values: [],
+//   },
+//   currentFilter: [],
+//   filterAction: undefined,
+// };
 
 export default FilterDrawerItem;

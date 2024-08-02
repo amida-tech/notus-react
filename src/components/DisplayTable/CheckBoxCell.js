@@ -4,7 +4,7 @@ import {
 import PropTypes from 'prop-types';
 
 function CheckBoxCell({
-  handleCheckBoxEvent, checked, value, color,
+  handleCheckBoxEvent = () => undefined, checked = false, value = '', color = '',
 }) {
   return (
     <Grid item className="display-table__title-align-small">

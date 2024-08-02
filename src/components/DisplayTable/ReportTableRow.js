@@ -53,7 +53,7 @@ function rowSelector(rowDataItem, fieldInfo) {
 }
 
 function ReportTableRow({
-  rowDataItem, headerInfo,
+  rowDataItem = {}, headerInfo = [],
 }) {
   return (
     <Box className="report-table-row">
@@ -87,9 +87,9 @@ ReportTableRow.propTypes = {
   ),
 };
 
-ReportTableRow.defaultProps = {
-  rowDataItem: {},
-  headerInfo: [],
-};
+// ReportTableRow.defaultProps = {
+//   rowDataItem: {},
+//   headerInfo: [],
+// };
 
 export default ReportTableRow;
