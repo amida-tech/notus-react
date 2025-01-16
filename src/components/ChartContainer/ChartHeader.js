@@ -1,8 +1,6 @@
-import PropTypes from 'prop-types';
-
 import { Grid, Typography } from '@mui/material';
-
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import PropTypes from 'prop-types';
 
 function ChartHeader({
   isComposite,
@@ -13,34 +11,40 @@ function ChartHeader({
   activeMeasure,
 }) {
   const allMeasureText = (
-    <Grid className="d3-container__return-title-display">
-      <Typography className="d3-container__title d3-container__title--inactive">All Measures</Typography>
+    <Grid className='d3-container__return-title-display'>
+      <Typography
+        variant='h6'
+      >
+        All Measures
+      </Typography>
     </Grid>
-  )
+  );
   const allMeasureTextWithLinks = (
     <Grid
-      className="d3-container__return-link-display"
+      className='d3-container__return-link-display'
       onClick={() => {
         handleResetData('ALL MEASURES');
       }}
     >
-      <Typography className="d3-container__title">
-        <ArrowBackIosIcon className="d3-container__return-icon" />
+      <Typography className='d3-container__title'>
+        <ArrowBackIosIcon className='d3-container__return-icon' />
         All Measures
       </Typography>
       {!isLoading && (
-      <Grid className="d3-container__return-measure-display">
-        {labelGenerator(
-          currentResults.find((result) => result.measure === activeMeasure.measure),
-        )}
-      </Grid>
+        <Grid className='d3-container__return-measure-display'>
+          {labelGenerator(
+            currentResults.find(
+              (result) => result.measure === activeMeasure.measure
+            )
+          )}
+        </Grid>
       )}
     </Grid>
-  )
+  );
   if (isComposite) {
-    return allMeasureText
+    return allMeasureText;
   }
-  return allMeasureTextWithLinks
+  return allMeasureTextWithLinks;
 }
 
 ChartHeader.propTypes = {
@@ -60,7 +64,7 @@ ChartHeader.propTypes = {
     starRating: PropTypes.number,
     title: PropTypes.string,
   }),
-}
+};
 
 ChartHeader.defaultProps = {
   isComposite: true,
@@ -76,6 +80,6 @@ ChartHeader.defaultProps = {
     title: '',
   },
   handleResetData: () => undefined,
-}
+};
 
-export default ChartHeader
+export default ChartHeader;

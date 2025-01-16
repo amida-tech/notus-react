@@ -5,10 +5,7 @@ $block-class: 'report-builder';
     .#{$block-class} {
         display: flex;
         flex-direction: column;
-        margin-top: 0.5rem;
-        margin-left: 2rem;
         margin-bottom: 0.5rem;
-        color: $blue-grey-darken-1;
         height:50vh;
         width: 40%;
 

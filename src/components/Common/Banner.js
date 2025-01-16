@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 function Banner({ headerText, lastUpdated }) {
   return (
     <Box className="banner">
-      <Typography variant="h1" className="banner__header">
+      <Typography className="banner__header">
         { headerText }
       </Typography>
       { lastUpdated && (

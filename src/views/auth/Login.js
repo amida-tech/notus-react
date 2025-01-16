@@ -1,121 +1,150 @@
-import LockIcon from '@mui/icons-material/Lock';
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import {
   Box,
-  Button, Container, Grid, Link, Paper, TextField, Typography,
+  Button,
+  Container,
+  Grid,
+  Link,
+  Paper,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
 import env from '../../env';
+import LockIcon from '@mui/icons-material/Lock';
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 
 export default function Login() {
   return (
-    <Container maxWidth={false} sx={{ padding: '1rem' }} className="login">
-      <Typography
-        variant="h5"
-        sx={{
-          fontWeight: 700,
-        }}
-      >
-        SARASWATI
-      </Typography>
+    <Container maxWidth={false} sx={{ padding: '1rem' }} className='login'>
+      <div className='login__title'>SARASWATI</div>
 
-      <Paper className="login__header-section">
-
+      <Paper className='login__header-section'>
         <Grid container spacing={2}>
           <Grid item xs={6} md={9}>
-            <Typography variant="h5">
+            <Typography variant='h5'>
               Welcome to
               <Typography
-                component="span"
-                variant="h5"
-                display="inline"
-                sx={{ color: (theme) => theme.palette.bluegray?.main, fontWeight: 700 }}
+                component='span'
+                variant='h5'
+                display='inline'
+                sx={{
+                  color: (theme) => theme.palette.bluegray?.main,
+                  fontWeight: 700,
+                }}
               >
                 {' '}
                 SARASWATI
               </Typography>
             </Typography>
 
-            <Typography variant="h3" sx={{ fontWeight: 500, mb: '1rem' }}>
+            <Typography variant='h3' sx={{ fontWeight: 500, mb: '1rem' }}>
               Sign in
             </Typography>
           </Grid>
         </Grid>
 
-        { env.REACT_APP_MVP_SETTING === false
-          && (
-          <Grid
-            item
-            xs={6}
-            md={3}
-            sx={{
-            }}
-          >
-            <Typography variant="body1">
-              No Account?
-            </Typography>
+        {env.REACT_APP_MVP_SETTING === false && (
+          <Grid item xs={6} md={3} sx={{}}>
+            <Typography variant='body1'>No Account?</Typography>
             <Link
-              color="primary"
-              underline="none"
+              color='primary'
+              underline='none'
               sx={{ fontWeight: 500 }}
-              href="/auth/register"
+              href='/auth/register'
             >
               Sign Up
             </Link>
           </Grid>
-          ) }
+        )}
 
-        <Grid container spacing={2} direction="column" sx={{ my: '.5rem' }}>
+        <Grid container spacing={2} direction='column' sx={{ my: '.5rem' }}>
           <Grid item>
-            <Typography variant="h6" sx={{ my: '.5rem' }}>
+            <Typography variant='h6' sx={{ my: '.5rem' }}>
               Enter your username or email address
             </Typography>
             <TextField
-              variant="outlined"
+              variant='outlined'
               fullWidth
               required
-              label="Username/Email"
-              id="LoginEmailInput"
-              type="email"
-              margin="dense"
+              label='Username/Email'
+              id='LoginEmailInput'
+              type='email'
+              margin='dense'
               InputProps={{
-                startAdornment: <PersonRoundedIcon fontSize="small" sx={{ mr: '.5rem' }} />,
+                startAdornment: (
+                  <PersonRoundedIcon fontSize='small' sx={{ mr: '.5rem' }} />
+                ),
               }}
               sx={{
                 '& .MuiInputBase-root': {
                   backgroundColor: (theme) => theme.palette.bluegray?.L5,
                 },
               }}
-              placeholder="Username or email address"
+              placeholder='Username or email address'
             />
           </Grid>
+
           <Grid item>
-            <Typography variant="h6">
-              Enter your password
-            </Typography>
+            <Typography variant='h6'>Enter your password</Typography>
             <TextField
-              variant="outlined"
+              variant='outlined'
               fullWidth
               required
-              label="Password"
-              type="password"
-              id="LoginPasswordInput"
-              margin="dense"
+              label='Password'
+              type='password'
+              id='LoginPasswordInput'
+              margin='dense'
               sx={{
                 '& .MuiInputBase-root': {
                   backgroundColor: (theme) => theme.palette.bluegray?.L5,
                 },
               }}
               InputProps={{
-                startAdornment: <LockIcon fontSize="small" sx={{ mr: '.5rem' }} />,
+                startAdornment: (
+                  <LockIcon fontSize='small' sx={{ mr: '.5rem' }} />
+                ),
               }}
-              placeholder="Password"
+              placeholder='Password'
             />
           </Grid>
+        </Grid>
+
+        <Box
+          sx={{
+            width: '100%',
+            textAlign: 'end',
+            '&:hover': {
+              pointerEvents: 'auto',
+              cursor: 'not-allowed',
+            },
+          }}
+        >
+          <Button
+            variant='contained'
+            color='primary'
+            disabled
+            sx={{
+              width: '12rem',
+              height: '3rem',
+            }}
+          >
+            Login
+          </Button>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            textAlign: 'end',
+            '&:hover': {
+              pointerEvents: 'auto',
+              cursor: 'not-allowed',
+            },
+          }}
+        >
           <Link
-            color="primary"
-            underline="none"
-            href="#pablo"
+            color='primary'
+            underline='none'
+            href='#pablo'
             disabled
             sx={{
               m: '1rem 0 0 0',
@@ -128,13 +157,13 @@ export default function Login() {
           >
             Forgot password
           </Link>
-        </Grid>
+        </Box>
 
         <Grid container spacing={0} sx={{ mb: '.5rem' }}>
           <Grid item>
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               startIcon={<GoogleSvg />}
               onClick={() => oauthSignIn()}
               sx={{
@@ -150,30 +179,6 @@ export default function Login() {
             </Button>
           </Grid>
         </Grid>
-
-        <Box
-          sx={{
-            width: '100%',
-            textAlign: 'end',
-            '&:hover': {
-              pointerEvents: 'auto',
-              cursor: 'not-allowed',
-            },
-          }}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            disabled
-            sx={{
-              width: '12rem',
-              height: '3rem',
-            }}
-          >
-            Login
-          </Button>
-        </Box>
-
       </Paper>
     </Container>
   );

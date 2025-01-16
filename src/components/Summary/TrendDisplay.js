@@ -1,7 +1,5 @@
+import { Grid, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import {
-  Grid, Typography,
-} from '@mui/material';
 
 function TrendDisplay({ trend, percentWidth }) {
   let panelClass = 'trend-display--hide';
@@ -16,26 +14,24 @@ function TrendDisplay({ trend, percentWidth }) {
   if (trend.percentChange !== undefined) {
     if (trend.percentChange >= 0) {
       trendClass = 'trend-display__percent-change--positive';
-      trendValue = `+${trend.percentChange} %`
+      trendValue = `+${trend.percentChange} %`;
     } else {
       trendClass = 'trend-display__percent-change--negative';
-      trendValue = `-${Math.abs(trend.percentChange)} %`
+      trendValue = `-${Math.abs(trend.percentChange)} %`;
     }
   }
 
   return (
     <Grid className={`trend-display ${panelClass}`}>
-      <Typography variant="h3" className="trend-display__h3-header">
+      <Typography variant='h3' className='trend-display__h3-header'>
         {`${trend.measure} Score % Change`}
       </Typography>
       <Typography className={`trend-display__percent-change ${trendClass}`}>
-        { trendValue }
+        {trendValue}
       </Typography>
-      <Typography>
-        (over the past week)
-      </Typography>
+      <Typography>(over the past week)</Typography>
     </Grid>
-  )
+  );
 }
 
 TrendDisplay.propTypes = {
@@ -44,13 +40,13 @@ TrendDisplay.propTypes = {
     percentChange: PropTypes.number,
   }),
   percentWidth: PropTypes.number,
-}
+};
 
 TrendDisplay.defaultProps = {
   trend: {
     measure: '',
   },
   percentWidth: 0,
-}
+};
 
 export default TrendDisplay;

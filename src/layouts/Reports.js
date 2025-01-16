@@ -1,20 +1,21 @@
+import { DatastoreContext } from '../context/DatastoreProvider';
+import { Grid } from '@mui/material';
 import { useContext } from 'react';
-import { Box, Grid } from '@mui/material';
-import Banner from '../components/Common/Banner';
+import env from '../env';
 import ReportBuilder from '../components/Reports/ReportBuilder';
 import SavedQueries from '../components/Reports/SavedQueries';
-import { DatastoreContext } from '../context/DatastoreProvider';
-import env from '../env';
+import styles from './Dashboard.module.css';
 
 export default function Reports() {
   const { datastore } = useContext(DatastoreContext);
   return (
-    <Box className="reports">
-      <Banner headerText="HEDIS Reports" />
-      <Grid className="reports__display">
-        { env.REACT_APP_MVP_SETTING === 'false' && <SavedQueries /> }
-        <ReportBuilder store={datastore} />
+    <div>
+      <Grid className='reports__display'>
+        <div className={styles.dashboardContent}>
+          {env.REACT_APP_MVP_SETTING === 'true' && <SavedQueries />}
+          <ReportBuilder store={datastore} />
+        </div>
       </Grid>
-    </Box>
-  )
+    </div>
+  );
 }

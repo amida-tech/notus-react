@@ -6,7 +6,6 @@ $block-class: 'rating-trends';
         display: flex;
         flex-direction: column;
         margin-bottom: 2rem;
-        color: $blue-grey-darken-1;
 
         &__main-header-align {
             display: flex;
@@ -22,7 +21,7 @@ $block-class: 'rating-trends';
             &--rating-trends {
                 width: 100%;
                 margin: 1rem auto;
-            } 
+            }
             &--options {
                 width: 100%;
                 display: flex;
@@ -39,7 +38,7 @@ $block-class: 'rating-trends';
             }
             &--rating-trends-options {
                 width: 50%;
-            } 
+            }
             &--options {
                 width: 45%;
                 height: 180px;
