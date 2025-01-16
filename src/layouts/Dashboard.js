@@ -80,6 +80,49 @@ export default function Dashboard() {
   const [tabValue, setTabValue] = useState('overview');
   const { measure } = useParams();
 
+  function initializeFilterInfo() {
+    return {
+      members: [],
+      currentResults: [],
+      displayData: [],
+      results: [],
+      filters: {},
+    };
+  }
+
+  function resetStatesForMeasure(
+    isComposite,
+    datastore,
+    activeMeasure,
+    baseColorMap
+  ) {
+    setFilterInfo(initializeFilterInfo());
+    setComposite(isComposite);
+
+    const currentResults = isComposite
+      ? datastore.currentResults
+      : getSubMeasureCurrentResults(activeMeasure, datastore.currentResults);
+
+    const displayData = isComposite
+      ? datastore.results.map((result) => ({ ...result }))
+      : expandSubMeasureResults(activeMeasure, datastore.results);
+
+    const selectedMeasures = currentResults.map((result) => result.measure);
+
+    const colorMap = isComposite
+      ? baseColorMap
+      : ColorMapping(baseColorMap, datastore.chartColorArray, currentResults);
+
+    setDisplayData(displayData);
+    setCurrentResults(currentResults);
+    setSelectedMeasures(selectedMeasures);
+    setColorMap(colorMap);
+    setFilterDisabled(false);
+    setTableFilter([]);
+    setRowEntries([]);
+    setHeaderInfo(MeasureTable.headerData(isComposite));
+  }
+
   const handleResetData = (router) => {
     const baseColorMap = datastore.currentResults.map((item, index) => ({
       value: item.measure,
@@ -90,59 +133,17 @@ export default function Dashboard() {
       setCurrentTimeline(datastore.defaultTimelineState);
       setCurrentFilters(datastore.defaultFilterState);
       setAdditionalFilterOptions(datastore.filterOptions);
-      const ActiveMeasureTest =
+
+      const isCompositeMeasure =
         activeMeasure.measure === 'composite' || activeMeasure.measure === '';
-      if (ActiveMeasureTest) {
-        setFilterInfo({
-          members: [],
-          currentResults: [],
-          displayData: [],
-          results: [],
-          filters: {},
-        });
-        setComposite(true);
-        setDisplayData(datastore.results.map((result) => ({ ...result })));
-        setCurrentResults(datastore.currentResults);
-        setSelectedMeasures(
-          datastore.currentResults.map((result) => result.measure)
-        );
-        setColorMap(baseColorMap);
-        setFilterDisabled(false);
-        setTableFilter([]);
-        setRowEntries([]);
-        setHeaderInfo(MeasureTable.headerData(true));
-      } else {
-        setFilterInfo({
-          members: [],
-          currentResults: [],
-          displayData: [],
-          results: [],
-          filters: {},
-        });
-        setComposite(false);
-        const subMeasureCurrentResults = getSubMeasureCurrentResults(
-          activeMeasure,
-          datastore.currentResults
-        );
-        setDisplayData(
-          expandSubMeasureResults(activeMeasure, datastore.results)
-        );
-        setCurrentResults(subMeasureCurrentResults);
-        setSelectedMeasures(
-          subMeasureCurrentResults.map((result) => result.measure)
-        );
-        setColorMap(
-          ColorMapping(
-            baseColorMap,
-            datastore.chartColorArray,
-            subMeasureCurrentResults
-          )
-        );
-        setFilterDisabled(false);
-        setTableFilter([]);
-        setRowEntries([]);
-        setHeaderInfo(MeasureTable.headerData(false));
-      }
+
+      resetStatesForMeasure(
+        isCompositeMeasure,
+        datastore,
+        activeMeasure,
+        baseColorMap
+      );
+
       setFilterActivated(false);
       setNoResultsFound(false);
       setIsLoading(false);
@@ -215,62 +216,20 @@ export default function Dashboard() {
         color:
           index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
       }));
+
       setCurrentTimeline(datastore.defaultTimelineState);
       setCurrentFilters(datastore.defaultFilterState);
       setAdditionalFilterOptions(datastore.filterOptions);
-      const ActiveMeasureTest =
+
+      const isCompositeMeasure =
         activeMeasure.measure === 'composite' || activeMeasure.measure === '';
-      if (ActiveMeasureTest) {
-        setFilterInfo({
-          members: [],
-          currentResults: [],
-          displayData: [],
-          results: [],
-          filters: {},
-        });
-        setComposite(true);
-        setDisplayData(datastore.results.map((result) => ({ ...result })));
-        setCurrentResults(datastore.currentResults);
-        setSelectedMeasures(
-          datastore.currentResults.map((result) => result.measure)
-        );
-        setColorMap(baseColorMap);
-        setFilterDisabled(false);
-        setTableFilter([]);
-        setRowEntries([]);
-        setHeaderInfo(MeasureTable.headerData(true));
-      } else {
-        setFilterInfo({
-          members: [],
-          currentResults: [],
-          displayData: [],
-          results: [],
-          filters: {},
-        });
-        setComposite(false);
-        const subMeasureCurrentResults = getSubMeasureCurrentResults(
-          activeMeasure,
-          datastore.currentResults
-        );
-        setDisplayData(
-          expandSubMeasureResults(activeMeasure, datastore.results)
-        );
-        setCurrentResults(subMeasureCurrentResults);
-        setSelectedMeasures(
-          subMeasureCurrentResults.map((result) => result.measure)
-        );
-        setColorMap(
-          ColorMapping(
-            baseColorMap,
-            datastore.chartColorArray,
-            subMeasureCurrentResults
-          )
-        );
-        setFilterDisabled(false);
-        setTableFilter([]);
-        setRowEntries([]);
-        setHeaderInfo(MeasureTable.headerData(false));
-      }
+
+      resetStatesForMeasure(
+        isCompositeMeasure,
+        datastore,
+        activeMeasure,
+        baseColorMap
+      );
     }
   }, [
     setTableFilter,
@@ -558,134 +517,132 @@ export default function Dashboard() {
     }
   };
   return (
-      <Box className={styles.dashboard}>
-        <Box>
-          <Grid container spacing={0} sx={{}}>
-            {/* HEDIS Dashboard Banner */}
-            <div className={styles.dashboardContent}>
-              <Grid item className='dashboard__summary' sm={12}>
-                <Banner
-                  headerText='HEDIS Dashboard'
-                  lastUpdated={datastore.lastUpdated}
-                />
-              </Grid>
+    <Box className={styles.dashboard}>
+      <Box>
+        <Grid container spacing={0} sx={{}}>
+          {/* HEDIS Dashboard Banner */}
+          <div className={styles.dashboardContent}>
+            <Grid item className='dashboard__summary' sm={12}>
+              <Banner
+                headerText='HEDIS Dashboard'
+                lastUpdated={datastore.lastUpdated}
+              />
+            </Grid>
 
-              {/* Ratings & Trends */}
-              <Grid item xs={12}>
-                {isLoading ? (
-                  <Skeleton variant='rectangular' height={200} />
-                ) : (
-                  <RatingTrends
-                    activeMeasure={activeMeasure}
-                    trends={datastore.trends}
-                    info={datastore.info}
-                  />
-                )}
-              </Grid>
-
-              {/* Nothing found, no results found Snackbar */}
-              {!noResultsFound && (
-                <Snackbar
-                  open={filterActivated}
-                  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                  message="Filters are active. To reset, click on 'RESET FILTERS' in the filter panel."
-                  sx={{
-                    '& .MuiSnackbarContent-root': {
-                      backgroundColor: '#DFF4FC',
-                      color: '#0E3D73',
-                    },
-                  }}
+            {/* Ratings & Trends */}
+            <Grid item xs={12}>
+              {isLoading ? (
+                <Skeleton variant='rectangular' height={200} />
+              ) : (
+                <RatingTrends
+                  activeMeasure={activeMeasure}
+                  trends={datastore.trends}
+                  info={datastore.info}
                 />
               )}
-              {/* Alert - no results found */}
-              <Alert
-                openAlert={noResultsFound}
-                setOpenAlert={setNoResultsFound}
-                title='NO RESULTS FOUND'
-                noResultsALERT
-                handleResetData={handleResetData}
+            </Grid>
+
+            {/* Nothing found, no results found Snackbar */}
+            {!noResultsFound && (
+              <Snackbar
+                open={filterActivated}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                message="Filters are active. To reset, click on 'RESET FILTERS' in the filter panel."
+                sx={{
+                  '& .MuiSnackbarContent-root': {
+                    backgroundColor: '#DFF4FC',
+                    color: '#0E3D73',
+                  },
+                }}
+              />
+            )}
+            {/* Alert - no results found */}
+            <Alert
+              openAlert={noResultsFound}
+              setOpenAlert={setNoResultsFound}
+              title='NO RESULTS FOUND'
+              noResultsALERT
+              handleResetData={handleResetData}
+            >
+              No results found. Please click button to reset the data to the
+              initial results.
+              <div
+                style={{
+                  fontSize: '2rem',
+                  width: '100%',
+                  textAlign: 'center',
+                  marginTop: '1rem',
+                }}
               >
-                No results found. Please click button to reset the data to the
-                initial results.
-                <div
-                  style={{
-                    fontSize: '2rem',
-                    width: '100%',
-                    textAlign: 'center',
-                    marginTop: '1rem',
-                  }}
-                >
-                  (^-^)
-                </div>
-              </Alert>
-              {/* All Measures Graph */}
-              <Grid item xs={12}>
-                {isLoading || noResultsFound ? (
-                  <Skeleton variant='rectangular' height={300} />
-                ) : (
-                  <D3Container
-                    additionalFilterOptions={additionalFilterOptions}
-                    setCurrentFilters={setCurrentFilters}
-                    selectedMeasures={selectedMeasures}
-                    currentTimeline={currentTimeline}
-                    currentFilters={currentFilters}
-                    handleFilteredDataUpdate={handleFilteredDataUpdate}
-                    setCurrentTimeline={setCurrentTimeline}
-                    filterDrawerOpen={filterDrawerOpen}
-                    toggleFilterDrawer={toggleFilterDrawer}
-                    isComposite={isComposite}
-                    setComposite={setComposite}
-                    setTableFilter={setTableFilter}
-                    history={history}
-                    isLoading={isLoading}
-                    currentResults={currentResults}
-                    setTabValue={setTabValue}
+                (^-^)
+              </div>
+            </Alert>
+            {/* All Measures Graph */}
+            <Grid item xs={12}>
+              {isLoading || noResultsFound ? (
+                <Skeleton variant='rectangular' height={300} />
+              ) : (
+                <D3Container
+                  additionalFilterOptions={additionalFilterOptions}
+                  setCurrentFilters={setCurrentFilters}
+                  selectedMeasures={selectedMeasures}
+                  currentTimeline={currentTimeline}
+                  currentFilters={currentFilters}
+                  handleFilteredDataUpdate={handleFilteredDataUpdate}
+                  setCurrentTimeline={setCurrentTimeline}
+                  filterDrawerOpen={filterDrawerOpen}
+                  toggleFilterDrawer={toggleFilterDrawer}
+                  isComposite={isComposite}
+                  setComposite={setComposite}
+                  setTableFilter={setTableFilter}
+                  history={history}
+                  isLoading={isLoading}
+                  currentResults={currentResults}
+                  setTabValue={setTabValue}
+                  activeMeasure={activeMeasure}
+                  filterDisabled={filterDisabled}
+                  displayData={displayData}
+                  colorMap={colorMap}
+                  store={datastore}
+                  graphWidth={graphWidth}
+                  setFilterActivated={setFilterActivated}
+                  setIsLoading={setIsLoading}
+                  setMemberResults={setMemberResults}
+                  setRowEntries={setRowEntries}
+                  handleResetData={handleResetData}
+                  setFilterInfo={setFilterInfo}
+                  filterCurrentResultsLength={filterInfo.currentResults.length}
+                />
+              )}
+            </Grid>
+            {/* Overview/Members display table */}
+            <Grid item xs={12}>
+              {isLoading ? (
+                <Skeleton variant='rectangular' height={500} />
+              ) : (
+                <div className='d3-container'>
+                  <DisplayTableContainer
                     activeMeasure={activeMeasure}
-                    filterDisabled={filterDisabled}
-                    displayData={displayData}
-                    colorMap={colorMap}
                     store={datastore}
-                    graphWidth={graphWidth}
-                    setFilterActivated={setFilterActivated}
-                    setIsLoading={setIsLoading}
-                    setMemberResults={setMemberResults}
-                    setRowEntries={setRowEntries}
-                    handleResetData={handleResetData}
-                    setFilterInfo={setFilterInfo}
-                    filterCurrentResultsLength={
-                      filterInfo.currentResults.length
-                    }
+                    tabValue={tabValue}
+                    isComposite={isComposite}
+                    headerInfo={headerInfo}
+                    handleSelectedMeasureChange={handleSelectedMeasureChange}
+                    selectedMeasures={selectedMeasures}
+                    currentResults={currentResults}
+                    colorMap={colorMap}
+                    tableFilter={tableFilter}
+                    handleTableFilterChange={handleTableFilterChange}
+                    rowEntries={rowEntries}
+                    setTableFilter={setTableFilter}
+                    handleTabChange={handleTabChange}
                   />
-                )}
-              </Grid>
-              {/* Overview/Members display table */}
-              <Grid item xs={12}>
-                {isLoading ? (
-                  <Skeleton variant='rectangular' height={500} />
-                ) : (
-                  <div className='d3-container'>
-                    <DisplayTableContainer
-                      activeMeasure={activeMeasure}
-                      store={datastore}
-                      tabValue={tabValue}
-                      isComposite={isComposite}
-                      headerInfo={headerInfo}
-                      handleSelectedMeasureChange={handleSelectedMeasureChange}
-                      selectedMeasures={selectedMeasures}
-                      currentResults={currentResults}
-                      colorMap={colorMap}
-                      tableFilter={tableFilter}
-                      handleTableFilterChange={handleTableFilterChange}
-                      rowEntries={rowEntries}
-                      setTableFilter={setTableFilter}
-                      handleTabChange={handleTabChange}
-                    />
-                  </div>
-                )}
-              </Grid>
-            </div>
-          </Grid>
-        </Box>
+                </div>
+              )}
+            </Grid>
+          </div>
+        </Grid>
       </Box>
+    </Box>
   );
 }

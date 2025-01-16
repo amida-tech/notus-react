@@ -87,8 +87,8 @@ export const StandardButton = ({
 
 StandardButton.propTypes = {
   children: PropTypes.node,
-  leftIcon: PropTypes.elementType,
-  rightIcon: PropTypes.elementType,
+  leftIcon: PropTypes.object,
+  rightIcon: PropTypes.object,
   props: PropTypes.object,
   variant: PropTypes.string,
   onClick: PropTypes.func,
