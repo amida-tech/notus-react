@@ -1,8 +1,8 @@
-import ReactDOM from 'react-dom';
 import App from './App';
-
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import ReactDOM from 'react-dom';
 import './assets/styles/App.scss';
+import './index.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 ReactDOM.render(
   <App />,

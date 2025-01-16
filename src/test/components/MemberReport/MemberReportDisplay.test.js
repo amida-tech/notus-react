@@ -1,13 +1,9 @@
-import {
-  render, screen, within, fireEvent,
-} from '@testing-library/react';
-import moment from 'moment';
-import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
+import { default as datastore } from '../../data/datastore';
+import { exportUrl, memberId, memberInfo, rowData } from '../../data/DemoData';
 import { getAge } from '../../../components/Utilities/GeneralUtil';
-import {
-  exportUrl, memberId, memberInfo, rowData,
-} from '../../data/DemoData';
-import { default as datastore } from '../../data/datastore'
+import { render, screen, within, fireEvent } from '@testing-library/react';
+import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
+import moment from 'moment';
 
 describe('Member view page', () => {
   beforeEach(async () => {
@@ -18,50 +14,62 @@ describe('Member view page', () => {
         datastoreInfo={datastore.info}
         exportUrl={exportUrl}
         coverage={memberInfo.coverage}
-        coverageStatus="active"
+        coverageStatus='active'
         rowData={rowData}
         description={datastore.info.aab.description}
-      />,
-    )
+      />
+    );
     // Please keep this for when we move the loading state to the Display
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
     // await waitForElementToBeRemoved(() => container.getByText('Fetching...'))
-  })
+  });
 
   it('Headings render', () => {
-    expect(screen.getAllByRole('heading').length).toBe(4)
-    expect(screen.getByRole('heading', { name: "Reporting - Member's Data" })).toBeTruthy()
-    expect(screen.getByRole('heading', { name: 'General Information' })).toBeTruthy()
-    expect(screen.getByRole('heading', { name: 'Measure Analysis' })).toBeTruthy()
-    expect(screen.getByRole('heading', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeTruthy()
-  })
+    expect(screen.getAllByRole('heading').length).toBe(3);
+    expect(screen.getByText("Reporting - Member's Data")).toBeTruthy();
+    expect(
+      screen.getByRole('heading', { name: 'General Information' })
+    ).toBeTruthy();
+    expect(
+      screen.getByRole('heading', { name: 'Measure Analysis' })
+    ).toBeTruthy();
+    expect(
+      screen.getByRole('heading', {
+        name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
+      })
+    ).toBeTruthy();
+  });
 
   it('Buttons render', () => {
-    expect(screen.getAllByRole('button').length).toBe(4)
-    expect(screen.getByRole('button', { name: 'Export' })).toBeTruthy()
-    expect(screen.getByRole('button', { name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis' })).toBeTruthy()
-  })
+    expect(screen.getAllByRole('button').length).toBe(4);
+    expect(screen.getByRole('button', { name: 'Export' })).toBeTruthy();
+    expect(
+      screen.getByRole('button', {
+        name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
+      })
+    ).toBeTruthy();
+  });
 
   it('Links render', () => {
-    expect(screen.getAllByRole('link').length).toBe(1)
-    expect(screen.getByRole('link', { name: 'Export' })).toBeTruthy()
-  })
+    expect(screen.getAllByRole('link').length).toBe(1);
+    expect(screen.getByRole('link', { name: 'Export' })).toBeTruthy();
+  });
 
   it('Tooltips render', () => {
-    const tooltips = screen.getAllByLabelText('info-button')
-    expect(tooltips.length).toBe(2)
-  })
+    const tooltips = screen.getAllByLabelText('info-button');
+    expect(tooltips.length).toBe(2);
+  });
 
   it('Export button render', () => {
-    const exportBtn = screen.getByRole('link', { name: 'Export' })
-    const location = exportBtn.href.split('/').slice(-2).join('/')
-    expect(location).toBe(exportUrl)
+    const exportBtn = screen.getByRole('link', { name: 'Export' });
+    const location = exportBtn.href.split('/').slice(-2).join('/');
+    expect(location).toBe(exportUrl);
     // need to upgrade RTL for userEvents
-  })
+  });
 
   it('Member and policy info labels render', () => {
-    const renderedMemberInfo = screen.getAllByRole('listitem')
-    expect(renderedMemberInfo.length).toBe(13)
+    const renderedMemberInfo = screen.getAllByRole('listitem');
+    expect(renderedMemberInfo.length).toBe(13);
     const memberInfoLabels = [
       'Member ID:',
       'Date of Birth:',
@@ -76,14 +84,15 @@ describe('Member view page', () => {
       'Relationship:',
       'Type:',
       'Participation Period:',
-    ]
-    memberInfoLabels.forEach((label, i) => expect(within(renderedMemberInfo[i])
-      .getByText(label)).toBeTruthy())
-  })
+    ];
+    memberInfoLabels.forEach((label, i) =>
+      expect(within(renderedMemberInfo[i]).getByText(label)).toBeTruthy()
+    );
+  });
 
   it('Member and policy data render', () => {
-    const renderedMemberInfo = screen.getAllByRole('listitem')
-    const insurance = memberInfo.coverage[0]
+    const renderedMemberInfo = screen.getAllByRole('listitem');
+    const insurance = memberInfo.coverage[0];
     // we need more complete test data for this to be fleshed out
     const memberInfoData = [
       memberId,
@@ -91,43 +100,48 @@ describe('Member view page', () => {
       getAge(memberInfo.dob),
       memberInfo.gender,
       'ACTIVE',
-      `${moment(memberInfo.coverage[0].period.start.value)
-        .format('MM/DD/YYYY')} - ${moment(memberInfo.coverage[0].period.end.value)
-        .format('MM/DD/YYYY')}`,
+      `${moment(memberInfo.coverage[0].period.start.value).format(
+        'MM/DD/YYYY'
+      )} - ${moment(memberInfo.coverage[0].period.end.value).format(
+        'MM/DD/YYYY'
+      )}`,
       insurance.id.value,
       insurance.payor[0].reference.value,
       'N/A',
       'N/A',
       insurance.relationship.coding[0].code.value,
       `${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}`,
-      `${moment(memberInfo.coverage[0].period.start.value)
-        .format('MM/DD/YYYY')} - ${moment(memberInfo.coverage[0].period.end.value)
-        .format('MM/DD/YYYY')}`,
-    ]
-    memberInfoData.forEach((label, i) => expect(within(renderedMemberInfo[i])
-      .getByText(label)).toBeTruthy())
-  })
+      `${moment(memberInfo.coverage[0].period.start.value).format(
+        'MM/DD/YYYY'
+      )} - ${moment(memberInfo.coverage[0].period.end.value).format(
+        'MM/DD/YYYY'
+      )}`,
+    ];
+    memberInfoData.forEach((label, i) =>
+      expect(within(renderedMemberInfo[i]).getByText(label)).toBeTruthy()
+    );
+  });
 
   it('Tooltips pop in and out', () => {
     const tooltips = [
       'The basic information about this member, including provider and payor information.',
       'Information about measurement compliance, from dates to practitioners involved, and assessment on how to improve.',
-    ]
-    const tooltipBtns = screen.getAllByLabelText('info-button')
+    ];
+    const tooltipBtns = screen.getAllByLabelText('info-button');
 
     tooltipBtns.forEach((tip, i) => {
-      fireEvent.click(tip)
-      expect(screen.getByText(tooltips[i])).toBeTruthy()
-      fireEvent.click(screen.getByText('CLOSE'))
-      expect(screen.queryByText(tooltips[i])).toBeNull()
-    })
-  })
+      fireEvent.click(tip);
+      expect(screen.getByText(tooltips[i])).toBeTruthy();
+      fireEvent.click(screen.getByText('CLOSE'));
+      expect(screen.queryByText(tooltips[i])).toBeNull();
+    });
+  });
 
   it('Measure analysis labels render', async () => {
-    const dsDescription = datastore.info.aab.description[0]
-    expect(screen.getByText(dsDescription)).toBeTruthy()
+    const dsDescription = datastore.info.aab.description[0];
+    expect(screen.getByText(dsDescription)).toBeTruthy();
 
-    const memberReportTable = screen.getByLabelText('member table')
+    const memberReportTable = screen.getByLabelText('member table');
 
     const analysisLabels = [
       'Measure',
@@ -137,25 +151,26 @@ describe('Member view page', () => {
       'Practitioner',
       'Dates',
       'Recommendations',
-    ]
-    analysisLabels.forEach(
-      (label) => expect(within(memberReportTable)
-        .getByText(label)).toBeTruthy(),
-    )
-    const analysisData = rowData[0]
+    ];
+    analysisLabels.forEach((label) =>
+      expect(within(memberReportTable).getByText(label)).toBeTruthy()
+    );
+    const analysisData = rowData[0];
 
-    const boolCounter = 0
+    const boolCounter = 0;
 
     Object.values(analysisData).forEach((column) => {
       if (typeof column === 'boolean' && column === true) {
-        const positiveArr = within(memberReportTable).getAllByTestId('CheckCircleIcon')
-        expect(positiveArr[boolCounter]).toBeTruthy()
+        const positiveArr =
+          within(memberReportTable).getAllByTestId('CheckCircleIcon');
+        expect(positiveArr[boolCounter]).toBeTruthy();
       } else if (column.length === 0 || column === false) {
-        const negativeArr = within(memberReportTable).getAllByTestId('CancelIcon')
-        expect(negativeArr[boolCounter]).toBeTruthy()
+        const negativeArr =
+          within(memberReportTable).getAllByTestId('CancelIcon');
+        expect(negativeArr[boolCounter]).toBeTruthy();
       } else {
-        expect(within(memberReportTable).getByText(column)).toBeTruthy()
+        expect(within(memberReportTable).getByText(column)).toBeTruthy();
       }
-    })
-  })
-})
+    });
+  });
+});

@@ -37,26 +37,21 @@ $block-class: 'chart-bar';
 
     &__date-text {
       .MuiInputBase-input {
-        color: $blue-grey-darken-4;
       }
     }
 
     &__between-text {
       margin: 0 1rem;
-      color: $blue-grey-darken-4;
     }
 
     &__date-range-picker {
       .MuiDateRangePickerDay-day {
-        color: $blue-grey-darken-4;
       }
 
       .MuiTypography-subtitle1 {
-        color: $blue-grey-darken-4;
       }
 
       .MuiPickersDay-today {
-        color: $primary-blue;
       }
     }
   }

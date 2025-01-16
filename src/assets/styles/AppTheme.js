@@ -30,7 +30,7 @@ const theme = createTheme({
       dark: '#235F26',
     },
     text: {
-      primary: '#263238',
+      primary: '#0E3D73',
       secondary: '#546E7A',
       disabled: '#90A4AE',
     },
@@ -54,11 +54,23 @@ const theme = createTheme({
       D1: '#546E7A',
       D2: '#455A64',
       D3: '#37474F',
-      D4: '#263238',
+      D4: '#0E3D73',
     },
   },
   typography: {
-    color: '#263238',
+    color: '#000000',
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
   },
   components: {
 

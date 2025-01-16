@@ -1,11 +1,18 @@
 $block-class: 'login';
+@import 'colors';
 
 @at-root {
     .#{$block-class} {
 
+        &__title {
+          font-size: 2rem;
+          font-weight: bold;
+          color: $blue-grey-darken-4;
+        }
+
         & &__header-section {
-          backdrop-filter: blur(1px);
-          background-color: rgba(255, 255, 255, 0.5);
+          backdrop-filter: blur(5px);
+          background-color: $default-white;
           border-radius: 2rem;
           padding: 2rem;
           float: right;
