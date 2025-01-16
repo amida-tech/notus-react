@@ -80,6 +80,7 @@ export default function Dashboard() {
   const [tabValue, setTabValue] = useState('overview');
   const { measure } = useParams();
 
+  // Function that initiializes filter information
   function initializeFilterInfo() {
     return {
       members: [],
@@ -90,36 +91,41 @@ export default function Dashboard() {
     };
   }
 
+  // Function that resets states based on measure type (composite or not)
   function resetStatesForMeasure(
     isComposite,
     datastore,
     activeMeasure,
     baseColorMap
   ) {
+    // Initialize filter information
     setFilterInfo(initializeFilterInfo());
+    // Set composite data boolean
     setComposite(isComposite);
-
+    // Based on isComposite (measure type), determines currentResults
     const currentResults = isComposite
       ? datastore.currentResults
       : getSubMeasureCurrentResults(activeMeasure, datastore.currentResults);
-
+    // Based on isComposite (measure type), determines displayData
     const displayData = isComposite
       ? datastore.results.map((result) => ({ ...result }))
       : expandSubMeasureResults(activeMeasure, datastore.results);
-
+    // Extracts measures from the currentResults
     const selectedMeasures = currentResults.map((result) => result.measure);
-
+    // Based on isComposite (measure type), generates colorMape
     const colorMap = isComposite
       ? baseColorMap
       : ColorMapping(baseColorMap, datastore.chartColorArray, currentResults);
-
+    // Updates state with determined values
     setDisplayData(displayData);
     setCurrentResults(currentResults);
     setSelectedMeasures(selectedMeasures);
     setColorMap(colorMap);
+    // Enables filters and resets table filters and row entries
     setFilterDisabled(false);
     setTableFilter([]);
     setRowEntries([]);
+    // Based on isComposite, updates the header information
     setHeaderInfo(MeasureTable.headerData(isComposite));
   }
 
@@ -129,23 +135,30 @@ export default function Dashboard() {
       color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
     }));
     if (router === undefined) {
+      // Changes isLoading to true
       setIsLoading(true);
+
+      // Sets the default timeline, filter states, and filter options
       setCurrentTimeline(datastore.defaultTimelineState);
       setCurrentFilters(datastore.defaultFilterState);
       setAdditionalFilterOptions(datastore.filterOptions);
 
+      // Determines if the active measure is composite or not
       const isCompositeMeasure =
         activeMeasure.measure === 'composite' || activeMeasure.measure === '';
 
+      //Reset state for isCompositeMeasure, datastore, activeMeasure, & baseColorMap
       resetStatesForMeasure(
         isCompositeMeasure,
         datastore,
         activeMeasure,
         baseColorMap
       );
-
+      // Changes filterActivated to false
       setFilterActivated(false);
+      // Changes noResultsFound to false
       setNoResultsFound(false);
+      // Changes isLoading to false
       setIsLoading(false);
     } else if (router === 'ALL MEASURES') {
       const otherMeasureFinder = filterInfo.results.filter(
@@ -216,14 +229,16 @@ export default function Dashboard() {
         color:
           index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
       }));
-
+      // Sets the default timeline, filter states, and filter options
       setCurrentTimeline(datastore.defaultTimelineState);
       setCurrentFilters(datastore.defaultFilterState);
       setAdditionalFilterOptions(datastore.filterOptions);
 
+// Determines if the active measure is composite or not
       const isCompositeMeasure =
         activeMeasure.measure === 'composite' || activeMeasure.measure === '';
 
+        //Reset state for isCompositeMeasure, datastore, activeMeasure, & baseColorMap
       resetStatesForMeasure(
         isCompositeMeasure,
         datastore,
