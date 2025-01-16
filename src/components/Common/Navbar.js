@@ -74,7 +74,7 @@ export default function Navbar() {
               <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                 <MenuItem
                   onClick={(e) => {
-                    handleLogout;
+                    handleLogout();
                   }}
                 >
                   <Link to={{ pathname: '/auth/login' }} onClick={logout}>

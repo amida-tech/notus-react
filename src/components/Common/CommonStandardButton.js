@@ -1,4 +1,5 @@
 import { Button, Grid, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 
 // A standard button with props as follows:
 // children - Renders the wrapped children
@@ -83,3 +84,12 @@ export const StandardButton = ({
     </Button>
   );
 };
+
+StandardButton.propTypes = {
+  children: PropTypes.node,
+  leftIcon: PropTypes.elementType,
+  rightIcon: PropTypes.elementType,
+  props: PropTypes.object,
+  variant: PropTypes.string,
+  onClick: PropTypes.func,
+}
