@@ -1,16 +1,14 @@
 import { Box } from '@mui/system';
 import { Grid, Typography, Rating } from '@mui/material';
-import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils';
 import HelpIcon from '@mui/icons-material/Help';
-import Info from '../Common/Info';
 import PropTypes from 'prop-types';
 import ToolTip from '@mui/material/Tooltip';
+import Info from '../Common/Info';
+import { mainTrendCreator, sortedTrendsCreator } from './RatingTrendsUtils';
 import TrendDisplay from './TrendDisplay';
 
-const ratingTrendsTip =
-  'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
-const starsTip =
-  'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
+const ratingTrendsTip = 'Rating and Trends displays the current projected star rating as well as highlighting large changes in tracked measures.';
+const starsTip = 'Star rating subject to change depending on measures and other resources. For more information, please contact NCQA.';
 
 function showStars(activeMeasure) {
   let returnBool = false;
@@ -28,21 +26,19 @@ function RatingTrends({ activeMeasure, trends, info }) {
   const biggestLoss = { measure: '', percentChange: undefined };
 
   const measureTrend = trends.find(
-    (trend) => trend.measure === activeMeasure.measure
+    (trend) => trend.measure === activeMeasure.measure,
   );
   const mainTrend = mainTrendCreator(activeMeasure, info, measureTrend);
   const sortedTrends = sortedTrendsCreator(activeMeasure, trends, measureTrend);
 
   if (sortedTrends.length > 1) {
     let { measure } = sortedTrends[0];
-    biggestGain.measure =
-      info[measure] !== undefined ? info[measure].displayLabel : measure;
+    biggestGain.measure = info[measure] !== undefined ? info[measure].displayLabel : measure;
     biggestGain.percentChange = sortedTrends[0].percentChange;
 
     measure = sortedTrends[sortedTrends.length - 1].measure;
     biggestLoss.measure = info[measure]?.displayLabel;
-    biggestLoss.percentChange =
-      sortedTrends[sortedTrends.length - 1].percentChange;
+    biggestLoss.percentChange = sortedTrends[sortedTrends.length - 1].percentChange;
 
     return renderUI(activeMeasure, mainTrend, {
       displayAll: true,
@@ -59,10 +55,10 @@ function RatingTrends({ activeMeasure, trends, info }) {
 }
 
 const renderUI = (activeMeasure, mainTrend, renderOptions) => (
-  <Box className='rating-trends'>
-    <Box className='rating-trends__main-header-align'>
+  <Box className="rating-trends">
+    <Box className="rating-trends__main-header-align">
       <Typography
-        variant='h6'
+        variant="h6"
         // className="rating-trends__h2-header"
       >
         Ratings & Trends
@@ -70,37 +66,37 @@ const renderUI = (activeMeasure, mainTrend, renderOptions) => (
       <Info infoText={ratingTrendsTip} />
     </Box>
 
-    <Box className='rating-trends__display-box'>
-      <Box className='rating-trends__panel-box'>
+    <Box className="rating-trends__display-box">
+      <Box className="rating-trends__panel-box">
         <Grid
           className={`rating-trends__panel 
           rating-trends__panel${
             renderOptions.displayAll ? '--width-25' : '--width-50'
           }`}
         >
-          <Grid className='rating-trends__header-align'>
-            <Typography variant='h3' className='rating-trends__h3-header'>
+          <Grid className="rating-trends__header-align">
+            <Typography variant="h3" className="rating-trends__h3-header">
               Star Rating
             </Typography>
             <ToolTip title={starsTip}>
-              <HelpIcon className='rating-trends__help-icon' fontSize='small' />
+              <HelpIcon className="rating-trends__help-icon" fontSize="small" />
             </ToolTip>
           </Grid>
           {showStars(activeMeasure) ? (
             <Rating
-              className='rating-trends__star-rating'
-              name='read-only'
+              className="rating-trends__star-rating"
+              name="read-only"
               value={activeMeasure.starRating}
               precision={0.5}
               readOnly
             />
           ) : (
-            <Typography className='rating-trends__not-available'>
+            <Typography className="rating-trends__not-available">
               N/A
             </Typography>
           )}
           <ToolTip title={activeMeasure.title} arrow>
-            <Typography className='rating-trends__star-rating-label'>
+            <Typography className="rating-trends__star-rating-label">
               {activeMeasure.shortLabel && `(${activeMeasure.shortLabel})`}
             </Typography>
           </ToolTip>
@@ -133,7 +129,7 @@ RatingTrends.propTypes = {
   trends: PropTypes.arrayOf(
     PropTypes.shape({
       measure: PropTypes.string,
-    })
+    }),
   ),
 };
 

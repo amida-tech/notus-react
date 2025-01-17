@@ -61114,9 +61114,11 @@ export default {
       numerator: 458,
       initialPopulation: 796,
       exclusions: 141,
-      label: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
+      label:
+        'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
       shortLabel: 'AAB',
-      title: 'Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
+      title:
+        'Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
     },
     {
       measure: 'aise',
@@ -61226,7 +61228,8 @@ export default {
           numerator: 353,
           initialPopulation: 533,
           exclusions: 279,
-          label: 'APM-E - Blood Glucose Monitoring for Children and Adolescents on Antipsychotics',
+          label:
+            'APM-E - Blood Glucose Monitoring for Children and Adolescents on Antipsychotics',
         },
         {
           measure: 'apme-2',
@@ -61236,7 +61239,8 @@ export default {
           numerator: 365,
           initialPopulation: 533,
           exclusions: 279,
-          label: 'APM-E - Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
+          label:
+            'APM-E - Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
         },
         {
           measure: 'apme-3',
@@ -61246,12 +61250,15 @@ export default {
           numerator: 287,
           initialPopulation: 533,
           exclusions: 279,
-          label: 'APM-E - Blood Glucose and Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
+          label:
+            'APM-E - Blood Glucose and Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
         },
       ],
-      label: 'APM-E - Metabolic Monitoring for Children and Adolescents on Antipsychotics',
+      label:
+        'APM-E - Metabolic Monitoring for Children and Adolescents on Antipsychotics',
       shortLabel: 'APM-E',
-      title: 'Metabolic Monitoring for Children and Adolescents on Antipsychotics',
+      title:
+        'Metabolic Monitoring for Children and Adolescents on Antipsychotics',
     },
     {
       measure: 'asfe',
@@ -61281,7 +61288,8 @@ export default {
           numerator: 201,
           initialPopulation: 814,
           exclusions: 429,
-          label: 'ASF-E - Counseling or Other Follow-Up on Positive Screen for Unhealthy Alcohol Use',
+          label:
+            'ASF-E - Counseling or Other Follow-Up on Positive Screen for Unhealthy Alcohol Use',
         },
       ],
       label: 'ASF-E - Unhealthy Alcohol Use Screening and Follow-Up',
@@ -61392,7 +61400,8 @@ export default {
           numerator: 176,
           initialPopulation: 344,
           exclusions: 85,
-          label: 'CIS-E - Childhood Immunization Status: Pneumococcal Conjugate',
+          label:
+            'CIS-E - Childhood Immunization Status: Pneumococcal Conjugate',
         },
         {
           measure: 'cise-8',
@@ -61490,7 +61499,8 @@ export default {
           numerator: 314,
           initialPopulation: 663,
           exclusions: 349,
-          label: 'COU-1 - 15 or More Days of Opioid Medications in 30 Day Period',
+          label:
+            'COU-1 - 15 or More Days of Opioid Medications in 30 Day Period',
         },
         {
           measure: 'cou-2',
@@ -61500,7 +61510,8 @@ export default {
           numerator: 199,
           initialPopulation: 663,
           exclusions: 349,
-          label: 'COU-2 - 31 or More Days of Opioid Medications in 62 Day Period',
+          label:
+            'COU-2 - 31 or More Days of Opioid Medications in 62 Day Period',
         },
       ],
       label: 'COU - Risk of Continued Opioid Use',
@@ -61606,7 +61617,8 @@ export default {
           label: 'DRR-E - Depression Response for Adolescents and Adults',
         },
       ],
-      label: 'DRR-E - Depression Remission or Response for Adolescents and Adults',
+      label:
+        'DRR-E - Depression Remission or Response for Adolescents and Adults',
       shortLabel: 'DRR-E',
       title: 'Depression Remission or Response for Adolescents and Adults',
     },
@@ -61638,10 +61650,12 @@ export default {
           numerator: 332,
           initialPopulation: 1412,
           exclusions: 720,
-          label: 'DSF-E - Follow-Up on Positive Depression Screen for Adolescents and Adults',
+          label:
+            'DSF-E - Follow-Up on Positive Depression Screen for Adolescents and Adults',
         },
       ],
-      label: 'DSF-E - Depression Screening and Follow-Up for Adolescents and Adults',
+      label:
+        'DSF-E - Depression Screening and Follow-Up for Adolescents and Adults',
       shortLabel: 'DSF-E',
       title: 'Depression Screening and Follow-Up for Adolescents and Adults',
     },
@@ -61663,7 +61677,8 @@ export default {
           numerator: 268,
           initialPopulation: 425,
           exclusions: 79,
-          label: 'FUM-1 - Follow-Up Within 7 Days of Emergancy Department Visit',
+          label:
+            'FUM-1 - Follow-Up Within 7 Days of Emergancy Department Visit',
         },
         {
           measure: 'fum-2',
@@ -61673,10 +61688,12 @@ export default {
           numerator: 208,
           initialPopulation: 425,
           exclusions: 79,
-          label: 'FUM-2 - Follow-Up Within 30 Days of Emergancy Department Visit',
+          label:
+            'FUM-2 - Follow-Up Within 30 Days of Emergancy Department Visit',
         },
       ],
-      label: 'FUM - Follow-Up After Emergency Department Visit for Mental Illness',
+      label:
+        'FUM - Follow-Up After Emergency Department Visit for Mental Illness',
       shortLabel: 'FUM',
       title: 'Follow-Up After Emergency Department Visit for Mental Illness',
     },
@@ -61911,7 +61928,8 @@ export default {
           numerator: 364,
           initialPopulation: 621,
           exclusions: 281,
-          label: 'UOP-3 - Use of Opioids from Multiple Prescribers and Pharmacies',
+          label:
+            'UOP-3 - Use of Opioids from Multiple Prescribers and Pharmacies',
         },
       ],
       label: 'UOP - Use of Opioids from Multiple Providers',
@@ -61927,9 +61945,11 @@ export default {
       numerator: 123,
       initialPopulation: 167,
       exclusions: 41,
-      label: 'URI - Appropriate Treatment for Children With Upper Respiratory Infection',
+      label:
+        'URI - Appropriate Treatment for Children With Upper Respiratory Infection',
       shortLabel: 'URI',
-      title: 'Appropriate Treatment for Children With Upper Respiratory Infection',
+      title:
+        'Appropriate Treatment for Children With Upper Respiratory Infection',
     },
     {
       measure: 'composite',
@@ -62304,9 +62324,11 @@ export default {
       numerator: 458,
       initialPopulation: 796,
       exclusions: 141,
-      label: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
+      label:
+        'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
       shortLabel: 'AAB',
-      title: 'Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
+      title:
+        'Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
     },
     {
       measure: 'adde',
@@ -62416,7 +62438,8 @@ export default {
           numerator: 353,
           initialPopulation: 533,
           exclusions: 279,
-          label: 'APM-E - Blood Glucose Monitoring for Children and Adolescents on Antipsychotics',
+          label:
+            'APM-E - Blood Glucose Monitoring for Children and Adolescents on Antipsychotics',
         },
         {
           measure: 'apme-2',
@@ -62426,7 +62449,8 @@ export default {
           numerator: 365,
           initialPopulation: 533,
           exclusions: 279,
-          label: 'APM-E - Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
+          label:
+            'APM-E - Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
         },
         {
           measure: 'apme-3',
@@ -62436,12 +62460,15 @@ export default {
           numerator: 287,
           initialPopulation: 533,
           exclusions: 279,
-          label: 'APM-E - Blood Glucose and Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
+          label:
+            'APM-E - Blood Glucose and Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
         },
       ],
-      label: 'APM-E - Metabolic Monitoring for Children and Adolescents on Antipsychotics',
+      label:
+        'APM-E - Metabolic Monitoring for Children and Adolescents on Antipsychotics',
       shortLabel: 'APM-E',
-      title: 'Metabolic Monitoring for Children and Adolescents on Antipsychotics',
+      title:
+        'Metabolic Monitoring for Children and Adolescents on Antipsychotics',
     },
     {
       measure: 'asfe',
@@ -62471,7 +62498,8 @@ export default {
           numerator: 201,
           initialPopulation: 814,
           exclusions: 429,
-          label: 'ASF-E - Counseling or Other Follow-Up on Positive Screen for Unhealthy Alcohol Use',
+          label:
+            'ASF-E - Counseling or Other Follow-Up on Positive Screen for Unhealthy Alcohol Use',
         },
       ],
       label: 'ASF-E - Unhealthy Alcohol Use Screening and Follow-Up',
@@ -62582,7 +62610,8 @@ export default {
           numerator: 176,
           initialPopulation: 344,
           exclusions: 85,
-          label: 'CIS-E - Childhood Immunization Status: Pneumococcal Conjugate',
+          label:
+            'CIS-E - Childhood Immunization Status: Pneumococcal Conjugate',
         },
         {
           measure: 'cise-8',
@@ -62680,7 +62709,8 @@ export default {
           numerator: 314,
           initialPopulation: 663,
           exclusions: 349,
-          label: 'COU-1 - 15 or More Days of Opioid Medications in 30 Day Period',
+          label:
+            'COU-1 - 15 or More Days of Opioid Medications in 30 Day Period',
         },
         {
           measure: 'cou-2',
@@ -62690,7 +62720,8 @@ export default {
           numerator: 199,
           initialPopulation: 663,
           exclusions: 349,
-          label: 'COU-2 - 31 or More Days of Opioid Medications in 62 Day Period',
+          label:
+            'COU-2 - 31 or More Days of Opioid Medications in 62 Day Period',
         },
       ],
       label: 'COU - Risk of Continued Opioid Use',
@@ -62796,7 +62827,8 @@ export default {
           label: 'DRR-E - Depression Response for Adolescents and Adults',
         },
       ],
-      label: 'DRR-E - Depression Remission or Response for Adolescents and Adults',
+      label:
+        'DRR-E - Depression Remission or Response for Adolescents and Adults',
       shortLabel: 'DRR-E',
       title: 'Depression Remission or Response for Adolescents and Adults',
     },
@@ -62828,10 +62860,12 @@ export default {
           numerator: 332,
           initialPopulation: 1412,
           exclusions: 720,
-          label: 'DSF-E - Follow-Up on Positive Depression Screen for Adolescents and Adults',
+          label:
+            'DSF-E - Follow-Up on Positive Depression Screen for Adolescents and Adults',
         },
       ],
-      label: 'DSF-E - Depression Screening and Follow-Up for Adolescents and Adults',
+      label:
+        'DSF-E - Depression Screening and Follow-Up for Adolescents and Adults',
       shortLabel: 'DSF-E',
       title: 'Depression Screening and Follow-Up for Adolescents and Adults',
     },
@@ -62853,7 +62887,8 @@ export default {
           numerator: 268,
           initialPopulation: 425,
           exclusions: 79,
-          label: 'FUM-1 - Follow-Up Within 7 Days of Emergancy Department Visit',
+          label:
+            'FUM-1 - Follow-Up Within 7 Days of Emergancy Department Visit',
         },
         {
           measure: 'fum-2',
@@ -62863,10 +62898,12 @@ export default {
           numerator: 208,
           initialPopulation: 425,
           exclusions: 79,
-          label: 'FUM-2 - Follow-Up Within 30 Days of Emergancy Department Visit',
+          label:
+            'FUM-2 - Follow-Up Within 30 Days of Emergancy Department Visit',
         },
       ],
-      label: 'FUM - Follow-Up After Emergency Department Visit for Mental Illness',
+      label:
+        'FUM - Follow-Up After Emergency Department Visit for Mental Illness',
       shortLabel: 'FUM',
       title: 'Follow-Up After Emergency Department Visit for Mental Illness',
     },
@@ -63101,7 +63138,8 @@ export default {
           numerator: 364,
           initialPopulation: 621,
           exclusions: 281,
-          label: 'UOP-3 - Use of Opioids from Multiple Prescribers and Pharmacies',
+          label:
+            'UOP-3 - Use of Opioids from Multiple Prescribers and Pharmacies',
         },
       ],
       label: 'UOP - Use of Opioids from Multiple Providers',
@@ -63117,9 +63155,11 @@ export default {
       numerator: 123,
       initialPopulation: 167,
       exclusions: 41,
-      label: 'URI - Appropriate Treatment for Children With Upper Respiratory Infection',
+      label:
+        'URI - Appropriate Treatment for Children With Upper Respiratory Infection',
       shortLabel: 'URI',
-      title: 'Appropriate Treatment for Children With Upper Respiratory Infection',
+      title:
+        'Appropriate Treatment for Children With Upper Respiratory Infection',
     },
   ],
   info: {
@@ -63130,9 +63170,12 @@ export default {
     },
     aab: {
       domainOfCare: 'EOC',
-      title: 'Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
+      title:
+        'Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
       displayLabel: 'AAB',
-      description: ['AAB assesses the percentage of episodes for members 3 months of age and older with a diagnosis of acute bronchitis/bronchiolitis that did not result in an antibiotic dispensing event.'],
+      description: [
+        'AAB assesses the percentage of episodes for members 3 months of age and older with a diagnosis of acute bronchitis/bronchiolitis that did not result in an antibiotic dispensing event.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: false,
@@ -63143,7 +63186,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Follow-Up Care for Children Prescribed ADHD Medication',
       displayLabel: 'ADD-E',
-      description: ['ADD-E assesses follow-up care for children prescribed an ADHD medication in the Initiation and Continuation & Maintenance phases.'],
+      description: [
+        'ADD-E assesses follow-up care for children prescribed an ADHD medication in the Initiation and Continuation & Maintenance phases.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63172,9 +63217,12 @@ export default {
     },
     apme: {
       domainOfCare: 'ECDS',
-      title: 'Metabolic Monitoring for Children and Adolescents on Antipsychotics',
+      title:
+        'Metabolic Monitoring for Children and Adolescents on Antipsychotics',
       displayLabel: 'APM-E',
-      description:[ 'APM-E assesses the percentage of children and adolescents with ongoing antipsychotic medication use who had metabolic testing during the year.'],
+      description: [
+        'APM-E assesses the percentage of children and adolescents with ongoing antipsychotic medication use who had metabolic testing during the year.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63183,7 +63231,8 @@ export default {
     },
     'apme-1': {
       domainOfCare: 'ECDS',
-      title: 'Blood Glucose Monitoring for Children and Adolescents on Antipsychotics',
+      title:
+        'Blood Glucose Monitoring for Children and Adolescents on Antipsychotics',
       displayLabel: 'APM-E: Blood Glucose Monitoring',
       measureType: 'process',
       weight: 1,
@@ -63193,7 +63242,8 @@ export default {
     },
     'apme-2': {
       domainOfCare: 'ECDS',
-      title: 'Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
+      title:
+        'Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
       displayLabel: 'APM-E: Cholesterol Monitoring',
       measureType: 'process',
       weight: 1,
@@ -63203,7 +63253,8 @@ export default {
     },
     'apme-3': {
       domainOfCare: 'ECDS',
-      title: 'Blood Glucose and Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
+      title:
+        'Blood Glucose and Cholesterol Monitoring for Children and Adolescents on Antipsychotics',
       displayLabel: 'APM-E: Blood Glucose and Cholesterol Monitoring',
       measureType: 'process',
       weight: 1,
@@ -63215,7 +63266,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Unhealthy Alcohol Use Screening and Follow-Up',
       displayLabel: 'ASF-E',
-      description:[ 'ASF-E assesses the percentage of members 18 years and older who were screened for unhealthy alcohol use and received appropriate follow-up care if they screened positive.'],
+      description: [
+        'ASF-E assesses the percentage of members 18 years and older who were screened for unhealthy alcohol use and received appropriate follow-up care if they screened positive.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63234,7 +63287,8 @@ export default {
     },
     'asfe-2': {
       domainOfCare: 'ECDS',
-      title: 'Counseling or Other Follow-Up on Positive Screen for Unhealthy Alcohol Use',
+      title:
+        'Counseling or Other Follow-Up on Positive Screen for Unhealthy Alcohol Use',
       displayLabel: 'ASF-E: Follow-Up',
       measureType: 'process',
       weight: 1,
@@ -63246,7 +63300,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Adult Immunization Status',
       displayLabel: 'AIS-E',
-      description:[ 'AIS-E assesses the percentage of members 19 years and older who are up-to-date on vaccines for influenza, TD or tetanus, TDaP, zoster and pneumococcal.'],
+      description: [
+        'AIS-E assesses the percentage of members 19 years and older who are up-to-date on vaccines for influenza, TD or tetanus, TDaP, zoster and pneumococcal.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63297,7 +63353,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Breast Cancer Screening Rate',
       displayLabel: 'BCS-E',
-      description:[ 'BCS-E assesses women 50–74 years of age who had at least one mammogram to screen for breast cancer in the past two years.'],
+      description: [
+        'BCS-E assesses women 50–74 years of age who had at least one mammogram to screen for breast cancer in the past two years.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: false,
@@ -63308,7 +63366,9 @@ export default {
       domainOfCare: 'EOF',
       title: 'Cervical Cancer Screening Rate',
       displayLabel: 'CCS',
-      description:[ 'CCS assesses women who were screened for cervical cancer with certain conditions applied to the following age brackets: 21–64 years and 30–64 years.'],
+      description: [
+        'CCS assesses women who were screened for cervical cancer with certain conditions applied to the following age brackets: 21–64 years and 30–64 years.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: false,
@@ -63319,7 +63379,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Childhood Immunization Status',
       displayLabel: 'CIS-E',
-      description:[ 'CIS-E assesses the percentage of children 2 years of age who had four DTaP, three IPV, 1 MMR, three HiB, three HepB, one VZV, four PCV, one HepA, two or three RV and two flu vaccines by their second birthday.'],
+      description: [
+        'CIS-E assesses the percentage of children 2 years of age who had four DTaP, three IPV, 1 MMR, three HiB, three HepB, one VZV, four PCV, one HepA, two or three RV and two flu vaccines by their second birthday.',
+      ],
       measureType: 'process',
       weight: 3,
       hasSubMeasures: true,
@@ -63460,7 +63522,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Colorectal Cancer Screening Rate',
       displayLabel: 'CCS',
-      description:[ 'COL assesses adults 50–75 who had appropriate screening for colorectal cancer with the appropriate designated tests.'],
+      description: [
+        'COL assesses adults 50–75 who had appropriate screening for colorectal cancer with the appropriate designated tests.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: false,
@@ -63471,7 +63535,9 @@ export default {
       domainOfCare: 'EOC',
       title: 'Risk of Continued Opioid Use',
       displayLabel: 'COU',
-      description:[ 'COU assesses potentially high-risk opioid analgesic prescribing practices with members 18 years and older who have a new episode of opioid use that puts them at risk for continued opioid use.'],
+      description: [
+        'COU assesses potentially high-risk opioid analgesic prescribing practices with members 18 years and older who have a new episode of opioid use that puts them at risk for continued opioid use.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63502,7 +63568,9 @@ export default {
       domainOfCare: 'EOC',
       title: 'Appropriate Testing for Children with Pharyngitis',
       displayLabel: 'CWP',
-      description:[ 'CWP assesses the percentage of episodes for members 3 years and older with a diagnosis of pharyngitis, dispensed an antibiotic and received a group A streptococcus test for the episode.'],
+      description: [
+        'CWP assesses the percentage of episodes for members 3 years and older with a diagnosis of pharyngitis, dispensed an antibiotic and received a group A streptococcus test for the episode.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: false,
@@ -63513,7 +63581,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Monitor Depression Symptoms for Adolescents and Adults',
       displayLabel: 'DMS-E',
-      description:[ 'DMS-E assesses the percentage of members 12 years and older diagnosed with major depression or dysthymia and an outpatient encounter with a PHQ-9 score in their record at the same time as the encounter.'],
+      description: [
+        'DMS-E assesses the percentage of members 12 years and older diagnosed with major depression or dysthymia and an outpatient encounter with a PHQ-9 score in their record at the same time as the encounter.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63554,7 +63624,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Depression Remission or Response for Adolescents and Adults',
       displayLabel: 'DRR-E',
-      description:[ 'DRR-E assesses the percentage of members 12 years and older with a diagnosis of depression and an elevated PHQ-9 score, who had evidence of response or remission within 4–8 months of the elevated score.'],
+      description: [
+        'DRR-E assesses the percentage of members 12 years and older with a diagnosis of depression and an elevated PHQ-9 score, who had evidence of response or remission within 4–8 months of the elevated score.',
+      ],
       measureType: 'outcome',
       weight: 1,
       hasSubMeasures: true,
@@ -63595,7 +63667,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Depression Screening and Follow-Up for Adolescents and Adults',
       displayLabel: 'DSF-E',
-      description:[ 'DSF-E assesses the percentage of members 12 years and older who were screened for clinical depression using a standardized instrument and, if screened positive, received follow-up care.'],
+      description: [
+        'DSF-E assesses the percentage of members 12 years and older who were screened for clinical depression using a standardized instrument and, if screened positive, received follow-up care.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63614,7 +63688,8 @@ export default {
     },
     'dsfe-2': {
       domainOfCare: 'ECDS',
-      title: 'Follow-Up on Positive Depression Screen for Adolescents and Adults',
+      title:
+        'Follow-Up on Positive Depression Screen for Adolescents and Adults',
       displayLabel: 'DSF-E: Follow-Up on Positive Screen',
       measureType: 'process',
       weight: 1,
@@ -63626,7 +63701,9 @@ export default {
       domainOfCare: 'EOC',
       title: 'Follow-Up After Emergency Department Visit for Mental Illness',
       displayLabel: 'FUM',
-      description:[ 'FUM assesses ED visits for adults and children 6 years and older with a diagnosis of mental illness or intentional self-harm and who received a follow-up visit for mental illness within 7 - 30 days.'],
+      description: [
+        'FUM assesses ED visits for adults and children 6 years and older with a diagnosis of mental illness or intentional self-harm and who received a follow-up visit for mental illness within 7 - 30 days.',
+      ],
       measureType: 'process',
       weight: 3,
       hasSubMeasures: true,
@@ -63657,7 +63734,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Immunizations for Adolescents',
       displayLabel: 'IMA-E',
-      description:[ 'IMA-E assesses adolescents 13 years of age who had one dose of meningococcal vaccine, one Tdap vaccine and the complete human papillomavirus vaccine series by their 13th birthday.'],
+      description: [
+        'IMA-E assesses adolescents 13 years of age who had one dose of meningococcal vaccine, one Tdap vaccine and the complete human papillomavirus vaccine series by their 13th birthday.',
+      ],
       measureType: 'outcome',
       weight: 3,
       hasSubMeasures: true,
@@ -63718,7 +63797,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Postpartum Depression Screening and Follow-up',
       displayLabel: 'PDS-E',
-      description:[ 'PDS-E assesses the percentage of deliveries in which members were screened for clinical depression during the postpartum period, and if screened positive, received follow-up care.'],
+      description: [
+        'PDS-E assesses the percentage of deliveries in which members were screened for clinical depression during the postpartum period, and if screened positive, received follow-up care.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63749,7 +63830,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Prenatal Depression Screening and Follow-up',
       displayLabel: 'PND-E',
-      description:[ 'PND-E assesses the percentage of deliveries in which members were screened for clinical depression while pregnant and, if screened positive, received follow-up care.'],
+      description: [
+        'PND-E assesses the percentage of deliveries in which members were screened for clinical depression while pregnant and, if screened positive, received follow-up care.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63780,7 +63863,9 @@ export default {
       domainOfCare: 'ECDS',
       title: 'Prenatal Immunization Status',
       displayLabel: 'PRS-E',
-      description:[ 'PRS-E assesses the percentage of deliveries in the measurement period in which women received influenza and tetanus, diphtheria toxoids and acellular pertussis (Tdap) vaccinations.'],
+      description: [
+        'PRS-E assesses the percentage of deliveries in the measurement period in which women received influenza and tetanus, diphtheria toxoids and acellular pertussis (Tdap) vaccinations.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63821,7 +63906,9 @@ export default {
       domainOfCare: 'EOC',
       title: 'Non-Recommended PSA-Based Screening in Older Men',
       displayLabel: 'PSA',
-      description:[ 'PSA assesses whether men 70 years and older were screened unnecessarily for prostate cancer using prostate-specific antigen (PSA)-based screening.'],
+      description: [
+        'PSA assesses whether men 70 years and older were screened unnecessarily for prostate cancer using prostate-specific antigen (PSA)-based screening.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: false,
@@ -63832,7 +63919,9 @@ export default {
       domainOfCare: 'EOC',
       title: 'Use of Opioids from Multiple Providers',
       displayLabel: 'UOP',
-      description:[ 'UOP assesses potentially high-risk opioid analgesic prescribing practices via the proportion of members 18 years and older, receiving prescription opioids for more than 15 days during the year from multiple providers.'],
+      description: [
+        'UOP assesses potentially high-risk opioid analgesic prescribing practices via the proportion of members 18 years and older, receiving prescription opioids for more than 15 days during the year from multiple providers.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: true,
@@ -63871,9 +63960,12 @@ export default {
     },
     uri: {
       domainOfCare: 'EOC',
-      title: 'Appropriate Treatment for Children With Upper Respiratory Infection',
+      title:
+        'Appropriate Treatment for Children With Upper Respiratory Infection',
       displayLabel: 'URI',
-      description:[ 'URI assesses the percentage of episodes for members 3 months and older diagnosed with an URI that did not result in an antibiotic dispensing event.'],
+      description: [
+        'URI assesses the percentage of episodes for members 3 months and older diagnosed with an URI that did not result in an antibiotic dispensing event.',
+      ],
       measureType: 'process',
       weight: 1,
       hasSubMeasures: false,
@@ -63998,10 +64090,7 @@ export default {
   defaultFilterState: {
     domainsOfCare: [],
     stars: [],
-    percentRange: [
-      0,
-      100,
-    ],
+    percentRange: [0, 100],
     sum: 0,
     payors: [],
     healthcareProviders: [],
@@ -64010,9 +64099,6 @@ export default {
   },
   defaultTimelineState: {
     choice: 'all',
-    range: [
-      null,
-      null,
-    ],
+    range: [null, null],
   },
-}
+};

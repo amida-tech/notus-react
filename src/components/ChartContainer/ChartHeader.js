@@ -12,11 +12,7 @@ function ChartHeader({
 }) {
   const allMeasureText = (
     <Grid className='d3-container__return-title-display'>
-      <Typography
-        variant='h6'
-      >
-        All Measures
-      </Typography>
+      <Typography variant='h6'>All Measures</Typography>
     </Grid>
   );
   const allMeasureTextWithLinks = (
@@ -34,8 +30,8 @@ function ChartHeader({
         <Grid className='d3-container__return-measure-display'>
           {labelGenerator(
             currentResults.find(
-              (result) => result.measure === activeMeasure.measure
-            )
+              (result) => result.measure === activeMeasure.measure,
+            ),
           )}
         </Grid>
       )}

@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
-import { StandardButton } from './CommonStandardButton';
 import { styled } from '@mui/material/styles';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Toolbar from '@mui/material/Toolbar';
+import { StandardButton } from './CommonStandardButton';
 
 export default function Navbar() {
   // Remove the auth token
@@ -73,12 +73,12 @@ export default function Navbar() {
               {/* Menu (pop-over) */}
               <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                 <MenuItem
-                  onClick={(e) => {
+                  onClick={() => {
                     handleLogout();
                   }}
                 >
                   <Link to={{ pathname: '/auth/login' }} onClick={logout}>
-                    <StandardButton variant={'text'}>Logout</StandardButton>
+                    <StandardButton variant='text'>Logout</StandardButton>
                   </Link>
                 </MenuItem>
               </Menu>
