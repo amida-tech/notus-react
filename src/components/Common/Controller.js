@@ -44,7 +44,7 @@ export async function filterSearch(searchMeasure, searchArray, isComposite) {
       filters: searchArray,
       isComposite,
     }
-    const filterSearchURL = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}/filter`)
+    const filterSearchURL = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}filter`)
     const filterResults = await axios.post(filterSearchURL, searchObject).then((res) => res.data)
     if (filterResults.status === 'Success') {
       const { members, dailyMeasureResults } = filterResults

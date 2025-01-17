@@ -235,17 +235,6 @@ function FilterDrawer({
               // className="filter-drawer__reset-button"
               variant='outlined'
               onClick={handleResetFilter}
-              rightIcon={
-                <CancelIcon
-                  // className="filter-drawer__cancel-icon"
-                  sx={{
-                    // ml: ".5rem",
-                    mb: '.1rem',
-                    height: '1.1rem',
-                    pl: '0rem !important',
-                  }}
-                />
-              }
             >
               Reset Filters
             </StandardButton>
