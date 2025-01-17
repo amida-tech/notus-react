@@ -58,7 +58,7 @@ export function StandardButton({
       <Grid
         style={{ gap: '.5rem', pr: '1rem', pl: '1rem' }}
         container
-        height="1.5rem"
+        height='1.5rem'
       >
         {/* If there is a leftIcon prop passed, render it */}
         {leftIcon ? <Grid item>{leftIcon}</Grid> : null}
@@ -69,7 +69,7 @@ export function StandardButton({
             <Typography
               sx={{ color: textColor }}
               fontWeight={500}
-              textTransform="capitalize"
+              textTransform='capitalize'
             >
               {children}
             </Typography>
