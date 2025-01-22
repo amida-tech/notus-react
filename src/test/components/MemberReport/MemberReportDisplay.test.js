@@ -1,9 +1,9 @@
+import { render, screen, within, fireEvent } from '@testing-library/react';
+import moment from 'moment';
 import { default as datastore } from '../../data/datastore';
 import { exportUrl, memberId, memberInfo, rowData } from '../../data/DemoData';
 import { getAge } from '../../../components/Utilities/GeneralUtil';
-import { render, screen, within, fireEvent } from '@testing-library/react';
 import MemberReportDisplay from '../../../components/MemberReport/MemberReportDisplay';
-import moment from 'moment';
 
 describe('Member view page', () => {
   beforeEach(async () => {
@@ -17,7 +17,7 @@ describe('Member view page', () => {
         coverageStatus='active'
         rowData={rowData}
         description={datastore.info.aab.description}
-      />
+      />,
     );
     // Please keep this for when we move the loading state to the Display
     // await waitFor(() => container.getByRole('heading', { name: "Reporting - Member's Data" }))
@@ -28,15 +28,15 @@ describe('Member view page', () => {
     expect(screen.getAllByRole('heading').length).toBe(3);
     expect(screen.getByText("Reporting - Member's Data")).toBeTruthy();
     expect(
-      screen.getByRole('heading', { name: 'General Information' })
+      screen.getByRole('heading', { name: 'General Information' }),
     ).toBeTruthy();
     expect(
-      screen.getByRole('heading', { name: 'Measure Analysis' })
+      screen.getByRole('heading', { name: 'Measure Analysis' }),
     ).toBeTruthy();
     expect(
       screen.getByRole('heading', {
         name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
-      })
+      }),
     ).toBeTruthy();
   });
 
@@ -46,7 +46,7 @@ describe('Member view page', () => {
     expect(
       screen.getByRole('button', {
         name: 'AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis',
-      })
+      }),
     ).toBeTruthy();
   });
 
@@ -86,7 +86,7 @@ describe('Member view page', () => {
       'Participation Period:',
     ];
     memberInfoLabels.forEach((label, i) =>
-      expect(within(renderedMemberInfo[i]).getByText(label)).toBeTruthy()
+      expect(within(renderedMemberInfo[i]).getByText(label)).toBeTruthy(),
     );
   });
 
@@ -101,9 +101,9 @@ describe('Member view page', () => {
       memberInfo.gender,
       'ACTIVE',
       `${moment(memberInfo.coverage[0].period.start.value).format(
-        'MM/DD/YYYY'
+        'MM/DD/YYYY',
       )} - ${moment(memberInfo.coverage[0].period.end.value).format(
-        'MM/DD/YYYY'
+        'MM/DD/YYYY',
       )}`,
       insurance.id.value,
       insurance.payor[0].reference.value,
@@ -112,13 +112,13 @@ describe('Member view page', () => {
       insurance.relationship.coding[0].code.value,
       `${insurance.type?.coding[0].code.value} - ${insurance.type?.coding[0]?.display.value}`,
       `${moment(memberInfo.coverage[0].period.start.value).format(
-        'MM/DD/YYYY'
+        'MM/DD/YYYY',
       )} - ${moment(memberInfo.coverage[0].period.end.value).format(
-        'MM/DD/YYYY'
+        'MM/DD/YYYY',
       )}`,
     ];
     memberInfoData.forEach((label, i) =>
-      expect(within(renderedMemberInfo[i]).getByText(label)).toBeTruthy()
+      expect(within(renderedMemberInfo[i]).getByText(label)).toBeTruthy(),
     );
   });
 
@@ -153,7 +153,7 @@ describe('Member view page', () => {
       'Recommendations',
     ];
     analysisLabels.forEach((label) =>
-      expect(within(memberReportTable).getByText(label)).toBeTruthy()
+      expect(within(memberReportTable).getByText(label)).toBeTruthy(),
     );
     const analysisData = rowData[0];
 

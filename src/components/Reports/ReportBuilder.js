@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
-import { storeProps } from '../ChartContainer/D3Props';
 import { useEffect, useState } from 'react';
-import Banner from 'components/Common/Banner';
+import Banner from '../Common/Banner';
+import { storeProps } from '../ChartContainer/D3Props';
 import env from '../../env';
 import MeasureSelector from '../Common/MeasureSelector';
 

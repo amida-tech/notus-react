@@ -1,3 +1,9 @@
+import { Snackbar } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Skeleton from '@mui/material/Skeleton';
 import {
   calcMemberResults,
   expandSubMeasureResults,
@@ -14,20 +20,14 @@ import {
   filterSearch,
   infoDataFetch,
 } from '../components/Common/Controller';
-import { Snackbar } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
 import Alert from '../components/Utilities/Alert';
 import Banner from '../components/Common/Banner';
-import Box from '@mui/material/Box';
 import ColorMapping from '../components/Utilities/ColorMapping';
 import D3Container from '../components/ChartContainer';
 import DisplayTableContainer from '../components/DisplayTable/DisplayTableContainer';
-import Grid from '@mui/material/Grid';
 import MeasureTable from '../components/Utilities/MeasureTable';
 import MemberTable from '../components/Utilities/MemberTable';
 import RatingTrends from '../components/Summary/RatingTrends';
-import Skeleton from '@mui/material/Skeleton';
 import styles from './Dashboard.module.css';
 
 const chartColorArray = [
@@ -60,7 +60,7 @@ export default function Dashboard() {
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
   const history = useHistory();
   const [displayData, setDisplayData] = useState(
-    datastore.results.map((result) => ({ ...result }))
+    datastore.results.map((result) => ({ ...result })),
   );
   const [isComposite, setComposite] = useState(true);
   const [currentResults, setCurrentResults] = useState([]);
@@ -69,7 +69,7 @@ export default function Dashboard() {
   const [currentFilters, setCurrentFilters] = useState([]);
   const [additionalFilterOptions, setAdditionalFilterOptions] = useState([]);
   const [currentTimeline, setCurrentTimeline] = useState(
-    datastore.defaultTimelineState
+    datastore.defaultTimelineState,
   );
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
@@ -96,7 +96,7 @@ export default function Dashboard() {
     isComposite,
     datastore,
     activeMeasure,
-    baseColorMap
+    baseColorMap,
   ) {
     // Initialize filter information
     setFilterInfo(initializeFilterInfo());
@@ -144,15 +144,14 @@ export default function Dashboard() {
       setAdditionalFilterOptions(datastore.filterOptions);
 
       // Determines if the active measure is composite or not
-      const isCompositeMeasure =
-        activeMeasure.measure === 'composite' || activeMeasure.measure === '';
+      const isCompositeMeasure = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
 
-      //Reset state for isCompositeMeasure, datastore, activeMeasure, & baseColorMap
+      // Reset state for isCompositeMeasure, datastore, activeMeasure, & baseColorMap
       resetStatesForMeasure(
         isCompositeMeasure,
         datastore,
         activeMeasure,
-        baseColorMap
+        baseColorMap,
       );
       // Changes filterActivated to false
       setFilterActivated(false);
@@ -162,13 +161,13 @@ export default function Dashboard() {
       setIsLoading(false);
     } else if (router === 'ALL MEASURES') {
       const otherMeasureFinder = filterInfo.results.filter(
-        (res) => !res.measure.includes(measure)
+        (res) => !res.measure.includes(measure),
       );
       if (otherMeasureFinder.length > 0) {
         if (filterInfo.members.length !== memberResults.length) {
           setCurrentResults(filterInfo.currentResults);
           setSelectedMeasures(
-            filterInfo.currentResults.map((result) => result.measure)
+            filterInfo.currentResults.map((result) => result.measure),
           );
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
         }
@@ -190,7 +189,7 @@ export default function Dashboard() {
           handleFilteredDataUpdate(
             currentFilters,
             filterInfo.timeline,
-            'GO BACK'
+            'GO BACK',
           );
           history.push('/');
         }
@@ -203,8 +202,8 @@ export default function Dashboard() {
       const currentMeasure = measure || 'composite';
       setActiveMeasure(
         datastore.currentResults.find(
-          (result) => result.measure === currentMeasure
-        ) || defaultActiveMeasure
+          (result) => result.measure === currentMeasure,
+        ) || defaultActiveMeasure,
       );
       setIsLoading(datastore.datastoreLoading);
     } else {
@@ -234,16 +233,15 @@ export default function Dashboard() {
       setCurrentFilters(datastore.defaultFilterState);
       setAdditionalFilterOptions(datastore.filterOptions);
 
-// Determines if the active measure is composite or not
-      const isCompositeMeasure =
-        activeMeasure.measure === 'composite' || activeMeasure.measure === '';
+      // Determines if the active measure is composite or not
+      const isCompositeMeasure = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
 
-        //Reset state for isCompositeMeasure, datastore, activeMeasure, & baseColorMap
+      // Reset state for isCompositeMeasure, datastore, activeMeasure, & baseColorMap
       resetStatesForMeasure(
         isCompositeMeasure,
         datastore,
         activeMeasure,
-        baseColorMap
+        baseColorMap,
       );
     }
   }, [
@@ -265,13 +263,12 @@ export default function Dashboard() {
       setCurrentTimeline(filterInfo.timeline);
       setCurrentFilters(filterInfo.filters);
       setAdditionalFilterOptions(datastore.filterOptions);
-      const ActiveMeasureTest =
-        activeMeasure.measure === 'composite' || activeMeasure.measure === '';
+      const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
       if (ActiveMeasureTest) {
         if (filterInfo.members.length !== memberResults.length) {
           setCurrentResults(filterInfo.currentResults);
           setSelectedMeasures(
-            filterInfo.currentResults.map((result) => result.measure)
+            filterInfo.currentResults.map((result) => result.measure),
           );
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
         }
@@ -285,21 +282,21 @@ export default function Dashboard() {
         setComposite(false);
         const subMeasureCurrentResults = getSubMeasureCurrentResults(
           activeMeasure,
-          filterInfo.currentResults
+          filterInfo.currentResults,
         );
         setDisplayData(
-          expandSubMeasureResults(activeMeasure, filterInfo.results)
+          expandSubMeasureResults(activeMeasure, filterInfo.results),
         );
         setCurrentResults(subMeasureCurrentResults);
         setSelectedMeasures(
-          subMeasureCurrentResults.map((result) => result.measure)
+          subMeasureCurrentResults.map((result) => result.measure),
         );
         setColorMap(
           ColorMapping(
             baseColorMap,
             datastore.chartColorArray,
-            subMeasureCurrentResults
-          )
+            subMeasureCurrentResults,
+          ),
         );
         setFilterDisabled(false);
         setTableFilter([]);
@@ -327,9 +324,7 @@ export default function Dashboard() {
       // FILTERS EXIST
       if (filterInfo.members.length > 0) {
         // 120 IS THE TOTAL AND 15 IS THE EXPECTED AMOUNT
-        const selectMemberResults = filterInfo.members.filter((result) =>
-          activeMeasure.measure.includes(result.measurementType)
-        );
+        const selectMemberResults = filterInfo.members.filter((result) => activeMeasure.measure.includes(result.measurementType));
 
         setMemberResults(selectMemberResults);
       } else {
@@ -345,8 +340,8 @@ export default function Dashboard() {
         filterInfo.members.length > 0 ? filterInfo.members : memberResults,
         activeMeasure.measure,
         datastore.info,
-        tableFilter
-      )
+        tableFilter,
+      ),
     );
   }, [
     tableFilter,
@@ -360,15 +355,14 @@ export default function Dashboard() {
     const path = window.location.pathname;
     if (path.includes('members')) {
       setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
-      const wantedMembers =
-        filterInfo.members.length > 0 ? filterInfo.members : memberResults;
+      const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : memberResults;
       setRowEntries(
         MemberTable.formatData(
           wantedMembers,
           activeMeasure.measure,
           datastore.info,
-          tableFilter
-        )
+          tableFilter,
+        ),
       );
       setComposite(false);
       setTabValue('members');
@@ -406,58 +400,57 @@ export default function Dashboard() {
       searchResults = await filterSearch(currentMeasureResolver, filters);
     }
     cloneDailyMeasureResults = structuredClone(
-      searchResults.dailyMeasureResults
+      searchResults.dailyMeasureResults,
     );
     cloneMembers = structuredClone(searchResults.members);
     if (filters.domainsOfCare.length > 0) {
       cloneDailyMeasureResults = filterByDOC(
         cloneDailyMeasureResults,
         filters,
-        info
+        info,
       );
     }
     if (filters.stars.length > 0) {
       cloneDailyMeasureResults = filterByStars(
         cloneDailyMeasureResults,
         filters,
-        cloneDailyMeasureResults
+        cloneDailyMeasureResults,
       );
     }
     if (filters.percentRange[0] > 0 || filters.percentRange[1] < 100) {
       cloneDailyMeasureResults = filterByPercentage(
         cloneDailyMeasureResults,
         filters,
-        cloneDailyMeasureResults
+        cloneDailyMeasureResults,
       );
     }
     cloneDailyMeasureResults = filterByTimeline(
       cloneDailyMeasureResults,
-      timeline
+      timeline,
     );
     if (cloneDailyMeasureResults.length > 0) {
       const calcResults = calcMemberResults(cloneDailyMeasureResults, info);
-      const resultsByState =
-        isComposite || direction === 'GO BACK'
-          ? calcResults.results
-          : expandSubMeasureResults(activeMeasure, calcResults.results);
+      const resultsByState = isComposite || direction === 'GO BACK'
+        ? calcResults.results
+        : expandSubMeasureResults(activeMeasure, calcResults.results);
       const newFilterInfo = {
         members: cloneMembers,
         currentResults:
-          activeMeasure.measure === 'composite' ||
-          activeMeasure.measure === '' ||
-          direction === 'GO BACK'
+          activeMeasure.measure === 'composite'
+          || activeMeasure.measure === ''
+          || direction === 'GO BACK'
             ? calcResults.currentResults
             : getSubMeasureCurrentResults(
-                activeMeasure,
-                calcResults.currentResults
-              ),
+              activeMeasure,
+              calcResults.currentResults,
+            ),
         results: resultsByState,
         filters,
         timeline,
       };
       setCurrentResults(newFilterInfo.currentResults);
       setSelectedMeasures(
-        newFilterInfo.currentResults.map((result) => result.measure)
+        newFilterInfo.currentResults.map((result) => result.measure),
       );
       setDisplayData(newFilterInfo.results.map((result) => ({ ...result })));
       setCurrentFilters(newFilterInfo.filters);
@@ -478,22 +471,20 @@ export default function Dashboard() {
     setTableFilter([]);
     let newSelectedMeasures;
     if (event.target.checked) {
-      newSelectedMeasures =
-        event.target.value === 'all'
-          ? currentResults.map((result) => result.measure)
-          : selectedMeasures.concat(event.target.value);
+      newSelectedMeasures = event.target.value === 'all'
+        ? currentResults.map((result) => result.measure)
+        : selectedMeasures.concat(event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     } else {
-      newSelectedMeasures =
-        event.target.value === 'all'
-          ? []
-          : selectedMeasures.filter((result) => result !== event.target.value);
+      newSelectedMeasures = event.target.value === 'all'
+        ? []
+        : selectedMeasures.filter((result) => result !== event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     }
     const MeasureSelectorCheck = event.target.name === 'Select Measure';
     if (MeasureSelectorCheck) {
       history.push(
-        `/${event.target.value === 'composite' ? '' : event.target.value}`
+        `/${event.target.value === 'composite' ? '' : event.target.value}`,
       );
     }
   };
@@ -523,8 +514,8 @@ export default function Dashboard() {
           filterInfo.members.length > 0 ? filterInfo.members : memberResults,
           activeMeasure.measure,
           datastore.info,
-          tableFilter
-        )
+          tableFilter,
+        ),
       );
     } else {
       history.push(`/${activeMeasure.measure}`);
@@ -537,9 +528,9 @@ export default function Dashboard() {
         <Grid container spacing={0} sx={{}}>
           {/* HEDIS Dashboard Banner */}
           <div className={styles.dashboardContent}>
-            <Grid item className='dashboard__summary' sm={12}>
+            <Grid item className="dashboard__summary" sm={12}>
               <Banner
-                headerText='HEDIS Dashboard'
+                headerText="HEDIS Dashboard"
                 lastUpdated={datastore.lastUpdated}
               />
             </Grid>
@@ -547,7 +538,7 @@ export default function Dashboard() {
             {/* Ratings & Trends */}
             <Grid item xs={12}>
               {isLoading ? (
-                <Skeleton variant='rectangular' height={200} />
+                <Skeleton variant="rectangular" height={200} />
               ) : (
                 <RatingTrends
                   activeMeasure={activeMeasure}
@@ -575,7 +566,7 @@ export default function Dashboard() {
             <Alert
               openAlert={noResultsFound}
               setOpenAlert={setNoResultsFound}
-              title='NO RESULTS FOUND'
+              title="NO RESULTS FOUND"
               noResultsALERT
               handleResetData={handleResetData}
             >
@@ -595,7 +586,7 @@ export default function Dashboard() {
             {/* All Measures Graph */}
             <Grid item xs={12}>
               {isLoading || noResultsFound ? (
-                <Skeleton variant='rectangular' height={300} />
+                <Skeleton variant="rectangular" height={300} />
               ) : (
                 <D3Container
                   additionalFilterOptions={additionalFilterOptions}
@@ -633,9 +624,9 @@ export default function Dashboard() {
             {/* Overview/Members display table */}
             <Grid item xs={12}>
               {isLoading ? (
-                <Skeleton variant='rectangular' height={500} />
+                <Skeleton variant="rectangular" height={500} />
               ) : (
-                <div className='d3-container'>
+                <div className="d3-container">
                   <DisplayTableContainer
                     activeMeasure={activeMeasure}
                     store={datastore}

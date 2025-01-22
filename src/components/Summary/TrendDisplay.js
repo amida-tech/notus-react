@@ -23,7 +23,7 @@ function TrendDisplay({ trend, percentWidth }) {
 
   return (
     <Grid className={`trend-display ${panelClass}`}>
-      <Typography variant='h3' className='trend-display__h3-header'>
+      <Typography variant="h3" className="trend-display__h3-header">
         {`${trend.measure} Score % Change`}
       </Typography>
       <Typography className={`trend-display__percent-change ${trendClass}`}>

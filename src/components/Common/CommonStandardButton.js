@@ -9,16 +9,17 @@ import PropTypes from 'prop-types';
 // variant - Options of contained, outlined, or text
 // onClick - onClick property for button
 
-export const StandardButton = ({
+export function StandardButton({
   children,
   leftIcon,
   rightIcon,
-  props,
   variant,
   onClick,
-}) => {
+}) {
   // Instantiate variables for colors set in "variant" switch statement
-  let backgroundColor, hoverColor, textColor;
+  let backgroundColor;
+  let hoverColor;
+  let textColor;
   switch (variant) {
     case 'contained':
       [backgroundColor, hoverColor] = ['#005EA2', '#0075CA'];
@@ -39,11 +40,11 @@ export const StandardButton = ({
   return (
     <Button
       onClick={onClick}
-      disableElevation={true}
+      disableElevation
       sx={[
         {
           color: textColor,
-          backgroundColor: backgroundColor,
+          backgroundColor,
           borderColor: textColor,
           '&:hover': {
             background: hoverColor,
@@ -52,44 +53,48 @@ export const StandardButton = ({
         },
       ]}
       variant={variant}
-      {...props}
     >
       {/* This grid aligns the icons and text in the button */}
       <Grid
         style={{ gap: '.5rem', pr: '1rem', pl: '1rem' }}
         container
-        height={'1.5rem'}
+        height='1.5rem'
       >
         {/* If there is a leftIcon prop passed, render it */}
-        {leftIcon ? <Grid item>{leftIcon}</Grid> : <></>}
+        {leftIcon ? <Grid item>{leftIcon}</Grid> : null}
 
         {/* If there is a children prop passed, render it */}
         {children ? (
           <Grid item>
             <Typography
               sx={{ color: textColor }}
-              fontWeight='500'
+              fontWeight={500}
               textTransform='capitalize'
             >
               {children}
             </Typography>
           </Grid>
-        ) : (
-          <></>
-        )}
+        ) : null}
 
         {/* If there is a rightIcon prop passed, render it */}
-        {rightIcon ? <Grid item>{rightIcon}</Grid> : <></>}
+        {rightIcon ? <Grid item>{rightIcon}</Grid> : null}
       </Grid>
     </Button>
   );
-};
+}
 
 StandardButton.propTypes = {
   children: PropTypes.node,
-  leftIcon: PropTypes.object,
-  rightIcon: PropTypes.object,
-  props: PropTypes.object,
+  leftIcon: PropTypes.element,
+  rightIcon: PropTypes.element,
   variant: PropTypes.string,
   onClick: PropTypes.func,
-}
+};
+
+StandardButton.defaultProps = {
+  children: null,
+  leftIcon: null,
+  rightIcon: null,
+  variant: null,
+  onClick: () => {},
+};

@@ -8,10 +8,10 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
-import env from '../../env';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
+import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
+import env from '../../env';
 
 export default function Login() {
   return (
