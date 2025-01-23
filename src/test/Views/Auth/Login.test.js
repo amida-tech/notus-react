@@ -90,10 +90,10 @@ describe('Inputs render as expected', () => {
 });
 
 describe('Button renders as expected', () => {
-  it('Number of buttons on DOM is two', () => {
+  it('Number of buttons on DOM is three', () => {
     render(<Login />)
     const buttonsOnPage = document.getElementsByTagName('button')
-    expect(buttonsOnPage.length).toBe(2)
+    expect(buttonsOnPage.length).toBe(3)
   })
 
   it('Google button renders with correct text', () => {
