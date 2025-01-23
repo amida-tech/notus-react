@@ -8,11 +8,20 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import { StandardButton } from './CommonStandardButton';
+import { azLogout } from 'views/auth/AuthService';
 
 export default function Navbar() {
   // Remove the auth token
   const logout = () => {
+    // Remove token (set by Google OAuth)
     localStorage.removeItem('token');
+    // Only perform AZ AD logout if azToken is set
+    if (localStorage.getItem('azToken')) {
+      azLogout();
+    }
+    // Remove azToken (set by Azure OAuth)
+    localStorage.removeItem('azToken');
+    
   };
   // Styled div for menu
   const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
@@ -20,15 +29,15 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   // Opens the menu
   const open = Boolean(anchorEl);
-  // handle click to open for menu
+  // Handles click to open for menu
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  // handles click to close for menu
+  // Handles click to close for menu
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // handles logout & closing menu
+  // Handles logout & closing menu
   const handleLogout = () => {
     handleClose();
     logout();

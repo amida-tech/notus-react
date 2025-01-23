@@ -23,7 +23,7 @@ export async function measureDataFetch(measure) {
   }
 }
 
-// App.js
+// App.jsx
 export async function validateAccessToken(accessToken) {
   try {
     const auth = await axios.get(`${env.REACT_APP_TOKENINFO}?access_token=${accessToken}`)
