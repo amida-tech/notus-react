@@ -35,5 +35,3 @@ yarn-error.log*
 #git
 .vscode
 .vscode-server
-
-.env.example
