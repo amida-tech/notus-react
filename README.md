@@ -21,6 +21,10 @@ The purpose of this API is to ingest HEDIS data from pyspark, save it, and then 
 `REACT_APP_DEV_DATA` - `true` to use data from local file, `false` to fetch data from mongodb
 `REACT_APP_AUTH` - `true` to force authorization before accessing dashboard, `false` to bypass authorization
 `REACT_APP_LEGACY_RESULTS` - `true` to get results from pre-calculated collection, `false` to calculate results each query
+`DEBUG_PRINT_LIMIT` - print limit in debug statements
+`REACT_APP_AD_APP_ID` - Azure application ID on app registration connected to tenant
+`REACT_APP_AD_REDIRECT_URI` - Page where the app redirects after azure login
+`REACT_APP_AD_AUTHORITY` - Azure authority URL `https://login.microsoftonline.com/<AZURE_AD_B2C_TENANT>`
 
 ## Dynamically Change ENV during runtime
 On Debian-
