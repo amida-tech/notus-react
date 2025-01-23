@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
-import { MsalProvider, useMsal } from '@azure/msal-react';
+import { MsalProvider } from '@azure/msal-react';
 import { ThemeProvider } from '@emotion/react';
 import { Snackbar, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -31,13 +31,13 @@ function MainContent() {
   // State for whether user is authenticated or not
   const [authenticated, setAuthenticated] = useState(false);
   // State for whether data is returned from api call or not
-  const [isLoaded, setLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     // Check for .env first.
     if (`${env.REACT_APP_AUTH}` === 'false') {
       setAuthenticated(true);
-      setLoaded(true);
+      setIsLoaded(true);
       return;
     }
     // Destructures the hash property from URL
@@ -46,8 +46,6 @@ function MainContent() {
     const urlParams = new URLSearchParams(hash);
     // Google OAuth token
     let accessToken = urlParams.get('access_token');
-    // Azure OAuth token
-    let azAccessToken;
     // Check if there is Google OAuth token
     if (accessToken) {
       // Check if redirect from Google OAuth and show welcome
@@ -56,34 +54,32 @@ function MainContent() {
       localStorage.setItem('token', accessToken);
       // Set authenticated and loaded to true
       setAuthenticated(true);
-      setLoaded(true);
+      setIsLoaded(true);
       // Updates the URL without loading
       window.history.replaceState({}, document.title, '/');
       return;
     }
     // Sets the Google accessToken from storage
     accessToken = localStorage.getItem('token');
-    // Sets Azure accessToken from storage
-    azAccessToken = localStorage.getItem('azToken');
     // Check if Google access token exists
     if (accessToken) {
       // Check the existing token
       validateAccessToken(accessToken).then((loggedIn) => {
         setAuthenticated(loggedIn);
-        setLoaded(true);
+        setIsLoaded(true);
       });
       // Check if AZ access token exists
     } else if (localStorage.getItem('azToken')) {
       // Set authenticated and loaded to true
       setAuthenticated(true);
-      setLoaded(true);
+      setIsLoaded(true);
       // Updates the URL without loading
       window.history.replaceState({}, document.title, '/');
     } else {
       // Only sets loaded to true
-      setLoaded(true);
+      setIsLoaded(true);
     }
-  }, [setShowWelcome, setAuthenticated, setLoaded, authenticated]);
+  }, [setShowWelcome, setAuthenticated, setIsLoaded, authenticated]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -121,7 +117,7 @@ function MainContent() {
   );
 }
 
-export default function App({}) {
+export default function App() {
   return (
     // AZ AUTH PROVIDER
     <MsalProvider instance={msalInstance}>
