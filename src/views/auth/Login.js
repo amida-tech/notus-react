@@ -11,7 +11,10 @@ import {
 import LockIcon from '@mui/icons-material/Lock';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import { ReactComponent as GoogleSvg } from '../../assets/img/google.svg';
+import { ReactComponent as MsftSvg } from '../../assets/img/msft.svg';
 import env from '../../env';
+import { azRedirect, signInAndGetToken } from './AuthService';
+import Divider from '@mui/material/Divider';
 
 export default function Login() {
   return (
@@ -139,6 +142,7 @@ export default function Login() {
               pointerEvents: 'auto',
               cursor: 'not-allowed',
             },
+            mb: '16px',
           }}
         >
           <Link
@@ -159,9 +163,23 @@ export default function Login() {
           </Link>
         </Box>
 
-        <Grid container spacing={0} sx={{ mb: '.5rem' }}>
-          <Grid item>
+        <Grid container justifyContent='center'>
+          <Grid item xs={11}>
+            <Divider>OR</Divider>
+          </Grid>
+        </Grid>
+
+        {/* OAUTH LOGIN BUTTONS */}
+        <Grid
+          container
+          justifyContent='flex-start'
+          spacing={0}
+          sx={{ mb: '.5rem', mt: '24px' }}
+        >
+          <Grid item xs={5.75}>
+            {/* GOOGLE LOGIN BUTTON */}
             <Button
+              fullWidth
               variant='contained'
               color='primary'
               startIcon={<GoogleSvg />}
@@ -176,6 +194,28 @@ export default function Login() {
               }}
             >
               Sign in with Google
+            </Button>
+          </Grid>
+          {/* BLANK GRID FOR SPACING BETWEEN BUTTONS W/O AUTO TOP PADDING */}
+          <Grid item xs={0.5}></Grid>
+          {/* MS LOGIN BUTTON */}
+          <Grid item xs={5.75}>
+            <Button
+              fullWidth
+              variant='contained'
+              color='primary'
+              startIcon={<MsftSvg />}
+              onClick={() => handleLoginAz()}
+              sx={{
+                backgroundColor: '#E9F1FF',
+                color: '#498AF5',
+
+                '&:hover': {
+                  backgroundColor: '#d0e2fb',
+                },
+              }}
+            >
+              Sign in with Microsoft
             </Button>
           </Grid>
         </Grid>
@@ -220,3 +260,16 @@ function oauthSignIn() {
   document.body.appendChild(form);
   form.submit();
 }
+
+// Handle OAuth login with Azure AD
+const handleLoginAz = async () => {
+  try {
+    const result = await signInAndGetToken();
+    // Sets azToken in local storage
+    localStorage.setItem('azToken', result.token);
+    // Redirect after login
+    azRedirect();
+  } catch (error) {
+    console.error('Login failed', error);
+  }
+};
