@@ -3,6 +3,7 @@ import {
   useReducer,
   useEffect,
   useMemo,
+  useContext,
 } from 'react';
 import PropTypes from 'prop-types';
 import { resultList, trendList, infoObject } from '../test/data/DemoData';
@@ -96,6 +97,11 @@ export default function DatastoreProvider({ children }) {
       {children}
     </DatastoreContext.Provider>
   )
+}
+
+export function useDatastoreContext() {
+  const context = useContext(DatastoreContext)
+  return context;
 }
 
 DatastoreProvider.propTypes = {

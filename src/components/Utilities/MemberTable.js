@@ -46,7 +46,7 @@ const formatData = (memberResults, activeMeasure, storeInfo, tableFilter) => {
   const formattedData = [];
   let workingData = []
 
-  const subMeasures = Object.keys(storeInfo).filter((item) => item.includes(activeMeasure));
+  const subMeasures = storeInfo && Object.keys(storeInfo).filter((item) => item.includes(activeMeasure));
 
   if (activeMeasure !== 'composite' && activeMeasure !== '') {
     // loop through member results for active measure

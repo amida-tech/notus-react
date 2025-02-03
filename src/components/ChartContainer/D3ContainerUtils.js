@@ -1,27 +1,27 @@
 export function filterByStars(displayData, filters, currentResults) {
-  return (displayData.filter((result) => filters.stars.includes(
-    Math.floor( // Floor for the .5 stars.
-      currentResults.find(
-        (current) => current.measure === result.measure,
-      ).starRating,
+  return displayData.filter((result) =>
+    filters.stars.includes(
+      Math.floor(
+        // Floor for the .5 stars.
+        currentResults.find((current) => current.measure === result.measure)
+          .starRating,
+      ),
     ),
-  )));
+  );
 }
 
 export function filterByPercentage(displayData, filters, currentResults) {
-  return (displayData.filter((result) => {
+  return displayData.filter((result) => {
     const { value } = currentResults.find(
       (current) => current.measure === result.measure,
     );
-    return (
-      value >= filters.percentRange[0] && value <= filters.percentRange[1]
-    );
-  }));
+    return value >= filters.percentRange[0] && value <= filters.percentRange[1];
+  });
 }
 
 export function filterByDOC(displayData, filters, storeInfo) {
-  return displayData.filter(
-    (result) => filters.domainsOfCare.includes(storeInfo[result.measure].domainOfCare),
+  return displayData.filter((result) =>
+    filters.domainsOfCare.includes(storeInfo[result.measure].domainOfCare),
   );
 }
 
@@ -31,23 +31,28 @@ export function filterByTimeline(timelineDisplayData, timeline) {
     if (timeline.choice === 'YTD') {
       dayLimit = new Date(new Date().getFullYear(), 0, 1).getTime();
     } else {
-      dayLimit = new Date().getTime() - (parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000);
+      dayLimit =
+        new Date().getTime() -
+        parseInt(timeline.choice, 10) * 24 * 60 * 60 * 1000;
     }
-    return timelineDisplayData.filter((result) => new Date(result.date) > dayLimit);
+    return timelineDisplayData.filter(
+      (result) => new Date(result.date) > dayLimit,
+    );
   }
+  // JF-TODO: Verify this is unreachable code & remove
   return timelineDisplayData;
 }
 
 export function expandSubMeasureResults(selectedMeasure, results) {
   const expandedResults = [];
-  results.filter(
-    (result) => result.measure === selectedMeasure.measure,
-  ).forEach((byLine) => {
-    expandedResults.push(byLine);
-    if (selectedMeasure.subScores && selectedMeasure.subScores.length > 1) {
-      byLine.subScores.forEach((subScore) => expandedResults.push(subScore));
-    }
-  });
+  results
+    .filter((result) => result.measure === selectedMeasure.measure)
+    .forEach((byLine) => {
+      expandedResults.push(byLine);
+      if (selectedMeasure.subScores && selectedMeasure.subScores.length > 1) {
+        byLine.subScores.forEach((subScore) => expandedResults.push(subScore));
+      }
+    });
   return expandedResults;
 }
 
@@ -56,19 +61,22 @@ export function getSubMeasureCurrentResults(activeMeasure, currentResults) {
   const subMeasurePrime = currentResults.find(
     (item) => item.measure === activeMeasure.measure,
   );
-  if (subMeasurePrime.subScores && subMeasurePrime.subScores.length > 1) {
+  if (subMeasurePrime?.subScores && subMeasurePrime?.subScores.length > 1) {
     subMeasureCurrentResults = [subMeasurePrime, ...subMeasurePrime.subScores];
   } else {
     subMeasureCurrentResults = [subMeasurePrime];
   }
   return subMeasureCurrentResults;
 }
-export function getSubMeasureCurrentResultsPerMeasure(givenMeasure, currentResults) {
+export function getSubMeasureCurrentResultsPerMeasure(
+  givenMeasure,
+  currentResults,
+) {
   let subMeasureCurrentResults = [];
   const subMeasurePrime = currentResults.find(
     (item) => item.measure === givenMeasure,
   );
-  if (subMeasurePrime.subScores && subMeasurePrime.subScores.length > 1) {
+  if (subMeasurePrime?.subScores && subMeasurePrime?.subScores.length > 1) {
     subMeasureCurrentResults = [subMeasurePrime, ...subMeasurePrime.subScores];
   } else {
     subMeasureCurrentResults = [subMeasurePrime];
@@ -77,16 +85,19 @@ export function getSubMeasureCurrentResultsPerMeasure(givenMeasure, currentResul
 }
 export const createLabel = (measure, info) => {
   if (info[measure]) {
-    return `${info[measure].displayLabel} - ${info[measure].title}`
+    return `${info[measure].displayLabel} - ${info[measure].title}`;
   }
+  // JF-TODO: I think this code is no longer use, remove if that is the case.
+  // See the mockInfo object in ChartContainerConstants.js and how it is consumed.
   if (measure === 'composite') {
     return 'Composite';
   }
   if (measure.length > 3 && measure.charAt(3) === 'e') {
     return `${measure.slice(0, 3).toUpperCase()}-E`;
   }
+  console.log(measure.toUpperCase());
   return measure.toUpperCase();
-}
+};
 
 export const createSubMeasureLabel = (subMeasure, info) => {
   let displayLabel = '';
@@ -97,40 +108,45 @@ export const createSubMeasureLabel = (subMeasure, info) => {
   }
 
   if (info[subMeasure]) {
-    return `${displayLabel} - ${info[subMeasure].title}`
+    return `${displayLabel} - ${info[subMeasure].title}`;
   }
 
   return displayLabel;
-}
+};
 
 export const calcMemberResults = (dailyMeasureResults, measureInfo) => {
   const workingList = {};
   dailyMeasureResults.forEach((item) => {
-    if (workingList[item.measure] === undefined
-            || item.date > workingList[item.measure].date) {
+    if (
+      workingList[item.measure] === undefined ||
+      item.date > workingList[item.measure].date
+    ) {
       workingList[item.measure] = item;
     }
   });
   Object.keys(workingList).forEach((key) => {
     workingList[key].label = createLabel(workingList[key].measure, measureInfo);
-    workingList[key].shortLabel = measureInfo[workingList[key].measure]?.displayLabel;
+    workingList[key].shortLabel =
+      measureInfo[workingList[key].measure]?.displayLabel;
     workingList[key].title = measureInfo[workingList[key].measure]?.title;
     if (workingList[key].subScores) {
       workingList[key].subScores.forEach((subscore) => {
         const newSubscore = subscore;
-        newSubscore.label = createSubMeasureLabel(newSubscore.measure, measureInfo);
+        newSubscore.label = createSubMeasureLabel(
+          newSubscore.measure,
+          measureInfo,
+        );
       });
     }
   });
-  const currentResults = Object.values(workingList)
-    .sort((a, b) => {
-      if (a.measure === 'composite') return -1;
-      if (b.measure === 'composite') return 1;
-      return a.measure > b.measure ? 1 : -1;
-    });
+  const currentResults = Object.values(workingList).sort((a, b) => {
+    if (a.measure === 'composite') return -1;
+    if (b.measure === 'composite') return 1;
+    return a.measure > b.measure ? 1 : -1;
+  });
 
   return {
     results: dailyMeasureResults,
     currentResults,
-  }
-}
+  };
+};
