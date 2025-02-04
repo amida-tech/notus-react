@@ -1,5 +1,6 @@
 import axios from 'axios';
 import env from '../../env';
+import { filter } from 'd3';
 
 // MemberReport.js
 export async function memberInfoFetch(url, id) {
@@ -45,13 +46,12 @@ export async function filterSearch(searchMeasure, searchArray, isComposite) {
       isComposite,
     }
     const filterSearchURL = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}filter`)
-    const filterResults = await axios.post(filterSearchURL, searchObject).then((res) => res.data)
-    if (filterResults.status === 'Success') {
-      const { members, dailyMeasureResults } = filterResults
+    const filterResults = await axios.post(filterSearchURL, searchObject)
+    if (filterResults.data.status === 'Success') {
       return {
-        status: filterResults.status,
-        members,
-        dailyMeasureResults,
+        status: filterResults.data['status'],
+        members: filterResults.data['members'],
+        dailyMeasureResults: filterResults.data['dailyMeasureResults'],
       }
     }
     return {
@@ -70,8 +70,8 @@ export async function filterSearch(searchMeasure, searchArray, isComposite) {
 export async function infoDataFetch() {
   try {
     const infoUrl = new URL(`${env.REACT_APP_HEDIS_MEASURE_API_URL}measures/info`);
-    const infoPromise = await axios.get(infoUrl).then((res) => res.data)
-    return infoPromise
+    const infoPromise = await axios.get(infoUrl)
+    return infoPromise.data
   } catch (error) {
     return error
   }

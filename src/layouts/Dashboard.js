@@ -13,7 +13,7 @@ import {
   filterByTimeline,
   getSubMeasureCurrentResults,
 } from '../components/ChartContainer/D3ContainerUtils';
-import { DatastoreContext } from '../context/DatastoreProvider';
+import { DatastoreContext, useDatastoreContext } from '../context/DatastoreProvider';
 import { defaultActiveMeasure } from '../components/ChartContainer/D3Props';
 import {
   measureDataFetch,
@@ -45,7 +45,7 @@ const chartColorArray = [
 ];
 
 export default function Dashboard() {
-  const { datastore } = useContext(DatastoreContext);
+  const { datastore } = useDatastoreContext();
   const [filterDrawerOpen, toggleFilterDrawer] = useState(false);
   const [filterActivated, setFilterActivated] = useState(false);
   const [noResultsFound, setNoResultsFound] = useState(false);
@@ -60,7 +60,7 @@ export default function Dashboard() {
   const [activeMeasure, setActiveMeasure] = useState(defaultActiveMeasure);
   const history = useHistory();
   const [displayData, setDisplayData] = useState(
-    datastore.results.map((result) => ({ ...result })),
+    datastore?.results.map((result) => ({ ...result })),
   );
   const [isComposite, setComposite] = useState(true);
   const [currentResults, setCurrentResults] = useState([]);
@@ -69,7 +69,7 @@ export default function Dashboard() {
   const [currentFilters, setCurrentFilters] = useState([]);
   const [additionalFilterOptions, setAdditionalFilterOptions] = useState([]);
   const [currentTimeline, setCurrentTimeline] = useState(
-    datastore.defaultTimelineState,
+    datastore?.defaultTimelineState,
   );
   const [graphWidth, setGraphWidth] = useState(window.innerWidth);
   const [filterDisabled, setFilterDisabled] = useState(true);
@@ -104,18 +104,18 @@ export default function Dashboard() {
     setComposite(isComposite);
     // Based on isComposite (measure type), determines currentResults
     const currentResults = isComposite
-      ? datastore.currentResults
-      : getSubMeasureCurrentResults(activeMeasure, datastore.currentResults);
+      ? datastore?.currentResults
+      : getSubMeasureCurrentResults(activeMeasure, datastore?.currentResults);
     // Based on isComposite (measure type), determines displayData
     const displayData = isComposite
-      ? datastore.results.map((result) => ({ ...result }))
-      : expandSubMeasureResults(activeMeasure, datastore.results);
+      ? datastore?.results.map((result) => ({ ...result }))
+      : expandSubMeasureResults(activeMeasure, datastore?.results);
     // Extracts measures from the currentResults
-    const selectedMeasures = currentResults.map((result) => result.measure);
+    const selectedMeasures = currentResults?.map((result) => result.measure);
     // Based on isComposite (measure type), generates colorMape
     const colorMap = isComposite
       ? baseColorMap
-      : ColorMapping(baseColorMap, datastore.chartColorArray, currentResults);
+      : ColorMapping(baseColorMap, datastore?.chartColorArray, currentResults);
     // Updates state with determined values
     setDisplayData(displayData);
     setCurrentResults(currentResults);
@@ -130,7 +130,7 @@ export default function Dashboard() {
   }
 
   const handleResetData = (router) => {
-    const baseColorMap = datastore.currentResults.map((item, index) => ({
+    const baseColorMap = datastore?.currentResults?.map((item, index) => ({
       value: item.measure,
       color: index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
     }));
@@ -139,9 +139,9 @@ export default function Dashboard() {
       setIsLoading(true);
 
       // Sets the default timeline, filter states, and filter options
-      setCurrentTimeline(datastore.defaultTimelineState);
-      setCurrentFilters(datastore.defaultFilterState);
-      setAdditionalFilterOptions(datastore.filterOptions);
+      setCurrentTimeline(datastore?.defaultTimelineState);
+      setCurrentFilters(datastore?.defaultFilterState);
+      setAdditionalFilterOptions(datastore?.filterOptions);
 
       // Determines if the active measure is composite or not
       const isCompositeMeasure = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
@@ -167,7 +167,7 @@ export default function Dashboard() {
         if (filterInfo.members.length !== memberResults.length) {
           setCurrentResults(filterInfo.currentResults);
           setSelectedMeasures(
-            filterInfo.currentResults.map((result) => result.measure),
+            filterInfo.currentResults?.map((result) => result.measure),
           );
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
         }
@@ -181,8 +181,8 @@ export default function Dashboard() {
       } else {
         const isEmpty = (filter) => Object.keys(filter).length === 0;
         if (isEmpty(filterInfo.filters)) {
-          setCurrentTimeline(datastore.defaultTimelineState);
-          setCurrentFilters(datastore.defaultFilterState);
+          setCurrentTimeline(datastore?.defaultTimelineState);
+          setCurrentFilters(datastore?.defaultFilterState);
           history.push('/');
         } else {
           setIsLoading(true);
@@ -198,18 +198,18 @@ export default function Dashboard() {
   };
   useEffect(() => {
     // CURRENT RESULTS EXIST
-    if (datastore.currentResults) {
+    if (datastore?.currentResults) {
       const currentMeasure = measure || 'composite';
       setActiveMeasure(
-        datastore.currentResults.find(
+        datastore?.currentResults?.find(
           (result) => result.measure === currentMeasure,
         ) || defaultActiveMeasure,
       );
-      setIsLoading(datastore.datastoreLoading);
+      setIsLoading(datastore?.datastoreLoading);
     } else {
       // NO CURRENT RESULTS
     }
-  }, [datastore.currentResults, datastore.datastoreLoading, measure]);
+  }, [datastore?.currentResults, datastore?.datastoreLoading, measure]);
 
   useEffect(() => {
     function handleResize() {
@@ -223,15 +223,15 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!filterActivated) {
-      const baseColorMap = datastore.currentResults.map((item, index) => ({
+      const baseColorMap = datastore?.currentResults?.map((item, index) => ({
         value: item.measure,
         color:
           index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
       }));
       // Sets the default timeline, filter states, and filter options
-      setCurrentTimeline(datastore.defaultTimelineState);
-      setCurrentFilters(datastore.defaultFilterState);
-      setAdditionalFilterOptions(datastore.filterOptions);
+      setCurrentTimeline(datastore?.defaultTimelineState);
+      setCurrentFilters(datastore?.defaultFilterState);
+      setAdditionalFilterOptions(datastore?.filterOptions);
 
       // Determines if the active measure is composite or not
       const isCompositeMeasure = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
@@ -255,20 +255,20 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (filterActivated) {
-      const baseColorMap = datastore.currentResults.map((item, index) => ({
+      const baseColorMap = datastore?.currentResults?.map((item, index) => ({
         value: item.measure,
         color:
           index <= 11 ? chartColorArray[index] : chartColorArray[index % 11],
       }));
       setCurrentTimeline(filterInfo.timeline);
       setCurrentFilters(filterInfo.filters);
-      setAdditionalFilterOptions(datastore.filterOptions);
+      setAdditionalFilterOptions(datastore?.filterOptions);
       const ActiveMeasureTest = activeMeasure.measure === 'composite' || activeMeasure.measure === '';
       if (ActiveMeasureTest) {
         if (filterInfo.members.length !== memberResults.length) {
           setCurrentResults(filterInfo.currentResults);
           setSelectedMeasures(
-            filterInfo.currentResults.map((result) => result.measure),
+            filterInfo.currentResults?.map((result) => result.measure),
           );
           setDisplayData(filterInfo.results.map((result) => ({ ...result })));
         }
@@ -294,7 +294,7 @@ export default function Dashboard() {
         setColorMap(
           ColorMapping(
             baseColorMap,
-            datastore.chartColorArray,
+            datastore?.chartColorArray,
             subMeasureCurrentResults,
           ),
         );
@@ -339,7 +339,7 @@ export default function Dashboard() {
       MemberTable.formatData(
         filterInfo.members.length > 0 ? filterInfo.members : memberResults,
         activeMeasure.measure,
-        datastore.info,
+        datastore?.info,
         tableFilter,
       ),
     );
@@ -348,19 +348,19 @@ export default function Dashboard() {
     filterInfo,
     memberResults,
     activeMeasure.measure,
-    datastore.info,
+    datastore?.info,
   ]);
 
   useEffect(() => {
     const path = window.location.pathname;
     if (path.includes('members')) {
-      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
+      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore?.info));
       const wantedMembers = filterInfo.members.length > 0 ? filterInfo.members : memberResults;
       setRowEntries(
         MemberTable.formatData(
           wantedMembers,
           activeMeasure.measure,
-          datastore.info,
+          datastore?.info,
           tableFilter,
         ),
       );
@@ -376,7 +376,7 @@ export default function Dashboard() {
     activeMeasure.measure,
     memberResults,
     selectedMeasures,
-    datastore.info,
+    datastore?.info,
     tabValue,
     tableFilter,
   ]);
@@ -450,7 +450,7 @@ export default function Dashboard() {
       };
       setCurrentResults(newFilterInfo.currentResults);
       setSelectedMeasures(
-        newFilterInfo.currentResults.map((result) => result.measure),
+        newFilterInfo.currentResults?.map((result) => result.measure),
       );
       setDisplayData(newFilterInfo.results.map((result) => ({ ...result })));
       setCurrentFilters(newFilterInfo.filters);
@@ -472,7 +472,7 @@ export default function Dashboard() {
     let newSelectedMeasures;
     if (event.target.checked) {
       newSelectedMeasures = event.target.value === 'all'
-        ? currentResults.map((result) => result.measure)
+        ? currentResults?.map((result) => result.measure)
         : selectedMeasures.concat(event.target.value);
       setSelectedMeasures(newSelectedMeasures);
     } else {
@@ -508,12 +508,12 @@ export default function Dashboard() {
     setTabValue(newValue);
     if (newValue === 'members') {
       history.push(`/${activeMeasure.measure}/members`);
-      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore.info));
+      setHeaderInfo(MemberTable.headerData(selectedMeasures, datastore?.info));
       setRowEntries(
         MemberTable.formatData(
           filterInfo.members.length > 0 ? filterInfo.members : memberResults,
           activeMeasure.measure,
-          datastore.info,
+          datastore?.info,
           tableFilter,
         ),
       );
@@ -531,7 +531,7 @@ export default function Dashboard() {
             <Grid item className="dashboard__summary" sm={12}>
               <Banner
                 headerText="HEDIS Dashboard"
-                lastUpdated={datastore.lastUpdated}
+                lastUpdated={datastore?.lastUpdated}
               />
             </Grid>
 
@@ -542,8 +542,8 @@ export default function Dashboard() {
               ) : (
                 <RatingTrends
                   activeMeasure={activeMeasure}
-                  trends={datastore.trends}
-                  info={datastore.info}
+                  trends={datastore?.trends}
+                  info={datastore?.info}
                 />
               )}
             </Grid>
@@ -617,7 +617,7 @@ export default function Dashboard() {
                   setRowEntries={setRowEntries}
                   handleResetData={handleResetData}
                   setFilterInfo={setFilterInfo}
-                  filterCurrentResultsLength={filterInfo.currentResults.length}
+                  filterCurrentResultsLength={filterInfo.currentResults?.length}
                 />
               )}
             </Grid>
