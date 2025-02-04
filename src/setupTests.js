@@ -5,9 +5,7 @@ Object.defineProperty(global.self, 'crypto', {
       digest: jest.fn(),
     },
     getRandomValues: (arr) => {
-      for (let i = 0; i < arr.length; i++) {
-        arr[i] = Math.floor(Math.random() * 256);
-      }
+      crypto.randomBytes(arr.length);
     },
   },
 });
@@ -22,4 +20,4 @@ afterEach(() => {
   delete process.env.NODE_ENV; // Restore original value
 });
 
-jest.setTimeout(70000)
+jest.setTimeout(70000);

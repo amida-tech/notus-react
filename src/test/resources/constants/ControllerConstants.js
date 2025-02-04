@@ -2,7 +2,7 @@
 export const mockErr = '***Intentional Mock Error***';
 
 // memberInfoFetch
-export const mockUrl = 'http://mock-url.com/';
+export const mockUrl = 'https://mock-url.com/';
 export const mockId = 'mock-id';
 export const mockUserData = 'Mock User Data';
 export const mockResolvedUserData = {
