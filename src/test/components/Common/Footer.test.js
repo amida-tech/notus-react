@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, within } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Footer from 'components/Common/Footer';
 import { amidaUrl, licenseUrl } from 'test/resources/constants/CommonConstants';
