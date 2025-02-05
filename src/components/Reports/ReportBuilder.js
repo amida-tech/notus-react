@@ -6,7 +6,6 @@ import env from '../../env';
 import MeasureSelector from '../Common/MeasureSelector';
 
 function ReportBuilder({ store }) {
-  // console.log("STORE: ", store)
   const [measure, setMeasure] = useState('');
 
   useEffect(() => {
