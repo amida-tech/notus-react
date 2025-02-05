@@ -1,4 +1,4 @@
-import mockTimelineDisplay from '../mockTimelineDisplay';
+import mockTimelineDisplay from './mockTimelineDisplay';
 
 export const mockTimelineDisplayData = mockTimelineDisplay;
 
