@@ -9,18 +9,18 @@ import {
     memberResultsImae,
     activeMeasureImae,
     tableFilterMany,
-    filterByNonComplianceImaeMany,
-    tableFilterNone,
-    filterByNonComplianceImaeNone,
+    filterByNonComplianceImaeMany
 } from 'test/resources/constants/MemberTableConstants';
 
 // headerData
 describe('headerData (selectedMeasures, storeInfo)', () => {
     it('functions as expected with selectedMeasure < 4', () => {
+        // Assert headerData returns the correcet result
         const result = headerData(selectedMeasuresAab, infoObject);
         expect(result).toEqual(headerInfoAab);
     });
     it('functions as expected with selectedMeasure >= 4', () => {
+        // Assert headerData returns the correcet result
         const result = headerData(selectedMeasuresImae, infoObject);
         expect(result).toEqual(headerInfoImae);
     });
@@ -29,6 +29,7 @@ describe('headerData (selectedMeasures, storeInfo)', () => {
 // formatData
 describe('formatData (memberResults, activeMeasure, storeInfo, tableFilter)', () => {
     it('does the thing', () => {
+        // Assert formatData returns the correcet result
         const result = formatData(
             memberResultsImae,
             activeMeasureImae,
@@ -37,14 +38,4 @@ describe('formatData (memberResults, activeMeasure, storeInfo, tableFilter)', ()
         );
         expect(result).toEqual(filterByNonComplianceImaeMany);
     });
-
-    // it('does the thing', () => {
-    //     const result = formatData(
-    //         memberResultsImae,
-    //         activeMeasureImae,
-    //         infoObject,
-    //         tableFilterNone
-    //     );
-    //     expect(result).toEqual(filterByNonComplianceImaeNone);
-    // });
 });
