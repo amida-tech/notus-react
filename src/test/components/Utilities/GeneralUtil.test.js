@@ -1,6 +1,11 @@
 import { getMeasureCompliance } from 'components/Utilities/GeneralUtil';
 import { getDatestamp, getNumDenValue } from 'components/Utilities/GeneralUtil';
-import { memberResultTrue, complianceResultTrue, memberResultFalse, complianceResultFalse } from 'test/resources/constants/GeneralUtilsConstants';
+import {
+    complianceResultTrue,
+    complianceResultFalse
+} from './resources/GeneralUtilsConstants';
+import memberResultTrue from './resources/json/memberResultTrue.json';
+import memberResultFalse from './resources/json/memberResultFalse.json';
 
 beforeAll(() => {
     // Control passing of time for testing
@@ -25,18 +30,18 @@ describe('getDatestamp (date)', () => {
 // Tests for getNumDenValue
 describe('getNumDenValue  (memberValue)', () => {
     it('functions as expected when fed an array', () => {
-        const arr = ['a', 'b']
+        const arr = ['a', 'b'];
         const result = getNumDenValue(arr);
         // Assert the result is the array's length
-        expect(result).toBe(arr.length)
+        expect(result).toBe(arr.length);
     });
 
     it('functions as expected when fed booleans', () => {
         const resultTrue = getNumDenValue(true);
-        const resultFalse = getNumDenValue(false)
+        const resultFalse = getNumDenValue(false);
         // Assert the correct results for true & false
-        expect(resultTrue).toBe(1)
-        expect(resultFalse).toBe(0)
+        expect(resultTrue).toBe(1);
+        expect(resultFalse).toBe(0);
     });
 });
 
@@ -44,10 +49,10 @@ describe('getNumDenValue  (memberValue)', () => {
 describe('getMeasureCompliance (memberResult)', () => {
     it('generates true compliance results', () => {
         const compliant = getMeasureCompliance(memberResultTrue);
-        expect(compliant).toStrictEqual(complianceResultTrue)
-    })
+        expect(compliant).toStrictEqual(complianceResultTrue);
+    });
     it('generates a false compliance result', () => {
         const nonCompliant = getMeasureCompliance(memberResultFalse);
-        expect(nonCompliant).toStrictEqual(complianceResultFalse)
-    })
-})
+        expect(nonCompliant).toStrictEqual(complianceResultFalse);
+    });
+});
