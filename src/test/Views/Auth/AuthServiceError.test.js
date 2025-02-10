@@ -29,6 +29,7 @@ afterAll(() => {
 });
 
 afterEach(() => {
+    // Clear all mocks
     jest.clearAllMocks();
 });
 

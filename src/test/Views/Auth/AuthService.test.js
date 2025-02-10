@@ -47,6 +47,7 @@ afterAll(() => {
 });
 
 afterEach(() => {
+    // Clear all mocks
     jest.clearAllMocks();
 })
 
@@ -58,7 +59,6 @@ describe('AuthService.js', () => {
         expect(result).toStrictEqual(mockAzureSignInResponse);
     });
 
-    // figure out how to test these pieces
     it('azRedirect calls loginRedirect', () => {
         // Call azRedirect
         azRedirect();
@@ -66,7 +66,6 @@ describe('AuthService.js', () => {
         expect(msalInstance.loginRedirect).toHaveBeenCalled();
     });
 
-    // figure out how to test these pieces
     it('azLogout calls logoutRedirect & logoutPopup', () => {
         // Call azLogout
         azLogout();

@@ -37,7 +37,7 @@ describe('Navbar.js', () => {
         expect(navMenu && logout).toBeInTheDocument();
     });
 
-    it('can performs azLogout when azToken is set in local storage', () => {
+    it('can perform azLogout when azToken is set in local storage', () => {
         localStorage.setItem('azToken', 'mock-token');
         render(
             <BrowserRouter>
