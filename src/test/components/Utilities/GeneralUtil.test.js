@@ -1,5 +1,4 @@
-import { getMeasureCompliance } from 'components/Utilities/GeneralUtil';
-import { getDatestamp, getNumDenValue } from 'components/Utilities/GeneralUtil';
+import { getDatestamp, getMeasureCompliance, getNumDenValue } from 'components/Utilities/GeneralUtil';
 import {
     complianceResultTrue,
     complianceResultFalse

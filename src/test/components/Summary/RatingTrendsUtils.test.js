@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom';
-import { mainTrendCreator } from 'components/Summary/RatingTrendsUtils';
-import { sortedTrendsCreator } from 'components/Summary/RatingTrendsUtils';
+import { mainTrendCreator, sortedTrendsCreator } from 'components/Summary/RatingTrendsUtils';
 import activeMeasureComposite from './resources/json/activeMeasureComposite.json';
 import activeMeasureImae from './resources/json/activeMeasureImae.json';
 import activeMeasureMain from './resources/json/activeMeasureMain.json';
