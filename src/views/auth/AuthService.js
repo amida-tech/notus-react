@@ -23,7 +23,7 @@ export const signInAndGetToken = async () => {
     const loginResponse = await msalInstance.loginPopup({
       scopes: ['User.Read'],
     });
-
+    
     const account = loginResponse.account;
     const tokenResponse = await msalInstance.acquireTokenSilent({
       scopes: ['User.Read'],
@@ -39,7 +39,6 @@ export const signInAndGetToken = async () => {
     };
   } catch (error) {
     console.error('Authentication failed:', error);
-    throw error;
   }
 };
 
