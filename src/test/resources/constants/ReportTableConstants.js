@@ -12,7 +12,7 @@ export const memberData = {
                 "coding": [
                     {
                         "system": {
-                            "value": "http://terminology.hl7.org/CodeSystem/v3-ActCode"
+                            "value": "https://terminology.hl7.org/CodeSystem/v3-ActCode"
                         },
                         "code": {
                             "value": "MCPOL"
