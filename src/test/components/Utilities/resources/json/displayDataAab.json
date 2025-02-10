@@ -1,0 +1,28 @@
+[
+    {
+        "_id": "aab-2022-02-27",
+        "measure": "aab",
+        "date": "2022-02-27T00:00:00.000Z",
+        "value": 62.5,
+        "starRating": 3,
+        "denominator": 32,
+        "numerator": 20,
+        "initialPopulation": 33,
+        "exclusions": 22,
+        "subScores": [
+            {
+                "measure": "aab-1",
+                "date": "2022-02-27T00:00:00.000Z",
+                "value": 62.5,
+                "denominator": 32,
+                "numerator": 20,
+                "initialPopulation": 33,
+                "exclusions": 22,
+                "label": "AAB-1 - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis"
+            }
+        ],
+        "label": "AAB - Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis",
+        "shortLabel": "AAB",
+        "title": "Avoidance of Antibiotic Treatment in Adults with Acute Bronchitis"
+    }
+]

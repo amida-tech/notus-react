@@ -1,9 +1,8 @@
 import { formatData } from 'components/Utilities/ReportTable';
-import {
-    storeInfo,
-    selectedMeasure,
-    memberData
-} from 'test/resources/constants/ReportTableConstants';
+import memberData from './resources/json/memberData'
+import storeInfo from './resources/json/storeInfo'
+
+const selectedMeasure = 'aise';
 
 describe('formatData (memberData, selectedMeasure, storeInfo) from ReportTable.js', () => {
     it('functions properly', () => {
