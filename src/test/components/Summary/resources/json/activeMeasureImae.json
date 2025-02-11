@@ -1,0 +1,66 @@
+{
+    "_id": "imae-2022-02-27",
+    "measure": "imae",
+    "date": "2022-02-27T00:00:00.000Z",
+    "value": 26.666666666666668,
+    "starRating": 1.5,
+    "denominator": 45,
+    "numerator": 12,
+    "initialPopulation": 49,
+    "exclusions": 35,
+    "subScores": [
+        {
+            "measure": "imae-1",
+            "date": "2022-02-27T00:00:00.000Z",
+            "value": 40,
+            "denominator": 10,
+            "numerator": 4,
+            "initialPopulation": 10,
+            "exclusions": 7,
+            "label": "IMA-E - Meningococcal Serogroups A, C, W, Y"
+        },
+        {
+            "measure": "imae-2",
+            "date": "2022-02-27T00:00:00.000Z",
+            "value": 50,
+            "denominator": 10,
+            "numerator": 5,
+            "initialPopulation": 10,
+            "exclusions": 7,
+            "label": "IMA-E - Tdap"
+        },
+        {
+            "measure": "imae-3",
+            "date": "2022-02-27T00:00:00.000Z",
+            "value": 30,
+            "denominator": 10,
+            "numerator": 3,
+            "initialPopulation": 10,
+            "exclusions": 7,
+            "label": "IMA-E - HPV"
+        },
+        {
+            "measure": "imae-4",
+            "date": "2022-02-27T00:00:00.000Z",
+            "value": 0,
+            "denominator": 9,
+            "numerator": 0,
+            "initialPopulation": 10,
+            "exclusions": 7,
+            "label": "IMA-E - Combination 1: Meningococcal, Tdap"
+        },
+        {
+            "measure": "imae-5",
+            "date": "2022-02-27T00:00:00.000Z",
+            "value": 0,
+            "denominator": 6,
+            "numerator": 0,
+            "initialPopulation": 9,
+            "exclusions": 7,
+            "label": "IMA-E - Combination 2: Meningococcal, Tdap, HPV"
+        }
+    ],
+    "label": "IMA-E - Immunizations for Adolescents",
+    "shortLabel": "IMA-E",
+    "title": "Immunizations for Adolescents"
+}

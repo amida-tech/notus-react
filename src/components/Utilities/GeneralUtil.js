@@ -49,5 +49,5 @@ const getMeasureCompliance = (memberResult) => {
 }
 
 module.exports = {
-  updateTimestamp, getDatestamp, getAge, getMeasureCompliance,
+  updateTimestamp, getDatestamp, getAge, getMeasureCompliance, getNumDenValue
 };

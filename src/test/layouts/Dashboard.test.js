@@ -92,7 +92,5 @@ describe('The Dashboard component', () => {
     await waitFor(() => {
       expect(screen.queryByText(/Reset Filters/i)).toBeNull();
     });
-
-    screen.debug(undefined, 40000);
   });
 });

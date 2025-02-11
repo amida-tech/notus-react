@@ -92,7 +92,6 @@ const formatData = (memberData, selectedMeasure, storeInfo) => {
       recommendations: storeInfo[measureList[index + 1]].recommendation,
     });
   });
-
   return (formattedData);
 };
 

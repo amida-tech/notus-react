@@ -1,0 +1,14 @@
+{
+    "_id": "composite-2022-02-27",
+    "measure": "composite",
+    "date": "2022-02-27T00:00:00.000Z",
+    "value": 45.863095238095234,
+    "starRating": 2.5,
+    "numerator": 78,
+    "denominator": 177,
+    "initialPopulation": 183,
+    "exclusions": 129,
+    "label": "Composite - Composite Score",
+    "shortLabel": "Composite",
+    "title": "Composite Score"
+}

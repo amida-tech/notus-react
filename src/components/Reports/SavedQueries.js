@@ -16,7 +16,7 @@ export default function SavedQueries() {
       </Typography>
       <ul className="saved-queries__past-search">
         {Queries.map((query) => (
-          <li className="saved-queries__past-search-item">
+          <li className="saved-queries__past-search-item" key={query.name}>
             <a href="#/">
               {query.name}
             </a>
